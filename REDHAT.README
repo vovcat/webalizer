@@ -1,0 +1,26 @@
+Notice to Intel RedHat 5.0 Users
+
+Subject: webalizer binary
+
+The dynamically linked binary supplied in the standard
+linuxelf binary distribution is linked against libc.so.5
+and libm.so.5.  Users of RedHat 5.x systems have reported
+problems running this binary, specifically the inability
+of the program to read any configuration files.  This has
+been confirmed, and a quick 'ldd webalizer' confirms that
+the system cannot find these libraries (RedHat 5.x systems
+use the .6 versions of libc and libm).  For this reason,
+a statically linked version of the binary is supplied in
+the standard distribution.  This may be used instead, and
+should work.  A RedHat specific binary distribution is
+also avaliable, "webalizer-X.XX-XX-linuxelf-rh50-bin.tgz",
+where the X's will be the current version/edit level, and
+can be found where you got the standard distribution.
+
+At any rate, compiling the source yourself should cure the
+problem, since it would be linked with whatever version
+libraries you happen to have on your system.
+
+The current source distribution and the RedHat specific
+version of The Webalizer can always be found at:
+ftp://ftp.mrunix.net/pub/webalizer.

@@ -1,0 +1,1017 @@
+The Webalizer - A web server log file analysis thingie
+Copyright 1997, 1998 by Bradford L. Barrett (brad@mrunix.net)
+
+Distributed under the GNU GPL.  See the files "COPYING" and
+"Copyright" supplied with the distribution for additional info.
+
+
+What is The Webalizer?
+----------------------
+
+The Webalizer is a web server log file analysis program which produces
+usage statistics in HTML format for viewing with a browser.  The results
+are presented in both columnar and graphical format, which facilitates
+interpretation.  Yearly, monthly, daily and hourly usage statistics are
+presented, along with the ability to display usage by site, URL, referrer,
+user agent (browser) and country (user agent and referrer are only
+available if your web server procduces Combined log format files).
+
+The Webalizer supports CLF (common log format) log files, as well as
+Combined log formats as defined by NCSA and others, and variations
+of these which it attempts to handle intelligently.
+
+This documentation applies to The Webalizer Version 1.2x
+
+Running the Webalizer
+---------------------
+
+The Webalizer was designed to be run from a Unix command line prompt or
+as a cron job.  There are several command line options which will modify
+the results it produces, and configuration files can be used as well.
+The format of the command line is:
+
+webalizer [options ...] [log-file]
+
+Where 'options' can be one or more of the supported command line
+switches described below.  'log-file' is the name of the log file
+to process (see below for more detailed information).
+
+
+Once executed, the general flow of the program follows:
+
+o A default configuration file is scanned for.  A file named
+  'webalizer.conf' is searched for in the current directory, and if
+  found, it's configuration data is parsed.  If the file is not
+  present in the current directory,  the file '/etc/webalizer.conf'
+  is searched for and, if found, is used instead.
+
+o Any command line arguments given to the program are parsed.  This
+  may include the specification of a configuration file, which is
+  processed at the time it is encountered.
+
+o If a log file was specified, it is opened and made ready for
+  processing.  If no log file was given, STDIN is used for input.
+
+o If an output directory was specified, the program does a 'chdir' to
+  that directory in prepration for generating output.  If no output
+  directory was given, the current directory is used.
+
+o If no hostname was given, the program attempts to get the hostname
+  using a uname system call.  If that fails, 'localhost' is used.
+
+o A history file is searched for in the current directory (output
+  directory) and read if found.  This file keeps totals for previous
+  months, which is used in the main 'index.html' HTML document.
+
+o If incremental processing was specified, a data file is searched for
+  and loaded if found, containing the 'internal state' data of the
+  program at the end of a previous run.
+
+o Main processing begins on the log file.  If the log spans multiple
+  months, a seperate HTML document is created for each month.
+
+o After main processing, the main 'index.html' page is created, which
+  has totals by month and links to each months HTML document.
+
+o A new history file is saved to disk, which includes totals generated
+  by The Webalizer during the current run.
+
+o If incremental processing was specified, a data file is written that
+  contains the 'internal state' data at the end of this run.
+
+
+Incremental Processing
+----------------------
+
+Version 1.2x of The Webalizer adds incremental run capability.  Simply
+put, this allows processing large log files by breaking them up into
+smaller pieces, and processing these pieces instead.  What this means
+in real terms is that you can now rotate your log files as often as you
+want, and still be able to produce monthly usage statistics without the
+loss of any detail.  Basically, The Webalizer saves and restores all
+internal data in a file named 'webalizer.current'.  This allows the
+program to 'start where it left off' so to speak, and allows the
+preservation of detail from one run to the next.  The data file is
+placed in the current output directory, and is a plain ascii text
+file that can be viewed with any standard text editor.
+
+Some special precautions need to be taken when using the incremental
+run capability of The Webalizer.  Configuration options should not be
+changed between runs, as that could cause corruption of the internal
+data stored.  For example, changing the MangleAgents level will cause
+different representations of user agents to be stored, producing invalid
+results in the user agents section of the report.  If you need to change
+configuration options, do it at the end of the month after normal
+processing of the previous month and before processing the current month.
+You may also want to delete the 'webalizer.current' file as well.
+
+The Webalizer also attempts to prevent data duplication by keeping
+track of the timestamp of the last record processed.  This timestamp
+is then compared to current records being processed, and any records
+that were logged previous to that timestamp are ignored.  This, in
+theory, should allow you to re-process logs that have already been
+processed, or process logs that contain a mix of processed/not yet
+processed records, and not produce duplication of statistics.  The
+only time this may break is if you have duplicate timestamps in two
+seperate log files... any records in the second log file that do have
+the same timestamp as the last record in the previous log file processed,
+will be discarded as if they had already been processed.  There are
+lots of ways to prevent this however, for example, stopping the web
+server before rotating logs will prevent this situation.  This setup
+also necessitates that you always process logs in chronological order,
+otherwise data loss will occur as a result of the timestamp compare.
+
+
+Command Line Options
+--------------------
+
+The Webalizer supports many different configuration options that will
+alter the way the program behaves and generates output.  Most of these
+can be specified on the command line, while some can only be specified
+in a configuration file. The command line options are listed below,
+with references to the corresponding configuration file keywords.
+
+--------------------------------------------------------------------------
+
+General Options
+---------------
+
+-h        Display all available command line options and exit program.
+
+-v        Display program version and exit program.
+
+-d        Display additional 'debugging' information for errors and
+          warnings produced during processing.  This normally would
+          not be used except to determine why you are getting all those
+          errors and wanted to see the actual data.  Normally The
+          Webalizer will just tell you it found an error, not the
+          actual data.  This option will display the data as well.
+          Config file keyword: Debug
+
+-g        Use GMT (UTC) time instead of local timezone.  Normally,
+          The Webalizer will display the time generated in the timezone
+          of the local machine, such as EDT or PST.  This switch will
+          cause the times to be displayed in GMT (UTC) time instead.
+          Config file keyword: GMTTime
+
+-i        Ignore history file.  USE WITH CAUTION.  This causes The
+          Webalizer to ignore any existing history file produced from
+          previous runs and generate it's output from scratch.  The
+          effect will be as if The Webalizer is being run for the
+          first time and any previous statistics will be lost (although
+          the HTML documents, if any, will not be deleted) on the main
+          index.html (yearly) web page.
+          Config file keyword: IgnoreHist
+
+-p        Preserve state (incremental processing).  This allows the
+          processing of partial logs in increments.  At the end of
+          the program, all relevant internal data is saved, so that
+          it may be restored the next time the program is run.  This
+          allows sites that must rotate their logs more than once a
+          month to still be able to use The Webalizer, and not worry
+          about having to gather and feed an entire months logs to
+          the program at the end of the month.  See the section on
+          "Incremental Processing" below for additional information.
+          The default is to not perform incremental processing.  Use
+          this command line option to enable the feature.
+          Config file keyword: Incremental
+
+-q        Quiet mode.  Normally, The Webalizer will produce various
+          messages while it runs letting you know what it's doing.
+          This option will supress those messages.  It should be
+          noted that this WILL NOT supress errors and warnings, which
+          are output to STDERR.
+          Config file keyword: Quiet
+
+-Q        ReallyQuiet mode.  This allows supression of _all_ messages
+          generated by The Webalizer, including warnings and errors.
+          Useful when The Webalizer is run as a cron job.
+          Config file keyword: ReallyQuiet
+
+-T        Display timing information.  The Webalizer keeps track of the
+          time it begins and ends processing, and normally displays the
+          total processing time at the end of each run.  If quiet mode
+          (-q or 'Quiet yes' in configuration file) is specified, this
+          information is not displayed.  This option forces the display
+          of timing totals if quiet mode has been specified, otherwise
+          it is redundant and will have no effect.
+          Config file keyword: TimeMe
+
+-c file   This option specifies a configuration file to use.  Configuration
+          files allow greater control over how The Webalizer behaves, and
+          there are several ways to use them.  As of version 0.98, The
+          Webalizer searches for a default configuration file in the
+          current directory named "webalizer.conf", and if not found,
+          will search in the /etc/ directory for a file of the same name.
+          In addition, you may specify a configuration file to use with
+          this command line option.
+
+-n name   This option specifies the hostname for the reports generated.
+          The hostname is used in the title of all reports, and is also
+          prepended to URL's in the reports.  This allows The Webalizer
+          to be run on log files for 'virtual' web servers or web servers
+          that are different than the machine the reports are located on,
+          and still allows clicking on the URL's to go to the proper
+          location.  If a hostname is not specified, either on the
+          command line or in a configuration file, The Webalizer attempts
+          to determine the hostname using a 'uname' system call.  If this
+          fails, "localhost" will be used as the hostname.
+          Config file keyword: HostName
+
+-o dir    This options specifies the output directory for the reports.
+          If not specified here or in a configuration file, the current
+          default directory will be used for output.
+          Config file keyword: OutputDir
+
+-t name   This option specifies the title string for all reports.  This
+          string is used, in conjunction with the hostname (if not blank)
+          to produce the actual title.  If not specified, the default of
+          "Usage Statistics for" will be used.
+          Config file keyword: ReportTitle
+
+-G        Supress hourly graph.  Normally, The Webalizer produces
+          hourly statistics in both Graph and Columnar forms.  This
+          option will supress the Hourly Graph only from being generated.
+          Config file keyword: HourlyGraph
+
+-H        Supress Hourly statistics.  Normally, The Webalizer produces
+          hourly statistics in both Graph and Columnar forms.  This
+          option will supress the Hourly Statistics table only from
+          being generated.
+          Config file keyword: HourlyStats
+
+-M num    Mangle user agent names.  Normally, The Webalizer will keep
+          track of the user agent field verbatim.  Unfortunately, there are
+          a ton of different names that user agents go by, and the field
+          also reports other items such as machine type and OS used. For
+          Example, Netscape 4.03 running on Windows 95 will report a
+          different string than Netscape 4.03 running on Windows NT, so even
+          though they are the same browser type, they will be considered
+          as two totally different browsers by The Webalizer.  For that
+          matter, Netscape 4.0 running on Windows NT will report different
+          names if one is run on an Alpha and the other on an Intel
+          processor!  Internet Exploder is even worse, as it reports itself
+          as if it were Netscape and you have to search the given string a
+          little deeper to discover that it is really MSIE!  In order to
+          consolidate generic browser types, this option will cause The
+          Webalizer to 'mangle' the user agent field, attempting to
+          consolidate generic browser types.  This currently only works
+          for MSIE and Netscape browsers, and all others will be processed
+          without any modification.  There are 6 levels that can be
+          specified, each producing different levels of detail.  Level 5
+          displays only the browser name (MSIE or Mozilla) and the major
+          version number.  Level 4 will also display the minor version
+          number (single decimal place).  Level 3 will display the minor
+          version number to two decimal places.  Level 2 will add any
+          sub-level designation (such as Mozilla/3.01Gold or MSIE 3.0b).
+          Level 1 will also attempt to add the system type.  The default
+          Level 0 will disable name mangling and leave the user agent
+          field unmodified, producing the greatest amount of detail.
+          Configuration file keyword: MangleAgents
+
+
+Hide Options
+------------
+
+The following options take a string argument to use as a comparison
+for matching.  Except for the IndexAlias option, the string argument
+can be plain text, or plain text that either starts or ends with the
+wildcard character '*'.
+
+For Example:
+
+Given the string "yourmama/was/here", the arguments "was", "*here" and
+"your*" will all produce a match.
+
+
+-a name   This option allows hiding of user agents (browsers) from the
+          "Top User Agents" table in the report.  This option really
+          isn't too useful as there are a zillion different names that
+          current browsers go by, depending where they were obtained,
+          however you might have some particular user agents that hit
+          your site a lot that you would like to exclude from the list.
+          You must have a web server that includes user agents in it's
+          log files for this option to be of any use.  In addition, it
+          is also useless if you disable the user agent table in the
+          report (see the -A command line option or "TopAgents"
+          configuration file keyword). You can specify as many of these
+          as you want on the command line.  The wildcard character '*'
+          can be used either in front of or at the end of the string.
+          (ie: Mozilla/4.0* would match anything that starts with the
+          string "Mozilla/4.0").
+          Config file keyword: HideAgent
+
+-r name   This option allows hiding of referrers from the "Top Referrer"
+          table in the report.  Referrers are URL's, either on your own
+          local site or a remote site, that refered the user to a URL
+          on your web server.  This option is normally used to hide
+          your own server from the table, as your own pages are usually
+          the top referrers to your own pages (well, you get the idea).
+          You must have a web server that includes referrer information
+          in the log files for this option to be of any use.  In addition,
+          it is also useless if you disable the referrers table in the
+          report (see the -R command line option or "TopReferrers"
+          configuration file keyword).  You can specify as many of these
+          as you like on the command line.
+          Config file keyword: HideReferrer
+
+-s name   This option allows hiding of sites from the "Top Sites" table
+          in the report.  Normally, you will only want to hide your own
+          domain name from the report, as it usually is one of the top
+          sites to visit your web server.  This option is of no use if
+          you disable the top sites table in the report (see the -S
+          command line option or "TopSites" configuration file option).
+          Config file keyword: HideSite
+
+-u name   This option allows hiding of URL's from the "Top URL's" table
+          in the report.  Normally, this option is used to hide images,
+          audio files and other objects your web server dishes out that
+          would otherwise clutter up the table.  This option is of no
+          use if you diable the top URL's table in the report (see the
+          -U command line option or "TopURLs" configuration file keyword).
+          Config file keyword: HideURL
+
+-I name   This option allows you to specify additional index.html aliases.
+          The Webalizer usually strips the string 'index.' from URL's
+          before processing, which has the effect of turning a URL such
+          as /somedir/index.html into just /somedir/ which is really the
+          same URL and should be treated as such.  This option allows you
+          to specify _additional_ strings that are to be treated the same
+          way.  Use with care, improper use could cause unexpected resluts.
+          For example, if you specify the alias string of 'home', a URL
+          such as /somedir/homepages/brad/home.html would be converted
+          into just /somedir/ which probably isn't what was intended.
+          This option is useful if your web server uses a different default
+          index page other than the standard 'index.html' or 'index.htm',
+          such as 'home.html' or 'homepage.html'.  The string specified
+          is searched for _anywhere_ in the URL, so "home.htm" would
+          turn both "/somedir/home.htm" and "/somedir/home.html" into
+          just "/somedir/".  Go easy on this one, each string specified
+          will be scanned for in EVERY log record, so if you specify a
+          bunch of these, you will notice degraded performance.  Wildcards
+          are not allowed on this one.
+          Config file keyword: IndexAlias
+
+Table Size Options
+------------------
+
+-A num    This option specifies the number of entries to display in the
+          "Top User Agents" table.  To disable the table, use a value of
+          zero (0).
+          Config file keyword: TopAgents
+
+-C num    This option specifies the number of entries to display in the
+          "Top Countries" table.  To disable the table, use a value of
+          zero (0).
+          Config file keyword: TopCountries
+
+-R num    This option specifies the number of entries to display in the
+          "Top Referrers" table.  To disable the table, use a value of
+          zero (0).
+          Config file keyword: TopReferrers
+
+-S num    This option specifies the number of entries to display in the
+          "Top Sites" table.  To disable the table, use a value of
+          zero (0).
+          Config file keyword: TopSites
+
+-U num    This option specifies the number of entries to display in the
+          "Top URL's" table.  To disable the table, use a value of
+          zero (0).
+          Config file keyword: TopURLs
+
+--------------------------------------------------------------------------
+
+
+CONFIGURATION FILES
+-------------------
+
+The Webalizer allows configuration files to be used in order to simplify
+life for all.  There are several ways that configuration files are accessed
+by the Webalizer.  When The Webalizer first executes, it looks for a
+default configuration file named "webalizer.conf" in the current directory,
+and if not found there, will look for "/etc/webalizer.conf".  In addition,
+configuration files may be specified on the command line with the '-c'
+option.  There are lots of different ways you can combine the use of
+configuration files and command line options to produce various results.
+The Webalizer always looks for and reads configuration options from a
+default configuration file before doing anything else.  Because of this,
+you can override options found in the default file by use of additional
+configuration files specified on the command line or command line options
+themselves.  If you specify a configuration file on the command line, you
+can override options in it by additional command line options which follow.
+For example, most users will most likely want to create the default file
+/etc/webalizer.conf and place options in it to specify the hostname, log
+file, table options, etc...  At the end of the month when a different log
+file is to be used (the end of month log), you can run TheWebalizer as
+usual, but put the different filename on the end of the command line, which
+will override the log file specified in the configuration file.  It should
+be noted that you cannot override some configuration file options by the
+use of command line arguments.  For example, if you specify "Quiet yes" in
+a configuration file, you cannot override this with a command line argument,
+as the command line option only _enables_ the feature (-q option).
+
+The configuration files are standard ASCII text files that may be created
+or edited using any standard editor.  Blank lines and lines that begin
+with a pound sign ('#') are ignored.  Any other lines are considered to
+be configurgation lines, and have the form "Keyword Value", where the
+'Keyword' is one of the currently available configuration keywords defined
+below, and 'Value' is the value to assign to that particular option.  Any
+text found after the keyword up to the end of the line is considered the
+keyword's value, so you should not include anything after the actual value
+on the line that is not actually part of the value being assigned.  The
+file "sample.conf" provided with the distribution contains lots of useful
+documentation and examples as well.
+
+--------------------------------------------------------------------------
+
+General Configuration Keywords
+------------------------------
+
+LogFile       This defines the logfile to use.  It should be a fully qualified
+              name (ie: contain the path), but relative names will work as
+              well.  If not specified, the logfile defaults to STDIN.
+
+OutputDir     This defines the output directory to use for the reports.  If
+              it is not specified, the current directory is used.
+              Command line argument: -o
+
+ReportTitle   This specifies the title to use for the generated reports.
+              It is used in conjunction with the hostname (unless blank)
+              to produce the final report titles.  If not defined, the
+              default of "Usage Statistics for" is used.
+              Command line argument: -t
+
+HostName      This defines the hostname.  The hostname is used in the
+              report title as well as being prepended to URL's in the
+              "Top URL's" table.  This allows The Webalizer to be run
+              on "virtual" web servers, or servers that do not reside
+              on the local machine, and allows clicking on the URL to
+              go to the right place.  If not specified, The Webalizer
+              attempts to get the hostname via a 'uname' system call,
+              and if that fails, will default to "localhost".
+              Command line argument: -n
+
+Quiet         This allows you to enable or disable informational messages
+              while The Webalizer is running.  The value for this keyword              while it is running.  The values for this keyword can be
+              either 'yes' or 'no'.  Using "Quiet yes" will supress these
+              messages, while "Quiet no" will enable them.  The default
+              is 'no' if not specified, which will allow The Webalizer
+              to display informational messages.  It should be noted that
+              this option has no effect on Warning or Error messages that
+              may be generated, as they go to STDERR.
+              Command line argument: -q
+
+TimeMe        This allows you to display timing information regardless of
+              any "quiet mode" specified.  Useful only if you did in fact
+              tell the webalizer to be quiet either by using the -q command
+              line option or the "Quiet" keyword, otherwise timing stats
+              are normally displayed anyway.  Values may be either 'yes'
+              or 'no', with the default being 'no'.
+              Command line argument: -T
+
+GMTTime       This keyword allows timestamps to be displayed in GMT (UTC)
+              time instead of local time.  Normally The Webalizer will
+              display timestamps in the timezone of the local machine
+              (ie: PST or EDT).  This keyword allows you to specify the
+              display of timestamps in GMT (UTC) time instead.  Values
+              may be either 'yes' or 'no'.  Default is 'no'.
+              Command line argument: -g
+
+Debug         This tells The Webalizer to display additional information
+              when it encounters Warnings or Errors.  Normally, The
+              Webalizer will just tell you it found a bad record or
+              field.  This option will enable the display of the actual
+              data that produced the Warning or Error as well.  Useful
+              only if you start getting lots of Warnings or Errors and
+              want to determine the cause.  Values may be either 'yes'
+              or 'no', with the default being 'no'.
+              Command line argument: -d
+
+IgnoreHist    This supresses the reading of a history file.  USE WITH
+              EXTREME CAUTION as the history file is how The Webalizer
+              keeps track of previous months.  The effect of this option
+              is as if The Webalizer was being run for the very first
+              time, and any previous data is discarded.  Values may be
+              either 'yes' or 'no', with the default being 'no'.
+              Command line argument: -i
+
+HourlyGraph   This keyword is used to either enable or disable the creation
+              and display of the Hourly Usage graph.  Values may be either
+              'yes' or 'no', with the default being 'yes'.
+              Command line argument: -G
+
+HourlyStats   This keyword is used to either enable or disable the creation
+              and display of the Hourly Usage statistics table.  Values may
+              be either 'yes' or 'no', with the default being 'yes'.
+              Command line argument: -H
+
+IndexAlias    This allows additional 'index.html' aliases to be defined.
+              Normally, The Webalizer scans for and strips the string
+              "index." from URL's before processing them.  This turns a
+              URL such as /somedir/index.html into just /somedir/ which
+              is really the same URL.  This keyword allows _additional_
+              names to be treated in the same fashion for sites that use
+              different default names, such as "home.html".  The string
+              is scanned for anywhere in the URL, so care should be used
+              if and when you define additional aliases.  For example,
+              if you were to use an alias such as 'home', the URL
+              /somedir/homepages/brad/home.html would be turned into just
+              /somedir/ which probably isn't the intended result.  Instead,
+              you should have specified 'home.htm' which would correctly
+              turn the URL into /somedir/homepages/brad/ like intended.
+              It should also be noted that specified aliases are scanned
+              for in EVERY log record... A bunch of aliases will noticably
+              degrade performance as each record has to be scanned for
+              every alias defined.  You don't have to specify 'index.' as
+              it is always the default.
+              Command line argument: -I
+
+MangleAgents  The MangleAgents keyword specifies the level of user agent
+              name mangling, if any.  Name mangling only works for MSIE
+              and Netscape (Mozilla) browsers, and all others will be
+              left unmodified.  There are 6 levels that may be specified,
+              each producing a different level of detail displayed.  Level 5
+              displays only the browser name (MSIE or Mozilla) and the major
+              version number.  Level 4 adds the minor version (single
+              decimal place).  Level 3 adds the minor version to two decimal
+              places.  Level 2 will also add any sub-level designation
+              (such as Mozilla/3.01Gold or MSIE 3.0b).  Level 1 will also
+              attempt to add the system type.  The default level 0 will
+              leave the user agent field unmodified and produces the
+              greatest amount of detail.
+              Command line argument: -M
+
+Incremental   This allows incremental processing to be enabled or disabled.
+              Incremental processing allows processing partial logs without
+              the loss of detail data from previous runs in the same month.
+              This feature saves the 'internal state' of the program so that
+              it may be restored in following runs.  See the section below
+              titled "Incremental Processing" for additional information.
+              The value may be 'yes' or 'no', with the default being 'no'.
+              Command line argument: -p
+
+Top Table Keywords
+------------------
+
+TopAgents     This allows you to specify how many "Top" user agents are
+              displayed in the "Top User Agents" table.  The default
+              is 15.  If you do not want to display user agent statistics,
+              specify a value of zero (0).  The display of user agents
+              will only work if your web server includes this information
+              in its log file (ie: a combined log format file).
+              Command line argument: -A
+
+TopCountries  This allows you to specify how many "Top" countries are
+              displayed in the "Top Countries" table.  The default is
+              50.  If you want to disable the countries table, specify
+              a value of zero (0).
+              Command line argument: -C
+
+TopReferrers  This allows you to specify how many "Top" referrers are
+              displayed in the "Top Referrers" table.  The default is
+              30.  If you want to disable the referrers table, specify
+              a value of zero (0).  The display of referrer information
+              will only work if your web server includes this information
+              in its log file (ie: a combined log format file).
+              Command line argument: -R
+
+TopSites      This allows you to specify how many "Top" sites are
+              displayed in the "Top Sites" table.  The default is 30.
+              If you want to disable the sites table, specify a value
+              of zero (0).
+              Command line argument: -S
+
+TopURLs       This allows you to specify how many "Top" URL's are
+              displayed in the "Top URL's" table.  The default is 30.
+              If you want to disable the URL's table, specify a value
+              of zero (0).
+              Command line argument: -U
+
+
+Hide Object Keywords
+--------------------
+
+These keywords allow you to hide user agents, referrers, sites and
+URL's from the various "Top" tables.  The value for these keywords
+are the same as those used in their command line counterparts.  You
+can specify as many of these as you want without limit.  Refer to the
+section above on "Command Line Options" for a description of the string
+formatting used as the value.  Values cannot exceed 80 characters in
+length.
+
+HideAgent     This allows specified user agents to be hidden from the
+              "Top User Agents" table.  Not very useful, since there
+              a zillion different names by which browsers go by today,
+              but could be useful if there is a particular user agent
+              (ie: robots, spiders, realaudio, etc..) that hits your
+              site frequently enough to make it into the top user agent
+              listing.  This keyword is useless if 1) your log file does
+              not provide user agent information or 2) you disable the
+              user agent table.
+              Command line argument: -a
+
+HideReferrer  This allows you to hide specfied referrers from the
+              "Top Referrers" table.  Normally, you would only specify
+              your own web server to be hidden, as it is usually the
+              top generator of references to your own pages.  Of course,
+              this keyword is useless if 1) your log file does not include
+              referrer information or 2) you disable the top referrers
+              table.
+              Command line argument: -r
+
+HideSite      This allows you to hide specified sites from the "Top
+              Sites" table.  Normally, you would only specify your own
+              web server or other local machines to be hidden, as they
+              are usually the highest hitters of your web site, especially
+              if you have their browsers home page pointing to it.
+              Command line argument: -s
+
+HideURL       This allows you to hide URL's from the "Top URL's" table.
+              Normally, this is used to hide items such as graphic files,
+              audio files or other 'non-html' files that are transferred
+              to the visiting user.
+              Command line argument: -u
+
+Group Object Keywords
+---------------------
+
+The Group* keywords allow object grouping based on Site, URL, Referrer
+and User Agent.  Combined with the Hide* keywords, you can customize
+exactly what will be displayed in the 'Top' tables.  For example, to
+only display totals for a particular directory, use a GroupURL and HideURL
+with the same value (ie: '/help/*').  Group processing is only done after
+the individual record has been fully processed, so name mangling and
+site total updates have already been peformed.  Because of thie, groups
+are not counted in the main site total (as that would cause duplication).
+Groups can be displayed in bold and shaded as well.  There are no
+command line switches for these keywords.
+
+GroupReferrer Allows grouping Referrers.  Can be handy for some of the
+              major search engines that have multiple host names a
+              referral could come from.
+
+GroupURL      This keyword allows grouping URL's. Useful for grouping
+              complete directory trees.
+
+GroupSite     This keywords allows grouping Sites.  Most used for
+              grouping top level domains and unresolved IP address
+              for local dial-ups, etc...
+
+GroupAgent    Groups User Agents.  A handy example of how you could use
+              this one is to use "Mozilla" and "MSIE" as the values for
+              GroupAgent and HideAgent keywords.  Make sure you put the
+              "MSIE" one first.
+
+GroupShading  Allows shading of table rows for groups.  Value can be
+              'yes' or 'no', with the default being 'yes'.
+
+GroupHighlight Allows bolding of table rows for groups.  Value can be
+               'yes' or 'no', with the default being 'yes'.
+
+
+Ignore Object Keywords
+----------------------
+
+These keywords allow you to completely ignore log records when generating
+statistics.  Records can be ignored based on site, URL, user agent and
+referrer.  Be aware that by choosing to ignore records, the accuracy of
+the generated statistics become skewed, making it impossible to produce
+an accurate representation of load on the web server.  These keywords
+behave identical to the Hide* keywords above, where the value can have
+a leading or trailing wildcard '*'.  These keywords, like the Hide* ones,
+have an absolute limit of 80 characters for their values.  These keywords
+do not have any command line switch counterparts, so they may only be
+specified in a configuration file.
+
+IgnoreSite    This allows specified sites to be completely ignored from
+              the generated statistics.
+
+IgnoreURL     This allows specified URL's to be completely ignored from
+              the generated statistics.  One use for this keyword would
+              be to ignore all hits to a 'temporary' directory where
+              development work is being done, but is not accessable to
+              the outside world.
+
+IgnoreReferrer This allows records to be ignored based on the referrer
+               field.
+
+IgnoreAgent   This allows specified User Agent records to be completely
+              ignored from the statistics.  Maybe useful if you really
+              don't want to see all those hits from MSIE :)
+
+
+HTML Generation Keywords
+------------------------
+
+These keywords allow you to customize the HTML code that The Webalizer
+produces, such as adding a corporate logo or links to other web pages.
+You can specify as many of these keywords as you like, and they will be
+used in the order that they are found in the file.  Values cannot exceed
+80 characters in length, so you may have to break long lines up into two
+or more lines.  There are no command line counterparts to these keywords.
+
+
+HTMLHead       This keyword defines HTML code to be placed immediately
+               after the <HEAD> section of the report, just before the
+               title and "summary period/generated on" lines.  If used,
+               the first HTMLHead line MUST include a <BODY> tag.  Put
+               whatever else you want in subsequent lines, but keep in
+               mind the placement of this code in relation to the title
+               and other aspcects of the web page.  Some typical uses
+               are to change the page colors and posibly add a corporate
+               logo (graphic) in the top right.  If not specified, a
+               default <BODY> tag is used that defines page color, text
+               color and link colors (see "sample.conf" file for example).
+
+HTMLPost       This keyword defines HTML code that is placed after the
+               title and "summary period/generated on" lines, just before
+               the initial horizontal rule <HR> tag.  Normally this keyword
+               isn't needed, but is provided in case you included a large
+               graphic or some other weird formatting tag in the HTMLHead
+               section that needs to be cleaned up or terminated before the
+               main report section.
+
+HTMLTail       This keyword defines HTML code that is placed at the bottom
+               right side of the report.  It is inserted in a <TABLE> section
+               between table data <TD>..</TD> tags, and is top and right
+               aligned within the table.  Normally this keyword is used to
+               provide a link back to your home page or insert a small
+               graphic at the bottom right of the page.
+
+--------------------------------------------------------------------------
+
+
+Notes on Log Files
+------------------
+
+The Webalizer supports CLF log formats, which should work for just
+about everyone.  If you want User Agent or Referrer information, you
+need to make sure your web server supplies this information in it's
+log file, and in a format that the Webalizer can understand.  While
+The Webalizer will try to handle many of the subtle variations in
+log formats, some will not work at all.   Most web servers output
+CLF format logs by default.  For Apache, in order to produce the
+proper log format, add the following to the httpd.conf file:
+
+LogFormat "%h %l %u %t \"%r\" %s %b \"%{Referer}i\" \"%{User-agent}i\""
+
+This instructs the Apache web server to produce a 'combined' log
+that includes the referrer and user agent information on the end of
+each record, enclosed in quotes (This is the standard recommended
+by both Apache and NCSA).   Netscape and other web servers have
+similar capabilities to alter their log formats.
+
+
+Notes on Referrers
+------------------
+
+Referrers are weird critters... They take many shapes and forms, which makes
+it much harder to analyze than a typical URL, which at least has some
+standardization.  What is contained in the referrer field of your log
+files varies depending on many factors, such as what site did the referral,
+what type of system it comes from and how the actual referal was generated.
+Why is this?  Well, because a user can get to your site in many ways... They
+may have your site bookmarked in their browser, they may simply type your
+sites URL field in their browser, they could have clicked on a link on some
+remote web page or they may have found your site from one of the many search
+engines and site indexes found on the web.  The Webalizer attempts to deal
+with all this variation in an intelligent way by doing certain things to
+the referrer string which makes it easier to analyze.  Of course, if your
+web server doesn't provide referrer information, you probably don't really
+care and are asking yourself why you are reading this section...
+
+Most referrer's will take the form of "http://somesite.com/somepage.html",
+which is what you will get if the user clicks on a link somewhere on the
+web in order to get to your site.  Some will be a variation of this, and
+look something like "file:/some/such/sillyname", which is a reference from
+a HTML document on the users local machine.  Several variations of this can
+be used, depending on what type of system the user has, if he/she is on
+a local network, the type of network, etc...  To complicate things even
+more, dynamic HTML documents and HTML documents that are generated by
+cgi scripts or external programs produce lots of extra information which
+is tacked on to the end of the referrer string in an almost infinate number
+of ways.  If the user just typed your URL into their browser or clicked on
+a bookmark, there won't be any information in the referrer field and will
+take the form "-".
+
+In order to handle all these variations, The Webalizer parses the referrer
+field in a certain way.  First, if the referrer string begins with "http",
+it assumes it is a normal referral and converts the "http://" and following
+hostname to lowercase in order to simplify hiding if desired.  For example,
+the referrer "HTTP://WWW.MyHost.Com/This/Is/A/HTML/Document.html" will become
+"http://www.myhost.com/This/Is/A/HTML/Document.html".  Notice that only the
+"http://" and hostname are converted to lower case... The rest of the
+referrer field is left alone.  This follows standard convention, as the
+actuall method (HTTP) and hostname are always case insensitive, while the
+document name portion is case sensitive.
+
+Referrers that came from search engines, dynamic HTML documents, cgi
+scripts and other external programs usually tack on additional information
+that it used to create the page.  A common example of this can be found
+in referrals that come from search engines and site indexes common on the
+web.  Sometimes, these referrers URL's can be several hundred characters
+long and include all the information that the user typed in to search for
+your site.  The Webalizer deals with this type of referrer by stripping
+off all the query information, which starts with a question mark '?'.
+The Referrer "http://search.yahoo.com/search?p=usa%26global%26link" will
+be converted to just "http://search.yahoo.com/search".
+
+When a user comes to your site by using one of their bookmarks or by
+typing in your URL directly into their browser, the referrer field is
+blank, and looks like "-".  Most sites will get more of these referrals
+than any other type.  The Webalizer converts this type of referral into
+the string "- (Direct Request)".  This is done in order to make it easier
+to hide via a command line option or configuration file option.  This is
+because the character "-" is a valid character elsewhere in a referrer
+field, and if not turned into something unique, could not be hidden without
+possibly hiding other referrers that shouldn't be.
+
+
+Notes on Character Escaping
+---------------------------
+
+The HTTP protocol defines certain ways that URL's can look and behave.  To
+some extent, referrer fields follow most of the same conventions.  Character
+escaping is a technique by which non-printable or other non-ASCII (and even
+some ASCII) characters can be used in a URL.  This is done by placing the
+Hexdecimal value of the character in the URL, preceed by a percent sign '%'.
+Since Hex values are made up of ASCII characters, any character can be
+escaped to ensure only printable ASCII characters are present in the URL.
+Some systems take this concept to the extreme and escape all sorts of stuff,
+even characters that don't need to be escaped.  To deal with this, The
+Webalizer will un-escape URL's and referrers before being processed. For
+Example, the URL "/www.mrunix.net/%7Ebrad/resume.html" is the same URL as
+"/www.mrunix.net/~brad/resume.html", a very common form of a URL to access
+users web pages.  If the URL's were not un-escaped, they would be treated as
+two seperate documents, even though they are really one and the same.
+
+
+Random thoughts on DNS lookups
+------------------------------
+
+A lot of people have asked for the ability to do DNS lookups within
+The Webalizer, as their servers don't do the reverse mapping.  My
+usual response is that there are far too many such programs and
+scripts that will process a log file doing just that.  One such
+program is 'logresolve' that comes with the Apache distribution
+(in the /support directory of the source distribution).  On my
+machines, there are several programs that process log files at
+the end of each month, and it is much easier to do the reverse
+DNS lookups one time only, instead of multiple times in seperate
+places.  Reverse DNS lookups may be included in a future release,
+but I don't guarantee it.
+
+
+Log files and The Webalizer
+---------------------------
+
+Most sites will choose to have The Webalizer run from cron at specified
+intervals.  Care should be taken to ensure that data is not lost as a
+result of log file rotations.  A suggested practice is to rotate your
+web server logs at the end of each month as close to midnight as possible,
+then have The Webalizer process the 'end of month' log file before running
+statistics on the new, current log.  On our systems, a shell script called
+'rotate_logs' is run at midnight, the end of each month.  This script file
+looks like:
+
+------------------------- file: rotate_logs ------------------------------
+#!/bin/sh
+
+# halt the server
+kill `cat /var/lib/httpd/logs/httpd.pid`
+
+# define backup names
+OLD_ACCESS_LOG=/var/lib/httpd/logs/old/access_log.`date +%y%m%d-%H%M%S`
+OLD_ERROR_LOG=/var/lib/httpd/logs/old/error_log.`date +%y%m%d-%H%M%S`
+
+# make end of month copy for analyzer
+cp /var/lib/httpd/logs/access_log /var/lib/httpd/logs/access_log.backup
+
+# move files to archive directory
+mv /var/lib/httpd/logs/access_log `echo $OLD_ACCESS_LOG`
+mv /var/lib/httpd/logs/error_log  `echo $OLD_ERROR_LOG`
+
+# restart web server
+/usr/sbin/httpd
+
+# compress the archived files
+/bin/gzip $OLD_ACCESS_LOG
+/bin/gzip $OLD_ERROR_LOG
+------------------------- end of file ------------------------------------
+
+This script first stops the web server using a 'kill' command.  Apache
+keeps the PID of the server in the file httpd.pid, so we use it as the
+argument for the kill.  Next, it defines some names for the backup files,
+which are basically the name of the files with the date and time appended
+to the end of them.  It then makes a copy of the log file, appended with
+'.backup' in the log directory, moves the current log files to an archive
+directory (/var/lib/httpd/logs/old) and restarts the server.  This setup
+allows the web server to be down for the minimum amount of time needed,
+which is important for busy sites.  If you don't want to stop the server,
+you can remove the inital 'kill' command, and replace the '/usr/sbin/httpd'
+line with "kill -1 `cat /var/lib/httpd/logs/httpd.pid`" command instead,
+On most web servers, this will cause a restart of the server and create
+the new log files in the process...
+
+At this point, we have made copies of the previous months logs,  the web
+server is going about it's business as usual, and we have all the time in
+the world to do any other additional processing we want.  The last two
+lines of the script compress the archived logs using the GNU zip program
+(gzip).  Remember, we still have a copy of the log which we can now run
+The Webalizer on without having to do any further processing.
+
+Next, we define two crontab entries.  The first runs the above 'rotate_logs'
+script at midnight at the end of the month.  The second runs The Webalizer
+on the '.backup' log file created above at 5 minutes after midnight.  This
+gives other end of month processing jobs a chance to run so we don't bog
+the system down too much.  If you have lots of end of month stuff going on,
+you can change the timing to suit your needs.  The crontab entries look
+something like:
+
+------------------------- crontab entries --------------------------------
+# Rotate web server logs and run monthly analysis
+0 0 1 * *       /usr/local/adm/rotate_logs
+5 0 1 * *       /usr/bin/webalizer -Q /var/lib/httpd/logs/access_log.backup
+------------------------- end of crontab ---------------------------------
+
+As you can see, the log rotations occur at midnight, and the analysis
+is done at 5 minutes after.  Once you verify that The Webalizer ran
+successfully, the access_log.backup file can be deleted as it isn't
+needed any more.  If you need to re-run the analysis, you still have
+the compressed archive copy that the shell script created.  In order
+for the above analysis to work properly, you should have already
+created an /etc/webalizer.conf configuration file sutable for your
+site, or otherwise specify configuration options or a configuration
+file on the crontab command line above.
+
+If you want The Webalizer to be run more often than once a month, you
+can specify additional crontab entries to do this as well.  Care should
+be taken however to ensure that The Webalizer is not running when the
+end of month processing above occurs, or unpredictable results may
+happen (such as an inability to rotate the logs due to a file lock).
+The easiest way is to run it on the half hour with a crontab entry like:
+
+30 * * * *      /usr/bin/webalizer
+
+
+Language Support
+----------------
+
+Version 1.0x of The Webalizer added language support.  This
+support is only provided at compile time in the form of an
+include file containing all the strings used by The Webalizer.
+The source distribution contains all language files that were
+available at the time, with English being the default as
+that is the only human language I speek fluently, and me
+Espanol es muy malo.  Several people have already indicated
+the desire to do translations into various languages, and as
+I receive the language files, will make them available via
+ftp at ftp://ftp.mrunix.net/pub/webalizer/lang.  Unless there
+happens to be a binary distribution in the language you need,
+you will need to grab the source distribution and compile the
+program yourself. See the file INSTALL that comes in the source
+distribution for information on how to use a language other than
+English.
+
+It should also be noted that the GD graphics library, used to
+produce the inline graphics in the output HTML,  doesn't
+support extended character sets, so if you are translating
+the language file, you will no doubt encounter this problem.
+
+
+Known Issues
+------------
+
+ o Memory Usage.  The Webalizer makes liberal use of memory for internal
+    data structures during analysis.  Lack of real physical memory will
+    noticably degrade performance by doing lots of swapping between memory
+    and disk.  One user who had a rather large log file noticed that The
+    Webalizer took over 7 hours to run with only 16 Meg of memory.  Once
+    memory was increased, the time was reduced to a few minutes.
+
+ o Proxy servers.  The Webalizer does not know how to deal with proxy
+    records, which can cause some rather unexpected results.  If you
+    do run the stats on a proxy servers log file, you get to see where
+    your users have been visiting, as well as who has visited your
+    server.  If someone knows of a reliable way to differentiate
+    between normal log records and proxy ones, please let me know.
+
+ o Performance.  The Hide*, Group*, Ignore* and IndexAlias configuration
+    options can cause a performance decrease if lots of them are used.
+    The reason for this is that every log record must be scanned for
+    each item in each list.  For example, if you are Hiding 20 objects,
+    Grouping 20 more, and Ignoring 5,  each record is scanned 46 times
+    (20+20+5 + an IndexAlias scan).  On really large log files, this
+    can have a profound impact.
+
+
+Final Notes
+-----------
+
+A lot of time and effort went into making The Webalizer, and to ensure that
+the results are as accurate as possible.  If you find any abnormalities or
+inconsistant results, bugs, errors, ommisions or anything else that doesn't
+look right, please let me know so I can investigate the problem or correct
+the error.  This goes for the minimal documentation as well.  Suggestions
+for future versions are also welcome and apperciated.

@@ -1,0 +1,85 @@
+    webalizer - a web server log analysis program
+
+    Copyright (C) 1997, 1998  Bradford L. Barrett (brad@mrunix.net)
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version, and provided that the above
+    copyright and permission notice is included with all distributed
+    copies of this or derived software.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
+
+    This software uses the gd graphics library, which is copyright by
+    Quest Protein Database Center, Cold Spring Harbor Labs. The following
+    applies only to the gd graphics library software (see www.boutell.com/gd/
+    for the most up to date license information):
+
+    gd 1.2 is copyright 1994, 1995, Quest Protein Database Center,
+    Cold Spring Harbor Labs. Permission granted to copy and distribute
+    this work provided that this notice remains intact. Credit
+    for the library must be given to the Quest Protein Database Center,
+    Cold Spring Harbor Labs, in all derived works. This does not
+    affect your ownership of the derived work itself, and the intent
+    is to assure proper credit for Quest, not to interfere with your
+    use of gd. If you have questions, ask. ("Derived works"
+    includes all programs that utilize the library. Credit must
+    be given in user-visible documentation.)
+
+    gd 1.2 was written by Thomas Boutell and is currently
+    distributed by boutell.com, Inc.
+
+    If you wish to release modifications to gd,
+    please clear them first by sending email to
+    boutell@boutell.com; if this is not done, any modified version of the gd
+    library must be clearly labeled as such.
+
+    The Quest Protein Database Center is funded under Grant P41-RR02188 by
+    the National Institutes of Health.
+
+    Written by Thomas Boutell  2/94 - 8/95.
+    (http://sunsite.unc.edu/boutell/index.html)
+
+    The GIF compression code is based on that found in the pbmplus
+    utilities, which in turn is based on GIFENCOD by David Rowley. See the
+    notice below:
+
+    ** Based on GIFENCOD by David Rowley <mgardi@watdscu.waterloo.edu>.A
+    ** Lempel-Zim compression based on "compress".
+    **
+    ** Modified by Marcel Wijkstra <wijkstra@fwi.uva.nl>
+    **
+    ** Copyright (C) 1989 by Jef Poskanzer.
+    **
+    ** Permission to use, copy, modify, and distribute this software and its
+    ** documentation for any purpose and without fee is hereby granted, provided
+    ** that the above copyright notice appear in all copies and that both the
+    ** copyright notice and this permission notice appear in supporting
+    ** documentation.  This software is provided "as is" without express or
+    ** implied warranty.
+    **
+    ** The Graphics Interchange Format(c) is the Copyright property of
+    ** CompuServe Incorporated.  GIF(sm) is a Service Mark property of
+    ** CompuServe Incorporated.
+
+    The GIF decompression is based on that found in the pbmplus
+    utilities, which in turn is based on GIFDECOD by David Koblas. See the
+    notice below:
+
+    +-------------------------------------------------------------------+
+    | Copyright 1990, 1991, 1993, David Koblas.  (koblas@netcom.com)    |
+    |   Permission to use, copy, modify, and distribute this software   |
+    |   and its documentation for any purpose and without fee is hereby |
+    |   granted, provided that the above copyright notice appear in all |
+    |   copies and that both that copyright notice and this permission  |
+    |   notice appear in supporting documentation.  This software is    |
+    |   provided "as is" without express or implied warranty.           |
+    +-------------------------------------------------------------------+

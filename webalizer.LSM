@@ -1,0 +1,20 @@
+Begin3
+Title:         The Webalizer
+Version:       1.2x
+Entered-date:  22JUN98
+Description:   A fast, free web server log file analysis program.  Produces
+               HTML output for viewing with a web browser.  Written in C on
+               a Linux platform, however designed to be as ANSI/POSIX
+               compliant as possible so porting to other UNIX platforms should
+               be painless.  Binary distributions most popular platforms
+               are available. Now includes language support and enhanced
+               functionality.
+Keywords:      Web Analysis, Log Analysis, Usage Statistics, Linux, Unix, apache
+Author:        Bradford L. Barrett
+Maintained-by: Bradford L. Barrett
+Primary-site:  http://www.mrunix.net/webalizer/
+Alternate-site:
+Original-site: ftp://www.mrunix.net/pub/webalizer/
+Platforms:     Linux, SCO, Solaris and other *NIX's
+Copying-policy: GPL
+End

@@ -1,0 +1,115 @@
+--------------------------------------------------------------------
+1.2x-xx changes from 1.12-10   (brad@mrunix.net)
+--------------------------------------------------------------------
+
+Fixes:
+ o Modified record parse routine to not touch stuff between quotes
+   (").  Was causing problems parsing some malformed request fields.
+
+Changes/Additions:
+ o Added incremental run capability (-p command line option or
+   "Incremental" configuration file keyword).
+
+--------------------------------------------------------------------
+1.1x-xx changes from 1.00-05   (brad@mrunix.net)
+--------------------------------------------------------------------
+
+Fixes:
+ o Re-wrote the Group* logic, fixing a bug that allowed hiding of
+   objects when they shouldn't be.
+
+ o Fixed broken IgnoreReferrer code.
+
+ o Modified config parse code to handle extended characters.
+
+ o Misc. minor bug fixes/changes.  Added a missing fclose.
+
+ o Cleaned up generated HTML.
+
+ o Fixed duplicate warnings on large referrer fields.
+
+ o Fixed country table bug adding grouped records to totals.
+
+Changes/Additions:
+ o Added GroupSite, GroupReferrer and GroupAgent keywords to round
+   out the Group* configuration options.
+
+ o Added GroupShading and GroupHighlight keywords to allow selective
+   highlight and shading on grouped rows in table.
+
+ o Removed the '-L' command line option.  Groupings can now only
+   be specified from a configuration file.  Language files changed
+   to reflect change.
+
+ o Added '-V' command line option (identical to '-v') for version.
+
+ o Added additional language support.  Language files will be marked
+   /* New for 1.1 */ where changes have been made.
+
+ o Various rewrites to streamline the code, accomidate the new
+   group options and make things easier down the road when I implement
+   incremental (partial log) processing.
+
+ o Usual README and CHANGES documentation updates.
+
+--------------------------------------------------------------------
+1.00-xx changes from 0.99-06   (brad@mrunix.net)
+--------------------------------------------------------------------
+
+Fixes:
+ o Modify record parser so that spaces in usernames (auth field)
+   don't cause record to be skipped (w/'Bad Record' message).
+
+ o Included various error conditions that were being ignored in
+   the timing statistics ('bad records' value) totals.
+
+Changes/Additions:
+ o Added GMTTime (-g) option to force display of timestamps in
+   GMT (UTC) time instead of local timezone.
+
+ o Added GroupURL (-L) option for grouping of URL's as if they
+   were a single object.  See README for details.
+
+ o Language support in the form of a language specific header
+   file containing all strings used by The Webalizer.  English
+   file is used by default unless changed.  Support for other
+   languages will be distributed as I receive them.
+
+--------------------------------------------------------------------
+0.99-xx changes from 0.98-16   (brad@mrunix.net)
+--------------------------------------------------------------------
+
+0.99 is mostly a bug-fix release, with a few added extra goodies.
+
+Fixes:
+ o Fixed monthly total transfer size (silent) overflow problem.
+
+ o Fixed the numerous fprintf format errors.  Only seemed to wreak havok
+   on non-intel machines though.
+
+ o Fixed core dump condition on certain machines when using stdin for
+   input.
+
+ o Fixed floating point code that caused divide by zero errors on some
+   platforms (most noticably on SCO OpenServer).
+
+ o Netscape server kludges:  Added code to deal with Netscape log header
+   record gracefully.  Also added workaround for timestamp error where
+   Netscape sometimes makes a day have 0-24 hours instead of 0-23.  The
+   Webalizer will now treat anything greater than 23 as 0.
+
+ o Resized some fixed field sizes to gain memory usage improvements.
+
+Changes/Additions:
+ o Ignore* config keywords added.  This allows you to completely ignore
+   certain log records based on site name, URL, user agent or referrer.
+   * Use will cause inaccurate statistics results.  See documentation.
+
+ o ReallyQuiet config keyword (-Q command line option) added.  Causes
+   The Webalizer to supress _all_ messages.  Useful for cron jobs.
+
+ o Removed the "Sites" total at the bottom of the summary by month.
+   The total for sites is a useless number and produces a misleadingly
+   high value which detracts from the accuracy of the other totals.
+
+ o Updated README and CHANGES
