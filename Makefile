@@ -40,3 +40,6 @@ clean:
 distclean: clean
 	rm -f webalizer.conf *.gz *.tar *.tgz *.Z
 	rm -f webalizer-static
+
+install: webalizer
+	cp webalizer ${DESTDIR}/usr/bin/webalizer

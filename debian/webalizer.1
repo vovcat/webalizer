@@ -1,0 +1,390 @@
+.TH webalizer 1 "22-Jul-1998" "Version 1.2" "The Webalizer"
+.SH NAME
+webalizer - A web server log file analysis tool.
+.SH SYNOPSIS
+.B webalizer
+[\fI option ... \fP] [\fI log-file \fP]
+.PP
+.SH DESCRIPTION
+The \fIWebalizer\fP is a web server log file analysis program which produces
+usage statistics in HTML format for viewing with a browser.  The results
+are presented in both columnar and graphical format, which facilitates
+interpretation.  Yearly, monthly, daily and hourly usage statistics are
+presented, along with the ability to display usage by site, URL, referrer,
+user agent (browser) and country (user agent and referrer are only
+available if your web server procduces Combined log format files).
+.PP
+The \fIWebalizer\fP supports \fBCLF\fP (common log format) log files,
+as well as \fBCombined\fP log formats as defined by NCSA and others,
+and variations of these which it attempts to handle intelligently.
+.PP
+This documentation applies to The Webalizer Version 1.2x
+.SH RUNNING THE WEBALIZER
+The \fIWebalizer\fP was designed to be run from a Unix command line prompt or
+as a \fBcrond(8)\fP job. Once executed, the general flow of the program is:
+.TP 8
+.B o
+A default configuration file is scanned for.  A file named
+\fIwebalizer.conf\fP is searched for in the current directory, and if
+found, it's configuration data is parsed.  If the file is not
+present in the current directory,  the file \fI/etc/webalizer.conf\fP
+is searched for and, if found, is used instead.
+.TP 8
+.B o
+Any command line arguments given to the program are parsed.  This
+may include the specification of a configuration file, which is
+processed at the time it is encountered.
+.TP 8
+.B o
+If a log file was specified, it is opened and made ready for
+processing.  If no log file was given, \fISTDIN\fP is used for input.
+.TP 8
+.B o
+If an output directory was specified, the program does a \fBchdir(2)\fP to
+that directory in prepration for generating output.  If no output
+directory was given, the current directory is used.
+.TP 8
+.B o
+If no hostname was given, the program attempts to get the hostname
+using a \fBuname(2)\fP system call.  If that fails, \fIlocalhost\fP
+is used.
+.TP 8
+.B o
+A history file is searched for in the current directory (output
+directory) and read if found.  This file keeps totals for previous
+months, which is used in the main \fIindex.html\fP HTML document.
+.TP 8
+.B o
+If incremental processing was specified, a data file is searched for
+and loaded if found, containing the 'internal state' data of the
+program at the end of a previous run.
+.TP 8
+.B o
+Main processing begins on the log file.  If the log spans multiple
+months, a seperate HTML document is created for each month.
+.TP 8
+.B o
+After main processing, the main \fIindex.html\fP page is created, which
+has totals by month and links to each months HTML document.
+.TP 8
+.B o
+A new history file is saved to disk, which includes totals generated
+by The Webalizer during the current run.
+.TP 8
+.B o
+If incremental processing was specified, a data file is written that
+contains the 'internal state' data at the end of this run.
+.SH INCREMENTAL PROCESSING
+Version 1.2x of The \fIWebalizer\fP adds incremental run capability.  Simply
+put, this allows processing large log files by breaking them up into
+smaller pieces, and processing these pieces instead.  What this means
+in real terms is that you can now rotate your log files as often as you
+want, and still be able to produce monthly usage statistics without the
+loss of any detail.  Basically, The \fIWebalizer\fP saves and restores all
+internal data in a file named \fIwebalizer.current\fP.  This allows the
+program to 'start where it left off' so to speak, and allows the
+preservation of detail from one run to the next.  The data file is
+placed in the current output directory, and is a plain ascii text
+file that can be viewed with any standard text editor.
+.PP
+Some special precautions need to be taken when using the incremental
+run capability of The \fIWebalizer\fP.  Configuration options should not be
+changed between runs, as that could cause corruption of the internal
+data stored.  For example, changing the \fIMangleAgents\fP level will cause
+different representations of user agents to be stored, producing invalid
+results in the user agents section of the report.  If you need to change
+configuration options, do it at the end of the month after normal
+processing of the previous month and before processing the current month.
+You may also want to delete the \fIwebalizer.current\fP file as well.
+.PP
+The \fIWebalizer\fP also attempts to prevent data duplication by keeping
+track of the timestamp of the last record processed.  This timestamp
+is then compared to current records being processed, and any records
+that were logged previous to that timestamp are ignored.  This, in
+theory, should allow you to re-process logs that have already been
+processed, or process logs that contain a mix of processed/not yet
+processed records, and not produce duplication of statistics.  The
+only time this may break is if you have duplicate timestamps in two
+seperate log files... any records in the second log file that do have
+the same timestamp as the last record in the previous log file processed,
+will be discarded as if they had already been processed.  There are
+lots of ways to prevent this however, for example, stopping the web
+server before rotating logs will prevent this situation.  This setup
+also necessitates that you always process logs in chronological order,
+otherwise data loss will occur as a result of the timestamp compare.
+.SH COMMAND LINE OPTIONS
+The Webalizer supports many different configuration options that will
+alter the way the program behaves and generates output.  Most of these
+can be specified on the command line, while some can only be specified
+in a configuration file. The command line options are listed below,
+with references to the corresponding configuration file keywords.
+.PP
+.I General Options
+.TP 8
+.B \-h
+Display all available command line options and exit program.
+.TP 8
+.B \-v
+Display program version and exit program.
+.TP 8
+.B \-d
+\fBDebug\fP. Display debugging information for errors and warnings.
+.TP 8
+.B \-g
+\fBGMTTime\fP.  Use \fIGMT\fP instead of local timezone for reports.
+.TP 8
+.B \-i
+\fBIgnoreHist\fP.  Ignore history file.  \fBUSE WITH CAUTION\fP. This
+will cause The \fIWebalizer\fP to ignore any previous monthly history
+file only.  Incremental data (if present) is still processed.
+.TP 8
+.B \-p
+\fBIncremental\fP.  Preserve internal data between runs.
+.TP 8
+.B \-q
+\fBQuiet\fP.  Supress informational messages.  Does not supress
+warnings and errors.
+.TP 8
+.B \-Q
+\fBReallyQuiet\fP. Supress all messages including warnings and errors.
+.TP 8
+.B \-T
+\fBTimeMe\fP.  Force display of timing information at end of processing.
+.TP 8
+.B \-c \fIfile\fP
+Use configuration file \fIfile\fP.
+.TP 8
+.B \-n \fIname\fP
+\fBHostname\fP.  Use the hostname \fIname\fP.
+.TP 8
+.B \-o \fIdir\fP
+\fBOutputDir\fP.  Use output directory \fIdir\fP.
+.TP 8
+.B \-t \fIname\fP
+\fBReportTitle\fP.  Use \fIname\fP for report title.
+.TP 8
+.B \-G
+\fBHourlyGraph\fP.  Supress hourly graph.
+.TP 8
+.B \-H
+\fBHourlyStats\fP.  Supress hourly statistics.
+.TP 8
+.B \-I \fIname\fP
+\fBIndexAlias\fP.  Use the filename \fIname\fP as an additional alias
+for \fIindex.\fP.
+.TP 8
+.B
+.B \-M \fInum\fP
+\fBMangleAgents\fP.  Mangle user agent names according to the mangle
+level specified in \fInum\fP.  Currently only works for Netscape and
+MSIE type browsers.  Mangle levels are:
+.TP 12
+.ti 8
+.B 5
+Browser name and major version.
+.TP 12
+.ti 8
+.B 4
+Browser name, major and minor version.
+.TP 12
+.ti 8
+.B 3
+Browser name, major version, minor version to two decimal places.
+.TP 12
+.ti 8
+.B 2
+Browser name, major and minor versions and sub-version.
+.TP 12
+.ti 8
+.B 1
+Browser name, version and machine type if possible.
+.TP 12
+.ti 8
+.B 0
+All informaiton (left unchanged).
+.PP
+.I Hide Options
+.TP 8
+.B \-a \fIname\fP
+\fBHideAgent\fP.  Hide user agents matching \fIname\fP.
+.TP 8
+.B \-r \fIname\fP
+\fBHideReferrer\fP.  Hide referrer matching \fIname\fP.
+.TP 8
+.B \-s \fIname\fP
+\fBHideSite\fP.  Hide site matching \fIname\fP.
+.TP 8
+.B \-u \fIname\fP
+\fBHideURL\fP.  Hide URL matching \fIname\fP.
+.PP
+.I Table size options
+.TP 8
+.B \-A \fInum\fP
+\fBTopAgents\fP.  Display the top \fInum\fP user agents in table.
+.TP 8
+.B \-R \fInum\fP
+\fBTopReferrers\fP.  Display the top \fInum\fP referrers in table.
+.TP 8
+.B \-S \fInum\fP
+\fBTopSites\fP.  Display the top \fInum\fP sites in table.
+.TP 8
+.B \-U \fInum\fP
+\fBTopURLs\fP.  Display the top \fInum\fP URL's in table.
+.TP 8
+.B \-C \fInum\fP
+\fBTopCountries\fP.  Display the top \fInum\fP countries in table.
+.SH CONFIGURATION FILES
+Configuration files are standard \fBascii(7)\fP text files that may be created
+or edited using any standard editor.  Blank lines and lines that begin
+with a pound sign ('#') are ignored.  Any other lines are considered to
+be configurgation lines, and have the form "Keyword Value", where the
+\'Keyword\' is one of the currently available configuration keywords defined
+below, and 'Value' is the value to assign to that particular option.  Any
+text found after the keyword up to the end of the line is considered the
+keyword's value, so you should not include anything after the actual value
+on the line that is not actually part of the value being assigned.  The
+file \fIsample.conf\fP provided with the distribution contains lots of useful
+documentation and examples as well.
+
+.I General Configuration Keywords
+.TP 8
+.B Logfile \fIname\fP
+Use log file named \fIname\fP.  If none specified, \fISTDIN\fP will be used.
+.TP 8
+.B OutputDir \fIdir\fP
+Create output in the directory \fIdir\fP.  If none specified, the current
+directory will be used.
+.TP 8
+.B ReportTitle \fIname\fP
+Use the title string \fIname\fP for the report title.  If none
+specified, use the default of (in english) "\fIUsage Statistics for \fP".
+.TP 8
+.B Hostname \fIname\fP
+Set the hostname for the report as \fIname\fP.  If none specified, an
+attempt will be made to gather the hostname via a \fBuname(2)\fP system
+call.  If that fails, \fIlocalhost\fP will be used.
+.TP 8
+.B Quiet \fP[ \fIyes\fP | \fBno\fP ]
+Supress informational messages.  Warning and Error messages will not be
+supressed.
+.TP 8
+.B ReallyQuiet \fP[ \fIyes\fP | \fBno\fP ]
+Supress all messages, including Warning and Error messages.
+.TP 8
+.B Debug \fP[ \fIyes\fP | \fBno\fP ]
+Print extra debugging information on Warnings and Errors.
+.TP 8
+.B TimeMe \fP[ \fIyes\fP | \fBno\fP ]
+Force timing information at end of processing.
+.TP 8
+.B GMTTime \fP[ \fIyes\fP | \fBno\fP ]
+Use \fIGMT \fP(\fIUTC\fP) time instead of local timezone for reports.
+.TP 8
+.B IgnoreHist \fP[ \fIyes\fP | \fBno\fP ]
+Ignore previous monthly history file.  \fBUSE WITH CAUTION\fP.  Does
+not prevent \fIIncremental\fP file processing.
+.TP 8
+.B HourlyGraph \fP[ \fByes\fP | \fIno\fP ]
+Display Hourly Graph in output report.
+.TP 8
+.B HourlyStats \fP[ \fByes\fP | \fIno\fP ]
+Display Hourly Statistics in output report.
+.TP 8
+.B IndexAlias \fIname\fP
+Use \fIname\fP as an additional alias for \fIindex.*\fP.
+.TP 8
+.B MangleAgents \fInum\fP
+Mangle user agent names based on mangle level \fInum\fP.  See the
+\fI-M\fP command line switch for mangle levels and their meaning.
+The default is \fB0\fP, which doesn't mangle user agents at all.
+.TP 8
+.B Incremental \fP[ \fIyes\fP | \fBno\fP ]
+Enable Incremental mode processing.
+.PP
+.I Top Table Keywords
+.TP 8
+.B TopAgents \fInum\fP
+Display the top \fInum\fP User Agents in the table. Use zero to disable.
+.TP 8
+.B TopReferrers \fInum\fP
+Display the top \fInum\fP Referrers in the table. Use zero to disable.
+.TP 8
+.B TopSites \fInum\fP
+Display the top \fInum\fP Sites in the table. Use zero to disable.
+.TP 8
+.B TopURLs \fInum\fP
+Display the top \fInum\fP URLs in the table. Use zero to disable.
+.TP 8
+.B TopCountries \fInum\fP
+Display the top \fInum\fP Countries in the table. Use zero to disable.
+.PP
+.I Hide/Ignore/Group Keywords
+.TP 8
+.B HideAgent \fIname\fP
+Hide User Agents that match \fIname\fP.
+.TP 8
+.B HideReferrer \fIname\fP
+Hide Referrers that match \fIname\fP.
+.TP 8
+.B HideSite \fIname\fP
+Hide Sites that match \fIname\fP.
+.TP 8
+.B HideURL \fIname\fP
+Hide URL's that match \fIname\fP.
+.TP 8
+.B IgnoreAgent \fIname\fP
+Ignore User Agents that match \fIname\fP.
+.TP 8
+.B IgnoreReferrer \fIname\fP
+Ignore Referrers that match \fIname\fP.
+.TP 8
+.B IgnoreSite \fIname\fP
+Ignore Sites that match \fIname\fP.
+.TP 8
+.B IgnoreURL \fIname\fP
+Ignore URL's that match \fIname\fP.
+.TP 8
+.B GroupAgent \fIname\fP
+Group User Agents that match \fIname\fP.
+.TP 8
+.B GroupReferrer \fIname\fP
+Group Referrers that match \fIname\fP.
+.TP 8
+.B GroupSite \fIname\fP
+Group Sites that match \fIname\fP.
+.TP 8
+.B GroupURL \fIname\fP
+Group URL's that match \fIname\fP.
+.PP
+.I HTML Generation Keywords
+.TP 8
+.B HTMLHead \fItext\fP
+Insert \fItext\fP at head of HTML pages.  If used, the first line must be a
+.I <BODY ...>\fP tag.  Multiple lines may be specified.
+.TP 8
+.B HTMLPost \fItext\fP
+Insert \fItext\fP at top (before horiz. rule) of HTML pages.  Multiple lines
+may be specified.
+.TP 8
+.B HTMLTail \fItext\fP
+Insert \fItext\fP at bottom of the HTML page.  The \fItext\fP is top and
+right aligned within a table column at the end of the report.
+.SH FILES
+.TP 20
+.I webalizer.conf
+Default configuration file.  Is searched for in the current directory
+and if not found, in the \fI/etc/\fP directory.
+.TP 20
+.I webalizer.hist
+Monthly history file for previous 12 months.
+.TP 20
+.I webalizer.current
+Current state data file (Incremental processing).
+.SH BUGS
+Report bugs to \fIbrad@mrunix.net\fP.
+.SH COPYRIGHT
+Copyright (C) 1997, 1998 by Bradford L. Barrett.  Distributed under
+the GNU GPL.  See the files "\fICOPYING\fP" and "\fICopyright\fP",
+supplied with all distributions for additional information.
+.SH AUTHOR
+Bradford L. Barrett <brad@mrunix.net>

@@ -1,0 +1,50 @@
+webalizer (1.20-5) stable; urgency=high
+
+  * Y2K fix (some %d -> %02d printf format string changes)
+
+ -- Remco van de Meent <remco@debian.org>  Fri,  7 Jan 2000 06:42:41 -0600
+
+webalizer (1.20-4) unstable; urgency=low
+
+  * Converted debian/rules to dh_* style
+  * Fixed Architecture line in the control file, fixing bug #27452
+  * Little change in postinst to to support 'recursive' mkdir
+
+ -- Remco van de Meent <remco@debian.org>  Mon, 5 Oct 1998 21:57:58 +0200
+
+webalizer (1.20-3) unstable; urgency=low
+
+  * Changed the way the configuration file is generated
+  * Changes to postinst
+
+ -- Remco van de Meent <remco@debian.org>  Fri, 24 Jul 1998 00:42:06 +0200
+
+webalizer (1.20-2) unstable; urgency=low
+
+  * Fixed wrong placement of sample.conf
+
+ -- Remco van de Meent <remco@debian.org>  Thu, 23 Jul 1998 23:28:59 +0200
+
+webalizer (1.20-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Thu, 23 Jul 1998 19:39:59 +0200
+
+webalizer (1.12-2) unstable; urgency=low
+
+  * Added postinst script that asks some things about configuration of
+    webalizer
+
+ -- Remco van de Meent <remco@debian.org>  Sat, 20 Jun 1998 19:37:37 +0200
+
+webalizer (1.12-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Remco van de Meent <remco@debian.org>  Wed, 10 Jun 1998 20:07:55 +0200
+
+Local variables:
+mode: debian-changelog
+add-log-mailing-address: "remco@debian.org"
+End:

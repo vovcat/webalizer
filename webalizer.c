@@ -1483,9 +1483,9 @@ int write_month_html()
    hist_lday[i]  =  l_day;
 
    /* fill in filenames */
-   sprintf(html_fname,"usage_%02d%d.html",cur_month,cur_year%100);
-   sprintf(gif1_fname,"daily_usage_%02d%d.gif",cur_month,cur_year%100);
-   sprintf(gif2_fname,"hourly_usage_%02d%d.gif",cur_month,cur_year%100);
+   sprintf(html_fname,"usage_%02d%02d.html",cur_month,cur_year%100);
+   sprintf(gif1_fname,"daily_usage_%02d%02d.gif",cur_month,cur_year%100);
+   sprintf(gif2_fname,"hourly_usage_%02d%02d.gif",cur_month,cur_year%100);
 
    /* create GIF images for web page */
    sprintf(buffer,"%s %s %d",msg_hmth_du,l_month[cur_month-1],cur_year);
@@ -2244,7 +2244,7 @@ void top_ctry_table()
       pie_legend[i]=top_ctrys[i]->desc;
    }
    sprintf(pie_title,"%s %s %d",msg_ctry_use,l_month[cur_month-1],cur_year);
-   sprintf(pie_fname,"ctry_usage_%02d%d.gif",cur_month,cur_year%100);
+   sprintf(pie_fname,"ctry_usage_%02d%02d.gif",cur_month,cur_year%100);
 
    pie_chart(pie_fname,pie_title,t_hit,pie_data,pie_legend);  /* do it   */
 
@@ -2378,8 +2378,8 @@ int write_main_index()
       if (--s_mth < 0) s_mth = 11;
       if ((hist_month[s_mth]==0) && (hist_files[s_mth]==0)) continue;
       days_in_month=(hist_lday[s_mth]-hist_fday[s_mth])+1;
-      fprintf(out_fp,"<TR><TD><A HREF=\"usage_%02d%d.html\">"             \
-                     "<FONT SIZE=\"-1\">%s %d</FONT></A></TD>\n",
+      fprintf(out_fp,"<TR><TD><A HREF=\"usage_%02d%02d.html\">"             \
+                     "<FONT SIZE=\"-1\">%s %02d</FONT></A></TD>\n",
                       hist_month[s_mth], hist_year[s_mth]%100,
                       l_month[hist_month[s_mth]-1], hist_year[s_mth]%100);
       fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%lu</FONT></TD>\n",
