@@ -1,0 +1,116 @@
+webalizer (1.30.4-3.1) stable; urgency=medium
+
+  * Patched with upstream v1.30-epoch patch. Webalizer stopped working
+    on Oct 5th, 2001, which is fixed with this patch.
+    Closes: #114828, #114832
+
+ -- Remco van de Meent <remco@debian.org>  Sat, 13 Oct 2001 04:51:59 -0700
+
+webalizer (1.30.4-3) unstable; urgency=low
+
+  * Updated to Standards-Version: 3.0.1.1
+
+ -- Remco van de Meent <remco@debian.org>  Tue, 26 Oct 1999 19:52:05 +0200
+
+webalizer (1.30.4-2) unstable; urgency=low
+
+  * Due to the new libgd1g, webalizer now uses PNG instead of GIF formatted.
+    The upstream author will put PNG support in webalizer in a next version
+    as well.
+
+ -- Remco van de Meent <remco@debian.org>  Sun,  5 Sep 1999 13:48:56 +0200
+
+webalizer (1.30.4-1) unstable; urgency=low
+
+  * New upstream version (closes: Bug#41097)
+  * Removes webalizer.conf on purge, closes: Bug#39570
+
+ -- Remco van de Meent <remco@debian.org>  Sun, 18 Jul 1999 14:19:58 +0200
+
+webalizer (1.22.3-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Tue,  6 Apr 1999 09:38:14 +0200
+
+webalizer (1.22.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Sun, 28 Mar 1999 13:08:15 +0200
+
+webalizer (1.22.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Updated postinst with latest configuration directives
+
+ -- Remco van de Meent <remco@debian.org>  Wed, 24 Mar 1999 11:29:28 +0100
+
+webalizer (1.21.10-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Sun, 21 Mar 1999 15:29:32 +0100
+
+webalizer (1.21.7b-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Sat, 13 Mar 1999 12:14:36 +0100
+
+webalizer (1.21.6-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Tue,  9 Mar 1999 23:10:19 +0100
+
+webalizer (1.20.11-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Fri, 15 Jan 1999 02:01:34 +0100
+
+webalizer (1.20-4) unstable; urgency=low
+
+  * Converted debian/rules to dh_* style
+  * Fixed Architecture line in the control file, fixing bug #27452
+  * Little change in postinst to to support 'recursive' mkdir
+
+ -- Remco van de Meent <remco@debian.org>  Mon, 5 Oct 1998 21:57:58 +0200
+
+webalizer (1.20-3) unstable; urgency=low
+
+  * Changed the way the configuration file is generated
+  * Changes to postinst
+
+ -- Remco van de Meent <remco@debian.org>  Fri, 24 Jul 1998 00:42:06 +0200
+
+webalizer (1.20-2) unstable; urgency=low
+
+  * Fixed wrong placement of sample.conf
+
+ -- Remco van de Meent <remco@debian.org>  Thu, 23 Jul 1998 23:28:59 +0200
+
+webalizer (1.20-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Thu, 23 Jul 1998 19:39:59 +0200
+
+webalizer (1.12-2) unstable; urgency=low
+
+  * Added postinst script that asks some things about configuration of
+    webalizer
+
+ -- Remco van de Meent <remco@debian.org>  Sat, 20 Jun 1998 19:37:37 +0200
+
+webalizer (1.12-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Remco van de Meent <remco@debian.org>  Wed, 10 Jun 1998 20:07:55 +0200
+
+Local variables:
+mode: debian-changelog
+add-log-mailing-address: "remco@debian.org"
+End:

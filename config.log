@@ -1,0 +1,20 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:535: checking for gcc
+configure:612: checking whether the C compiler (gcc  ) works
+configure:626: gcc -o conftest    conftest.c  1>&5
+configure:646: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:651: checking whether we are using GNU C
+configure:675: checking whether gcc accepts -g
+configure:703: checking whether ln -s works
+configure:753: checking for a BSD compatible install
+configure:803: checking how to run the C preprocessor
+configure:864: checking whether char is unsigned
+configure:954: checking for main in -l44bsd
+configure:991: checking for main in -lm
+configure:1028: checking for main in -lgd
+configure:1102: checking for gd.h
+configure:1141: checking for language file
+configure:1168: checking for getopt.h
+configure:1209: checking for math.h

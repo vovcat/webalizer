@@ -1,0 +1,20 @@
+Source: webalizer
+Priority: optional
+Section: web
+Maintainer: Remco van de Meent <remco@debian.org>
+Standards-Version: 3.0.1.1
+
+Package: webalizer
+Architecture: any
+Suggests: httpd
+Depends: ${shlibs:Depends}
+Description: Web server log analysis program
+ The Webalizer is a web server log analysis program. It is designed to scan
+ web server log files in various formats and produce usage statistics in
+ HTML format for viewing through a browser.
+ The Webalizer produces yearly, monthly, daily and hourly statistics. In the
+ monthly reports, various statistics may be produced to show overall usage,
+ usage by day and hour, usage by visiting sites, URL's, user agents
+ (browsers), referrers and country. The Webalizer is highly configurable by
+ use of either command line options or a configuration file, allowing the
+ program to be tailored to individual needs easily.

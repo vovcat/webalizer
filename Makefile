@@ -1,3 +1,4 @@
+# Generated automatically from Makefile.in by configure.
 #
 # Makefile for webalizer - a web server log analysis program
 #
@@ -16,22 +17,22 @@
 # GNU General Public License for more details (file "COPYING").
 #
 
-prefix  = @prefix@
-exec_prefix = @exec_prefix@
+prefix  = /usr
+exec_prefix = ${prefix}
 
-BINDIR = @bindir@
-MANDIR = @mandir@/man1
-CC     = @CC@
-CFLAGS = @CFLAGS@
-LIBS   = @LIBS@ -lpng -lz
-DEFS   = @DEFS@
-LDFLAGS= @LDFLAGS@
-INSTALL= @INSTALL@
-INSTALL_PROGRAM=@INSTALL_PROGRAM@
-INSTALL_DATA=@INSTALL_DATA@
+BINDIR = ${exec_prefix}/bin
+MANDIR = ${prefix}/man/man1
+CC     = gcc
+CFLAGS = -Wall -O2
+LIBS   = -lgd -lm  -lpng -lz
+DEFS   =  -DHAVE_GETOPT_H=1 -DHAVE_MATH_H=1
+LDFLAGS=
+INSTALL= /usr/bin/install -c
+INSTALL_PROGRAM=${INSTALL}
+INSTALL_DATA=${INSTALL} -m 644
 
 # where are the GD header files?
-GDLIB  = @GDLIB@
+GDLIB  = /usr/include
 
 # Shouldn't have to touch below here!
 
@@ -53,7 +54,7 @@ clean:
 distclean: clean
 	rm -f webalizer.conf *.tar *.tgz *.Z
 	rm -f Makefile webalizer_lang.h config.cache config.log config.status
-	@LN_S@ lang/webalizer_lang.@DEFAULT_LANG@ webalizer_lang.h
+	ln -s lang/webalizer_lang.english webalizer_lang.h
 
 install: all
 	$(INSTALL_PROGRAM) webalizer ${DESTDIR}/${BINDIR}/webalizer
@@ -65,4 +66,4 @@ uninstall:
 	rm -f ${BINDIR}/webalizer
 	rm -f /etc/webalizer.conf.sample
 	rm -f webalizer_lang.h
-	@LN_S@ lang/webalizer_lang.@DEFAULT_LANG@ webalizer_lang.h
+	ln -s lang/webalizer_lang.english webalizer_lang.h

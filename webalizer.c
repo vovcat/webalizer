@@ -240,7 +240,7 @@ int main(int argc, char *argv[])
                          "Oct", "Nov", "Dec"};
 
    /* initalize epoch */
-   epoch=jdate(1,1,1990);                /* used for timestamp adj.     */
+   epoch=jdate(1,1,1993);                /* used for timestamp adj.     */
 
    /* add default index. alias */
    add_nlist("index.",&index_alias);
@@ -492,7 +492,7 @@ int main(int argc, char *argv[])
          if (rec_hour>23) rec_hour=0;
 
          /* minimal sanity check on date */
-         if ((i>=12)||(rec_min>59)||(rec_sec>59)||(rec_year<1990))
+         if ((i>=12)||(rec_min>59)||(rec_sec>59)||(rec_year<1993))
          {
             total_bad++;                /* if a bad date, bump counter      */
             if (verbose)
@@ -1235,7 +1235,7 @@ int parse_record_ftp()
 
    /* minimal sanity check */
    if (*(cpy+2)!=':' || *(cpy+5)!=':') return 0;
-   if (j<1990 || j>2100) return 0;
+   if (j<1993 || j>2100) return 0;
    if (i<1 || i>31) return 0;
 
    /* format date/time field         */
@@ -1956,8 +1956,8 @@ int write_month_html()
 {
    int i;
    char html_fname[256];           /* filename storage areas...       */
-   char gif1_fname[32];
-   char gif2_fname[32];
+   char png1_fname[32];
+   char png2_fname[32];
 
    char buffer[BUFSIZE];           /* scratch buffer                  */
    char dtitle[256];
@@ -1981,13 +1981,13 @@ int write_month_html()
 
    /* fill in filenames */
    sprintf(html_fname,"usage_%04d%02d.%s",cur_year,cur_month,html_ext);
-   sprintf(gif1_fname,"daily_usage_%04d%02d.gif",cur_year,cur_month);
-   sprintf(gif2_fname,"hourly_usage_%04d%02d.gif",cur_year,cur_month);
+   sprintf(png1_fname,"daily_usage_%04d%02d.png",cur_year,cur_month);
+   sprintf(png2_fname,"hourly_usage_%04d%02d.png",cur_year,cur_month);
 
-   /* create GIF images for web page */
+   /* create PNG images for web page */
    sprintf(dtitle,"%s %s %d",msg_hmth_du,l_month[cur_month-1],cur_year);
 
-   month_graph6 (  gif1_fname,          /* filename          */
+   month_graph6 (  png1_fname,          /* filename          */
                    dtitle,              /* graph title       */
                    cur_month,           /* graph month       */
                    cur_year,            /* graph year        */
@@ -2001,7 +2001,7 @@ int write_month_html()
    if (hourly_graph)
    {
       sprintf(htitle,"%s %s %d",msg_hmth_hu,l_month[cur_month-1],cur_year);
-      day_graph3(    gif2_fname,
+      day_graph3(    png2_fname,
                      htitle,
                      th_hit,
                      th_file,
@@ -2021,14 +2021,14 @@ int write_month_html()
    month_total_table();
    fprintf(out_fp,"<A NAME=\"DAYSTATS\"></A>\n");
    fprintf(out_fp,"<IMG SRC=\"%s\" ALT=\"%s\" " \
-                  "HEIGHT=400 WIDTH=512><P>\n",gif1_fname,dtitle);
+                  "HEIGHT=400 WIDTH=512><P>\n",png1_fname,dtitle);
    daily_total_table();
 
    if (hourly_graph)                      /* hourly graph                   */
    {
       fprintf(out_fp,"<A NAME=\"HOURSTATS\"></A>\n");
       fprintf(out_fp,"<IMG SRC=\"%s\" ALT=\"%s\" "  \
-                     "HEIGHT=256 WIDTH=512><P>\n",gif2_fname,htitle);
+                     "HEIGHT=256 WIDTH=512><P>\n",png2_fname,htitle);
    }
 
    if (hourly_stats) hourly_total_table();  /* hourly usage table           */
@@ -3125,7 +3125,7 @@ void top_ctry_table()
          pie_legend[i]=top_ctrys[i]->desc;
       }
       sprintf(pie_title,"%s %s %d",msg_ctry_use,l_month[cur_month-1],cur_year);
-      sprintf(pie_fname,"ctry_usage_%04d%02d.gif",cur_year,cur_month);
+      sprintf(pie_fname,"ctry_usage_%04d%02d.png",cur_year,cur_month);
 
       pie_chart(pie_fname,pie_title,t_hit,pie_data,pie_legend);  /* do it   */
 
@@ -3213,7 +3213,7 @@ int write_main_index()
 
    i=(s_mth==12)?1:s_mth+1;
 
-   year_graph6x(   "usage.gif",         /* filename          */
+   year_graph6x(   "usage.png",         /* filename          */
                    buffer,              /* graph title       */
                    i,                   /* last month        */
                    hist_hit,            /* data set 1        */
@@ -3234,7 +3234,7 @@ int write_main_index()
    }
    write_html_head(msg_main_per);
    /* year graph */
-   fprintf(out_fp,"<IMG SRC=\"usage.gif\" ALT=\"%s\" "    \
+   fprintf(out_fp,"<IMG SRC=\"usage.png\" ALT=\"%s\" "    \
                   "HEIGHT=256 WIDTH=512><P>\n",buffer);
    /* month table */
    fprintf(out_fp,"<TABLE WIDTH=600 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");

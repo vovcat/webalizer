@@ -1,0 +1,12 @@
+#!/bin/sh -e
+
+# webalizer - postrm script
+# Remco vd Meent <remco@debian.org> Jul 18, 1999
+
+# Script is being used to remove /etc/webalizer.conf
+
+if [ "$1" = "purge" ] ; then
+        rm -f /etc/webalizer.conf
+fi
+
+#DEBHELPER#

@@ -65,7 +65,7 @@ char *numchar[] = { " 0"," 1"," 2"," 3"," 4"," 5"," 6"," 7"," 8"," 9","10",
                     "21","22","23","24","25","26","27","28","29","30","31"};
 
 gdImagePtr	im;                        /* image buffer        */
-FILE		*out;                      /* output file for GIF */
+FILE		*out;                      /* output file for PNG */
 char		maxvaltxt[32];             /* graph values        */
 float		percent;                   /* percent storage     */
 u_long		julday;                    /* julday value        */
@@ -282,10 +282,10 @@ int year_graph6x(  char *fname,            /* file name use      */
       gdImageRectangle(im, x1, y1, x2, 232, black);
    }
 
-   /* save gif image */
+   /* save png image */
    if ((out = fopen(fname, "wb")) != NULL)
    {
-      gdImageGif(im, out);
+      gdImagePng(im, out);
       fclose(out);
    }
    /* deallocate memory */
@@ -501,7 +501,7 @@ int month_graph6(  char *fname,            /* filename           */
    /* open file for writing */
    if ((out = fopen(fname, "wb")) != NULL)
    {
-      gdImageGif(im, out);
+      gdImagePng(im, out);
       fclose(out);
    }
    /* deallocate memory */
@@ -611,10 +611,10 @@ int day_graph3(  char *fname,
       gdImageRectangle(im, x1, y1, x2, 232, black);
    }
 
-   /* save as gif file */
+   /* save as png file */
    if ( (out = fopen(fname, "wb")) != NULL)
    {
-      gdImageGif(im, out);
+      gdImagePng(im, out);
       fclose(out);
    }
    /* deallocate memory */
@@ -697,10 +697,10 @@ int pie_chart(char *fname, char *title, u_long t_val,
       gdImageString(im,gdFontMediumBold, x, y, buffer, white);
    }
 
-   /* save gif image */
+   /* save png image */
    if ((out = fopen(fname, "wb")) != NULL)
    {
-      gdImageGif(im, out);
+      gdImagePng(im, out);
       fclose(out);
    }
    /* deallocate memory */
