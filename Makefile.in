@@ -24,7 +24,7 @@ MANDIR = @mandir@/man1
 ETCDIR = @ETCDIR@
 CC     = @CC@
 CFLAGS = @CFLAGS@
-LIBS   = @LIBS@
+LIBS   = @LIBS@ -ldb3
 DEFS   = -DETCDIR=\"@ETCDIR@\" @DEFS@ @OPTS@
 LDFLAGS= @LDFLAGS@
 INSTALL= @INSTALL@
@@ -84,11 +84,11 @@ distclean: clean
 	@LN_S@ lang/webalizer_lang.@DEFAULT_LANG@ webalizer_lang.h
 
 install: all
-	$(INSTALL_PROGRAM) webalizer ${BINDIR}/webalizer
-	$(INSTALL_DATA) webalizer.1 ${MANDIR}/webalizer.1
-	$(INSTALL_DATA) sample.conf ${ETCDIR}/webalizer.conf.sample
-	rm -f ${BINDIR}/webazolver
-	@LN_S@ ${BINDIR}/webalizer ${BINDIR}/webazolver
+	$(INSTALL_PROGRAM) webalizer ${DESTDIR}/${BINDIR}/webalizer
+	$(INSTALL_DATA) webalizer.1 ${DESTDIR}/${MANDIR}/webalizer.1
+	#$(INSTALL_DATA) sample.conf ${DESTDIR}/${ETCDIR}/webalizer.conf.sample
+	rm -f ${DESTDIR}/${BINDIR}/webazolver
+	(cd ${DESTDIR}/${BINDIR}; @LN_S@ webalizer webazolver)
 
 uninstall:
 	rm -f ${BINDIR}/webalizer

@@ -1,0 +1,17 @@
+#!/bin/sh
+# /etc/cron.daily/webalizer: webalizer daily maintenance script
+# Written by Remco van de Meent <remco@debian.org>
+
+WEBALIZER_BIN=/usr/bin/webalizer
+WEBALIZER_CONF=/etc/webalizer.conf
+
+# See if the webalizer binary and config file exists
+# if not, exit without warning to prevent daily mails
+[ -f ${WEBALIZER_BIN} ] || exit 0
+[ -f ${WEBALIZER_CONF} ] || exit 0
+
+# Run webalizer quietly
+${WEBALIZER_BIN} -q -c ${WEBALIZER_CONF}
+
+# Exit with webalizer's exit code
+exit $?

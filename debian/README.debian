@@ -1,0 +1,36 @@
+webalizer for DEBIAN
+----------------------
+
+The Webalizer is a web server log analysis program. It is designed to scan
+web server log files in various formats and produce usage statistics in HTML
+format for viewing through a browser.
+
+Homepage: http://www.mrunix.net/webalizer/
+
+For configuration, checkout /etc/webalizer.conf. Full description of the
+different options is in there too. Also, the 'webalizer --help' command
+might be useful.
+
+NOTE: From bug report #60254:
+        Webalizer's "name mangling" feature for agents makes several
+        assumptions about what the agent string should look like.  With
+        anonymizing proxy filters changing these strings to any arbitrary
+        value, these assumptions may no longer be true.
+
+        example: Mozilla (VMS/CM-64 5.5.5)
+        Webalizer looks for the /, and goes off into an infinite loop
+        finding the ( before the /, eventually writing beyond the 64 byte
+        buffer (no bounds checking is done either!!), and over as much
+        memory as it can until it segfaults.
+
+      This report has been forwarded to the upstream maintainer of
+      webalizer, but has not been fixed yet (2000/05/29).
+
+NOTE: This package was linked against GD 1.3, instead of 1.2. libgd-1.3's
+      copyright is fairly different compared to libgd-1.2's. In fact,
+      version 1.3 of this graphics library is DFSG compliant. So the
+      copyright mentioned in the COPYRIGHT file that comes with the source
+      package of webalizer, doesn't apply to the binary package (at least,
+      the GD-stuff in the COPYRIGHT file doesn't).
+
+Remco van de Meent <remco@debian.org>, Wed, 10 Jun 1998 20:07:55 +0200
