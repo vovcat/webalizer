@@ -1,5 +1,5 @@
 The Webalizer - A web server log file analysis tool
-Copyright 1997-1999 by Bradford L. Barrett (brad@mrunix.net)
+Copyright 1997-2000 by Bradford L. Barrett (brad@mrunix.net)
 
 Distributed under the GNU GPL.  See the files "COPYING" and
 "Copyright" supplied with the distribution for additional info.
@@ -13,14 +13,23 @@ usage statistics in HTML format for viewing with a browser.  The results
 are presented in both columnar and graphical format, which facilitates
 interpretation.  Yearly, monthly, daily and hourly usage statistics are
 presented, along with the ability to display usage by site, URL, referrer,
-user agent (browser) and country (user agent and referrer are only
-available if your web server procduces Combined log format files).
+user agent (browser), search string, entry/exit page, username and country
+(some information is only available if supported and present in the log
+files being processed).  Processed data may also be exported into most
+database and spreadsheet programs that support tab delimited data formats.
 
 The Webalizer supports CLF (common log format) log files, as well as
 Combined log formats as defined by NCSA and others, and variations
-of these which it attempts to handle intelligently.
+of these which it attempts to handle intelligently.  In addition, wu-ftpd
+xferlog formatted logs and squid proxy logs are supported.
 
-This documentation applies to The Webalizer Version 1.30
+Gzip compressed logs may now be used as input directly.  Any log filename
+that ends with a '.gz' extension will be assumed to be in gzip format and
+uncompressed on the fly as it is being read.  In addition, the Webalizer
+also supports DNS lookup capabilities if enabled at compile time.  See
+the file DNS.README for additional information.
+
+This documentation applies to The Webalizer Version 2.01
 
 Running the Webalizer
 ---------------------
@@ -34,7 +43,8 @@ webalizer [options ...] [log-file]
 
 Where 'options' can be one or more of the supported command line
 switches described below.  'log-file' is the name of the log file
-to process (see below for more detailed information).
+to process (see below for more detailed information).  If a dash
+("-") is specified for the log-file name, STDIN will be used.
 
 
 Once executed, the general flow of the program follows:
@@ -50,11 +60,16 @@ o Any command line arguments given to the program are parsed.  This
   processed at the time it is encountered.
 
 o If a log file was specified, it is opened and made ready for
-  processing.  If no log file was given, STDIN is used for input.
+  processing.  If no log file was given, or the filename '-' is
+  specified on the command line, STDIN is used for input.
 
 o If an output directory was specified, the program does a 'chdir' to
-  that directory in prepration for generating output.  If no output
+  that directory in preparation for generating output.  If no output
   directory was given, the current directory is used.
+
+o If a non-zero number of DNS Children processes were specified, they
+  will be started, and the specified log file will be processed,
+  either creating or updateing the specified DNS cache file.
 
 o If no hostname was given, the program attempts to get the hostname
   using a uname system call.  If that fails, 'localhost' is used.
@@ -72,7 +87,7 @@ o If incremental processing was specified, a data file is searched for
   may be changed using the "IncrementalName" configuration file keyword.
 
 o Main processing begins on the log file.  If the log spans multiple
-  months, a seperate HTML document is created for each month.
+  months, a separate HTML document is created for each month.
 
 o After main processing, the main 'index.html' page is created, which
   has totals by month and links to each months HTML document.
@@ -117,7 +132,7 @@ theory, should allow you to re-process logs that have already been
 processed, or process logs that contain a mix of processed/not yet
 processed records, and not produce duplication of statistics.  The
 only time this may break is if you have duplicate timestamps in two
-seperate log files... any records in the second log file that do have
+separate log files... any records in the second log file that do have
 the same timestamp as the last record in the previous log file processed,
 will be discarded as if they had already been processed.  There are
 lots of ways to prevent this however, for example, stopping the web
@@ -138,13 +153,24 @@ configuration files and command line options.  The files produced,
 (default names) are:
 
 index.html              - Main summary page (extension may be changed)
-usage.gif               - Yearly graph displayed on the main index page
+usage.png               - Yearly graph displayed on the main index page
 usage_YYYYMM.html       - Monthly summary page (extension may be changed)
-usage_YYYYMM.gif        - Monthly usage graph for specified month/year
-daily_usage_YYYYMM.gif  - Daily usage graph for specified month/year
-hourly_usage_YYYYMM.gif - Hourly usage graph for specified month/year
+usage_YYYYMM.png        - Monthly usage graph for specified month/year
+daily_usage_YYYYMM.png  - Daily usage graph for specified month/year
+hourly_usage_YYYYMM.png - Hourly usage graph for specified month/year
+site_YYYYMM.html        - All sites listing (if enabled)
+url_YYYYMM.html         - All urls listing (if enabled)
+ref_YYYYMM.html         - All referrers listing (if enabled)
+agent_YYYYMM.html       - All user agents listing (if enabled)
+search_YYYYMM.html      - All search strings listing (if enabled)
 webalizer.hist          - Previous month history (may be changed)
 webalizer.current       - Incremental Data (may be changed)
+site_YYYYMM.tab         - tab delimited sites file
+url_YYYYMM.tab          - tab delimited urls file
+ref_YYYYMM.tab          - tab delimited referrers file
+agent_YYYYMM.tab        - tab delimited user agents file
+user_YYYYMM.tab         - tab delimited usernames file
+search_YYYYMM.tab       - tab delimited search string file
 
 The yearly (index) report shows statistics for a 12 month period, and
 links to each month.  The monthly report has detailed statistics for
@@ -155,7 +181,7 @@ Hits
 
   Any request made to the server which is logged, is considered a 'hit'.
 The requests can be for anything... html pages, graphic images, audio
-files, cgi scripts, etc...  Each valid line in the server log is
+files, CGI scripts, etc...  Each valid line in the server log is
 counted as a hit.  This number represents the total number of requests
 that were made to the server during the specified report period.
 
@@ -179,7 +205,7 @@ server to server.  The default action is to treat anything with the
 extension '.htm', '.html' or '.cgi' as a page.  A lot of sites will
 probably define other extensions, such as '.phtml', '.php3' and '.pl'
 as pages as well.  Some people consider this number as the number of
-'pure' hits... I'm not sure if I totaly agree with that viewpoint.
+'pure' hits... I'm not sure if I totally agree with that viewpoint.
 Some other programs (and people :) refer to this as 'Pageviews'.
 
 Sites
@@ -197,13 +223,13 @@ Visits
   Whenever a request is made to the server from a given IP address
 (site), the amount of time since a previous request by the address
 is calculated (if any).  If the time difference is greater than a
-preconfigured 'visit timeout' value (or has never made a request before),
+pre-configured 'visit timeout' value (or has never made a request before),
 it is considered a 'new visit', and this total is incremented (both
 for the site, and the IP address).  The default timeout value is 30
 minutes (can be changed), so if a user visits your site at 1:00 in
 the afternoon, and then returns at 3:00, two visits would be registered.
 Note: in the 'Top Sites' table, the visits total should be discounted
-on 'Grouped' records, and thought of as the "Minimium number of visits"
+on 'Grouped' records, and thought of as the "Minimum number of visits"
 that came from that grouping instead.  Note: Visits only occur on
 PageType requests, that is, for any request whose URL is one of the
 'page' types defined with the PageType option.  Due to the limitation
@@ -216,7 +242,7 @@ KBytes
   The KBytes (kilobytes) value shows the amount of data, in KB, that
 was sent out by the server during the specified reporting period.  This
 value is generated directly from the log file, so it is up to the
-webserver to produce accurate numbers in the logs  (some web servers
+web server to produce accurate numbers in the logs  (some web servers
 do stupid things when it comes to reporting the number of bytes).  In
 general, this should be a fairly accurate representation of the amount
 of outgoing traffic the server had, regardless of the web servers
@@ -226,7 +252,7 @@ Note: A kilobyte is 1024 bytes, not 1000 :)
 
 Top Entry and Exit Pages
 
-  The Top Entry and Exit Pages give a rough estimate of what URL's
+  The Top Entry and Exit tables give a rough estimate of what URL's
 are used to enter your site, and what the last pages viewed are.
 Because of limitations in the HTTP protocol, log rotations, etc...
 this number should be considered a good "rough guess" of the actual
@@ -272,12 +298,6 @@ General Options
           are ignored.  If you run apache, don't worry about this.
           Config file keyword: FoldSeqErr
 
--g        Use GMT (UTC) time instead of local timezone.  Normally,
-          The Webalizer will display the time generated in the timezone
-          of the local machine, such as EDT or PST.  This switch will
-          cause the times to be displayed in GMT (UTC) time instead.
-          Config file keyword: GMTTime
-
 -i        Ignore history file.  USE WITH CAUTION.  This causes The
           Webalizer to ignore any existing history file produced from
           previous runs and generate it's output from scratch.  The
@@ -302,12 +322,12 @@ General Options
 
 -q        Quiet mode.  Normally, The Webalizer will produce various
           messages while it runs letting you know what it's doing.
-          This option will supress those messages.  It should be
-          noted that this WILL NOT supress errors and warnings, which
+          This option will suppress those messages.  It should be
+          noted that this WILL NOT suppress errors and warnings, which
           are output to STDERR.
           Config file keyword: Quiet
 
--Q        ReallyQuiet mode.  This allows supression of _all_ messages
+-Q        ReallyQuiet mode.  This allows suppression of _all_ messages
           generated by The Webalizer, including warnings and errors.
           Useful when The Webalizer is run as a cron job.
           Config file keyword: ReallyQuiet
@@ -353,7 +373,7 @@ General Options
           Config file keyword: HTMLExtension
 
 -P name   Specify the file extensions for 'pages'.  Pages (sometimes
-          called 'PageViews') are normally html documents and cgi
+          called 'PageViews') are normally html documents and CGI
           scripts that display the whole page, not just parts of it.
           Some system will need to define a few more, such as 'phtml',
           'php3' or 'pl' in order to have them counted as well.  The
@@ -367,28 +387,28 @@ General Options
           Config file keyword: ReportTitle
 
 -Y        Supress Country graph.  Normally, The Webalizer produces
-          country statistics in both Graph and COlumnar forms.  This
-          option will supress the Country Graph from being generated.
+          country statistics in both Graph and Columnar forms.  This
+          option will suppress the Country Graph from being generated.
           Config file keyword: CountryGraph
 
 -G        Supress hourly graph.  Normally, The Webalizer produces
           hourly statistics in both Graph and Columnar forms.  This
-          option will supress the Hourly Graph only from being generated.
+          option will suppress the Hourly Graph only from being generated.
           Config file keyword: HourlyGraph
 
 -H        Supress Hourly statistics.  Normally, The Webalizer produces
           hourly statistics in both Graph and Columnar forms.  This
-          option will supress the Hourly Statistics table only from
+          option will suppress the Hourly Statistics table only from
           being generated.
           Config file keyword: HourlyStats
 
 -L        Disable Graph Legends.  The color coded legends displayed on
-          the inline graphs can be disabled with this option.  The
+          the in-line graphs can be disabled with this option.  The
           default is to display the legends.
           Config file keyword: GraphLegend
 
 -l num    Graph Lines.  Specify the number of background reference
-          lines displayed on the inline graphics produced.  The default
+          lines displayed on the in-line graphics produced.  The default
           is 2 lines, however can range anywhere from zero ('0') for
           no lines, up to 20 lines (looks funny!).
           Config file keyword: GraphLines
@@ -398,12 +418,12 @@ General Options
           The default is 'htm*' and 'cgi' (plus whatever HTMLExtension
           you specified if it is different).  Don't use a period!
 
--m num    Specify a 'visit timeout'.  Visits are calculatd by looking at
+-m num    Specify a 'visit timeout'.  Visits are calculated by looking at
           the time difference between the current and last request made
           by a specific host.  If the difference is greater that the
           visit timeout value, the request is considered a new visit.
-          This value must be formatted as HHMMSS, and you can suppress
-          leading zeros.  The default is 30 minutes (3000).
+          This value is specified in number of seconds.  The default
+          is 30 minutes (1800).
           Config file keyword: VisitTimeout
 
 -M num    Mangle user agent names.  Normally, The Webalizer will keep
@@ -432,6 +452,31 @@ General Options
           Level 0 will disable name mangling and leave the user agent
           field unmodified, producing the greatest amount of detail.
           Configuration file keyword: MangleAgents
+
+-g num    This option allows you to specify the level of domains name
+          grouping to be performed.  The numeric value represents the
+          level of grouping, and can be thought of as the 'number of
+          dots' to be displayed.  The default value of 0 disables any
+          domain name grouping.
+          Configuration file keyword: GroupDomains
+
+-D name   This allows the specification of a DNS Cache file name.  This
+          filename MUST be specified if you have dns lookups enabled
+          (using the -N command line switch or DNSChildren configuration
+          keyword).  The filename is relative to the default output
+          directory if an absolute path is not specified (ie: starts
+          with a leading '/').  This option is only available if DNS
+          support was enabled at compile time, otherwise an 'Invalid
+          Keyword' error will be generated.  See the DNS.README file
+          for additional information regarding DNS lookups.
+
+-N num    Number of DNS child processes to use for reverse DNS lookups.
+          If specified, a DNSCache name MUST be specified also.  If you
+          do not wish a DNS cache file to be generated, specify a value
+          of zero ('0') to disable it.  This does not prevent using an
+          existing cache file, only the generation of one at run time.
+          See the DNS.README file for additional information regarding
+          DNS lookups.
 
 
 Hide Options
@@ -467,7 +512,7 @@ Given the string "yourmama/was/here", the arguments "was", "*here" and
 
 -r name   This option allows hiding of referrers from the "Top Referrer"
           table in the report.  Referrers are URL's, either on your own
-          local site or a remote site, that refered the user to a URL
+          local site or a remote site, that referred the user to a URL
           on your web server.  This option is normally used to hide
           your own server from the table, as your own pages are usually
           the top referrers to your own pages (well, you get the idea).
@@ -487,11 +532,15 @@ Given the string "yourmama/was/here", the arguments "was", "*here" and
           command line option or "TopSites" configuration file option).
           Config file keyword: HideSite
 
+-X        This causes all individual sites to be hidden, which results
+          in only grouped sites to be displayed on the report.
+          Config file keyword: HideAllSites
+
 -u name   This option allows hiding of URL's from the "Top URL's" table
           in the report.  Normally, this option is used to hide images,
           audio files and other objects your web server dishes out that
           would otherwise clutter up the table.  This option is of no
-          use if you diable the top URL's table in the report (see the
+          use if you disable the top URL's table in the report (see the
           -U command line option or "TopURLs" configuration file keyword).
           Config file keyword: HideURL
 
@@ -501,7 +550,7 @@ Given the string "yourmama/was/here", the arguments "was", "*here" and
           as /somedir/index.html into just /somedir/ which is really the
           same URL and should be treated as such.  This option allows you
           to specify _additional_ strings that are to be treated the same
-          way.  Use with care, improper use could cause unexpected resluts.
+          way.  Use with care, improper use could cause unexpected results.
           For example, if you specify the alias string of 'home', a URL
           such as /somedir/homepages/brad/home.html would be converted
           into just /somedir/ which probably isn't what was intended.
@@ -577,7 +626,7 @@ can override options in it by additional command line options which follow.
 For example, most users will most likely want to create the default file
 /etc/webalizer.conf and place options in it to specify the hostname, log
 file, table options, etc...  At the end of the month when a different log
-file is to be used (the end of month log), you can run TheWebalizer as
+file is to be used (the end of month log), you can run The Webalizer as
 usual, but put the different filename on the end of the command line, which
 will override the log file specified in the configuration file.  It should
 be noted that you cannot override some configuration file options by the
@@ -588,7 +637,7 @@ as the command line option only _enables_ the feature (-q option).
 The configuration files are standard ASCII text files that may be created
 or edited using any standard editor.  Blank lines and lines that begin
 with a pound sign ('#') are ignored.  Any other lines are considered to
-be configurgation lines, and have the form "Keyword Value", where the
+be configuration lines, and have the form "Keyword Value", where the
 'Keyword' is one of the currently available configuration keywords defined
 below, and 'Value' is the value to assign to that particular option.  Any
 text found after the keyword up to the end of the line is considered the
@@ -597,22 +646,24 @@ on the line that is not actually part of the value being assigned.  The
 file "sample.conf" provided with the distribution contains lots of useful
 documentation and examples as well.  It should be noted that you do not
 have to use any configuration files at all, in which case, default values
-will be used (which should be sufficent for most sites).
+will be used (which should be sufficient for most sites).
 
 --------------------------------------------------------------------------
 
 General Configuration Keywords
 ------------------------------
 
-LogFile       This defines the logfile to use.  It should be a fully qualified
+LogFile       This defines the log file to use. It should be a fully qualified
               name (ie: contain the path), but relative names will work as
               well.  If not specified, the logfile defaults to STDIN.
 
-LogType       This specifies the log file type being used.  Normally, The
+LogType       This specified the log file type being used.  Normally, The
               Webalizer processes web logs in either CLF or Combined format.
-              If you run a ftp server (wu-ftpd or similar) that produces
-              an xferlog, you can analyze it as well by setting the LogType
-              to 'ftp'.  Values can be either 'web' or 'ftp', default is 'web'.
+              You may also process wu-ftpd xferlog formatted logs, or squid
+              proxy logs by setting the appropriate type using this keyword.
+              Values may be either 'clf', 'ftp' or 'squid'.  Ensure that you
+              specify the proper file type, otherwise you will be presented
+              with a long stream of 'invalid record' messages ;)
               Command line argument: -F
 
 OutputDir     This defines the output directory to use for the reports.  If
@@ -649,7 +700,7 @@ UseHTTPS      Causes the links in the 'Top URL's' table to use 'https://'
 
 Quiet         This allows you to enable or disable informational messages
               while it is running.  The values for this keyword can be
-              either 'yes' or 'no'.  Using "Quiet yes" will supress these
+              either 'yes' or 'no'.  Using "Quiet yes" will suppress these
               messages, while "Quiet no" will enable them.  The default
               is 'no' if not specified, which will allow The Webalizer
               to display informational messages.  It should be noted that
@@ -667,11 +718,10 @@ TimeMe        This allows you to display timing information regardless of
 
 GMTTime       This keyword allows timestamps to be displayed in GMT (UTC)
               time instead of local time.  Normally The Webalizer will
-              display timestamps in the timezone of the local machine
+              display timestamps in the time-zone of the local machine
               (ie: PST or EDT).  This keyword allows you to specify the
               display of timestamps in GMT (UTC) time instead.  Values
               may be either 'yes' or 'no'.  Default is 'no'.
-              Command line argument: -g
 
 Debug         This tells The Webalizer to display additional information
               when it encounters Warnings or Errors.  Normally, The
@@ -683,7 +733,7 @@ Debug         This tells The Webalizer to display additional information
               or 'no', with the default being 'no'.
               Command line argument: -d
 
-IgnoreHist    This supresses the reading of a history file.  USE WITH
+IgnoreHist    This suppresses the reading of a history file.  USE WITH
               EXTREME CAUTION as the history file is how The Webalizer
               keeps track of previous months.  The effect of this option
               is as if The Webalizer was being run for the very first
@@ -701,13 +751,12 @@ VisitTimeout  Set the 'visit timeout' value.  Visits are determined by
               looking at the time difference between the current and last
               request made by a specific site.  If the difference in time
               is greater than the visit timeout value, the request is
-              considered a new visit.  The value must be in the form of
-              HHMMSS, leading zeros suppressed.  The default value of
-              30 minutes (3000) should be fine for most.
+              considered a new visit.  The value is in number of seconds,
+              and defaults to 30 minutes (1800).
               Command line argument: -m
 
 PageType      Allows you to define the 'page' type extension.  Normally,
-              people consider HTML and cgi scripts as 'pages'.  This
+              people consider HTML and CGI scripts as 'pages'.  This
               option allows you to specify what extensions you consider
               a page.  Default is 'htm*' and 'cgi' for web logs, and
               'txt' for ftp logs.
@@ -726,6 +775,14 @@ CountryGraph  This keyword is used to either enable or disable the creation
               and display of the Country Usage graph.  Values may be either
               'yes' or 'no', with the default being 'yes'.
               Command line argument: -Y
+
+DailyGraph    This keyword is used to either enable or disable the creation
+              and display of the Daily Usage graph.  Values may be either
+              'yes' or 'no', with the default being 'yes'.
+
+DailyStats    This keyword is used to either enable or disable the creation
+              and display of the Daily Usage statistics table.  Values may
+              be either 'yes' or 'no', with the default being 'yes'.
 
 HourlyGraph   This keyword is used to either enable or disable the creation
               and display of the Hourly Usage graph.  Values may be either
@@ -752,7 +809,7 @@ IndexAlias    This allows additional 'index.html' aliases to be defined.
               you should have specified 'home.htm' which would correctly
               turn the URL into /somedir/homepages/brad/ like intended.
               It should also be noted that specified aliases are scanned
-              for in EVERY log record... A bunch of aliases will noticably
+              for in EVERY log record... A bunch of aliases will noticeably
               degrade performance as each record has to be scanned for
               every alias defined.  You don't have to specify 'index.' as
               it is always the default.
@@ -771,6 +828,21 @@ MangleAgents  The MangleAgents keyword specifies the level of user agent
               greatest amount of detail.
               Command line argument: -M
 
+SearchEngine  This keyword allows specification of search engines and
+              their query strings.  Search strings are obtained from
+              the referrer field in the record, and in order to work
+              properly, the Webalizer needs to know what query strings
+              different search engines use.  The SearchEngine allows
+              you to specify the search engine and it's query string
+              to parse the search string from.  The line is formatted
+              as:  "SearchEngine engine-string query-string"  where
+              'engine-string' is a substring for matching the search
+              engine with, such as "yahoo.com" or "altavista".  The
+              'query-string' is the unique query string that is added
+              to the URL for the search engine, such as "search=" or
+              "MT=" with the actual search strings appended to the
+              end.  There is no command line option for this keyword.
+
 Incremental   This allows incremental processing to be enabled or disabled.
               Incremental processing allows processing partial logs without
               the loss of detail data from previous runs in the same month.
@@ -787,6 +859,17 @@ IncrementalName
               filenames are relative to the standard output directory,
               unless an absolute name is given (ie: starts with '/').
 
+DNSCache      Specifies the DNS cache filename.  This name is relative
+              to the default output directory unless an absolute name
+              is given (ie: starts with '/').  See the DNS.README file
+              for additional information.
+
+DNSChildren   The number of DNS children processes to run in order to
+              create/update the DNS cache file.  If specified, the DNS
+              cache filename must also be specified (see above).  Use
+              a value of zero ('0') to disable.  See the DNS.README
+              file for additional information.
+
 
 Top Table Keywords
 ------------------
@@ -799,9 +882,15 @@ TopAgents     This allows you to specify how many "Top" user agents are
               in its log file (ie: a combined log format file).
               Command line argument: -A
 
+AllAgents     Will cause a separate HTML page to be generated for all
+              normally visable User Agents.  A link will be added to
+              the bottom of the "Top User Agents" table if enabled.
+              Value can be either 'yes' or 'no', with 'no' being the
+              default.
+
 TopCountries  This allows you to specify how many "Top" countries are
               displayed in the "Top Countries" table.  The default is
-              50.  If you want to disable the countries table, specify
+              30.  If you want to disable the countries table, specify
               a value of zero (0).
               Command line argument: -C
 
@@ -813,6 +902,11 @@ TopReferrers  This allows you to specify how many "Top" referrers are
               in its log file (ie: a combined log format file).
               Command line argument: -R
 
+AllReferrers  Will cause a separate HTML page to be generated for all
+              normally visable Referrers.  A link will be added to the
+              "Top Referrers" table if enabled.  Value can be either
+              'yes' or 'no', with 'no' being the default.
+
 TopSites      This allows you to specify how many "Top" sites are
               displayed in the "Top Sites" table.  The default is 30.
               If you want to disable the sites table, specify a value
@@ -822,6 +916,11 @@ TopSites      This allows you to specify how many "Top" sites are
 TopKSites     Identical to TopSites, except for the 'by KByte' table.
               Default is 10.  No command line switch for this one.
 
+AllSites      Will cause a separate HTML page to be generated for all
+              normally visable Sites.  A link will be added to the
+              bottom of the "Top Sites" table if enabled.  Value can
+              be either 'yes' or 'no', with 'no' being the default.
+
 TopURLs       This allows you to specify how many "Top" URL's are
               displayed in the "Top URL's" table.  The default is 30.
               If you want to disable the URL's table, specify a value
@@ -830,6 +929,11 @@ TopURLs       This allows you to specify how many "Top" URL's are
 
 TopKURLs      Identical to TopURLs, except for the 'by KByte' table.
               Default is 10.  No command line switch for this one.
+
+AllURLs       Will cause a separate HTML page to be generated for all
+              normally visable URLs.  A link will be added to the
+              bottom of the "Top URLs" table if enabled.  Value can
+              be either 'yes' or 'no', with 'no' being the default.
 
 TopEntry      Allows you to specify how many "Top Entry Pages" are
               displayed in the table.  The default is 10.  If you
@@ -847,12 +951,30 @@ TopSearch     Allows you to specify how many "Top Search Strings" are
               Only works if using combined log format (ie: contains
               referrer information).
 
+TopUsers      This allows you to specify how many "Top" usernames are
+              displayed in the "Top Usernames" table.  Usernames are
+              only available if you use http authentication on your
+              web server, or when processing wu-ftpd xferlogs.  The
+              default value is 20.  If you want to disable the Username
+              table, specify a value of zero (0).
+
+AllUsers      Will cause a separate HTML page to be generated for all
+              normally visable usernames.  A link will be added to the
+              bottom of the "Top Usernames" table if enabled.  Value
+              can be either 'yes' or 'no', with 'no' being the default.
+
+AllSearchStr  Will create a separate HTML page to be generated for all
+              normally visable Search Strings.  A link will be added
+              to the bottom of the "Top Search Strings" table if
+              enabled.  Value can be either 'yes' or 'no', with 'no'
+              being the default.
+
 
 Hide Object Keywords
 --------------------
 
-These keywords allow you to hide user agents, referrers, sites and
-URL's from the various "Top" tables.  The value for these keywords
+These keywords allow you to hide user agents, referrers, sites, URL's
+and usernames from the various "Top" tables.  The value for these keywords
 are the same as those used in their command line counterparts.  You
 can specify as many of these as you want without limit.  Refer to the
 section above on "Command Line Options" for a description of the string
@@ -863,14 +985,14 @@ HideAgent     This allows specified user agents to be hidden from the
               "Top User Agents" table.  Not very useful, since there
               a zillion different names by which browsers go by today,
               but could be useful if there is a particular user agent
-              (ie: robots, spiders, realaudio, etc..) that hits your
+              (ie: robots, spiders, real-audio, etc..) that hits your
               site frequently enough to make it into the top user agent
               listing.  This keyword is useless if 1) your log file does
               not provide user agent information or 2) you disable the
               user agent table.
               Command line argument: -a
 
-HideReferrer  This allows you to hide specfied referrers from the
+HideReferrer  This allows you to hide specified referrers from the
               "Top Referrers" table.  Normally, you would only specify
               your own web server to be hidden, as it is usually the
               top generator of references to your own pages.  Of course,
@@ -886,22 +1008,35 @@ HideSite      This allows you to hide specified sites from the "Top
               if you have their browsers home page pointing to it.
               Command line argument: -s
 
+HideAllSites  This allows hiding all indvidual sites from the display,
+              which can be useful when a lot of groupings are being
+              used (since grouped records cannot be hidden).  It is
+              particularly useful in conjunction with the GroupDomain
+              feature, however can be useful in other situations as well.
+              Value can be either 'yes' or 'no', with 'no' the default.
+              Command line argument: -X
+
 HideURL       This allows you to hide URL's from the "Top URL's" table.
               Normally, this is used to hide items such as graphic files,
               audio files or other 'non-html' files that are transferred
               to the visiting user.
               Command line argument: -u
 
+HideUser      This allows you to hide Usernames from the "Top Usernames"
+              table.  Usernames are only available if you use http based
+              authentication on your web server.
+
+
 Group Object Keywords
 ---------------------
 
-The Group* keywords allow object grouping based on Site, URL, Referrer
-and User Agent.  Combined with the Hide* keywords, you can customize
-exactly what will be displayed in the 'Top' tables.  For example, to
-only display totals for a particular directory, use a GroupURL and HideURL
-with the same value (ie: '/help/*').  Group processing is only done after
-the individual record has been fully processed, so name mangling and
-site total updates have already been peformed.  Because of this, groups
+The Group* keywords allow object grouping based on Site, URL, Referrer,
+User Agent and Usernames.  Combined with the Hide* keywords, you can
+customize exactly what will be displayed in the 'Top' tables.  For example,
+to only display totals for a particular directory, use a GroupURL and
+HideURL with the same value (ie: '/help/*').  Group processing is only
+done after the individual record has been fully processed, so name mangling
+and site total updates have already been performed.  Because of this, groups
 are not counted in the main site total (as that would cause duplication).
 Groups can be displayed in bold and shaded as well.  Grouped records are
 not, by default, hidden from the report.  This allows you to display a
@@ -910,7 +1045,7 @@ if they are part of the group.  If you want to hide the detail records,
 follow the Group* directive with a Hide* one using the same value.  There
 are no command line switches for these keywords.  The Group* keywords also
 accept an optional label to be displayed instead of the actual value used.
-This label should be seperated from the value by at least one whitespace
+This label should be separated from the value by at least one whitespace
 character, such as a space or tab character.  See the sample.conf file
 for examples.
 
@@ -930,6 +1065,19 @@ GroupAgent    Groups User Agents.  A handy example of how you could use
               GroupAgent and HideAgent keywords.  Make sure you put the
               "MSIE" one first.
 
+GroupDomains  Allows automatic grouping of domains.  The numeric value
+              represents the level of grouping, and can be thought of
+              as 'the number of dots' to display.  A 1 will display
+              second level domains only (xxx.xxx), a 2 will display
+              third level domains (xxx.xxx.xxx) etc...  The default
+              value of 0 disables any domain grouping.
+              Command line argument: -g
+
+GroupUser     Allows grouping of usernames.  Combined with a group
+              name, this can be handy for displaying statistics on
+              a particular group of users without displaying their
+              real usernames.
+
 GroupShading  Allows shading of table rows for groups.  Value can be
               'yes' or 'no', with the default being 'yes'.
 
@@ -942,8 +1090,8 @@ Ignore/Include Object Keywords
 
 These keywords allow you to completely ignore log records when generating
 statistics, or to force their inclusion regardless of ignore criteria.
-Records can be ignored or included based on site, URL, user agent and
-referrer.  Be aware that by choosing to ignore records, the accuracy of
+Records can be ignored or included based on site, URL, user agent, referrer
+and username.  Be aware that by choosing to ignore records, the accuracy of
 the generated statistics become skewed, making it impossible to produce
 an accurate representation of load on the web server.  These keywords
 behave identical to the Hide* keywords above, where the value can have
@@ -951,9 +1099,9 @@ a leading or trailing wildcard '*'.  These keywords, like the Hide* ones,
 have an absolute limit of 80 characters for their values.  These keywords
 do not have any command line switch counterparts, so they may only be
 specified in a configuration file.  It should also be pointed out that
-using the Ignore/Include combination to selectivly exclude an entire
-site while including a particular 'chunk' is _extremely_ inefficent,
-and should be avoided.  Try grep'ing the records into a seperate file
+using the Ignore/Include combination to selectively exclude an entire
+site while including a particular 'chunk' is _extremely_ inefficient,
+and should be avoided.  Try grep'ing the records into a separate file
 and process it instead.
 
 IgnoreSite    This allows specified sites to be completely ignored from
@@ -962,7 +1110,7 @@ IgnoreSite    This allows specified sites to be completely ignored from
 IgnoreURL     This allows specified URL's to be completely ignored from
               the generated statistics.  One use for this keyword would
               be to ignore all hits to a 'temporary' directory where
-              development work is being done, but is not accessable to
+              development work is being done, but is not accessible to
               the outside world.
 
 IgnoreReferrer This allows records to be ignored based on the referrer
@@ -971,6 +1119,10 @@ IgnoreReferrer This allows records to be ignored based on the referrer
 IgnoreAgent   This allows specified User Agent records to be completely
               ignored from the statistics.  Maybe useful if you really
               don't want to see all those hits from MSIE :)
+
+IgnoreUser    This allows specified username records to be completely
+              ignored from the statistics.  Usernames can only be used
+              if you use http authentication on your server.
 
 IncludeSite   Force the record to be processed based on hostname.  This
               takes precedence over the Ignore* keywords.
@@ -983,6 +1135,74 @@ IncludeReferrer Force the record to be processed based on referrer.
 
 IncludeAgent  Force the record to be processed based on user agent.
               This takes precedence over the Ignore* keywords.
+
+IncludeUser   Force the record to be processed based on username.
+              Usernames are only available if you use http based
+              authentication on your server.  This takes precedence over
+              the Ignore* keywords.
+
+
+Dump Object Keywords
+--------------------
+
+The Dump* Keywords allow text files to be generated that can then be used
+for import into most database, spreadsheet and other external programs.
+The file is a standard tab delimited text file, meaning that each column
+is separated by a tab (0x09) character.  A header record may be included
+if required, using the 'DumpHeader' keyword.  Since these files contain
+all records that have been processed, including normally hidden records,
+an alternate location for the files can be specified using the 'DumpPath'
+keyword, otherwise they will be located in the default output directory.
+
+DumpPath      Specifies an alternate location for the dump files.  The
+              default output location will be used otherwise.  The value
+              is the path portion to use, and normally should be an
+              absolute path (ie: has a leading '/' character), however
+              relative path names can be used as well, and will be
+              relative to the output directory location.
+
+DumpExtension Allows the dump filename extensions to be specified. The
+              default extension is "tab", however may be changed with
+              this option.
+
+DumpHeader    Allows a header record to be written as the first record
+              of the file.  Value can be either 'yes' or 'no',  with
+              the default being 'no'.
+
+DumpSites     Dump tab delimited sites file.  Value can be either 'yes'
+              or 'no', with the default being 'no'.   The filename used
+              is site_YYYYMM.tab (YYYY=year, MM=month).
+
+DumpURLs      Dump tab delimited url file.  Value can be either 'yes' or
+              'no', with the default being 'no'.  The filename used is
+              url_YYYYMM.tab (YYYY=year, MM=month).
+
+DumpReferrers Dump tab delimited referrer file.  Value can be either
+              'yes' or 'no', with the default being 'no'.  Filename
+              used is ref_YYYYMM.tab (YYYY=year, MM=month).  Referrer
+              information is only available if present in the log
+              file (ie: combined web server log).
+
+DumpAgents    Dump tab delmited user agent file.  Value can be either
+              'yes' or 'no', with the default being 'no'.  Filename
+              used is agent_YYYYMM.tab (YYYY=year, MM=month).  User
+              agent information is only available if present in the
+              log file (ie: combined web server log).
+
+DumpUsers     Dump tab delimited username file.  Value can be either
+              'yes' or 'no', with the default being 'no'.  FIlename
+              used is user_YYYYMM.tab (YYYY=year, MM=month).  The
+              username data is only avilable if processing a wu-ftpd
+              xferlog or http authentication is used on the web server
+              and that information is present in the log.
+
+DumpSearchStr Dump tab delimited search string file.  Value can be
+              either 'yes' or 'no', with the default being 'no'.
+              Filename used is search_YYYYMM.tab (YYYY=year, MM=month).
+              the search string data is only available if referrer
+              information is present in the log being processed and
+              recognized search engines were found and processed.
+
 
 
 HTML Generation Keywords
@@ -1019,8 +1239,8 @@ HTMLBody       This keyword defines HTML code to be placed immediately
                the first HTMLHead line MUST include a <BODY> tag.  Put
                whatever else you want in subsequent lines, but keep in
                mind the placement of this code in relation to the title
-               and other aspcects of the web page.  Some typical uses
-               are to change the page colors and posibly add a corporate
+               and other aspects of the web page.  Some typical uses
+               are to change the page colors and possibly add a corporate
                logo (graphic) in the top right.  If not specified, a
                default <BODY> tag is used that defines page color, text
                color and link colors (see "sample.conf" file for example).
@@ -1067,19 +1287,19 @@ that includes the referrer and user agent information on the end of
 each record, enclosed in quotes (This is the standard recommended
 by both Apache and NCSA).   Netscape and other web servers have
 similar capabilities to alter their log formats.  (note: the above
-works for apache servers up to V1.2.  V1.3 and higher now have additonal
-ways to spcify log formats... refer to included documentation).
+works for apache servers up to V1.2.  V1.3 and higher now have additional
+ways to specify log formats... refer to included documentation).
 
 Notes on FTP Log Files
 ----------------------
 
 The Webalizer now supports ftp logs produced by wu-ftpd and others, as
 a standard 'xferlog'.  To process an ftp log, you must either use the
--F command line option or have "LogType ftp" in your configuration file.
+-Ff command line option or have "LogType ftp" in your configuration file.
 Support for additional formats may be forthcoming, however a future
 version of the Webalizer is in the works that will allow user defined
 log formats, so this will become a non-issue.  It is recommended that
-you create a seperate configuration file for ftp analysis, since the
+you create a separate configuration file for ftp analysis, since the
 values used for your web server will most likely not be suited for ftp
 log analysis (ie: page types, hostname, etc.. should be different).
 
@@ -1101,7 +1321,7 @@ o Page totals won't accurately reflect reality, since there isn't really
   many 'non-binary' files were requested.  Of course, the content of your
   ftp site will be different, so your results may vary.
 
-o Visit totals also won't acccurately reflect reality, since visits are
+o Visit totals also won't accurately reflect reality, since visits are
   triggered on PageType requests (see above).  What you usually wind up
   with is visits=sites in most cases.
 
@@ -1110,7 +1330,7 @@ o Entry/Exit pages will not be calculated for ftp logs.
 o For obvious reasons, referrers and user agents are not supported.
 
 o You _cannot_ analyze both web and ftp logs at the same time.. they must
-  be done seperately in different runs.
+  be done separately in different runs.
 
 
 Notes on Referrers
@@ -1120,7 +1340,7 @@ Referrers are weird critters... They take many shapes and forms, which makes
 it much harder to analyze than a typical URL, which at least has some
 standardization.  What is contained in the referrer field of your log
 files varies depending on many factors, such as what site did the referral,
-what type of system it comes from and how the actual referal was generated.
+what type of system it comes from and how the actual referral was generated.
 Why is this?  Well, because a user can get to your site in many ways... They
 may have your site bookmarked in their browser, they may simply type your
 sites URL field in their browser, they could have clicked on a link on some
@@ -1139,8 +1359,8 @@ a HTML document on the users local machine.  Several variations of this can
 be used, depending on what type of system the user has, if he/she is on
 a local network, the type of network, etc...  To complicate things even
 more, dynamic HTML documents and HTML documents that are generated by
-cgi scripts or external programs produce lots of extra information which
-is tacked on to the end of the referrer string in an almost infinate number
+CGI scripts or external programs produce lots of extra information which
+is tacked on to the end of the referrer string in an almost infinite number
 of ways.  If the user just typed your URL into their browser or clicked on
 a bookmark, there won't be any information in the referrer field and will
 take the form "-".
@@ -1153,10 +1373,10 @@ the referrer "HTTP://WWW.MyHost.Com/This/Is/A/HTML/Document.html" will become
 "http://www.myhost.com/This/Is/A/HTML/Document.html".  Notice that only the
 "http://" and hostname are converted to lower case... The rest of the
 referrer field is left alone.  This follows standard convention, as the
-actuall method (HTTP) and hostname are always case insensitive, while the
+actual method (HTTP) and hostname are always case insensitive, while the
 document name portion is case sensitive.
 
-Referrers that came from search engines, dynamic HTML documents, cgi
+Referrers that came from search engines, dynamic HTML documents, CGI
 scripts and other external programs usually tack on additional information
 that it used to create the page.  A common example of this can be found
 in referrals that come from search engines and site indexes common on the
@@ -1185,7 +1405,7 @@ The HTTP protocol defines certain ways that URL's can look and behave.  To
 some extent, referrer fields follow most of the same conventions.  Character
 escaping is a technique by which non-printable or other non-ASCII (and even
 some ASCII) characters can be used in a URL.  This is done by placing the
-Hexdecimal value of the character in the URL, preceeded by a percent sign '%'.
+Hexadecimal value of the character in the URL, preceeded by a percent sign '%'.
 Since Hex values are made up of ASCII characters, any character can be
 escaped to ensure only printable ASCII characters are present in the URL.
 Some systems take this concept to the extreme and escape all sorts of stuff,
@@ -1194,31 +1414,7 @@ Webalizer will un-escape URL's and referrers before being processed. For
 Example, the URL "/www.mrunix.net/%7Ebrad/resume.html" is the same URL as
 "/www.mrunix.net/~brad/resume.html", a very common form of a URL to access
 users web pages.  If the URL's were not un-escaped, they would be treated as
-two seperate documents, even though they are really one and the same.
-
-
-Random thoughts on DNS lookups
-------------------------------
-
-A lot of people have asked for the ability to do DNS lookups within
-The Webalizer, as their servers don't do the reverse mapping.  My
-usual response is that there are far too many such programs and
-scripts that will process a log file doing just that.  One such
-program is 'logresolve' that comes with the Apache distribution
-(in the /support directory of the source distribution).  On my
-machines, there are several programs that process log files at
-the end of each month, and it is much easier to do the reverse
-DNS lookups one time only, instead of multiple times in seperate
-places.  Reverse DNS lookups may be included in a future release,
-but I don't guarantee it.
-
-Update: Sasha Pachev submitted a reverse DNS patch that adds DNS
-        lookups.  Because of compatability problems across multiple
-        platforms, it's being currently kept seperate.  It will
-        most likely be merged into the main code base sometime in
-        the future.  You can find it at all the usual places, and
-        is named webalizer-x.xx-xx-reverse_dns.patch (x's are the
-        version level the patch applies to).
+two separate documents, even though they are really one and the same.
 
 
 Search String Analysis
@@ -1226,13 +1422,16 @@ Search String Analysis
 
   The Webalizer will do a minimal analysis on referrer strings that
 it finds, looking for well known search string patterns.  Most of
-the major search engines are supported, such as yahoo, altavista,
-lycos, etc...  Unfortunately, search engines are always changing
+the major search engines are supported, such as Yahoo!, Altavista,
+Lycos, etc...  Unfortunately, search engines are always changing
 their internal/CGI query formats, new search engines are coming on
 line every day, and the ability to detect _all_ search strings is
 nearly impossible.  However, it should be accurate enough to give
 a good indication of what users were searching for when they stumbled
-across your site.
+across your site.  Note: as of version 1.31, search engines can now
+be specified within a configuration file.  See the sample.conf file
+for examples of how to specify additional search engines.
+
 
 
 Notes on Visits/Entry/Exit Figures
@@ -1249,7 +1448,7 @@ due to the above and other conditions.  The reason for this is
 twofold, 1) Log files are finite in size and time interval, and
 2) There is no way to distinguish multiple individual users apart
 given only an IP address.  Because log files are finite, they have
-a begining and ending, which can be represented as a fixed time
+a beginning and ending, which can be represented as a fixed time
 period.  There is no way of knowing what happened previous to this
 time period, nor is it possible to predict future events based on
 it.  Also, because it is impossible to distinguish individual users
@@ -1262,10 +1461,10 @@ dial-up internet accounts) also present a problem, since the same
 user will appear as to come from multiple places.
 
 For example, suppose two users visit your server from XYZ company,
-which has their network connected to the internet by a proxy server
+which has their network connected to the Internet by a proxy server
 'fw.xyz.com'.  All requests from the network look as though they
 originated from 'fw.xyz.com', even though they were really initiated
-from two seperate users on different PC's.  The Webalizer would
+from two separate users on different PC's.  The Webalizer would
 see these requests as from the same location, and would record only
 1 visit, when in reality, there were two.  Because entry and exit
 pages are calculated in conjunction with visits, this situation
@@ -1291,6 +1490,27 @@ and shouldn't be that far off from the real numbers to count much.
 You should probably consider them as the 'minimum' amount possible,
 since the actual (real) values should always be equal or greater
 in all cases.
+
+
+Exporting Webalizer Data
+------------------------
+
+The Webalizer now has the ability to dump all object tables to tab
+delimited ascii text files, which can then be imported into most
+popular database and spreadsheet programs. The files are not normally
+produced, as on some sites they could become quite large, and are only
+enabled by the use of the Dump* configuration keywords.  The filename
+extensions default to '.tab' however may be changed using the
+'DumpExtension' keyword.  Since this data contains all items, even
+those normally hidden, it may not be desirable to have them located
+in the output directory where they may be visable to normal web users..
+For this reason, the 'DumpPath' configuration keyword is available,
+and allows the placement of these files somewhere outside the normal
+web server document tree.  An optional 'header' record may be written
+to these files as well, and is useful when the data is to be imported
+into a spreadsheet.. databases will not normally need the header.  If
+enabled, the header is simply the column names as the first record of
+the file, tab separated.
 
 
 Log files and The Webalizer
@@ -1339,7 +1559,7 @@ to the end of them.  It then makes a copy of the log file, appended with
 directory (/var/lib/httpd/logs/old) and restarts the server.  This setup
 allows the web server to be down for the minimum amount of time needed,
 which is important for busy sites.  If you don't want to stop the server,
-you can remove the inital 'kill' command, and replace the '/usr/sbin/httpd'
+you can remove the initial 'kill' command, and replace the '/usr/sbin/httpd'
 line with "kill -1 `cat /var/lib/httpd/logs/httpd.pid`" command instead,
 On most web servers, this will cause a restart of the server and create
 the new log files in the process...
@@ -1371,7 +1591,7 @@ successfully, the access_log.backup file can be deleted as it isn't
 needed any more.  If you need to re-run the analysis, you still have
 the compressed archive copy that the shell script created.  In order
 for the above analysis to work properly, you should have already
-created an /etc/webalizer.conf configuration file sutable for your
+created an /etc/webalizer.conf configuration file suitable for your
 site, or otherwise specify configuration options or a configuration
 file on the crontab command line above.
 
@@ -1393,7 +1613,7 @@ support is only provided at compile time in the form of an
 include file containing all the strings used by The Webalizer.
 The source distribution contains all language files that were
 available at the time, with English being the default as
-that is the only human language I speek fluently, and me
+that is the only human language I speak fluently, and me
 Espanol es muy malo.  Several people have already indicated
 the desire to do translations into various languages, and as
 I receive the language files, will make them available via
@@ -1405,7 +1625,7 @@ distribution for information on how to use a language other than
 English.
 
 It should also be noted that the GD graphics library, used to
-produce the inline graphics in the output HTML,  doesn't
+produce the in-line graphics in the output HTML,  doesn't
 support extended character sets, so if you are translating
 the language file, you will no doubt encounter this problem.
 
@@ -1413,8 +1633,8 @@ New: You can now specify the language to use when you are building
      program from source, using the configure script.  Just add
      --with-language=language_name   , where 'language_name' is the
      name of a valid language file in the /lang/ directory.  For
-     example, --with-language=french  will build using french as
-     the default language.  You should consuld the INSTALL file
+     example, --with-language=french  will build using French as
+     the default language.  You should consult the INSTALL file
      for additional information on building the program from source.
 
 
@@ -1423,17 +1643,11 @@ Known Issues
 
  o Memory Usage.  The Webalizer makes liberal use of memory for internal
     data structures during analysis.  Lack of real physical memory will
-    noticably degrade performance by doing lots of swapping between memory
+    noticeably degrade performance by doing lots of swapping between memory
     and disk.  One user who had a rather large log file noticed that The
     Webalizer took over 7 hours to run with only 16 Meg of memory.  Once
     memory was increased, the time was reduced to a few minutes.
 
- o Proxy servers.  The Webalizer does not know how to deal with proxy
-    records, which can cause some rather unexpected results.  If you
-    do run the stats on a proxy servers log file, you get to see where
-    your users have been visiting, as well as who has visited your
-    server.  If someone knows of a reliable way to differentiate
-    between normal log records and proxy ones, please let me know.
 
  o Performance.  The Hide*, Group*, Ignore*, Include*  and IndexAlias
     configuration options can cause a performance decrease if lots of
@@ -1451,7 +1665,7 @@ Final Notes
 
 A lot of time and effort went into making The Webalizer, and to ensure that
 the results are as accurate as possible.  If you find any abnormalities or
-inconsistant results, bugs, errors, ommisions or anything else that doesn't
+inconsistent results, bugs, errors, ommisions or anything else that doesn't
 look right, please let me know so I can investigate the problem or correct
 the error.  This goes for the minimal documentation as well.  Suggestions
-for future versions are also welcome and apperciated.
+for future versions are also welcome and appreciated.

@@ -1,44 +1,34 @@
-/* webalizer.h */
+#ifndef _WEBALIZER_H
+#define _WEBALIZER_H
 
 #define PCENT(val,max) ((val)?((double)val/(double)max)*100.0 : 0.0)
+#define IDX_2C(c1,c2)       (((c1-'a'+1)<<5)+(c2-'a'+1) )
+#define IDX_3C(c1,c2,c3)    (((c1-'a'+1)<<10)+((c2-'a'+1)<<5)+(c3-'a'+1) )
+#define IDX_4C(c1,c2,c3,c4) (((c1-'a'+1)<<15)+((c2-'a'+1)<<10)+((c3-'a'+1)<<5)+(c4-'a'+1) )
 
+#ifndef MAX
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
+#endif
+
+#define MAXHASH  2048                  /* Size of our hash tables          */
 #define BUFSIZE  4096                  /* Max buffer size for log record   */
-#define MAXHOST  64                    /* Max hostname buffer size         */
-#define MAXURL   256                   /* Max HTTP request/URL field size  */
-#define MAXURLH  96                    /* Max URL field size in htab       */
+#define MAXHOST  128                   /* Max hostname buffer size         */
+#define MAXURL   1024                  /* Max HTTP request/URL field size  */
+#define MAXURLH  128                   /* Max URL field size in htab       */
 #define MAXREF   1024                  /* Max referrer field size          */
 #define MAXREFH  128                   /* Max referrer field size in htab  */
 #define MAXAGENT 64                    /* Max user agent field size        */
 #define MAXCTRY  48                    /* Max country name size            */
-#define MAXHASH  2048                  /* Size of our hash tables          */
-#define MAXSRCH  64                    /* Max size of search string buffer */
+#define MAXSRCH  256                   /* Max size of search string buffer */
+#define MAXSRCHH 64                    /* Max size of search str in htab   */
+#define MAXIDENT 64                    /* Max size of ident string (user)  */
 
-/* define structure to hold expanded log record */
+#define SLOP_VAL 3600                  /* out of sequence slop (seconds)   */
 
-struct  log_struct  {  char   hostname[MAXHOST];   /* hostname             */
-                       char   datetime[29];        /* raw timestamp        */
-                       char   url[MAXURL];         /* raw request field    */
-                       int    resp_code;           /* response code        */
-                       u_long xfer_size;           /* xfer size in bytes   */
-                       char   refer[MAXREF];       /* referrer             */
-                       char   agent[MAXAGENT];     /* user agent (browser) */
-                       char   srchstr[MAXSRCH]; }; /* search string        */
-
-/* define some colors for HTML */
-#define WHITE       "#FFFFFF"
-#define BLACK       "#000000"
-#define RED         "#FF0000"
-#define ORANGE      "#FF8000"
-#define LTBLUE      "#0080FF"
-#define BLUE        "#0000FF"
-#define GREEN       "#00FF00"
-#define DKGREEN     "#008040"
-#define GREY        "#C0C0C0"
-#define LTGREY      "#E8E8E8"
-#define YELLOW      "#FFFF00"
-#define PURPLE      "#FF00FF"
-#define CYAN        "#00E0FF"
-#define GRPCOLOR    "#D0D0E0"
+/* Log types */
+#define LOG_CLF   0                        /* CLF/combined log type        */
+#define LOG_FTP   1                        /* wu-ftpd xferlog type         */
+#define LOG_SQUID 2                        /* squid proxy log              */
 
 /* Response code defines as per draft ietf HTTP/1.1 rev 6 */
 #define RC_CONTINUE           100
@@ -124,136 +114,150 @@ struct  log_struct  {  char   hostname[MAXHOST];   /* hostname             */
 #define IDX_UNAVAIL            38
 #define IDX_GATEWAYTIMEOUT     39
 #define IDX_BADHTTPVER         40
-#define TOTAL_RC               40
+#define TOTAL_RC               41
+
+#ifdef USE_DNS
+#include <netinet/in.h>       /* needed for in_addr structure definition   */
+#ifndef INADDR_NONE
+#define INADDR_NONE 0xFFFFFFFF
+#endif  /* INADDR_NONE */
+#endif
 
 /* Response code structure */
 struct response_code {     char    *desc;         /* response code struct  */
                          u_long    count; };
 
-/* node definitions */
-typedef struct hnode *HNODEPTR;            /* site node (host) pointer     */
-typedef struct unode *UNODEPTR;            /* url node pointer             */
-typedef struct rnode *RNODEPTR;            /* referrer node                */
-typedef struct anode *ANODEPTR;            /* user agent node pointer      */
-typedef struct nlist *NLISTPTR;            /* HIDE list item pointer       */
-typedef struct glist *GLISTPTR;            /* GROUP list item pointer      */
-typedef struct snode *SNODEPTR;            /* Search string node pointer   */
+/* Country code structure */
+struct	country_code { u_long idx;
+                         char *desc;
+                       u_long count;
+                       u_long files;
+                       double  xfer; };
 
-/* Object flags */
-#define OBJ_REG  0                         /* Regular object               */
-#define OBJ_HIDE 1                         /* Hidden object                */
-#define OBJ_GRP  2                         /* Grouped object               */
+typedef struct country_code *CLISTPTR;
 
-struct hnode {  char string[MAXHOST];      /* host hash table structure    */
-                 int flag;
-              u_long count;
-              u_long files;
-              u_long visit;                /* visit information            */
-              u_long tstamp;
-                char lasturl[MAXURLH];
-              double xfer;
-              struct hnode *next; };
+/* log record structure */
+struct  log_struct  {  char   hostname[MAXHOST];   /* hostname             */
+                       char   datetime[29];        /* raw timestamp        */
+                       char   url[MAXURL];         /* raw request field    */
+                       int    resp_code;           /* response code        */
+                       u_long xfer_size;           /* xfer size in bytes   */
+#ifdef USE_DNS
+                       struct in_addr addr;        /* IP address structure */
+#endif  /* USE_DNS */
+                       char   refer[MAXREF];       /* referrer             */
+                       char   agent[MAXAGENT];     /* user agent (browser) */
+                       char   srchstr[MAXSRCH];    /* search string        */
+                       char   ident[MAXIDENT]; };  /* ident string (user)  */
 
-struct unode {  char string[MAXURLH];      /* url hash table structure     */
-                 int flag;                 /* Object type (REG, HIDE, GRP) */
-              u_long count;                /* requests counter             */
-              u_long files;                /* files counter                */
-              u_long entry;                /* entry page counter           */
-              u_long exit;                 /* exit page counter            */
-              double xfer;                 /* xfer size in bytes           */
-              struct unode *next; };       /* pointer to next node         */
+extern struct log_struct log_rec;
 
-struct rnode {  char string[MAXREFH];      /* referrer hash table struct   */
-                 int flag;
-              u_long count;
-              struct rnode *next; };
+extern char    *version     ;                 /* program version          */
+extern char    *editlvl     ;                 /* edit level               */
+extern char    *moddate     ;                 /* modification date        */
+extern char    *copyright   ;
 
-struct anode {  char string[MAXAGENT];     /* user agent hash table struct */
-                 int flag;
-              u_long count;
-              struct anode *next; };
+extern int     verbose      ;                 /* 2=verbose,1=err, 0=none  */
+extern int     debug_mode   ;                 /* debug mode flag          */
+extern int     time_me      ;                 /* timing display flag      */
+extern int     local_time   ;                 /* 1=localtime 0=GMT (UTC)  */
+extern int     ignore_hist  ;                 /* history flag (1=skip)    */
+extern int     hourly_graph ;                 /* hourly graph display     */
+extern int     hourly_stats ;                 /* hourly stats table       */
+extern int     daily_graph  ;                 /* daily graph display      */
+extern int     daily_stats  ;                 /* daily stats table        */
+extern int     ctry_graph   ;                 /* country graph display    */
+extern int     shade_groups ;                 /* Group shading 0=no 1=yes */
+extern int     hlite_groups ;                 /* Group hlite 0=no 1=yes   */
+extern int     mangle_agent ;                 /* mangle user agents       */
+extern int     incremental  ;                 /* incremental mode 1=yes   */
+extern int     use_https    ;                 /* use 'https://' on URL's  */
+extern int     visit_timeout;                 /* visit timeout (30 min)   */
+extern int     graph_legend ;                 /* graph legend (1=yes)     */
+extern int     graph_lines  ;                 /* graph lines (0=none)     */
+extern int     fold_seq_err ;                 /* fold seq err (0=no)      */
+extern int     log_type     ;                 /* (0=clf, 1=ftp, 2=squid)  */
+extern int     group_domains;                 /* Group domains 0=none     */
+extern int     hide_sites   ;                 /* Hide ind. sites (0=no)   */
+extern char    *hname       ;                 /* hostname for reports     */
+extern char    *state_fname ;                 /* run state file name      */
+extern char    *hist_fname  ;                 /* name of history file     */
+extern char    *html_ext    ;                 /* HTML file prefix         */
+extern char    *dump_ext    ;                 /* Dump file prefix         */
+extern char    *conf_fname  ;                 /* name of config file      */
+extern char    *log_fname   ;                 /* log file pointer         */
+extern char    *out_dir     ;                 /* output directory         */
+extern char    *blank_str   ;                 /* blank string             */
+extern char    *dns_cache   ;                 /* DNS cache file name      */
+extern int     dns_children ;                 /* # of DNS children        */
 
-struct snode {  char string[MAXSRCH];      /* search string table struct   */
-              u_long count;
-              struct snode *next; };
+extern int     ntop_sites   ;                 /* top n sites to display   */
+extern int     ntop_sitesK  ;                 /* top n sites (by kbytes)  */
+extern int     ntop_urls    ;                 /* top n url's to display   */
+extern int     ntop_urlsK   ;                 /* top n url's (by kbytes)  */
+extern int     ntop_entry   ;                 /* top n entry url's        */
+extern int     ntop_exit    ;                 /* top n exit url's         */
+extern int     ntop_refs    ;                 /* top n referrers ""       */
+extern int     ntop_agents  ;                 /* top n user agents ""     */
+extern int     ntop_ctrys   ;                 /* top n countries   ""     */
+extern int     ntop_search  ;                 /* top n search strings     */
+extern int     ntop_users   ;                 /* top n users to display   */
 
-struct nlist {  char string[80];           /* list struct for HIDE items   */
-              struct nlist *next; };
+extern int     all_sites    ;                 /* List All sites (0=no)    */
+extern int     all_urls     ;                 /* List All URL's (0=no)    */
+extern int     all_refs     ;                 /* List All Referrers       */
+extern int     all_agents   ;                 /* List All User Agents     */
+extern int     all_search   ;                 /* List All Search Strings  */
+extern int     all_users    ;                 /* List All Usernames       */
 
-struct glist {  char string[80];           /* list struct for GROUP items  */
-                char name[80];
-              struct glist *next; };
+extern int     dump_sites   ;                 /* Dump tab delimited sites */
+extern int     dump_urls    ;                 /* URL's                    */
+extern int     dump_refs    ;                 /* Referrers                */
+extern int     dump_agents  ;                 /* User Agents              */
+extern int     dump_users   ;                 /* Usernames                */
+extern int     dump_search  ;                 /* Search strings           */
+extern int     dump_header  ;                 /* Dump header as first rec */
+extern char    *dump_path   ;                 /* Path for dump files      */
 
-/***********************/
-/* function prototypes */
-/***********************/
+extern u_long  cur_tstamp;                    /* Current timestamp        */
+extern u_long  epoch;                         /* used for timestamp adj.  */
+extern int     check_dup;                     /* check for dups flag      */
 
-HNODEPTR new_hnode(char *);                         /* new host node       */
-UNODEPTR new_unode(char *);                         /* new url node        */
-RNODEPTR new_rnode(char *);                         /* new referrer node   */
-ANODEPTR new_anode(char *);                         /* new user agent node */
-SNODEPTR new_snode(char *);                         /* new search string.. */
-/* add/update node routines */
-int      put_hnode(char *, int, u_long, u_long, u_long, u_long *, u_long, u_long, char *, HNODEPTR *);
-int      put_unode(char *, int, u_long, u_long, u_long *, u_long, u_long, UNODEPTR *);
-int      put_rnode(char *, int, u_long, u_long *, RNODEPTR *);
-int      put_anode(char *, int, u_long, u_long *, ANODEPTR *);
-int      put_snode(char *, u_long, SNODEPTR *);
-void     del_hlist(HNODEPTR *);                     /* delete host htab    */
-void     del_ulist(UNODEPTR *);                     /* delete url htab     */
-void     del_rlist(RNODEPTR *);                     /* delete refer htab   */
-void     del_alist(ANODEPTR *);                     /* delete u-agent htab */
-void     del_slist(SNODEPTR *);                     /* delete search htab  */
+extern int     cur_year,cur_month,            /* year/month/day/hour      */
+               cur_day, cur_hour,             /* tracking variables       */
+               cur_min, cur_sec;
 
-NLISTPTR new_nlist(char *);                         /* new hide list node  */
-int      add_nlist(char *, NLISTPTR *);             /* add hide list item  */
-void     del_nlist(NLISTPTR *);                     /* del hide list       */
+extern double  t_xfer;                        /* monthly total xfer value */
+extern u_long  t_hit, t_file, t_site,         /* monthly total vars       */
+               t_url, t_ref,  t_agent,
+               t_page,t_visit,t_user;
 
-GLISTPTR new_glist(char *, char *);                 /* new group list node */
-int      add_glist(char *, GLISTPTR *);             /* add group list item */
-void     del_glist(GLISTPTR *);                     /* del group list      */
+extern double  tm_xfer[31];                   /* daily transfer totals    */
 
-char    *unescape(char *);                          /* unescape URL's      */
-char    from_hex(char);                             /* convert hex to dec  */
-void    print_opts(char *);                         /* print options       */
-void    print_version();                            /* duhh...             */
-void    get_history();                              /* load history file   */
-void    put_history();                              /* save history file   */
-void    fmt_logrec();                               /* format log record   */
-int     parse_record();                             /* log record parser   */
-int     parse_record_web();                         /* web log handler     */
-int     parse_record_ftp();                         /* xferlog handler     */
-int     write_main_index();                         /* produce main HTML   */
-int     write_month_html();                         /* monthy HTML page    */
-void    write_html_head(char *);                    /* head of html page   */
-void    write_html_tail();                          /* tail of html page   */
-char    *cur_time();                                /* return current time */
-u_long  hash(char *);                               /* hash function       */
-int     isurlchar(char);                            /* valid URL char fnc. */
-int     isinstr(char *, char *);                    /* isinstr function    */
-char    *isinlist(NLISTPTR, char *);                /* isinlist function   */
-char    *isinglist(GLISTPTR, char *);                /* isinlist function   */
-int     save_state();                               /* save run state      */
-int     restore_state();                            /* restore run state   */
-void    get_config(char *);                         /* read configuration  */
-void    init_counters();                            /* initalize stuff     */
-void    clear_month();                              /* clear month totals  */
-void    month_links();                              /* Page links          */
-void    month_total_table();                        /* monthly total table */
-void    daily_total_table();                        /* daily total table   */
-void    hourly_total_table();                       /* hourly total table  */
-void    top_sites_table(int);                       /* top n sites table   */
-void    top_urls_table(int);                        /* top n URL's table   */
-void    top_entry_table(int);                       /* top n entry/exits   */
-void    top_refs_table();                           /* top n referrers ""  */
-void    top_agents_table();                         /* top n u-agents  ""  */
-void    top_ctry_table();                           /* top n countries ""  */
-void    top_search_table();                         /* top n search strs   */
-static  char *save_opt(char *);                     /* save conf option    */
-u_long  ctry_idx(char *);                           /* index domain name   */
-u_long  tot_visit(HNODEPTR *);                      /* calc total visits   */
-int     ispage(char *);                             /* check for HTML type */
-void    update_entry(char *);                       /* update entry total  */
-void    update_exit(char *);                        /* update exit total   */
-void    month_update_exit(u_long);                  /* eom exit update     */
-void    srch_string(char *);                        /* srch str analysis   */
+extern u_long  tm_hit[31], tm_file[31],       /* daily total arrays       */
+               tm_site[31],tm_page[31],
+               tm_visit[31];
+
+extern u_long  dt_site;                       /* daily 'sites' total      */
+
+extern u_long  ht_hit,mh_hit;                 /* hourly hits totals       */
+
+extern u_long  th_hit[24], th_file[24],       /* hourly total arrays      */
+               th_page[24];
+
+extern double  th_xfer[24];
+
+extern int     f_day,l_day;                   /* first/last day vars      */
+extern int     gz_log;                        /* flag for zipped log      */
+
+extern CLISTPTR *top_ctrys;                   /* Top countries table      */
+
+/* define our externally visable functions */
+
+extern char   *cur_time();
+extern u_long ctry_idx(char *);
+extern void   init_counters();
+extern int    ispage(char *);
+extern u_long jdate(int,int,int);
+
+#endif  /* _WEBALIZER_H */

@@ -1,9 +1,10 @@
 /*
    webalizer_lang.chinese
 
-   Webalizer V1.2x Language Support file for Chinese.
+   Webalizer V2.0x Language Support file for Chinese.
 	1999-04-30 by Daniel Gau<b4705021@im.ntu.edu.tw>
    29-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
+   22-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
 
    Language files are named using the following convention:
 
@@ -37,6 +38,7 @@ char *language  = "Chinese";
 /* these are only used in timing totals */
 /* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
 char *msg_records = "記錄";
+char *msg_addresses="addresses";
 char *msg_ignored = "忽略";
 char *msg_bad     = "bad";
 char *msg_in      = "in";
@@ -70,6 +72,14 @@ char *msg_bad_data= "Error: Unable to restore run data";
 char *msg_data_err= "Error: Unable to save current run data";
 char *msg_dup_data= "Warning: Possible duplicate data found";
 
+/* DNS Stuff */
+char *msg_dns_nocf= "No cache file specified, aborting...";
+char *msg_dns_nodb= "Error: Unable to open DNS cache file";
+char *msg_dns_nolk= "Error: Unable to lock DNS cache file";
+char *msg_dns_usec= "Using DNS cache file";
+char *msg_dns_rslv= "DNS Lookup";
+char *msg_dns_none= "None to process";
+
 /* memory allocation errors */
 char *msg_nomem_ts= "Can't allocate enough memory, Top Sites disabled!";
 char *msg_nomem_tr= "Can't allocate enough memory, Top Referrers disabled!";
@@ -77,12 +87,14 @@ char *msg_nomem_tu= "Can't allocate enough memory, Top URLs disabled!";
 char *msg_nomem_tc= "Can't allocate enough memory, Top Countries disabled!";
 char *msg_nomem_ta= "Can't allocate enough memory, Top User Agents disabled!";
 char *msg_nomem_tsr="Can't Allocate enough memory, Top Search Strings disabled!";
+char *msg_nomem_ti= "Can't allocate enough memory, Top Usernames disabled!";
 char *msg_nomem_dh= "Error adding host node (daily), skipping";
 char *msg_nomem_mh= "Error adding host node (monthly), skipping";
 char *msg_nomem_u = "Error adding URL node, skipping";
 char *msg_nomem_a = "Error adding User Agent node, skipping";
 char *msg_nomem_r = "Error adding Referrer node, skipping";
 char *msg_nomem_sc= "Error adding Search String node, skipping";
+char *msg_nomem_i = "Error adding Username node, skipping";
 
 /* log record errors */
 char *msg_big_rec = "Error: Skipping oversized log record";
@@ -90,6 +102,7 @@ char *msg_big_host= "Warning: Truncating oversized hostname";
 char *msg_big_date= "Warning: Truncating oversized date field";
 char *msg_big_req = "Warning: Truncating oversized request field";
 char *msg_big_ref = "Warning: Truncating oversized referrer field";
+char *msg_big_user= "Warning: Truncating oversized username";
 char *msg_big_one = "Warning: String exceeds storage size";
 
 /* misc errors */
@@ -102,9 +115,8 @@ char *h_msg[]= {
          "-h        = print this help message"             ,
          "-v -V     = print version information"           ,
          "-d        = print additional debug info"         ,
-         "-F        = Use FTP log format"                  ,
+         "-F type   = Log type.  type= (clf | ftp | squid)",
          "-f        = fold sequence errors"                ,
-         "-g        = use GMT (UTC) timestamps"            ,
          "-i        = ignore history file"                 ,
          "-p        = preserve state (incremental)"        ,
          "-q        = supress informational messages"      ,
@@ -114,7 +126,7 @@ char *h_msg[]= {
          "-H        = supress hourly stats"                ,
          "-L        = supress color coded graph legends"   ,
          "-l num    = use num background lines on graph"   ,
-         "-m num    = Visit timeout value (HHMMSS format)" ,
+         "-m num    = Visit timeout value (seconds)"       ,
          "-T        = print timing information"            ,
          "-c file   = use configuration file 'file'"       ,
          "-n name   = hostname to use"                     ,
@@ -131,9 +143,14 @@ char *h_msg[]= {
          "-C num    = Display num top countries"           ,
          "-R num    = Display num top referrers"           ,
          "-S num    = Display num top sites"               ,
-         "-U num    = Display num top URL's"               ,
+         "-U num    = Display num top URLs"                ,
          "-e num    = Display num top Entry Pages"         ,
-         "-E num    = Display num top Exit Pages"          };
+         "-E num    = Display num top Exit Pages"          ,
+         "-g num    = Group Domains to 'num' levels"       ,
+         "-X        = Hide individual sites"               ,
+         "-D name   = Use DNS Cache file 'name'"           ,
+         "-N num    = Number of DNS processes (0=disable)" ,
+         NULL};
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -182,6 +199,7 @@ char *msg_h_agent = "瀏覽器";
 char *msg_h_ref   = "來源網頁";
 char *msg_h_ctry  = "國家";
 char *msg_h_search= "Search String";
+char *msg_h_uname = "Username";
 
 /* links along top of page */
 char *msg_hlnk_ds = "每日統計";
@@ -194,6 +212,7 @@ char *msg_hlnk_r  = "來源網頁";
 char *msg_hlnk_en = "Entry";
 char *msg_hlnk_ex = "Exit";
 char *msg_hlnk_sr = "Search";
+char *msg_hlnk_i  = "Users";
 
 /* monthly total table */
 char *msg_mtot_ms = "每月統計--";
@@ -204,6 +223,7 @@ char *msg_mtot_us = "來源網站總數（不包含重覆者）";
 char *msg_mtot_ur = "來源網頁總數（不包含重覆者）";
 char *msg_mtot_ua = "來源瀏覽器總數（不包含重覆者）";
 char *msg_mtot_uu = "被讀取的網頁路徑總數（不包含重覆者）";
+char *msg_mtot_ui = "Total Unique Usernames";
 char *msg_mtot_mhd= "Hits per Day";
 char *msg_mtot_mhh= "Hits per Hour";
 char *msg_mtot_mfd= "Files per Day";
@@ -233,6 +253,13 @@ char *msg_top_c   = "個國家";
 char *msg_top_en  = "Total Entry Pages";
 char *msg_top_ex  = "Total Exit Pages";
 char *msg_top_sr  = "Total Search Strings";
+char *msg_top_i   = "Total Usernames";
+char *msg_v_sites = "View All Sites";
+char *msg_v_urls  = "View All URLs";
+char *msg_v_refs  = "View All Referrers";
+char *msg_v_agents= "View All User Agents";
+char *msg_v_search= "View All Search Strings";
+char *msg_v_users = "View All Usernames";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
 char *s_month[12]={ "一月", "二月", "三月",
@@ -295,13 +322,7 @@ char *msg_h_other = "Other";
 
 /* Country codes (previously in ctry.h header file) */
 
-struct	country_code { u_long idx;
-                         char *desc;
-                       u_long count;
-                       u_long files;
-                       double  xfer;
-                     } ctry[] = {
-
+struct	country_code ctry[] = {
 { 0,                      "Unresolved/Unknown",               0,0,0 },
 { IDX_3C('c','o','m'),    "US Commercial",                    0,0,0 },
 { IDX_3C('e','d','u'),    "US Educational",                   0,0,0 },
@@ -554,6 +575,5 @@ struct	country_code { u_long idx;
 { IDX_2C('z','a'),        "South Africa",                     0,0,0 },
 { IDX_2C('z','m'),        "Zambia",                           0,0,0 },
 { IDX_2C('z','r'),        "Zaire",                            0,0,0 },
-{ IDX_2C('z','w'),        "Zimbabwe",                         0 ,0,0}};
-
-#define MAX_CTRY (int)(sizeof(ctry)/sizeof(struct country_code))
+{ IDX_2C('z','w'),        "Zimbabwe",                         0,0,0 },
+{ 0,                      NULL,                               0,0,0}};

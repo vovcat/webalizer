@@ -1,7 +1,7 @@
 #
 # Makefile for webalizer - a web server log analysis program
 #
-# Copyright (C) 1997-1999  Bradford L. Barrett (brad@mrunix.net)
+# Copyright (C) 1997-2000  Bradford L. Barrett (brad@mrunix.net)
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,48 +21,79 @@ exec_prefix = @exec_prefix@
 
 BINDIR = @bindir@
 MANDIR = @mandir@/man1
+ETCDIR = @ETCDIR@
 CC     = @CC@
 CFLAGS = @CFLAGS@
 LIBS   = @LIBS@
-DEFS   = @DEFS@
+DEFS   = -DETCDIR=\"@ETCDIR@\" @DEFS@ @OPTS@
 LDFLAGS= @LDFLAGS@
 INSTALL= @INSTALL@
 INSTALL_PROGRAM=@INSTALL_PROGRAM@
 INSTALL_DATA=@INSTALL_DATA@
 
 # where are the GD header files?
-GDLIB  = @GDLIB@
+GDLIB=@GDLIB@
 
 # Shouldn't have to touch below here!
 
 all: webalizer
 
-webalizer: webalizer.o webalizer.h graphs.o graphs.h ctry.h webalizer_lang.h
-	$(CC) ${LDFLAGS} -o webalizer webalizer.o graphs.o ${LIBS}
+webalizer:	webalizer.o webalizer.h hashtab.o hashtab.h  \
+		linklist.o linklist.h preserve.o preserve.h  \
+                dns_resolv.o dns_resolv.h parser.o parser.h  \
+                output.o output.h graphs.o graphs.h lang.h   \
+		webalizer_lang.h
+	$(CC) ${LDFLAGS} -o webalizer webalizer.o hashtab.o linklist.o preserve.o parser.o output.o dns_resolv.o graphs.o ${LIBS}
+	rm -f webazolver
+	@LN_S@ webalizer webazolver
 
-webalizer.o: webalizer.c webalizer.h webalizer_lang.h ctry.h
+webalizer.o:	webalizer.c webalizer.h parser.h output.h preserve.h \
+		graphs.h dns_resolv.h webalizer_lang.h
 	$(CC) ${CFLAGS} ${DEFS} -c webalizer.c
 
-graphs.o: graphs.c graphs.h webalizer_lang.h
+parser.o:	parser.c parser.h webalizer.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c parser.c
+
+hashtab.o:	hashtab.c hashtab.h dns_resolv.h webalizer.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c hashtab.c
+
+linklist.o:	linklist.c linklist.h webalizer.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c linklist.c
+
+output.o:	output.c output.h webalizer.h preserve.h \
+		hashtab.h graphs.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c output.c
+
+preserve.o:	preserve.c preserve.h webalizer.h parser.h   \
+		hashtab.h graphs.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c preserve.c
+
+dns_resolv.o:	dns_resolv.c dns_resolv.h lang.h webalizer.h
+	$(CC) ${CFLAGS} ${DEFS} -c dns_resolv.c
+
+graphs.o:	graphs.c graphs.h webalizer.h lang.h
 	$(CC) ${CFLAGS} ${DEFS} -I${GDLIB} -c graphs.c
 
 clean:
-	rm -f webalizer *.o usage*.gif daily*.gif hourly*.gif ctry*.gif
-	rm -f *.html *.hist *.current core
+	rm -f webalizer webazolver *.o usage*.png daily*.png hourly*.png
+	rm -f ctry*.png *.html *.hist *.current core *.gif
 
 distclean: clean
-	rm -f webalizer.conf *.tar *.tgz *.Z
+	rm -f webalizer.conf *.tar *.tgz *.Z *.tar.gz
 	rm -f Makefile webalizer_lang.h config.cache config.log config.status
 	@LN_S@ lang/webalizer_lang.@DEFAULT_LANG@ webalizer_lang.h
 
 install: all
 	$(INSTALL_PROGRAM) webalizer ${BINDIR}/webalizer
 	$(INSTALL_DATA) webalizer.1 ${MANDIR}/webalizer.1
-	$(INSTALL_DATA) sample.conf /etc/webalizer.conf.sample
+	$(INSTALL_DATA) sample.conf ${ETCDIR}/webalizer.conf.sample
+	rm -f ${BINDIR}/webazolver
+	@LN_S@ ${BINDIR}/webalizer ${BINDIR}/webazolver
 
 uninstall:
-	rm -f ${MANDIR}/webalizer.1
 	rm -f ${BINDIR}/webalizer
-	rm -f /etc/webalizer.conf.sample
+	rm -f ${BINDIR}/webazolver
+	rm -f ${MANDIR}/webalizer.1
+	rm -f ${ETCDIR}/webalizer.conf.sample
 	rm -f webalizer_lang.h
 	@LN_S@ lang/webalizer_lang.@DEFAULT_LANG@ webalizer_lang.h

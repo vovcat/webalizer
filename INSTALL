@@ -72,6 +72,13 @@ them in the normal system places, create a directory under the webalizer
 named 'gd' or 'gd1.3' for it and the script should find it without
 problems or extra command line switches).
 
+--enable-dns
+
+DNS lookup features are added.  This simply adds the -DUSE_DNS compiler
+switch.  Several dependencies are present when using the DNS code,
+which is why it must be enabled manually.  If you system supports the
+DNS functionality, great.. if not, don't enable it.
+
 Some systems may require unusual settings that the configure script
 cannot determine.  You can pass values to the script by setting
 environment variables.  For example:

@@ -1,7 +1,7 @@
 /*
    webalizer_lang.catalan
 
-   Webalizer V1.2x Language Support file for Catalan.
+   Webalizer V2.0x Language Support file for Catalan.
    31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
    23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
    19-Aug-1998 Translated by Jordi Bruguera (jordi@t800.grn.es)
@@ -9,6 +9,8 @@
    08-Mar-1999 Updated HTTP 1.1 response codes by Yves Lafon (ylafon@w3.org)
    28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
    05-Jul-1999 Additional corrections by Jordi Bruguera (jordi@t800.grn.es)
+   22-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
+   18-Oct-2000 Translated new strings for version 2.01-06 (jordi@t800.grn.es)
 
    Language files are named using the following convention:
 
@@ -42,6 +44,7 @@ char *language  = "Català";
 /* these are only used in timing totals */
 /* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
 char *msg_records = "registres";
+char *msg_addresses="adreces";
 char *msg_ignored = "ignorats";
 char *msg_bad     = "erronis";
 char *msg_in      = "en";
@@ -58,8 +61,8 @@ char *msg_ign_hist= "Ignorant registre anterior...";
 char *msg_no_hist = "No trobo el fitxer històric...";
 char *msg_get_hist= "Llegint fitxer històric...";
 char *msg_put_hist= "Guardant informació a l'històric...";
-char *msg_hist_err= "Error: No puc escriure al fitxer històric";
-char *msg_bad_hist= "Error: Ignorant un registre no vàlid";
+char *msg_hist_err= "Error: no puc escriure al fitxer històric";
+char *msg_bad_hist= "Error: ignorant un registre no vàlid";
 char *msg_bad_conf= "Error: no puc obrir el fitxer de configuració";
 char *msg_bad_key = "Avís: paraula clau no valida";
 char *msg_bad_date= "Error: saltant registre (data dolenta)";
@@ -72,9 +75,17 @@ char *msg_get_data= "Llegint dades d'una execució prèvia...";
 char *msg_put_data= "Guardant dades d'execució en curs...";
 char *msg_no_data = "No trobo les dades de l'execució anterior...";
 /*char *msg_bad_data= "Registre amb dades incorrectes";*/
-char *msg_bad_data= "Error: Unable to restore run data";
-char *msg_data_err= "Error: No puc guardar les dades de l'execució en curs";
+char *msg_bad_data= "Error: no puc recuperar les dades de funcionament";
+char *msg_data_err= "Error: no puc guardar les dades de l'execució en curs";
 char *msg_dup_data= "Avís: He trobat dades que potser són duplicades";
+
+/* DNS Stuff */
+char *msg_dns_nocf= "El fitxer cau no ha estat especificat, plego.";
+char *msg_dns_nodb= "Error: no puc obrir el fitxer cau de servei de noms (DNS)";
+char *msg_dns_nolk= "Error: no puc bloquejar el fitxer cau de servei de noms (DNS)";
+char *msg_dns_usec= "Uso el fitxer cau de servei de noms (DNS)";
+char *msg_dns_rslv= "Recerca del nom (DNS)";
+char *msg_dns_none= "No hi ha valors per a processar";
 
 /* memory allocation errors */
 char *msg_nomem_ts= "No puc reservar prou memoria, desactivada la opció Nodes Principals";
@@ -83,12 +94,14 @@ char *msg_nomem_tu= "No puc reservar prou memoria, desactivada la opció URLs mes
 char *msg_nomem_tc= "No puc reservar prou memoria, desactivada la opció Per País d'Origen";
 char *msg_nomem_ta= "No puc reservar prou memoria, desactivada la opció Segons Navegador";
 char *msg_nomem_tsr="No puc reservar prou memoria, desactivada la opció Principals mots de recerca !";
+char *msg_nomem_ti= "No puc reservar prou memoria, desactivada la opció Principals noms d'usuari";
 char *msg_nomem_dh= "Error afegint el nom del node (diari), no el faig";
 char *msg_nomem_mh= "Error afegint el nom del node (mensual), no el faig";
 char *msg_nomem_u = "Error afegint la URL del node, no el faig";
 char *msg_nomem_a = "Error afegint el nom del navegador, no el faig";
 char *msg_nomem_r = "Error afegint el vincle d'origen, no el faig";
 char *msg_nomem_sc= "Error afegint el node de recerca per mots, me'l salto";
+char *msg_nomem_i = "Error afegint el node de nom d'usuari, me'l salto";
 
 /* registre record errors */
 char *msg_big_rec = "Error: Em salto un fitxer de registre. Massa gros";
@@ -96,6 +109,7 @@ char *msg_big_host= "Avís: El nom del servidor és massa llarg. El tallo.";
 char *msg_big_date= "Avís: La data és massa larga. La tallo.";
 char *msg_big_req = "Avís: El camp de petició és massa llarg. El tallo.";
 char *msg_big_ref = "Avís: El camp d'adrec,a d'origen és massa llarg. El tallo";
+char *msg_big_user= "Avís: Tallo un nom d'usuari massa larg";
 char *msg_big_one = "Avís: Hi ha una cadena de caràcters que supera la mida permesa";
 
 /* misc errors */
@@ -105,40 +119,44 @@ char *msg_no_open = "Error: No he pogut obrir el fitxer";
 char *h_usage1 = "Funcionament";
 char *h_usage2 = "[opcions] [fitxer històric (log)]";
 char *h_msg[]= {
-         "-h        = veure aquesta ajuda"                          ,
-         "-v -V     = veure la versió del programa"                  ,
-         "-d        = activar el mode trassa (depuració)" ,
-         "-F        = usar un fitxer de log d'FTP"                      ,
-         "-f        = ignorar errors de seqüència"                     ,
-         "-g        = usar zona horària GMT (UTC)"                     ,
-         "-i        = ignorar el fitxer"                             ,
-         "-p        = conservem dades actuals (incremental)"                ,
-         "-q        = suprimir els missatges d'informació"            ,
+         "-h        = veure aquesta ajuda"                        ,
+         "-v -V     = veure la versió del programa"               ,
+         "-d        = activar el mode trassa (depuració)"         ,
+         "-F tipus  = tipus de fitxer de registre.  tipus=(clf | ftp | squid)"       ,
+         "-f        = ignorar errors de seqüència"                ,
+         "-i        = ignorar el fitxer"                          ,
+         "-p        = conservem dades actuals (incremental)"      ,
+         "-q        = suprimir els missatges d'informació"        ,
          "-Q        = suprimir TOTS es missatges"                 ,
-         "-Y        = suprimir la gràfica de país"                          ,
-         "-G        = suprimir gràfica per hores"                    ,
-         "-H        = suprimir estadístiques per hores"              ,
-         "-L num    = suprimir les llegendes de color dels gràfics"             ,
-         "-l num    = valor de temps de visita (HHMMSS format)"           ,
-         "-T        = ensenyar temps cronometratge"                ,
-         "-c fitxer = usar el fitxer de configuració 'fitxer'"     ,
-         "-n nom    = nom de màquina"                           ,
-         "-o dir    = directori de sortida"                        ,
-         "-t titol  = títol dels resultats 'titol'"                 ,
-         "-a client = amagar informació relativa al navegador 'client'"       ,
-         "-r origen = amagar informació relativa als enllac,os origen 'origen'"          ,
-         "-s node   = amagar informació relativa al nom dels nodes 'node'"               ,
-         "-u url    = amagar informació relativa a les URL visitades 'url'"                    ,
-         "-x nom   = usa l'extensió del tipus 'nom'"                ,
-         "-P nom   = tipus de l'extensió de la plana 'nom'"                  ,
+         "-Y        = suprimir la gràfica de país"                ,
+         "-G        = suprimir gràfica per hores"                 ,
+         "-H        = suprimir estadístiques per hores"           ,
+         "-L num    = suprimir les llegendes de color dels gràfics",
+         "-l num    = valor de temps de visita (seconds)"         ,
+         "-T        = ensenyar temps cronometratge"               ,
+         "-c fitxer = usar el fitxer de configuració 'fitxer'"    ,
+         "-n nom    = nom de màquina"                             ,
+         "-o dir    = directori de sortida"                       ,
+         "-t titol  = títol dels resultats 'titol'"               ,
+         "-a client = amagar informació relativa al navegador 'client'" ,
+         "-r origen = amagar informació relativa als enllac,os origen 'origen'",
+         "-s node   = amagar informació relativa al nom dels nodes 'node'",
+         "-u url    = amagar informació relativa a les URL visitades 'url'",
+         "-x nom    = usa l'extensió del tipus 'nom'"             ,
+         "-P nom    = tipus de l'extensió de la plana 'nom'"      ,
          "-I alias  = Alias de l'Index 'alias'"                   ,
-         "-A n      = veure els n primers navegadors"      ,
+         "-A n      = veure els n primers navegadors"             ,
          "-C n      = veure els n primers països"                 ,
-         "-R n      = veure els n primers enllac,os origen"         ,
-         "-S n      = veure els n primers servidors"             ,
-         "-U n      = veure els n primers URLs"                    ,
-         "-e n      = veure les n primeres planes d'entrada"             ,
-         "-E n      = veure les n primeres planes de sortida"              };
+         "-R n      = veure els n primers enllac,os origen"       ,
+         "-S n      = veure els n primers servidors"              ,
+         "-U n      = veure els n primers URLs"                   ,
+         "-e n      = veure les n primeres planes d'entrada"      ,
+         "-E n      = veure les n primeres planes de sortida"     ,
+         "-g n      = agrupar els dominis a 'n' nivells"          ,
+         "-X        = amagar els sites individuals"               ,
+         "-D fitxer = usa el fitxer cau de noms 'fitxer'"                  ,
+         "-N num    = número de processos de cercadors de noms (0=disable)"        ,
+         NULL};
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -187,6 +205,7 @@ char *msg_h_agent = "Navegador";
 char *msg_h_ref   = "Enlla&ccedil; d' origen";
 char *msg_h_ctry  = "Pa&iacute;s";
 char *msg_h_search= "Paraula de recerca";
+char *msg_h_uname = "Nom d'usuari";
 
 /* links along top of page */
 char *msg_hlnk_ds = "Estad&iacute;stiques per dia";
@@ -199,6 +218,7 @@ char *msg_hlnk_r  = "Enlla&ccedil;os d'origen";
 char *msg_hlnk_en = "Entrada";
 char *msg_hlnk_ex = "Sortida";
 char *msg_hlnk_sr = "Recerca";
+char *msg_hlnk_i  = "Usuaris";
 
 /* monthly total table */
 char *msg_mtot_ms = "Estad&iacute;stiques mensuals";
@@ -209,6 +229,7 @@ char *msg_mtot_us = "Total de Servidors";
 char *msg_mtot_ur = "Total d' Enlla&ccedil;os d'Origen";
 char *msg_mtot_ua = "Total de Navegadors";
 char *msg_mtot_uu = "Total d'URLs";
+char *msg_mtot_ui = "Total de noms d'usuari";
 char *msg_mtot_mhd= "Accessos per dia";
 char *msg_mtot_mhh= "Accesos per hora";
 char *msg_mtot_mfd= "Fitxers per dia";
@@ -238,6 +259,13 @@ char *msg_top_c   = "pa&iuml;sos";
 char *msg_top_en  = "Total de planes d'entrada";
 char *msg_top_ex  = "Total de planes de sortida";
 char *msg_top_sr  = "Total de paraules de recerca";
+char *msg_top_i   = "Total de noms d'usuari";
+char *msg_v_sites = "Veure tots els llocs visitats";
+char *msg_v_urls  = "Veure totes les URL";
+char *msg_v_refs  = "Veure tots els enllaços d'origen";
+char *msg_v_agents= "Veure tots els navegadors";
+char *msg_v_search= "Veure totes les paraules de recerca";
+char *msg_v_users = "Veure tots els noms d'usuari";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
 
@@ -300,13 +328,7 @@ char *msg_h_other = "Altri";
 
 /* Country codes (previously in ctry.h header file) */
 
-struct	country_code { u_long idx;
-                         char *desc;
-                       u_long count;
-                       u_long files;
-                       double xfer;
-                     } ctry[] = {
-
+struct	country_code ctry[] = {
 { 0,                      "Unresolved/Unknown",               0,0,0 },
 { IDX_3C('c','o','m'),    "US Commercial",                    0,0,0 },
 { IDX_3C('e','d','u'),    "US Educational",                   0,0,0 },
@@ -559,6 +581,5 @@ struct	country_code { u_long idx;
 { IDX_2C('z','a'),        "South Africa",                     0,0,0 },
 { IDX_2C('z','m'),        "Zambia",                           0,0,0 },
 { IDX_2C('z','r'),        "Zaire",                            0,0,0 },
-{ IDX_2C('z','w'),        "Zimbabwe",                         0 ,0,0}};
-
-#define MAX_CTRY (int)(sizeof(ctry)/sizeof(struct country_code))
+{ IDX_2C('z','w'),        "Zimbabwe",                         0 ,0,0},
+{ 0,                      NULL,                               0,0,0}};

@@ -1,7 +1,7 @@
 /*
    webalizer_lang.portuguese
 
-   Webalizer V1.2x Language Support file for Portuguese.
+   Webalizer V2.0x Language Support file for Portuguese.
    15-May-1998 by Bradford L. Barrett (brad@mrunix.net)
    31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
    23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
@@ -9,6 +9,8 @@
                               (micheleamerica@mail.geocities.com)
    08-Mar-1999 Updated HTTP 1.1 response codes by Yves Lafon (ylafon@w3.org)
    28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
+   22-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
+   08-Mar-2002 Updated by Nuno Loureiro (nuno@eth.pt)
 
 
    Language files are named using the following convention:
@@ -43,6 +45,7 @@ char *language  = "Portuguese";
 /* these are only used in timing totals */
 /* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
 char *msg_records = "registos";
+char *msg_addresses="enderecos";
 char *msg_ignored = "ignorados";
 char *msg_bad     = "maus";
 char *msg_in      = "em";
@@ -77,6 +80,14 @@ char *msg_bad_data= "Error: Unable to restore run data";
 char *msg_data_err= "Erro: Impossivel guardar dados da execucao currente";
 char *msg_dup_data= "Aviso: Encontrados dados possivelmente duplicados";
 
+/* DNS Stuff */
+char *msg_dns_nocf= "No cache file specified, aborting...";
+char *msg_dns_nodb= "Error: Unable to open DNS cache file";
+char *msg_dns_nolk= "Error: Unable to lock DNS cache file";
+char *msg_dns_usec= "Using DNS cache file";
+char *msg_dns_rslv= "DNS Lookup";
+char *msg_dns_none= "None to process";
+
 /* memory allocation errors */
 char *msg_nomem_ts= "Impossivel alocar memoria suficiente, Top Sites desligado!";
 char *msg_nomem_tr= "Impossivel alocar memoria suficiente, Top Referrers desligado!";
@@ -84,12 +95,14 @@ char *msg_nomem_tu= "Impossivel alocar memoria suficiente, Top URLs desligado!";
 char *msg_nomem_tc= "Impossivel alocar memoria suficiente, Top Countries desligado!";
 char *msg_nomem_ta= "Impossivel alocar memoria suficiente, Top User Agents desligado!";
 char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
+char *msg_nomem_ti= "Can't allocate enough memory, Top Usernames disabled!";
 char *msg_nomem_dh= "Erro ao adicionar host (diario), a ignorar";
 char *msg_nomem_mh= "Erro ao adicionar host (mensal), a ignorar";
 char *msg_nomem_u = "Erro ao adicionar URL, a ignorar";
 char *msg_nomem_a = "Erro ao adicionar User Agent, a ignorar";
 char *msg_nomem_r = "Erro ao adicionar Referrer, a ignorar";
 char *msg_nomem_sc= "Error adding Search String node, skipping";
+char *msg_nomem_i = "Error adding Username node, skipping";
 
 /* log record errors */
 char *msg_big_rec = "Erro: A ignorar registo grande de mais";
@@ -97,6 +110,7 @@ char *msg_big_host= "Aviso: A truncar hostname grande de mais";
 char *msg_big_date= "Aviso: A truncar campo de data grande de mais";
 char *msg_big_req = "Aviso: A truncar campo de pedido grande de mais";
 char *msg_big_ref = "Aviso: A truncar campo de referrer grande de mais";
+char *msg_big_user= "Warning: Truncating oversized username";
 char *msg_big_one = "Aviso: Cadeia de caracteres excede tamanho de armazenamento";
 
 /* misc errors */
@@ -106,41 +120,45 @@ char *msg_no_open = "Erro: Impossivel abrir ficheiro";
 char *h_usage1 = "Utilizacao";
 char *h_usage2 = "[opcoes] [ficheiro de log]";
 char *h_msg[]= {
-         "-h        = mostra esta mensagem de ajuda"             ,
-         "-v -V     = mostra info sobre versao"           ,
-         "-d        = mostra info adicional para debug"         ,
-         "-F        = Use FTP log format"                       ,
-         "-f        = fold sequence errors"                     ,
-         "-g        = usar TMG (TUC) para os timestamps"            ,
-         "-i        = ignorar ficheiro de historico"                 ,
-         "-p        = preservar estado (incremental)"        ,
-         "-q        = suprimir mensagens de informacao"      ,
-         "-Q        = suprimir _TODAS_ as mensagens"              ,
-         "-Y        = supress country graph"                      ,
-         "-G        = suprimir grafico por horas"                ,
-         "-H        = suprimir estatisticas por horas"                ,
-         "-L        = supress color coded graph legends"         ,
-         "-l num    = use num background lines on graph"         ,
-         "-m num    = Visit timeout value (HHMMSS format)"       ,
-         "-T        = mostra informacao de timing"            ,
-         "-c fich   = usar ficheiro de configuracao 'fich'"       ,
-         "-n nome   = usar hostname 'nome'"                     ,
-         "-o dir    = directoriode output a usar"             ,
+         "-h        = mostra esta mensagem de ajuda"       ,
+         "-v -V     = mostra info sobre versao"            ,
+         "-d        = mostra info adicional para debug"    ,
+         "-F type   = Log type.  type= (clf | ftp | squid)",
+         "-f        = fold sequence errors"                ,
+         "-i        = ignorar ficheiro de historico"       ,
+         "-p        = preservar estado (incremental)"      ,
+         "-q        = suprimir mensagens de informacao"    ,
+         "-Q        = suprimir _TODAS_ as mensagens"       ,
+         "-Y        = supress country graph"               ,
+         "-G        = suprimir grafico por horas"          ,
+         "-H        = suprimir estatisticas por horas"     ,
+         "-L        = supress color coded graph legends"   ,
+         "-l num    = use num background lines on graph"   ,
+         "-m num    = Visit timeout value (seconds)"       ,
+         "-T        = mostra informacao de timing"         ,
+         "-c fich   = usar ficheiro de configuracao 'fich'",
+         "-n nome   = usar hostname 'nome'"                ,
+         "-o dir    = directorio de output a usar"          ,
          "-t nome   = titulo do relatorio"                 ,
-         "-a nome   = esconder user agent 'nome'"              ,
-         "-r nome   = esconder referrer 'nome'"                ,
-         "-s nome   = esconder site 'nome'"                    ,
-         "-u nome   = esconder URL 'nome'"                     ,
-         "-x name   = Use filename extension 'name'"           ,
-         "-P name   = Page type extension 'name'"              ,
-         "-I nome   = alias para Index 'nome'"                  ,
+         "-a nome   = esconder user agent 'nome'"          ,
+         "-r nome   = esconder referrer 'nome'"            ,
+         "-s nome   = esconder site 'nome'"                ,
+         "-u nome   = esconder URL 'nome'"                 ,
+         "-x name   = Use filename extension 'name'"       ,
+         "-P name   = Page type extension 'name'"          ,
+         "-I nome   = alias para Index 'nome'"             ,
          "-A num    = Mostrar num top agents"              ,
          "-C num    = Mostrar num top countries"           ,
          "-R num    = Mostrar num top referrers"           ,
          "-S num    = Mostrar num top sites"               ,
-         "-U num    = Mostrar num top URL's"               ,
+         "-U num    = Mostrar num top URLs"                ,
          "-e num    = Mostrar num top Entry Pages"         ,
-         "-E num    = Mostrar num top Exit Pages"          };
+         "-E num    = Mostrar num top Exit Pages"          ,
+         "-g num    = Group Domains to 'num' levels"       ,
+         "-X        = Hide individual sites"               ,
+         "-D name   = Use DNS Cache file 'name'"           ,
+         "-N num    = Number of DNS processes (0=disable)" ,
+         NULL};
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -179,7 +197,7 @@ char *msg_h_mth   = "Mês";
 char *msg_h_hour  = "Hora";
 char *msg_h_hits  = "Hits";
 char *msg_h_pages = "Pages";
-char *msg_h_visits= "Visits";
+char *msg_h_visits= "Visitas";
 char *msg_h_files = "Ficheiros";
 char *msg_h_sites = "Sites";
 char *msg_h_xfer  = "KBytes";
@@ -188,34 +206,37 @@ char *msg_h_url   = "URL";
 char *msg_h_agent = "User Agent";
 char *msg_h_ref   = "Referrer";
 char *msg_h_ctry  = "Pais";
-char *msg_h_search= "Search String";
+char *msg_h_search= "String de Pesquisa";
+char *msg_h_uname = "Username";
 
 /* links along top of page */
 char *msg_hlnk_ds = "Estatística Diária";
 char *msg_hlnk_hs = "Estatística por Hora";
-char *msg_hlnk_u  = "URL's";
+char *msg_hlnk_u  = "URLs";
 char *msg_hlnk_s  = "Sites";
 char *msg_hlnk_a  = "Agents";
 char *msg_hlnk_c  = "Paises";
 char *msg_hlnk_r  = "Referrers";
-char *msg_hlnk_en = "Entry";
-char *msg_hlnk_ex = "Exit";
-char *msg_hlnk_sr = "Search";
+char *msg_hlnk_en = "Entrada";
+char *msg_hlnk_ex = "Saida";
+char *msg_hlnk_sr = "Pesquisa";
+char *msg_hlnk_i  = "Utilizadores";
 
 /* monthly total table */
 char *msg_mtot_ms = "Estatística Mensal de";
-char *msg_mtot_th = "Total de Acertos";
+char *msg_mtot_th = "Total de Hits";
 char *msg_mtot_tf = "Total de Ficheiros";
 char *msg_mtot_tx = "Total de KBytes";
 char *msg_mtot_us = "Total de Sites Únicos";
 char *msg_mtot_ur = "Total de Referrers Únicos";
 char *msg_mtot_ua = "Total de User Agents Únicos";
-char *msg_mtot_uu = "Total de URL's Únicos";
+char *msg_mtot_uu = "Total de URLs Únicos";
+char *msg_mtot_ui = "Total de Usernames unicos";
 char *msg_mtot_mhd= "Hits por Dia";
 char *msg_mtot_mhh= "Hits por Hora";
 char *msg_mtot_mfd= "Files por Dia";
-char *msg_mtot_mpd= "Pages por Dia";
-char *msg_mtot_mvd= "Visits por Dia";
+char *msg_mtot_mpd= "Paginas por Dia";
+char *msg_mtot_mvd= "Visitas por Dia";
 char *msg_mtot_mkd= "KBytes por Dia";
 char *msg_mtot_rc = "Hits por Código de Resposta";
 
@@ -233,13 +254,20 @@ char *msg_ctry_use= "Utilização por País de";
 char *msg_top_top = "Top";
 char *msg_top_of  = "de";
 char *msg_top_s   = "Sites";
-char *msg_top_u   = "URL's";
+char *msg_top_u   = "URLs";
 char *msg_top_r   = "Referrers";
 char *msg_top_a   = "User Agents";
 char *msg_top_c   = "Paises";
-char *msg_top_en  = "Total Entry Pages";
-char *msg_top_ex  = "Total Exit Pages";
-char *msg_top_sr  = "Total Search Strings";
+char *msg_top_en  = "Total Páginas de Entrada";
+char *msg_top_ex  = "Total Páginas de Saída";
+char *msg_top_sr  = "Total Strings de Pesquisa";
+char *msg_top_i   = "Total Usernames";
+char *msg_v_sites = "Ver todos os Sites";
+char *msg_v_urls  = "Ver todos os URLs";
+char *msg_v_refs  = "Ver todos os Referrers";
+char *msg_v_agents= "Ver todos os  User Agents";
+char *msg_v_search= "Ver todas as Strings de Pesquisa";
+char *msg_v_users = "Ver todos os Usernames";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
 char *s_month[12]={ "Jan", "Fev", "Mar",
@@ -301,13 +329,7 @@ char *msg_h_other = "Outros";
 
 /* Country codes (previously in ctry.h header file) */
 
-struct	country_code { u_long idx;
-                         char *desc;
-                       u_long count;
-                       u_long files;
-                       double  xfer;
-                     } ctry[] = {
-
+struct	country_code ctry[] = {
 { 0,                      "Unresolved/Unknown",               0,0,0 },
 { IDX_3C('c','o','m'),    "US Commercial",                    0,0,0 },
 { IDX_3C('e','d','u'),    "US Educational",                   0,0,0 },
@@ -560,6 +582,5 @@ struct	country_code { u_long idx;
 { IDX_2C('z','a'),        "South Africa",                     0,0,0 },
 { IDX_2C('z','m'),        "Zambia",                           0,0,0 },
 { IDX_2C('z','r'),        "Zaire",                            0,0,0 },
-{ IDX_2C('z','w'),        "Zimbabwe",                         0 ,0,0}};
-
-#define MAX_CTRY (int)(sizeof(ctry)/sizeof(struct country_code))
+{ IDX_2C('z','w'),        "Zimbabwe",                         0 ,0,0},
+{ 0,                      NULL,                               0,0,0}};

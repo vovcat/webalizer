@@ -2,13 +2,15 @@
 
    webalizer_lang.russian
 
-   Webalizer V1.2x Language Support file for Russian.
+   Webalizer V2.0x Language Support file for Russian.
    15-May-1998 by Bradford L. Barrett (brad@mrunix.net)
    31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
    23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
    18-Aug-1998 Translated by Sergey Groznyh <gsm@infosite.ru>
    08-Mar-1999 Updated HTTP 1.1 response codes by Yves Lafon (ylafon@w3.org)
    28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
+   22-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
+   10-Mar-2000 New 2.0 strings translated by Andrew A. Vasilyev (andy@demos.su)
 
    Language files are named using the following convention:
 
@@ -48,6 +50,7 @@ char *language  = "Russian";
 /* these are only used in timing totals */
 /* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
 char *msg_records = "записей";
+char *msg_addresses="адресов";
 char *msg_ignored = "проигнорировано";
 char *msg_bad     = "неверных";
 char *msg_in      = "за";
@@ -56,9 +59,9 @@ char *msg_seconds = "секунд";
 /* progress and setup error messages */
 char *msg_log_err = "Ошибка: нельзя открыть учётный файл";
 char *msg_log_use = "Используется учётный файл";
-char *msg_dir_err = "Ошибка: нельзя сменить директорий на";
+char *msg_dir_err = "Ошибка: нельзя сменить каталог на";
 char *msg_dir_use = "Результат создаётся в";
-char *msg_cur_dir = "текущем директории";
+char *msg_cur_dir = "текущем каталоге";
 char *msg_hostname= "Для отчётов используется имя хоста";
 char *msg_ign_hist= "Предыдущее состояние игнорируется...";
 char *msg_no_hist = "Файл состояния не найден...";
@@ -79,10 +82,17 @@ char *msg_gen_sum = "Генерируется общий отчёт";
 char *msg_get_data= "Читаются данные предыдущего запуска...";
 char *msg_put_data= "Сохраняются данные текущего запуска...";
 char *msg_no_data = "Данные предыдущего запуска не найдены...";
-/*char *msg_bad_data= "Неверная запись данных";*/
-char *msg_bad_data= "Error: Unable to restore run data";
+char *msg_bad_data= "Ошибка: нельзя восстановить данные предыдущего запуска";
 char *msg_data_err= "Ошибка: нельзя сохранить данные текущего запуска";
 char *msg_dup_data= "Предупреждение: обнаружено возможное дублирование данных";
+
+/* DNS Stuff */
+char *msg_dns_nocf= "Не указан кэш-файл, останов...";
+char *msg_dns_nodb= "Ошибка: нельзя открыть кэш-файл DNS";
+char *msg_dns_nolk= "Ошибка: нельзя блокировать кэш-файл DNS";
+char *msg_dns_usec= "Используется DNS кэш-файл";
+char *msg_dns_rslv= "DNS поиск";
+char *msg_dns_none= "Нечего обрабатывать";
 
 /* memory allocation errors */
 char *msg_nomem_ts= "Нельзя зарезервировать достаточно памяти, статистика сайтов отключена!";
@@ -90,13 +100,15 @@ char *msg_nomem_tr= "Нельзя зарезервировать достаточно памяти, статистика ссылаю
 char *msg_nomem_tu= "Нельзя зарезервировать достаточно памяти, статистика URL отключена!";
 char *msg_nomem_tc= "Нельзя зарезервировать достаточно памяти, статистика стран отключена!";
 char *msg_nomem_ta= "Нельзя зарезервировать достаточно памяти, статистика броузеров отключена!";
-char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
+char *msg_nomem_tsr="Нельзя зарезервировать достаточно памяти, статистика строк поиска отключена!";
+char *msg_nomem_ti= "Нельзя зарезервировать достаточно памяти, статистика имён пользователей отключена!";
 char *msg_nomem_dh= "Ошибка добавления узла хоста (дневной отчёт), пропускается";
 char *msg_nomem_mh= "Ошибка добавления узла хоста (месячный отчёт), пропускается";
 char *msg_nomem_u = "Ошибка добавления узла URL, пропускается";
 char *msg_nomem_a = "Ошибка добавления узла броузера, пропускается";
 char *msg_nomem_r = "Ошибка добавления узла ссылки, пропускается";
-char *msg_nomem_sc= "Error adding Search String node, skipping";
+char *msg_nomem_sc= "Ошибка добавления узла строки поиска, пропускается";
+char *msg_nomem_i = "Ошибка добавления узла имени пользователя, пропускается";
 
 /* log record errors */
 char *msg_big_rec = "Ошибка: пропускается слишком длинная учётная запись";
@@ -104,6 +116,7 @@ char *msg_big_host= "Предупреждение: пропускается слишком длинное имя хоста";
 char *msg_big_date= "Предупреждение: пропускается слишком длинное поле даты";
 char *msg_big_req = "Предупреждение: пропускается слишком длинное поле запроса";
 char *msg_big_ref = "Предупреждение: пропускается слишком длинное поле ссылающейся страницы";
+char *msg_big_user= "Предупреждение: пропускается слишком длинное поле имени пользователя";
 char *msg_big_one = "Предупреждение: строка превысила зарезервированный объём";
 
 /* misc errors */
@@ -116,38 +129,42 @@ char *h_msg[]= {
          "-h        = выдать это информационное сообщение"                 ,
          "-v -V     = выдать информацию о версии"                          ,
          "-d        = выдавать дополнительную отладочную информацию"       ,
-         "-F        = Use FTP log format"                                  ,
+	 "-F тип    = вид исходной статистики. тип = (clf | ftp | squid)"  ,
          "-f        = fold sequence errors"                                ,
-         "-g        = использовать зону GMT (UTC) в выводимых датах"       ,
          "-i        = игнорировать файл состояния"                         ,
          "-p        = сохранять информацию о состоянии (последовательно)"  ,
          "-q        = не выдавать информационных сообщений"                ,
          "-Q        = не выдавать _НИКАКИХ_ сообщений"                     ,
-         "-Y        = supress country graph"                               ,
+	 "-Y        = не выдавать график по странам"                       ,
          "-G        = не выдавать почасовой график"                        ,
          "-H        = не выдавать почасовую статистику"                    ,
-         "-L        = supress color coded graph legends"                   ,
-         "-l num    = use num background lines on graph"                   ,
-         "-m num    = Visit timeout value (HHMMSS format)"                 ,
+	 "-L        = не выдавать описание цветов в таблицах"              ,
+	 "-l число  = размер тени в 'число' линий"                         ,
+	 "-m число  = интервал для определения 'посещения' (seconds)"                 ,
          "-T        = выдать информацию о затраченном времени"             ,
          "-c файл   = использовать файл конфигурации 'файл'"               ,
          "-n имя    = использовать в качестве имени хоста"                 ,
-         "-o директ.= использовать в качестве выходного директория"        ,
+	 "-o кат.   = использовать в качестве выходного каталога"          ,
          "-t имя    = заголовок отчёта 'имя'"                              ,
          "-a имя    = не обрабатывать броузер 'имя'"                       ,
          "-r имя    = не обрабатывать ссылку 'имя'"                        ,
          "-s имя    = не обрабатывать хост 'имя'"                          ,
          "-u имя    = не обрабатывать URL 'имя'"                           ,
-         "-x name   = Use filename extension 'name'"                       ,
-         "-P name   = Page type extension 'name'"                          ,
+	 "-x имя    = использовать расширение 'имя' для HTML-файлов"       ,
+	 "-P имя    = файлы с расширением 'имя' - страницы на сервере"     ,
          "-I имя    = использовать как дополнительный индексный файл"      ,
          "-A число  = Отображать 'число' записей статистики броузеров"     ,
          "-C число  = Отображать 'число' записей статистики стран"         ,
          "-R число  = Отображать 'число' записей статистики ссылающихся страниц",
          "-S число  = Отображать 'число' записей статистики сайтов"        ,
          "-U число  = Отображать 'число' записей статистики URL"           ,
-         "-e num    = Display num top Entry Pages"                         ,
-         "-E num    = Display num top Exit Pages"                          };
+	 "-e число  = Отображать 'число' записей начальных страниц"        ,
+	 "-E число  = Отображать 'число' записей последних страниц"        ,
+	 "-g число  = Группировать домены уровня 'число'"                  ,
+	 "-X        = Скрыть отдельные сайты"                              ,
+	 "-D имя    = Использовать DNS 'имя' кэш-файл"                     ,
+	 "-N число  = Число DNS процессов (0=отключить)" ,
+         NULL};
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -176,7 +193,7 @@ char *msg_hmth_du = "Использование по дням на";
 char *msg_hmth_hu = "Использование по часам на";
 
 /* table header strings */
-char *msg_h_by    = "By";
+char *msg_h_by    = "по";
 char *msg_h_avg   = "В среднем";
 char *msg_h_max   = "Max";
 char *msg_h_total = "Всего";
@@ -184,18 +201,19 @@ char *msg_h_totals= "Всего";
 char *msg_h_day   = "День";
 char *msg_h_mth   = "Месяц";
 char *msg_h_hour  = "Час";
-char *msg_h_hits  = "Запросов";
-char *msg_h_pages = "Pages";
-char *msg_h_visits= "Visits";
-char *msg_h_files = "Файлов";
-char *msg_h_sites = "Сайтов";
-char *msg_h_xfer  = "Килобайт";
+char *msg_h_hits  = "запросов";
+char *msg_h_pages = "страниц";
+char *msg_h_visits= "посещений";
+char *msg_h_files = "файлов";
+char *msg_h_sites = "сайтов";
+char *msg_h_xfer  = "Кбайт";
 char *msg_h_hname = "Имя хоста";
 char *msg_h_url   = "URL";
 char *msg_h_agent = "Броузер";
 char *msg_h_ref   = "Ссылающаяся страница";
 char *msg_h_ctry  = "Страна";
-char *msg_h_search= "Search String";
+char *msg_h_search= "Строка поиска";
+char *msg_h_uname = "Имя пользователя";
 
 /* links along top of page */
 char *msg_hlnk_ds = "Статистика по дням";
@@ -205,9 +223,10 @@ char *msg_hlnk_s  = "Сайты";
 char *msg_hlnk_a  = "Броузеры";
 char *msg_hlnk_c  = "Страны";
 char *msg_hlnk_r  = "Ссылающиеся страницы";
-char *msg_hlnk_en = "Entry";
-char *msg_hlnk_ex = "Exit";
-char *msg_hlnk_sr = "Search";
+char *msg_hlnk_en = "Начальные страницы";
+char *msg_hlnk_ex = "Последние страницы";
+char *msg_hlnk_sr = "Поиск";
+char *msg_hlnk_i  = "Пользователи";
 
 /* monthly total table */
 char *msg_mtot_ms = "Статистика за месяц на";
@@ -218,12 +237,13 @@ char *msg_mtot_us = "Всего уникальных сайтов";
 char *msg_mtot_ur = "Всего уникальных ссылающихся страниц";
 char *msg_mtot_ua = "Всего уникальных броузеров";
 char *msg_mtot_uu = "Всего уникальных URL";
-char *msg_mtot_mhd= "Hits per Day";
-char *msg_mtot_mhh= "Hits per Hour";
-char *msg_mtot_mfd= "Files per Day";
-char *msg_mtot_mpd= "Pages per Day";
-char *msg_mtot_mvd= "Visits per Day";
-char *msg_mtot_mkd= "KBytes per Day";
+char *msg_mtot_ui = "Всего уникальных имён";
+char *msg_mtot_mhd= "Обращений в день";
+char *msg_mtot_mhh= "Обращений в час";
+char *msg_mtot_mfd= "Файлов в день";
+char *msg_mtot_mpd= "Страниц в день";
+char *msg_mtot_mvd= "Посещений в день";
+char *msg_mtot_mkd= "Объём в день (Кбайт)";
 char *msg_mtot_rc = "Запросы по кодам ответа";
 
 /* daily total table */
@@ -244,9 +264,16 @@ char *msg_top_u   = "URL";
 char *msg_top_r   = "ссылающихся страниц";
 char *msg_top_a   = "броузеров";
 char *msg_top_c   = "стран";
-char *msg_top_en  = "Total Entry Pages";
-char *msg_top_ex  = "Total Exit Pages";
-char *msg_top_sr  = "Total Search Strings";
+char *msg_top_en  = "начальных страниц";
+char *msg_top_ex  = "последних страниц";
+char *msg_top_sr  = "строк поиска";
+char *msg_top_i   = "имён пользователей";
+char *msg_v_sites = "Посмотреть все сайты";
+char *msg_v_urls  = "Посмотреть все URL-ы";
+char *msg_v_refs  = "Посмотреть все ссылающиеся страницы";
+char *msg_v_agents= "Посмотреть все броузеры";
+char *msg_v_search= "Посмотреть все строки поиска";
+char *msg_v_users = "Посмотреть все имена пользователей";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
 char *s_month[12]={ "Янв", "Фев", "Мар",
@@ -308,13 +335,7 @@ char *msg_h_other = "Прочие";
 
 /* Country codes (previously in ctry.h header file) */
 
-struct	country_code { u_long idx;
-                         char *desc;
-                       u_long count;
-                       u_long files;
-                       double  xfer;
-                     } ctry[] = {
-
+struct	country_code ctry[] = {
 { 0,                      "Нераспознанные/неизвестные",           0,0,0 },
 { IDX_3C('c','o','m'),    "США коммерческие",                     0,0,0 },
 { IDX_3C('e','d','u'),    "США образовательные",                  0,0,0 },
@@ -525,7 +546,7 @@ struct	country_code { u_long idx;
 { IDX_2C('s','o'),        "Сомали",                               0,0,0 },
 { IDX_2C('s','r'),        "Суринам",                              0,0,0 },
 { IDX_2C('s','t'),        "Сао Том и Принциповы острова",         0,0,0 },
-{ IDX_2C('s','u'),        "Бывший СССР",                          0,0,0 },
+{ IDX_2C('s','u'),        "Бывший СССР (SU)",                     0,0,0 },
 { IDX_2C('s','v'),        "Сальвадор",                            0,0,0 },
 { IDX_2C('s','y'),        "Сирия",                                0,0,0 },
 { IDX_2C('s','z'),        "Свазиланд",                            0,0,0 },
@@ -567,6 +588,5 @@ struct	country_code { u_long idx;
 { IDX_2C('z','a'),        "Южная Африка",                         0,0,0 },
 { IDX_2C('z','m'),        "Замбия",                               0,0,0 },
 { IDX_2C('z','r'),        "Заир",                                 0,0,0 },
-{ IDX_2C('z','w'),        "Зимбабве",                             0,0,0}};
-
-#define MAX_CTRY (int)(sizeof(ctry)/sizeof(struct country_code))
+{ IDX_2C('z','w'),        "Зимбабве",                             0,0,0 },
+{ 0,                      NULL,                                   0,0,0}};

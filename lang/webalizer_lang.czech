@@ -1,13 +1,16 @@
 /*
    webalizer_lang.czech
 
-   Webalizer V1.2x Language Support file for Czech.
+   Webalizer V2.0x Language Support file for Czech.
    15-May-1998 by Bradford L. Barrett (brad@mrunix.net)
    31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
    23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
    15-Oct-1998 Translation by Jiri T. Pelech (pes@inway.cz)
    08-Mar-1999 Updated HTTP 1.1 response codes by Yves Lafon (ylafon@w3.org)
    28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
+   22-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
+   07-Jun-2000 translation added words (Jindrich.Fucik@sh.cvut.cz)
+   28-Mar-2002 Fixes/corrections by Pavel Kolesnikov (k@les.cz)
 
    Language files are named using the following convention:
 
@@ -41,6 +44,7 @@ char *language  = "Czech";
 /* these are only used in timing totals */
 /* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
 char *msg_records = "zaznamu";
+char *msg_addresses="adres";
 char *msg_ignored = "ignorovano";
 char *msg_bad     = "chybnych";
 char *msg_in      = "za";
@@ -71,9 +75,17 @@ char *msg_get_data= "Ctu udaje z minuleho zpracovani...";
 char *msg_put_data= "Ukladam udaje aktualniho zpracovani...";
 char *msg_no_data = "Nemohu najit udaje z minuleho zpracovani...";
 /*char *msg_bad_data= "Neplatny datovy zaznam"; */
-char *msg_bad_data= "Error: Unable to restore run data";
+char *msg_bad_data= "Chyba: Nemohu obnovit data aktualniho zpracovani";
 char *msg_data_err= "Chyba: Nemohu ulozit udaje aktualniho zpracovani";
 char *msg_dup_data= "Pozor: Nalezeny pravdepodobne duplicitni udaje";
+
+/* DNS Stuff */
+char *msg_dns_nocf= "Nejsou specifikovany zadne cache soubory, koncim...";
+char *msg_dns_nodb= "Chyba: Namohu odevrit soubory DNS cache";
+char *msg_dns_nolk= "Chyba: Nemohu zamknout soubory DNS cache";
+char *msg_dns_usec= "Pouzivam soubory DNS cache";
+char *msg_dns_rslv= "DNS Kontrola";
+char *msg_dns_none= "Neni co zpracovat";
 
 /* memory allocation errors */
 char *msg_nomem_ts= "Nemohu alokovat dost pameti, Nej mista jsou nefunkcni!";
@@ -81,13 +93,15 @@ char *msg_nomem_tr= "Nemohu alokovat dost pameti, Nej odkazovace jsou nefunkcni!
 char *msg_nomem_tu= "Nemohu alokovat dost pameti, Nej URL jsou nefunkcni!";
 char *msg_nomem_tc= "Nemohu alokovat dost pameti, Nej zeme jsou nefunkcni!";
 char *msg_nomem_ta= "Nemohu alokovat dost pameti, Nej prohlizece jsou nefunkcni!";
-char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
+char *msg_nomem_tsr="Nemohu alokovat dost pameti, Nej hledane retezce jsou nefunkcni!";
+char *msg_nomem_ti= "Nemohu alokovat dost pameti, Nej uzivatele jsou nefunkcni!";
 char *msg_nomem_dh= "Chyba doplneni bloku pocitace (denni), preskakuji";
 char *msg_nomem_mh= "Chyba doplneni bloku pocitace (mesicni), preskakuji";
 char *msg_nomem_u = "Chyba doplneni bloku URL, preskakuji";
 char *msg_nomem_a = "Chyba doplneni bloku prohlizece, preskakuji";
 char *msg_nomem_r = "Chyba doplneni bloku odkazovace, preskakuji";
-char *msg_nomem_sc= "Error adding Search String Node, skipping";
+char *msg_nomem_sc= "Chyba doplneni hledanych retezcu, preskakuji";
+char *msg_nomem_i = "Chyba doplneni uzivatelu, preskakuji";
 
 /* log record errors */
 char *msg_big_rec = "Chyba: Preskakuji prilis dlouhy zaznam v logu";
@@ -95,48 +109,53 @@ char *msg_big_host= "Pozor: Orezavam prilis dlouhe jmeno pocitace";
 char *msg_big_date= "Pozor: Orezavam prilis dlouhe pole datumu";
 char *msg_big_req = "Pozor: Orezavam prilis dlouhe pole zadosti";
 char *msg_big_ref = "Pozor: Orezavam prilis dlouhe pole odkazovace";
+char *msg_big_user= "Pozor: Orezavam prilis dlouhe jmeno uzivatele";
 char *msg_big_one = "Pozor: Retezec prekrocil velikost ukladaciho mista";
 
 /* misc errors */
 char *msg_no_open = "Chyba: Nemohu otevrit soubor";
 
 /* Help display... */
-char *h_usage1 = "Usage";
+char *h_usage1 = "Pouzivani";
 char *h_usage2 = "[volby] [log soubor]";
 char *h_msg[]= {
-         "-h        = vypis tento help"                    ,
-         "-v -V     = vypis informaci o verzi"             ,
-         "-d        = vypis dalsi ladici informace"        ,
-         "-F        = Use FTP log format"                  ,
-         "-f        = fold sequence errors"                ,
-         "-g        = pouzij casove znacky v GMT (UTC)"    ,
-         "-i        = ignoruj soubor historie"             ,
-         "-p        = zapamatuj stav (inkrementalne)"      ,
-         "-q        = potlac informativni zpravy"          ,
-         "-Q        = potlac VSECHNY zpravy"               ,
-         "-Y        = supress country graph"               ,
-         "-G        = potlac hodinovy graf"                ,
-         "-H        = potlac hodinove statistiky"          ,
-         "-L        = supress color coded graph legends"   ,
-         "-l num    = use num background lines on graph"   ,
-         "-m num    = Visit timeout value (HHMMSS format)" ,
-         "-T        = vypis casove informace"              ,
-         "-c file   = pouzij konfig. soubor 'file'"        ,
-         "-n name   = pouzij jmeno pocitace"               ,
-         "-o adr    = vystupni adresar"                    ,
-         "-t name   = nazev sestavy 'name'"                ,
-         "-a name   = skryj prohlizec 'name'"              ,
-         "-r name   = skryj odkazovac 'name'"              ,
-         "-s name   = skryj misto 'name'"                  ,
-         "-u name   = skryj URL 'name'"                    ,
-         "-I name   = nazev Index(u) 'name'"               ,
-         "-A poc    = Zobraz poc Nej prohlizecu"           ,
-         "-C poc    = Zobraz poc Nej zemi"                 ,
-         "-R poc    = Zobraz poc Nej odkazovacu"           ,
-         "-S poc    = Zobraz poc Nej mist"                 ,
-         "-U poc    = Zobraz poc Nej URL"                  ,
-         "-e num    = Display num top Entry Pages"         ,
-         "-E num    = Display num top Exit Pages"          };
+         "-h        = vypis tento help"                      ,
+         "-v -V     = vypis informaci o verzi"               ,
+         "-d        = vypis dalsi ladici informace"          ,
+         "-F type   = typ logu.  type= (clf | ftp | squid)"  ,
+         "-f        = chyby v prekladu stranek"              ,
+         "-i        = ignoruj soubor historie"               ,
+         "-p        = zapamatuj stav (inkrementalne)"        ,
+         "-q        = potlac informativni zpravy"            ,
+         "-Q        = potlac VSECHNY zpravy"                 ,
+         "-Y        = potlac graf statu"                     ,
+         "-G        = potlac hodinovy graf"                  ,
+         "-H        = potlac hodinove statistiky"            ,
+         "-L        = potlac barevne kody v legendach grafu" ,
+         "-l poc    = pouzij 'num' radek v podkladu grafu"   ,
+         "-m poc    = cas pro navstevu (seconds)"            ,
+         "-T        = vypis casove informace"                ,
+         "-c file   = pouzij konfig. soubor 'file'"          ,
+         "-n name   = pouzij jmeno pocitace"                 ,
+         "-o adr    = vystupni adresar"                      ,
+         "-t name   = nazev sestavy 'name'"                  ,
+         "-a name   = skryj prohlizec 'name'"                ,
+         "-r name   = skryj odkazovac 'name'"                ,
+         "-s name   = skryj misto 'name'"                    ,
+         "-u name   = skryj URL 'name'"                      ,
+         "-I name   = nazev Index(u) 'name'"                 ,
+         "-A poc    = Zobraz 'poc' Nej prohlizecu"           ,
+         "-C poc    = Zobraz 'poc' Nej zemi"                 ,
+         "-R poc    = Zobraz 'poc' Nej odkazovacu"           ,
+         "-S poc    = Zobraz 'poc' Nej mist"                 ,
+         "-U poc    = Zobraz 'poc' Nej URL"                  ,
+         "-e poc    = Zobraz 'poc' vstupnich stranek"        ,
+         "-E poc    = Zobraz 'poc' odchozich stranek"        ,
+         "-g poc    = Seskup domeny do 'poc' urovni"         ,
+         "-X        = Skryt jednotlive site"                 ,
+         "-D name   = Pouzi DNS Cache 'name'"                ,
+         "-N poc    = Pocet DNS procesu (0=zakazat)"         ,
+         NULL};
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -165,7 +184,7 @@ char *msg_hmth_du = "Denní vyu¾ití za";
 char *msg_hmth_hu = "Hodinové vyu¾ití za";
 
 /* table header strings */
-char *msg_h_by    = "By";
+char *msg_h_by    = "podle";
 char *msg_h_avg   = "Prùm";
 char *msg_h_max   = "Max";
 char *msg_h_total = "Celkem";
@@ -173,9 +192,9 @@ char *msg_h_totals= "Celkem";
 char *msg_h_day   = "Den";
 char *msg_h_mth   = "Mìsíc";
 char *msg_h_hour  = "Hodina";
-char *msg_h_hits  = "Náv¹tìv";
-char *msg_h_pages = "Pages";
-char *msg_h_visits= "Visits";
+char *msg_h_hits  = "Pøístupù";
+char *msg_h_pages = "Stránek";
+char *msg_h_visits= "Náv¹tìv";
 char *msg_h_files = "Souborù";
 char *msg_h_sites = "Míst";
 char *msg_h_xfer  = "KBytù";
@@ -184,7 +203,8 @@ char *msg_h_url   = "URL";
 char *msg_h_agent = "Prohlí¾eè";
 char *msg_h_ref   = "Odkazovaè";
 char *msg_h_ctry  = "Zemì";
-char *msg_h_search= "Search";
+char *msg_h_search= "Hledání";
+char *msg_h_uname = "U¾ivatel";
 
 /* links along top of page */
 char *msg_hlnk_ds = "Denní statistiky";
@@ -194,9 +214,10 @@ char *msg_hlnk_s  = "Místa";
 char *msg_hlnk_a  = "Prohlí¾eèe";
 char *msg_hlnk_c  = "Zemì";
 char *msg_hlnk_r  = "Odkazovaèe";
-char *msg_hlnk_en = "Entry";
-char *msg_hlnk_ex = "Exit";
-char *msg_hlnk_sr = "Search";
+char *msg_hlnk_en = "Vstupy";
+char *msg_hlnk_ex = "Výstupy";
+char *msg_hlnk_sr = "Hledání";
+char *msg_hlnk_i  = "U¾ivatelé";
 
 /* monthly total table */
 char *msg_mtot_ms = "Mìsíèní statistiky za";
@@ -207,12 +228,13 @@ char *msg_mtot_us = "Celkem jedineèných míst";
 char *msg_mtot_ur = "Celkem jedineèných odkazovaèù";
 char *msg_mtot_ua = "Celkem jedineèných Prohlí¾eèù";
 char *msg_mtot_uu = "Celkem jedineèných URL";
-char *msg_mtot_mhd= "Hits per Day";
-char *msg_mtot_mhh= "Hits per Hour";
-char *msg_mtot_mfd= "Files per Day";
-char *msg_mtot_mpd= "Pages per Day";
-char *msg_mtot_mvd= "Visits per Day";
-char *msg_mtot_mkd= "KBytes per Day";
+char *msg_mtot_ui = "Celkem jedineèných u¾ivatelù";
+char *msg_mtot_mhd= "Objektù za den";
+char *msg_mtot_mhh= "Objektù za hodinu";
+char *msg_mtot_mfd= "Souborù za den";
+char *msg_mtot_mpd= "Stránek za den";
+char *msg_mtot_mvd= "Náv¹tìv za den";
+char *msg_mtot_mkd= "KBytú za den";
 char *msg_mtot_rc = "Náv¹tìvy podle kódu odpovìdi";
 
 /* daily total table */
@@ -233,9 +255,16 @@ char *msg_top_u   = "URL celkem";
 char *msg_top_r   = "odkazovaèù celkem";
 char *msg_top_a   = "prohlí¾eèù celkem";
 char *msg_top_c   = "zemí celkem";
-char *msg_top_en  = "Total Entry Pages";
-char *msg_top_ex  = "Total Exit Pages";
-char *msg_top_sr  = "Total Search Strings";
+char *msg_top_en  = "vstupních stránek celkem";
+char *msg_top_ex  = "výstupních stránek celkem";
+char *msg_top_sr  = "hledaných øetìzcù celkem";
+char *msg_top_i   = "u¾ivatelù celkem";
+char *msg_v_sites = "zobrazit v¹echny sítì";
+char *msg_v_urls  = "zobrazit v¹echny URL";
+char *msg_v_refs  = "zobrazit v¹echny referery";
+char *msg_v_agents= "zobrazit v¹echny u¾ivatelské prohlí¾eèe";
+char *msg_v_search= "zobrazit v¹echny hledané stránky";
+char *msg_v_users = "zobrazit v¹echna u¾ivatelská jména";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
 char *s_month[12]={ "Led", "Úno", "Bøe",
@@ -262,7 +291,7 @@ struct response_code response[] =
          { "Kód 206 - Èásteèný obsah",                  0 },
          { "Kód 300 - Vícenásobné volby",               0 },
          { "Kód 301 - Pøesunuto trvale",                0 },
-         { "Kód 302 - Found",                           0 },
+         { "Kód 302 - Pøítomno",                        0 },
          { "Kód 303 - Viz dal¹í",                       0 },
          { "Kód 304 - Nezmìnìno",                       0 },
          { "Kód 305 - Pou¾ij proxy",                    0 },
@@ -272,7 +301,7 @@ struct response_code response[] =
          { "Kód 402 - Vy¾adována platba",               0 },
          { "Kód 403 - Zakázáno",                        0 },
          { "Kód 404 - Nenalezeno",                      0 },
-         { "Kód 405 - Metoda nepovolena",               0 },
+         { "Kód 405 - Nepovolená Metoda",               0 },
          { "Kód 406 - Nepøípustné",                     0 },
          { "Kód 407 - Vy¾adována autentikace proxy",    0 },
          { "Kód 408 - Pøekroèen èasový limit",          0 },
@@ -283,8 +312,8 @@ struct response_code response[] =
          { "Kód 413 - Po¾adavek je pøíli¹ velký",       0 },
          { "Kód 414 - URI je pøíli¹ dlouhé",            0 },
          { "Kód 415 - Nepodporovaný typ média",         0 },
-         { "Kód 416 - Requested Range Not Satisfiable", 0 },
-         { "Kód 417 - Expectation Failed",              0 },
+         { "Kód 416 - Po¾adovaný rozsah neodpovídá",    0 },
+         { "Kód 417 - Oèekávání selhalo",               0 },
          { "Kód 500 - Intenrní chyba serveru",          0 },
          { "Kód 501 - Nezavedeno",                      0 },
          { "Kód 502 - ©patná brána",                    0 },
@@ -297,13 +326,7 @@ char *msg_h_other = "Jiné";
 
 /* Country codes (previously in ctry.h header file) */
 
-struct	country_code { u_long idx;
-                         char *desc;
-                       u_long count;
-                       u_long files;
-                       double  xfer;
-                     } ctry[] = {
-
+struct	country_code ctry[] = {
 { 0,                      "Nezji¹tìná/neznámá",               0,0,0 },
 { IDX_3C('c','o','m'),    "US komerèní",                      0,0,0 },
 { IDX_3C('e','d','u'),    "US akademická",                    0,0,0 },
@@ -556,6 +579,5 @@ struct	country_code { u_long idx;
 { IDX_2C('z','a'),        "Jihoafrická republika",            0,0,0 },
 { IDX_2C('z','m'),        "Zambie",                           0,0,0 },
 { IDX_2C('z','r'),        "Zair",                             0,0,0 },
-{ IDX_2C('z','w'),        "Zimbabwe",                         0,0,0 }};
-
-#define MAX_CTRY (int)(sizeof(ctry)/sizeof(struct country_code))
+{ IDX_2C('z','w'),        "Zimbabwe",                         0,0,0 },
+{ 0,                      NULL,                               0,0,0}};

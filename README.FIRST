@@ -1,4 +1,16 @@
-Upgrade information for the Webalizer Version 1.30
+Upgrade information for the Webalizer Version 2.01
+
+If you are using incremental mode, the data format for Version 2.01
+is incompatable with previous versions, so you should remove your data
+file (webalizer.current) and re-process from the beginning of the
+month to recreate it.  If you do not use incremental mode, then
+V2.00 should be a drop in replacement for 1.3x-xx, with the possible
+exception of the two changed command line switches, -g and -F.  In
+addition, there has been a number of new configuration keywords and
+command line options added.  Please see the CHANGES file for additional
+information regarding what has changed between versions.  You may also
+want to take a look at the DNS.README file for information on the new
+reverse DNS lookup capabilities.
 
 ***********
 * NOTICE! *
@@ -62,7 +74,8 @@ put some fake values (or real ones if you have them) and they
 will show up on the main index page.  If you have access to a
 unix command prompt and sed, you could also simply type:
 
-cat webalizer.hist | sed "s/$/ 0 0/g" > webalizer.hist
+cat webalizer.hist | sed "s/$/ 0 0/g" > webalizer.hist.tmp
+mv webalizer.hist.tmp webalizer.hist
 
 For those curious, the format of the history line is:
 Month# Year# Hits Files Sites KBytes Fdom Ldom Pages Visits
@@ -96,11 +109,53 @@ such behaviour, and I'm tired of getting all the email about it :)
 As a result, any existing files need to be renamed to include
 the extra two digits.  The old format was MMYY, new format is
 YYYYMM (and now they will sort correctly in directory listings :)
-For example, change the file "usage_0599.html"to "usage_199905.html",
-"ctry_usage_0599.gif" to "ctry_usage_199905.gif", and so on...
-You should change _all_ files in the output directory to use the
-new format.
+For example, change the file "usage_0599.html"to "usage_199905.html".
+Image files for previous months do not need to be changed unless you
+change the links in the previous month HTML pages as well.  The
+current month files will be automatically generated with the correct
+names.
 
+Mike Glover submitted this little shell script that helps automate the
+updating of files/filenames:
+
+------------------------ CUT HERE ------------------------
+#!/bin/sh
+#
+# Mike Glover
+# mpg4@duluoz.net
+#
+# fixalizer.sh -- automatically upgrade webalizer data files
+
+START=`pwd`
+
+#for each domain...
+while [ "$1" ]; do
+  DOM=$1
+  echo "Updating $DOM"
+  cd $DOM
+
+  # we don't use incremental mode, so don't worry about it
+
+  # modify the history files
+  cat webalizer.hist | sed "s/$/ 0 0/g" > tempfile
+  mv tempfile webalizer.hist
+
+  # don't worry about new configuration options
+
+  # rename existing files to use 4 digit year.
+  for ENT in *usage_*; do
+    #fixes most names
+    NEW=`echo $ENT | sed 's/\(^.*_\)\([0-9]\{2\}\)\([0-9]\{1,2\}\)/\119\3\2/g'`
+    #pesky y2k names need repairs
+    NEW2=`echo $NEW | sed 's/\(^.*_\)\(190\)\([0-9]\{2\}\)/\12000\3/g'`
+    mv $ENT $NEW2
+  done
+
+  # next iteration
+  cd $START
+  shift
+done
+------------------------ CUT HERE ------------------------
 
 ---------------------------------------------------------------------
 ---------------------------------------------------------------------

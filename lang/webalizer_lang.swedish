@@ -1,7 +1,7 @@
 /*
    webalizer_lang.swedish
 
-   Webalizer V1.2x Language Support file for Swedish.
+   Webalizer V2.0x Language Support file for Swedish.
    15-May-1998 by Bradford L. Barrett (brad@mrunix.net)
    31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
    23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
@@ -11,6 +11,9 @@
    26-Apr-1999 More typos fixed, thanks to "Mika Perälä" <mika@unit.liu.se>
                (daniel@bergstrom.net)
    28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
+   14-Oct-1999 Additional translation by David Cross (david.cross@forefront.net)
+   22-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
+   01-Jun-2000 Modified/corrected by Joaquim Homrighausen (joho@webbplatsen.se)
 
    Please fix all typos, or drop me a note and i will fix it and submit
    patches upstream. /daniel
@@ -47,6 +50,7 @@ char *language  = "Swedish";
 /* these are only used in timing totals */
 /* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
 char *msg_records = "poster";
+char *msg_addresses="adresser";
 char *msg_ignored = "ignorerade";
 char *msg_bad     = "felaktiga";
 char *msg_in      = "i";
@@ -81,27 +85,38 @@ char *msg_bad_data= "Error: Unable to restore run data";
 char *msg_data_err= "Fel: kan inte spara data från denna omgång";
 char *msg_dup_data= "Varning: Hittar data som sannolikt är duplicerad";
 
+/* DNS Stuff */
+char *msg_dns_nocf= "Ingen cachefil specificerad...";
+char *msg_dns_nodb= "Fel: Kan inte öppna DNS-cachefilen";
+char *msg_dns_nolk= "Fel: Kan inte låsa DNS-cachefilen";
+char *msg_dns_usec= "Använder DNS-cachefilen";
+char *msg_dns_rslv= "DNS Anrop";
+char *msg_dns_none= "Ingen att bearbeta";
+
 /* memory allocation errors */
-char *msg_nomem_ts= "Kan inte allokera minne, Stänger av 'Top sites'";
-char *msg_nomem_tr= "Kan inte allokera minne, Stänger av 'Top referrers'";
-char *msg_nomem_tu= "Kan inte allokera minne, Stänger av 'Top URLs'";
-char *msg_nomem_tc= "Kan inte allokera minne, Stänger av 'Top Countries'";
-char *msg_nomem_ta= "Kan inte allokera minne, Stänger av 'Top User Agents'";
-char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
+char *msg_nomem_ts= "Kan inte allokera minne, stänger av 'Top sites'";
+char *msg_nomem_tr= "Kan inte allokera minne, stänger av 'Top referrers'";
+char *msg_nomem_tu= "Kan inte allokera minne, stänger av 'Top URLs'";
+char *msg_nomem_tc= "Kan inte allokera minne, stänger av 'Top Countries'";
+char *msg_nomem_ta= "Kan inte allokera minne, stänger av 'Top User Agents'";
+char *msg_nomem_tsr="Kan inte allokera minne, stänger av 'Top Search Strings'";
+char *msg_nomem_ti= "Kan inte allokera minne, stänger av 'Top Usernames'";
 char *msg_nomem_dh= "Fel vid tillägg av dator i lista (daglig), hoppar över";
 char *msg_nomem_mh= "Fel vid tillägg av dator i lista (månatlig), hoppar över";
 char *msg_nomem_u = "Fel vid tillägg av URL i lista, hoppar över";
 char *msg_nomem_a = "Fel vid tillägg av klienttyp i lista, hoppar över";
 char *msg_nomem_r = "Fel vid tillägg av hänvisning i lista, hoppar över";
-char *msg_nomem_sc= "Error adding Search String node, skipping";
+char *msg_nomem_sc= "Fel vid tillägg av söksträng, hoppar över";
+char *msg_nomem_i = "Fel vid tillägg av användarnamn, hoppar över";
 
 /* log record errors */
 char *msg_big_rec = "Fel: hoppar över för stor post i loggfil";
-char *msg_big_host= "Varning: Stympar för stort datornamn";
-char *msg_big_date= "Varning: Stympar för stort datumfält";
-char *msg_big_req = "Varning: Stympar för stort frågefält";
-char *msg_big_ref = "Varning: Stympar för stort hänvisningsfält";
-char *msg_big_one = "Varning: Sträng överskrider strorleken på lagringsutrymme";
+char *msg_big_host= "Varning: Anpassar (kapar) för långt datornamn";
+char *msg_big_date= "Varning: Anpassar (kapar) för långt datumfält";
+char *msg_big_req = "Varning: Anpassar (kapar) för långt frågefält";
+char *msg_big_ref = "Varning: Anpassar (kapar) för långt hänvisningsfält";
+char *msg_big_user= "Warning: Anpassar (kapar) för långt användarnamn";
+char *msg_big_one = "Varning: Sträng överskrider storleken på lagringsutrymme";
 
 /* misc errors */
 char *msg_no_open = "Fel: kan inte öppna fil";
@@ -113,19 +128,18 @@ char *h_msg[]= {
          "-h         = skriv hjälptext"                        ,
          "-v -V      = skriv versionsinformation"              ,
          "-d         = skriv ytterligare debuginformation"     ,
-         "-F         = Use FTP log format"                     ,
-         "-f         = fold sequence errors"                   ,
-         "-g         = läs tid enligt GMT-standard"            ,
+         "-F typ     = Loggtyp.  typ= (clf | ftp | squid)"     ,
+         "-f         = hantera sekvensfel"                     ,
          "-i         = ignorera historiefilen"                 ,
          "-p         = bevara tillstånd (inkrementell)"        ,
          "-q         = visa ej informationsmeddelanden"        ,
          "-Q         = visa ej någon information"              ,
-         "-Y         = supress country graph"                  ,
+         "-Y         = skapa ej graf för länder"               ,
          "-G         = skapa ej graf för timmar"               ,
          "-H         = skapa ej statistik för timmar"          ,
          "-L         = supress color coded graph legends"      ,
-         "-l num     = use num background lines on graph"      ,
-         "-m num     = Visit timeout value (HHMMSS format)"    ,
+         "-l num     = skapa 'num' referenslinjer för grafer"  ,
+         "-m num     = Visit timeout value (seconds)"          ,
          "-T         = skriv information om tidsåtgång"        ,
          "-c fil     = använd konfigurationsfilen 'fil'"       ,
          "-n namn    = datornamn att använda"                  ,
@@ -135,7 +149,7 @@ char *h_msg[]= {
          "-r namn    = dölj hänvisning 'namn'"                 ,
          "-s namn    = dölj klientursprungsadress 'namn'"      ,
          "-u namn    = dölj URL 'namn'"                        ,
-         "-x namn    = Use filename extension 'namn'"          ,
+         "-x namn    = Använd filnamnsändelse 'namn'"          ,
          "-P namn    = Page type extension 'namn'"             ,
          "-I namn    = ha 'namn' som alias till index.html"    ,
          "-A antal   = visa 'antal' i listan över klienter"    ,
@@ -143,8 +157,13 @@ char *h_msg[]= {
          "-R antal   = visa 'antal' i listan över hänvisningar",
          "-S antal   = visa 'antal' i ursprungsadress-listan"  ,
          "-U antal   = visa 'antal' i listan över URL-er"      ,
-         "-e antal   = Display antal top Entry Pages"          ,
-         "-E antal   = Display antal top Exit Pages"           };
+         "-e antal   = Visa 'antal' i listan över ingångssidor",
+         "-E antal   = Visa 'antal' i listan över utgångssidor",
+         "-g antal   = Group Domains to 'antal' levels"        ,
+         "-X         = Göm individuella platser"               ,
+         "-D namn    = Använd DNS-cachfil 'namn'"              ,
+         "-N num     = Antal DNS-processer (0=stäng av)"       ,
+         NULL};
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -159,12 +178,12 @@ char *h_msg[]= {
 
 /* header strings */
 char *msg_hhdr_sp = "Period för summering";
-char *msg_hhdr_gt = "Genererad";
+char *msg_hhdr_gt = "Skapad";
 
 /* main index strings */
-char *msg_main_us = "Summering av användning för";
+char *msg_main_us = "Summering för";
 char *msg_main_per= "Senaste 12 månaderna";
-char *msg_main_sum= "Summering måndad för månad";
+char *msg_main_sum= "Summering månad för månad";
 char *msg_main_da = "Medel över dagen";
 char *msg_main_mt = "Månatliga summor";
 
@@ -182,45 +201,48 @@ char *msg_h_day   = "Dag";
 char *msg_h_mth   = "Månad";
 char *msg_h_hour  = "Timme";
 char *msg_h_hits  = "Träffar";
-char *msg_h_pages = "Pages";
-char *msg_h_visits= "Visits";
+char *msg_h_pages = "Sidor";
+char *msg_h_visits= "Besökare";
 char *msg_h_files = "Filer";
-char *msg_h_sites = "Klientursprungsadresser";
-char *msg_h_xfer  = "KByte";
+char *msg_h_sites = "Klientadresser";
+char *msg_h_xfer  = "kilobyte";
 char *msg_h_hname = "Värdnamn";
 char *msg_h_url   = "URL";
 char *msg_h_agent = "Klienttyp";
 char *msg_h_ref   = "Refererare";
 char *msg_h_ctry  = "Land";
-char *msg_h_search= "Search String";
+char *msg_h_search= "Söksträng";
+char *msg_h_uname = "Username";
 
 /* links along top of page */
 char *msg_hlnk_ds = "Daglig statistik";
 char *msg_hlnk_hs = "Statistik timme för timme";
 char *msg_hlnk_u  = "URLer";
-char *msg_hlnk_s  = "Klientursprungsadresser";
+char *msg_hlnk_s  = "Klientadresser";
 char *msg_hlnk_a  = "Klienttyper";
 char *msg_hlnk_c  = "Länder";
-char *msg_hlnk_r  = "Refererare";
-char *msg_hlnk_en = "Entry";
-char *msg_hlnk_ex = "Exit";
-char *msg_hlnk_sr = "Search";
+char *msg_hlnk_r  = "Hänvisare";
+char *msg_hlnk_en = "Ingång";
+char *msg_hlnk_ex = "Utgång";
+char *msg_hlnk_sr = "Sök";
+char *msg_hlnk_i  = "Users";
 
 /* monthly total table */
 char *msg_mtot_ms = "Månatlig statistik för";
 char *msg_mtot_th = "Totalt antal träffar";
 char *msg_mtot_tf = "Totalt antal filer";
 char *msg_mtot_tx = "Totalt antal kilobytes";
-char *msg_mtot_us = "Totalt antal unika klientursprung";
+char *msg_mtot_us = "Totalt antal unika klientadresser";
 char *msg_mtot_ur = "Totalt antal unika hänvisningar";
 char *msg_mtot_ua = "Totalt antal unika klienttyper";
 char *msg_mtot_uu = "Totalt antal unika URLer";
-char *msg_mtot_mhd= "Hits per Day";
-char *msg_mtot_mhh= "Hits per Hour";
-char *msg_mtot_mfd= "Files per Day";
-char *msg_mtot_mpd= "Pages per Day";
-char *msg_mtot_mvd= "Visits per Day";
-char *msg_mtot_mkd= "KBytes per Day";
+char *msg_mtot_ui = "Totalt antal unika användarnamn";
+char *msg_mtot_mhd= "Träffar per dag";
+char *msg_mtot_mhh= "Träffar per timme";
+char *msg_mtot_mfd= "Filer per dag";
+char *msg_mtot_mpd= "Sidor per dag";
+char *msg_mtot_mvd= "Besök per dag";
+char *msg_mtot_mkd= "Kilobytes per dag";
 char *msg_mtot_rc = "Träffar sorterade efter svarskod";
 
 /* daily total table */
@@ -241,9 +263,16 @@ char *msg_top_u   = "URLer";
 char *msg_top_r   = "hänvisnigar";
 char *msg_top_a   = "klienttyper";
 char *msg_top_c   = "länder";
-char *msg_top_en  = "Total Entry Pages";
-char *msg_top_ex  = "Total Exit Pages";
-char *msg_top_sr  = "Total Search Strings";
+char *msg_top_en  = "totalt ingångssidor";
+char *msg_top_ex  = "totalt utgångssidor";
+char *msg_top_sr  = "totalt söksträngar";
+char *msg_top_i   = "totalt användarnamn";
+char *msg_v_sites = "View All Sites";
+char *msg_v_urls  = "View All URLs";
+char *msg_v_refs  = "View All Referrers";
+char *msg_v_agents= "View All User Agents";
+char *msg_v_search= "View All Search Strings";
+char *msg_v_users = "View All Usernames";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
 char *s_month[12]={ "Jan", "Feb", "Mar",
@@ -266,7 +295,7 @@ struct response_code response[] =
          { "Kod 202 - Accepterad",                      0 },
          { "Kod 203 - Icke auktoritativ information",   0 },
          { "Kod 204 - Inget innehåll",                  0 },
-         { "Kod 205 - Återställ innehåll",              0 },
+         { "Kod 205 - återställ innehåll",              0 },
          { "Kod 206 - Partiellt innehåll",              0 },
          { "Kod 300 - Multipla val",                    0 },
          { "Kod 301 - Permanent flyttad",               0 },
@@ -305,13 +334,7 @@ char *msg_h_other = "Annan";
 
 /* Country codes (previously in ctry.h header file) */
 
-struct	country_code { u_long idx;
-                         char *desc;
-                       u_long count;
-                       u_long files;
-                       double  xfer;
-                     } ctry[] = {
-
+struct	country_code ctry[] = {
 { 0,                      "Ej uppslagen/okänd",               0,0,0 },
 { IDX_3C('c','o','m'),    "Kommersiell",                      0,0,0 },
 { IDX_3C('e','d','u'),    "USA, utbildning",                  0,0,0 },
@@ -334,7 +357,7 @@ struct	country_code { u_long idx;
 { IDX_2C('a','q'),        "Antarktis",                        0,0,0 },
 { IDX_2C('a','r'),        "Argentina",                        0,0,0 },
 { IDX_2C('a','s'),        "Amerikanska Samoa",                0,0,0 },
-{ IDX_2C('a','t'),        "Österrike",                        0,0,0 },
+{ IDX_2C('a','t'),        "österrike",                        0,0,0 },
 { IDX_2C('a','u'),        "Australien",                       0,0,0 },
 { IDX_2C('a','w'),        "Aruba",                            0,0,0 },
 { IDX_2C('a','z'),        "Azerbadjan",                       0,0,0 },
@@ -535,7 +558,7 @@ struct	country_code { u_long idx;
 { IDX_2C('t','m'),        "Turkmenistan",                     0,0,0 },
 { IDX_2C('t','n'),        "Tunisien",                         0,0,0 },
 { IDX_2C('t','o'),        "Tonga",                            0,0,0 },
-{ IDX_2C('t','p'),        "Östtimor",                         0,0,0 },
+{ IDX_2C('t','p'),        "östtimor",                         0,0,0 },
 { IDX_2C('t','r'),        "Turkiet",                          0,0,0 },
 { IDX_2C('t','t'),        "Trinidad och Tobago",              0,0,0 },
 { IDX_2C('t','v'),        "Tuvalu",                           0,0,0 },
@@ -563,6 +586,5 @@ struct	country_code { u_long idx;
 { IDX_2C('z','a'),        "Sydafrika",                        0,0,0 },
 { IDX_2C('z','m'),        "Zambia",                           0,0,0 },
 { IDX_2C('z','r'),        "Zaire",                            0,0,0 },
-{ IDX_2C('z','w'),        "Zimbabwe",                         0 ,0,0}};
-
-#define MAX_CTRY (int)(sizeof(ctry)/sizeof(struct country_code))
+{ IDX_2C('z','w'),        "Zimbabwe",                         0,0,0 },
+{ 0,                      NULL,                               0,0,0}};

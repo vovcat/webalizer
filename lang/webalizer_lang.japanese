@@ -1,24 +1,324 @@
-/* ctry.h */
+/*
+   webalizer_lang.japanese
 
-#define IDX_2C(c1,c2)       (((c1-'a'+1)<<5)+(c2-'a'+1) )
-#define IDX_3C(c1,c2,c3)    (((c1-'a'+1)<<10)+((c2-'a'+1)<<5)+(c3-'a'+1) )
-#define IDX_4C(c1,c2,c3,c4) (((c1-'a'+1)<<15)+((c2-'a'+1)<<10)+((c3-'a'+1)<<5)+(c4-'a'+1) )
+   Webalizer V2.0x Language Support file for Japanese.
+   09-Jun-2001 by Yasuhiko Takahashi<ty@club-e.co.jp>
 
-typedef struct country_code *CLISTPTR;
+   Language files are named using the following convention:
 
-/***********************************************
- * Everything below here has been moved to the *
- * Language specific file webalizer_lang.h     *
- * This remains for reference only...          *
- ***********************************************
+   webalizer_lang.LANGUAGE
 
-struct	country_code { u_long idx;
-                         char *desc;
-                       u_long count;
-                       u_long files;
-                       double  xfer;
-                     } ctry[] = {
+   where 'LANGUAGE' is the name of the language the file is
+   translated into (ie: webalizer_lang.russian for russian).
+   Either copy the desired language file to webalizer_lang.h
+   or create a symbolic link, then re-compile.
 
+   If you translate this file into a different language, please
+   send a copy to brad@mrunix.net.
+
+*/
+
+/***********************************************************************/
+/* DEFINE LANGUAGE NAME here                                           */
+/***********************************************************************/
+
+char *language  = "Japanese";
+
+/***********************************************************************/
+/*                                                                     */
+/* Informational messages                                              */
+/*                                                                     */
+/* These messages are only displayed while The Webalizer is being run, */
+/* usually to the screen, and are not part of the HTML output.         */
+/*                                                                     */
+/***********************************************************************/
+
+/* these are only used in timing totals */
+/* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
+char *msg_records = "records";
+char *msg_addresses="addresses";
+char *msg_ignored = "ignored";
+char *msg_bad     = "bad";
+char *msg_in      = "in";
+char *msg_seconds = "seconds";
+
+/* progress and setup error messages */
+char *msg_log_err = "Error: Can't open log file";
+char *msg_log_use = "Using logfile";
+char *msg_dir_err = "Error: Can't change directory to";
+char *msg_dir_use = "Creating output in";
+char *msg_cur_dir = "current directory";
+char *msg_hostname= "Hostname for reports is";
+char *msg_ign_hist= "Ignoring previous history...";
+char *msg_no_hist = "History file not found...";
+char *msg_get_hist= "Reading history file...";
+char *msg_put_hist= "Saving history information...";
+char *msg_hist_err= "Error: Unable to write history file";
+char *msg_bad_hist= "Error: Ignoring invalid history record";
+char *msg_bad_conf= "Error: Unable to open configuration file";
+char *msg_bad_key = "Warning: Invalid keyword";
+char *msg_bad_date= "Error: Skipping record (bad date)";
+char *msg_ign_nscp= "Skipping Netscape header record";
+char *msg_bad_rec = "Skipping bad record";
+char *msg_no_vrec = "No valid records found!";
+char *msg_gen_rpt = "Generating report for";
+char *msg_gen_sum = "Generating summary report";
+char *msg_get_data= "Reading previous run data..";
+char *msg_put_data= "Saving current run data...";
+char *msg_no_data = "Previous run data not found...";
+char *msg_bad_data= "Error: Unable to restore run data";
+char *msg_data_err= "Error: Unable to save current run data";
+char *msg_dup_data= "Warning: Possible duplicate data found";
+
+/* DNS Stuff */
+char *msg_dns_nocf= "No cache file specified, aborting...";
+char *msg_dns_nodb= "Error: Unable to open DNS cache file";
+char *msg_dns_nolk= "Error: Unable to lock DNS cache file";
+char *msg_dns_usec= "Using DNS cache file";
+char *msg_dns_rslv= "DNS Lookup";
+char *msg_dns_none= "None to process";
+
+/* memory allocation errors */
+char *msg_nomem_ts= "Can't allocate enough memory, Top Sites disabled!";
+char *msg_nomem_tr= "Can't allocate enough memory, Top Referrers disabled!";
+char *msg_nomem_tu= "Can't allocate enough memory, Top URLs disabled!";
+char *msg_nomem_tc= "Can't allocate enough memory, Top Countries disabled!";
+char *msg_nomem_ta= "Can't allocate enough memory, Top User Agents disabled!";
+char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
+char *msg_nomem_ti= "Can't allocate enough memory, Top Usernames disabled!";
+char *msg_nomem_dh= "Error adding host node (daily), skipping";
+char *msg_nomem_mh= "Error adding host node (monthly), skipping";
+char *msg_nomem_u = "Error adding URL node, skipping";
+char *msg_nomem_a = "Error adding User Agent node, skipping";
+char *msg_nomem_r = "Error adding Referrer node, skipping";
+char *msg_nomem_sc= "Error adding Search String Node, skipping";
+char *msg_nomem_i = "Error adding Username node, skipping";
+
+/* log record errors */
+char *msg_big_rec = "Error: Skipping oversized log record";
+char *msg_big_host= "Warning: Truncating oversized hostname";
+char *msg_big_date= "Warning: Truncating oversized date field";
+char *msg_big_req = "Warning: Truncating oversized request field";
+char *msg_big_ref = "Warning: Truncating oversized referrer field";
+char *msg_big_user= "Warning: Truncating oversized username";
+char *msg_big_one = "Warning: String exceeds storage size";
+
+/* misc errors */
+char *msg_no_open = "Error: Unable to open file";
+
+/* Help display... */
+char *h_usage1 = "Usage";
+char *h_usage2 = "[options] [log file]";
+char *h_msg[]= {
+         "-h        = print this help message"             ,
+         "-v -V     = print version information"           ,
+         "-d        = print additional debug info"         ,
+         "-F type   = Log type.  type= (clf | ftp | squid)",
+         "-f        = Fold sequence errors"                ,
+         "-i        = ignore history file"                 ,
+         "-p        = preserve state (incremental)"        ,
+         "-q        = supress informational messages"      ,
+         "-Q        = supress _ALL_ messages"              ,
+         "-Y        = supress country graph"               ,
+         "-G        = supress hourly graph"                ,
+         "-H        = supress hourly stats"                ,
+         "-L        = supress color coded graph legends"   ,
+         "-l num    = use num background lines on graph"   ,
+         "-m num    = Visit timout value (seconds)"        ,
+         "-T        = print timing information"            ,
+         "-c file   = use configuration file 'file'"       ,
+         "-n name   = hostname to use"                     ,
+         "-o dir    = output directory to use"             ,
+         "-t name   = report title 'name'"                 ,
+         "-a name   = hide user agent 'name'"              ,
+         "-r name   = hide referrer 'name'"                ,
+         "-s name   = hide site 'name'"                    ,
+         "-u name   = hide URL 'name'"                     ,
+         "-x name   = Use filename extension 'name'"       ,
+         "-P name   = Page type extension 'name'"          ,
+         "-I name   = Index alias 'name'"                  ,
+         "-A num    = Display num top agents"              ,
+         "-C num    = Display num top countries"           ,
+         "-R num    = Display num top referrers"           ,
+         "-S num    = Display num top sites"               ,
+         "-U num    = Display num top URLs"                ,
+         "-e num    = Display num top Entry Pages"         ,
+         "-E num    = Display num top Exit Pages"          ,
+         "-g num    = Group Domains to 'num' levels"       ,
+         "-X        = Hide individual sites"               ,
+         "-D name   = Use DNS Cache file 'name'"           ,
+         "-N num    = Number of DNS processes (0=disable)" ,
+         NULL};
+
+/***********************************************************************/
+/*                                                                     */
+/* HTML strings                                                        */
+/*                                                                     */
+/* These strings are used as part of the HTML output generated by The  */
+/* Webalizer.                                                          */
+/*                                                                     */
+/***********************************************************************/
+
+/* header strings */
+/* char *msg_hhdr_sp = "Summary Period";*/
+char *msg_hhdr_sp = "統計期間";
+char *msg_hhdr_gt = "作成日時";
+
+/* main index strings */
+char *msg_main_us = "Usage summary for";
+char *msg_main_per= "過去12ヶ月";
+char *msg_main_sum= "月の統計";
+char *msg_main_da = "一日あたりの平均";
+char *msg_main_mt = "月合計";
+
+/* month HTML page strings */
+char *msg_hmth_du = "Daily usage for";
+char *msg_hmth_hu = "Hourly usage for";
+
+/* table header strings */
+char *msg_h_by    = "By";
+char *msg_h_avg   = "平均";
+char *msg_h_max   = "最大";
+char *msg_h_total = "合計";
+char *msg_h_totals= "総合計";
+char *msg_h_day   = "日";
+char *msg_h_mth   = "月";
+char *msg_h_hour  = "時";
+char *msg_h_hits  = "Hits";
+char *msg_h_pages = "Pages";
+char *msg_h_visits= "Visits";
+char *msg_h_files = "Files";
+char *msg_h_sites = "Sites";
+char *msg_h_xfer  = "KBytes";
+char *msg_h_hname = "ホスト名";
+char *msg_h_url   = "URL";
+char *msg_h_agent = "ユーザエージェント";
+char *msg_h_ref   = "リファラー";
+char *msg_h_ctry  = "国";
+char *msg_h_search= "検索文字列";
+char *msg_h_uname = "ユーザ名";
+
+/* links along top of page */
+char *msg_hlnk_ds = "日ごとの統計";
+char *msg_hlnk_hs = "時間ごとの統計";
+char *msg_hlnk_u  = "URL";
+char *msg_hlnk_s  = "サイト";
+char *msg_hlnk_a  = "エージェント";
+char *msg_hlnk_c  = "国";
+char *msg_hlnk_r  = "リファラー";
+char *msg_hlnk_en = "エントリー";
+char *msg_hlnk_ex = "Exit";
+char *msg_hlnk_sr = "検索文字列";
+char *msg_hlnk_i  = "ユーザ数";
+
+/* monthly total table */
+char *msg_mtot_ms = "月の統計";
+char *msg_mtot_th = "全ヒット数";
+char *msg_mtot_tf = "全ファイル数";
+char *msg_mtot_tx = "全 KBytes数";
+char *msg_mtot_us = "個別サイト数";
+char *msg_mtot_ur = "個別リファラー数";
+char *msg_mtot_ua = "個別ユーザエージェント数";
+char *msg_mtot_uu = "個別URL数";
+char *msg_mtot_ui = "個別ユーザ数";
+char *msg_mtot_mhd= "一日あたりのヒット数";
+char *msg_mtot_mhh= "一時間あたりのヒット数";
+char *msg_mtot_mfd= "一日あたりのファイル数";
+char *msg_mtot_mpd= "一日あたりのページ数";
+char *msg_mtot_mvd= "一日あたりの訪問者数";
+char *msg_mtot_mkd= "一日あたりのKBytes数";
+char *msg_mtot_rc = "レスポンスコードごとのヒット数";
+
+/* daily total table */
+char *msg_dtot_ds = "日ごとの統計";
+
+/* hourly total table */
+char *msg_htot_hs = "時間ごとの統計";
+
+/* country pie chart */
+char *msg_ctry_use= "Usage by Country for";
+
+/* top tables */
+/* Formatted as "Top xxx of xxx Total something" */
+char *msg_top_top = "トップ";
+char *msg_top_of  = "of";
+char *msg_top_s   = "サイト";
+char *msg_top_u   = "全URL";
+char *msg_top_r   = "リファラー";
+char *msg_top_a   = "ユーザエージェント";
+char *msg_top_c   = "国";
+char *msg_top_en  = "Total Entry Pages";
+char *msg_top_ex  = "Total Exit Pages";
+char *msg_top_sr  = "Total Search Strings";
+char *msg_top_i   = "Total Usernames";
+char *msg_v_sites = "View All Sites";
+char *msg_v_urls  = "View All URLs";
+char *msg_v_refs  = "View All Referrers";
+char *msg_v_agents= "View All User Agents";
+char *msg_v_search= "View All Search Strings";
+char *msg_v_users = "View All Usernames";
+
+/* short month names MUST BE 3 CHARS in size... pad if needed*/
+char *s_month[12]={ "Jan", "Feb", "Mar",
+                    "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep",
+                    "Oct", "Nov", "Dec"};
+
+/* long month names - can be any length */
+char *l_month[12]={ "January",  "February", "March",   "April",
+                    "May",      "June",     "July",    "August",
+                    "September","October",  "November","December"};
+
+/* response code descriptions... order IS important!      */
+struct response_code response[] =
+       { { "Undefined response code",                    0 },
+         { "Code 100 - Continue",                        0 },
+         { "Code 101 - Switching Protocols",             0 },
+         { "Code 200 - OK",                              0 },
+         { "Code 201 - Created",                         0 },
+         { "Code 202 - Accepted",                        0 },
+         { "Code 203 - Non-Authoritative Information",   0 },
+         { "Code 204 - No Content",                      0 },
+         { "Code 205 - Reset Content",                   0 },
+         { "Code 206 - Partial Content",                 0 },
+         { "Code 300 - Multiple Choices",                0 },
+         { "Code 301 - Moved Permanently",               0 },
+         { "Code 302 - Found",                           0 },
+         { "Code 303 - See Other",                       0 },
+         { "Code 304 - Not Modified",                    0 },
+         { "Code 305 - Use Proxy",                       0 },
+         { "Code 307 - Moved Temporarily",               0 },
+         { "Code 400 - Bad Request",                     0 },
+         { "Code 401 - Unauthorized",                    0 },
+         { "Code 402 - Payment Required",                0 },
+         { "Code 403 - Forbidden",                       0 },
+         { "Code 404 - Not Found",                       0 },
+         { "Code 405 - Method Not Allowed",              0 },
+         { "Code 406 - Not Acceptable",                  0 },
+         { "Code 407 - Proxy Authentication Required",   0 },
+         { "Code 408 - Request Timeout",                 0 },
+         { "Code 409 - Conflict",                        0 },
+         { "Code 410 - Gone",                            0 },
+         { "Code 411 - Length Required",                 0 },
+         { "Code 412 - Precondition Failed",             0 },
+         { "Code 413 - Request Entity Too Large",        0 },
+         { "Code 414 - Request-URI Too Long",            0 },
+         { "Code 415 - Unsupported Media Type",          0 },
+         { "Code 416 - Requested Range Not Satisfiable", 0 },
+         { "Code 417 - Expectation Failed",              0 },
+         { "Code 500 - Internal Server Error",           0 },
+         { "Code 501 - Not Implemented",                 0 },
+         { "Code 502 - Bad Gateway",                     0 },
+         { "Code 503 - Service Unavailable",             0 },
+         { "Code 504 - Gateway Timeout",                 0 },
+         { "Code 505 - HTTP Version Not Supported",      0 } };
+
+char *msg_title   = "利用統計";
+char *msg_h_other = "Other";
+
+/* Country codes (previously in ctry.h header file) */
+
+struct  country_code ctry[] = {
 { 0,                      "Unresolved/Unknown",               0,0,0 },
 { IDX_3C('c','o','m'),    "US Commercial",                    0,0,0 },
 { IDX_3C('e','d','u'),    "US Educational",                   0,0,0 },
@@ -271,8 +571,5 @@ struct	country_code { u_long idx;
 { IDX_2C('z','a'),        "South Africa",                     0,0,0 },
 { IDX_2C('z','m'),        "Zambia",                           0,0,0 },
 { IDX_2C('z','r'),        "Zaire",                            0,0,0 },
-{ IDX_2C('z','w'),        "Zimbabwe",                         0 ,0,0}};
-
-#define MAX_CTRY (int)(sizeof(ctry)/sizeof(struct country_code))
-
-*/
+{ IDX_2C('z','w'),        "Zimbabwe",                         0,0,0 },
+{ 0              ,        NULL,                               0,0,0 }};

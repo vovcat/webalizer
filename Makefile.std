@@ -1,52 +1,97 @@
 #
 # Makefile for webalizer - a web server logfile analysis thingie
 #
-# (c)1997-1999 by Bradford L. Barrett (brad@mrunix.net)
+# (c)1997-2000 by Bradford L. Barrett (brad@mrunix.net)
 # Distributed under the GNU GPL. See "README" and "Copyright"
 # files supplied with this distribution for more information.
 #
 # This works on a Slackware 3.6 system, and should work out
 # of the box on other GCC based systems.  Tweek the values
 # below for your environment if needed before running make.
+#
 
 # Use these for SCO (and maybe others)
 #BINDIR = /usr/bin
 #MANDIR = /usr/man/man1
+#ETCDIR = /etc
 #CC     = cc
 #CFLAGS = -b elf
-#LIBS   = -lgd -lm
+#LIBS   = -lgd -lm -lpng -lz
+#LDFLAGS= -L../usr/local/lib
 
-# These for Linux (most GCC based systems)
-BINDIR = /usr/local/bin
-MANDIR = /usr/local/man/man1
+# These work on my Linux system
+BINDIR = ${exec_prefix}/bin
+MANDIR = ${prefix}/man/man1
+ETCDIR = /etc
 CC     = gcc
-CFLAGS = -O2 -Wall -fsigned-char
-LIBS   = -lgd -lm
+CFLAGS = -Wall -O2
+LIBS   = -lgd -lpng -lz -lm
+LDFLAGS= -L/usr/local/lib
 
 # where are the GD header files?
-GDLIB  = /usr/local/include/gd
+GDLIB=/usr/local/include
+
+# If you want the DNS resolve code, uncomment these
+# and comment out the LIBS defined above...  DNS code
+# is enabled with the -DUSE_DNS switch.
+
+DEFS    = -DETCDIR=\"${ETCDIR}\"
+#DEFS   = -DHAVE_GETOPT_H=1 -DHAVE_MATH_H=1 -DUSE_DNS
+#LIBS   = -lgd -lpng -lz -lm -ldb
+# Some might need this instead (Solaris?!?)
+#LIBS   = -lgd -lpng -lz -lm -ldb -lnsl -lsocket
+
+# If your GD lib was compiled with X/truetype, use this
+# or some variation of it:
+
+#LIBS   = -lgd -lpng -lz -lm -lX11 -lXpm -lttf
 
 # Shouldn't have to touch below here!
 
 all: webalizer
 
-webalizer: webalizer.o webalizer.h graphs.o graphs.h ctry.h
-	$(CC) ${CFLAGS} -o webalizer webalizer.o graphs.o ${LIBS}
+webalizer:	webalizer.o webalizer.h hashtab.o hashtab.h  \
+		linklist.o linklist.h preserve.o preserve.h  \
+                dns_resolv.o dns_resolv.h parser.o parser.h  \
+                output.o output.h graphs.o graphs.h lang.h   \
+		webalizer_lang.h
+	$(CC) ${LDFLAGS} -o webalizer webalizer.o hashtab.o linklist.o preserve.o parser.o output.o dns_resolv.o graphs.o ${LIBS}
 
-webalizer.o: webalizer.c webalizer.h webalizer_lang.h ctry.h
-	$(CC) ${CFLAGS} -c webalizer.c
+webalizer.o:	webalizer.c webalizer.h parser.h output.h preserve.h \
+		graphs.h dns_resolv.h webalizer_lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c webalizer.c
 
-graphs.o: graphs.c graphs.h webalizer_lang.h
-	$(CC) ${CFLAGS} -I${GDLIB} -c graphs.c
+parser.o:	parser.c parser.h webalizer.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c parser.c
+
+hashtab.o:	hashtab.c hashtab.h dns_resolv.h webalizer.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c hashtab.c
+
+linklist.o:	linklist.c linklist.h webalizer.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c linklist.c
+
+output.o:	output.c output.h webalizer.h preserve.h \
+		hashtab.h graphs.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c output.c
+
+preserve.o:	preserve.c preserve.h webalizer.h parser.h   \
+		hashtab.h graphs.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -c preserve.c
+
+dns_resolv.o:	dns_resolv.c dns_resolv.h lang.h webalizer.h
+	$(CC) ${CFLAGS} ${DEFS} -c dns_resolv.c
+
+graphs.o:	graphs.c graphs.h webalizer.h lang.h
+	$(CC) ${CFLAGS} ${DEFS} -I${GDLIB} -c graphs.c
 
 clean:
-	rm -f *.o webalizer
-	rm -f  usage*.gif daily*.gif hourly*.gif ctry*.gif
-	rm -f *.html *.hist core
+	rm -f webalizer *.o usage*.png daily*.png hourly*.png ctry*.png
+	rm -f *.html *.hist *.current core *.gif
 
 distclean: clean
-	rm -f webalizer.conf *.tar *.tgz *.Z
-	rm -f webalizer-static
+	rm -f webalizer.conf *.tar *.tgz *.Z *.tar.gz
+	rm -f Makefile webalizer_lang.h config.cache config.log config.status
+	ln -s lang/webalizer_lang.english webalizer_lang.h
 
 install: all
 	cp webalizer.1 ${MANDIR}/webalizer.1

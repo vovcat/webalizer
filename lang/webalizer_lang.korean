@@ -1,10 +1,11 @@
 /*
    webalizer_lang.korean
 
-   Webalizer V1.2x Language Support file for Korean.
+   Webalizer V2.0x Language Support file for Korean.
    10-Arp-1999 Translated by Seung-young Kim (nobreak@nobreak.com)
    20-Arp-1999 Corrections/updates by Seung-young Kim (nobreak@nobreak.com)
    28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
+   22-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
 
    Language files are named using the following convention:
 
@@ -38,6 +39,7 @@ char *language  = "Korean";
 /* these are only used in timing totals */
 /* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
 char *msg_records = "레코드";
+char *msg_addresses="addresses";
 char *msg_ignored = "무시";
 char *msg_bad     = "불량";
 char *msg_in      = "동작시간";
@@ -71,6 +73,14 @@ char *msg_bad_data= "오류: 통계 정보를 해석할 수 없음";
 char *msg_data_err= "오류: 통계 정보를 저장할 수 없음";
 char *msg_dup_data= "주의: 중복된 정보가 있음";
 
+/* DNS Stuff */
+char *msg_dns_nocf= "No cache file specified, aborting...";
+char *msg_dns_nodb= "Error: Unable to open DNS cache file";
+char *msg_dns_nolk= "Error: Unable to lock DNS cache file";
+char *msg_dns_usec= "Using DNS cache file";
+char *msg_dns_rslv= "DNS Lookup";
+char *msg_dns_none= "None to process";
+
 /* memory allocation errors */
 char *msg_nomem_ts= "메모리 부족, '상위 사이트' 건너뜀!";
 char *msg_nomem_tr= "메모리 부족, '상위 레퍼럴' 건너뜀!";
@@ -78,12 +88,14 @@ char *msg_nomem_tu= "메모리 부족, '상위 URL' 건너뜀!";
 char *msg_nomem_tc= "메모리 부족, '상위 국가' 건너뜀!";
 char *msg_nomem_ta= "메모리 부족, '상위 에이전트' 건너뜀!";
 char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
+char *msg_nomem_ti= "Can't allocate enough memory, Top Usernames disabled!";
 char *msg_nomem_dh= "호스트 추가 실패 (일별), 무시";
 char *msg_nomem_mh= "호스트 추가 실패 (월별), 무시";
 char *msg_nomem_u = "URL 추가 실패, 무시";
 char *msg_nomem_a = "에이전트 추가 실패, 무시";
 char *msg_nomem_r = "레퍼럴 추가 실패, 무시";
 char *msg_nomem_sc= "Error adding Search String node, skipping";
+char *msg_nomem_i = "Error adding Username node, skipping";
 
 /* log record errors */
 char *msg_big_rec = "오류: 초과 로그 레코드 무시";
@@ -91,6 +103,7 @@ char *msg_big_host= "주의: 긴 호스트네임 짜름";
 char *msg_big_date= "주의: 긴 날짜 필드 짜름";
 char *msg_big_req = "주의: 긴 요청 필드 짜름";
 char *msg_big_ref = "주의: 긴 레퍼럴 필드 짜름";
+char *msg_big_user= "Warning: Truncating oversized username";
 char *msg_big_one = "주의: 문자열 길이 초과";
 
 /* misc errors */
@@ -103,9 +116,8 @@ char *h_msg[]= {
          "-h        = 도움말 화면 출력"                    ,
          "-v -V     = 판번호 출력"                         ,
          "-d        = 추가 디버깅 정보 출력"               ,
-         "-F        = Use FTP log format"                  ,
+         "-F type   = Log type.  type= (clf | ftp | squid)",
          "-f        = fold sequence errors"                ,
-         "-g        = GMT (UTC) 시간 사용"                 ,
          "-i        = 히스토리 파일 무시"                  ,
          "-p        = 통계 정보 저장 (incremental)"        ,
          "-q        = 일반 정보 출력 생략"                 ,
@@ -115,7 +127,7 @@ char *h_msg[]= {
          "-H        = 시간별 통계 생략"                    ,
          "-L        = supress color coded graph legends"   ,
          "-l num    = use num background lines on graph"   ,
-         "-m num    = Visit timeout value (HHMMSS format)" ,
+         "-m num    = Visit timeout value (seconds)"       ,
          "-T        = 동작 시간 출력"                      ,
          "-c file   = 설정 파일"                           ,
          "-n name   = 호스트명"                            ,
@@ -134,7 +146,12 @@ char *h_msg[]= {
          "-S num    = 출력할 '상위 사이트' 개수"           ,
          "-U num    = 출력할 '상위 URL' 개수"              ,
          "-e num    = Display num top Entry Pages"         ,
-         "-E num    = Display num top Exit Pages"          };
+         "-E num    = Display num top Exit Pages"          ,
+         "-g num    = Group Domains to 'num' levels"       ,
+         "-X        = Hide individual sites"               ,
+         "-D name   = Use DNS Cache file 'name'"           ,
+         "-N num    = Number of DNS processes (0=disable)" ,
+         NULL};
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -183,6 +200,7 @@ char *msg_h_agent = "에이전트";
 char *msg_h_ref   = "레퍼럴";
 char *msg_h_ctry  = "국가";
 char *msg_h_search= "Search String";
+char *msg_h_uname = "Username";
 
 /* links along top of page */
 char *msg_hlnk_ds = "일별 통계";
@@ -195,6 +213,7 @@ char *msg_hlnk_r  = "레퍼럴";
 char *msg_hlnk_en = "Entry";
 char *msg_hlnk_ex = "Exit";
 char *msg_hlnk_sr = "Search";
+char *msg_hlnk_i  = "Users";
 
 /* monthly total table */
 char *msg_mtot_ms = "월별 통계";
@@ -203,8 +222,9 @@ char *msg_mtot_tf = "총 파일수";
 char *msg_mtot_tx = "총 KByte";
 char *msg_mtot_us = "총 개별 사이트";
 char *msg_mtot_ur = "총 개별 레퍼럴";
-char *msg_mtot_ua = "총 개별 에니전트";
+char *msg_mtot_ua = "총 개별 에이전트";
 char *msg_mtot_uu = "총 개별 URL";
+char *msg_mtot_ui = "Total Unique Usernames";
 char *msg_mtot_mhd= "Hits per Day";
 char *msg_mtot_mhh= "Hits per Hour";
 char *msg_mtot_mfd= "Files per Day";
@@ -234,6 +254,13 @@ char *msg_top_c   = "국가";
 char *msg_top_en  = "Total Entry Pages";
 char *msg_top_ex  = "Total Exit Pages";
 char *msg_top_sr  = "Total Search Strings";
+char *msg_top_i   = "Total Usernames";
+char *msg_v_sites = "View All Sites";
+char *msg_v_urls  = "View All URLs";
+char *msg_v_refs  = "View All Referrers";
+char *msg_v_agents= "View All User Agents";
+char *msg_v_search= "View All Search Strings";
+char *msg_v_users = "View All Usernames";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
 char *s_month[12]={ "Jan", "Feb", "Mar",
@@ -295,13 +322,7 @@ char *msg_h_other = "기타";
 
 /* Country codes (previously in ctry.h header file) */
 
-struct	country_code { u_long idx;
-                         char *desc;
-                       u_long count;
-                       u_long files;
-                       double  xfer;
-                     } ctry[] = {
-
+struct	country_code ctry[] = {
 { 0,                      "Unresolved/Unknown",               0,0,0 },
 { IDX_3C('c','o','m'),    "US Commercial",                    0,0,0 },
 { IDX_3C('e','d','u'),    "US Educational",                   0,0,0 },
@@ -554,6 +575,5 @@ struct	country_code { u_long idx;
 { IDX_2C('z','a'),        "South Africa",                     0,0,0 },
 { IDX_2C('z','m'),        "Zambia",                           0,0,0 },
 { IDX_2C('z','r'),        "Zaire",                            0,0,0 },
-{ IDX_2C('z','w'),        "Zimbabwe",                         0 ,0,0}};
-
-#define MAX_CTRY (int)(sizeof(ctry)/sizeof(struct country_code))
+{ IDX_2C('z','w'),        "Zimbabwe",                         0 ,0,0},
+{ 0,                      NULL,                               0,0,0}};

@@ -4,27 +4,96 @@ AC_INIT(webalizer.c)
 dnl default language (don't change!)
 DEFAULT_LANG="english"
 AC_SUBST(DEFAULT_LANG)
+OPTS=${DEFS}
+AC_SUBST(OPTS)
 
 dnl Checks for programs.
+IN_CFLAGS=${CFLAGS}
 AC_PROG_CC
 AC_PROG_LN_S
 AC_PROG_INSTALL
 AC_C_CHAR_UNSIGNED
 
+dnl force our own CFLAGS defaults
+if test "$GCC" = "yes"; then
+
+  AC_ARG_ENABLE(static,--enable-static           Build as static executable,
+  LDFLAGS="--static ${LDFLAGS}")
+
+  if test "$IN_CFLAGS" = ""; then
+     CFLAGS="-Wall -O2"
+  fi
+  if test "$ac_cv_c_char_unsigned" = "yes"; then
+     CFLAGS="-fsigned-char ${CFLAGS}"
+  fi
+
+  AC_ARG_ENABLE(debug,--enable-debug            Compile with debugging code,
+  CFLAGS="-g ${CFLAGS}")
+
+else
+  if test "$IN_CFLAGS" = ""; then
+     CFLAGS="-g"
+  fi
+fi
+
 dnl Check for command line arguments
+AC_ARG_WITH(etcdir,--with-etcdir=DIR         Where to look for default config file [[/etc]],
+ETCDIR="${withval}",CACHE_ETC="yes")
+
 AC_ARG_WITH(gdlib,--with-gdlib=DIR          Where to additionally look for libgd.a,
 EXTRA_GDLIB="${withval}", EXTRA_GDLIB="")
 AC_ARG_WITH(gd,--with-gd=DIR             Where to additionally look for gd headers,
-EXTRA_GD="${withval}", EXTRA_GD="")
+EXTRA_GD="${withval}"; CFLAGS="-I${withval} ${CFLAGS}", EXTRA_GD="")
 
-dnl force our own CFLAGS defaults
-if test "$GCC" = yes; then
-  CFLAGS="-Wall -O2"
-  if test "$ac_cv_c_char_unsigned" = "yes"; then
-   CFLAGS="${CFLAGS} -fsigned-char"
+AC_ARG_WITH(z-inc,--with-z-inc=DIR          Alternate location for libz headers,
+CFLAGS="-I${withval} ${CFLAGS}")
+
+AC_ARG_WITH(zlib,--with-zlib=DIR           Alternate location for libz library,
+LDFLAGS="-L${withval} ${LDFLAGS}")
+
+AC_ARG_WITH(png-inc,--with-png-inc=DIR        Alternate location of png header files, CFLAGS="-I${withval} ${CFLAGS}")
+
+AC_ARG_WITH(png,--with-png=DIR            Alternate location for libpng library,
+LDFLAGS="-L${withval} ${LDFLAGS}")
+
+AC_ARG_WITH(db,--with-db=DIR             Alternate location for db headers,
+CFLAGS="-I${withval} ${CFLAGS}")
+
+AC_ARG_WITH(dblib,--with-dblib=DIR          Alternate location for db library,
+LDFLAGS="-L${withval} ${LDFLAGS}"; HAVE_DB="yes", HAVE_DB="")
+
+dnl enable-dns forces use of DNS code
+AC_ARG_ENABLE(dns,--enable-dns              Enable DNS lookup code,
+USE_DNS="yes")
+
+dnl DNS library check
+if test "$USE_DNS" = "yes"; then
+  if test "$HAVE_DB" = ""; then
+    AC_CHECK_FUNCS(dbopen)
+    if test $ac_cv_func_dbopen = no; then
+      AC_SEARCH_LIBS(dbopen, db db1, OPTS="-DUSE_DNS ${OPTS}"; HAVE_DB="yes")
+      if test "$HAVE_DB" = ""; then
+        AC_MSG_WARN(You must have a V1.85 compatable DB library!)
+        AC_MSG_WARN(DNS lookup code will be disabled...)
+      fi
+    else
+      OPTS="-DUSE_DNS ${OPTS}"; HAVE_DB="yes"
+    fi
+  else
+    OPTS="-DUSE_DNS ${OPTS}"; LIBS="-ldb ${LIBS}"; HAVE_DB="yes"
   fi
-else
-  CFLAGS="-g"
+  if test "$HAVE_DB" = "yes"; then
+    dnl on my RH6 system, db.h is db_185.h ?!?
+    AC_CHECK_HEADERS(db_185.h)
+    AC_CHECK_HEADERS(errno.h)
+  fi
+  dnl Some systems need these at link time (not Linux)
+  AC_CHECK_FUNCS(socket)
+  if test $ac_cv_func_socket = no; then
+    AC_CHECK_LIB(socket, main, LIBS="-lsocket ${LIBS}";)
+  fi
+  AC_CHECK_HEADERS(sys/socket.h)
+  AC_CHECK_LIB(nsl, main, LIBS="-lnsl ${LIBS}")
 fi
 
 dnl Check for bsd 4.4 library -l44bsd:
@@ -33,10 +102,35 @@ AC_CHECK_LIB(44bsd, main, LIBS="-l44bsd ${LIBS}")
 dnl Check for math library -lm
 AC_CHECK_LIB(m, main, HAVE_LIBM="1"; LIBS="-lm ${LIBS}")
 
+dnl Check for z library -lz
+AC_CHECK_LIB(z, main,LIBZ="yes",LIBZ="no")
+if test "$LIBZ" = "no"; then
+  AC_MSG_ERROR(z library not found... please install zlib.)
+else
+ AC_CHECK_LIB(z, gzrewind,LIBS="-lz ${LIBS}",LIBZ="no")
+  if test "$LIBZ" = "no"; then
+   AC_MSG_ERROR(Old version of zlib found, please upgrade!)
+  fi
+fi
+
+dnl Check for png library -lpng
+AC_CHECK_LIB(png, main, LIBS="-lpng ${LIBS}", LIBPNG="no")
+ if test "$LIBPNG" = "no"; then
+  AC_MSG_ERROR(png library not found... please install png.)
+ fi
+
 dnl check for gd graphics library -lgd
-AC_CHECK_LIB(gd, main,LIBS="-lgd ${LIBS}"; HAVE_LIBGD="yes", HAVE_LIBGD="")
+if test "$EXTRA_GD" = ""; then
+  if test "$EXTRA_GDLIB" = ""; then
+   AC_CHECK_LIB(gd, gdImagePng,LIBS="-lgd ${LIBS}"; HAVE_LIBGD="yes", HAVE_LIBGD="")
+  fi
+fi
+
 if test "$HAVE_LIBGD" = ""; then
- AC_FIND_PATH(GDLOC,libgd.a,"", ${PREFIX}/lib ${PREFIX}/lib/gd /usr/local/lib /usr/local/lib/gd /usr/local/gd /usr/local/include /usr/local/include/gd /usr/lib/gd /usr/lib /lib ./ ./gd ./gd1.2 ./gd1.3 ${EXTRA_GDLIB} ${EXTRA_GD})
+ AC_FIND_PATH(GDLOC,libgd.a,"", ${PREFIX}/lib ${PREFIX}/lib/gd /usr/local/lib /usr/local/lib/gd /usr/local/gd /usr/local/include /usr/local/include/gd /usr/lib/gd /usr/lib /lib ./ ./gd ../gd ${EXTRA_GDLIB} ${EXTRA_GD})
+ if test "$GDLOC" = ""; then
+   AC_FIND_PATH(GDLOC,libgd.so,"", ${PREFIX}/lib ${PREFIX}/lib/gd /usr/local/lib /usr/local/lib/gd /usr/local/gd /usr/local/include /usr/local/include/gd /usr/lib/gd /usr/lib /lib ./ ./gd ../gd ${EXTRA_GDLIB} ${EXTRA_GD})
+ fi
  if test "$GDLOC" = ""; then
   AC_MSG_ERROR(gd library not found... please install gd.)
  else
@@ -46,11 +140,27 @@ if test "$HAVE_LIBGD" = ""; then
 fi
 
 dnl find path to GD library headers
-AC_FIND_PATH(GDLIB,gd.h,"",${PREFIX}/include ${PREFIX}/include/gd /usr/local/include/gd /usr/local/include /usr/include/gd /usr/include /include/gd /include ./gd ./gd1.2 ./gd1.3 . ${EXTRA_GD} ${EXTRA_GDLIB})
+AC_FIND_PATH(GDLIB,gd.h,"", ${PREFIX}/include ${PREFIX}/include/gd /usr/local/include/gd /usr/local/include /usr/include/gd /usr/include /include/gd /include ./ ./gd ../gd ${EXTRA_GD} ${EXTRA_GDLIB})
 dnl Abort if GD headers not found
 if test "$GDLIB" = ""; then
-AC_MSG_ERROR(gd headers not found... please install gd.)
+ AC_MSG_ERROR(gd headers not found... please install gd.)
 fi
+
+dnl additonal platform specific checks
+AC_CHECK_HEADERS(getopt.h)
+if test "$HAVE_LIBM" = "1"; then
+ AC_CHECK_HEADERS(math.h)
+fi
+
+AC_MSG_CHECKING(default config dir)
+if test "$CACHE_ETC" = "yes"; then
+ AC_CACHE_VAL(ac_cv_etcdir, ac_cv_etcdir=/etc)
+ ETCDIR=$ac_cv_etcdir
+fi
+ac_cv_etcdir=$ETCDIR
+AC_MSG_RESULT($ETCDIR)
+AC_SUBST(ETCDIR)
+
 LANG_CACHE=yes
 AC_ARG_WITH(language,--with-language=language  Use 'language' (default is english),
 WEBALIZER_LANG="${withval}"; LANG_CACHE=no, LANG_CACHE=yes)
@@ -75,12 +185,6 @@ else
  fi
 fi
 ac_cv_language=${WEBALIZER_LANG}
-
-dnl additonal platform specific checks
-AC_CHECK_HEADERS(getopt.h)
-if test "$HAVE_LIBM" = "1"; then
- AC_CHECK_HEADERS(math.h)
-fi
 
 dnl create link to language file
 AC_LINK_FILES(lang/webalizer_lang.${WEBALIZER_LANG}, webalizer_lang.h)

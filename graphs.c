@@ -1,7 +1,7 @@
 /*
     graphs.c  - produces graphs used by the Webalizer
 
-    Copyright (C) 1997-1999  Bradford L. Barrett (brad@mrunix.net)
+    Copyright (C) 1997-2001  Bradford L. Barrett (brad@mrunix.net)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -35,6 +35,10 @@
 #include <gdfonts.h>
 #include <gdfontmb.h>
 
+#include "webalizer.h"
+#include "lang.h"
+#include "graphs.h"
+
 /* Some systems don't define this */
 #ifndef PI
 #define PI 3.14159265358979323846
@@ -54,7 +58,6 @@
 
 /* forward reference internal routines */
 
-u_long  jdate(int, int, int);
 void    init_graph(char *, int, int);
 struct  pie_data *calc_arc(float, float);
 
@@ -65,7 +68,7 @@ char *numchar[] = { " 0"," 1"," 2"," 3"," 4"," 5"," 6"," 7"," 8"," 9","10",
                     "21","22","23","24","25","26","27","28","29","30","31"};
 
 gdImagePtr	im;                        /* image buffer        */
-FILE		*out;                      /* output file for GIF */
+FILE		*out;                      /* output file for PNG */
 char		maxvaltxt[32];             /* graph values        */
 float		percent;                   /* percent storage     */
 u_long		julday;                    /* julday value        */
@@ -92,16 +95,6 @@ int year_graph6x(  char *fname,            /* file name use      */
                  u_long data5[12],         /* data5 (views)      */
                  u_long data6[12])         /* data6 (visits)     */
 {
-   /* declare external language specific strings                 */
-   extern char *msg_h_hits;                /* "Hits" string      */
-   extern char *msg_h_files;               /* "Files"            */
-   extern char *msg_h_sites;               /* "Sites"            */
-   extern char *msg_h_xfer;                /* "KBytes"           */
-   extern char *msg_h_pages;               /* "Pages"            */
-   extern char *msg_h_visits;              /* "Visits"           */
-   extern char *s_month[12];               /* 3 char month names */
-   extern int  graph_legend;               /* legend toggle      */
-   extern int  graph_lines;                /* background lines   */
 
    /* local variables */
    int i,j,x1,y1,x2;
@@ -282,10 +275,10 @@ int year_graph6x(  char *fname,            /* file name use      */
       gdImageRectangle(im, x1, y1, x2, 232, black);
    }
 
-   /* save gif image */
+   /* save png image */
    if ((out = fopen(fname, "wb")) != NULL)
    {
-      gdImageGif(im, out);
+      gdImagePng(im, out);
       fclose(out);
    }
    /* deallocate memory */
@@ -313,15 +306,6 @@ int month_graph6(  char *fname,            /* filename           */
                  u_long data5[31],         /* data5 (views)      */
                  u_long data6[31])         /* data6 (visits)     */
 {
-   /* declare external language specific strings                 */
-   extern char *msg_h_hits;                /* "Hits" string      */
-   extern char *msg_h_files;               /* "Files"            */
-   extern char *msg_h_sites;               /* "Sites"            */
-   extern char *msg_h_xfer;                /* "KBytes"           */
-   extern char *msg_h_pages;               /* "Pages"            */
-   extern char *msg_h_visits;              /* "Visits"           */
-   extern int  graph_legend;               /* legend toggle      */
-   extern int  graph_lines;                /* background lines   */
 
    /* local variables */
    int i,j,s,x1,y1,x2;
@@ -501,7 +485,7 @@ int month_graph6(  char *fname,            /* filename           */
    /* open file for writing */
    if ((out = fopen(fname, "wb")) != NULL)
    {
-      gdImageGif(im, out);
+      gdImagePng(im, out);
       fclose(out);
    }
    /* deallocate memory */
@@ -522,12 +506,6 @@ int day_graph3(  char *fname,
                u_long data2[24],
                u_long data3[24])
 {
-   /* declare external language specific strings                 */
-   extern char *msg_h_hits;                /* "Hits" string      */
-   extern char *msg_h_files;               /* "Files"            */
-   extern char *msg_h_pages;               /* "Pages"            */
-   extern int  graph_legend;               /* legend toggle      */
-   extern int  graph_lines;                /* background lines   */
 
    /* local variables */
    int i,j,s,x1,y1,x2;
@@ -611,10 +589,10 @@ int day_graph3(  char *fname,
       gdImageRectangle(im, x1, y1, x2, 232, black);
    }
 
-   /* save as gif file */
+   /* save as png	file */
    if ( (out = fopen(fname, "wb")) != NULL)
    {
-      gdImageGif(im, out);
+      gdImagePng(im, out);
       fclose(out);
    }
    /* deallocate memory */
@@ -639,9 +617,6 @@ int pie_chart(char *fname, char *title, u_long t_val,
 
    struct pie_data gdata;
 
-   /* In webalizer_lang.h */
-   extern char *msg_h_other;
-
    /* init graph and colors */
    init_graph(title,512,300);
    purple  = gdImageColorAllocate(im, 128, 0, 128);
@@ -657,6 +632,7 @@ int pie_chart(char *fname, char *title, u_long t_val,
    /* slice the pie */
    gdata=*calc_arc(0.0,0.0);
    gdImageLine(im,CX,CY,gdata.x,gdata.y,black);  /* inital line           */
+
    for (i=0;i<10;i++)                      /* run through data array      */
    {
       if ((data1[i]!=0)&&(s_arc<1.0))      /* make sure valid slice       */
@@ -676,7 +652,7 @@ int pie_chart(char *fname, char *title, u_long t_val,
          }
 
          gdImageLine(im, CX, CY, gdata.x, gdata.y, black);
-         gdImageFillToBorder(im, gdata.mx, gdata.my, black, i+4);
+         gdImageFill(im, gdata.mx, gdata.my, i+4);
 
          sprintf(buffer,"%s (%d%%)",legend[i], percent);
          x=480-(strlen(buffer)*7);
@@ -690,17 +666,17 @@ int pie_chart(char *fname, char *title, u_long t_val,
    {
       gdata=*calc_arc(s_arc,1.0);
 
-      gdImageFillToBorder(im, gdata.mx, gdata.my, black, white);
+      gdImageFill(im, gdata.mx, gdata.my, white);
       sprintf(buffer,"%s (%d%%)",msg_h_other,100-(int)(s_arc*100));
       x=480-(strlen(buffer)*7);
       gdImageString(im,gdFontMediumBold, x+1, y+1, buffer, black);
       gdImageString(im,gdFontMediumBold, x, y, buffer, white);
    }
 
-   /* save gif image */
+   /* save png image */
    if ((out = fopen(fname, "wb")) != NULL)
    {
-      gdImageGif(im, out);
+      gdImagePng(im, out);
       fclose(out);
    }
    /* deallocate memory */
@@ -773,50 +749,4 @@ void init_graph(char *title, int xsize, int ysize)
    gdImageString(im, gdFontMediumBold, 20, 8, title, blue);
 
    return;
-}
-
-/*****************************************************************/
-/*                                                               */
-/* JDATE  - Julian date calculator                               */
-/*                                                               */
-/* Calculates the number of days since Jan 1, 0000.              */
-/*                                                               */
-/* Originally written by Bradford L. Barrett (03/17/1988)        */
-/* Returns an unsigned long value representing the number of     */
-/* days since January 1, 0000.                                   */
-/*                                                               */
-/* Note: Due to the changes made by Pope Gregory XIII in the     */
-/*       16th Centyry (Feb 24, 1582), dates before 1583 will     */
-/*       not return a truely accurate number (will be at least   */
-/*       10 days off).  Somehow, I don't think this will         */
-/*       present much of a problem for most situations :)        */
-/*                                                               */
-/* Usage: days = jdate(day, month, year)                         */
-/*                                                               */
-/* The number returned is adjusted by 5 to facilitate day of     */
-/* week calculations.  The mod of the returned value gives the   */
-/* day of the week the date is.  (ie: dow = days % 7 ) where     */
-/* dow will return 0=Sunday, 1=Monday, 2=Tuesday, etc...         */
-/*                                                               */
-/*****************************************************************/
-
-u_long jdate( int day, int month, int year )
-{
-   u_long days;                      /* value returned */
-   int mtable[] = {0,31,59,90,120,151,181,212,243,273,304,334};
-
-   /* First, calculate base number including leap and Centenial year stuff */
-
-   days=(((u_long)year*365)+day+mtable[month-1]+
-           ((year+4)/4) - ((year/100)-(year/400)));
-
-   /* now adjust for leap year before March 1st */
-
-   if ((year % 4 == 0) && !((year % 100 == 0) &&
-       (year % 400 != 0)) && (month < 3))
-   --days;
-
-   /* done, return with calculated value */
-
-   return(days+5);
 }

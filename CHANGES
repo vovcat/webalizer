@@ -1,4 +1,159 @@
 --------------------------------------------------------------------
+2.01-xx changes from 1.30-04   (brad@mrunix.net)
+--------------------------------------------------------------------
+
+Fixes:
+ o Fix posible obscure buffer overflow bug in DNS resolver code
+
+ o Added additional extended character fixes
+
+ o Let code accept partial content response codes along with 200's
+
+ o Added code to catch blank hostnames (yes, they have been found!)
+   Will convert them into 'Unknown'
+
+ o Security fix for cross-site scripting vulnerability found by
+   Flavio Veloso (www.magnux.com).
+
+ o Fixed a TOTAL_RC off by one error, which would prevent the last
+   response code from being saved when using incremental mode.
+
+ o Fixed possible segfault condition in MangleAgent code on
+   some malformed user agent names.
+
+ o Fixed DNS to prevent hangs on blank and malformed hostnames.
+
+ o Fixed problem calculating visits.  Changed timestamps to use
+   seconds since epoch (1/1/1970) which results in more accurate
+   analysis.  Also changed normal out of sequence code to handle
+   up to 1 hour of 'slop' in the timestamps.  This changed the
+   semantics of the VisitTimeout and -m configuration options, as
+   the values are now specified in number of seconds.
+
+ o Fixed hostname lowercase problem (wasn't) when using DNS lookups.
+
+ o Fixed problem with incremental datafile which could cause a read
+   error under certain circumstances (removes control characters).
+   Also changed code to now abort on a read error.
+
+ o Fixed problem with hash table node creation where objects that
+   were exactly the maximum length would wind up leaving a garbage
+   byte at the end of the memory space allocated.  This was causing
+   some very infrequent and widely different problems.
+
+ o Fixed problem where country graph could be produced incorrectly
+   if using a non-english language and the country name overlapped
+   the pie chart.
+
+ o Found and fixed a problem with a possible 32-bit wrap around
+   problem using incremental mode on large sites.  The problem
+   would cause the KBytes data on large groups to become inaccuate.
+
+Changes/Additions:
+ o Modified configure to allow specification of the default config
+   directory.  If not given, will use /etc (/etc/webalizer.conf).
+
+ o Added DailyGraph and DailyStats configuration options to enable
+   or disable the Daily usage graph and stats table from output.
+
+ o Improved visit calculation logic to reduce 'false' counts generated
+   by external image referrals.
+
+ o Added reverse DNS lookup capability.  This adds the command
+   line switchs -D and -N, and configuration keywords "DNSCache"
+   and "DNSChildren".  See the DNS.README for additional info.
+   Based in part on code submitted by Henning P. Schmiedehausen
+   (hps@tanstaafl.de).
+
+ o Added ability to dump Sites, URL's, Referrers, User Agents,
+   Usernames and Search Strings to tab delimited files, suitable
+   for import into most database and spreadsheet programs.  The
+   location of this file may be specified using the "DumpPath"
+   configuration keyword, allowing the data to be kept someplace
+   outside the web servers document tree.  The configuration
+   keywords "DumpSites", "DumpURLs", "DumpReferrers", "DumpAgents",
+   "DumpUsers" and "DumpSearchStr"  have been added to control the
+   file dumps.  Column headers can be included in the file with
+   the "DumpHeader" keyword.  Dump filename extensions may be
+   specified using the "DumpExtension" keyword (default is .tab).
+
+ o Added username analysis, based on usernames found in the log,
+   and only available if username information is present in the
+   log (ie: http authentication or wu-ftpd xferlog).  The keywords
+   'GroupUser', 'HideUser', 'IgnoreUser', 'IncludeUser', 'AllUsers',
+   and 'TopUsers' have been added to the configuration file code.
+   This change also modified the format of the incremental data file.
+
+ o Added the ability to display ALL sites, URL's, Referrers,
+   User Agents and Search Strings on a seperate HTML page from
+   the normal statistics page.  This adds the configuration
+   keywords 'AllSites', 'AllURLs', 'AllReferrers', 'AllAgents'
+   and 'AllSearchStr', which can have either a "yes" or "no"
+   value (default is "no").  Will add a "View All..." link to
+   the bottom of the appropriate "Top" table if enabled.
+
+ o Added support for squid proxy logs, thanks to code submitted
+   by Steinar H. Gunderson (sgunderson@bigfoot.com).  To use
+   squid logs, specify a LogType of 'squid' in the configuration
+   file.  This also changed the behaviour of the '-F' command
+   line switch, which now requires a second argument of either
+   'clf', 'ftp' or 'squid'.
+
+ o Completely modified the way the various TOP tables are handled
+   and sorted, which now allows extremely large top tables without
+   any performance degredation.  Previously, tables greater than
+   a few hundred elements produced a noticable perfomance penalty
+   during processing.
+
+ o Added the ability to group domains automatically and to hide
+   individual host names from the report, using the 'GroupDomains'
+   and 'HideAllSites' configuration keywords (-g and -X command
+   line options).  Domain Grouping is configurable as to the level
+   of grouping (second level domain, third, etc...).  HideAllSites
+   forces only grouped site records to be displayed if any.  Based
+   on ideas/code by Michael Klemme (mklemme@gmx.de).  This changes
+   the behaviour of the '-g' switch, which previously was used to
+   force the use of GMT time for reports.
+
+ o Added user configurable search engine specification, used for
+   search string analysis.  This adds the 'SearchEngine' keyword
+   in configuration files.  Based on idea/code by Alexey Kizilov.
+
+ o Changed code to use the latest version of GD which supports PNG
+   images instead of GIF images.  Also included changes in configure
+   script to ensure the presence of the libpng and libz libraries.
+
+ o Added ability to override log file to STDIN by use of '-' on
+   the command line.
+
+ o Added gzipped logfile support.  The program will automatically
+   detect logfiles with a '.gz' extension and uncompress on the
+   fly.  Uses gz file support of zlib, since it's required for
+   our gd/png stuff anyway.  Please note that using gzipped logs
+   will incur a small performance penality.
+
+ o Minor changes to search string code to increase accuracy.  This
+   also removes a previous condition that would occasionally cause
+   search strings to incorrectly be counted twice or to be counted
+   as different search strings when only differing by a space.
+
+ o Minor changes to URL parse code to allow additional characters.
+   Also changed unescape code to properly handle extended chars.
+
+ o Major changes to hash table node format for reduced memory usage.
+   Instead of fixed size strings, the new format will dynamically
+   allocate string memory and use pointers to existing table data
+   under certain circumstances.  The memory savings is significant
+   and will be greatly noticed with large sites.  Because of these
+   changes, the formatting of the incremental data file had to be
+   changed, therefore it is incompatable with previous versions.
+
+ o Major code reorganization and cleanup.  This was to facilitate
+   future developent and make things more managable.
+
+ o Usual documentation updates for new features/functions.
+
+--------------------------------------------------------------------
 1.30-xx changes from 1.22-06   (brad@mrunix.net)
 --------------------------------------------------------------------
 
