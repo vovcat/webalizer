@@ -61,6 +61,9 @@
 #include <sys/types.h>
 #endif
 
+/* ensure getaddrinfo/getnameinfo */
+#include <netdb.h>
+
 /* some systems need this */
 #ifdef HAVE_MATH_H
 #include <math.h>
@@ -218,7 +221,7 @@ int dns_resolver(void *log_fp)
    if(!(dns_db = dbopen(dns_cache, O_RDWR|O_CREAT, 0664, DB_HASH, NULL)))
    {
       /* Error: Unable to open DNS cache file <filename> */
-      if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nodb,dns_cache);
+      if (verbose) fprintf(stderr,"%s %s\n",_("Error: Unable to open DNS cache file"),dns_cache);
       dns_cache=NULL;
       dns_db=NULL;
       return 0;                  /* disable cache */
@@ -231,7 +234,7 @@ int dns_resolver(void *log_fp)
    if (fcntl(dns_fd,F_SETLK,&tmp_flock) < 0)    /* and barf if we cant lock */
    {
       /* Error: Unable to lock DNS cache file <filename> */
-      if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nolk,dns_cache);
+      if (verbose) fprintf(stderr,"%s %s\n",_("Error: Unable to lock DNS cache file"),dns_cache);
       dns_db->close(dns_db);
       dns_cache=NULL;
       dns_db=NULL;
@@ -266,9 +269,16 @@ int dns_resolver(void *log_fp)
       strcpy(tmp_buf, buffer);            /* save buffer in case of error */
       if(parse_record(buffer))            /* parse the record             */
       {
-         if((log_rec.addr.s_addr = inet_addr(log_rec.hostname)) != INADDR_NONE)
+	 struct addrinfo hints, *ares;
+	 memset(&hints, 0, sizeof(hints));
+	 hints.ai_family = AF_UNSPEC;
+	 hints.ai_socktype = SOCK_STREAM;
+	 hints.ai_flags = AI_NUMERICHOST;
+	 if (0 == getaddrinfo(log_rec.hostname, "0", &hints, &ares))
          {
             DBT q, r;
+	    memcpy(&log_rec.addr, ares->ai_addr, ares->ai_addrlen);
+	    freeaddrinfo(ares);
             q.data = log_rec.hostname;
             q.size = strlen(log_rec.hostname);
 
@@ -323,7 +333,7 @@ int dns_resolver(void *log_fp)
    if(!l_list)
    {
       /* No valid addresses found... */
-      if (verbose>1) printf("%s\n",msg_dns_none);
+      if (verbose>1) printf("%s\n",_("None to process"));
       tmp_flock.l_type=F_UNLCK;
       fcntl(dns_fd, F_SETLK, &tmp_flock);
       dns_db->close(dns_db);
@@ -338,11 +348,11 @@ int dns_resolver(void *log_fp)
    if (time_me || (verbose>1))
    {
       if (verbose<2 && time_me) printf("DNS: ");
-      printf("%lu %s ",listEntries, msg_addresses);
+      printf("%lu %s ",listEntries, _("addresses"));
 
       /* get processing time (end-start) */
       temp_time = (float)(end_time-start_time)/CLK_TCK;
-      printf("%s %.2f %s", msg_in, temp_time, msg_seconds);
+      printf("%s %.2f %s", _("in"), temp_time, _("seconds"));
 
       /* calculate records per second */
       if (temp_time)
@@ -414,12 +424,10 @@ static void process_list(DNODEPTR l_list)
          {
             int size;
 
-            struct hostent *res_ent;
-
             close(child[i].inpipe[0]);
             close(child[i].outpipe[1]);
 
-            /* get struct in_addr here */
+            /* get struct sockaddr_storage here */
             while((size = read(child[i].outpipe[0], child_buf, MAXHOST)))
             {
                if(size < 0)
@@ -429,37 +437,40 @@ static void process_list(DNODEPTR l_list)
                }
                else
                {
-                  if(debug_mode)
-                  printf("Child got work: %lx(%d)\n",
-                          *((unsigned long *)child_buf), size);
+		  char hbuf[NI_MAXHOST];
 
-                  if((res_ent = gethostbyaddr(child_buf, size, AF_INET)))
+		  if(debug_mode)
+                  printf("Child got work: %lx(%d)\n",
+                          *(unsigned long *)((struct sockaddr*)child_buf)->sa_data, size);
+
+                  if(0 == getnameinfo((struct sockaddr*)child_buf, sizeof(struct sockaddr_storage),
+				      hbuf, sizeof(hbuf), NULL, 0, NI_NAMEREQD))
                   {
                      /* must be at least 4 chars */
-                     if (strlen(res_ent->h_name)>3)
+                     if (strlen(hbuf)>3)
                      {
                         if(debug_mode)
-                           printf("Child got %s for %lx(%d), %d bytes\n",
-                                   res_ent->h_name,
-                                   *((unsigned long *)child_buf),
-                                   size,strlen(res_ent->h_name));
+                           printf("Child got %s for %x(%d), %d bytes\n",
+                                   hbuf,
+                                   *(unsigned long *)((struct sockaddr *)child_buf)->sa_data,
+                                   size,strlen(hbuf));
 
                         /* If long hostname, take max domain name part */
-                        if ((size = strlen(res_ent->h_name)) > MAXHOST-2)
-                           strcpy(child_buf,(res_ent->h_name+(size-MAXHOST+1)));
-                        else strcpy(child_buf, res_ent->h_name);
+                        if ((size = strlen(hbuf)) > MAXHOST-2)
+                           strcpy(child_buf,(hbuf+(size-MAXHOST+1)));
+                        else strcpy(child_buf, hbuf);
                         size = strlen(child_buf);
                      }
                      else
                      {
                         if (debug_mode)
-                           printf("gethostbyaddr returned bad h_name!\n");
+                           printf("getnameinfor returned bad hbuf!\n");
                      }
                   }
                   else
                   {
                      if(debug_mode)
-                        printf("gethostbyaddr returned NULL! (%d)\n",h_errno);
+                        printf("getnameinfo didn't return any usable information!\n");
                   }
 
                   if (write(child[i].inpipe[1], child_buf, size) == -1)
@@ -538,8 +549,8 @@ static void process_list(DNODEPTR l_list)
 
                if(trav)  /* something to resolve */
                {
-                  if (write(child[i].outpipe[1], &(trav->addr.s_addr),
-                     sizeof(trav->addr.s_addr)) != -1)
+                  if (write(child[i].outpipe[1], &trav->addr,
+                     sizeof(trav->addr)) != -1)
                   {
                      /* We will watch this child */
                      child[i].cur    = trav;
@@ -547,10 +558,9 @@ static void process_list(DNODEPTR l_list)
                      max_fd = MAX(max_fd, child[i].inpipe[0]);
 
                      if(debug_mode)
-                        printf("Giving %s (%lx) to Child %d for resolving\n",
+                        printf("Giving %s (%x) to Child %d for resolving\n",
                                 child[i].cur->string,
-                                (unsigned long)child[i].cur->addr.s_addr, i);
-
+			       *(unsigned long *)((struct sockaddr *)&child[i].cur->addr)->sa_data, i);
                      trav = trav->llist;
                   }
                   else  /* write error */
@@ -640,8 +650,8 @@ static void process_list(DNODEPTR l_list)
                      default:
                      {
                         dns_buf[size] = '\0';
-                        if(memcmp(dns_buf, &(child[i].cur->addr.s_addr),
-                                    sizeof(child[i].cur->addr.s_addr)))
+                        if(memcmp(dns_buf, &(child[i].cur->addr),
+                                    sizeof(child[i].cur->addr)))
                         {
                            if(debug_mode)
                               printf("Got a result (%d): %s -> %s\n",
@@ -793,7 +803,7 @@ int open_cache()
    if(!(dns_db = dbopen(dns_cache, O_RDONLY, 0664, DB_HASH, NULL)))
    {
       /* Error: Unable to open DNS cache file <filename> */
-      if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nodb,dns_cache);
+      if (verbose) fprintf(stderr,"%s %s\n",_("Error: Unable to open DNS cache file"),dns_cache);
       return 0;                  /* disable cache */
    }
 
@@ -803,7 +813,7 @@ int open_cache()
    /* Get shared lock on cache file */
    if (fcntl(dns_fd, F_SETLK, &tmp_flock) < 0)
    {
-      if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nolk,dns_cache);
+      if (verbose) fprintf(stderr,"%s %s\n",_("Error: Unable to lock DNS cache file"),dns_cache);
       dns_db->close(dns_db);
       return 0;
    }

@@ -1,0 +1,1497 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"PO-Revision-Date: 2003-05-25 23:29+0200\n"
+"Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
+"Language-Team: French <tech@jexiste.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit"
+
+msgid "-A num    = Display num top agents"
+msgstr "-A sayi   = sayi kadar top ajan goster"
+
+msgid "-C num    = Display num top countries"
+msgstr "-C sayi   = sayi kadar top ulke goster"
+
+msgid "-D name   = Use DNS Cache file 'name'"
+msgstr "-D ad     = 'ad' isimli DNS onbellek dosyasini kullan"
+
+msgid "-E num    = Display num top Exit Pages"
+msgstr "-E sayi   = sayi kadar top cikis sayfasi goster"
+
+msgid "-F type   = Log type.  type= (clf | ftp | squid)"
+msgstr "-F tip    = kutuk tipi. 'tip'= (clf | ftp | squid)"
+
+msgid "-G        = supress hourly graph"
+msgstr "-G        = saate gore grafigini iptal et"
+
+msgid "-H        = supress hourly stats"
+msgstr "-H        = saate gore istatistikleri iptal et"
+
+msgid "-I name   = Index alias 'name'"
+msgstr "-I ad     = Indeks ismi 'ad'"
+
+msgid "-L        = supress color coded graph legends"
+msgstr "-L        = renk kodlu grafik aciklamalarini iptal et"
+
+msgid "-N num    = Number of DNS processes (0=disable)"
+msgstr "-N sayi   = DNS islemcilerinin sayisi (0=iptal)"
+
+msgid "-P name   = Page type extension 'name'"
+msgstr "-P ad     = Sayfa uzantisi 'ad'"
+
+msgid "-Q        = supress _ALL_ messages"
+msgstr "-Q        = _BUTUN_ mesajlari iptal et"
+
+msgid "-R num    = Display num top referrers"
+msgstr "-R sayi   = sayi kadar top referans goster"
+
+msgid "-S num    = Display num top sites"
+msgstr "-S sayi   = sayi kadar top istemci goster"
+
+msgid "-T        = print timing information"
+msgstr "-T        = islem suresi bilgisini yazdir"
+
+msgid "-U num    = Display num top URLs"
+msgstr "-U sayi   = sayi kadar top URL goster"
+
+msgid "-X        = Hide individual sites"
+msgstr "-X        = tek siteleri gizle"
+
+msgid "-Y        = supress country graph"
+msgstr "-Y        = ulke grafigini iptal et"
+
+msgid "-a name   = hide user agent 'name'"
+msgstr "-a ad     = kullanici ajanini sakla 'ad'"
+
+msgid "-c file   = use configuration file 'file'"
+msgstr "-c dosya  = belirtilen konfigurasyon dosyasini kullan 'dosya'"
+
+msgid "-d        = print additional debug info"
+msgstr "-d        = ek debug bilgileri yazir"
+
+msgid "-e num    = Display num top Entry Pages"
+msgstr "-e sayi   = sayi kadar top giris sayfasi goster"
+
+msgid "-f        = Fold sequence errors"
+msgstr "-f        = Siralama hatalarini duzelt"
+
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr "-g sayi   = alan adlarini 'sayi' kadar seviyede grupla"
+
+msgid "-h        = print this help message"
+msgstr "-h        = bu yardim mesajini yazdir"
+
+msgid "-i        = ignore history file"
+msgstr "-i        = history dosyasina bakma"
+
+msgid "-l num    = use num background lines on graph"
+msgstr "-l sayi   = grafiklerde 'sayi' kadar cizgi kullan"
+
+msgid "-m num    = Visit timout value (seconds)"
+msgstr "-m sayi   = ziyaret bitim zamani 'sayi'= (seconds)"
+
+msgid "-n name   = hostname to use"
+msgstr "-n ad     = kullanilacak makine adi 'ad'"
+
+msgid "-o dir    = output directory to use"
+msgstr "-o dizin  = kullanilacak cikti dizini 'dizin'"
+
+msgid "-p        = preserve state (incremental)"
+msgstr "-p        = durumu koru (eklemeli)"
+
+msgid "-q        = supress informational messages"
+msgstr "-q        = bilgi mesajlarini iptal et"
+
+msgid "-r name   = hide referrer 'name'"
+msgstr "-r ad     = referansi sakla 'ad'"
+
+msgid "-s name   = hide site 'name'"
+msgstr "-s ad     = siteyi sakla 'ad'"
+
+msgid "-t name   = report title 'name'"
+msgstr "-t ad     = rapor basligi 'ad'"
+
+msgid "-u name   = hide URL 'name'"
+msgstr "-u ad     = URL'yi sakla 'ad'"
+
+msgid "-v -V     = print version information"
+msgstr "-v -V     = surum bilgilerini yazdir"
+
+msgid "-x name   = Use filename extension 'name'"
+msgstr "-x ad     = Dosya uzantisini kullan 'ad'"
+
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+msgid "Agents"
+msgstr "Ajanlar"
+
+msgid "Albania"
+msgstr "Albanya"
+
+msgid "Algeria"
+msgstr "Algeria"
+
+msgid "American Samoa"
+msgstr "Amerikan Samoa Adalari"
+
+msgid "Andorra"
+msgstr "Andora"
+
+msgid "Angola"
+msgstr "Angola"
+
+msgid "Anguilla"
+msgstr "Anguilla"
+
+msgid "Antarctica"
+msgstr "Antartik"
+
+msgid "Antigua and Barbuda"
+msgstr "Antigua ve Barbuda"
+
+msgid "Apr"
+msgstr "Nis"
+
+msgid "April"
+msgstr "Nisan"
+
+msgid "Argentina"
+msgstr "Arjantin"
+
+msgid "Armenia"
+msgstr "Ermenistan"
+
+msgid "Aruba"
+msgstr "Aruba"
+
+msgid "Aug"
+msgstr "Agu"
+
+msgid "August"
+msgstr "Agustos"
+
+msgid "Australia"
+msgstr "Avusturalya"
+
+msgid "Austria"
+msgstr "Avusturya"
+
+msgid "Avg"
+msgstr "Averaj"
+
+msgid "Azerbaijan"
+msgstr "Azerbeycan"
+
+msgid "Bahamas"
+msgstr "Bahamalar"
+
+msgid "Bahrain"
+msgstr "Bahreyn"
+
+msgid "Bangladesh"
+msgstr "Banglades"
+
+msgid "Barbados"
+msgstr "Barbados"
+
+msgid "Belarus"
+msgstr "Belarusya"
+
+msgid "Belgium"
+msgstr "Belcika"
+
+msgid "Belize"
+msgstr "Belize"
+
+msgid "Benin"
+msgstr "Benin"
+
+msgid "Bermuda"
+msgstr "Bermuda"
+
+msgid "Bhutan"
+msgstr "Bhutan"
+
+msgid "Bolivia"
+msgstr "Bolivya"
+
+msgid "Bosnia and Herzegovina"
+msgstr "Bosna ve Herzegova"
+
+msgid "Botswana"
+msgstr "Botswana"
+
+msgid "Bouvet Island"
+msgstr "Bouvet Adasi"
+
+msgid "Brazil"
+msgstr "Brezilya"
+
+msgid "British Indian Ocean Territory"
+msgstr "Ingiliz-Hint Okyanis Bolgesi"
+
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+msgid "Bulgaria"
+msgstr "Bulgaristan"
+
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+msgid "Burundi"
+msgstr "Burundi"
+
+msgid "By"
+msgstr ""
+
+msgid "Cambodia"
+msgstr "Kambocya"
+
+msgid "Cameroon"
+msgstr "Kamerun"
+
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr "Yeterli hafiza yok, Top Ulkeler kapatildi!"
+
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr "Yeterli hafiza yok, Top Referanslar kapatildi!"
+
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr "Yeterli hafiza yok, Top Arama Girdileri kapatildi!"
+
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr "Yeterli hafiza yok, Top Istemciler kapatildi!"
+
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr "Yeterli hafiza yok, Top URL'ler kapatildi!"
+
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr "Yeterli hafiza yok, Top Kullanici Ajanlari kapatildi!"
+
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr "Yeterli hafiza yok, Top Kullanici Adlari kapatildi!"
+
+msgid "Canada"
+msgstr "Kanada"
+
+msgid "Cape Verde"
+msgstr "Cape Verde"
+
+msgid "Cayman Islands"
+msgstr "Cayman Islands"
+
+msgid "Central African Republic"
+msgstr "Orta Afrika Cumhuriyeti"
+
+msgid "Chad"
+msgstr "Cad"
+
+msgid "Chile"
+msgstr "Sile"
+
+msgid "China"
+msgstr "Cin"
+
+msgid "Christmas Island"
+msgstr "Christmas Adalari"
+
+msgid "Cocos (Keeling) Islands"
+msgstr "Cocos (Keeling) Adalari"
+
+msgid "Code 100 - Continue"
+msgstr "Kod 100 - Devam"
+
+msgid "Code 101 - Switching Protocols"
+msgstr "Kod 101 - Protokol Degistirme"
+
+msgid "Code 200 - OK"
+msgstr "Kod 200 - TAMAM"
+
+msgid "Code 201 - Created"
+msgstr "Kod 201 - Yaratildi"
+
+msgid "Code 202 - Accepted"
+msgstr "Kod 202 - Kabul Edildi"
+
+msgid "Code 203 - Non-Authoritative Information"
+msgstr "Kod 203 - Otantikasyonu Olmayan Bilgi"
+
+msgid "Code 204 - No Content"
+msgstr "Kod 204 - Icerik Yok"
+
+msgid "Code 205 - Reset Content"
+msgstr "Kod 205 - Icerigi Sifirla"
+
+msgid "Code 206 - Partial Content"
+msgstr "Kod 206 - Bolumsel Icerik"
+
+msgid "Code 300 - Multiple Choices"
+msgstr "Kod 300 - Bircok Secim"
+
+msgid "Code 301 - Moved Permanently"
+msgstr "Kod 301 - Tamamen Tasindi"
+
+msgid "Code 302 - Found"
+msgstr "Kod 302 - Bulundu"
+
+msgid "Code 303 - See Other"
+msgstr "Kod 303 - Digerine Bakiniz"
+
+msgid "Code 304 - Not Modified"
+msgstr "Kod 304 - Degismedi"
+
+msgid "Code 305 - Use Proxy"
+msgstr "Kod 305 - Proxy Kullaniniz"
+
+msgid "Code 307 - Moved Temporarily"
+msgstr "Kod 307 - Gecici Olarak Tasindi"
+
+msgid "Code 400 - Bad Request"
+msgstr "Kod 400 - Kotu Istek"
+
+msgid "Code 401 - Unauthorized"
+msgstr "Kod 401 - Yetkisiz"
+
+msgid "Code 402 - Payment Required"
+msgstr "Kod 402 - Odeme Gerekli"
+
+msgid "Code 403 - Forbidden"
+msgstr "Kod 403 - Yasak"
+
+msgid "Code 404 - Not Found"
+msgstr "Kod 404 - Bulunamadi"
+
+msgid "Code 405 - Method Not Allowed"
+msgstr "Kod 405 - Metoda Izin Verilmedi"
+
+msgid "Code 406 - Not Acceptable"
+msgstr "Kod 406 - Kabul Edilemez"
+
+msgid "Code 407 - Proxy Authentication Required"
+msgstr "Kod 407 - Proxy Otantikasyonu Gerekli"
+
+msgid "Code 408 - Request Timeout"
+msgstr "Kod 408 - Istek Zaman Asimi"
+
+msgid "Code 409 - Conflict"
+msgstr "Kod 409 - Cakisma"
+
+msgid "Code 410 - Gone"
+msgstr "Kod 410 - Gitti"
+
+msgid "Code 411 - Length Required"
+msgstr "Kod 411 - Uzunluk Gerekli"
+
+msgid "Code 412 - Precondition Failed"
+msgstr "Kod 412 - On Kosul Basarisiz"
+
+msgid "Code 413 - Request Entity Too Large"
+msgstr "Kod 413 - Istek Varligi Cok Buyuk"
+
+msgid "Code 414 - Request-URI Too Long"
+msgstr "Kod 414 - Istek-URI'si Cok Uzun"
+
+msgid "Code 415 - Unsupported Media Type"
+msgstr "Kod 415 - Desteklenmeyen Orta Tipi"
+
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr "Kod 416 - Istenen Uzaklik Karsilanamaz"
+
+msgid "Code 417 - Expectation Failed"
+msgstr "Kod 417 - Beklenti Basarisiz"
+
+msgid "Code 500 - Internal Server Error"
+msgstr "Kod 500 - Ic Sunucu Hatasi"
+
+msgid "Code 501 - Not Implemented"
+msgstr "Kod 501 - Tamamlanmadi"
+
+msgid "Code 502 - Bad Gateway"
+msgstr "Kod 502 - Kotu Gecit"
+
+msgid "Code 503 - Service Unavailable"
+msgstr "Kod 503 - Servis Kapali"
+
+msgid "Code 504 - Gateway Timeout"
+msgstr "Kod 504 - Gecit Zaman Asimi"
+
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr "Kod 505 - HTTP Surumu Desteklenmiyor"
+
+msgid "Colombia"
+msgstr "Kolombiya"
+
+msgid "Comoros"
+msgstr "Comoros"
+
+msgid "Congo"
+msgstr "Kongo"
+
+msgid "Cook Islands"
+msgstr "Cook Adalari"
+
+msgid "Costa Rica"
+msgstr "Kosta Rica"
+
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "Cote D'Ivoire (Ivory Sahili)"
+
+msgid "Countries"
+msgstr "Ulkeler"
+
+msgid "Country"
+msgstr "Ulke"
+
+msgid "Creating output in"
+msgstr "Ciktinin yaratildigi yer"
+
+msgid "Croatia (Hrvatska)"
+msgstr "Hirvatistan"
+
+msgid "Cuba"
+msgstr "Kuba"
+
+msgid "Cyprus"
+msgstr "Kibris"
+
+msgid "Czech Republic"
+msgstr "Cek Cumhuriyeti"
+
+msgid "Czechoslovakia (former)"
+msgstr "Cekoslovakya (eski)"
+
+msgid "DNS Lookup"
+msgstr "DNS bakimi"
+
+msgid "Daily Avg"
+msgstr "Gunluk Averaj"
+
+msgid "Daily Statistics"
+msgstr "Gunluk Istatistikler"
+
+msgid "Daily Statistics for"
+msgstr "Gunluk Istatistikler:"
+
+msgid "Daily usage for"
+msgstr "Gunluk Kullanim:"
+
+msgid "Day"
+msgstr "Gun"
+
+msgid "Dec"
+msgstr "Ara"
+
+msgid "December"
+msgstr "Aralik"
+
+msgid "Denmark"
+msgstr "Danimarka"
+
+msgid "Djibouti"
+msgstr "Djibuti"
+
+msgid "Dominica"
+msgstr "Dominika"
+
+msgid "Dominican Republic"
+msgstr "Dominik Cumhuriyeti"
+
+msgid "East Timor"
+msgstr "Dogu Timor"
+
+msgid "Ecuador"
+msgstr "Ekvator"
+
+msgid "Egypt"
+msgstr "Misir"
+
+msgid "El Salvador"
+msgstr "El Salvador"
+
+msgid "English"
+msgstr "Turkish"
+
+msgid "Entry"
+msgstr "Giris"
+
+msgid "Equatorial Guinea"
+msgstr "Ekvator Ginesi"
+
+msgid "Eritrea"
+msgstr "Eritrea"
+
+msgid "Error adding Referrer node, skipping"
+msgstr "Hata Referans nodu ekleniyor, islenmeden geciliyor"
+
+msgid "Error adding Search String Node, skipping"
+msgstr "Hata Arama Girdileri nodu ekleniyor, islenmeden geciliyor"
+
+msgid "Error adding URL node, skipping"
+msgstr "Hata URL nodu ekleniyor, islenmeden geciliyor"
+
+msgid "Error adding User Agent node, skipping"
+msgstr "Hata Kullanici Ajani ekleniyor, islenmeden geciliyor"
+
+msgid "Error adding Username node, skipping"
+msgstr "Hata Kullanici Adi nodu ekleniyor, islenmeden geciliyor"
+
+msgid "Error adding host node (daily), skipping"
+msgstr "Hata makine nodu ekleniyor (gunluk), islenmeden geciliyor"
+
+msgid "Error adding host node (monthly), skipping"
+msgstr "Hata makine nodu ekleniyor (aylik), islenmeden geciliyor"
+
+msgid "Error: Can't change directory to"
+msgstr "Hata: Degistirilemeyen dizin"
+
+msgid "Error: Can't open log file"
+msgstr "Hata: Kutuk dosyasi acilamadi"
+
+msgid "Error: Ignoring invalid history record"
+msgstr "Hata: Gecersiz history kaydi islenmiyor"
+
+msgid "Warning: Skipping oversized log record"
+msgstr "Hata: Normalden buyuk kutuk kaydi islenmeden geciliyor"
+
+msgid "Error: Skipping record (bad date)"
+msgstr "Hata: Kayit islenmeden geciliyor (kotu tarih)"
+
+msgid "Error: Unable to lock DNS cache file"
+msgstr "Hata: DNS onbellekleme dosyasi kilitlenemedi"
+
+msgid "Error: Unable to open DNS cache file"
+msgstr "Hata: DNS onbellekleme dosyasi acilamadi"
+
+msgid "Error: Unable to open configuration file"
+msgstr "Hata: Konfigurasyon dosyasi acilamiyor"
+
+msgid "Error: Unable to open file"
+msgstr "Hata: Dosya acilamadi"
+
+msgid "Error: Unable to restore run data"
+msgstr "Hata: Calisma bilgileri tekrar kullanilamiyor"
+
+msgid "Error: Unable to save current run data"
+msgstr "Hata: Su anki calisma bilgileri kaydedilemiyor"
+
+msgid "Error: Unable to write history file"
+msgstr "Hata: History dosyasi yazilamiyor"
+
+msgid "Estonia"
+msgstr "Estonya"
+
+msgid "Ethiopia"
+msgstr "Etiyopya"
+
+msgid "Exit"
+msgstr "Cikis"
+
+msgid "Falkland Islands (Malvinas)"
+msgstr "Folkland Adalari (Malvinas)"
+
+msgid "Faroe Islands"
+msgstr "Faroe Adalari"
+
+msgid "Feb"
+msgstr "Sub"
+
+msgid "February"
+msgstr "Subat"
+
+msgid "Fiji"
+msgstr "Fiji"
+
+msgid "Files"
+msgstr "Dosya"
+
+msgid "Files per Day"
+msgstr "Gunluk Dosyalar"
+
+msgid "Finland"
+msgstr "Finlandiya"
+
+msgid "France"
+msgstr "Fransa"
+
+msgid "France; Metropolitan"
+msgstr "France, Metropolitan"
+
+msgid "French Guiana"
+msgstr "Fransiz Guyanasi"
+
+msgid "French Polynesia"
+msgstr "Fransiz Polinezyasi"
+
+msgid "French Southern Territories"
+msgstr "Fransiz Guney Bolgeleri"
+
+msgid "Gabon"
+msgstr "Gabon"
+
+msgid "Gambia"
+msgstr "Gambia"
+
+msgid "Generated"
+msgstr "Yaratilma Tarihi"
+
+msgid "Generating report for"
+msgstr "Raporu yaratilan site"
+
+msgid "Generating summary report"
+msgstr "Ozet raporu yaratiliyor"
+
+msgid "Georgia"
+msgstr "Georgia"
+
+msgid "Germany"
+msgstr "Almanya"
+
+msgid "Ghana"
+msgstr "Ghana"
+
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+msgid "Great Britain (UK)"
+msgstr "Buyuk Biritanya (UK)"
+
+msgid "Greece"
+msgstr "Yunanistan"
+
+msgid "Greenland"
+msgstr "Greenland"
+
+msgid "Grenada"
+msgstr "Granada"
+
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+msgid "Guam"
+msgstr "Guam"
+
+msgid "Guatemala"
+msgstr "Guatemala"
+
+msgid "Guinea"
+msgstr "Gine"
+
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+msgid "Guyana"
+msgstr "Guyana"
+
+msgid "Haiti"
+msgstr "Haiti"
+
+msgid "Heard and McDonald Islands"
+msgstr "Heard and McDonald Adalari"
+
+msgid "History file not found..."
+msgstr "History dosyasi bulunamadi..."
+
+msgid "Hits"
+msgstr "HIT'ler"
+
+msgid "Hits by Response Code"
+msgstr "Cevap Koduna Gore HIT"
+
+msgid "Hits per Day"
+msgstr "Gunluk HIT"
+
+msgid "Hits per Hour"
+msgstr "Saatlik HIT"
+
+msgid "Honduras"
+msgstr "Honduras"
+
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+msgid "Hostname"
+msgstr "Makine Adi"
+
+msgid "Hostname for reports is"
+msgstr "Raporlar icin makine adi"
+
+msgid "Hour"
+msgstr "Saat"
+
+msgid "Hourly Statistics"
+msgstr "Saatlik Istatistikler"
+
+msgid "Hourly Statistics for"
+msgstr "Saatlik Istatistikler:"
+
+msgid "Hourly usage for"
+msgstr "Saatlik Kullanim:"
+
+msgid "Hungary"
+msgstr "Macaristan"
+
+msgid "Iceland"
+msgstr "Izlanda"
+
+msgid "Ignoring previous history..."
+msgstr "Bir onceki history dosyasi islenmiyor..."
+
+msgid "India"
+msgstr "Hindistan"
+
+msgid "Indonesia"
+msgstr "Endonezya"
+
+msgid "International (int)"
+msgstr "Uluslarasi (.int)"
+
+msgid "Iran"
+msgstr "Iran"
+
+msgid "Iraq"
+msgstr "Irak"
+
+msgid "Ireland"
+msgstr "Irlanda"
+
+msgid "Israel"
+msgstr "Israil"
+
+msgid "Italy"
+msgstr "Italya"
+
+msgid "Jamaica"
+msgstr "Jamaika"
+
+msgid "Jan"
+msgstr "Oca"
+
+msgid "January"
+msgstr "Ocak"
+
+msgid "Japan"
+msgstr "Japonya"
+
+msgid "Jordan"
+msgstr "Urdun"
+
+msgid "Jul"
+msgstr "Tem"
+
+msgid "July"
+msgstr "Temmuz"
+
+msgid "Jun"
+msgstr "Haz"
+
+msgid "June"
+msgstr "Haziran"
+
+msgid "KBytes"
+msgstr "KBayt'a Gore"
+
+msgid "KBytes per Day"
+msgstr "Gunluk KBaytlar"
+
+msgid "Kazakhstan"
+msgstr "Kazakhistan"
+
+msgid "Kenya"
+msgstr "Kenya"
+
+msgid "Kiribati"
+msgstr "Kiribati"
+
+msgid "Korea (North)"
+msgstr "Kore (Kuzey)"
+
+msgid "Korea (South)"
+msgstr "Kore (Guney)"
+
+msgid "Kuwait"
+msgstr "Kuveyt"
+
+msgid "Kyrgyzstan"
+msgstr "Kirgizistan"
+
+msgid "Laos"
+msgstr "Laos"
+
+msgid "Last 12 Months"
+msgstr "Son 12 Ay"
+
+msgid "Latvia"
+msgstr "Latvia"
+
+msgid "Lebanon"
+msgstr "Lubnan"
+
+msgid "Lesotho"
+msgstr "Lesotho"
+
+msgid "Liberia"
+msgstr "Liberya"
+
+msgid "Libya"
+msgstr "Libya"
+
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+msgid "Lithuania"
+msgstr "Litvanya"
+
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+msgid "Macau"
+msgstr "Macau"
+
+msgid "Macedonia"
+msgstr "Makedonya"
+
+msgid "Madagascar"
+msgstr "Madagascar"
+
+msgid "Malawi"
+msgstr "Malawi"
+
+msgid "Malaysia"
+msgstr "Malezya"
+
+msgid "Maldives"
+msgstr "Maldivler"
+
+msgid "Mali"
+msgstr "Mali"
+
+msgid "Malta"
+msgstr "Malta"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "March"
+msgstr "Mart"
+
+msgid "Marshall Islands"
+msgstr "Marshall Adalari"
+
+msgid "Martinique"
+msgstr "Martinik"
+
+msgid "Mauritania"
+msgstr "Moritanya"
+
+msgid "Mauritius"
+msgstr "Mauritius"
+
+msgid "Max"
+msgstr "Maksimum"
+
+msgid "May"
+msgstr "Mayis"
+
+msgid "Mayotte"
+msgstr "Mayotte"
+
+msgid "Mexico"
+msgstr "Meksika"
+
+msgid "Micronesia"
+msgstr "Micronesia"
+
+msgid "Moldova"
+msgstr "Moldova"
+
+msgid "Monaco"
+msgstr "Monako"
+
+msgid "Mongolia"
+msgstr "Mongolya"
+
+msgid "Month"
+msgstr "Ay"
+
+msgid "Monthly Statistics for"
+msgstr "Aylik Istatistikler:"
+
+msgid "Monthly Totals"
+msgstr "Aylik Toplamlar"
+
+msgid "Montserrat"
+msgstr "Montserrat"
+
+msgid "Morocco"
+msgstr "Moroko"
+
+msgid "Mozambique"
+msgstr "Mozambik"
+
+msgid "Myanmar"
+msgstr "Myanmar"
+
+msgid "Namibia"
+msgstr "Namibya"
+
+msgid "Nato field (nato)"
+msgstr "Nato alani (.nato)"
+
+msgid "Nauru"
+msgstr "Nauru"
+
+msgid "Nepal"
+msgstr "Nepal"
+
+msgid "Netherlands"
+msgstr "Hollanda"
+
+msgid "Netherlands Antilles"
+msgstr "Hollanda Antil Adalari"
+
+msgid "Network"
+msgstr "Ag (.net)"
+
+msgid "Neutral Zone"
+msgstr "Bagimsiz Bolge"
+
+msgid "New Caledonia"
+msgstr "Yeni Kaledonya"
+
+msgid "New Zealand (Aotearoa)"
+msgstr "Yeni Zellanda (Aotearoa)"
+
+msgid "Nicaragua"
+msgstr "Nikaragua"
+
+msgid "Niger"
+msgstr "Niger"
+
+msgid "Nigeria"
+msgstr "Nijerya"
+
+msgid "Niue"
+msgstr "Niue"
+
+msgid "No cache file specified, aborting..."
+msgstr "Onbellek dosyasi belirtilmedi, islem iptal ediliyor..."
+
+msgid "No valid records found!"
+msgstr "Hicbir gecerli kayit bulunamadi!"
+
+msgid "Non-Profit Organization"
+msgstr "Organizasyon (.org)"
+
+msgid "None to process"
+msgstr "Islem yapilmasi gereken kayit yok"
+
+msgid "Norfolk Island"
+msgstr "Norfolk Adalari"
+
+msgid "Northern Mariana Islands"
+msgstr "Kuzey Mariana Adalari"
+
+msgid "Norway"
+msgstr "Norvec"
+
+msgid "Nov"
+msgstr "Kas"
+
+msgid "November"
+msgstr "Kasim"
+
+msgid "Oct"
+msgstr "Eki"
+
+msgid "October"
+msgstr "Ekim"
+
+msgid "Old style Arpanet (arpa)"
+msgstr "Eski stil Arpanet (.arpa)"
+
+msgid "Oman"
+msgstr "Umman"
+
+msgid "Other"
+msgstr "Diger"
+
+msgid "Pages"
+msgstr "Sayfa"
+
+msgid "Pages per Day"
+msgstr "Gunluk Sayfalar"
+
+msgid "Pakistan"
+msgstr "Pakistan"
+
+msgid "Palau"
+msgstr "Palau"
+
+msgid "Panama"
+msgstr "Panama"
+
+msgid "Papua New Guinea"
+msgstr "Papua Yeni Gine"
+
+msgid "Paraguay"
+msgstr "Paraguay"
+
+msgid "Peru"
+msgstr "Peru"
+
+msgid "Philippines"
+msgstr "Filipinler"
+
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+msgid "Poland"
+msgstr "Polonya"
+
+msgid "Portugal"
+msgstr "Portekiz"
+
+msgid "Previous run data not found..."
+msgstr "Bir onceki calismanin bilgileri bulunamadi..."
+
+msgid "Puerto Rico"
+msgstr "Porto Riko"
+
+msgid "Qatar"
+msgstr "Katar"
+
+msgid "Reading history file..."
+msgstr "History dosyasi okunuyor..."
+
+msgid "Reading previous run data..."
+msgstr "Bir onceki calismanin bilgileri okunuyor..."
+
+msgid "Referrer"
+msgstr "Referans"
+
+msgid "Referrers"
+msgstr "Referanslar"
+
+msgid "Reunion"
+msgstr "Reunion"
+
+msgid "Romania"
+msgstr "Romanya"
+
+msgid "Russian Federation"
+msgstr "Rus Federasyonu"
+
+msgid "Rwanda"
+msgstr "Ruanda"
+
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "S. Georgia and S. Sandwich Adalari."
+
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts and Nevis"
+
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent ve Grenadines"
+
+msgid "Samoa"
+msgstr "Samoa"
+
+msgid "San Marino"
+msgstr "San Marino"
+
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome and Principe"
+
+msgid "Saudi Arabia"
+msgstr "Suudi Arabistan"
+
+msgid "Saving current run data..."
+msgstr "Su anki calisma bilgileri kaydediliyor..."
+
+msgid "Saving history information..."
+msgstr "History bilgileri kaydediliyor..."
+
+msgid "Search"
+msgstr "Arama"
+
+msgid "Search String"
+msgstr "Arama Girdisi"
+
+msgid "Senegal"
+msgstr "Senegal"
+
+msgid "Sep"
+msgstr "Eyl"
+
+msgid "September"
+msgstr "Eylul"
+
+msgid "Seychelles"
+msgstr "Seychelles"
+
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+msgid "Singapore"
+msgstr "Singapur"
+
+msgid "Sites"
+msgstr "Istemciler"
+
+msgid "Skipping Netscape header record"
+msgstr "Netscape baslik kaydi islenmeden geciliyor"
+
+msgid "Skipping bad record"
+msgstr "Kotu kayit islenmeden geciliyor"
+
+msgid "Slovak Republic"
+msgstr "Slovak Cumhuriyeti"
+
+msgid "Slovenia"
+msgstr "Slovenya"
+
+msgid "Solomon Islands"
+msgstr "Solomon Adalari"
+
+msgid "Somalia"
+msgstr "Somali"
+
+msgid "South Africa"
+msgstr "Guney Afrika"
+
+msgid "Spain"
+msgstr "Ispanya"
+
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+msgid "St. Helena"
+msgstr "St. Helena"
+
+msgid "St. Pierre and Miquelon"
+msgstr "St. Pierre and Miquelon"
+
+msgid "Sudan"
+msgstr "Sudan"
+
+msgid "Summary Period"
+msgstr "Ozet Periyodu"
+
+msgid "Summary by Month"
+msgstr "Ay'a Gore Ozet"
+
+msgid "Suriname"
+msgstr "Surinam"
+
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Svalbard ve Jan Mayen Adalari"
+
+msgid "Swaziland"
+msgstr "Swaziland"
+
+msgid "Sweden"
+msgstr "Isvec"
+
+msgid "Switzerland"
+msgstr "Isvicre"
+
+msgid "Syria"
+msgstr "Suriye"
+
+msgid "Taiwan"
+msgstr "Tayvan"
+
+msgid "Tajikistan"
+msgstr "Tacikistan"
+
+msgid "Tanzania"
+msgstr "Tanzanya"
+
+msgid "Thailand"
+msgstr "Tayland"
+
+msgid "Togo"
+msgstr "Togo"
+
+msgid "Tokelau"
+msgstr "Tokelau"
+
+msgid "Tonga"
+msgstr "Tonga"
+
+msgid "Top"
+msgstr "Top"
+
+msgid "Total"
+msgstr "Toplam"
+
+msgid "Total Countries"
+msgstr "Toplam Ulkeler"
+
+msgid "Total Entry Pages"
+msgstr "Toplam Giris Sayfalari"
+
+msgid "Total Exit Pages"
+msgstr "Toplam Cikis Sayfalari"
+
+msgid "Total Files"
+msgstr "Toplam Dosyalar"
+
+msgid "Total Hits"
+msgstr "Toplam HIT'ler"
+
+msgid "Total KBytes"
+msgstr "Toplam KBaytlar"
+
+msgid "Total Referrers"
+msgstr "Toplam Referanslar"
+
+msgid "Total Search Strings"
+msgstr "Toplam Arama Girdileri"
+
+msgid "Total Sites"
+msgstr "Toplam Istemciler"
+
+msgid "Total URLs"
+msgstr "Toplam URL'ler"
+
+msgid "Total Unique Referrers"
+msgstr "Toplam Ayni Referanslar"
+
+msgid "Total Unique Sites"
+msgstr "Toplam Ayni Istemciler"
+
+msgid "Total Unique URLs"
+msgstr "Toplam Ayni URL'ler"
+
+msgid "Total Unique User Agents"
+msgstr "Toplam Ayni Kullanici Ajanlari"
+
+msgid "Total Unique Usernames"
+msgstr "Toplam Ayni Kullanici Adlari"
+
+msgid "Total User Agents"
+msgstr "Toplam Kullanici Ajanlari"
+
+msgid "Total Usernames"
+msgstr "Toplam Kullanici Adlari"
+
+msgid "Totals"
+msgstr "Toplamlar"
+
+msgid "Trinidad and Tobago"
+msgstr "Trinidad ve Tobago"
+
+msgid "Tunisia"
+msgstr "Tunus"
+
+msgid "Turkey"
+msgstr "Turkiye"
+
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+msgid "Turks and Caicos Islands"
+msgstr "Turks ve Caicos Adalari"
+
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "URLs"
+msgstr "URL'ler"
+
+msgid "US Commercial"
+msgstr "US Ticari"
+
+msgid "US Educational"
+msgstr "US Egitimsel"
+
+msgid "US Government"
+msgstr "US Devlet"
+
+msgid "US Military"
+msgstr "US Askeri"
+
+msgid "US Minor Outlying Islands"
+msgstr "US Minor Outlying Adalari"
+
+msgid "USSR (former)"
+msgstr "SSCB (eski)"
+
+msgid "Uganda"
+msgstr "Uganda"
+
+msgid "Ukraine"
+msgstr "Ukrayna"
+
+msgid "Undefined response code"
+msgstr "Tanimlanmamis cevap kodu"
+
+msgid "United Arab Emirates"
+msgstr "Birlesmis Arab Emirlikleri"
+
+msgid "United Kingdom"
+msgstr "Ingiltere"
+
+msgid "United States"
+msgstr "United States"
+
+msgid "Unresolved/Unknown"
+msgstr "Cozumlenemeyen/Bilinemeyen"
+
+msgid "Uruguay"
+msgstr "Uruguay"
+
+msgid "Usage"
+msgstr "Kullanim"
+
+msgid "Usage Statistics for"
+msgstr "Kullanim Istatistikleri:"
+
+msgid "Usage by Country for"
+msgstr "Ulkeye Gore Kullanim:"
+
+msgid "Usage summary for"
+msgstr "Kullanim Ozeti"
+
+msgid "User Agent"
+msgstr "Kullanici Ajani"
+
+msgid "Username"
+msgstr "Kullanici"
+
+msgid "Users"
+msgstr "Kullanicilar"
+
+msgid "Using DNS cache file"
+msgstr "Kullanilan DNS onbellekleme dosyasi"
+
+msgid "Using logfile"
+msgstr "Kullanilan kutukdosyasi"
+
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+msgid "Vatican City State (Holy See)"
+msgstr "Vatican Sehiri Devleti (Kutsal Deniz)"
+
+msgid "Venezuela"
+msgstr "Venezuela"
+
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+msgid "View All Referrers"
+msgstr "Butun Referanslar Goster"
+
+msgid "View All Search Strings"
+msgstr "Butun Arama Girdilerini Goster"
+
+msgid "View All Sites"
+msgstr "Butun Istemcileri Goster"
+
+msgid "View All URLs"
+msgstr "Butun URL'leri Goster"
+
+msgid "View All User Agents"
+msgstr "Butun Kullanici Ajanlarini Goster"
+
+msgid "View All Usernames"
+msgstr "Butun Kullanici Adlarini Goster"
+
+msgid "Virgin Islands (British)"
+msgstr "Virgin Adalari (British)"
+
+msgid "Virgin Islands (U.S.)"
+msgstr "Virgin Adalari (U.S.)"
+
+msgid "Visits"
+msgstr "Ziyaret"
+
+msgid "Visits per Day"
+msgstr "Gunluk Ziyaretler"
+
+msgid "Wallis and Futuna Islands"
+msgstr "Wallis ve Futuna Adalari"
+
+msgid "Warning: Invalid keyword"
+msgstr "Dikkat: Gecersiz anahtar kelime"
+
+msgid "Warning: Possible duplicate data found"
+msgstr "Dikkat: Buyuk ihtimalle cift islenmis bilgi bulundu"
+
+msgid "Warning: String exceeds storage size"
+msgstr "Dikkat: Girdi saklama boyutunu asiyor"
+
+msgid "Warning: Truncating oversized date field"
+msgstr "Dikkat: Normalden buyuk tarih bolumu kucultuluyor"
+
+msgid "Warning: Truncating oversized hostname"
+msgstr "Dikkat: Normalden buyuk makine ismi kucultuluyor"
+
+msgid "Warning: Truncating oversized referrer field"
+msgstr "Dikkat: Normalden buyuk referans bolumu kucultuluyor"
+
+msgid "Warning: Truncating oversized request field"
+msgstr "Dikkat: Normalden buyuk istek bolumu kucultuluyor"
+
+msgid "Warning: Truncating oversized username"
+msgstr "Dikkat: Normalden buyuk kullanici adi bolumu kucultuluyor"
+
+msgid "Western Sahara"
+msgstr "Bati Sahara"
+
+msgid "Yemen"
+msgstr "Yemen"
+
+msgid "Yugoslavia"
+msgstr "Yugoslavya"
+
+msgid "Zaire"
+msgstr "Zaire"
+
+msgid "Zambia"
+msgstr "Zambia"
+
+msgid "Zimbabwe"
+msgstr "Zimbabve"
+
+msgid "[options] [log file]"
+msgstr "[opsiyonlar] [kutuk dosyasi]"
+
+msgid "addresses"
+msgstr "addres"
+
+msgid "bad"
+msgstr "kotu"
+
+msgid "current directory"
+msgstr "su anki dizin"
+
+msgid "ignored"
+msgstr "islenmedi"
+
+msgid "in"
+msgstr ""
+
+msgid "of"
+msgstr "/"
+
+msgid "records"
+msgstr "kayit"
+
+msgid "seconds"
+msgstr "saniyede"

@@ -1,0 +1,73 @@
+#!/usr/bin/make -f
+# MAde with the aid of dh_make, by Craig Small
+# Sample debian/rules that uses debhelper. GNU copyright 1997 by Joey Hess.
+# Some lines taken from debmake, by Cristoph Lameter.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+
+	./configure --prefix=/usr --mandir=/usr/share/man --enable-dns
+
+	# Add here commands to compile the package.
+	make CFLAGS="-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -O2 -g -Wall"
+
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+
+	# Add here commands to clean up after the build process.
+	-$(MAKE) distclean
+	rm -f webalizer_lang.h  config.cache
+
+	dh_clean
+
+# Build architecture-independent files here.
+binary-indep: build
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build
+#	dh_testversion
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdebconf
+	dh_installdirs
+
+	# Add here commands to install the files into debian/tmp
+	$(MAKE) install DESTDIR=`pwd`/debian/tmp
+
+	dh_installdocs country-codes.txt README README.FIRST DNS.README
+	dh_installexamples
+	dh_installmenu
+#	dh_installinit
+	dh_installdocs
+	dh_installcron
+	dh_installmanpages
+	dh_undocumented
+	(cd `pwd`/debian/tmp/usr/share/man/man1; ln -s webalizer.1.gz webazolver.1.gz)
+	dh_installchangelogs CHANGES
+	cp sample.conf `pwd`/debian/tmp/usr/share/doc/webalizer/sample.conf
+	dh_strip
+	dh_compress
+	dh_fixperms
+#	dh_suidregister
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+#	dh_makeshlibs
+	dh_md5sums
+	dh_builddeb
+
+source diff:
+	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary

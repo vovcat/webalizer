@@ -1,0 +1,1497 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"PO-Revision-Date: 2003-05-25 23:29+0200\n"
+"Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
+"Language-Team: French <tech@jexiste.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit"
+
+msgid "-A num    = Display num top agents"
+msgstr "-A num    = Display num top agents"
+
+msgid "-C num    = Display num top countries"
+msgstr "-C num    = Display num top countries"
+
+msgid "-D name   = Use DNS Cache file 'name'"
+msgstr "-D name   = Use DNS Cache file 'name'"
+
+msgid "-E num    = Display num top Exit Pages"
+msgstr "-E num    = Display num top Exit Pages"
+
+msgid "-F type   = Log type.  type= (clf | ftp | squid)"
+msgstr "-F type   = Log type.  type= (clf | ftp | squid)"
+
+msgid "-G        = supress hourly graph"
+msgstr "-G        = supress hourly graph"
+
+msgid "-H        = supress hourly stats"
+msgstr "-H        = supress hourly stats"
+
+msgid "-I name   = Index alias 'name'"
+msgstr "-I name   = Index alias 'name'"
+
+msgid "-L        = supress color coded graph legends"
+msgstr "-L        = supress color coded graph legends"
+
+msgid "-N num    = Number of DNS processes (0=disable)"
+msgstr "-N num    = Number of DNS processes (0=disable)"
+
+msgid "-P name   = Page type extension 'name'"
+msgstr "-P name   = Page type extension 'name'"
+
+msgid "-Q        = supress _ALL_ messages"
+msgstr "-Q        = supress _ALL_ messages"
+
+msgid "-R num    = Display num top referrers"
+msgstr "-R num    = Display num top referrers"
+
+msgid "-S num    = Display num top sites"
+msgstr "-S num    = Display num top sites"
+
+msgid "-T        = print timing information"
+msgstr "-T        = print timing information"
+
+msgid "-U num    = Display num top URLs"
+msgstr "-U num    = Display num top URLs"
+
+msgid "-X        = Hide individual sites"
+msgstr "-X        = Hide individual sites"
+
+msgid "-Y        = supress country graph"
+msgstr "-Y        = supress country graph"
+
+msgid "-a name   = hide user agent 'name'"
+msgstr "-a name   = hide user agent 'name'"
+
+msgid "-c file   = use configuration file 'file'"
+msgstr "-c file   = use configuration file 'file'"
+
+msgid "-d        = print additional debug info"
+msgstr "-d        = print additional debug info"
+
+msgid "-e num    = Display num top Entry Pages"
+msgstr "-e num    = Display num top Entry Pages"
+
+msgid "-f        = Fold sequence errors"
+msgstr "-f        = Fold sequence errors"
+
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr "-g num    = Group Domains to 'num' levels"
+
+msgid "-h        = print this help message"
+msgstr "-h        = print this help message"
+
+msgid "-i        = ignore history file"
+msgstr "-i        = ignore history file"
+
+msgid "-l num    = use num background lines on graph"
+msgstr "-l num    = use num background lines on graph"
+
+msgid "-m num    = Visit timout value (seconds)"
+msgstr "-m num    = Visit timout value (seconds)"
+
+msgid "-n name   = hostname to use"
+msgstr "-n name   = hostname to use"
+
+msgid "-o dir    = output directory to use"
+msgstr "-o dir    = output directory to use"
+
+msgid "-p        = preserve state (incremental)"
+msgstr "-p        = preserve state (incremental)"
+
+msgid "-q        = supress informational messages"
+msgstr "-q        = supress informational messages"
+
+msgid "-r name   = hide referrer 'name'"
+msgstr "-r name   = hide referrer 'name'"
+
+msgid "-s name   = hide site 'name'"
+msgstr "-s name   = hide site 'name'"
+
+msgid "-t name   = report title 'name'"
+msgstr "-t name   = report title 'name'"
+
+msgid "-u name   = hide URL 'name'"
+msgstr "-u name   = hide URL 'name'"
+
+msgid "-v -V     = print version information"
+msgstr "-v -V     = print version information"
+
+msgid "-x name   = Use filename extension 'name'"
+msgstr "-x name   = Use filename extension 'name'"
+
+msgid "Afghanistan"
+msgstr "Афган╕стан (af)"
+
+msgid "Agents"
+msgstr "Агенти користувача"
+
+msgid "Albania"
+msgstr "Албан╕я (al)"
+
+msgid "Algeria"
+msgstr "Алгер╕я (dz)"
+
+msgid "American Samoa"
+msgstr "Американська Самоа (as)"
+
+msgid "Andorra"
+msgstr "Андора (ad)"
+
+msgid "Angola"
+msgstr "Ангола (ao)"
+
+msgid "Anguilla"
+msgstr "Анг╕лья (ai)"
+
+msgid "Antarctica"
+msgstr "Антарктика (aq)"
+
+msgid "Antigua and Barbuda"
+msgstr "Тр╕н╕дад та Тобаго (ag)"
+
+msgid "Apr"
+msgstr "Кв╕"
+
+msgid "April"
+msgstr "Кв╕тень"
+
+msgid "Argentina"
+msgstr "Аргентина (ar)"
+
+msgid "Armenia"
+msgstr "В╕рмен╕я (am)"
+
+msgid "Aruba"
+msgstr "Аруба (aw)"
+
+msgid "Aug"
+msgstr "Сер"
+
+msgid "August"
+msgstr "Серпень"
+
+msgid "Australia"
+msgstr "Австрал╕я (au)"
+
+msgid "Austria"
+msgstr "Австр╕я (at)"
+
+msgid "Avg"
+msgstr "середн."
+
+msgid "Azerbaijan"
+msgstr "Азербайджан (az)"
+
+msgid "Bahamas"
+msgstr "Багами (bs)"
+
+msgid "Bahrain"
+msgstr "Бахрейн (bh)"
+
+msgid "Bangladesh"
+msgstr "Бангладеш (bd)"
+
+msgid "Barbados"
+msgstr "Барбадос (bb)"
+
+msgid "Belarus"
+msgstr "Б╕лорусь (by)"
+
+msgid "Belgium"
+msgstr "Бельг╕я (be)"
+
+msgid "Belize"
+msgstr "Бел╕з (bz)"
+
+msgid "Benin"
+msgstr "Бен╕н (bj)"
+
+msgid "Bermuda"
+msgstr "Бермуди (bm)"
+
+msgid "Bhutan"
+msgstr "Бутан (bt)"
+
+msgid "Bolivia"
+msgstr "Бол╕в╕я (bo)"
+
+msgid "Bosnia and Herzegovina"
+msgstr "Босн╕я та Герцоговина (ba)"
+
+msgid "Botswana"
+msgstr "Ботсвана (bw)"
+
+msgid "Bouvet Island"
+msgstr "Остр╕в Бувет (bv)"
+
+msgid "Brazil"
+msgstr "Бразил╕я (br)"
+
+msgid "British Indian Ocean Territory"
+msgstr "Британськ╕ тер .в ╤нд╕йському Океан╕ (io)"
+
+msgid "Brunei Darussalam"
+msgstr "Бруней Дарусалам (bn)"
+
+msgid "Bulgaria"
+msgstr "Болгар╕я (bg)"
+
+msgid "Burkina Faso"
+msgstr "Бурк╕на Фасо (bf)"
+
+msgid "Burundi"
+msgstr "Бурунд╕ (bi)"
+
+msgid "By"
+msgstr "по"
+
+msgid "Cambodia"
+msgstr "Камбоджа (kh)"
+
+msgid "Cameroon"
+msgstr "Камерун (cm)"
+
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr "Can't allocate enough memory, Top Countries disabled!"
+
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr "Can't allocate enough memory, Top Referrers disabled!"
+
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr "Can't allocate enough memory, Top Search Strings disabled!"
+
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr "Can't allocate enough memory, Top Sites disabled!"
+
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr "Can't allocate enough memory, Top URLs disabled!"
+
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr "Can't allocate enough memory, Top User Agents disabled!"
+
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr "Can't allocate enough memory, Top Usernames disabled!"
+
+msgid "Canada"
+msgstr "Канада (ca)"
+
+msgid "Cape Verde"
+msgstr "Кейп Верде (cv)"
+
+msgid "Cayman Islands"
+msgstr "Кайманськ╕ Острови (ky)"
+
+msgid "Central African Republic"
+msgstr "Центрально Африканська Республ╕ка (cf)"
+
+msgid "Chad"
+msgstr "Чад (td)"
+
+msgid "Chile"
+msgstr "Ч╕л╕ (cl)"
+
+msgid "China"
+msgstr "Китай (cn)"
+
+msgid "Christmas Island"
+msgstr "Остр╕в Р╕здва (cx)"
+
+msgid "Cocos (Keeling) Islands"
+msgstr "Какосов╕ Острови (cc)"
+
+msgid "Code 100 - Continue"
+msgstr "Code 100 - Continue"
+
+msgid "Code 101 - Switching Protocols"
+msgstr "Code 101 - Switching Protocols"
+
+msgid "Code 200 - OK"
+msgstr "Code 200 - OK"
+
+msgid "Code 201 - Created"
+msgstr "Code 201 - Created"
+
+msgid "Code 202 - Accepted"
+msgstr "Code 202 - Accepted"
+
+msgid "Code 203 - Non-Authoritative Information"
+msgstr "Code 203 - Non-Authoritative Information"
+
+msgid "Code 204 - No Content"
+msgstr "Code 204 - No Content"
+
+msgid "Code 205 - Reset Content"
+msgstr "Code 205 - Reset Content"
+
+msgid "Code 206 - Partial Content"
+msgstr "Code 206 - Partial Content"
+
+msgid "Code 300 - Multiple Choices"
+msgstr "Code 300 - Multiple Choices"
+
+msgid "Code 301 - Moved Permanently"
+msgstr "Code 301 - Moved Permanently"
+
+msgid "Code 302 - Found"
+msgstr "Code 302 - Found"
+
+msgid "Code 303 - See Other"
+msgstr "Code 303 - See Other"
+
+msgid "Code 304 - Not Modified"
+msgstr "Code 304 - Not Modified"
+
+msgid "Code 305 - Use Proxy"
+msgstr "Code 305 - Use Proxy"
+
+msgid "Code 307 - Moved Temporarily"
+msgstr "Code 307 - Moved Temporarily"
+
+msgid "Code 400 - Bad Request"
+msgstr "Code 400 - Bad Request"
+
+msgid "Code 401 - Unauthorized"
+msgstr "Code 401 - Unauthorized"
+
+msgid "Code 402 - Payment Required"
+msgstr "Code 402 - Payment Required"
+
+msgid "Code 403 - Forbidden"
+msgstr "Code 403 - Forbidden"
+
+msgid "Code 404 - Not Found"
+msgstr "Code 404 - Not Found"
+
+msgid "Code 405 - Method Not Allowed"
+msgstr "Code 405 - Method Not Allowed"
+
+msgid "Code 406 - Not Acceptable"
+msgstr "Code 406 - Not Acceptable"
+
+msgid "Code 407 - Proxy Authentication Required"
+msgstr "Code 407 - Proxy Authentication Required"
+
+msgid "Code 408 - Request Timeout"
+msgstr "Code 408 - Request Timeout"
+
+msgid "Code 409 - Conflict"
+msgstr "Code 409 - Conflict"
+
+msgid "Code 410 - Gone"
+msgstr "Code 410 - Gone"
+
+msgid "Code 411 - Length Required"
+msgstr "Code 411 - Length Required"
+
+msgid "Code 412 - Precondition Failed"
+msgstr "Code 412 - Precondition Failed"
+
+msgid "Code 413 - Request Entity Too Large"
+msgstr "Code 413 - Request Entity Too Large"
+
+msgid "Code 414 - Request-URI Too Long"
+msgstr "Code 414 - Request-URI Too Long"
+
+msgid "Code 415 - Unsupported Media Type"
+msgstr "Code 415 - Unsupported Media Type"
+
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr "Code 416 - Requested Range Not Satisfiable"
+
+msgid "Code 417 - Expectation Failed"
+msgstr "Code 417 - Expectation Failed"
+
+msgid "Code 500 - Internal Server Error"
+msgstr "Code 500 - Internal Server Error"
+
+msgid "Code 501 - Not Implemented"
+msgstr "Code 501 - Not Implemented"
+
+msgid "Code 502 - Bad Gateway"
+msgstr "Code 502 - Bad Gateway"
+
+msgid "Code 503 - Service Unavailable"
+msgstr "Code 503 - Service Unavailable"
+
+msgid "Code 504 - Gateway Timeout"
+msgstr "Code 504 - Gateway Timeout"
+
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr "Code 505 - HTTP Version Not Supported"
+
+msgid "Colombia"
+msgstr "Колумб╕я (co)"
+
+msgid "Comoros"
+msgstr "Коморськ╕ Острови (km)"
+
+msgid "Congo"
+msgstr "Конго (cg)"
+
+msgid "Cook Islands"
+msgstr "Острови Кука (cg)"
+
+msgid "Costa Rica"
+msgstr "Коста Р╕ка (cr)"
+
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "Узбережжя ╤вор╕ (ci)"
+
+msgid "Countries"
+msgstr "Кра╖ни"
+
+msgid "Country"
+msgstr "кра╖на"
+
+msgid "Creating output in"
+msgstr "Creating output in"
+
+msgid "Croatia (Hrvatska)"
+msgstr "Хорват╕я (hr)"
+
+msgid "Cuba"
+msgstr "Куба (cu)"
+
+msgid "Cyprus"
+msgstr "К╕пр (cy)"
+
+msgid "Czech Republic"
+msgstr "Чеська республ╕ка (cz)"
+
+msgid "Czechoslovakia (former)"
+msgstr "Чехословаччина (колишня, cs)"
+
+msgid "DNS Lookup"
+msgstr "DNS Lookup"
+
+msgid "Daily Avg"
+msgstr "В середньому за день"
+
+msgid "Daily Statistics"
+msgstr "Статистика по днях"
+
+msgid "Daily Statistics for"
+msgstr "Статистика по днях за"
+
+msgid "Daily usage for"
+msgstr "Щоденне використання за"
+
+msgid "Day"
+msgstr "день"
+
+msgid "Dec"
+msgstr "Гру"
+
+msgid "December"
+msgstr "Грудень"
+
+msgid "Denmark"
+msgstr "Дан╕я (dk)"
+
+msgid "Djibouti"
+msgstr "Джибут╕ (dj)"
+
+msgid "Dominica"
+msgstr "Дом╕н╕ка (dm)"
+
+msgid "Dominican Republic"
+msgstr "Дом╕н╕канська республ╕ка (do)"
+
+msgid "East Timor"
+msgstr "Сх╕дний Т╕мор (tp)"
+
+msgid "Ecuador"
+msgstr "Еквадор (ec)"
+
+msgid "Egypt"
+msgstr "╢гипет (eg)"
+
+msgid "El Salvador"
+msgstr "Сальвадор (sv)"
+
+msgid "English"
+msgstr "Ukrainian"
+
+msgid "Entry"
+msgstr "Початков╕ стор╕нки"
+
+msgid "Equatorial Guinea"
+msgstr "Екватор╕альна Гв╕нея (gq)"
+
+msgid "Eritrea"
+msgstr "Ер╕трея (er)"
+
+msgid "Error adding Referrer node, skipping"
+msgstr "Error adding Referrer node, skipping"
+
+msgid "Error adding Search String Node, skipping"
+msgstr "Error adding Search String Node, skipping"
+
+msgid "Error adding URL node, skipping"
+msgstr "Error adding URL node, skipping"
+
+msgid "Error adding User Agent node, skipping"
+msgstr "Error adding User Agent node, skipping"
+
+msgid "Error adding Username node, skipping"
+msgstr "Error adding Username node, skipping"
+
+msgid "Error adding host node (daily), skipping"
+msgstr "Error adding host node (daily), skipping"
+
+msgid "Error adding host node (monthly), skipping"
+msgstr "Error adding host node (monthly), skipping"
+
+msgid "Error: Can't change directory to"
+msgstr "Error: Can't change directory to"
+
+msgid "Error: Can't open log file"
+msgstr "Error: Can't open log file"
+
+msgid "Error: Ignoring invalid history record"
+msgstr "Error: Ignoring invalid history record"
+
+msgid "Warning: Skipping oversized log record"
+msgstr "Error: Skipping oversized log record"
+
+msgid "Error: Skipping record (bad date)"
+msgstr "Error: Skipping record (bad date)"
+
+msgid "Error: Unable to lock DNS cache file"
+msgstr "Error: Unable to lock DNS cache file"
+
+msgid "Error: Unable to open DNS cache file"
+msgstr "Error: Unable to open DNS cache file"
+
+msgid "Error: Unable to open configuration file"
+msgstr "Error: Unable to open configuration file"
+
+msgid "Error: Unable to open file"
+msgstr "Error: Unable to open file"
+
+msgid "Error: Unable to restore run data"
+msgstr "Error: Unable to restore run data"
+
+msgid "Error: Unable to save current run data"
+msgstr "Error: Unable to save current run data"
+
+msgid "Error: Unable to write history file"
+msgstr "Error: Unable to write history file"
+
+msgid "Estonia"
+msgstr "Естон╕я (ee)"
+
+msgid "Ethiopia"
+msgstr "Еф╕оп╕я (et)"
+
+msgid "Exit"
+msgstr "К╕нцев╕ стор╕нки"
+
+msgid "Falkland Islands (Malvinas)"
+msgstr "Фолклендськ╕ Острови (fk)"
+
+msgid "Faroe Islands"
+msgstr "Фарерськ╕ Острови (fo)"
+
+msgid "Feb"
+msgstr "Лют"
+
+msgid "February"
+msgstr "Лютий"
+
+msgid "Fiji"
+msgstr "Ф╕дж╕ (fj)"
+
+msgid "Files"
+msgstr "файл╕в"
+
+msgid "Files per Day"
+msgstr "Файл╕в за день"
+
+msgid "Finland"
+msgstr "A╕нлянд╕я (fi)"
+
+msgid "France"
+msgstr "Франц╕я (fr)"
+
+msgid "France; Metropolitan"
+msgstr "Франц╕я (метропол╕я, fx)"
+
+msgid "French Guiana"
+msgstr "Французька Гаяна (gf)"
+
+msgid "French Polynesia"
+msgstr "Французька Пол╕нез╕я (pf)"
+
+msgid "French Southern Territories"
+msgstr "П╕вденн╕ Французьк╕ територ╕╖ (tf)"
+
+msgid "Gabon"
+msgstr "Гобон (ga)"
+
+msgid "Gambia"
+msgstr "Гамб╕я (gm)"
+
+msgid "Generated"
+msgstr "Створено"
+
+msgid "Generating report for"
+msgstr "Generating report for"
+
+msgid "Generating summary report"
+msgstr "Generating summary report"
+
+msgid "Georgia"
+msgstr "Груз╕я (ge)"
+
+msgid "Germany"
+msgstr "Н╕меччина (de)"
+
+msgid "Ghana"
+msgstr "Гана (gh)"
+
+msgid "Gibraltar"
+msgstr "Г╕бралтар (gi)"
+
+msgid "Great Britain (UK)"
+msgstr "Великобритан╕я (gb)"
+
+msgid "Greece"
+msgstr "Грец╕я (gr)"
+
+msgid "Greenland"
+msgstr "Гренланд╕я (gl)"
+
+msgid "Grenada"
+msgstr "Гренада (gd)"
+
+msgid "Guadeloupe"
+msgstr "Гваделупа (gp)"
+
+msgid "Guam"
+msgstr "Гуам (gu)"
+
+msgid "Guatemala"
+msgstr "Гватемала (gt)"
+
+msgid "Guinea"
+msgstr "Гв╕нея (gn)"
+
+msgid "Guinea-Bissau"
+msgstr "Гв╕нею-Б╕сау (gw)"
+
+msgid "Guyana"
+msgstr "Гаяна (gy)"
+
+msgid "Haiti"
+msgstr "Га╖т╕ (ht)"
+
+msgid "Heard and McDonald Islands"
+msgstr "Острови Херда ╕ Макдональда (hm)"
+
+msgid "History file not found..."
+msgstr "History file not found..."
+
+msgid "Hits"
+msgstr "запит╕в"
+
+msgid "Hits by Response Code"
+msgstr "Звертань за кодом в╕дпов╕д╕"
+
+msgid "Hits per Day"
+msgstr "Звертань за день"
+
+msgid "Hits per Hour"
+msgstr "Звертань за годину"
+
+msgid "Honduras"
+msgstr "Гондурас (hn)"
+
+msgid "Hong Kong"
+msgstr "Гон Конг (hk)"
+
+msgid "Hostname"
+msgstr "╕м'я хоста"
+
+msgid "Hostname for reports is"
+msgstr "Hostname for reports is"
+
+msgid "Hour"
+msgstr "година"
+
+msgid "Hourly Statistics"
+msgstr "Статистика по годинах"
+
+msgid "Hourly Statistics for"
+msgstr "Статистика по годинах за"
+
+msgid "Hourly usage for"
+msgstr "Погодинне використання за"
+
+msgid "Hungary"
+msgstr "Угорщин╕ (hu)"
+
+msgid "Iceland"
+msgstr "╤сланд╕я (is)"
+
+msgid "Ignoring previous history..."
+msgstr "Ignoring previous history..."
+
+msgid "India"
+msgstr "╤нд╕я (in)"
+
+msgid "Indonesia"
+msgstr "╤ндонез╕я (id)"
+
+msgid "International (int)"
+msgstr "╤нтернац╕ональн╕ (int)"
+
+msgid "Iran"
+msgstr "╤ран (ir)"
+
+msgid "Iraq"
+msgstr "╤рак (iq)"
+
+msgid "Ireland"
+msgstr "╤рланд╕я (ie)"
+
+msgid "Israel"
+msgstr "╤зра╖ль (il)"
+
+msgid "Italy"
+msgstr "╤тал╕я (it)"
+
+msgid "Jamaica"
+msgstr "Ямайка (jm)"
+
+msgid "Jan"
+msgstr "С╕ч"
+
+msgid "January"
+msgstr "С╕чень"
+
+msgid "Japan"
+msgstr "Япон╕я (jp)"
+
+msgid "Jordan"
+msgstr "Йордан (jo)"
+
+msgid "Jul"
+msgstr "Лип"
+
+msgid "July"
+msgstr "Липень"
+
+msgid "Jun"
+msgstr "Чер"
+
+msgid "June"
+msgstr "Червень"
+
+msgid "KBytes"
+msgstr "КБайт"
+
+msgid "KBytes per Day"
+msgstr "KБайт за день"
+
+msgid "Kazakhstan"
+msgstr "Казахстан (kz)"
+
+msgid "Kenya"
+msgstr "Кен╕я (ke)"
+
+msgid "Kiribati"
+msgstr "К╕р╕бат╕ (ki)"
+
+msgid "Korea (North)"
+msgstr "Корея (П╕вн╕чна) (kp)"
+
+msgid "Korea (South)"
+msgstr "Корея (П╕вденна) (kr)"
+
+msgid "Kuwait"
+msgstr "Кувейт (kw)"
+
+msgid "Kyrgyzstan"
+msgstr "Киргистан (kg)"
+
+msgid "Laos"
+msgstr "Лаос (la)"
+
+msgid "Last 12 Months"
+msgstr "останн╕ 12 м╕сяц╕в"
+
+msgid "Latvia"
+msgstr "Латв╕я (lv)"
+
+msgid "Lebanon"
+msgstr "Лебанон (lb)"
+
+msgid "Lesotho"
+msgstr "Лесото (ls)"
+
+msgid "Liberia"
+msgstr "Л╕бер╕я (lr)"
+
+msgid "Libya"
+msgstr "Л╕в╕я (ly)"
+
+msgid "Liechtenstein"
+msgstr "Л╕хтенштейн (li)"
+
+msgid "Lithuania"
+msgstr "Литва (lt)"
+
+msgid "Luxembourg"
+msgstr "Люксембург (lu)"
+
+msgid "Macau"
+msgstr "Макау (mo)"
+
+msgid "Macedonia"
+msgstr "Македон╕я (mk)"
+
+msgid "Madagascar"
+msgstr "Мадагаскар (mg)"
+
+msgid "Malawi"
+msgstr "Малав╕ (mw)"
+
+msgid "Malaysia"
+msgstr "Малаз╕я (my)"
+
+msgid "Maldives"
+msgstr "Мальд╕вська Республ╕ка (mv)"
+
+msgid "Mali"
+msgstr "Мал╕ (ml)"
+
+msgid "Malta"
+msgstr "Мальта (mt)"
+
+msgid "Mar"
+msgstr "Бер"
+
+msgid "March"
+msgstr "Березень"
+
+msgid "Marshall Islands"
+msgstr "Маршалов╕ Острови (mh)"
+
+msgid "Martinique"
+msgstr "Март╕н╕ка (mq)"
+
+msgid "Mauritania"
+msgstr "Мавритан╕я (mr)"
+
+msgid "Mauritius"
+msgstr "Мавритан╕я (mu)"
+
+msgid "Max"
+msgstr "макс."
+
+msgid "May"
+msgstr "Травень"
+
+msgid "Mayotte"
+msgstr "Остр╕в Майота (yt)"
+
+msgid "Mexico"
+msgstr "Мексика (mx)"
+
+msgid "Micronesia"
+msgstr "М╕кронез╕я (fm)"
+
+msgid "Moldova"
+msgstr "Молдова (md)"
+
+msgid "Monaco"
+msgstr "Монако (mc)"
+
+msgid "Mongolia"
+msgstr "Монгол╕я (mn)"
+
+msgid "Month"
+msgstr "м╕сяць"
+
+msgid "Monthly Statistics for"
+msgstr "М╕сячна статисника за"
+
+msgid "Monthly Totals"
+msgstr "Всього за м╕сяць"
+
+msgid "Montserrat"
+msgstr "Монтсерат (ms)"
+
+msgid "Morocco"
+msgstr "Мароко (ma)"
+
+msgid "Mozambique"
+msgstr "Мозамб╕к (mz)"
+
+msgid "Myanmar"
+msgstr "Майанмар (mm)"
+
+msgid "Namibia"
+msgstr "Нам╕б╕я (na)"
+
+msgid "Nato field (nato)"
+msgstr "Зона Nato (nato)"
+
+msgid "Nauru"
+msgstr "Науру (nr)"
+
+msgid "Nepal"
+msgstr "Непал (np)"
+
+msgid "Netherlands"
+msgstr "Н╕дерланди (nl)"
+
+msgid "Netherlands Antilles"
+msgstr "Голандськ╕ Антильськ╕ острови (an)"
+
+msgid "Network"
+msgstr "Мережев╕ (net)"
+
+msgid "Neutral Zone"
+msgstr "Нейтральна зона (nt)"
+
+msgid "New Caledonia"
+msgstr "Нова Каледон╕я (nc)"
+
+msgid "New Zealand (Aotearoa)"
+msgstr "Нова Зеланд╕я (nz)"
+
+msgid "Nicaragua"
+msgstr "Н╕карагуа (ni)"
+
+msgid "Niger"
+msgstr "Н╕гер (ne)"
+
+msgid "Nigeria"
+msgstr "Н╕гер╕я (ng)"
+
+msgid "Niue"
+msgstr "Н╕уе (nu)"
+
+msgid "No cache file specified, aborting..."
+msgstr "No cache file specified, aborting..."
+
+msgid "No valid records found!"
+msgstr "No valid records found!"
+
+msgid "Non-Profit Organization"
+msgstr "Некомерц╕йн╕ орган╕зац╕╖ (org)"
+
+msgid "None to process"
+msgstr "None to process"
+
+msgid "Norfolk Island"
+msgstr "Остр╕в Норфолк (nf)"
+
+msgid "Northern Mariana Islands"
+msgstr "П╕вн╕чн╕ Мар╕анськ╕ Острови (mp)"
+
+msgid "Norway"
+msgstr "Норвег╕я (no)"
+
+msgid "Nov"
+msgstr "Лис"
+
+msgid "November"
+msgstr "Листопад"
+
+msgid "Oct"
+msgstr "Жов"
+
+msgid "October"
+msgstr "Жовтень"
+
+msgid "Old style Arpanet (arpa)"
+msgstr "Arpanet (arpa)"
+
+msgid "Oman"
+msgstr "Оман (om)"
+
+msgid "Other"
+msgstr "╤нш╕"
+
+msgid "Pages"
+msgstr "стор."
+
+msgid "Pages per Day"
+msgstr "Стор╕нок за день"
+
+msgid "Pakistan"
+msgstr "Пак╕стан (pk)"
+
+msgid "Palau"
+msgstr "Палау (pw)"
+
+msgid "Panama"
+msgstr "Панама (pa)"
+
+msgid "Papua New Guinea"
+msgstr "Папуа Нова Гв╕нея (pg)"
+
+msgid "Paraguay"
+msgstr "Парагвай (py)"
+
+msgid "Peru"
+msgstr "Перу (pr)"
+
+msgid "Philippines"
+msgstr "Ф╕л╕п╕ни (ph)"
+
+msgid "Pitcairn"
+msgstr "П╕ткерн (pn)"
+
+msgid "Poland"
+msgstr "Польща (pl)"
+
+msgid "Portugal"
+msgstr "Португал╕я (pt)"
+
+msgid "Previous run data not found..."
+msgstr "Previous run data not found..."
+
+msgid "Puerto Rico"
+msgstr "Пуерто Р╕ко (pr)"
+
+msgid "Qatar"
+msgstr "Катар (qa)"
+
+msgid "Reading history file..."
+msgstr "Reading history file..."
+
+msgid "Reading previous run data..."
+msgstr "Reading previous run data.."
+
+msgid "Referrer"
+msgstr "посилання"
+
+msgid "Referrers"
+msgstr "Посилання"
+
+msgid "Reunion"
+msgstr "Остр╕в Реюньон (re)"
+
+msgid "Romania"
+msgstr "Румун╕я (po)"
+
+msgid "Russian Federation"
+msgstr "Рос╕йська Федерац╕я (ru)"
+
+msgid "Rwanda"
+msgstr "Руана (rw)"
+
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "Пд. Георг╕я ╕ Пд. Острови Сендв╕ч (gs)"
+
+msgid "Saint Kitts and Nevis"
+msgstr "Острови св. К╕тса и Нев╕са (kn)"
+
+msgid "Saint Lucia"
+msgstr "Санта Люч╕я (lc)"
+
+msgid "Saint Vincent and the Grenadines"
+msgstr "Острови св. В╕нсента ╕ Гренад╕ни (vc)"
+
+msgid "Samoa"
+msgstr "Самоа (ws)"
+
+msgid "San Marino"
+msgstr "Сан Мар╕но (sm)"
+
+msgid "Sao Tome and Principe"
+msgstr "Сао Том ╕ Принципов╕ Острови (st)"
+
+msgid "Saudi Arabia"
+msgstr "Сауд╕вська Арав╕я (sa)"
+
+msgid "Saving current run data..."
+msgstr "Saving current run data..."
+
+msgid "Saving history information..."
+msgstr "Saving history information..."
+
+msgid "Search"
+msgstr "Пошук"
+
+msgid "Search String"
+msgstr "стр╕чка пошуку"
+
+msgid "Senegal"
+msgstr "Сенегал (sn)"
+
+msgid "Sep"
+msgstr "Вер"
+
+msgid "September"
+msgstr "Вересень"
+
+msgid "Seychelles"
+msgstr "Сейшельськ╕ Острови (sc)"
+
+msgid "Sierra Leone"
+msgstr "С╕╓ра Леоне (sl)"
+
+msgid "Singapore"
+msgstr "С╕нгапур (sg)"
+
+msgid "Sites"
+msgstr "Сайти"
+
+msgid "Skipping Netscape header record"
+msgstr "Skipping Netscape header record"
+
+msgid "Skipping bad record"
+msgstr "Skipping bad record"
+
+msgid "Slovak Republic"
+msgstr "Республ╕ка Словак╕╖ (sk)"
+
+msgid "Slovenia"
+msgstr "Словен╕я (si)"
+
+msgid "Solomon Islands"
+msgstr "Соломонов╕ Острови (sb)"
+
+msgid "Somalia"
+msgstr "Сомал╕ (so)"
+
+msgid "South Africa"
+msgstr "П╕вденна Африка (za)"
+
+msgid "Spain"
+msgstr "╤спан╕я (es)"
+
+msgid "Sri Lanka"
+msgstr "Шр╕ Ланка (lk)"
+
+msgid "St. Helena"
+msgstr "Остр╕в св. ╢лени (sh)"
+
+msgid "St. Pierre and Miquelon"
+msgstr "Остр╕в св. П╓ра ╕ М╕геля (pm)"
+
+msgid "Sudan"
+msgstr "Судан (sd)"
+
+msgid "Summary Period"
+msgstr "Пер╕од статистики"
+
+msgid "Summary by Month"
+msgstr "Щом╕сячний п╕дсумок"
+
+msgid "Suriname"
+msgstr "Сур╕нам (sr)"
+
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Острови Свалбард ╕ Ян-Майен (sj)"
+
+msgid "Swaziland"
+msgstr "Сваз╕ланд (sz)"
+
+msgid "Sweden"
+msgstr "Швец╕я (se)"
+
+msgid "Switzerland"
+msgstr "Швейцар╕я (ch)"
+
+msgid "Syria"
+msgstr "Сир╕я (sy)"
+
+msgid "Taiwan"
+msgstr "Тайвань (tw)"
+
+msgid "Tajikistan"
+msgstr "Таджикистан (tj)"
+
+msgid "Tanzania"
+msgstr "Танзан╕я (tz)"
+
+msgid "Thailand"
+msgstr "Та╖ланд (th)"
+
+msgid "Togo"
+msgstr "Того (tg)"
+
+msgid "Tokelau"
+msgstr "Острови Токелау (tk)"
+
+msgid "Tonga"
+msgstr "Острови Тонга (to)"
+
+msgid "Top"
+msgstr "Перш╕"
+
+msgid "Total"
+msgstr "всього"
+
+msgid "Total Countries"
+msgstr "кра╖н"
+
+msgid "Total Entry Pages"
+msgstr "початкових стор╕нок"
+
+msgid "Total Exit Pages"
+msgstr "к╕нцевих стор╕нок"
+
+msgid "Total Files"
+msgstr "Всього файл╕в"
+
+msgid "Total Hits"
+msgstr "Всього запит╕в"
+
+msgid "Total KBytes"
+msgstr "Всього КБайт"
+
+msgid "Total Referrers"
+msgstr "посилань"
+
+msgid "Total Search Strings"
+msgstr "стр╕чок пошуку"
+
+msgid "Total Sites"
+msgstr "сайт╕в"
+
+msgid "Total URLs"
+msgstr "URL'╕в"
+
+msgid "Total Unique Referrers"
+msgstr "Всього ун╕кальних посилань"
+
+msgid "Total Unique Sites"
+msgstr "Всього ун╕кальних сайт╕в"
+
+msgid "Total Unique URLs"
+msgstr "Всього ун╕кальних URL'╕в"
+
+msgid "Total Unique User Agents"
+msgstr "Всього ун╕кальних агент╕в користувача"
+
+msgid "Total Unique Usernames"
+msgstr "Всього ун╕кальних ╕мен"
+
+msgid "Total User Agents"
+msgstr "агент╕в користувача"
+
+msgid "Total Usernames"
+msgstr "╕мен користувача"
+
+msgid "Totals"
+msgstr "Всього"
+
+msgid "Trinidad and Tobago"
+msgstr "Республ╕ка Тр╕н╕дад та Тобаго (tt)"
+
+msgid "Tunisia"
+msgstr "Тун╕с (tn)"
+
+msgid "Turkey"
+msgstr "Туреччина (tr)"
+
+msgid "Turkmenistan"
+msgstr "Туркменистан (tm)"
+
+msgid "Turks and Caicos Islands"
+msgstr "Острови Тюркс ╕ Кайкос (tc)"
+
+msgid "Tuvalu"
+msgstr "Тувалу (tv)"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "URLs"
+msgstr "URL'и"
+
+msgid "US Commercial"
+msgstr "Комерц╕йн╕ (com)"
+
+msgid "US Educational"
+msgstr "Осв╕тн╕ (edu)"
+
+msgid "US Government"
+msgstr "Урядов╕ (gov)"
+
+msgid "US Military"
+msgstr "В╕йськов╕ (mil)"
+
+msgid "US Minor Outlying Islands"
+msgstr "Мал╕ зовн╕шн╕ острови США (um)"
+
+msgid "USSR (former)"
+msgstr "СРСР (колишн╕й, su)"
+
+msgid "Uganda"
+msgstr "Уганда (ug)"
+
+msgid "Ukraine"
+msgstr "Укра╖на (ua)"
+
+msgid "Undefined response code"
+msgstr "Нев╕домий код в╕дпов╕д╕"
+
+msgid "United Arab Emirates"
+msgstr "Об'╓днан╕ Арабськ╕ Ем╕рати (ae)"
+
+msgid "United Kingdom"
+msgstr "Великобритан╕я (uk)"
+
+msgid "United States"
+msgstr "Cполучен╕ штати (us)"
+
+msgid "Unresolved/Unknown"
+msgstr "Нерозв'язан╕/Нев╕дом╕"
+
+msgid "Uruguay"
+msgstr "Уругвай (uy)"
+
+msgid "Usage"
+msgstr "Usage"
+
+msgid "Usage Statistics for"
+msgstr "Статистика в╕дв╕дувань"
+
+msgid "Usage by Country for"
+msgstr "Cтатистика по кра╖нах за"
+
+msgid "Usage summary for"
+msgstr "Сумарне використання"
+
+msgid "User Agent"
+msgstr "агент користувача"
+
+msgid "Username"
+msgstr "╕м'я користувача"
+
+msgid "Users"
+msgstr "Користувач╕"
+
+msgid "Using DNS cache file"
+msgstr "Using DNS cache file"
+
+msgid "Using logfile"
+msgstr "Using logfile"
+
+msgid "Uzbekistan"
+msgstr "Eзбекистан (uz)"
+
+msgid "Vanuatu"
+msgstr "Вануату (vu)"
+
+msgid "Vatican City State (Holy See)"
+msgstr "Ват╕кан (va)"
+
+msgid "Venezuela"
+msgstr "Венесуела (ve)"
+
+msgid "Viet Nam"
+msgstr "В'╓тнам (vn)"
+
+msgid "View All Referrers"
+msgstr "Переглянути вс╕ посилання"
+
+msgid "View All Search Strings"
+msgstr "Переглянути вс╕ cтр╕чки пошуку"
+
+msgid "View All Sites"
+msgstr "Переглянути вс╕ сайти"
+
+msgid "View All URLs"
+msgstr "Переглянути вс╕ URL'и"
+
+msgid "View All User Agents"
+msgstr "Переглянути вс╕ агенти користувача"
+
+msgid "View All Usernames"
+msgstr "Переглянути вс╕ ╕мена користувач╕в"
+
+msgid "Virgin Islands (British)"
+msgstr "В╕рджинськ╕ Острови (Британськ╕, vg)"
+
+msgid "Virgin Islands (U.S.)"
+msgstr "В╕рджинськ╕ Острови (США, vi)"
+
+msgid "Visits"
+msgstr "в╕дв╕д."
+
+msgid "Visits per Day"
+msgstr "В╕дв╕дувань за день"
+
+msgid "Wallis and Futuna Islands"
+msgstr "Острова Велл╕с ╕ Футуна (wf)"
+
+msgid "Warning: Invalid keyword"
+msgstr "Warning: Invalid keyword"
+
+msgid "Warning: Possible duplicate data found"
+msgstr "Warning: Possible duplicate data found"
+
+msgid "Warning: String exceeds storage size"
+msgstr "Warning: String exceeds storage size"
+
+msgid "Warning: Truncating oversized date field"
+msgstr "Warning: Truncating oversized date field"
+
+msgid "Warning: Truncating oversized hostname"
+msgstr "Warning: Truncating oversized hostname"
+
+msgid "Warning: Truncating oversized referrer field"
+msgstr "Warning: Truncating oversized referrer field"
+
+msgid "Warning: Truncating oversized request field"
+msgstr "Warning: Truncating oversized request field"
+
+msgid "Warning: Truncating oversized username"
+msgstr "Warning: Truncating oversized username"
+
+msgid "Western Sahara"
+msgstr "Зах╕дна Сахара (eh)"
+
+msgid "Yemen"
+msgstr "╢мен (ye)"
+
+msgid "Yugoslavia"
+msgstr "Югослав╕я (колишня, yu)"
+
+msgid "Zaire"
+msgstr "За╖р (zr)"
+
+msgid "Zambia"
+msgstr "Замб╕я (zm)"
+
+msgid "Zimbabwe"
+msgstr "З╕мбабве (zw)"
+
+msgid "[options] [log file]"
+msgstr "[options] [log file]"
+
+msgid "addresses"
+msgstr "addresses"
+
+msgid "bad"
+msgstr "bad"
+
+msgid "current directory"
+msgstr "current directory"
+
+msgid "ignored"
+msgstr "ignored"
+
+msgid "in"
+msgstr "in"
+
+msgid "of"
+msgstr "з"
+
+msgid "records"
+msgstr "records"
+
+msgid "seconds"
+msgstr "seconds"

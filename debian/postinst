@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# webalizer - postinst script
+
+set -e
+
+if [ "$1" != configure ]
+then
+    exit 0
+fi
+
+# bogus - though necessary - rule
+. /usr/share/debconf/confmodule
+
+#DEBHELPER#

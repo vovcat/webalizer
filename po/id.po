@@ -1,0 +1,1497 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"PO-Revision-Date: 2003-05-25 23:29+0200\n"
+"Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
+"Language-Team: French <tech@jexiste.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit"
+
+msgid "-A num    = Display num top agents"
+msgstr "-A num    = Tampilkan browser teratas sejumlah num"
+
+msgid "-C num    = Display num top countries"
+msgstr "-C num    = Tampilkan negara teratas sejumlah num"
+
+msgid "-D name   = Use DNS Cache file 'name'"
+msgstr "-D name   = Use DNS Cache file 'name'"
+
+msgid "-E num    = Display num top Exit Pages"
+msgstr "-E num    = Tampilkan Halaman Keluar teratas sejumlah num"
+
+msgid "-F type   = Log type.  type= (clf | ftp | squid)"
+msgstr "-F type   = Log type.  type= (clf | ftp | squid)"
+
+msgid "-G        = supress hourly graph"
+msgstr "-G        = mengeluarkan grafik per jam"
+
+msgid "-H        = supress hourly stats"
+msgstr "-H        = mengeluarkan statistik per jam"
+
+msgid "-I name   = Index alias 'name'"
+msgstr "-I nama   = Alias indeks bernama 'nama'"
+
+msgid "-L        = supress color coded graph legends"
+msgstr "-L        = mengeluarkan legenda grafik terkode yang berwarna"
+
+msgid "-N num    = Number of DNS processes (0=disable)"
+msgstr "-N num    = Number of DNS processes (0=disable)"
+
+msgid "-P name   = Page type extension 'name'"
+msgstr "-P nama   = Ektensi tipe halaman bernama 'nama'"
+
+msgid "-Q        = supress _ALL_ messages"
+msgstr "-Q        = mengeluarkan _SEMUA_ pesan"
+
+msgid "-R num    = Display num top referrers"
+msgstr "-R num    = Tampilkan acuan teratas sejumlah num"
+
+msgid "-S num    = Display num top sites"
+msgstr "-S num    = Tampilkan situs teratas sejumlah num"
+
+msgid "-T        = print timing information"
+msgstr "-T        = cetak informasi pewaktuan"
+
+msgid "-U num    = Display num top URLs"
+msgstr "-U num    = Tampilkan URL teratas sejumlah num"
+
+msgid "-X        = Hide individual sites"
+msgstr "-X        = Hide individual sites"
+
+msgid "-Y        = supress country graph"
+msgstr "-Y        = mengeluarkan grafik negara"
+
+msgid "-a name   = hide user agent 'name'"
+msgstr "-a nama   = sembunyikan browser bernama 'nama'"
+
+msgid "-c file   = use configuration file 'file'"
+msgstr "-c file   = memakai file konfigurasi 'file'"
+
+msgid "-d        = print additional debug info"
+msgstr "-d        = cetak informasi debug tambahan"
+
+msgid "-e num    = Display num top Entry Pages"
+msgstr "-e num    = Tampilkan Halaman Masuk teratas sejumlah num"
+
+msgid "-f        = Fold sequence errors"
+msgstr "-f        = kesalahan urutan Fold"
+
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr "-g num    = Group Domains to 'num' levels"
+
+msgid "-h        = print this help message"
+msgstr "-h        = cetak pesan bantuan ini"
+
+msgid "-i        = ignore history file"
+msgstr "-i        = abaikan file history"
+
+msgid "-l num    = use num background lines on graph"
+msgstr "-l num    = memakai num garis background di atas grafik"
+
+msgid "-m num    = Visit timout value (seconds)"
+msgstr "-m num    = Harga timeout kunjungan (seconds)"
+
+msgid "-n name   = hostname to use"
+msgstr "-n nama   = nama host yang dipakai"
+
+msgid "-o dir    = output directory to use"
+msgstr "-o dir    = direktori keluaran yang dipakai"
+
+msgid "-p        = preserve state (incremental)"
+msgstr "-p        = menjaga pernyataan (penambahan)"
+
+msgid "-q        = supress informational messages"
+msgstr "-q        = mengeluarkan pesan informasional"
+
+msgid "-r name   = hide referrer 'name'"
+msgstr "-r nama   = sembunyikan acuan bernama 'nama'"
+
+msgid "-s name   = hide site 'name'"
+msgstr "-s nama   = sembunyikan situs bernama 'nama'"
+
+msgid "-t name   = report title 'name'"
+msgstr "-t nama   = judul laporan bernama 'nama'"
+
+msgid "-u name   = hide URL 'name'"
+msgstr "-u nama   = sembunyikan URL bernama 'nama'"
+
+msgid "-v -V     = print version information"
+msgstr "-v -V     = cetak informasi versi"
+
+msgid "-x name   = Use filename extension 'name'"
+msgstr "-x nama   = Pergunakan ekstensi nama file 'nama'"
+
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+msgid "Agents"
+msgstr "Browser"
+
+msgid "Albania"
+msgstr "Albania"
+
+msgid "Algeria"
+msgstr "Algeria"
+
+msgid "American Samoa"
+msgstr "American Samoa"
+
+msgid "Andorra"
+msgstr "Andorra"
+
+msgid "Angola"
+msgstr "Angola"
+
+msgid "Anguilla"
+msgstr "Anguilla"
+
+msgid "Antarctica"
+msgstr "Antarctica"
+
+msgid "Antigua and Barbuda"
+msgstr "Antigua dan Barbuda"
+
+msgid "Apr"
+msgstr "Apr"
+
+msgid "April"
+msgstr "April"
+
+msgid "Argentina"
+msgstr "Argentina"
+
+msgid "Armenia"
+msgstr "Armenia"
+
+msgid "Aruba"
+msgstr "Aruba"
+
+msgid "Aug"
+msgstr "Agt"
+
+msgid "August"
+msgstr "Agustus"
+
+msgid "Australia"
+msgstr "Australia"
+
+msgid "Austria"
+msgstr "Austria"
+
+msgid "Avg"
+msgstr "Rata-rata"
+
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+msgid "Bahamas"
+msgstr "Bahamas"
+
+msgid "Bahrain"
+msgstr "Bahrain"
+
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+msgid "Barbados"
+msgstr "Barbados"
+
+msgid "Belarus"
+msgstr "Belarus"
+
+msgid "Belgium"
+msgstr "Belgia"
+
+msgid "Belize"
+msgstr "Belize"
+
+msgid "Benin"
+msgstr "Benin"
+
+msgid "Bermuda"
+msgstr "Bermuda"
+
+msgid "Bhutan"
+msgstr "Bhutan"
+
+msgid "Bolivia"
+msgstr "Bolivia"
+
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnia dan Herzegovina"
+
+msgid "Botswana"
+msgstr "Botswana"
+
+msgid "Bouvet Island"
+msgstr "Bouvet Island"
+
+msgid "Brazil"
+msgstr "Brazil"
+
+msgid "British Indian Ocean Territory"
+msgstr "British Indian Ocean Territory"
+
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+msgid "Burundi"
+msgstr "Burundi"
+
+msgid "By"
+msgstr "berdasarkan"
+
+msgid "Cambodia"
+msgstr "Kamboja"
+
+msgid "Cameroon"
+msgstr "Kamerun"
+
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr "Tak dapat mengalokasikan cukup memori, Negara-negara urutan teratas tidak diaktifkan!"
+
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr "Tak dapat mengalokasikan cukup memori, Acuan-acuan urutan teratas tidak diaktifkan!"
+
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr "Tak dapat mengalokasikan cukup memori, String-string pencarian urutan teratas tidak diaktifkan!"
+
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr "Tak dapat mengalokasikan cukup memori, Situs-situs urutan teratas tidak diaktifkan!"
+
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr "Tak dapat mengalokasikan cukup memori, URL-URL urutan teratas tidak diaktifkan!"
+
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr "Tak dapat mengalokasikan cukup memori, Browser-browser urutan teratas tidak diaktifkan!"
+
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr "Can't allocate enough memory, Top Usernames disabled!"
+
+msgid "Canada"
+msgstr "Kanada"
+
+msgid "Cape Verde"
+msgstr "Cape Verde"
+
+msgid "Cayman Islands"
+msgstr "Kepulauan Cayman"
+
+msgid "Central African Republic"
+msgstr "Republik Afrika Tengah"
+
+msgid "Chad"
+msgstr "Chad"
+
+msgid "Chile"
+msgstr "Chili"
+
+msgid "China"
+msgstr "Cina"
+
+msgid "Christmas Island"
+msgstr "Pulau Christmas"
+
+msgid "Cocos (Keeling) Islands"
+msgstr "Kepulauan Cocos (Keeling)"
+
+msgid "Code 100 - Continue"
+msgstr "Kode 100 - Teruskan"
+
+msgid "Code 101 - Switching Protocols"
+msgstr "Kode 101 - Pertukaran Protokol"
+
+msgid "Code 200 - OK"
+msgstr "Kode 200 - OK"
+
+msgid "Code 201 - Created"
+msgstr "Kode 201 - Dibuat"
+
+msgid "Code 202 - Accepted"
+msgstr "Kode 202 - Diterima"
+
+msgid "Code 203 - Non-Authoritative Information"
+msgstr "Kode 203 - Informasi Non-Authoritatif"
+
+msgid "Code 204 - No Content"
+msgstr "Kode 204 - Tak Ada Isi"
+
+msgid "Code 205 - Reset Content"
+msgstr "Kode 205 - Reset Isi"
+
+msgid "Code 206 - Partial Content"
+msgstr "Kode 206 - Berisi sebagian"
+
+msgid "Code 300 - Multiple Choices"
+msgstr "Kode 300 - Multi Pilihan"
+
+msgid "Code 301 - Moved Permanently"
+msgstr "Kode 301 - Pindah Permanen"
+
+msgid "Code 302 - Found"
+msgstr "Kode 302 - Ditemukan"
+
+msgid "Code 303 - See Other"
+msgstr "Kode 303 - Lihat lainnya"
+
+msgid "Code 304 - Not Modified"
+msgstr "Kode 304 - Tak dimodifikasi"
+
+msgid "Code 305 - Use Proxy"
+msgstr "Kode 305 - Memakai Proxy"
+
+msgid "Code 307 - Moved Temporarily"
+msgstr "Kode 307 - Dipindahkan secara Temporer"
+
+msgid "Code 400 - Bad Request"
+msgstr "Kode 400 - Permintaan yang Buruk"
+
+msgid "Code 401 - Unauthorized"
+msgstr "Kode 401 - Tidak terotorisasi"
+
+msgid "Code 402 - Payment Required"
+msgstr "Kode 402 - Mensyaratkan Pembayaran"
+
+msgid "Code 403 - Forbidden"
+msgstr "Kode 403 - Terlarang"
+
+msgid "Code 404 - Not Found"
+msgstr "Kode 404 - Tidak ditemukan"
+
+msgid "Code 405 - Method Not Allowed"
+msgstr "Kode 405 - Metode Tidak Diizinkan"
+
+msgid "Code 406 - Not Acceptable"
+msgstr "Kode 406 - Tak dapat diterima"
+
+msgid "Code 407 - Proxy Authentication Required"
+msgstr "Kode 407 - Otentikasi Proxy Diperlukan"
+
+msgid "Code 408 - Request Timeout"
+msgstr "Kode 408 - Permintaan Timeout"
+
+msgid "Code 409 - Conflict"
+msgstr "Kode 409 - Konflik"
+
+msgid "Code 410 - Gone"
+msgstr "Kode 410 - Hilang"
+
+msgid "Code 411 - Length Required"
+msgstr "Kode 411 - Panjang Disyaratkan"
+
+msgid "Code 412 - Precondition Failed"
+msgstr "Kode 412 - Prakondisi Gagal"
+
+msgid "Code 413 - Request Entity Too Large"
+msgstr "Kode 413 - Entitas Permintaan Terlalu Besar"
+
+msgid "Code 414 - Request-URI Too Long"
+msgstr "Kode 414 - Permintaan-URI Terlalu Panjang"
+
+msgid "Code 415 - Unsupported Media Type"
+msgstr "Kode 415 - Tipe Media Tidak Didukung"
+
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr "Kode 416 - Kisaran yang Diminta Tidak Memuaskan"
+
+msgid "Code 417 - Expectation Failed"
+msgstr "Kode 417 - Harapan Gagal"
+
+msgid "Code 500 - Internal Server Error"
+msgstr "Kode 500 - Kesalahan Internal Server"
+
+msgid "Code 501 - Not Implemented"
+msgstr "Kode 501 - Tidak Diimplementasikan"
+
+msgid "Code 502 - Bad Gateway"
+msgstr "Kode 502 - Gateway Jelek"
+
+msgid "Code 503 - Service Unavailable"
+msgstr "Kode 503 - Layanan Tidak Tersedia"
+
+msgid "Code 504 - Gateway Timeout"
+msgstr "Kode 504 - Gateway Timeout"
+
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr "Kode 505 - Versi HTTP Tidak Didukung"
+
+msgid "Colombia"
+msgstr "Kolumbia"
+
+msgid "Comoros"
+msgstr "Komoro"
+
+msgid "Congo"
+msgstr "Kongo"
+
+msgid "Cook Islands"
+msgstr "Kepulauan Cook"
+
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "Pantai Gading"
+
+msgid "Countries"
+msgstr "Negara"
+
+msgid "Country"
+msgstr "Negara"
+
+msgid "Creating output in"
+msgstr "Membuat keluaran dalam"
+
+msgid "Croatia (Hrvatska)"
+msgstr "Kroasia (Hrvatska)"
+
+msgid "Cuba"
+msgstr "Kuba"
+
+msgid "Cyprus"
+msgstr "Siprus"
+
+msgid "Czech Republic"
+msgstr "Republik Ceko"
+
+msgid "Czechoslovakia (former)"
+msgstr "Cekoslowakia (former)"
+
+msgid "DNS Lookup"
+msgstr "DNS Lookup"
+
+msgid "Daily Avg"
+msgstr "Rata-rata harian"
+
+msgid "Daily Statistics"
+msgstr "Statistik harian"
+
+msgid "Daily Statistics for"
+msgstr "Statistik harian untuk"
+
+msgid "Daily usage for"
+msgstr "Pengaksesan harian untuk"
+
+msgid "Day"
+msgstr "Hari"
+
+msgid "Dec"
+msgstr "Des"
+
+msgid "December"
+msgstr "Desember"
+
+msgid "Denmark"
+msgstr "Denmark"
+
+msgid "Djibouti"
+msgstr "Djibouti"
+
+msgid "Dominica"
+msgstr "Dominika"
+
+msgid "Dominican Republic"
+msgstr "Republik Dominika"
+
+msgid "East Timor"
+msgstr "Timor Timur"
+
+msgid "Ecuador"
+msgstr "Equador"
+
+msgid "Egypt"
+msgstr "Mesir"
+
+msgid "El Salvador"
+msgstr "El Salvador"
+
+msgid "English"
+msgstr "Indonesian"
+
+msgid "Entry"
+msgstr "Masuk"
+
+msgid "Equatorial Guinea"
+msgstr "Equatorial Guinea"
+
+msgid "Eritrea"
+msgstr "Eritrea"
+
+msgid "Error adding Referrer node, skipping"
+msgstr "Terjadi kesalahan saat menambahkan node acuan, dilewati"
+
+msgid "Error adding Search String Node, skipping"
+msgstr "Terjadi kesalahan saat menambahkan node string pencarian, dilewati"
+
+msgid "Error adding URL node, skipping"
+msgstr "Terjadi kesalahan saat menambahkan node URL, dilewati"
+
+msgid "Error adding User Agent node, skipping"
+msgstr "Terjadi kesalahan saat menambahkan node User Agent, dilewati"
+
+msgid "Error adding Username node, skipping"
+msgstr "Error adding Username node, skipping"
+
+msgid "Error adding host node (daily), skipping"
+msgstr "Terjadi kesalahan saat menambahkan node host (harian), dilewati"
+
+msgid "Error adding host node (monthly), skipping"
+msgstr "Terjadi kesalahan saat menambahkan node host (bulanan), dilewati"
+
+msgid "Error: Can't change directory to"
+msgstr "Salah: Tak dapat berpindah ke direktori"
+
+msgid "Error: Can't open log file"
+msgstr "Salah: Tak dapat membuka file log"
+
+msgid "Error: Ignoring invalid history record"
+msgstr "Salah: Abaikan record history yang cacat"
+
+msgid "Warning: Skipping oversized log record"
+msgstr "Salah: Melompati rekaman log yang oversize"
+
+msgid "Error: Skipping record (bad date)"
+msgstr "Salah: Melompati record (tanggal salah)"
+
+msgid "Error: Unable to lock DNS cache file"
+msgstr "Error: Unable to lock DNS cache file"
+
+msgid "Error: Unable to open DNS cache file"
+msgstr "Error: Unable to open DNS cache file"
+
+msgid "Error: Unable to open configuration file"
+msgstr "Salah: Tak dapat membuka file konfigurasi"
+
+msgid "Error: Unable to open file"
+msgstr "Salah: Tak dapat membuka file"
+
+msgid "Error: Unable to restore run data"
+msgstr "Salah: Tak dapat memulihkan data yang dijalankan"
+
+msgid "Error: Unable to save current run data"
+msgstr "Salah: Tak dapat menyimpan data yang dijalankan saat ini"
+
+msgid "Error: Unable to write history file"
+msgstr "Salah: Tak dapat menulisi file history"
+
+msgid "Estonia"
+msgstr "Estonia"
+
+msgid "Ethiopia"
+msgstr "Ethiopia"
+
+msgid "Exit"
+msgstr "Keluar"
+
+msgid "Falkland Islands (Malvinas)"
+msgstr "Kepulauan Falkland (Malvinas)"
+
+msgid "Faroe Islands"
+msgstr "Kepulauan Faroe"
+
+msgid "Feb"
+msgstr "Feb"
+
+msgid "February"
+msgstr "Februari"
+
+msgid "Fiji"
+msgstr "Fiji"
+
+msgid "Files"
+msgstr "File"
+
+msgid "Files per Day"
+msgstr "File per hari"
+
+msgid "Finland"
+msgstr "Finlandia"
+
+msgid "France"
+msgstr "Perancis"
+
+msgid "France; Metropolitan"
+msgstr "Perancis, Metropolitan"
+
+msgid "French Guiana"
+msgstr "French Guiana"
+
+msgid "French Polynesia"
+msgstr "French Polynesia"
+
+msgid "French Southern Territories"
+msgstr "French Southern Territories"
+
+msgid "Gabon"
+msgstr "Gabon"
+
+msgid "Gambia"
+msgstr "Gambia"
+
+msgid "Generated"
+msgstr "Dibuat:"
+
+msgid "Generating report for"
+msgstr "Sedang memproses laporan untuk"
+
+msgid "Generating summary report"
+msgstr "Sedang membuat laporan singkat"
+
+msgid "Georgia"
+msgstr "Georgia"
+
+msgid "Germany"
+msgstr "Jerman"
+
+msgid "Ghana"
+msgstr "Ghana"
+
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+msgid "Great Britain (UK)"
+msgstr "Great Britain (UK)"
+
+msgid "Greece"
+msgstr "Yunani"
+
+msgid "Greenland"
+msgstr "Greenland"
+
+msgid "Grenada"
+msgstr "Grenada"
+
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+msgid "Guam"
+msgstr "Guam"
+
+msgid "Guatemala"
+msgstr "Guatemala"
+
+msgid "Guinea"
+msgstr "Guinea"
+
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+msgid "Guyana"
+msgstr "Guyana"
+
+msgid "Haiti"
+msgstr "Haiti"
+
+msgid "Heard and McDonald Islands"
+msgstr "Heard dan McDonald Islands"
+
+msgid "History file not found..."
+msgstr "File history tak dapat ditemukan..."
+
+msgid "Hits"
+msgstr "Hit"
+
+msgid "Hits by Response Code"
+msgstr "Hit oleh kode respon"
+
+msgid "Hits per Day"
+msgstr "Hit per hari"
+
+msgid "Hits per Hour"
+msgstr "Hit per jam"
+
+msgid "Honduras"
+msgstr "Honduras"
+
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+msgid "Hostname"
+msgstr "Nama Host"
+
+msgid "Hostname for reports is"
+msgstr "Nama host yang akan dilaporkan adalah"
+
+msgid "Hour"
+msgstr "Jam"
+
+msgid "Hourly Statistics"
+msgstr "Statistik per jam"
+
+msgid "Hourly Statistics for"
+msgstr "Statistik per jam untuk"
+
+msgid "Hourly usage for"
+msgstr "Pengaksesan per jam untuk"
+
+msgid "Hungary"
+msgstr "Hungaria"
+
+msgid "Iceland"
+msgstr "Islandia"
+
+msgid "Ignoring previous history..."
+msgstr "Abaikan history sebelumnya..."
+
+msgid "India"
+msgstr "India"
+
+msgid "Indonesia"
+msgstr "Indonesia"
+
+msgid "International (int)"
+msgstr "Internasional (int)"
+
+msgid "Iran"
+msgstr "Iran"
+
+msgid "Iraq"
+msgstr "Iraq"
+
+msgid "Ireland"
+msgstr "Irlandia"
+
+msgid "Israel"
+msgstr "Israel"
+
+msgid "Italy"
+msgstr "Italia"
+
+msgid "Jamaica"
+msgstr "Jamaika"
+
+msgid "Jan"
+msgstr "Jan"
+
+msgid "January"
+msgstr "Januari"
+
+msgid "Japan"
+msgstr "Jepang"
+
+msgid "Jordan"
+msgstr "Yordania"
+
+msgid "Jul"
+msgstr "Jul"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "Jun"
+msgstr "Jun"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "KBytes"
+msgstr "KByte"
+
+msgid "KBytes per Day"
+msgstr "KByte per hari"
+
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+msgid "Kenya"
+msgstr "Kenya"
+
+msgid "Kiribati"
+msgstr "Kiribati"
+
+msgid "Korea (North)"
+msgstr "Korea (Utara)"
+
+msgid "Korea (South)"
+msgstr "Korea (Selatan)"
+
+msgid "Kuwait"
+msgstr "Kuwait"
+
+msgid "Kyrgyzstan"
+msgstr "Kyrgyzstan"
+
+msgid "Laos"
+msgstr "Laos"
+
+msgid "Last 12 Months"
+msgstr "12 bulan terakhir"
+
+msgid "Latvia"
+msgstr "Latvia"
+
+msgid "Lebanon"
+msgstr "Libanon"
+
+msgid "Lesotho"
+msgstr "Lesotho"
+
+msgid "Liberia"
+msgstr "Liberia"
+
+msgid "Libya"
+msgstr "Libya"
+
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+msgid "Lithuania"
+msgstr "Lithuania"
+
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
+msgid "Macau"
+msgstr "Macau"
+
+msgid "Macedonia"
+msgstr "Makedonia"
+
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+msgid "Malawi"
+msgstr "Malawi"
+
+msgid "Malaysia"
+msgstr "Malaysia"
+
+msgid "Maldives"
+msgstr "Maldives"
+
+msgid "Mali"
+msgstr "Mali"
+
+msgid "Malta"
+msgstr "Malta"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "March"
+msgstr "Maret"
+
+msgid "Marshall Islands"
+msgstr "Kepulauan Marshall"
+
+msgid "Martinique"
+msgstr "Martinique"
+
+msgid "Mauritania"
+msgstr "Mauritania"
+
+msgid "Mauritius"
+msgstr "Mauritius"
+
+msgid "Max"
+msgstr "Maks"
+
+msgid "May"
+msgstr "Mei"
+
+msgid "Mayotte"
+msgstr "Mayotte"
+
+msgid "Mexico"
+msgstr "Mexico"
+
+msgid "Micronesia"
+msgstr "Micronesia"
+
+msgid "Moldova"
+msgstr "Moldova"
+
+msgid "Monaco"
+msgstr "Monaco"
+
+msgid "Mongolia"
+msgstr "Mongolia"
+
+msgid "Month"
+msgstr "Bulan"
+
+msgid "Monthly Statistics for"
+msgstr "Statistik bulanan untuk"
+
+msgid "Monthly Totals"
+msgstr "Total bulanan"
+
+msgid "Montserrat"
+msgstr "Montserrat"
+
+msgid "Morocco"
+msgstr "Maroko"
+
+msgid "Mozambique"
+msgstr "Mozambique"
+
+msgid "Myanmar"
+msgstr "Myanmar"
+
+msgid "Namibia"
+msgstr "Namibia"
+
+msgid "Nato field (nato)"
+msgstr "Field Nato (nato)"
+
+msgid "Nauru"
+msgstr "Nauru"
+
+msgid "Nepal"
+msgstr "Nepal"
+
+msgid "Netherlands"
+msgstr "Netherlands"
+
+msgid "Netherlands Antilles"
+msgstr "Netherlands Antilles"
+
+msgid "Network"
+msgstr "Jaringan Komputer"
+
+msgid "Neutral Zone"
+msgstr "Neutral Zone"
+
+msgid "New Caledonia"
+msgstr "New Caledonia"
+
+msgid "New Zealand (Aotearoa)"
+msgstr "New Zealand (Aotearoa)"
+
+msgid "Nicaragua"
+msgstr "Nikaragua"
+
+msgid "Niger"
+msgstr "Niger"
+
+msgid "Nigeria"
+msgstr "Nigeria"
+
+msgid "Niue"
+msgstr "Niue"
+
+msgid "No cache file specified, aborting..."
+msgstr "No cache file specified, aborting..."
+
+msgid "No valid records found!"
+msgstr "Tak ditemukan record yang valid!"
+
+msgid "Non-Profit Organization"
+msgstr "Organisasi Non-Profit"
+
+msgid "None to process"
+msgstr "None to process"
+
+msgid "Norfolk Island"
+msgstr "Kepulauan Norfolk"
+
+msgid "Northern Mariana Islands"
+msgstr "Kepulauan Northern Mariana"
+
+msgid "Norway"
+msgstr "Norwegia"
+
+msgid "Nov"
+msgstr "Nov"
+
+msgid "November"
+msgstr "November"
+
+msgid "Oct"
+msgstr "Okt"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "Old style Arpanet (arpa)"
+msgstr "Arpanet Gaya Lama (arpa)"
+
+msgid "Oman"
+msgstr "Oman"
+
+msgid "Other"
+msgstr "Lainnya"
+
+msgid "Pages"
+msgstr "Halaman"
+
+msgid "Pages per Day"
+msgstr "Halaman per hari"
+
+msgid "Pakistan"
+msgstr "Pakistan"
+
+msgid "Palau"
+msgstr "Palau"
+
+msgid "Panama"
+msgstr "Panama"
+
+msgid "Papua New Guinea"
+msgstr "Papua Nugini"
+
+msgid "Paraguay"
+msgstr "Paraguay"
+
+msgid "Peru"
+msgstr "Peru"
+
+msgid "Philippines"
+msgstr "Filipina"
+
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+msgid "Poland"
+msgstr "Polandia"
+
+msgid "Portugal"
+msgstr "Portugal"
+
+msgid "Previous run data not found..."
+msgstr "Data yang dijalankan sebelumnya tak ditemukan..."
+
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+msgid "Qatar"
+msgstr "Qatar"
+
+msgid "Reading history file..."
+msgstr "Sedang membaca file history..."
+
+msgid "Reading previous run data..."
+msgstr "Sedang membaca data yang dijalankan sebelumnya.."
+
+msgid "Referrer"
+msgstr "Acuan"
+
+msgid "Referrers"
+msgstr "Acuan"
+
+msgid "Reunion"
+msgstr "Reunion"
+
+msgid "Romania"
+msgstr "Rumania"
+
+msgid "Russian Federation"
+msgstr "Federasi Rusia"
+
+msgid "Rwanda"
+msgstr "Rwanda"
+
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "S. Georgia dan S. Sandwich Isls."
+
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts dan Nevis"
+
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent dan the Grenadines"
+
+msgid "Samoa"
+msgstr "Samoa"
+
+msgid "San Marino"
+msgstr "San Marino"
+
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome dan Principe"
+
+msgid "Saudi Arabia"
+msgstr "Saudi Arabia"
+
+msgid "Saving current run data..."
+msgstr "Sedang menyimpan data yang dijalankan saat ini..."
+
+msgid "Saving history information..."
+msgstr "Menyimpan informasi history..."
+
+msgid "Search"
+msgstr "Cari"
+
+msgid "Search String"
+msgstr "String pencarian"
+
+msgid "Senegal"
+msgstr "Senegal"
+
+msgid "Sep"
+msgstr "Sep"
+
+msgid "September"
+msgstr "September"
+
+msgid "Seychelles"
+msgstr "Seychelles"
+
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+msgid "Singapore"
+msgstr "Singapura"
+
+msgid "Sites"
+msgstr "Situs"
+
+msgid "Skipping Netscape header record"
+msgstr "Melompati record header Netscape"
+
+msgid "Skipping bad record"
+msgstr "Melompati record yang salah"
+
+msgid "Slovak Republic"
+msgstr "Republik Slovakia"
+
+msgid "Slovenia"
+msgstr "Slovenia"
+
+msgid "Solomon Islands"
+msgstr "Kepulauan Solomon"
+
+msgid "Somalia"
+msgstr "Somalia"
+
+msgid "South Africa"
+msgstr "Africa Selatan"
+
+msgid "Spain"
+msgstr "Spanyol"
+
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+msgid "St. Helena"
+msgstr "St. Helena"
+
+msgid "St. Pierre and Miquelon"
+msgstr "St. Pierre dan Miquelon"
+
+msgid "Sudan"
+msgstr "Sudan"
+
+msgid "Summary Period"
+msgstr "Periode Ringkasan"
+
+msgid "Summary by Month"
+msgstr "Ringkasan berdasarkan bulan"
+
+msgid "Suriname"
+msgstr "Suriname"
+
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Kepulauan Svalbard dan Jan Mayen"
+
+msgid "Swaziland"
+msgstr "Swaziland"
+
+msgid "Sweden"
+msgstr "Swedia"
+
+msgid "Switzerland"
+msgstr "Swiss"
+
+msgid "Syria"
+msgstr "Syria"
+
+msgid "Taiwan"
+msgstr "Taiwan"
+
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+msgid "Tanzania"
+msgstr "Tanzania"
+
+msgid "Thailand"
+msgstr "Thailand"
+
+msgid "Togo"
+msgstr "Togo"
+
+msgid "Tokelau"
+msgstr "Tokelau"
+
+msgid "Tonga"
+msgstr "Tonga"
+
+msgid "Top"
+msgstr ""
+
+msgid "Total"
+msgstr "Jumlah"
+
+msgid "Total Countries"
+msgstr "negara"
+
+msgid "Total Entry Pages"
+msgstr "halaman masuk"
+
+msgid "Total Exit Pages"
+msgstr "halaman keluar"
+
+msgid "Total Files"
+msgstr "Jumlah File"
+
+msgid "Total Hits"
+msgstr "Jumlah Hit"
+
+msgid "Total KBytes"
+msgstr "Jumlah KByte"
+
+msgid "Total Referrers"
+msgstr "acuan"
+
+msgid "Total Search Strings"
+msgstr "string pencarian"
+
+msgid "Total Sites"
+msgstr "situs"
+
+msgid "Total URLs"
+msgstr "URL"
+
+msgid "Total Unique Referrers"
+msgstr "Jumlah Acuan unik"
+
+msgid "Total Unique Sites"
+msgstr "Jumlah Situs unik"
+
+msgid "Total Unique URLs"
+msgstr "Jumlah URL unik"
+
+msgid "Total Unique User Agents"
+msgstr "Jumlah Browser unik"
+
+msgid "Total Unique Usernames"
+msgstr "Total Unique Usernames"
+
+msgid "Total User Agents"
+msgstr "browser/user agents"
+
+msgid "Total Usernames"
+msgstr "Total Usernames"
+
+msgid "Totals"
+msgstr "Total"
+
+msgid "Trinidad and Tobago"
+msgstr "Trinidad dan Tobago"
+
+msgid "Tunisia"
+msgstr "Tunisia"
+
+msgid "Turkey"
+msgstr "Turki"
+
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+msgid "Turks and Caicos Islands"
+msgstr "Kepulauan Turks dan Caicos"
+
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "URLs"
+msgstr "URL"
+
+msgid "US Commercial"
+msgstr "Komersial dari US"
+
+msgid "US Educational"
+msgstr "Edukasi dari US"
+
+msgid "US Government"
+msgstr "Pemerintahan dari US"
+
+msgid "US Military"
+msgstr "Militer dari US"
+
+msgid "US Minor Outlying Islands"
+msgstr "US Minor Outlying Islands"
+
+msgid "USSR (former)"
+msgstr "USSR (former)"
+
+msgid "Uganda"
+msgstr "Uganda"
+
+msgid "Ukraine"
+msgstr "Ukraine"
+
+msgid "Undefined response code"
+msgstr "Kode respon tak terdefinisi"
+
+msgid "United Arab Emirates"
+msgstr "United Arab Emirates"
+
+msgid "United Kingdom"
+msgstr "United Kingdom"
+
+msgid "United States"
+msgstr "United States"
+
+msgid "Unresolved/Unknown"
+msgstr "Tak Dapat Dilacak/Tidak Diketahui"
+
+msgid "Uruguay"
+msgstr "Uruguay"
+
+msgid "Usage"
+msgstr "Penggunaan"
+
+msgid "Usage Statistics for"
+msgstr "Statistik pengaksesan untuk"
+
+msgid "Usage by Country for"
+msgstr "Pengaksesan oleh negara untuk"
+
+msgid "Usage summary for"
+msgstr "Grafik Akses untuk"
+
+msgid "User Agent"
+msgstr "Browser/User Agent"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Users"
+msgstr "Users"
+
+msgid "Using DNS cache file"
+msgstr "Using DNS cache file"
+
+msgid "Using logfile"
+msgstr "Menggunakan file log"
+
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+msgid "Vatican City State (Holy See)"
+msgstr "Vatican City State (Holy See)"
+
+msgid "Venezuela"
+msgstr "Venezuela"
+
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+msgid "View All Referrers"
+msgstr "View All Referrers"
+
+msgid "View All Search Strings"
+msgstr "View All Search Strings"
+
+msgid "View All Sites"
+msgstr "View All Sites"
+
+msgid "View All URLs"
+msgstr "View All URLs"
+
+msgid "View All User Agents"
+msgstr "View All User Agents"
+
+msgid "View All Usernames"
+msgstr "View All Usernames"
+
+msgid "Virgin Islands (British)"
+msgstr "Virgin Islands (British)"
+
+msgid "Virgin Islands (U.S.)"
+msgstr "Virgin Islands (U.S.)"
+
+msgid "Visits"
+msgstr "Kunjungan"
+
+msgid "Visits per Day"
+msgstr "Kunjungan per hari"
+
+msgid "Wallis and Futuna Islands"
+msgstr "Wallis and Futuna Islands"
+
+msgid "Warning: Invalid keyword"
+msgstr "Peringatan: Kata kunci tidak valid"
+
+msgid "Warning: Possible duplicate data found"
+msgstr "Peringatan: Kemungkinan ditemukan data yang terduplikasi"
+
+msgid "Warning: String exceeds storage size"
+msgstr "Peringatan: String melampaui ukuran penyimpanan"
+
+msgid "Warning: Truncating oversized date field"
+msgstr "Peringatan: Memotong field tanggal yang oversize"
+
+msgid "Warning: Truncating oversized hostname"
+msgstr "Peringatan: Memotong nama host yang oversize"
+
+msgid "Warning: Truncating oversized referrer field"
+msgstr "Peringatan: Memotong acuan yang oversize"
+
+msgid "Warning: Truncating oversized request field"
+msgstr "Peringatan: Memotong field permintaan yang oversize"
+
+msgid "Warning: Truncating oversized username"
+msgstr "Warning: Truncating oversized username"
+
+msgid "Western Sahara"
+msgstr "Sahara Barat"
+
+msgid "Yemen"
+msgstr "Yemen"
+
+msgid "Yugoslavia"
+msgstr "Yugoslavia"
+
+msgid "Zaire"
+msgstr "Zaire"
+
+msgid "Zambia"
+msgstr "Zambia"
+
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+msgid "[options] [log file]"
+msgstr "[opsi] [file log]"
+
+msgid "addresses"
+msgstr "addresses"
+
+msgid "bad"
+msgstr "buruk"
+
+msgid "current directory"
+msgstr "direktori saat ini"
+
+msgid "ignored"
+msgstr "diabaikan"
+
+msgid "in"
+msgstr "dalam"
+
+msgid "of"
+msgstr "urutan teratas dari sejumlah"
+
+msgid "records"
+msgstr "record"
+
+msgid "seconds"
+msgstr "detik"
