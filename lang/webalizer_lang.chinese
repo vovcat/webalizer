@@ -1,9 +1,9 @@
 /*
-   webalizer_lang.italian
+   webalizer_lang.chinese
 
-   Webalizer V1.1x Language Support file for Italian.
-   31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
-   12-Jun-1998 Translation Level 1.1 by Alberto Benati (a_benati@4net.com)
+   Webalizer V1.2x Language Support file for Chinese.
+	1999-04-30 by Daniel Gau<b4705021@im.ntu.edu.tw>
+   29-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
 
    Language files are named using the following convention:
 
@@ -15,7 +15,7 @@
    or create a symbolic link, then re-compile.
 
    If you translate this file into a different language, please
-   send me a copy so I can include it in future distributions.
+   send a copy to brad@mrunix.net.
 
 */
 
@@ -23,7 +23,7 @@
 /* DEFINE LANGUAGE NAME here                                           */
 /***********************************************************************/
 
-char *language  = "Italian";
+char *language  = "Chinese";
 
 /***********************************************************************/
 /*                                                                     */
@@ -36,39 +36,37 @@ char *language  = "Italian";
 
 /* these are only used in timing totals */
 /* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
-char *msg_records = "records";
-char *msg_ignored = "ignorato";
-char *msg_bad     = "errore";
+char *msg_records = "°O¿ý";
+char *msg_ignored = "©¿²¤";
+char *msg_bad     = "bad";
 char *msg_in      = "in";
-char *msg_seconds = "secondi";
+char *msg_seconds = "¬í";
 
 /* progress and setup error messages */
-char *msg_log_err = "Errore: Non posso aprire il file di log";
-char *msg_log_use = "Utilizzo il logfile";
-char *msg_dir_err = "Errore: Non posso cambiare directory a";
-char *msg_dir_use = "Creo l'output in";
-char *msg_cur_dir = "Directory corrente";
-char *msg_hostname= "Il nome dell'Host per il riepilogo è";
-char *msg_ign_hist= "Ignoro il precedente history...";
-char *msg_no_hist = "Non trovo il file di history...";
-char *msg_get_hist= "Leggo il file di hystory...";
-char *msg_put_hist= "Salvo le informazioni degli accessi...";
-char *msg_hist_err= "Errore: Non posso scrivere il file di history";
-char *msg_bad_hist= "Errore: Ignoro il record non valido dell'history";
-char *msg_bad_conf= "Errore: Non posso aprire il file di configurazione";
-char *msg_bad_key = "Attenzione: keyword invalida";
-char *msg_bad_date= "Errore: Tralascio il record (bad date)";
-char *msg_ign_nscp= "Tralascio il record header di Netscape";
+char *msg_log_err = "¿ù»~¡GµLªk¶}±Ò°O¿ýÀÉ";
+char *msg_log_use = "¨Ï¥Î°O¿ýÀÉ";
+char *msg_dir_err = "¿ù»~¡GµLªkÅÜ§ó¥Ø¿ý";
+char *msg_dir_use = "²£¥Í¿é¥X©ó";
+char *msg_cur_dir = "¥Ø«eªº¥Ø¿ý";
+char *msg_hostname= "¥D¾÷¦WºÙ¬O";
+char *msg_ign_hist= "©¿²¤¤§«e¾ú¥v°O¿ý(history)";
+char *msg_no_hist = "¾ú¥v°O¿ý(history file)§ä¤£¨ì¡K";
+char *msg_get_hist= "Åª¨ú¾ú¥v°O¿ý";
+char *msg_put_hist= "Àx¦s¾ú¥v°O¿ý¸ê°T";
+char *msg_hist_err= "¿ù»~¡GµLªk¼g¤J¾ú¥v°O¿ý";
+char *msg_bad_hist= "¿ù»~¡G©¿²¤µL®Äªº¾ú¥v°O¿ý";
+char *msg_bad_conf= "¿ù»~¡GµLªk¶}±Ò³]©wÀÉ";
+char *msg_bad_key = "Äµ§i¡GµL®ÄªºÃöÁä¦r";
+char *msg_bad_date= "¿ù»~¡G¸õ¹L¸Óµ§°O¿ý¡]¤é´Á®æ¦¡¦³°ÝÃD¡^";
+char *msg_ign_nscp= "Skipping Netscape header record";
 char *msg_bad_rec = "Skipping bad record";
-char *msg_no_vrec = "Nessun record valido trovato!";
-char *msg_gen_rpt = "Generato i report per";
-char *msg_gen_sum = "Generato il report di riepilogo";
-
-/* New for 1.1 */ /* Current state data messages */
-char *msg_get_data= "Reading previous run data...";
+char *msg_no_vrec = "§ä¤£¨ì¦³®Äªº°O¿ý¡I";
+char *msg_gen_rpt = "²£¥Í³øªíµ¹";
+char *msg_gen_sum = "²£¥Í·JÁ`³øªí";
+char *msg_get_data= "Reading previous run data..";
 char *msg_put_data= "Saving current run data...";
 char *msg_no_data = "Previous run data not found...";
-char *msg_bad_data= "Invalid data record";
+char *msg_bad_data= "Error: Unable to restore run data";
 char *msg_data_err= "Error: Unable to save current run data";
 char *msg_dup_data= "Warning: Possible duplicate data found";
 
@@ -78,11 +76,13 @@ char *msg_nomem_tr= "Can't allocate enough memory, Top Referrers disabled!";
 char *msg_nomem_tu= "Can't allocate enough memory, Top URLs disabled!";
 char *msg_nomem_tc= "Can't allocate enough memory, Top Countries disabled!";
 char *msg_nomem_ta= "Can't allocate enough memory, Top User Agents disabled!";
+char *msg_nomem_tsr="Can't Allocate enough memory, Top Search Strings disabled!";
 char *msg_nomem_dh= "Error adding host node (daily), skipping";
 char *msg_nomem_mh= "Error adding host node (monthly), skipping";
 char *msg_nomem_u = "Error adding URL node, skipping";
 char *msg_nomem_a = "Error adding User Agent node, skipping";
 char *msg_nomem_r = "Error adding Referrer node, skipping";
+char *msg_nomem_sc= "Error adding Search String node, skipping";
 
 /* log record errors */
 char *msg_big_rec = "Error: Skipping oversized log record";
@@ -96,19 +96,25 @@ char *msg_big_one = "Warning: String exceeds storage size";
 char *msg_no_open = "Error: Unable to open file";
 
 /* Help display... */
-char *h_usage1 = "Sintassi";
-char *h_usage2 = "[optioni] [file log]";
+char *h_usage1 = "Usage";
+char *h_usage2 = "[options] [log file]";
 char *h_msg[]= {
          "-h        = print this help message"             ,
-         "-v        = print version information"           ,
+         "-v -V     = print version information"           ,
          "-d        = print additional debug info"         ,
+         "-F        = Use FTP log format"                  ,
+         "-f        = fold sequence errors"                ,
          "-g        = use GMT (UTC) timestamps"            ,
          "-i        = ignore history file"                 ,
          "-p        = preserve state (incremental)"        ,
          "-q        = supress informational messages"      ,
          "-Q        = supress _ALL_ messages"              ,
+         "-Y        = supress country graph"               ,
          "-G        = supress hourly graph"                ,
          "-H        = supress hourly stats"                ,
+         "-L        = supress color coded graph legends"   ,
+         "-l num    = use num background lines on graph"   ,
+         "-m num    = Visit timeout value (HHMMSS format)" ,
          "-T        = print timing information"            ,
          "-c file   = use configuration file 'file'"       ,
          "-n name   = hostname to use"                     ,
@@ -118,12 +124,16 @@ char *h_msg[]= {
          "-r name   = hide referrer 'name'"                ,
          "-s name   = hide site 'name'"                    ,
          "-u name   = hide URL 'name'"                     ,
+         "-x name   = Use filename extension 'name'"       ,
+         "-P name   = Page type extension 'name'"          ,
          "-I name   = Index alias 'name'"                  ,
          "-A num    = Display num top agents"              ,
          "-C num    = Display num top countries"           ,
          "-R num    = Display num top referrers"           ,
          "-S num    = Display num top sites"               ,
-         "-U num    = Display num top URL's"               };
+         "-U num    = Display num top URL's"               ,
+         "-e num    = Display num top Entry Pages"         ,
+         "-E num    = Display num top Exit Pages"          };
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -137,136 +147,151 @@ char *h_msg[]= {
 /***********************************************************************/
 
 /* header strings */
-char *msg_hhdr_sp = "Riepilogo nel periodo";
-char *msg_hhdr_gt = "Generato il";
+char *msg_hhdr_sp = "Summary Period";
+char *msg_hhdr_gt = "²£¥Í®É¶¡¡G";
 
 /* main index strings */
-char *msg_main_us = "Riepilogo per";
-char *msg_main_per= "Ultimi 12 Mesi";
-char *msg_main_sum= "Riepilogo per Mese";
-char *msg_main_da = "Media Giornaliera";
-char *msg_main_mt = "Totale Mensile";
+char *msg_main_us = "Usage Statistics for";
+char *msg_main_per= " 12 ­Ó¤ë";
+char *msg_main_sum= "¨C¤ë·JÁ`²Î­p";
+char *msg_main_da = "¨C¤é¥­§¡";
+char *msg_main_mt = "¨C¤ëÁ`­p";
 
 /* month HTML page strings */
-char *msg_hmth_du = "Contatti Giornalieri per";
-char *msg_hmth_hu = "Contatti Orari per";
+char *msg_hmth_du = "Daily usage for";
+char *msg_hmth_hu = "Hourly usage for";
 
 /* table header strings */
-char *msg_h_avg   = "Media";
-char *msg_h_total = "Totale";
-char *msg_h_totals= "Totali";
-char *msg_h_day   = "Giorno";
-char *msg_h_mth   = "Mese";
-char *msg_h_hour  = "Ora";
-char *msg_h_hits  = "Contatti";
-char *msg_h_files = "Files";
-char *msg_h_sites = "Siti";
-char *msg_h_xfer  = "KBytes";
-char *msg_h_hname = "Nomi di Host";
-char *msg_h_url   = "Indirizzi pagine";
-char *msg_h_agent = "Navigatori";
-char *msg_h_ref   = "Riferimenti";
-char *msg_h_ctry  = "Nazioni";
+char *msg_h_by    = "By";
+char *msg_h_avg   = "¥­§¡";
+char *msg_h_max   = "Max";
+char *msg_h_total = "Á`©M";
+char *msg_h_totals= "Á`©M";
+char *msg_h_day   = "¤é";
+char *msg_h_mth   = "¤ë";
+char *msg_h_hour  = "¤p®É";
+char *msg_h_hits  = "Åª¨ú¼Æ";
+char *msg_h_pages = "Pages";
+char *msg_h_visits= "Visits";
+char *msg_h_files = "ÀÉ®×";
+char *msg_h_sites = "ºô¯¸¼Æ";
+char *msg_h_xfer  = "¶Ç°e¶q¡]KB¡^";
+char *msg_h_hname = "¥D¾÷¦WºÙ";
+char *msg_h_url   = "ºô­¶¸ô®|";
+char *msg_h_agent = "ÂsÄý¾¹";
+char *msg_h_ref   = "¨Ó·½ºô­¶";
+char *msg_h_ctry  = "°ê®a";
+char *msg_h_search= "Search String";
 
 /* links along top of page */
-char *msg_hlnk_ds = "Statistiche Giornaliere";
-char *msg_hlnk_hs = "Statistiche per Ora";
-char *msg_hlnk_u  = "Indirizzi pagine";
-char *msg_hlnk_s  = "Siti";
-char *msg_hlnk_a  = "Navigatori";
-char *msg_hlnk_c  = "Nazioni";
-char *msg_hlnk_r  = "Riferimenti";
+char *msg_hlnk_ds = "¨C¤é²Î­p";
+char *msg_hlnk_hs = "¨C¤p®É²Î­p";
+char *msg_hlnk_u  = "ºô­¶¸ô®|";
+char *msg_hlnk_s  = "¨Ó·½ºô¯¸";
+char *msg_hlnk_a  = "ÂsÄý¾¹";
+char *msg_hlnk_c  = "°ê®a";
+char *msg_hlnk_r  = "¨Ó·½ºô­¶";
+char *msg_hlnk_en = "Entry";
+char *msg_hlnk_ex = "Exit";
+char *msg_hlnk_sr = "Search";
 
 /* monthly total table */
-char *msg_mtot_ms = "Statistiche Mensili per";
-char *msg_mtot_th = "Totale dei Contatti";
-char *msg_mtot_tf = "Totale dei Files richiesti";
-char *msg_mtot_tx = "Totale dei KBytes trasferiti";
-char *msg_mtot_us = "Totale dei Siti";
-char *msg_mtot_ur = "Totale Riferimenti";
-char *msg_mtot_ua = "Totale Navigatori";
-char *msg_mtot_uu = "Totale Indirizzi pagine";
-char *msg_mtot_mhd= "Massimo dei Contatti per Giorno";
-char *msg_mtot_mhh= "Massimo dei Contatti per Ora";
-char *msg_mtot_ahd= "Media dei Contatti per Giorno";
-char *msg_mtot_ahh= "Media dei Contatti per Ora";
-char *msg_mtot_rc = "Contatti dal Codice di risposta";
+char *msg_mtot_ms = "¨C¤ë²Î­p--";
+char *msg_mtot_th = "Á`Åª¨ú¼Æ";
+char *msg_mtot_tf = "Á`ÀÉ®×¼Æ";
+char *msg_mtot_tx = "Á`¶Ç°e¶q¡]KB¡^";
+char *msg_mtot_us = "¨Ó·½ºô¯¸Á`¼Æ¡]¤£¥]§t­«ÂÐªÌ¡^";
+char *msg_mtot_ur = "¨Ó·½ºô­¶Á`¼Æ¡]¤£¥]§t­«ÂÐªÌ¡^";
+char *msg_mtot_ua = "¨Ó·½ÂsÄý¾¹Á`¼Æ¡]¤£¥]§t­«ÂÐªÌ¡^";
+char *msg_mtot_uu = "³QÅª¨úªººô­¶¸ô®|Á`¼Æ¡]¤£¥]§t­«ÂÐªÌ¡^";
+char *msg_mtot_mhd= "Hits per Day";
+char *msg_mtot_mhh= "Hits per Hour";
+char *msg_mtot_mfd= "Files per Day";
+char *msg_mtot_mpd= "Pages per Day";
+char *msg_mtot_mvd= "Visits per Day";
+char *msg_mtot_mkd= "KBytes per Day";
+char *msg_mtot_rc = "ºô­¶Åª¨ú®É¤§¦^À³¥N½X";
 
 /* daily total table */
-char *msg_dtot_ds = "Statistica Giornaliera per";
+char *msg_dtot_ds = "¨C¤é²Î­p          ";
 
 /* hourly total table */
-char *msg_htot_hs = "Statistica per Ora per";
+char *msg_htot_hs = "¨C¤p®É²Î­p        ";
 
 /* country pie chart */
-char *msg_ctry_use= "Contatti suddivisi in Nazioni per";
+char *msg_ctry_use= "¨Ó·½°ê®a²Î­p      ";
 
 /* top tables */
 /* Formatted as "Top xxx of xxx Total something" */
-char *msg_top_top = "I Top";
-char *msg_top_of  = "dei";
-char *msg_top_s   = "Siti Totali";
-char *msg_top_u   = "Indirizzi Totali";
-char *msg_top_r   = "Referrers Totali";
-char *msg_top_a   = "Browsers Totali";
-char *msg_top_c   = "Nazioni Totali";
+char *msg_top_top = "¦C¥X«e";
+char *msg_top_of  = "¦W¡A¦@¦³";
+char *msg_top_s   = "­Óºô¯¸";
+char *msg_top_u   = "ºô­¶¸ô®|";
+char *msg_top_r   = "­Ó¨Ó·½ºô­¶";
+char *msg_top_a   = "ºØÂsÄý¾¹";
+char *msg_top_c   = "­Ó°ê®a";
+char *msg_top_en  = "Total Entry Pages";
+char *msg_top_ex  = "Total Exit Pages";
+char *msg_top_sr  = "Total Search Strings";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
-char *s_month[12]={ "Gen", "Feb", "Mar",
-                    "Apr", "Mag", "Giu",
-                    "Lug", "Ago", "Set",
-                    "Ott", "Nov", "Dic"};
+char *s_month[12]={ "¤@¤ë", "¤G¤ë", "¤T¤ë",
+                    "¥|¤ë", "¤­¤ë", "¤»¤ë",
+                    "¤C¤ë", "¤K¤ë", "¤E¤ë",
+                    "¤Q¤ë", "¤Q¤@¤ë", "¤Q¤G¤ë"};
 
 /* long month names - can be any length */
-char *l_month[12]={ "Gennaio",  "Febbraio", "Marzo",   "Aprile",
-                    "Maggio",   "Giugno",   "Luglio",  "Agosto",
-                    "Settembre","Ottobre",  "Novembre","Dicembre"};
+char *l_month[12]={ "¤@¤ë", "¤G¤ë", "¤T¤ë",
+                    "¥|¤ë", "¤­¤ë", "¤»¤ë",
+                    "¤C¤ë", "¤K¤ë", "¤E¤ë",
+                    "¤Q¤ë", "¤Q¤@¤ë", "¤Q¤G¤ë"};
 
 /* response code descriptions... order IS important!      */
 struct response_code response[] =
-       { { "Codice di risposta indefinita",          0 },
-         { "100 - Continua",                         0 },
-         { "101 - Scambio di protocollo",            0 },
-         { "200 - OK",                               0 },
-         { "201 - Creato",                           0 },
-         { "202 - Accettato",                        0 },
-         { "203 - Informazione non autorizzata",     0 },
-         { "204 - Nessun contenuto",                 0 },
-         { "205 - Contenuto rinnovato",              0 },
-         { "206 - Contenuto parziale",               0 },
-         { "300 - Scelta multipla",                  0 },
-         { "301 - Mosso permanentemente",            0 },
-         { "302 - Mosso temporaneamente",            0 },
-         { "303 - Vedere altro",                     0 },
-         { "304 - Non modificato",                   0 },
-         { "305 - Utilizzare proxy",                 0 },
-         { "400 - Richiesta sbagliata",              0 },
-         { "401 - Non autorizzato",                  0 },
-         { "402 - Si richiede pagamento",            0 },
-         { "403 - Proibito",                         0 },
-         { "404 - Non trovato",                      0 },
-         { "405 - Metodo non permesso",              0 },
-         { "406 - Non accettabile",                  0 },
-         { "407 - Richiesta l'autenticazione Proxy", 0 },
-         { "408 - Richiesta in timeout",             0 },
-         { "409 - Conflitto",                        0 },
-         { "410 - Abbandonato",                      0 },
-         { "411 - Richiesta lunghezza",              0 },
-         { "412 - Precondizione fallita",            0 },
-         { "413 - Entità richiesta troppo grande",   0 },
-         { "414 - Indirizzo richiesto troppo lungo", 0 },
-         { "415 - Tipo di media non supportato",     0 },
-         { "500 - Errore interno del server",        0 },
-         { "501 - Non implementato",                 0 },
-         { "502 - Gateway incorretto",               0 },
-         { "503 - Servizio non utilizzabile",        0 },
-         { "504 - Gateway in timeout",               0 },
-         { "505 - Versione di HTTP non supportata",  0 } };
+       { { "Undefined response code",                    0 },
+         { "Code 100 - Continue",                        0 },
+         { "Code 101 - Switching Protocols",             0 },
+         { "Code 200 - OK",                              0 },
+         { "Code 201 - Created",                         0 },
+         { "Code 202 - Accepted",                        0 },
+         { "Code 203 - Non-Authoritative Information",   0 },
+         { "Code 204 - No Content",                      0 },
+         { "Code 205 - Reset Content",                   0 },
+         { "Code 206 - Partial Content",                 0 },
+         { "Code 300 - Multiple Choices",                0 },
+         { "Code 301 - Moved Permanently",               0 },
+         { "Code 302 - Found",                           0 },
+         { "Code 303 - See Other",                       0 },
+         { "Code 304 - Not Modified",                    0 },
+         { "Code 305 - Use Proxy",                       0 },
+         { "Code 307 - Moved Temporarily",               0 },
+         { "Code 400 - Bad Request",                     0 },
+         { "Code 401 - Unauthorized",                    0 },
+         { "Code 402 - Payment Required",                0 },
+         { "Code 403 - Forbidden",                       0 },
+         { "Code 404 - Not Found",                       0 },
+         { "Code 405 - Method Not Allowed",              0 },
+         { "Code 406 - Not Acceptable",                  0 },
+         { "Code 407 - Proxy Authentication Required",   0 },
+         { "Code 408 - Request Timeout",                 0 },
+         { "Code 409 - Conflict",                        0 },
+         { "Code 410 - Gone",                            0 },
+         { "Code 411 - Length Required",                 0 },
+         { "Code 412 - Precondition Failed",             0 },
+         { "Code 413 - Request Entity Too Large",        0 },
+         { "Code 414 - Request-URI Too Long",            0 },
+         { "Code 415 - Unsupported Media Type",          0 },
+         { "Code 416 - Requested Range Not Satisfiable", 0 },
+         { "Code 417 - Expectation Failed",              0 },
+         { "Code 500 - Internal Server Error",           0 },
+         { "Code 501 - Not Implemented",                 0 },
+         { "Code 502 - Bad Gateway",                     0 },
+         { "Code 503 - Service Unavailable",             0 },
+         { "Code 504 - Gateway Timeout",                 0 },
+         { "Code 505 - HTTP Version Not Supported",      0 } };
 
-/* New for 1.1 */
-
-char *msg_title   = "Statistica per";
-char *msg_h_other = "Altri";
+char *msg_title   = "Usage Statistics for";
+char *msg_h_other = "Other";
 
 /* Country codes (previously in ctry.h header file) */
 
@@ -274,7 +299,7 @@ struct	country_code { u_long idx;
                          char *desc;
                        u_long count;
                        u_long files;
-                       double xfer;
+                       double  xfer;
                      } ctry[] = {
 
 { 0,                      "Unresolved/Unknown",               0,0,0 },

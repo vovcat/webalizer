@@ -1,12 +1,170 @@
 --------------------------------------------------------------------
-1.2x-xx changes from 1.12-10   (brad@mrunix.net)
+1.30-xx changes from 1.22-06   (brad@mrunix.net)
+--------------------------------------------------------------------
+
+Fixes:
+ o Fixed minor bug that would allow incorrect site totals for the
+   first day of the month under certain conditions.
+
+Changes/Additions:
+ o Added Top Entry and Exit Page tables.  Added configuration file
+   keywords TopEntry (-e command line) and TopExit (-E command line)
+   to specify the number of entries to display for each table.  The
+   default for both is 10.  See README for additional information.
+
+ o Added 'Group' labels.  Allows display of a specified label for
+   grouped entries (in 'Top' tables).  Based on patch submitted
+   by Oliver Graf (ograf@rhein-zeitung.de).  See sample.conf for
+   examples.
+
+ o Added 'Visits' totals.  The length of time that constitutes a
+   'visit' can be set using the VisitTimeout configuration keyword
+   (-m command line option).  The value must be given in HHMMSS
+   format, you can omit leading zeros. Default is 30 minutes (3000).
+
+ o Added 'Pages' totals, based on user specified extensions.  Changes
+   made to generated graphs as well.  Configuration keyword PageType
+   (and command line -P switch) allows specification of extensions
+   to use (defaults to 'htm*' and 'cgi').  Also called "pageviews".
+
+ o Added Search String analysis.  Keyword 'TopSearch' defines how
+   many of the top search strings to display.  Default is 20. Can
+   be disabled by using zero (0).
+
+ o Added native support for ftp logs (xferlog ala wu-ftpd).  Added
+   'LogType' configuration file keyword (-F command line option)
+   to specify log type.  Values can be either 'web' or 'ftp', with
+   the default of 'web'.
+
+ o Changed graphs to handle pages and visits totals. Also  added
+   color coded legends, which can be disabled using the GraphLegend
+   configuration keyword (-L command line option).  Default is to
+   display them.
+
+ o Added background lines to graphs.  Default is 2 lines, and can
+   be set to any number using the GraphLines configuration keyword
+   (-l command line option).  Can use anywhere from none (0) to
+   twenty lines.  They will be drawn in all but the country graph.
+
+ o Added CountryGraph configuration file keyword (-Y command line
+   option) to enable/disable display of country usage pie chart.
+
+ o Added FoldSeqErr keyword (-f command line option).  Normally,
+   the program will ignore log records that are out of sequence
+   (chronological order).  This option lets them be folded into
+   the analysis anyway, as if the were the same date/time as the
+   last good record.  Apache users can safely ignore :)
+
+ o Added additonal 'Top' tables for SITES and URL's, sorted by
+   KBytes instead of hits.  Two new configuration file keywords,
+   TopKSites and TopKURLs, can be used to specify the number of
+   entries for each (zero to disable).  Default for both is 10.
+
+ o Added additional calculations for max/avg files, pages, visits
+   and KBytes in monthly statistics.
+
+ o Updated generated HTML code to fully comply with the HTML 4.0
+   Transitional spec.  DOCTYPE header reflects this change as well.
+
+ o Changed code to use 4 digit years in filenames.  Purely for the
+   Y2K phobes who couldn't deal with only two digits (even though
+   it was _purely_ for humans, the program couldn't care less).
+   Unfortunately, this means that you will have to rename previous
+   month files to the new format.  Not a big deal if you plan on
+   re-running all your logs to take advantage of the new features.
+
+ o Major changes to both history file and incremental file formats
+   to handle additional totals (pages/visits data).  As a result,
+   this version is INCOMPATABLE with previous versions.  See the
+   file README.FIRST for important information on upgrading.
+
+ o Language files and documentation updated for new functions.
+
+--------------------------------------------------------------------
+1.22-xx changes from 1.20-11   (brad@mrunix.net)
+--------------------------------------------------------------------
+
+Fixes:
+ o Fixed bug in country total generation.  Caused country table
+   to show bogus entries if logs contain hostnames that were not
+   fully qualified (ie: don't have the domain name/TLD portion).
+
+ o Changed/fixed incremental data I/O routines to better detect and
+   handle error conditions.  This involved some minor incremental
+   data file format changes as well.  Fixes problem large sites were
+   having where random tables were getting munged.
+
+ o Fixed record parse code to better detect and strip query portion
+   from URL's and Referrer strings.
+
+ o Fixed segfault condition when more than MAX_CTRY entries were
+   specified for the "Top Countries" table.
+
+Changes/Additions:
+ o Added code to detect negative byte transfer sizes in logs (another
+   netscape server kludge :)  Could cause KByte xfer sizes to become
+   corrupt.
+
+ o Several small changes (mostly ifdef/endif's) to make code compile
+   clean 'out-of-the-box' across more platforms (ala SunOS).  Also
+   added a GNU autoconf 'configure' script which helps a bit as well.
+
+ o Added Include* keywords.  Allows forcing the inclusion of specified
+   log records.  Takes precedence over counterpart Ignore* keywords.
+
+ o Added HTMLPre, HTMLBody, HTMLEnd and HTMLExtension keywords, and
+   changed behaviour of HTMLHead keyword.  Previous versions need
+   only change the 'HTMLHead' keword in existing files to 'HTMLBody'
+   to upgrade.  Thanks to Colin Viebrock <cmv@privateworld.com> for
+   the idea and code examples.
+
+ o Changed mangle agent code to support Opera and other browsers.
+   Also updated response codes to IETF HTTP/1.1 Rev 6 draft.
+   Thanks to Yves Lafon <ylafon@w3.org> for this these.
+
+ o Added HistoryName and IncrementalName keywords, which allow the
+   specification of the history and incremental data filenames.
+
+ o Added UseHTTPS keyword, which allows using 'https://' instead
+   of 'http://' for links to URLS in the 'Top URL's' table.  Also
+   added check for URL's that already have the protocol specified
+   (such as on virtual web and proxy servers), and to use unmodified
+   if found (will only force to lowercase for matching).
+
+ o Added code to ignore out-of-sequence log records.
+
+ o Added code to force hostnames to lowercase (was causing country skew).
+
+ o Disabled display of blank (zero hit) days at start of daily stat table.
+
+ o Added records per second calculation to timing totals.
+
+ o ALT= tags now use translated strings instead of forcing english.
+
+ o Updated documentation for new functions/features.
+
+--------------------------------------------------------------------
+1.20-xx changes from 1.12-10   (brad@mrunix.net)
 --------------------------------------------------------------------
 
 Fixes:
  o Modified record parse routine to not touch stuff between quotes
    (").  Was causing problems parsing some malformed request fields.
 
+ o Fixed memory leak in MangleAgent code, and relocated to elimitate
+   un-necessary processing (causing segfault on some machines).
+
 Changes/Additions:
+ o Changed transfer totals on host/url structures to support large
+   groupings (such as *.gif) on heavly hit servers.  Hopefully, this
+   should cure the 32bit overflow problem large sites were having.
+
+ o Changed daily transfer totals to support transfers greater than
+   roughly 4.2 gigabytes a day.
+
+ o Added some missing HTML tags and altered the way totals are
+   calculated on the 'Top' tables (to correct for grouped records).
+
  o Added incremental run capability (-p command line option or
    "Incremental" configuration file keyword).
 

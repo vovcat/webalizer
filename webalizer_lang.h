@@ -1,1 +1,1 @@
-webalizer_lang.english
+lang/webalizer_lang.english

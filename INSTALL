@@ -2,19 +2,31 @@ Installation instructions for The Webalizer
 
 The Webalizer is distributed in either source or binary distributions,
 and installation is different for each type.  Regardless of the type
-of distribution, you need to create a directory somewhere, and place
-the file there (/usr/src/webalizer/ is good...).  Untar/uncompress the
-distribution file in this directory.
+of installation, you need to obtain and un-tar/un-zip the distribution
+file somewhere.  For binary distributions, you should create a directory
+somewhere and chdir to it before unpacking the file.  Source distributions
+will automagically create a directory for you (webalizer-x.xx-xx).  If
+you are upgrading from a previous version, check the CHANGES file, and
+the README.FIRST file for important upgrade information.
 
 
 For Binary distributions
 ------------------------
 
-You should have all the files you need in the directory you used
-above.  The file 'webalizer' is the binary executable.  Copy this
+You should have all the files you need in the directory you created
+when you un-tarred/un-zipped the distribution file.  The file
+'webalizer' in this directory is the binary executable.  Copy this
 someplace useful, like /usr/local/bin or /usr/bin.  A man page for
 The Webalizer is also supplied... If desired, copy the file
 'webalizer.1' to your local man directory (ie: /usr/local/man/man1).
+(You may also need to run 'makeinfo' or similar)
+
+Note: There may also be platform specific installation instructions
+      and/or usage notes supplied with the binary distribution.  You
+      should read them, as that will be your starting point if problems
+      are encountered.  Most of the binary distributions are submitted
+      by users, and I cannot support them the same way I can the
+      Linux binary distribution and the source code itself.
 
 
 For Source distributions
@@ -22,20 +34,75 @@ For Source distributions
 
 The Webalizer requires the GD graphics library by Tom Boutell.  If
 you don't already have it, go to http://www.boutell.com/gd/ and
-grab a copy.  The header files for the library are expected to be
-in /usr/local/include/gd and the actual library should be in your
-library path (ie: /usr/local/lib or /usr/lib).  The GNU C compiler
-(gcc) is also the default compiler to use.  If any of these are
-different on your machine, edit the Makefile to match your
-operating environment.
+grab a copy.
 
-Type 'make' to compile the program.
 
-Once complete, you have a binary executable named 'webalizer'.
-Test it by typing 'webalizer -v' to print the version,  then
-copy it someplace useful, such as /usr/local/bin or /usr/bin.
-A man page is also supplied with all distributions.  If desired,
-copy the file 'webalizer.1' to your local man directory.
+New style build:
+
+The Webalizer source distribution now comes packaged with a GNU
+autoconf 'configure' script, which should allow you to simply type:
+
+./configure
+make
+make install
+
+Normal configure options apply, type ./configure --help to get a
+complete list.  A few options in particular may be useful:
+
+--with-language=<language>
+
+Allows you to specify the language to use.  Check the /lang directory
+to see the available language choices.  As an example, you could use
+
+./configure --with-language=french
+
+to compile the program using french (webalizer_lang.french) for output.
+You can also use the --without-language switch, which will use the
+default language (english).
+
+--with-gdlib=<path-to-gd-library>
+--with-gd=<path-to-gd-headers>
+
+The configure script will attempt to locate the gd library and header
+files in some of the more usual places, and should find them in most
+cases.  If you have the files someplace unusual, you can specify
+additional locations to look for them with this option.  (If you are
+compiling gd in your home directory, and don't want to or can't put
+them in the normal system places, create a directory under the webalizer
+named 'gd' or 'gd1.3' for it and the script should find it without
+problems or extra command line switches).
+
+Some systems may require unusual settings that the configure script
+cannot determine.  You can pass values to the script by setting
+environment variables.  For example:
+
+CC=c89 CFLAGS=-O LIBS=-lposix ./configure --with-language=german
+
+Would allow you to set the compiler (c89) and various flags and
+libraries to use, which would then be passed to the configure script
+and eventually to the Makefile generated.  It also will cause the
+program to be compiled using German instead of the English default.
+
+If the configure script doesn't work for you.. please let me know
+(along with relevant info like system type, compiler, etc..)  If you
+are able and can tweek something to make it work, let me know as well.
+
+
+Old style build:
+
+If you have a platform that the configure script won't work on, or
+some other situation where you have to configure and build the
+source yourself,  the file 'Makefile.std' is a "stock" Makefile
+that you can use to build the Webalizer.  Copy or rename the file
+to 'Makefile', edit to match your system, and do the usual 'make'.
+If everything seems to have gone well, next type 'make install'.
+
+This will install the Webalizer on your system, and put a sample
+configuration file in /etc (named 'webalizer.conf.sample').  If
+you don't want to use the 'make install' method... just copy the
+file 'webalizer' to someplace usefull and you are ready to go :)
+
+Makefile.std works on a stock slackware 3.6 linux system. YMMV.
 
 
 Usage
@@ -106,16 +173,27 @@ use of configuation files.
 Language Support
 ----------------
 
-Version 1.00 of The Webalizer added language support in the
-form of a language specific header file included at compile
-time.  Grab a copy of the latest source distribution and
-Untar/uncompress it somewhere safe (such as /usr/src/webalizer).
-In the directory, you will find a symbolic link for the
-file webalizer_lang.h, and it will be pointing to the file
-webalizer_lang.english which is the default.  Delete the
-link (ie: rm webalizer_lang.h) and create a new one to the
-language file you want The Webalizer to use
-(ie: ln -s webalizer_lang.spanish webalizer_lang.h)
+Language support is provided as language specific header
+files that must be compiled into the program.  If you don't
+have the source code, get it.  If you can't compile the
+program yourself, ask a friend.  The /lang/ directory of
+the distribution contains all supported languages at the
+time of release.  Additional/updated language files will
+be found at ftp://ftp.mrunix.net/pub/webalizer/lang and
+are always the most current versions.
+
+To build with language support, use the --with-language
+option of the configure script.  This will automagically
+do for you the steps described below.  If you can't use
+the configure script, you can manually select the language
+file to use.
+
+In the webalizer source directory, you will find a symbolic
+link for the file webalizer_lang.h, and it will be pointing
+to the file webalizer_lang.english which is the default.
+Delete the link (ie: rm webalizer_lang.h) and create a new
+one to the language file you want The Webalizer to use
+(ie: ln -s lang/webalizer_lang.spanish webalizer_lang.h)
 and re-compile the program.
 
 Note: The source distribution of The Webalizer contains all

@@ -1,10 +1,13 @@
 /*
    webalizer_lang.polish
 
-   Webalizer V1.1x Language Support file for Polish.
+   Webalizer V1.2x Language Support file for Polish.
    15-May-1998 by Bradford L. Barrett (brad@mrunix.net)
    31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
    08-Jun-1998 Translated by Dariusz P. Pawlak (darekp@lib.amu.edu.pl)
+   23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
+   08-Mar-1999 Updated HTTP 1.1 response codes by Yves Lafon (ylafon@w3.org)
+   28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
 
 
    Language files are named using the following convention:
@@ -65,12 +68,11 @@ char *msg_bad_rec = "Pomijam b³êdny zapis";
 char *msg_no_vrec = "Nie znalaz³em prawid³owych rekordów!";
 char *msg_gen_rpt = "Generujê raport dla";
 char *msg_gen_sum = "Generujê raport sumaryczny";
-
-/* New for 1.1 */ /* Current state data messages */
 char *msg_get_data= "Czytam dane z poprzedniego uruchomienia...";
 char *msg_put_data= "Zapisujê dane z bie¿±cego uruchomienia...";
 char *msg_no_data = "Nie znalaz³em danych z poprzedniego uruchomienia...";
-char *msg_bad_data= "B³êdny rekord danych";
+/*char *msg_bad_data= "B³êdny rekord danych";*/
+char *msg_bad_data= "Error: Unable to restore run data";
 char *msg_data_err= "B³±d: Nie mogê zapisaæ danych z bie¿±cego uruchomienia";
 char *msg_dup_data= "Ostrze¿enie: Prawdopodobnie znalaz³em zdublowane dane";
 
@@ -80,11 +82,13 @@ char *msg_nomem_tr= "Nie mogê przydzieliæ pamiêci, najczêstsze odno¶niki anulowa
 char *msg_nomem_tu= "Nie mogê przydzieliæ pamiêci, najczêstsze URLe anulowane!";
 char *msg_nomem_tc= "Nie mogê przydzieliæ pamiêci, najczêstsze kraje anulowane!";
 char *msg_nomem_ta= "Nie mogê przydzieliæ pamiêci, najczê¶ciej u¿ywane przegl±darki anulowane!";
+char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
 char *msg_nomem_dh= "B³±d w trakcie dodawania kolejnego hosta (dzienne), pomijam";
 char *msg_nomem_mh= "B³±d w trakcie dodawania kolejnego hosta (miesiêczne), pomijam";
 char *msg_nomem_u = "B³±d w trakcie dodawania kolejnego URLa, pomijam";
 char *msg_nomem_a = "B³±d w trakcie dodawania kolejnego przegl±darki, pomijam";
 char *msg_nomem_r = "B³±d w trakcie dodawania kolejnego odno¶nika, pomijam";
+char *msg_nomem_sc= "Error adding Search String node, skipping";
 
 /* log record errors */
 char *msg_big_rec = "B³±d: Pomijam zbyt du¿y zapis logu";
@@ -102,15 +106,21 @@ char *h_usage1 = "U¿ycie";
 char *h_usage2 = "[opcje] [plik logu]";
 char *h_msg[]= {
          "-h        = wy¶wietla te informacje"             ,
-         "-v        = wy¶wietla informacje o wersji"       ,
+         "-v -V     = wy¶wietla informacje o wersji"       ,
          "-d        = wy¶wietla dodatkowe informacje"      ,
+         "-F        = Use FTP log format"                  ,
+         "-f        = fold sequence errors"                ,
          "-g        = u¿ywa znaków czasowych GMT (UTC)"    ,
          "-i        = pomija plik historii"                ,
          "-p        = preserve state (incremental)"        ,
          "-q        = wy³±cza komunikaty informacyjne"     ,
          "-Q        = wy³±cza wszystkie komunikaty"        ,
+         "-Y        = supress country graph"               ,
          "-G        = wy³±cza wykres godzinny"             ,
          "-H        = wy³±cza statystykê godzinn±"         ,
+         "-L        = supress color coded graph legends"   ,
+         "-l num    = use num background lines on graph"   ,
+         "-m num    = Visit timeout value (HHMMSS format)" ,
          "-T        = wy¶wietla informacje czasowe"        ,
          "-c plik   = u¿ywa pliku konfiguracyjnego 'plik'" ,
          "-n nazwa  = u¿ywana nazwa hosta"                 ,
@@ -120,12 +130,16 @@ char *h_msg[]= {
          "-r nazwa  = ukrywa odno¶nik 'nazwa'"             ,
          "-s nazwa  = ukrywa lokalizacjê 'nazwa'"          ,
          "-u nazwa  = ukrywa URL 'nazwa'"                  ,
+         "-x nazwa  = Use filename extension 'nazwa'"      ,
+         "-P nazwa  = Page type extension 'nazwa'"         ,
          "-I nazwa  = Index alias 'name'"                  ,
          "-A num    = wy¶wietla num najczêstszych przegl±darek",
          "-C num    = wy¶wietla num najczêstszych krajów"   ,
          "-R num    = wy¶wietla num najczêstszych odno¶ników",
          "-S num    = wy¶wietla num najczêstszych lokalizacji",
-         "-U num    = wy¶wietla num najczêstszych URLi"     };
+         "-U num    = wy¶wietla num najczêstszych URLi"    ,
+         "-e num    = Display num top Entry Pages"         ,
+         "-E num    = Display num top Exit Pages"          };
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -155,13 +169,17 @@ char *msg_hmth_du = "Dzienne u¿ytkowanie - ";
 char *msg_hmth_hu = "Godzinne u¿ycie - ";
 
 /* table header strings */
+char *msg_h_by    = "By";
 char *msg_h_avg   = "¦rednio";
+char *msg_h_max   = "Max";
 char *msg_h_total = "Wszystkie";
 char *msg_h_totals= "Totals";
 char *msg_h_day   = "Dzieñ";
 char *msg_h_mth   = "Miesi±c";
 char *msg_h_hour  = "Godzina";
 char *msg_h_hits  = "Wywo³ania";
+char *msg_h_pages = "Pages";
+char *msg_h_visits= "Visits";
 char *msg_h_files = "Plik";
 char *msg_h_sites = "Lokalizacja";
 char *msg_h_xfer  = "KB";
@@ -170,6 +188,7 @@ char *msg_h_url   = "URL";
 char *msg_h_agent = "Przegl±darka";
 char *msg_h_ref   = "Odno¶niki";
 char *msg_h_ctry  = "Kraj";
+char *msg_h_search= "Search String";
 
 /* links along top of page */
 char *msg_hlnk_ds = "Statystyki dzienne";
@@ -179,6 +198,9 @@ char *msg_hlnk_s  = "Lokalizacje";
 char *msg_hlnk_a  = "Przegl±darki";
 char *msg_hlnk_c  = "Kraje";
 char *msg_hlnk_r  = "Odno¶niki";
+char *msg_hlnk_en = "Entry";
+char *msg_hlnk_ex = "Exit";
+char *msg_hlnk_sr = "Search";
 
 /* monthly total table */
 char *msg_mtot_ms = "Statystyka w miesi±cu:";
@@ -189,10 +211,12 @@ char *msg_mtot_us = "Ca³kowita liczba unikalnych lokalizacji";
 char *msg_mtot_ur = "Ca³kowita liczba unikalnych odno¶ników";
 char *msg_mtot_ua = "Ca³kowita liczba unikalnych przegl±darek";
 char *msg_mtot_uu = "Ca³kowita liczba unikalnych URLi";
-char *msg_mtot_mhd= "Maksymalna liczba wywo³añ na dzieñ";
-char *msg_mtot_mhh= "Maksymalna liczba wywo³añ na godzinê";
-char *msg_mtot_ahd= "¦rednia liczba wywo³añ na dzieñ";
-char *msg_mtot_ahh= "¦rednia liczba wywo³añ na godzinê";
+char *msg_mtot_mhd= "Hits per Day";
+char *msg_mtot_mhh= "Hits per Hour";
+char *msg_mtot_mfd= "Files per Day";
+char *msg_mtot_mpd= "Pages per Day";
+char *msg_mtot_mvd= "Visits per Day";
+char *msg_mtot_mkd= "KBytes per Day";
 char *msg_mtot_rc = "Wywo³ania wed³ug kodu odpowiedzi";
 
 /* daily total table */
@@ -213,6 +237,9 @@ char *msg_top_u   = "URLi";
 char *msg_top_r   = "odno¶ników";
 char *msg_top_a   = "przegl±darek";
 char *msg_top_c   = "krajów";
+char *msg_top_en  = "Total Entry Pages";
+char *msg_top_ex  = "Total Exit Pages";
+char *msg_top_sr  = "Total Search Strings";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
 char *s_month[12]={ "Sty", "Lut", "Mar",
@@ -227,47 +254,47 @@ char *l_month[12]={ "styczeñ",  "luty",		"marzec",	"kwiecieñ",
 
 /* response code descriptions... order IS important!      */
 struct response_code response[] =
-       { { "Niezdefiniowany kod odpowiedzi",            0 },
-         { "Code 100 - Kontynuuj",                      0 },
-         { "Code 101 - Zmieniam protoko³y",             0 },
-         { "Code 200 - OK",                             0 },
-         { "Code 201 - Utworzono",                      0 },
-         { "Code 202 - Zaakceptowano",                  0 },
-         { "Code 203 - Niewiarygodna informacja",       0 },
-         { "Code 204 - Brak zawarto¶ci",                0 },
-         { "Code 205 - Kasuje zawarto¶æ",               0 },
-         { "Code 206 - Czê¶ciowa zawarto¶æ",            0 },
-         { "Code 300 - Wielokrotny wybór",              0 },
-         { "Code 301 - Przeniesiono na sta³e",          0 },
-         { "Code 302 - Przeniesiono tymczasowo",        0 },
-         { "Code 303 - Zobacz inne",                    0 },
-         { "Code 304 - Niezmodyfikowany",               0 },
-         { "Code 305 - U¿yj proxy",                     0 },
-         { "Code 400 - B³êdne ¿±danie",                 0 },
-         { "Code 401 - Nieautoryzowany",                0 },
-         { "Code 402 - ¯±dana zap³ata",                 0 },
-         { "Code 403 - Zakazane",                       0 },
-         { "Code 404 - Nie znaleziono",                 0 },
-         { "Code 405 - Nieuznawana metoda",             0 },
-         { "Code 406 - Not Acceptable",                 0 },
-         { "Code 407 - Proxy Authentication Required",  0 },
-         { "Code 408 - Request Timeout",                0 },
-         { "Code 409 - Konflikt",                       0 },
-         { "Code 410 - Gone",                           0 },
-         { "Code 411 - Wymagana d³ugo¶æ",               0 },
-         { "Code 412 - Precondition Failed",            0 },
-         { "Code 413 - Request Entity Too Large",       0 },
-         { "Code 414 - Request-URI Too Long",           0 },
-         { "Code 415 - Nieobs³ugiwany typ no¶nika",     0 },
-         { "Code 500 - Wewnêtrzny b³±d serwera",        0 },
-         { "Code 501 - Niezaimplementowane",            0 },
-         { "Code 502 - Z³a brama",                      0 },
-         { "Code 503 - Serwis niedostêpny",             0 },
-         { "Code 504 - Gateway Timeout",                0 },
-         { "Code 505 - Nieobs³ugiwana wersja HTTP",     0 } };
-
-
-/* New for 1.1 */
+       { { "Niezdefiniowany kod odpowiedzi",             0 },
+         { "Code 100 - Kontynuuj",                       0 },
+         { "Code 101 - Zmieniam protoko³y",              0 },
+         { "Code 200 - OK",                              0 },
+         { "Code 201 - Utworzono",                       0 },
+         { "Code 202 - Zaakceptowano",                   0 },
+         { "Code 203 - Niewiarygodna informacja",        0 },
+         { "Code 204 - Brak zawarto¶ci",                 0 },
+         { "Code 205 - Kasuje zawarto¶æ",                0 },
+         { "Code 206 - Czê¶ciowa zawarto¶æ",             0 },
+         { "Code 300 - Wielokrotny wybór",               0 },
+         { "Code 301 - Przeniesiono na sta³e",           0 },
+         { "Code 302 - Found",                           0 },
+         { "Code 303 - Zobacz inne",                     0 },
+         { "Code 304 - Niezmodyfikowany",                0 },
+         { "Code 305 - U¿yj proxy",                      0 },
+         { "Code 307 - Przeniesiono tymczasowo",         0 },
+         { "Code 400 - B³êdne ¿±danie",                  0 },
+         { "Code 401 - Nieautoryzowany",                 0 },
+         { "Code 402 - ¯±dana zap³ata",                  0 },
+         { "Code 403 - Zakazane",                        0 },
+         { "Code 404 - Nie znaleziono",                  0 },
+         { "Code 405 - Nieuznawana metoda",              0 },
+         { "Code 406 - Not Acceptable",                  0 },
+         { "Code 407 - Proxy Authentication Required",   0 },
+         { "Code 408 - Request Timeout",                 0 },
+         { "Code 409 - Konflikt",                        0 },
+         { "Code 410 - Gone",                            0 },
+         { "Code 411 - Wymagana d³ugo¶æ",                0 },
+         { "Code 412 - Precondition Failed",             0 },
+         { "Code 413 - Request Entity Too Large",        0 },
+         { "Code 414 - Request-URI Too Long",            0 },
+         { "Code 415 - Nieobs³ugiwany typ no¶nika",      0 },
+         { "Code 416 - Requested Range Not Satisfiable", 0 },
+         { "Code 417 - Expectation Failed",              0 },
+         { "Code 500 - Wewnêtrzny b³±d serwera",         0 },
+         { "Code 501 - Niezaimplementowane",             0 },
+         { "Code 502 - Z³a brama",                       0 },
+         { "Code 503 - Serwis niedostêpny",              0 },
+         { "Code 504 - Gateway Timeout",                 0 },
+         { "Code 505 - Nieobs³ugiwana wersja HTTP",      0 } };
 
 char *msg_title   = "Usage Statistics for";
 char *msg_h_other = "Inne";

@@ -1,10 +1,13 @@
 /*
    webalizer_lang.dutch
 
-   Webalizer V1.1x Language Support file for Dutch.
+   Webalizer V1.2x Language Support file for Dutch.
    02-Jun-1998 Translated by J.Q. la Poutre (jlpoutre@inter.nl.net)
    02-May-1998 Modified for level 1.1 support (brad@mrunix.net)
    03-Jun-1998 Translation Level 1.1 by J.Q. La Poutre
+   23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
+   08-Mar-1999 Updated HTTP 1.1 response codes by Yves Lafon (ylafon@w3.org)
+   28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
 
    ### Nederlandse versie (1.00 - 2 juni 1998)
    ### J.Q. la Poutre' <jlpoutre@inter.nl.net> of <joe@arthouse.nl>
@@ -74,12 +77,11 @@ char *msg_bad_rec = "Fout record (wordt genegeerd)";
 char *msg_no_vrec = "Geen geldige records gevonden!";
 char *msg_gen_rpt = "Genereer rapport voor";
 char *msg_gen_sum = "Genereer samenvattingsrapport";
-
-/* New for 1.1 */ /* Current state data messages */
 char *msg_get_data= "Lees gegevens van eerdere sessie...";
 char *msg_put_data= "Bewaar gegevens huidige sessie...";
 char *msg_no_data = "Gegevens eerdere sessie niet gevonden...";
-char *msg_bad_data= "Ongeldig record (gegevenstype)";
+/*char *msg_bad_data= "Ongeldig record (gegevenstype)";*/
+char *msg_bad_data= "Error: Unable to restore run data";
 char *msg_data_err= "Fout: kan sessie (gegevens) niet bewaren";
 char *msg_dup_data= "Waarschuwing: mogelijk dubbele gegevens gevonden";
 
@@ -89,11 +91,13 @@ char *msg_nomem_tr= "Onvoldoende geheugen beschikbaar, Top verwijzende pagina's 
 char *msg_nomem_tu= "Onvoldoende geheugen beschikbaar, Top URL's overgeslagen!";
 char *msg_nomem_tc= "Onvoldoende geheugen beschikbaar, Top landen overgeslagen!";
 char *msg_nomem_ta= "Onvoldoende geheugen beschikbaar, Top browsers overgeslagen!";
+char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
 char *msg_nomem_dh= "Fout bij toevoegen van host (dagrapport), overgeslagen";
 char *msg_nomem_mh= "Fout bij toevoegen van host (maandrapport), overgeslagen";
 char *msg_nomem_u = "Fout bij toevoegen van URL, overgeslagen";
 char *msg_nomem_a = "Fout bij toevoegen van browser, overgeslagen";
 char *msg_nomem_r = "Fout bij toevoegen van verwijzende pagina, overgeslagen";
+char *msg_nomem_sc= "Error adding Search String Node, skipping";
 
 /* log record errors */
 char *msg_big_rec = "Fout: te groot log record (overgeslagen)";
@@ -111,15 +115,21 @@ char *h_usage1 = "Gebruiksaanwijzing";
 char *h_usage2 = "[opties] [log-bestand]";
 char *h_msg[]= {
          "-h         = deze helptekst",
-         "-v         = geef versie",
+         "-v -V      = geef versie",
          "-d         = debug info",
+         "-F         = Use FTP log format",
+         "-f         = fold sequence errors",
          "-g         = gebruik GMT (UTC) tijd",
          "-i         = negeer 'history' bestand",
          "-p         = preserve state (incremental)",
          "-q         = geen informatieve info",
          "-Q         = geen enkele info",
+         "-Y         = supress country graph",
          "-G         = geen uur-grafieken",
          "-H         = geen uur-statistieken",
+         "-L         = supress color coded graph legends",
+         "-l num     = use num background lines on graph",
+         "-m num     = Visit timeout value (HHMMSS format)",
          "-T         = geef verwerkingstijd informatie",
          "-c bestand = gebruik configuratie 'bestand'",
          "-n naam    = gebruik host 'naam'",
@@ -129,13 +139,17 @@ char *h_msg[]= {
          "-r naam    = laat verwijzende pagina 'naam' weg",
          "-s naam    = laat website 'naam' weg",
          "-u naam    = laat URL 'naam' weg",
+         "-x naam    = Use filename extension 'naam'",
+         "-P naam    = Page type extension 'naam'",
          "-I naam    = Index alias 'naam'",
          "-L naam    = Groepeer URL's bij 'naam'",
          "-A num     = Geef top 'num' browsers",
          "-C num     = Geef top 'num' landen",
          "-R num     = Geef top 'num' verwijzende pagina's",
          "-S num     = Geef top 'num' hosts",
-         "-U num     = Geef top 'num' URL's" };
+         "-U num     = Geef top 'num' URL's",
+         "-e num     = Display 'num' top Entry Pages",
+         "-E num     = Display 'num' top Exit Pages" };
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -165,13 +179,17 @@ char *msg_hmth_du = "Dagelijks bezoek -";
 char *msg_hmth_hu = "Bezoek per uur -";
 
 /* table header strings */
+char *msg_h_by    = "By";
 char *msg_h_avg   = "Gem.";
+char *msg_h_max   = "Max";
 char *msg_h_total = "Totaal";
 char *msg_h_totals= "Totalen";
 char *msg_h_day   = "Dag";
 char *msg_h_mth   = "Maand";
 char *msg_h_hour  = "Uur";
 char *msg_h_hits  = "Aanvragen";
+char *msg_h_pages = "Pages";
+char *msg_h_visits= "Visits";
 char *msg_h_files = "Bestanden";
 char *msg_h_sites = "Hosts";
 char *msg_h_xfer  = "KB"; /* afgekort i.v.m. onderschrift grafiek */
@@ -180,6 +198,7 @@ char *msg_h_url   = "URL";
 char *msg_h_agent = "Browser";
 char *msg_h_ref   = "Verwijzing";
 char *msg_h_ctry  = "Land";
+char *msg_h_search= "Search String";
 
 /* links along top of page */
 char *msg_hlnk_ds = "Overzicht per dag";
@@ -189,6 +208,9 @@ char *msg_hlnk_s  = "Hosts";
 char *msg_hlnk_a  = "Browsers";
 char *msg_hlnk_c  = "Landen";
 char *msg_hlnk_r  = "Verwijzers";
+char *msg_hlnk_en = "Entry";
+char *msg_hlnk_ex = "Exit";
+char *msg_hlnk_sr = "Search";
 
 /* monthly total table */
 char *msg_mtot_ms = "Maandoverzicht -";
@@ -199,10 +221,12 @@ char *msg_mtot_us = "Totaal verschillende sites";
 char *msg_mtot_ur = "Totaal verschillende verwijzers";
 char *msg_mtot_ua = "Totaal verschillende browsers";
 char *msg_mtot_uu = "Totaal verschillende URL's";
-char *msg_mtot_mhd= "Max. aanvragen per dag";
-char *msg_mtot_mhh= "Max. aanvragen per uur";
-char *msg_mtot_ahd= "Gem. aanvragen per dag";
-char *msg_mtot_ahh= "Gem. aanvragen per uur";
+char *msg_mtot_mhd= "Hits per Day";
+char *msg_mtot_mhh= "Hits per Hour";
+char *msg_mtot_mfd= "Files per Day";
+char *msg_mtot_mpd= "Pages per Day";
+char *msg_mtot_mvd= "Visits per Day";
+char *msg_mtot_mkd= "KBytes per Day";
 char *msg_mtot_rc = "Aanvragen per 'Response Code'";
 
 /* daily total table */
@@ -223,6 +247,9 @@ char *msg_top_u   = "URL's";
 char *msg_top_r   = "verwijzende pagina's";
 char *msg_top_a   = "browsers";
 char *msg_top_c   = "landen";
+char *msg_top_en  = "Total Entry Pages";
+char *msg_top_ex  = "Total Exit Pages";
+char *msg_top_sr  = "Total Search Strings";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
 char *s_month[12]={ "jan", "feb", "maa",
@@ -240,46 +267,47 @@ char *l_month[12]={ "januari",  "februari", "maart",   "april",
    bekendheid heeft dan een mogelijk onduidelijke
    Nederlandse vertaling - Joe, 05 jun 1998 */
 struct response_code response[] =
-       { { "Onbekende 'response code'",                 0 },
-         { "Code 100 - Continue",                       0 },
-         { "Code 101 - Switching Protocols",            0 },
-         { "Code 200 - OK",                             0 },
-         { "Code 201 - Created",                        0 },
-         { "Code 202 - Accepted",                       0 },
-         { "Code 203 - Non-Authoritative Information",  0 },
-         { "Code 204 - No Content",                     0 },
-         { "Code 205 - Reset Content",                  0 },
-         { "Code 206 - Partial Content",                0 },
-         { "Code 300 - Multiple Choices",               0 },
-         { "Code 301 - Moved Permanently",              0 },
-         { "Code 302 - Moved Temporarily",              0 },
-         { "Code 303 - See Other",                      0 },
-         { "Code 304 - Not Modified",                   0 },
-         { "Code 305 - Use Proxy",                      0 },
-         { "Code 400 - Bad Request",                    0 },
-         { "Code 401 - Unauthorized",                   0 },
-         { "Code 402 - Payment Required",               0 },
-         { "Code 403 - Forbidden",                      0 },
-         { "Code 404 - Not Found",                      0 },
-         { "Code 405 - Method Not Allowed",             0 },
-         { "Code 406 - Not Acceptable",                 0 },
-         { "Code 407 - Proxy Authentication Required",  0 },
-         { "Code 408 - Request Timeout",                0 },
-         { "Code 409 - Conflict",                       0 },
-         { "Code 410 - Gone",                           0 },
-         { "Code 411 - Length Required",                0 },
-         { "Code 412 - Precondition Failed",            0 },
-         { "Code 413 - Request Entity Too Large",       0 },
-         { "Code 414 - Request-URI Too Long",           0 },
-         { "Code 415 - Unsupported Media Type",         0 },
-         { "Code 500 - Internal Server Error",          0 },
-         { "Code 501 - Not Implemented",                0 },
-         { "Code 502 - Bad Gateway",                    0 },
-         { "Code 503 - Service Unavailable",            0 },
-         { "Code 504 - Gateway Timeout",                0 },
-         { "Code 505 - HTTP Version Not Supported",     0 } };
-
-/* New for 1.1 */
+       { { "Onbekende 'response code'",                  0 },
+         { "Code 100 - Continue",                        0 },
+         { "Code 101 - Switching Protocols",             0 },
+         { "Code 200 - OK",                              0 },
+         { "Code 201 - Created",                         0 },
+         { "Code 202 - Accepted",                        0 },
+         { "Code 203 - Non-Authoritative Information",   0 },
+         { "Code 204 - No Content",                      0 },
+         { "Code 205 - Reset Content",                   0 },
+         { "Code 206 - Partial Content",                 0 },
+         { "Code 300 - Multiple Choices",                0 },
+         { "Code 301 - Moved Permanently",               0 },
+         { "Code 302 - Found",                           0 },
+         { "Code 303 - See Other",                       0 },
+         { "Code 304 - Not Modified",                    0 },
+         { "Code 305 - Use Proxy",                       0 },
+         { "Code 307 - Moved Temporarily",               0 },
+         { "Code 400 - Bad Request",                     0 },
+         { "Code 401 - Unauthorized",                    0 },
+         { "Code 402 - Payment Required",                0 },
+         { "Code 403 - Forbidden",                       0 },
+         { "Code 404 - Not Found",                       0 },
+         { "Code 405 - Method Not Allowed",              0 },
+         { "Code 406 - Not Acceptable",                  0 },
+         { "Code 407 - Proxy Authentication Required",   0 },
+         { "Code 408 - Request Timeout",                 0 },
+         { "Code 409 - Conflict",                        0 },
+         { "Code 410 - Gone",                            0 },
+         { "Code 411 - Length Required",                 0 },
+         { "Code 412 - Precondition Failed",             0 },
+         { "Code 413 - Request Entity Too Large",        0 },
+         { "Code 414 - Request-URI Too Long",            0 },
+         { "Code 415 - Unsupported Media Type",          0 },
+         { "Code 416 - Requested Range Not Satisfiable", 0 },
+         { "Code 417 - Expectation Failed",              0 },
+         { "Code 500 - Internal Server Error",           0 },
+         { "Code 501 - Not Implemented",                 0 },
+         { "Code 502 - Bad Gateway",                     0 },
+         { "Code 503 - Service Unavailable",             0 },
+         { "Code 504 - Gateway Timeout",                 0 },
+         { "Code 505 - HTTP Version Not Supported",      0 } };
 
 char *msg_title   = "Rapport voor website";
 char *msg_h_other = "Anders";

@@ -1,10 +1,7 @@
 /*
     graphs.c  - produces graphs used by the Webalizer
 
-    This is part of the Webalizer, a web server log file analysis
-    program.
-
-    Copyright (C) 1997, 1998  Bradford L. Barrett (brad@mrunix.net)
+    Copyright (C) 1997-1999  Bradford L. Barrett (brad@mrunix.net)
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,69 +20,10 @@
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
     This software uses the gd graphics library, which is copyright by
-    Quest Protein Database Center, Cold Spring Harbor Labs. The following
-    applies only to the gd graphics library software:
-
-    gd 1.2 is copyright 1994, 1995, Quest Protein Database Center,
-    Cold Spring Harbor Labs. Permission granted to copy and distribute
-    this work provided that this notice remains intact. Credit
-    for the library must be given to the Quest Protein Database Center,
-    Cold Spring Harbor Labs, in all derived works. This does not
-    affect your ownership of the derived work itself, and the intent
-    is to assure proper credit for Quest, not to interfere with your
-    use of gd. If you have questions, ask. ("Derived works"
-    includes all programs that utilize the library. Credit must
-    be given in user-visible documentation.)
-
-    gd 1.2 was written by Thomas Boutell and is currently
-    distributed by boutell.com, Inc.
-
-    If you wish to release modifications to gd,
-    please clear them first by sending email to
-    boutell@boutell.com; if this is not done, any modified version of the gd
-    library must be clearly labeled as such.
-
-    The Quest Protein Database Center is funded under Grant P41-RR02188 by
-    the National Institutes of Health.
-
-    Written by Thomas Boutell  2/94 - 8/95.
-    (http://sunsite.unc.edu/boutell/index.html)
-
-    The GIF compression code is based on that found in the pbmplus
-    utilities, which in turn is based on GIFENCOD by David Rowley. See the
-    notice below:
-
-    ** Based on GIFENCOD by David Rowley <mgardi@watdscu.waterloo.edu>.A
-    ** Lempel-Zim compression based on "compress".
-    **
-    ** Modified by Marcel Wijkstra <wijkstra@fwi.uva.nl>
-    **
-    ** Copyright (C) 1989 by Jef Poskanzer.
-    **
-    ** Permission to use, copy, modify, and distribute this software and its
-    ** documentation for any purpose and without fee is hereby granted, provided
-    ** that the above copyright notice appear in all copies and that both the
-    ** copyright notice and this permission notice appear in supporting
-    ** documentation.  This software is provided "as is" without express or
-    ** implied warranty.
-    **
-    ** The Graphics Interchange Format(c) is the Copyright property of
-    ** CompuServe Incorporated.  GIF(sm) is a Service Mark property of
-    ** CompuServe Incorporated.
-
-    The GIF decompression is based on that found in the pbmplus
-    utilities, which in turn is based on GIFDECOD by David Koblas. See the
-    notice below:
-
-    +-------------------------------------------------------------------+
-    | Copyright 1990, 1991, 1993, David Koblas.  (koblas@netcom.com)    |
-    |   Permission to use, copy, modify, and distribute this software   |
-    |   and its documentation for any purpose and without fee is hereby |
-    |   granted, provided that the above copyright notice appear in all |
-    |   copies and that both that copyright notice and this permission  |
-    |   notice appear in supporting documentation.  This software is    |
-    |   provided "as is" without express or implied warranty.           |
-    +-------------------------------------------------------------------+
+    Quest Protein Database Center, Cold Spring Harbor Labs.  Please
+    see the documentation supplied with the library for additional
+    information and license terms, or visit www.boutell.com/gd/ for the
+    most recent version of the library and supporting documentation.
 */
 
 #include <math.h>
@@ -102,10 +40,13 @@
 #define PI 3.14159265358979323846
 #endif
 
-#define COLOR1 green                       /* common colors for   */
-#define COLOR2 blue                        /* bar charts (hits,   */
-#define COLOR3 orange                      /* files, sites and    */
-#define COLOR4 red                         /* Kbytes...           */
+#define COLOR1 green                       /* graph color - hits  */
+#define COLOR2 blue                        /* files               */
+#define COLOR3 orange                      /* sites               */
+#define COLOR4 red                         /* KBytes              */
+#define COLOR5 cyan                        /* Files               */
+#define COLOR6 yellow                      /* Visits              */
+
 #define CX 156                             /* center x (for pie)  */
 #define CY 150                             /* center y  (chart)   */
 #define XRAD 240                           /* X-axis radius       */
@@ -132,28 +73,35 @@ u_long		julday;                    /* julday value        */
 struct pie_data { int x; int y;            /* line x,y            */
                   int mx; int my; };       /* midpoint x,y        */
 /* colors */
-int		black, white, grey, dkgrey, red, blue, orange, green;
+int		black, white, grey, dkgrey, red,
+                blue, orange, green, cyan, yellow;
 
 /*****************************************************************/
 /*                                                               */
-/* YEAR_GRAPH4x  - Year graph with four data sets                */
+/* YEAR_GRAPH6x  - Year graph with six data sets                 */
 /*                                                               */
 /*****************************************************************/
 
-int year_graph4x(  char *fname,            /* file name use       */
-                   char *title,            /* title for graph     */
-                    int fmonth,            /* begin month number  */
-                 u_long data1[12],         /* data1 (hits)        */
-                 u_long data2[12],         /* data2 (files)       */
-                 u_long data3[12],         /* data3 (sites)       */
-                 double data4[12])         /* data4 (kbytes)      */
+int year_graph6x(  char *fname,            /* file name use      */
+                   char *title,            /* title for graph    */
+                    int fmonth,            /* begin month number */
+                 u_long data1[12],         /* data1 (hits)       */
+                 u_long data2[12],         /* data2 (files)      */
+                 u_long data3[12],         /* data3 (sites)      */
+                 double data4[12],         /* data4 (kbytes)     */
+                 u_long data5[12],         /* data5 (views)      */
+                 u_long data6[12])         /* data6 (visits)     */
 {
-   /* declare external language specific strings                  */
-   extern char *msg_h_hits;                /* "Hits" string       */
-   extern char *msg_h_files;               /* "Files"             */
-   extern char *msg_h_sites;               /* "Sites"             */
-   extern char *msg_h_xfer;                /* "KBytes"            */
-   extern char *s_month[12];               /* 3 char month names  */
+   /* declare external language specific strings                 */
+   extern char *msg_h_hits;                /* "Hits" string      */
+   extern char *msg_h_files;               /* "Files"            */
+   extern char *msg_h_sites;               /* "Sites"            */
+   extern char *msg_h_xfer;                /* "KBytes"           */
+   extern char *msg_h_pages;               /* "Pages"            */
+   extern char *msg_h_visits;              /* "Visits"           */
+   extern char *s_month[12];               /* 3 char month names */
+   extern int  graph_legend;               /* legend toggle      */
+   extern int  graph_lines;                /* background lines   */
 
    /* local variables */
    int i,j,x1,y1,x2;
@@ -163,12 +111,25 @@ int year_graph4x(  char *fname,            /* file name use       */
    double fmaxval=0.0;
 
    /* initalize the graph */
-   init_graph(title,512,256);      /* init as 512 x 256   */
+   init_graph(title,512,256);              /* init as 512 x 256  */
 
-   gdImageLine(im, 305,25,305,233,black);  /* draw section lines  */
+   gdImageLine(im, 305,25,305,233,black);  /* draw section lines */
    gdImageLine(im, 304,25,304,233,white);
    gdImageLine(im, 305,130,490,130,black);
    gdImageLine(im, 305,129,490,129,white);
+
+   /* index lines? */
+   if (graph_lines)
+   {
+      y1=210/(graph_lines+1);
+      for (i=0;i<graph_lines;i++)
+       gdImageLine(im,21,((i+1)*y1)+25,303,((i+1)*y1)+25,dkgrey);
+      y1=105/(graph_lines+1);
+      for (i=0;i<graph_lines;i++)
+       gdImageLine(im,306,((i+1)*y1)+25,489,((i+1)*y1)+25,dkgrey);
+      for (i=0;i<graph_lines;i++)
+       gdImageLine(im,306,((i+1)*y1)+130,489,((i+1)*y1)+130,dkgrey);
+   }
 
    /* x-axis legend */
    s_mth = fmonth;
@@ -180,24 +141,43 @@ int year_graph4x(  char *fname,            /* file name use       */
       if (s_mth > 12) s_mth = 1;
       if (data1[i] > maxval) maxval = data1[i];           /* get max val    */
       if (data2[i] > maxval) maxval = data2[i];
+      if (data5[i] > maxval) maxval = data5[i];
    }
    if (maxval <= 0) maxval = 1;
-
-   /* Now do the 'Hits Files Sites KBytes' legend */
-   i = strlen(msg_h_hits) + strlen(msg_h_files) +
-       strlen(msg_h_sites)+ strlen(msg_h_xfer) + 3;
-   j = 400 - ((i/2)*6);
-   gdImageString(im,gdFontSmall,j,238,msg_h_hits,green);
-   j+= ( (strlen(msg_h_hits) +1) *6 );
-   gdImageString(im,gdFontSmall,j,238,msg_h_files,blue);
-   j+= ( (strlen(msg_h_files)+1) *6 );
-   gdImageString(im,gdFontSmall,j,238,msg_h_sites,orange);
-   j+= ( (strlen(msg_h_sites)+1) *6 );
-   gdImageString(im,gdFontSmall,j,238,msg_h_xfer,red);
-
    sprintf(maxvaltxt, "%lu", maxval);
-   gdImageStringUp(im,gdFontSmall,8,26+(strlen(maxvaltxt)*6),
-                   maxvaltxt,black);
+   gdImageStringUp(im,gdFontSmall,8,26+(strlen(maxvaltxt)*6),maxvaltxt,black);
+
+   if (graph_legend)                          /* print color coded legends? */
+   {
+      /* Kbytes Legend */
+      i = (strlen(msg_h_xfer)*6);
+      gdImageString(im,gdFontSmall,491-i,239,msg_h_xfer,dkgrey);
+      gdImageString(im,gdFontSmall,490-i,238,msg_h_xfer,COLOR4);
+
+      /* Sites/Visits Legend */
+      i = (strlen(msg_h_visits)*6);
+      j = (strlen(msg_h_sites)*6);
+      gdImageString(im,gdFontSmall,491-i-j-12,11,msg_h_visits,dkgrey);
+      gdImageString(im,gdFontSmall,490-i-j-12,10,msg_h_visits,COLOR6);
+      gdImageString(im,gdFontSmall,491-j-9,11,"/",dkgrey);
+      gdImageString(im,gdFontSmall,490-j-9,10,"/",black);
+      gdImageString(im,gdFontSmall,491-j,11,msg_h_sites,dkgrey);
+      gdImageString(im,gdFontSmall,490-j,10,msg_h_sites,COLOR3);
+
+      /* Hits/Files/Pages Legend */
+      i = (strlen(msg_h_pages)*6);
+      j = (strlen(msg_h_files)*6);
+      gdImageStringUp(im,gdFontSmall,8,231,msg_h_pages,dkgrey);
+      gdImageStringUp(im,gdFontSmall,7,230,msg_h_pages,COLOR5);
+      gdImageStringUp(im,gdFontSmall,8,231-i-3,"/",dkgrey);
+      gdImageStringUp(im,gdFontSmall,7,230-i-3,"/",black);
+      gdImageStringUp(im,gdFontSmall,8,231-i-12,msg_h_files,dkgrey);
+      gdImageStringUp(im,gdFontSmall,7,230-i-12,msg_h_files,COLOR2);
+      gdImageStringUp(im,gdFontSmall,8,231-i-j-15,"/",dkgrey);
+      gdImageStringUp(im,gdFontSmall,7,230-i-j-15,"/",black);
+      gdImageStringUp(im,gdFontSmall,8,231-i-j-24,msg_h_hits,dkgrey);
+      gdImageStringUp(im,gdFontSmall,7,230-i-j-24,msg_h_hits,COLOR1);
+   }
 
    /* data1 */
    s_mth = fmonth;
@@ -206,8 +186,8 @@ int year_graph4x(  char *fname,            /* file name use       */
       if (s_mth > 12) s_mth = 1;
       percent = ((float)data1[s_mth++ -1] / (float)maxval);
       if (percent <= 0.0) continue;
-      x1 = 27 + (i*23);
-      x2 = x1 + 14;
+      x1 = 26 + (i*23);
+      x2 = x1 + 13;
       y1 = 232 - (percent * 203);
       gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR1);
       gdImageRectangle(im, x1, y1, x2, 232, black);
@@ -220,36 +200,66 @@ int year_graph4x(  char *fname,            /* file name use       */
       if (s_mth > 12) s_mth = 1;
       percent = ((float)data2[s_mth++ -1] / (float)maxval);
       if (percent <= 0.0) continue;
-      x1 = 32 + (i*23);
-      x2 = x1 + 14;
+      x1 = 29 + (i*23);
+      x2 = x1 + 13;
       y1 = 232 - (percent * 203);
       gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR2);
       gdImageRectangle(im, x1, y1, x2, 232, black);
    }
 
-   /* data3 */
+   /* data5 */
+   s_mth = fmonth;
+   for (i=0; i<12; i++)
+   {
+      if (s_mth > 12) s_mth = 1;
+      percent = ((float)data5[s_mth++ -1] / (float)maxval);
+      if (percent <= 0.0) continue;
+      x1 = 32 + (i*23);
+      x2 = x1 + 13;
+      y1 = 232 - (percent * 203);
+      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR5);
+      gdImageRectangle(im, x1, y1, x2, 232, black);
+   }
+
    maxval=0;
    for (i=0; i<12; i++)
+   {
        if (data3[i] > maxval) maxval = data3[i];           /* get max val    */
+       if (data6[i] > maxval) maxval = data6[i];
+   }
    if (maxval <= 0) maxval = 1;
    sprintf(maxvaltxt, "%lu", maxval);
    gdImageStringUp(im, gdFontSmall,493,26+(strlen(maxvaltxt)*6),
                    maxvaltxt, black);
 
+   /* data6 */
+   s_mth = fmonth;
+   for (i=0; i<12; i++)
+   {
+      if (s_mth > 12) s_mth = 1;
+      percent = ((float)data6[s_mth++ -1] / (float)maxval);
+      if (percent <= 0.0) continue;
+      x1 = 310 + (i*15);
+      x2 = x1 + 8;
+      y1 = 127 - (percent * 98);
+      gdImageFilledRectangle(im, x1, y1, x2, 127, COLOR6);
+      gdImageRectangle(im, x1, y1, x2, 127, black);
+   }
+
+   /* data3 */
    s_mth = fmonth;
    for (i=0; i<12; i++)
    {
       if (s_mth > 12) s_mth = 1;
       percent = ((float)data3[s_mth++ -1] / (float)maxval);
       if (percent <= 0.0) continue;
-      x1 = 311 + (i*15);
-      x2 = x1 + 10;
+      x1 = 314 + (i*15);
+      x2 = x1 + 7;
       y1 = 127 - (percent * 98);
       gdImageFilledRectangle(im, x1, y1, x2, 127, COLOR3);
       gdImageRectangle(im, x1, y1, x2, 127, black);
    }
 
-   /* data4 */
    fmaxval=0.0;
    for (i=0; i<12; i++)
        if (data4[i] > fmaxval) fmaxval = data4[i];         /* get max val    */
@@ -258,6 +268,7 @@ int year_graph4x(  char *fname,            /* file name use       */
    gdImageStringUp(im, gdFontSmall,493,130+(strlen(maxvaltxt)*6),
                    maxvaltxt,black);
 
+   /* data4 */
    s_mth = fmonth;
    for (i=0; i<12; i++)
    {
@@ -265,7 +276,7 @@ int year_graph4x(  char *fname,            /* file name use       */
       percent = ((float)data4[s_mth++ -1] / (float)fmaxval);
       if (percent <= 0.0) continue;
       x1 = 311 + (i*15);
-      x2 = x1 + 10;
+      x2 = x1 + 9;
       y1 = 232 - (percent * 98);
       gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR4);
       gdImageRectangle(im, x1, y1, x2, 232, black);
@@ -285,24 +296,37 @@ int year_graph4x(  char *fname,            /* file name use       */
 
 /*****************************************************************/
 /*                                                               */
-/* MONTH_GRAPH4  - Month graph with four data sets               */
+/* MONTH_GRAPH6  - Month graph with six data sets                */
 /*                                                               */
 /*****************************************************************/
 
 #define YSIZE 400
 
-int month_graph4(  char *fname,            /* filename           */
+int month_graph6(  char *fname,            /* filename           */
                    char *title,            /* graph title        */
                     int month,             /* graph month        */
                     int year,              /* graph year         */
                  u_long data1[31],         /* data1 (hits)       */
                  u_long data2[31],         /* data2 (files)      */
                  u_long data3[31],         /* data3 (sites)      */
-                 u_long data4[31])         /* data4 (kbytes)     */
+                 double data4[31],         /* data4 (kbytes)     */
+                 u_long data5[31],         /* data5 (views)      */
+                 u_long data6[31])         /* data6 (visits)     */
 {
+   /* declare external language specific strings                 */
+   extern char *msg_h_hits;                /* "Hits" string      */
+   extern char *msg_h_files;               /* "Files"            */
+   extern char *msg_h_sites;               /* "Sites"            */
+   extern char *msg_h_xfer;                /* "KBytes"           */
+   extern char *msg_h_pages;               /* "Pages"            */
+   extern char *msg_h_visits;              /* "Visits"           */
+   extern int  graph_legend;               /* legend toggle      */
+   extern int  graph_lines;                /* background lines   */
+
    /* local variables */
-   int i,x1,y1,x2;
+   int i,j,s,x1,y1,x2;
    u_long maxval=0;
+   double fmaxval=0.0;
 
    /* calc julian date for month */
    julday = (jdate(1, month,year) % 7);
@@ -315,11 +339,24 @@ int month_graph4(  char *fname,            /* filename           */
    gdImageLine(im, 21, 280, 490, 280, black);
    gdImageLine(im, 21, 279, 490, 279, white);
 
+   /* index lines? */
+   if (graph_lines)
+   {
+      y1=154/(graph_lines+1);
+      for (i=0;i<graph_lines;i++)
+       gdImageLine(im,21,((i+1)*y1)+25,489,((i+1)*y1)+25,dkgrey);
+      y1=100/(graph_lines+1);
+      for (i=0;i<graph_lines;i++)
+       gdImageLine(im,21,((i+1)*y1)+180,489,((i+1)*y1)+180,dkgrey);
+      for (i=0;i<graph_lines;i++)
+       gdImageLine(im,21,((i+1)*y1)+280,489,((i+1)*y1)+280,dkgrey);
+   }
+
    /* x-axis legend */
    for (i=0;i<31;i++)
    {
       if ((julday % 7 == 6) || (julday % 7 == 0))
-       gdImageString(im,gdFontSmall,25+(i*15),382,numchar[i+1],green);
+       gdImageString(im,gdFontSmall,25+(i*15),382,numchar[i+1],COLOR1);
       else
        gdImageString(im,gdFontSmall,25+(i*15),382,numchar[i+1],black);
       julday++;
@@ -330,18 +367,50 @@ int month_graph4(  char *fname,            /* filename           */
    {
        if (data1[i] > maxval) maxval = data1[i];           /* get max val    */
        if (data2[i] > maxval) maxval = data2[i];
+       if (data5[i] > maxval) maxval = data5[i];
    }
    if (maxval <= 0) maxval = 1;
    sprintf(maxvaltxt, "%lu", maxval);
    gdImageStringUp(im, gdFontSmall,8,26+(strlen(maxvaltxt)*6),
                    maxvaltxt,black);
 
+   if (graph_legend)                           /* Print color coded legends? */
+   {
+      /* Kbytes Legend */
+      gdImageStringUp(im,gdFontSmall,494,376,msg_h_xfer,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,375,msg_h_xfer,COLOR4);
+
+      /* Sites/Visits Legend */
+      i = (strlen(msg_h_sites)*6);
+      gdImageStringUp(im,gdFontSmall,494,276,msg_h_sites,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,275,msg_h_sites,COLOR3);
+      gdImageStringUp(im,gdFontSmall,494,276-i-3,"/",dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,275-i-3,"/",black);
+      gdImageStringUp(im,gdFontSmall,494,276-i-12,msg_h_visits,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,275-i-12,msg_h_visits,COLOR6);
+
+      /* Pages/Files/Hits Legend */
+      s = ( i=(strlen(msg_h_pages)*6) )+
+          ( j=(strlen(msg_h_files)*6) )+
+          ( strlen(msg_h_hits)*6 )+ 52;
+      gdImageStringUp(im,gdFontSmall,494,s,msg_h_pages,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-1,msg_h_pages,COLOR5);
+      gdImageStringUp(im,gdFontSmall,494,s-i-3,"/",dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-4,"/",black);
+      gdImageStringUp(im,gdFontSmall,494,s-i-12,msg_h_files,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-13,msg_h_files,COLOR2);
+      gdImageStringUp(im,gdFontSmall,494,s-i-j-15,"/",dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-j-16,"/",black);
+      gdImageStringUp(im,gdFontSmall,494,s-i-j-24,msg_h_hits,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-j-25,msg_h_hits,COLOR1);
+   }
+
    /* data1 */
    for (i=0; i<31; i++)
    {
       percent = ((float)data1[i] / (float)maxval);
       if (percent <= 0.0) continue;
-      x1 = 26 + (i*15);
+      x1 = 25 + (i*15);
       x2 = x1 + 7;
       y1 = 176 - (percent * 147);
       gdImageFilledRectangle(im, x1, y1, x2, 176, COLOR1);
@@ -353,45 +422,74 @@ int month_graph4(  char *fname,            /* filename           */
    {
       percent = ((float)data2[i] / (float)maxval);
       if (percent <= 0.0) continue;
-      x1 = 29 + (i*15);
+      x1 = 27 + (i*15);
       x2 = x1 + 7;
       y1 = 176 - (percent * 147);
       gdImageFilledRectangle(im, x1, y1, x2, 176, COLOR2);
       gdImageRectangle(im, x1, y1, x2, 176, black);
    }
 
-   /* data3 */
+   /* data5 */
+   for (i=0; i<31; i++)
+   {
+      if (data5[i]==0) continue;
+      percent = ((float)data5[i] / (float)maxval);
+      if (percent <= 0.0) continue;
+      x1 = 29 + (i*15);
+      x2 = x1 + 7;
+      y1 = 176 - (percent * 147);
+      gdImageFilledRectangle(im, x1, y1, x2, 176, COLOR5);
+      gdImageRectangle(im, x1, y1, x2, 176, black);
+   }
+
+   /* sites / visits */
    maxval=0;
    for (i=0; i<31; i++)
+   {
       if (data3[i]>maxval) maxval = data3[i];
+      if (data6[i]>maxval) maxval = data6[i];
+   }
    if (maxval <= 0) maxval = 1;
    sprintf(maxvaltxt, "%lu", maxval);
    gdImageStringUp(im, gdFontSmall,8,180+(strlen(maxvaltxt)*6),
                    maxvaltxt, black);
 
+   /* data 6 */
+   for (i=0; i<31; i++)
+   {
+      percent = ((float)data6[i] / (float)maxval);
+      if (percent <= 0.0) continue;
+      x1 = 25 + (i*15);
+      x2 = x1 + 8;
+      y1 = 276 - (percent * 92);
+      gdImageFilledRectangle(im, x1, y1, x2, 276, COLOR6);
+      gdImageRectangle(im, x1, y1, x2, 276, black);
+   }
+
+   /* data 3 */
    for (i=0; i<31; i++)
    {
       percent = ((float)data3[i] / (float)maxval);
       if (percent <= 0.0) continue;
-      x1 = 26 + (i*15);
-      x2 = x1 + 10;
+      x1 = 29 + (i*15);
+      x2 = x1 + 7;
       y1 = 276 - (percent * 92);
       gdImageFilledRectangle(im, x1, y1, x2, 276, COLOR3);
       gdImageRectangle(im, x1, y1, x2, 276, black);
    }
 
    /* data4 */
-   maxval=0;
+   fmaxval=0.0;
    for (i=0; i<31; i++)
-      if (data4[i]>maxval) maxval = data4[i];
-   if (maxval <= 0) maxval = 1;
-   sprintf(maxvaltxt, "%lu", maxval/1024);
+      if (data4[i]>fmaxval) fmaxval = data4[i];
+   if (fmaxval <= 0.0) fmaxval = 1.0;
+   sprintf(maxvaltxt, "%.0f", fmaxval/1024);
    gdImageStringUp(im, gdFontSmall,8,280+(strlen(maxvaltxt)*6),
                    maxvaltxt, black);
 
    for (i=0; i<31; i++)
    {
-      percent = (float)(data4[i] / (float)maxval);
+      percent = data4[i] / fmaxval;
       if (percent <= 0.0) continue;
       x1 = 26 + (i*15);
       x2 = x1 + 10;
@@ -414,21 +512,37 @@ int month_graph4(  char *fname,            /* filename           */
 
 /*****************************************************************/
 /*                                                               */
-/* DAY_GRAPH2  - Day graph with two data sets                    */
+/* DAY_GRAPH3  - Day graph with three data sets                  */
 /*                                                               */
 /*****************************************************************/
 
-int day_graph2(  char *fname,
+int day_graph3(  char *fname,
                  char *title,
                u_long data1[24],
-               u_long data2[24])
+               u_long data2[24],
+               u_long data3[24])
 {
+   /* declare external language specific strings                 */
+   extern char *msg_h_hits;                /* "Hits" string      */
+   extern char *msg_h_files;               /* "Files"            */
+   extern char *msg_h_pages;               /* "Pages"            */
+   extern int  graph_legend;               /* legend toggle      */
+   extern int  graph_lines;                /* background lines   */
+
    /* local variables */
-   int i,x1,y1,x2;
+   int i,j,s,x1,y1,x2;
    u_long maxval=0;
 
    /* initalize the graph */
    init_graph(title,512,256);
+
+   /* index lines? */
+   if (graph_lines)
+   {
+      y1=210/(graph_lines+1);
+      for (i=0;i<graph_lines;i++)
+       gdImageLine(im,21,((i+1)*y1)+25,489,((i+1)*y1)+25,dkgrey);
+   }
 
    /* x-axis legend */
    for (i=0;i<24;i++)
@@ -436,19 +550,38 @@ int day_graph2(  char *fname,
       gdImageString(im,gdFontSmall,33+(i*19),238,numchar[i],black);
       if (data1[i] > maxval) maxval = data1[i];           /* get max val    */
       if (data2[i] > maxval) maxval = data2[i];
+      if (data3[i] > maxval) maxval = data3[i];
    }
    if (maxval <= 0) maxval = 1;
    sprintf(maxvaltxt, "%lu", maxval);
    gdImageStringUp(im, gdFontSmall, 8, 26+(strlen(maxvaltxt)*6),
                    maxvaltxt, black);
 
+   if (graph_legend)                          /* print color coded legends? */
+   {
+      /* Pages/Files/Hits Legend */
+      s = ( i=(strlen(msg_h_pages)*6) )+
+          ( j=(strlen(msg_h_files)*6) )+
+          ( strlen(msg_h_hits)*6 )+ 52;
+      gdImageStringUp(im,gdFontSmall,494,s,msg_h_pages,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-1,msg_h_pages,COLOR5);
+      gdImageStringUp(im,gdFontSmall,494,s-i-3,"/",dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-4,"/",black);
+      gdImageStringUp(im,gdFontSmall,494,s-i-12,msg_h_files,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-13,msg_h_files,COLOR2);
+      gdImageStringUp(im,gdFontSmall,494,s-i-j-15,"/",dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-j-16,"/",black);
+      gdImageStringUp(im,gdFontSmall,494,s-i-j-24,msg_h_hits,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-j-25,msg_h_hits,COLOR1);
+   }
+
    /* data1 */
    for (i=0; i<24; i++)
    {
       percent = ((float)data1[i] / (float)maxval);  /* percent of 100% */
       if (percent <= 0.0) continue;
-      x1 = 30 + (i*19);
-      x2 = x1 + 11;
+      x1 = 29 + (i*19);
+      x2 = x1 + 10;
       y1 = 232 - (percent * 203);
       gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR1);
       gdImageRectangle(im, x1, y1, x2, 232, black);
@@ -459,10 +592,22 @@ int day_graph2(  char *fname,
    {
       percent = ((float)data2[i] / (float)maxval);  /* percent of 100% */
       if (percent <= 0.0) continue;
-      x1 = 34 + (i*19);
-      x2 = x1 + 11;
+      x1 = 32 + (i*19);
+      x2 = x1 + 10;
       y1 = 232 - (percent * 203);
       gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR2);
+      gdImageRectangle(im, x1, y1, x2, 232, black);
+   }
+
+   /* data3 */
+   for (i=0; i<24; i++)
+   {
+      percent = ((float)data3[i] / (float)maxval);  /* percent of 100% */
+      if (percent <= 0.0) continue;
+      x1 = 35 + (i*19);
+      x2 = x1 + 10;
+      y1 = 232 - (percent * 203);
+      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR5);
       gdImageRectangle(im, x1, y1, x2, 232, black);
    }
 
@@ -485,11 +630,11 @@ int day_graph2(  char *fname,
 /*****************************************************************/
 
 int pie_chart(char *fname, char *title, u_long t_val,
-              u_long data1[10], char *legend[10])
+              u_long data1[], char *legend[])
 {
    int i,x,percent,y=47;
    double s_arc=0.0;
-   int cyan, yellow, purple, ltpurple, ltgreen, brown;
+   int purple, ltpurple, ltgreen, brown;
    char buffer[128];
 
    struct pie_data gdata;
@@ -499,8 +644,6 @@ int pie_chart(char *fname, char *title, u_long t_val,
 
    /* init graph and colors */
    init_graph(title,512,300);
-   cyan    = gdImageColorAllocate(im, 0, 255, 255);
-   yellow  = gdImageColorAllocate(im, 255, 255, 0);
    purple  = gdImageColorAllocate(im, 128, 0, 128);
    ltgreen = gdImageColorAllocate(im, 128, 255, 192);
    ltpurple= gdImageColorAllocate(im, 255, 0, 255);
@@ -609,6 +752,8 @@ void init_graph(char *title, int xsize, int ysize)
    orange  = gdImageColorAllocate(im, 255, 128, 0);
    blue    = gdImageColorAllocate(im, 0, 0, 255);
    red     = gdImageColorAllocate(im, 255, 0, 0);
+   cyan    = gdImageColorAllocate(im, 0, 192, 255);
+   yellow  = gdImageColorAllocate(im, 255, 255, 0);
 
    /* make borders */
 

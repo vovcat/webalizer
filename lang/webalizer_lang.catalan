@@ -1,12 +1,14 @@
 /*
-   webalizer_lang.german
+   webalizer_lang.catalan
 
-   Webalizer V1.1x Language Support file for German.
-   28-May-1998 Translated by Dirk Meyer (dirk.meyer@dinoex.sub.org)
-   31-May-1998 portions by Bernd Dau (Bernd.Dau@telekom.de)
+   Webalizer V1.2x Language Support file for Catalan.
    31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
-   02-Jun-1998 Translation Level 1.1 by Dirk Meyer (dirk.meyer@dinoex.sub.org)
-
+   23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
+   19-Aug-1998 Translated by Jordi Bruguera (jordi@t800.grn.es)
+   21-Sep-1998 Additional corrections by Jordi Bruguera (jordi@t800.grn.es)
+   08-Mar-1999 Updated HTTP 1.1 response codes by Yves Lafon (ylafon@w3.org)
+   28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
+   05-Jul-1999 Additional corrections by Jordi Bruguera (jordi@t800.grn.es)
 
    Language files are named using the following convention:
 
@@ -26,7 +28,7 @@
 /* DEFINE LANGUAGE NAME here                                           */
 /***********************************************************************/
 
-char *language  = "German";
+char *language  = "Català";
 
 /***********************************************************************/
 /*                                                                     */
@@ -39,94 +41,104 @@ char *language  = "German";
 
 /* these are only used in timing totals */
 /* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
-char *msg_records = "Einträge";
-char *msg_ignored = "ignoriert";
-char *msg_bad     = "defekt";
-char *msg_in      = "in";
-char *msg_seconds = "Sekunden";
+char *msg_records = "registres";
+char *msg_ignored = "ignorats";
+char *msg_bad     = "erronis";
+char *msg_in      = "en";
+char *msg_seconds = "segons";
 
 /* progress and setup error messages */
-char *msg_log_err = "Fehler: Kann die Logdatei nicht öffnen";
-char *msg_log_use = "Verwende Logdatei";
-char *msg_dir_err = "Fehler: Kann das Verzeichniss nicht wechseln";
-char *msg_dir_use = "Erzeuge Daten in";
-char *msg_cur_dir = "aktuelles Verzeichnis";
-char *msg_hostname= "Rechnername für Bericht ist";
-char *msg_ign_hist= "Ignoriere vorhandene historische Daten...";
-char *msg_no_hist = "Datei mit historischen Daten nicht gefunden...";
-char *msg_get_hist= "Lese Datei mit historischen Daten...";
-char *msg_put_hist= "Speichere historische Daten...";
-char *msg_hist_err= "Fehler: Kann Datei mit historischen Daten nicht schreiben";
-char *msg_bad_hist= "Fehler: Ignoriere ungültigen historischen Eintrag";
-char *msg_bad_conf= "Fehler: Kann Konfigurations-Datei nicht lesen";
-char *msg_bad_key = "Warnung: Unbekanntes Schlüsselwort";
-char *msg_bad_date= "Fehler: Ignoriere Eintrag (Datum ungültig)";
-char *msg_ign_nscp= "Überspringe Netscape Kopf Eintrag";
-char *msg_bad_rec = "Überspringe defekten Eintrag";
-char *msg_no_vrec = "Keine gültigen Einträge gefunden!";
-char *msg_gen_rpt = "Erzeuge Bericht für";
-char *msg_gen_sum = "Erzeuge Zusammenfassung";
-
-/* New for 1.1 */ /* Current state data messages */
-char *msg_get_data= "Lese Daten vom letzten Programmlauf...";
-char *msg_put_data= "Sichere Daten des aktuellen Programmlaufes...";
-char *msg_no_data = "Daten des letzten Programmlaufes nicht gefunden...";
-char *msg_bad_data= "Ungültiger Eintrag";
-char *msg_data_err= "Fehler: Kann Daten des letzten Programmlaufes nicht sichern";
-char *msg_dup_data= "Warnung: Möglicherweise doppelte Daten gelesen";
+char *msg_log_err = "Error: no puc obrir el fixer de registre";
+char *msg_log_use = "Usant el registre";
+char *msg_dir_err = "Error: no puc canviar al directori especificat";
+char *msg_dir_use = "Creant resultats a";
+char *msg_cur_dir = "directori actual";
+char *msg_hostname= "Resultats del servidor";
+char *msg_ign_hist= "Ignorant registre anterior...";
+char *msg_no_hist = "No trobo el fitxer històric...";
+char *msg_get_hist= "Llegint fitxer històric...";
+char *msg_put_hist= "Guardant informació a l'històric...";
+char *msg_hist_err= "Error: No puc escriure al fitxer històric";
+char *msg_bad_hist= "Error: Ignorant un registre no vàlid";
+char *msg_bad_conf= "Error: no puc obrir el fitxer de configuració";
+char *msg_bad_key = "Avís: paraula clau no valida";
+char *msg_bad_date= "Error: saltant registre (data dolenta)";
+char *msg_ign_nscp= "Saltant registre de capcalera del Netscape";
+char *msg_bad_rec = "Saltant registre erroni";
+char *msg_no_vrec = "No trobo cap registre vàlid!";
+char *msg_gen_rpt = "Generant resultats per";
+char *msg_gen_sum = "Generant resultats resumits";
+char *msg_get_data= "Llegint dades d'una execució prèvia...";
+char *msg_put_data= "Guardant dades d'execució en curs...";
+char *msg_no_data = "No trobo les dades de l'execució anterior...";
+/*char *msg_bad_data= "Registre amb dades incorrectes";*/
+char *msg_bad_data= "Error: Unable to restore run data";
+char *msg_data_err= "Error: No puc guardar les dades de l'execució en curs";
+char *msg_dup_data= "Avís: He trobat dades que potser són duplicades";
 
 /* memory allocation errors */
-char *msg_nomem_ts= "Nicht genug Speicher, Top Sites deaktiviert!";
-char *msg_nomem_tr= "Nicht genug Speicher, Top Referrers deaktiviert!";
-char *msg_nomem_tu= "Nicht genug Speicher, Top URLs deaktiviert!";
-char *msg_nomem_tc= "Nicht genug Speicher, Top Countries deaktiviert!";
-char *msg_nomem_ta= "Nicht genug Speicher, Top User Agents deaktiviert!";
-char *msg_nomem_dh= "Fehler beim hinzufügen host node (daily), überspringe Eintrag";
-char *msg_nomem_mh= "Fehler beim hinzufügen host node (monthly), überspringe Eintrag";
-char *msg_nomem_u = "Fehler beim hinzufügen URL node, überspringe Eintrag";
-char *msg_nomem_a = "Fehler beim hinzufügen User Agent node, überspringe Eintrag";
-char *msg_nomem_r = "Fehler beim hinzufügen Referrer node, überspringe Eintrag";
+char *msg_nomem_ts= "No puc reservar prou memoria, desactivada la opció Nodes Principals";
+char *msg_nomem_tr= "No puc reservar prou memoria, desactivada la opció Vincles d'Origen";
+char *msg_nomem_tu= "No puc reservar prou memoria, desactivada la opció URLs mes visitades";
+char *msg_nomem_tc= "No puc reservar prou memoria, desactivada la opció Per País d'Origen";
+char *msg_nomem_ta= "No puc reservar prou memoria, desactivada la opció Segons Navegador";
+char *msg_nomem_tsr="No puc reservar prou memoria, desactivada la opció Principals mots de recerca !";
+char *msg_nomem_dh= "Error afegint el nom del node (diari), no el faig";
+char *msg_nomem_mh= "Error afegint el nom del node (mensual), no el faig";
+char *msg_nomem_u = "Error afegint la URL del node, no el faig";
+char *msg_nomem_a = "Error afegint el nom del navegador, no el faig";
+char *msg_nomem_r = "Error afegint el vincle d'origen, no el faig";
+char *msg_nomem_sc= "Error afegint el node de recerca per mots, me'l salto";
 
-/* log record errors */
-char *msg_big_rec = "Fehler: Überspringe überlangen Eintrag";
-char *msg_big_host= "Warnung: Überlanger hostname abgeschnitten";
-char *msg_big_date= "Warnung: Überlanges date Feld abgeschnitten";
-char *msg_big_req = "Warnung: Überlanges request Feld abgeschnitten";
-char *msg_big_ref = "Warnung: Überlanges referrer Feld abgeschnitten";
-char *msg_big_one = "Warnung: Überlanger Text abgeschnitten";
+/* registre record errors */
+char *msg_big_rec = "Error: Em salto un fitxer de registre. Massa gros";
+char *msg_big_host= "Avís: El nom del servidor és massa llarg. El tallo.";
+char *msg_big_date= "Avís: La data és massa larga. La tallo.";
+char *msg_big_req = "Avís: El camp de petició és massa llarg. El tallo.";
+char *msg_big_ref = "Avís: El camp d'adrec,a d'origen és massa llarg. El tallo";
+char *msg_big_one = "Avís: Hi ha una cadena de caràcters que supera la mida permesa";
 
 /* misc errors */
-char *msg_no_open = "Fehler: Kann Datei nicht öffnen";
+char *msg_no_open = "Error: No he pogut obrir el fitxer";
 
 /* Help display... */
-char *h_usage1 = "Syntax";
-char *h_usage2 = "[Optionen] [Log Datei]";
+char *h_usage1 = "Funcionament";
+char *h_usage2 = "[opcions] [fitxer històric (log)]";
 char *h_msg[]= {
-         "-h        = Diese Hilfe ausgeben"                ,
-         "-v        = Version ausgaben"                    ,
-         "-d        = Zusätzliche Kontrolldaten ausgeben"  ,
-         "-g        = Benutze GMT (UTC) Zeitangaben"       ,
-         "-i        = Ignoriere Datei mit historischen Daten",
-         "-p        = preserve state (incremental)"        ,
-         "-q        = Unterdückte Statusmeldungen"         ,
-         "-Q        = Unterdrücke alle Meldungen"          ,
-         "-G        = Unterdrücke Stunden Grafik"          ,
-         "-H        = Unterdrücke Stunden Statistik"       ,
-         "-T        = Ausgeben der Laufzeit"               ,
-         "-c datei  = Verwende Konfigurationsdatei 'datei'",
-         "-n name   = Verwende 'name' als Namen des Servers",
-         "-o dir    = Speichere Dateien im Verzeichnis 'dir'",
-         "-t name   = Überschrift 'name'"                  ,
-         "-a name   = Unterdrücke Anwenderprogramm 'name'" ,
-         "-r name   = Unterdrücke Verweiser 'name'"        ,
-         "-s name   = Unterdrücke Rechner 'name'"          ,
-         "-u name   = Unterdrücke URL 'name'"              ,
-         "-I name   = Weitere Name für den Index"          ,
-         "-A anz    = Stelle die Top 'anz' Anwenderprogramme dar",
-         "-C anz    = Stelle die Top 'anz' Länder dar"     ,
-         "-R anz    = Stelle die Top 'anz' Verweiser"      ,
-         "-S anz    = Stelle die Top 'anz' Rechner dar"    ,
-         "-U anz    = Stelle die Top 'anz' URL's dar"      };
+         "-h        = veure aquesta ajuda"                          ,
+         "-v -V     = veure la versió del programa"                  ,
+         "-d        = activar el mode trassa (depuració)" ,
+         "-F        = usar un fitxer de log d'FTP"                      ,
+         "-f        = ignorar errors de seqüència"                     ,
+         "-g        = usar zona horària GMT (UTC)"                     ,
+         "-i        = ignorar el fitxer"                             ,
+         "-p        = conservem dades actuals (incremental)"                ,
+         "-q        = suprimir els missatges d'informació"            ,
+         "-Q        = suprimir TOTS es missatges"                 ,
+         "-Y        = suprimir la gràfica de país"                          ,
+         "-G        = suprimir gràfica per hores"                    ,
+         "-H        = suprimir estadístiques per hores"              ,
+         "-L num    = suprimir les llegendes de color dels gràfics"             ,
+         "-l num    = valor de temps de visita (HHMMSS format)"           ,
+         "-T        = ensenyar temps cronometratge"                ,
+         "-c fitxer = usar el fitxer de configuració 'fitxer'"     ,
+         "-n nom    = nom de màquina"                           ,
+         "-o dir    = directori de sortida"                        ,
+         "-t titol  = títol dels resultats 'titol'"                 ,
+         "-a client = amagar informació relativa al navegador 'client'"       ,
+         "-r origen = amagar informació relativa als enllac,os origen 'origen'"          ,
+         "-s node   = amagar informació relativa al nom dels nodes 'node'"               ,
+         "-u url    = amagar informació relativa a les URL visitades 'url'"                    ,
+         "-x nom   = usa l'extensió del tipus 'nom'"                ,
+         "-P nom   = tipus de l'extensió de la plana 'nom'"                  ,
+         "-I alias  = Alias de l'Index 'alias'"                   ,
+         "-A n      = veure els n primers navegadors"      ,
+         "-C n      = veure els n primers països"                 ,
+         "-R n      = veure els n primers enllac,os origen"         ,
+         "-S n      = veure els n primers servidors"             ,
+         "-U n      = veure els n primers URLs"                    ,
+         "-e n      = veure les n primeres planes d'entrada"             ,
+         "-E n      = veure les n primeres planes de sortida"              };
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -140,136 +152,152 @@ char *h_msg[]= {
 /***********************************************************************/
 
 /* header strings */
-char *msg_hhdr_sp = "Zusammenfassung für Zeitraum";
-char *msg_hhdr_gt = "Erzeugt am";
+char *msg_hhdr_sp = "Per&iacute;ode resumit";
+char *msg_hhdr_gt = "Generat el";
 
 /* main index strings */
-char *msg_main_us = "Zusammenfassung der Anfragen an";
-char *msg_main_per= "Letzte 12 Monate";
-char *msg_main_sum= "Zusammenfassung nach Monaten";
-char *msg_main_da = "Tages Schnitt";
-char *msg_main_mt = "Monats Summe";
+char *msg_main_us = "Resumen d'accessos per";
+char *msg_main_per= "Darrers 12 mesos";
+char *msg_main_sum= "Resum per mesos";
+char *msg_main_da = "Mitjana di&agrave;ria";
+char *msg_main_mt = "Totals del mes";
 
 /* month HTML page strings */
-char *msg_hmth_du = "Tages Statistik im Monat";
-char *msg_hmth_hu = "Stunden Statistik im Monat";
+char *msg_hmth_du = "Accessos per dia a";
+char *msg_hmth_hu = "Accessos per hores a";
 
 /* table header strings */
-char *msg_h_avg   = "Schnitt";
-char *msg_h_total = "Summe";
-char *msg_h_totals= "Summen";
-char *msg_h_day   = "Tag";
-char *msg_h_mth   = "Monat";
-char *msg_h_hour  = "Stunde";
-char *msg_h_hits  = "Abfragen";
-char *msg_h_files = "Daten";
-char *msg_h_sites = "Rechner";
+char *msg_h_by    = "Per";
+char *msg_h_avg   = "Mitjana";
+char *msg_h_max   = "Max";
+char *msg_h_total = "Total";
+char *msg_h_totals= "Totals";
+char *msg_h_day   = "Dia";
+char *msg_h_mth   = "Mes";
+char *msg_h_hour  = "Hora";
+char *msg_h_hits  = "Accessos";
+char *msg_h_pages = "Planes";
+char *msg_h_visits= "Visites";
+char *msg_h_files = "Fitxers";
+char *msg_h_sites = "Navegadors";
 char *msg_h_xfer  = "KBytes";
-char *msg_h_hname = "Rechnername";
+char *msg_h_hname = "Visitant";
 char *msg_h_url   = "URL";
-char *msg_h_agent = "Anwenderprogramm";
-char *msg_h_ref   = "Verweiser";
-char *msg_h_ctry  = "Land";
+char *msg_h_agent = "Navegador";
+char *msg_h_ref   = "Enlla&ccedil; d' origen";
+char *msg_h_ctry  = "Pa&iacute;s";
+char *msg_h_search= "Paraula de recerca";
 
 /* links along top of page */
-char *msg_hlnk_ds = "Tages Statistik";
-char *msg_hlnk_hs = "Stunden Statistik";
-char *msg_hlnk_u  = "URL's";
-char *msg_hlnk_s  = "Rechner";
-char *msg_hlnk_a  = "Anwenderprogramme";
-char *msg_hlnk_c  = "Länder";
-char *msg_hlnk_r  = "Verweiser";
+char *msg_hlnk_ds = "Estad&iacute;stiques per dia";
+char *msg_hlnk_hs = "Estad&iacute;stiques per hores";
+char *msg_hlnk_u  = "URLs";
+char *msg_hlnk_s  = "Visitants";
+char *msg_hlnk_a  = "Navegadors";
+char *msg_hlnk_c  = "Pa&iuml;sos";
+char *msg_hlnk_r  = "Enlla&ccedil;os d'origen";
+char *msg_hlnk_en = "Entrada";
+char *msg_hlnk_ex = "Sortida";
+char *msg_hlnk_sr = "Recerca";
 
 /* monthly total table */
-char *msg_mtot_ms = "Monats Statistik für";
-char *msg_mtot_th = "Summe Abfragen";
-char *msg_mtot_tf = "Summe Daten";
-char *msg_mtot_tx = "Summe KBytes";
-char *msg_mtot_us = "Summe unterschiedlicher Rechner";
-char *msg_mtot_ur = "Summe unterschiedlicher Verweiser";
-char *msg_mtot_ua = "Summe unterschiedlicher Anwenderprogramme";
-char *msg_mtot_uu = "Summe unterschiedlicher URL's";
-char *msg_mtot_mhd= "Maximale Abfragen pro Tag";
-char *msg_mtot_mhh= "Maximale Abfragen pro Stunde";
-char *msg_mtot_ahd= "Durchschnittliche Abfragen pro Tag";
-char *msg_mtot_ahh= "Durchschnittliche Abfragen pro Stunde";
-char *msg_mtot_rc = "Abfragen nach Status Code";
+char *msg_mtot_ms = "Estad&iacute;stiques mensuals";
+char *msg_mtot_th = "Total d'Accessos";
+char *msg_mtot_tf = "Total de Fitxers";
+char *msg_mtot_tx = "Total de Kbytes";
+char *msg_mtot_us = "Total de Servidors";
+char *msg_mtot_ur = "Total d' Enlla&ccedil;os d'Origen";
+char *msg_mtot_ua = "Total de Navegadors";
+char *msg_mtot_uu = "Total d'URLs";
+char *msg_mtot_mhd= "Accessos per dia";
+char *msg_mtot_mhh= "Accesos per hora";
+char *msg_mtot_mfd= "Fitxers per dia";
+char *msg_mtot_mpd= "Planes per dia";
+char *msg_mtot_mvd= "Visites per dia";
+char *msg_mtot_mkd= "KBytes per dia";
+char *msg_mtot_rc = "Accesos segons codi de resposta";
 
 /* daily total table */
-char *msg_dtot_ds = "Tages Statistik im Monat";
+char *msg_dtot_ds = "Estad&iacute;stiques per dia a";
 
 /* hourly total table */
-char *msg_htot_hs = "Stunden Statistik im Monat";
+char *msg_htot_hs = "Estad&iacute;stiques per hora a";
 
 /* country pie chart */
-char *msg_ctry_use= "Abfragen aus Laendern im Monat";
+char *msg_ctry_use= "Accessos per país a";
 
 /* top tables */
 /* Formatted as "Top xxx of xxx Total something" */
-char *msg_top_top = "Top";
-char *msg_top_of  = "von";
-char *msg_top_s   = "Rechnern";
-char *msg_top_u   = "URL's";
-char *msg_top_r   = "Verweisern";
-char *msg_top_a   = "Anwenderprogrammen";
-char *msg_top_c   = "Ländern";
+char *msg_top_top = "Els";
+char *msg_top_of  = "primers d'un total de";
+char *msg_top_s   = "visitants";
+char *msg_top_u   = "URLs";
+char *msg_top_r   = "enlla&ccedil; origen";
+char *msg_top_a   = "navegadors";
+char *msg_top_c   = "pa&iuml;sos";
+char *msg_top_en  = "Total de planes d'entrada";
+char *msg_top_ex  = "Total de planes de sortida";
+char *msg_top_sr  = "Total de paraules de recerca";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
-char *s_month[12]={ "Jan", "Feb", "Mae",
-                    "Apr", "Mai", "Jun",
-                    "Jul", "Aug", "Sep",
-                    "Okt", "Nov", "Dez"};
+
+char *s_month[12]={ "Gen", "Feb", "Mar",
+                    "Abr", "Mai", "Jun",
+                    "Jul", "Ago", "Set",
+                    "Oct", "Nov", "Dec"};
 
 /* long month names - can be any length */
-char *l_month[12]={ "Januar",   "Februar",  "März",    "April",
-                    "Mai",      "Juni",     "Juli",    "August",
-                    "September","Oktober",  "November","Dezember"};
+char *l_month[12]={ "Gener",  "Febrer", "Març",   "Abril",
+                    "Maig",      "Juny",     "Juliol",    "Agost",
+                    "Setembre","Octubre",  "Novembre","Desembre"};
 
 /* response code descriptions... order IS important!      */
 struct response_code response[] =
-       { { "Unbekannter Antwort Code",                  0 },
-         { "Code 100 - Continue",                       0 },
-         { "Code 101 - Switching Protocols",            0 },
-         { "Code 200 - OK",                             0 },
-         { "Code 201 - Created",                        0 },
-         { "Code 202 - Accepted",                       0 },
-         { "Code 203 - Non-Authoritative Information",  0 },
-         { "Code 204 - No Content",                     0 },
-         { "Code 205 - Reset Content",                  0 },
-         { "Code 206 - Partial Content",                0 },
-         { "Code 300 - Multiple Choices",               0 },
-         { "Code 301 - Moved Permanently",              0 },
-         { "Code 302 - Moved Temporarily",              0 },
-         { "Code 303 - See Other",                      0 },
-         { "Code 304 - Not Modified",                   0 },
-         { "Code 305 - Use Proxy",                      0 },
-         { "Code 400 - Bad Request",                    0 },
-         { "Code 401 - Unauthorized",                   0 },
-         { "Code 402 - Payment Required",               0 },
-         { "Code 403 - Forbidden",                      0 },
-         { "Code 404 - Not Found",                      0 },
-         { "Code 405 - Method Not Allowed",             0 },
-         { "Code 406 - Not Acceptable",                 0 },
-         { "Code 407 - Proxy Authentication Required",  0 },
-         { "Code 408 - Request Timeout",                0 },
-         { "Code 409 - Conflict",                       0 },
-         { "Code 410 - Gone",                           0 },
-         { "Code 411 - Length Required",                0 },
-         { "Code 412 - Precondition Failed",            0 },
-         { "Code 413 - Request Entity Too Large",       0 },
-         { "Code 414 - Request-URI Too Long",           0 },
-         { "Code 415 - Unsupported Media Type",         0 },
-         { "Code 500 - Internal Server Error",          0 },
-         { "Code 501 - Not Implemented",                0 },
-         { "Code 502 - Bad Gateway",                    0 },
-         { "Code 503 - Service Unavailable",            0 },
-         { "Code 504 - Gateway Timeout",                0 },
-         { "Code 505 - HTTP Version Not Supported",     0 } };
+       { { "Undefined response code",                    0 },
+         { "Code 100 - Continue",                        0 },
+         { "Code 101 - Switching Protocols",             0 },
+         { "Code 200 - OK",                              0 },
+         { "Code 201 - Created",                         0 },
+         { "Code 202 - Accepted",                        0 },
+         { "Code 203 - Non-Authoritative Information",   0 },
+         { "Code 204 - No Content",                      0 },
+         { "Code 205 - Reset Content",                   0 },
+         { "Code 206 - Partial Content",                 0 },
+         { "Code 300 - Multiple Choices",                0 },
+         { "Code 301 - Moved Permanently",               0 },
+         { "Code 302 - Found",                           0 },
+         { "Code 303 - See Other",                       0 },
+         { "Code 304 - Not Modified",                    0 },
+         { "Code 305 - Use Proxy",                       0 },
+         { "Code 307 - Moved Temporarily",               0 },
+         { "Code 400 - Bad Request",                     0 },
+         { "Code 401 - Unauthorized",                    0 },
+         { "Code 402 - Payment Required",                0 },
+         { "Code 403 - Forbidden",                       0 },
+         { "Code 404 - Not Found",                       0 },
+         { "Code 405 - Method Not Allowed",              0 },
+         { "Code 406 - Not Acceptable",                  0 },
+         { "Code 407 - Proxy Authentication Required",   0 },
+         { "Code 408 - Request Timeout",                 0 },
+         { "Code 409 - Conflict",                        0 },
+         { "Code 410 - Gone",                            0 },
+         { "Code 411 - Length Required",                 0 },
+         { "Code 412 - Precondition Failed",             0 },
+         { "Code 413 - Request Entity Too Large",        0 },
+         { "Code 414 - Request-URI Too Long",            0 },
+         { "Code 415 - Unsupported Media Type",          0 },
+         { "Code 416 - Requested Range Not Satisfiable", 0 },
+         { "Code 417 - Expectation Failed",              0 },
+         { "Code 500 - Internal Server Error",           0 },
+         { "Code 501 - Not Implemented",                 0 },
+         { "Code 502 - Bad Gateway",                     0 },
+         { "Code 503 - Service Unavailable",             0 },
+         { "Code 504 - Gateway Timeout",                 0 },
+         { "Code 505 - HTTP Version Not Supported",      0 } };
 
-/* New for 1.1 */
+char *msg_title   = "Estad&iacute;stiques d'&uacute;s per a";
+char *msg_h_other = "Altri";
 
-char *msg_title   = "Aufruf-Statistik für";
-char *msg_h_other = "Sonstige";
 /* Country codes (previously in ctry.h header file) */
 
 struct	country_code { u_long idx;
@@ -279,56 +307,56 @@ struct	country_code { u_long idx;
                        double xfer;
                      } ctry[] = {
 
-{ 0,                      "Unbekannt",                        0,0,0 },
-{ IDX_3C('c','o','m'),    "USA Firmen",                       0,0,0 },
-{ IDX_3C('e','d','u'),    "USA Universitaeten",               0,0,0 },
-{ IDX_3C('g','o','v'),    "USA Behoerden",                    0,0,0 },
+{ 0,                      "Unresolved/Unknown",               0,0,0 },
+{ IDX_3C('c','o','m'),    "US Commercial",                    0,0,0 },
+{ IDX_3C('e','d','u'),    "US Educational",                   0,0,0 },
+{ IDX_3C('g','o','v'),    "US Government",                    0,0,0 },
 { IDX_3C('i','n','t'),    "International (int)",              0,0,0 },
-{ IDX_3C('m','i','l'),    "USA Militaer",                     0,0,0 },
-{ IDX_3C('n','e','t'),    "Netzwerke",                        0,0,0 },
-{ IDX_3C('o','r','g'),    "Organisationen",                   0,0,0 },
+{ IDX_3C('m','i','l'),    "US Military",                      0,0,0 },
+{ IDX_3C('n','e','t'),    "Network",                          0,0,0 },
+{ IDX_3C('o','r','g'),    "Non-Profit Organization",          0,0,0 },
 { IDX_4C('a','r','p','a'),"Old style Arpanet (arpa)",         0,0,0 },
-{ IDX_4C('n','a','t','o'),"Nato Bereich (nato)",              0,0,0 },
+{ IDX_4C('n','a','t','o'),"Nato field (nato)",                0,0,0 },
 { IDX_2C('a','d'),        "Andorra",                          0,0,0 },
-{ IDX_2C('a','e'),        "Vereinigte Arabische Ermirate",    0,0,0 },
+{ IDX_2C('a','e'),        "United Arab Emirates",             0,0,0 },
 { IDX_2C('a','f'),        "Afghanistan",                      0,0,0 },
-{ IDX_2C('a','g'),        "Antigua und Barbuda",              0,0,0 },
+{ IDX_2C('a','g'),        "Antigua and Barbuda",              0,0,0 },
 { IDX_2C('a','i'),        "Anguilla",                         0,0,0 },
 { IDX_2C('a','l'),        "Albania",                          0,0,0 },
 { IDX_2C('a','m'),        "Armenia",                          0,0,0 },
-{ IDX_2C('a','n'),        "Niederlaendische Antillen",        0,0,0 },
+{ IDX_2C('a','n'),        "Netherlands Antilles",             0,0,0 },
 { IDX_2C('a','o'),        "Angola",                           0,0,0 },
 { IDX_2C('a','q'),        "Antarctica",                       0,0,0 },
-{ IDX_2C('a','r'),        "Argentinen",                       0,0,0 },
-{ IDX_2C('a','s'),        "Amerikanisch Samoa",               0,0,0 },
-{ IDX_2C('a','t'),        "Oestereich",                       0,0,0 },
-{ IDX_2C('a','u'),        "Australien",                       0,0,0 },
+{ IDX_2C('a','r'),        "Argentina",                        0,0,0 },
+{ IDX_2C('a','s'),        "American Samoa",                   0,0,0 },
+{ IDX_2C('a','t'),        "Austria",                          0,0,0 },
+{ IDX_2C('a','u'),        "Australia",                        0,0,0 },
 { IDX_2C('a','w'),        "Aruba",                            0,0,0 },
 { IDX_2C('a','z'),        "Azerbaijan",                       0,0,0 },
-{ IDX_2C('b','a'),        "Bosnien und Herzegovina",          0,0,0 },
+{ IDX_2C('b','a'),        "Bosnia and Herzegovina",           0,0,0 },
 { IDX_2C('b','b'),        "Barbados",                         0,0,0 },
 { IDX_2C('b','d'),        "Bangladesh",                       0,0,0 },
-{ IDX_2C('b','e'),        "Belgien",                          0,0,0 },
+{ IDX_2C('b','e'),        "Belgium",                          0,0,0 },
 { IDX_2C('b','f'),        "Burkina Faso",                     0,0,0 },
-{ IDX_2C('b','g'),        "Bulgarien",                        0,0,0 },
+{ IDX_2C('b','g'),        "Bulgaria",                         0,0,0 },
 { IDX_2C('b','h'),        "Bahrain",                          0,0,0 },
 { IDX_2C('b','i'),        "Burundi",                          0,0,0 },
 { IDX_2C('b','j'),        "Benin",                            0,0,0 },
 { IDX_2C('b','m'),        "Bermuda",                          0,0,0 },
 { IDX_2C('b','n'),        "Brunei Darussalam",                0,0,0 },
-{ IDX_2C('b','o'),        "Bolivien",                         0,0,0 },
-{ IDX_2C('b','r'),        "Brasilien",                        0,0,0 },
+{ IDX_2C('b','o'),        "Bolivia",                          0,0,0 },
+{ IDX_2C('b','r'),        "Brazil",                           0,0,0 },
 { IDX_2C('b','s'),        "Bahamas",                          0,0,0 },
 { IDX_2C('b','t'),        "Bhutan",                           0,0,0 },
 { IDX_2C('b','v'),        "Bouvet Island",                    0,0,0 },
 { IDX_2C('b','w'),        "Botswana",                         0,0,0 },
 { IDX_2C('b','y'),        "Belarus",                          0,0,0 },
 { IDX_2C('b','z'),        "Belize",                           0,0,0 },
-{ IDX_2C('c','a'),        "Kanada",                           0,0,0 },
+{ IDX_2C('c','a'),        "Canada",                           0,0,0 },
 { IDX_2C('c','c'),        "Cocos (Keeling) Islands",          0,0,0 },
 { IDX_2C('c','f'),        "Central African Republic",         0,0,0 },
 { IDX_2C('c','g'),        "Congo",                            0,0,0 },
-{ IDX_2C('c','h'),        "Schweiz",                          0,0,0 },
+{ IDX_2C('c','h'),        "Switzerland",                      0,0,0 },
 { IDX_2C('c','i'),        "Cote D'Ivoire (Ivory Coast)",      0,0,0 },
 { IDX_2C('c','k'),        "Cook Islands",                     0,0,0 },
 { IDX_2C('c','l'),        "Chile",                            0,0,0 },
@@ -336,36 +364,36 @@ struct	country_code { u_long idx;
 { IDX_2C('c','n'),        "China",                            0,0,0 },
 { IDX_2C('c','o'),        "Colombia",                         0,0,0 },
 { IDX_2C('c','r'),        "Costa Rica",                       0,0,0 },
-{ IDX_2C('c','s'),        "Tschecheslowakei",                 0,0,0 },
+{ IDX_2C('c','s'),        "Czechoslovakia (former)",          0,0,0 },
 { IDX_2C('c','u'),        "Cuba",                             0,0,0 },
 { IDX_2C('c','v'),        "Cape Verde",                       0,0,0 },
 { IDX_2C('c','x'),        "Christmas Island",                 0,0,0 },
 { IDX_2C('c','y'),        "Cyprus",                           0,0,0 },
-{ IDX_2C('c','z'),        "Tschechien",                       0,0,0 },
-{ IDX_2C('d','e'),        "Deutschland",                      0,0,0 },
+{ IDX_2C('c','z'),        "Czech Republic",                   0,0,0 },
+{ IDX_2C('d','e'),        "Germany",                          0,0,0 },
 { IDX_2C('d','j'),        "Djibouti",                         0,0,0 },
-{ IDX_2C('d','k'),        "Daenemark",                        0,0,0 },
+{ IDX_2C('d','k'),        "Denmark",                          0,0,0 },
 { IDX_2C('d','m'),        "Dominica",                         0,0,0 },
-{ IDX_2C('d','o'),        "Dominikanische Republik",          0,0,0 },
-{ IDX_2C('d','z'),        "Algerien",                         0,0,0 },
+{ IDX_2C('d','o'),        "Dominican Republic",               0,0,0 },
+{ IDX_2C('d','z'),        "Algeria",                          0,0,0 },
 { IDX_2C('e','c'),        "Ecuador",                          0,0,0 },
 { IDX_2C('e','e'),        "Estonia",                          0,0,0 },
-{ IDX_2C('e','g'),        "Aegypten",                         0,0,0 },
+{ IDX_2C('e','g'),        "Egypt",                            0,0,0 },
 { IDX_2C('e','h'),        "Western Sahara",                   0,0,0 },
 { IDX_2C('e','r'),        "Eritrea",                          0,0,0 },
-{ IDX_2C('e','s'),        "Spanien",                          0,0,0 },
-{ IDX_2C('e','t'),        "Ethiopien",                        0,0,0 },
+{ IDX_2C('e','s'),        "Spain",                            0,0,0 },
+{ IDX_2C('e','t'),        "Ethiopia",                         0,0,0 },
 { IDX_2C('f','i'),        "Finland",                          0,0,0 },
 { IDX_2C('f','j'),        "Fiji",                             0,0,0 },
 { IDX_2C('f','k'),        "Falkland Islands (Malvinas)",      0,0,0 },
 { IDX_2C('f','m'),        "Micronesia",                       0,0,0 },
 { IDX_2C('f','o'),        "Faroe Islands",                    0,0,0 },
-{ IDX_2C('f','r'),        "Frankreich",                       0,0,0 },
-{ IDX_2C('f','x'),        "Frankreich, Metropolitan",         0,0,0 },
+{ IDX_2C('f','r'),        "France",                           0,0,0 },
+{ IDX_2C('f','x'),        "France, Metropolitan",             0,0,0 },
 { IDX_2C('g','a'),        "Gabon",                            0,0,0 },
-{ IDX_2C('g','b'),        "Groß Britannien (UK)",             0,0,0 },
+{ IDX_2C('g','b'),        "Great Britain (UK)",               0,0,0 },
 { IDX_2C('g','d'),        "Grenada",                          0,0,0 },
-{ IDX_2C('g','e'),        "Georgien",                         0,0,0 },
+{ IDX_2C('g','e'),        "Georgia",                          0,0,0 },
 { IDX_2C('g','f'),        "French Guiana",                    0,0,0 },
 { IDX_2C('g','h'),        "Ghana",                            0,0,0 },
 { IDX_2C('g','i'),        "Gibraltar",                        0,0,0 },
@@ -374,16 +402,16 @@ struct	country_code { u_long idx;
 { IDX_2C('g','n'),        "Guinea",                           0,0,0 },
 { IDX_2C('g','p'),        "Guadeloupe",                       0,0,0 },
 { IDX_2C('g','q'),        "Equatorial Guinea",                0,0,0 },
-{ IDX_2C('g','r'),        "Griechenland",                     0,0,0 },
-{ IDX_2C('g','s'),        "S. Georgien and S. Sandwich Isls.", 0,0,0 },
+{ IDX_2C('g','r'),        "Greece",                           0,0,0 },
+{ IDX_2C('g','s'),        "S. Georgia and S. Sandwich Isls.", 0,0,0 },
 { IDX_2C('g','t'),        "Guatemala",                        0,0,0 },
 { IDX_2C('g','u'),        "Guam",                             0,0,0 },
 { IDX_2C('g','w'),        "Guinea-Bissau",                    0,0,0 },
 { IDX_2C('g','y'),        "Guyana",                           0,0,0 },
 { IDX_2C('h','k'),        "Hong Kong",                        0,0,0 },
-{ IDX_2C('h','m'),        "Heard und McDonald Islands",       0,0,0 },
+{ IDX_2C('h','m'),        "Heard and McDonald Islands",       0,0,0 },
 { IDX_2C('h','n'),        "Honduras",                         0,0,0 },
-{ IDX_2C('h','r'),        "Kroatien (Hrvatska)",              0,0,0 },
+{ IDX_2C('h','r'),        "Croatia (Hrvatska)",               0,0,0 },
 { IDX_2C('h','t'),        "Haiti",                            0,0,0 },
 { IDX_2C('h','u'),        "Hungary",                          0,0,0 },
 { IDX_2C('i','d'),        "Indonesia",                        0,0,0 },
@@ -393,8 +421,8 @@ struct	country_code { u_long idx;
 { IDX_2C('i','o'),        "British Indian Ocean Territory",   0,0,0 },
 { IDX_2C('i','q'),        "Iraq",                             0,0,0 },
 { IDX_2C('i','r'),        "Iran",                             0,0,0 },
-{ IDX_2C('i','s'),        "Island",                           0,0,0 },
-{ IDX_2C('i','t'),        "Italien",                          0,0,0 },
+{ IDX_2C('i','s'),        "Iceland",                          0,0,0 },
+{ IDX_2C('i','t'),        "Italy",                            0,0,0 },
 { IDX_2C('j','m'),        "Jamaica",                          0,0,0 },
 { IDX_2C('j','o'),        "Jordan",                           0,0,0 },
 { IDX_2C('j','p'),        "Japan",                            0,0,0 },
@@ -404,22 +432,22 @@ struct	country_code { u_long idx;
 { IDX_2C('k','i'),        "Kiribati",                         0,0,0 },
 { IDX_2C('k','m'),        "Comoros",                          0,0,0 },
 { IDX_2C('k','n'),        "Saint Kitts and Nevis",            0,0,0 },
-{ IDX_2C('k','p'),        "Korea (Nord)",                     0,0,0 },
-{ IDX_2C('k','r'),        "Korea (Sued)",                     0,0,0 },
+{ IDX_2C('k','p'),        "Korea (North)",                    0,0,0 },
+{ IDX_2C('k','r'),        "Korea (South)",                    0,0,0 },
 { IDX_2C('k','w'),        "Kuwait",                           0,0,0 },
 { IDX_2C('k','y'),        "Cayman Islands",                   0,0,0 },
 { IDX_2C('k','z'),        "Kazakhstan",                       0,0,0 },
 { IDX_2C('l','a'),        "Laos",                             0,0,0 },
-{ IDX_2C('l','b'),        "Libanon",                          0,0,0 },
+{ IDX_2C('l','b'),        "Lebanon",                          0,0,0 },
 { IDX_2C('l','c'),        "Saint Lucia",                      0,0,0 },
 { IDX_2C('l','i'),        "Liechtenstein",                    0,0,0 },
 { IDX_2C('l','k'),        "Sri Lanka",                        0,0,0 },
 { IDX_2C('l','r'),        "Liberia",                          0,0,0 },
 { IDX_2C('l','s'),        "Lesotho",                          0,0,0 },
-{ IDX_2C('l','t'),        "Lithauen",                         0,0,0 },
-{ IDX_2C('l','u'),        "Luxemburg",                        0,0,0 },
+{ IDX_2C('l','t'),        "Lithuania",                        0,0,0 },
+{ IDX_2C('l','u'),        "Luxembourg",                       0,0,0 },
 { IDX_2C('l','v'),        "Latvia",                           0,0,0 },
-{ IDX_2C('l','y'),        "Libyen",                           0,0,0 },
+{ IDX_2C('l','y'),        "Libya",                            0,0,0 },
 { IDX_2C('m','a'),        "Morocco",                          0,0,0 },
 { IDX_2C('m','c'),        "Monaco",                           0,0,0 },
 { IDX_2C('m','d'),        "Moldova",                          0,0,0 },
@@ -447,13 +475,13 @@ struct	country_code { u_long idx;
 { IDX_2C('n','f'),        "Norfolk Island",                   0,0,0 },
 { IDX_2C('n','g'),        "Nigeria",                          0,0,0 },
 { IDX_2C('n','i'),        "Nicaragua",                        0,0,0 },
-{ IDX_2C('n','l'),        "Niederlande",                      0,0,0 },
-{ IDX_2C('n','o'),        "Norwegen",                         0,0,0 },
+{ IDX_2C('n','l'),        "Netherlands",                      0,0,0 },
+{ IDX_2C('n','o'),        "Norway",                           0,0,0 },
 { IDX_2C('n','p'),        "Nepal",                            0,0,0 },
 { IDX_2C('n','r'),        "Nauru",                            0,0,0 },
 { IDX_2C('n','t'),        "Neutral Zone",                     0,0,0 },
 { IDX_2C('n','u'),        "Niue",                             0,0,0 },
-{ IDX_2C('n','z'),        "Neuseeland",                       0,0,0 },
+{ IDX_2C('n','z'),        "New Zealand (Aotearoa)",           0,0,0 },
 { IDX_2C('o','m'),        "Oman",                             0,0,0 },
 { IDX_2C('p','a'),        "Panama",                           0,0,0 },
 { IDX_2C('p','e'),        "Peru",                             0,0,0 },
@@ -461,7 +489,7 @@ struct	country_code { u_long idx;
 { IDX_2C('p','g'),        "Papua New Guinea",                 0,0,0 },
 { IDX_2C('p','h'),        "Philippines",                      0,0,0 },
 { IDX_2C('p','k'),        "Pakistan",                         0,0,0 },
-{ IDX_2C('p','l'),        "Polen",                            0,0,0 },
+{ IDX_2C('p','l'),        "Poland",                           0,0,0 },
 { IDX_2C('p','m'),        "St. Pierre and Miquelon",          0,0,0 },
 { IDX_2C('p','n'),        "Pitcairn",                         0,0,0 },
 { IDX_2C('p','r'),        "Puerto Rico",                      0,0,0 },
@@ -477,10 +505,10 @@ struct	country_code { u_long idx;
 { IDX_2C('s','B'),        "Solomon Islands",                  0,0,0 },
 { IDX_2C('s','c'),        "Seychelles",                       0,0,0 },
 { IDX_2C('s','d'),        "Sudan",                            0,0,0 },
-{ IDX_2C('s','e'),        "Schweden",                         0,0,0 },
+{ IDX_2C('s','e'),        "Sweden",                           0,0,0 },
 { IDX_2C('s','g'),        "Singapore",                        0,0,0 },
 { IDX_2C('s','h'),        "St. Helena",                       0,0,0 },
-{ IDX_2C('s','i'),        "Slovenien",                        0,0,0 },
+{ IDX_2C('s','i'),        "Slovenia",                         0,0,0 },
 { IDX_2C('s','j'),        "Svalbard and Jan Mayen Islands",   0,0,0 },
 { IDX_2C('s','k'),        "Slovak Republic",                  0,0,0 },
 { IDX_2C('s','l'),        "Sierra Leone",                     0,0,0 },
@@ -511,9 +539,9 @@ struct	country_code { u_long idx;
 { IDX_2C('t','z'),        "Tanzania",                         0,0,0 },
 { IDX_2C('u','a'),        "Ukraine",                          0,0,0 },
 { IDX_2C('u','g'),        "Uganda",                           0,0,0 },
-{ IDX_2C('u','k'),        "England",                          0,0,0 },
+{ IDX_2C('u','k'),        "United Kingdom",                   0,0,0 },
 { IDX_2C('u','m'),        "US Minor Outlying Islands",        0,0,0 },
-{ IDX_2C('u','s'),        "Vereinigte Staaten",               0,0,0 },
+{ IDX_2C('u','s'),        "United States",                    0,0,0 },
 { IDX_2C('u','y'),        "Uruguay",                          0,0,0 },
 { IDX_2C('u','z'),        "Uzbekistan",                       0,0,0 },
 { IDX_2C('v','a'),        "Vatican City State (Holy See)",    0,0,0 },
@@ -528,9 +556,9 @@ struct	country_code { u_long idx;
 { IDX_2C('y','e'),        "Yemen",                            0,0,0 },
 { IDX_2C('y','t'),        "Mayotte",                          0,0,0 },
 { IDX_2C('y','u'),        "Yugoslavia",                       0,0,0 },
-{ IDX_2C('z','a'),        "Sued Afrika",                      0,0,0 },
+{ IDX_2C('z','a'),        "South Africa",                     0,0,0 },
 { IDX_2C('z','m'),        "Zambia",                           0,0,0 },
 { IDX_2C('z','r'),        "Zaire",                            0,0,0 },
-{ IDX_2C('z','w'),        "Zimbabwe",                         0,0,0}};
+{ IDX_2C('z','w'),        "Zimbabwe",                         0 ,0,0}};
 
 #define MAX_CTRY (int)(sizeof(ctry)/sizeof(struct country_code))

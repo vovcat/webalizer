@@ -1,26 +1,31 @@
-Notice to Intel RedHat 5.0 Users
+Notice to Intel RedHat 5.x/6.x Users
 
 Subject: webalizer binary
 
 The dynamically linked binary supplied in the standard
 linuxelf binary distribution is linked against libc.so.5
-and libm.so.5.  Users of RedHat 5.x systems have reported
-problems running this binary, specifically the inability
-of the program to read any configuration files.  This has
-been confirmed, and a quick 'ldd webalizer' confirms that
-the system cannot find these libraries (RedHat 5.x systems
-use the .6 versions of libc and libm).  For this reason,
-a statically linked version of the binary is supplied in
-the standard distribution.  This may be used instead, and
-should work.  A RedHat specific binary distribution is
-also avaliable, "webalizer-X.XX-XX-linuxelf-rh50-bin.tgz",
+and libm.so.5 (on a Slackware 3.6 Intel system).  Users
+of RedHat 5.x/6.x systems have reported problems running
+this binary, specifically the inability of the program
+to read any configuration files.  This has been confirmed,
+and a quick 'ldd webalizer' confirms that the system cannot
+find these libraries (RedHat 5.x/6.x systems use the V.6
+versions of libc and libm).
+
+A libc6 specific binary distribution is available,
+named "webalizer-X.XX-XX-linuxelf-rh50-bin.tgz",
 where the X's will be the current version/edit level, and
 can be found where you got the standard distribution.
+Users on systems who have the .6 libraries should use this
+distribution instead.
 
-At any rate, compiling the source yourself should cure the
-problem, since it would be linked with whatever version
-libraries you happen to have on your system.
+At any rate, compiling the source yourself should cure any
+problems, since it will be linked with whatever version
+libraries you happen to have on your system, and is the
+recommended method to get the Webalizer running.
 
-The current source distribution and the RedHat specific
+The current source distribution and the libc6 specific
 version of The Webalizer can always be found at:
-ftp://ftp.mrunix.net/pub/webalizer.
+ftp://ftp.mrunix.net/pub/webalizer.  Bleeding edge types
+can find the most, most current versions in the
+pre-release directory :)

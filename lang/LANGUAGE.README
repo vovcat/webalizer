@@ -1,0 +1,38 @@
+The Webalizer Language Support
+
+Language support comes from the use of language specific header files,
+and must be compiled into the program (the default is english).  These
+files contain all the strings used by the program, and may be translated
+into any language, provided HTML browsers and the GD Graphics LIbrary
+can handle the characters.  To use a different language, simply create
+a symbolic link to webalizer_lang.h in the top level source directory.  The
+default is webalizer_lang.h -> lang/webalizer_lang.english, for the english
+language.  On a typical Unix system, the command:
+
+ln -s lang/webalizer_lang.polish webalizer_lang.h
+
+would create the symbolic link pointing to the polish version.  After
+creating the symbolic link, compile as usual (ie: 'make').  As an
+alternative, simply copy the language specific file to webalizer_lang.h
+and skip the symbolic link step (remember to remove webalizer_lang.h first!).
+
+Note:
+-----
+
+  As of version 1.22-06, language support can be specified as part of
+the inital 'configure'.  Use the --with-language switch to specify which
+language to use, and the configure script will handle the link for you.
+
+For example:  configure --with-language=french
+
+would use the french language file for the compile.  Additional information
+regarding the install process can be found in the INSTALL file shipped with
+all distributions.
+
+If you want to translate the file into another, please use the most
+current webalizer_lang.english file, which can be found at:
+
+ftp://ftp.mrunix.net/pub/webalizer/lang
+
+Once translated, please send a copy so it can be added to the ftp
+site for others to use.

@@ -1,9 +1,13 @@
 /*
-   webalizer_lang.english
+   webalizer_lang.french
 
-   Webalizer V1.1x Language Support file for English.
-   15-May-1998 by Bradford L. Barrett (brad@mrunix.net)
-   31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
+   Webalizer V1.2x Language Support file for French.
+   04-Jun-1998 Translation by Sylvain Avril (savril@oceanet.fr)
+   04-Jun-1998 Modified for level 1.1 support (brad@mrunix.net)
+   23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
+   20-Feb-1999 Added non-extended char l_month array (brad@mrunix.net)
+   08-Mar-1999 Updated HTTP 1.1 response codes by Yves Lafon (ylafon@w3.org)
+   28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
 
 
    Language files are named using the following convention:
@@ -16,15 +20,24 @@
    or create a symbolic link, then re-compile.
 
    If you translate this file into a different language, please
-   send a copy to brad@mrunix.net.
+   send a copy to brad@mrunix.net
 
+*/
+
+/*
+   Traduit par Sylvain AVRIL (savril@oceanet.fr,
+      http://www.coucounet.com/sylvain/)
+      - Oceanet (http://www.oceanet.fr/)
+
+   Je n'ai pas traduit les messages d'erreurs qui me paraissaient etre plus
+   clairs en anglais
 */
 
 /***********************************************************************/
 /* DEFINE LANGUAGE NAME here                                           */
 /***********************************************************************/
 
-char *language  = "English";
+char *language  = "French";
 
 /***********************************************************************/
 /*                                                                     */
@@ -64,12 +77,10 @@ char *msg_bad_rec = "Skipping bad record";
 char *msg_no_vrec = "No valid records found!";
 char *msg_gen_rpt = "Generating report for";
 char *msg_gen_sum = "Generating summary report";
-
-/* New for 1.1 */ /* Current state data messages */
-char *msg_get_data= "Reading previous run data..";
+char *msg_get_data= "Reading previous run data...";
 char *msg_put_data= "Saving current run data...";
 char *msg_no_data = "Previous run data not found...";
-char *msg_bad_data= "Invalid data record";
+char *msg_bad_data= "Error: Unable to restore run data";
 char *msg_data_err= "Error: Unable to save current run data";
 char *msg_dup_data= "Warning: Possible duplicate data found";
 
@@ -79,11 +90,13 @@ char *msg_nomem_tr= "Can't allocate enough memory, Top Referrers disabled!";
 char *msg_nomem_tu= "Can't allocate enough memory, Top URLs disabled!";
 char *msg_nomem_tc= "Can't allocate enough memory, Top Countries disabled!";
 char *msg_nomem_ta= "Can't allocate enough memory, Top User Agents disabled!";
+char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
 char *msg_nomem_dh= "Error adding host node (daily), skipping";
 char *msg_nomem_mh= "Error adding host node (monthly), skipping";
 char *msg_nomem_u = "Error adding URL node, skipping";
 char *msg_nomem_a = "Error adding User Agent node, skipping";
 char *msg_nomem_r = "Error adding Referrer node, skipping";
+char *msg_nomem_sc= "Error adding Search String node, skipping";
 
 /* log record errors */
 char *msg_big_rec = "Error: Skipping oversized log record";
@@ -101,15 +114,21 @@ char *h_usage1 = "Usage";
 char *h_usage2 = "[options] [log file]";
 char *h_msg[]= {
          "-h        = print this help message"             ,
-         "-v        = print version information"           ,
+         "-v -V     = print version information"           ,
          "-d        = print additional debug info"         ,
+         "-F        = Use FTP log format"                  ,
+         "-f        = fold sequence errors"                ,
          "-g        = use GMT (UTC) timestamps"            ,
          "-i        = ignore history file"                 ,
          "-p        = preserve state (incremental)"        ,
          "-q        = supress informational messages"      ,
          "-Q        = supress _ALL_ messages"              ,
+         "-Y        = supress country graph"               ,
          "-G        = supress hourly graph"                ,
          "-H        = supress hourly stats"                ,
+         "-L        = supress color coded graph legends"   ,
+         "-l num    = use num background lines on graph"   ,
+         "-m num    = Visit timeout value (HHMMSS format)" ,
          "-T        = print timing information"            ,
          "-c file   = use configuration file 'file'"       ,
          "-n name   = hostname to use"                     ,
@@ -119,12 +138,17 @@ char *h_msg[]= {
          "-r name   = hide referrer 'name'"                ,
          "-s name   = hide site 'name'"                    ,
          "-u name   = hide URL 'name'"                     ,
+         "-x name   = use filename extension 'name'"       ,
+         "-P name   = Page type extension 'name'"          ,
          "-I name   = Index alias 'name'"                  ,
+         "-L name   = Group URL's by 'name'"               ,
          "-A num    = Display num top agents"              ,
          "-C num    = Display num top countries"           ,
          "-R num    = Display num top referrers"           ,
          "-S num    = Display num top sites"               ,
-         "-U num    = Display num top URL's"               };
+         "-U num    = Display num top URL's"               ,
+         "-e num    = Display num top Entry Pages"         ,
+         "-E num    = Display num top Exit Pages"          };
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
 
@@ -138,133 +162,152 @@ char *h_msg[]= {
 /***********************************************************************/
 
 /* header strings */
-char *msg_hhdr_sp = "Summary Period";
-char *msg_hhdr_gt = "Generated";
+char *msg_hhdr_sp = "P&eacute;riode du r&eacute;sum&eacute;";
+char *msg_hhdr_gt = "G&eacute;n&eacute;r&eacute; le";
 
 /* main index strings */
-char *msg_main_us = "Usage summary for";
-char *msg_main_per= "Last 12 Months";
-char *msg_main_sum= "Summary by Month";
-char *msg_main_da = "Daily Avg";
-char *msg_main_mt = "Monthly Totals";
+char *msg_main_us = "Resume de l'usage pour";
+char *msg_main_per= "12 derniers mois";
+char *msg_main_sum= "R&eacute;sum&eacute; par mois";
+char *msg_main_da = "Moy. journ.";
+char *msg_main_mt = "Totaux mensuels";
 
 /* month HTML page strings */
-char *msg_hmth_du = "Daily usage for";
-char *msg_hmth_hu = "Hourly usage for";
+char *msg_hmth_du = "Usage journalier pour";
+char *msg_hmth_hu = "Usage horaire pour";
 
 /* table header strings */
-char *msg_h_avg   = "Avg";
+char *msg_h_by    = "By";
+char *msg_h_avg   = "Moy.";
+char *msg_h_max   = "Max";
 char *msg_h_total = "Total";
-char *msg_h_totals= "Totals";
-char *msg_h_day   = "Day";
-char *msg_h_mth   = "Month";
-char *msg_h_hour  = "Hour";
+char *msg_h_totals= "Totaux";
+char *msg_h_day   = "Jour";
+char *msg_h_mth   = "Mois";
+char *msg_h_hour  = "Heure";
 char *msg_h_hits  = "Hits";
-char *msg_h_files = "Files";
+char *msg_h_pages = "Pages";
+char *msg_h_visits= "Visits";
+char *msg_h_files = "Fichiers";
 char *msg_h_sites = "Sites";
-char *msg_h_xfer  = "KBytes";
-char *msg_h_hname = "Hostname";
+char *msg_h_xfer  = "Ko";
+char *msg_h_hname = "Nom d'hote";
 char *msg_h_url   = "URL";
-char *msg_h_agent = "User Agent";
-char *msg_h_ref   = "Referrer";
-char *msg_h_ctry  = "Country";
+char *msg_h_agent = "Navigateur";
+char *msg_h_ref   = "R&eacute;f&eacute;rant";
+char *msg_h_ctry  = "Pays";
+char *msg_h_search= "Search String";
 
 /* links along top of page */
-char *msg_hlnk_ds = "Daily Statistics";
-char *msg_hlnk_hs = "Hourly Statistics";
-char *msg_hlnk_u  = "URL's";
+char *msg_hlnk_ds = "Statistiques journali&egrave;res";
+char *msg_hlnk_hs = "Statistiques horaires";
+char *msg_hlnk_u  = "URLs";
 char *msg_hlnk_s  = "Sites";
-char *msg_hlnk_a  = "Agents";
-char *msg_hlnk_c  = "Countries";
-char *msg_hlnk_r  = "Referrers";
+char *msg_hlnk_a  = "Navigateur";
+char *msg_hlnk_c  = "Pays";
+char *msg_hlnk_r  = "R&eacute;f&eacute;rants";
+char *msg_hlnk_en = "Entry";
+char *msg_hlnk_ex = "Exit";
+char *msg_hlnk_sr = "Search";
 
 /* monthly total table */
-char *msg_mtot_ms = "Monthly Statistics for";
-char *msg_mtot_th = "Total Hits";
-char *msg_mtot_tf = "Total Files";
-char *msg_mtot_tx = "Total KBytes";
-char *msg_mtot_us = "Total Unique Sites";
-char *msg_mtot_ur = "Total Unique Referrers";
-char *msg_mtot_ua = "Total Unique User Agents";
-char *msg_mtot_uu = "Total Unique URL's";
-char *msg_mtot_mhd= "Max Hits per Day";
-char *msg_mtot_mhh= "Max Hits per Hour";
-char *msg_mtot_ahd= "Avg Hits per Day";
-char *msg_mtot_ahh= "Avg Hits per Hour";
-char *msg_mtot_rc = "Hits by Response Code";
+char *msg_mtot_ms = "Statistiques mensuelles pour";
+char *msg_mtot_th = "Total des hits";
+char *msg_mtot_tf = "Total des fichiers";
+char *msg_mtot_tx = "Total des Ko";
+char *msg_mtot_us = "Total des sites uniques";
+char *msg_mtot_ur = "Total des r&eacute;f&eacute;rants uniques";
+char *msg_mtot_ua = "Total des navigateurs";
+char *msg_mtot_uu = "Total des URLs uniques";
+char *msg_mtot_mhd= "Hits per Day";
+char *msg_mtot_mhh= "Hits per Hour";
+char *msg_mtot_mfd= "Files per Day";
+char *msg_mtot_mpd= "Pages per Day";
+char *msg_mtot_mvd= "Visits per Day";
+char *msg_mtot_mkd= "KBytes per Day";
+char *msg_mtot_rc = "Hits par code de r&eacute;ponse";
 
 /* daily total table */
-char *msg_dtot_ds = "Daily Statistics for";
+char *msg_dtot_ds = "Statistiques journali&egrave;res pour";
 
 /* hourly total table */
-char *msg_htot_hs = "Hourly Statistics for";
+char *msg_htot_hs = "Statistiques horaires pour";
 
 /* country pie chart */
-char *msg_ctry_use= "Usage by Country for";
+char *msg_ctry_use= "Usage par pays pour";
 
 /* top tables */
 /* Formatted as "Top xxx of xxx Total something" */
 char *msg_top_top = "Top";
-char *msg_top_of  = "of";
-char *msg_top_s   = "Total Sites";
-char *msg_top_u   = "Total URL's";
-char *msg_top_r   = "Total Referrers";
-char *msg_top_a   = "Total User Agents";
-char *msg_top_c   = "Total Countries";
+char *msg_top_of  = "de";
+char *msg_top_s   = "sites";
+char *msg_top_u   = "URLs";
+char *msg_top_r   = "r&eacute;f&eacute;rants";
+char *msg_top_a   = "navigateurs";
+char *msg_top_c   = "pays";
+char *msg_top_en  = "Total Entry Pages";
+char *msg_top_ex  = "Total Exit Pages";
+char *msg_top_sr  = "Total Search Pages";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
-char *s_month[12]={ "Jan", "Feb", "Mar",
-                    "Apr", "May", "Jun",
-                    "Jul", "Aug", "Sep",
+char *s_month[12]={ "Jan", "Fev", "Mar",
+                    "Avr", "Mai", "Juin",
+                    "Juil", "Aou", "Sep",
                     "Oct", "Nov", "Dec"};
 
 /* long month names - can be any length */
-char *l_month[12]={ "January",  "February", "March",   "April",
-                    "May",      "June",     "July",    "August",
-                    "September","October",  "November","December"};
+char *l_month[12]={ "Janvier",  "F&eacute;vrier", "Mars",   "Avril",
+                    "Mai",      "Juin",     "Juillet",    "Ao&ucirc;t",
+                    "Septembre","Octobre",  "Novembre","D&eacute;cembre"};
+
+/* Some installations may need to use this one instead                 */
+/* char *l_month[12]={ "Janvier",  "Fevrier",  "Mars",    "Avril",     */
+/*                     "Mai",      "Juin",     "Juillet", "Aout",      */
+/*                     "Septembre","Octobre",  "Novembre","Decembre"}; */
 
 /* response code descriptions... order IS important!      */
 struct response_code response[] =
-       { { "Undefined response code",                   0 },
-         { "Code 100 - Continue",                       0 },
-         { "Code 101 - Switching Protocols",            0 },
-         { "Code 200 - OK",                             0 },
-         { "Code 201 - Created",                        0 },
-         { "Code 202 - Accepted",                       0 },
-         { "Code 203 - Non-Authoritative Information",  0 },
-         { "Code 204 - No Content",                     0 },
-         { "Code 205 - Reset Content",                  0 },
-         { "Code 206 - Partial Content",                0 },
-         { "Code 300 - Multiple Choices",               0 },
-         { "Code 301 - Moved Permanently",              0 },
-         { "Code 302 - Moved Temporarily",              0 },
-         { "Code 303 - See Other",                      0 },
-         { "Code 304 - Not Modified",                   0 },
-         { "Code 305 - Use Proxy",                      0 },
-         { "Code 400 - Bad Request",                    0 },
-         { "Code 401 - Unauthorized",                   0 },
-         { "Code 402 - Payment Required",               0 },
-         { "Code 403 - Forbidden",                      0 },
-         { "Code 404 - Not Found",                      0 },
-         { "Code 405 - Method Not Allowed",             0 },
-         { "Code 406 - Not Acceptable",                 0 },
-         { "Code 407 - Proxy Authentication Required",  0 },
-         { "Code 408 - Request Timeout",                0 },
-         { "Code 409 - Conflict",                       0 },
-         { "Code 410 - Gone",                           0 },
-         { "Code 411 - Length Required",                0 },
-         { "Code 412 - Precondition Failed",            0 },
-         { "Code 413 - Request Entity Too Large",       0 },
-         { "Code 414 - Request-URI Too Long",           0 },
-         { "Code 415 - Unsupported Media Type",         0 },
-         { "Code 500 - Internal Server Error",          0 },
-         { "Code 501 - Not Implemented",                0 },
-         { "Code 502 - Bad Gateway",                    0 },
-         { "Code 503 - Service Unavailable",            0 },
-         { "Code 504 - Gateway Timeout",                0 },
-         { "Code 505 - HTTP Version Not Supported",     0 } };
-
-/* New for 1.1 */
+       { { "Undefined response code",                    0 },
+         { "Code 100 - Continue",                        0 },
+         { "Code 101 - Switching Protocols",             0 },
+         { "Code 200 - OK",                              0 },
+         { "Code 201 - Created",                         0 },
+         { "Code 202 - Accepted",                        0 },
+         { "Code 203 - Non-Authoritative Information",   0 },
+         { "Code 204 - No Content",                      0 },
+         { "Code 205 - Reset Content",                   0 },
+         { "Code 206 - Partial Content",                 0 },
+         { "Code 300 - Multiple Choices",                0 },
+         { "Code 301 - Moved Permanently",               0 },
+         { "Code 302 - Found",                           0 },
+         { "Code 303 - See Other",                       0 },
+         { "Code 304 - Not Modified",                    0 },
+         { "Code 305 - Use Proxy",                       0 },
+         { "Code 307 - Moved Temporarily",               0 },
+         { "Code 400 - Bad Request",                     0 },
+         { "Code 401 - Unauthorized",                    0 },
+         { "Code 402 - Payment Required",                0 },
+         { "Code 403 - Forbidden",                       0 },
+         { "Code 404 - Not Found",                       0 },
+         { "Code 405 - Method Not Allowed",              0 },
+         { "Code 406 - Not Acceptable",                  0 },
+         { "Code 407 - Proxy Authentication Required",   0 },
+         { "Code 408 - Request Timeout",                 0 },
+         { "Code 409 - Conflict",                        0 },
+         { "Code 410 - Gone",                            0 },
+         { "Code 411 - Length Required",                 0 },
+         { "Code 412 - Precondition Failed",             0 },
+         { "Code 413 - Request Entity Too Large",        0 },
+         { "Code 414 - Request-URI Too Long",            0 },
+         { "Code 415 - Unsupported Media Type",          0 },
+         { "Code 416 - Requested Range Not Satisfiable", 0 },
+         { "Code 417 - Expectation Failed",              0 },
+         { "Code 500 - Internal Server Error",           0 },
+         { "Code 501 - Not Implemented",                 0 },
+         { "Code 502 - Bad Gateway",                     0 },
+         { "Code 503 - Service Unavailable",             0 },
+         { "Code 504 - Gateway Timeout",                 0 },
+         { "Code 505 - HTTP Version Not Supported",      0 } };
 
 char *msg_title   = "Usage Statistics for";
 char *msg_h_other = "Other";
@@ -275,7 +318,7 @@ struct	country_code { u_long idx;
                          char *desc;
                        u_long count;
                        u_long files;
-                       double  xfer;
+                       double xfer;
                      } ctry[] = {
 
 { 0,                      "Unresolved/Unknown",               0,0,0 },
