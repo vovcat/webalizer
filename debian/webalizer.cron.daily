@@ -1,0 +1,45 @@
+#!/bin/sh
+# /etc/cron.daily/webalizer: webalizer daily maintenance script
+# Written by Remco van de Meent <remco@debian.org>
+
+WEBALIZER_BIN=/usr/bin/webalizer
+WEBALIZER_CONF=/etc/webalizer.conf
+
+# See if the webalizer binary and config file exists
+# if not, exit without warning to prevent daily mails
+[ -f ${WEBALIZER_BIN} ] || exit 0
+[ -f ${WEBALIZER_CONF} ] || exit 0
+
+# Figure out non-rotated logfile
+#nonrotatedlog=`egrep '^LogFile' $WEBALIZER_CONF | \
+#               sed -e 's/[[:space:]]\+/ /' | \
+#               cut -d ' ' -f2 | \
+#               sed -e  's/\.[[:digit:]][\.gz]*$//'`
+
+# This line is cleaner than last
+# Thanks to Jari Aalto <jari.aalto@cante.net>
+nonrotatedlog=`awk '$1 ~ /^LogFile$/ {gsub(/\.[0-9]+(\.gz)?/,""); print $2}' $WEBALIZER_CONF`
+
+# Can we read it?
+[ -r "${nonrotatedlog}" ] || exit 0
+
+# Check for empty logfile
+#logsz=`echo ${nonrotatedlog} | \
+#       sed -e 's/[[:space:]]\+/ /' | \
+#       cut -d ' ' -f2 | \
+#       xargs ls -l | \
+#       sed -e 's/[[:space:]]\+/ /g' | \
+#       cut -d ' ' -f5`
+#[ $logsz -gt 0 ] || exit 0
+
+# These 2 lines are cleaner than last 2.
+# Thanks to Thanks to Jari Aalto <jari.aalto@cante.net> and Thomas Lamy <Thomas.Lamy@in-online.net>
+[ -f "${nonrotatedlog}" ] || exit 0
+[ -s "${nonrotatedlog}" ] || exit 0
+
+# Run webalizer quietly
+${WEBALIZER_BIN} -c ${WEBALIZER_CONF} -q
+${WEBALIZER_BIN} -c ${WEBALIZER_CONF} -q ${nonrotatedlog}
+
+# Exit with webalizer's exit code
+exit $?

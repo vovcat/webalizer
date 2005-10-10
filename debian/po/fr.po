@@ -1,0 +1,77 @@
+#
+#    Translators, if you are not familiar with the PO format, gettext
+#    documentation is worth reading, especially sections dedicated to
+#    this format, e.g. by running:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+#
+#    Some information specific to po-debconf are available at
+#            /usr/share/doc/po-debconf/README-trans
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+#    Developers do not need to manually edit POT or PO files.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2003-11-24 21:05+0100\n"
+"PO-Revision-Date: 2003-11-10 21:18+0100\n"
+"Last-Translator: Christian Perrier <bubulle@debian.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../templates:3
+msgid "Are you upgrading from a version < 2.01.6?"
+msgstr "Mettez-vous à jour une version inférieure à 2.01.6 ?"
+
+#. Type: note
+#. Description
+#: ../templates:3
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"ATTENTION : si vous mettez à jour une version inférieure à 2.01.6, veuillez "
+"consulter /usr/share/doc/webalizer/README.FIRST.gz pour obtenir des "
+"informations sur la méthode de mise à jour de vos anciennes données."
+
+#. Type: string
+#. Description
+#: ../templates:11
+msgid "Which directory should webalizer put the output in?"
+msgstr "Répertoire pour les résultats de webalizer :"
+
+#. Type: string
+#. Default
+#: ../templates:15
+msgid "Usage Statistics for"
+msgstr "Statistiques d'utilisation de"
+
+#. Type: string
+#. Description
+#: ../templates:16
+msgid "Enter the title of the reports webalizer will generate."
+msgstr "Indiquez le titre des rapports créés par webalizer :"
+
+#. Type: string
+#. Description
+#: ../templates:16
+msgid "(your system's hostname will be appended to it)"
+msgstr "Le nom de votre système sera ajouté à ce titre."
+
+#. Type: string
+#. Description
+#: ../templates:22
+msgid "What is the filename of the rotated webserver log?"
+msgstr "Nom du fichier contenant le journal du serveur web après rotation :"
+
+#~ msgid "/var/www/webalizer"
+#~ msgstr "/var/www/webalizer"
+
+#~ msgid "/var/log/apache/access.log.1"
+#~ msgstr "/var/log/apache/access.log.1"

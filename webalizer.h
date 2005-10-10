@@ -13,11 +13,11 @@
 #define MAXHASH  2048                  /* Size of our hash tables          */
 #define BUFSIZE  4096                  /* Max buffer size for log record   */
 #define MAXHOST  128                   /* Max hostname buffer size         */
-#define MAXURL   1024                  /* Max HTTP request/URL field size  */
+#define MAXURL   4096                  /* Max HTTP request/URL field size  */
 #define MAXURLH  128                   /* Max URL field size in htab       */
 #define MAXREF   1024                  /* Max referrer field size          */
 #define MAXREFH  128                   /* Max referrer field size in htab  */
-#define MAXAGENT 64                    /* Max user agent field size        */
+#define MAXAGENT 128                    /* Max user agent field size        */
 #define MAXCTRY  48                    /* Max country name size            */
 #define MAXSRCH  256                   /* Max size of search string buffer */
 #define MAXSRCHH 64                    /* Max size of search str in htab   */
@@ -143,7 +143,7 @@ struct  log_struct  {  char   hostname[MAXHOST];   /* hostname             */
                        int    resp_code;           /* response code        */
                        u_long xfer_size;           /* xfer size in bytes   */
 #ifdef USE_DNS
-                       struct in_addr addr;        /* IP address structure */
+		       struct sockaddr_storage addr; /* IP address structure */
 #endif  /* USE_DNS */
                        char   refer[MAXREF];       /* referrer             */
                        char   agent[MAXAGENT];     /* user agent (browser) */

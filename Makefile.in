@@ -22,14 +22,17 @@ exec_prefix = @exec_prefix@
 BINDIR = @bindir@
 MANDIR = @mandir@/man1
 ETCDIR = @ETCDIR@
+LOCALEDIR = @localedir@
 CC     = @CC@
 CFLAGS = @CFLAGS@
-LIBS   = @LIBS@
+LIBS   = @LIBS@ -ldb
 DEFS   = -DETCDIR=\"@ETCDIR@\" @DEFS@ @OPTS@
 LDFLAGS= @LDFLAGS@
 INSTALL= @INSTALL@
 INSTALL_PROGRAM=@INSTALL_PROGRAM@
 INSTALL_DATA=@INSTALL_DATA@
+
+LANGS=$(shell for a in po/*.po; do basename $${a%.po}; done)
 
 # where are the GD header files?
 GDLIB=@GDLIB@
@@ -42,13 +45,13 @@ webalizer:	webalizer.o webalizer.h hashtab.o hashtab.h  \
 		linklist.o linklist.h preserve.o preserve.h  \
                 dns_resolv.o dns_resolv.h parser.o parser.h  \
                 output.o output.h graphs.o graphs.h lang.h   \
-		webalizer_lang.h
+		$(LANGS:%=po/%.mo)
 	$(CC) ${LDFLAGS} -o webalizer webalizer.o hashtab.o linklist.o preserve.o parser.o output.o dns_resolv.o graphs.o ${LIBS}
 	rm -f webazolver
 	@LN_S@ webalizer webazolver
 
 webalizer.o:	webalizer.c webalizer.h parser.h output.h preserve.h \
-		graphs.h dns_resolv.h webalizer_lang.h
+		graphs.h dns_resolv.h
 	$(CC) ${CFLAGS} ${DEFS} -c webalizer.c
 
 parser.o:	parser.c parser.h webalizer.h lang.h
@@ -74,26 +77,30 @@ dns_resolv.o:	dns_resolv.c dns_resolv.h lang.h webalizer.h
 graphs.o:	graphs.c graphs.h webalizer.h lang.h
 	$(CC) ${CFLAGS} ${DEFS} -I${GDLIB} -c graphs.c
 
+$(LANGS:%=po/%.mo): %.mo: %.po
+	msgfmt $< -o $@
+
 clean:
 	rm -f webalizer webazolver *.o usage*.png daily*.png hourly*.png
 	rm -f ctry*.png *.html *.hist *.current core *.gif
 
 distclean: clean
 	rm -f webalizer.conf *.tar *.tgz *.Z *.tar.gz
-	rm -f Makefile webalizer_lang.h config.cache config.log config.status
-	@LN_S@ lang/webalizer_lang.@DEFAULT_LANG@ webalizer_lang.h
+#	rm -f Makefile webalizer_lang.h config.cache config.log config.status
+#	@LN_S@ lang/webalizer_lang.@DEFAULT_LANG@ webalizer_lang.h
+	rm -f Makefile config.cache config.log config.status $(LANGS:%=po/%.mo)
 
 install: all
-	$(INSTALL_PROGRAM) webalizer ${BINDIR}/webalizer
-	$(INSTALL_DATA) webalizer.1 ${MANDIR}/webalizer.1
-	$(INSTALL_DATA) sample.conf ${ETCDIR}/webalizer.conf.sample
-	rm -f ${BINDIR}/webazolver
-	@LN_S@ ${BINDIR}/webalizer ${BINDIR}/webazolver
+	$(INSTALL_PROGRAM) webalizer ${DESTDIR}/${BINDIR}/webalizer
+	$(INSTALL_DATA) webalizer.1 ${DESTDIR}/${MANDIR}/webalizer.1
+	#$(INSTALL_DATA) sample.conf ${DESTDIR}/${ETCDIR}/webalizer.conf.sample
+	for a in $(LANGS); do $(INSTALL_DATA) po/$$a.mo ${DESTDIR}/$(LOCALEDIR)/$$a/LC_MESSAGES/webalizer.mo; done
+	rm -f ${DESTDIR}/${BINDIR}/webazolver
+	(cd ${DESTDIR}/${BINDIR}; @LN_S@ webalizer webazolver)
 
 uninstall:
 	rm -f ${BINDIR}/webalizer
 	rm -f ${BINDIR}/webazolver
 	rm -f ${MANDIR}/webalizer.1
 	rm -f ${ETCDIR}/webalizer.conf.sample
-	rm -f webalizer_lang.h
-	@LN_S@ lang/webalizer_lang.@DEFAULT_LANG@ webalizer_lang.h
+	for a in $(LANGS); do rm -f $(LOCALEDIR)/$$a/LC_MESSAGES/webalizer.mo; done

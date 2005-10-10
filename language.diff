@@ -1,0 +1,43 @@
+diff -u --exclude='hash*' --exclude-from=exclude --recursive
+2.01.10-18-webalizer-misc-msg-fix-patch-locale1/webalizer-2.01.10.orig/webalizer.c
+2.01.10-18-webalizer-misc-msg-fix-patch-locale1-patch-locale2/webalizer-2.01.10.orig/webalizer.c
+--- 2.01.10-18-webalizer-misc-msg-fix-patch-locale1/webalizer-2.01.10.orig/webalizer.c 2003-07-21 17:01:12.000000000 +0200
++++ 2.01.10-18-webalizer-misc-msg-fix-patch-locale1-patch-locale2/webalizer-2.01.10.orig/webalizer.c 2003-07-22 11:22:18.000000000 +0200
+@@ -89,7 +89,7 @@
+  char    *unescape(char *);                          /* unescape URL's */
+  char    from_hex(char);                             /* convert hex to dec  */
+  void    print_opts(char *);                         /* print options */
+-void    print_version();                            /* duhh... */
++void    print_version(char * locale);               /* duhh... */
+  int     isurlchar(unsigned char);                   /* valid URL char fnc. */
+  void    get_config(char *);                         /* Read a config file  */
+  static  char *save_opt(char *);                     /* save conf option    */
+@@ -321,7 +321,8 @@
+          case 'u': add_nlist(optarg,&hidden_urls);   break; /* hide URL */
+          case 'U': ntop_urls=atoi(optarg);    break;  /* Top urls */
+          case 'v':
+-        case 'V': print_version();           break;  /* Version */
++        case 'V': print_version(current_locale);     /* Version */
++                  break;
+          case 'x': html_ext=optarg;           break;  /* HTML file extension */
+          case 'X': hide_sites=1;              break;  /* Hide ind. sites     */
+          case 'Y': ctry_graph=0;              break;  /* Supress ctry graph  */
+@@ -1709,13 +1710,13 @@
+  /* PRINT_VERSION                             */
+  /*********************************************/
+
+-void print_version()
++void print_version(char *locale)
+  {
+   uname(&system_info);
+- printf("Webalizer V%s-%s (%s %s) %s\n%s\n",
+-    version,editlvl,
+-    system_info.sysname,system_info.release,
+-    _("language"),copyright);
++ printf("Webalizer V%s-%s (%s %s) %s: %s\n",
++         version,editlvl,system_info.sysname,
++         system_info.release, _("locale"),
++         locale);
+   if (debug_mode)
+   {
+      printf("Mod date: %s  Options: ",moddate);

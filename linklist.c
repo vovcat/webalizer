@@ -115,7 +115,7 @@ NLISTPTR new_nlist(char *str)
    if (sizeof(newptr->string) < strlen(str))
    {
       if (verbose)
-    fprintf(stderr,"[new_nlist] %s\n",msg_big_one);
+    fprintf(stderr,"[new_nlist] %s\n",_("Warning: String exceeds storage size"));
    }
    if (( newptr = malloc(sizeof(struct nlist))) != NULL)
     {strncpy(newptr->string, str, sizeof(newptr->string));newptr->next=NULL;}
@@ -172,7 +172,7 @@ GLISTPTR new_glist(char *str, char *name)
        sizeof(newptr->name) < strlen(name))
    {
       if (verbose)
-	fprintf(stderr,"[new_glist] %s\n",msg_big_one);
+	fprintf(stderr,"[new_glist] %s\n",_("Warning: String exceeds storage size"));
    }
    if (( newptr = malloc(sizeof(struct glist))) != NULL)
      {
