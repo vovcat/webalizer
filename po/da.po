@@ -1,0 +1,1497 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"PO-Revision-Date: 2003-05-25 23:29+0200\n"
+"Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
+"Language-Team: French <tech@jexiste.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit"
+
+msgid "-A num    = Display num top agents"
+msgstr "-A num    = Vis antal top browsere"
+
+msgid "-C num    = Display num top countries"
+msgstr "-C num    = Vis antal top lande"
+
+msgid "-D name   = Use DNS Cache file 'name'"
+msgstr "-D name   = Use DNS Cache file 'name'"
+
+msgid "-E num    = Display num top Exit Pages"
+msgstr "-E num    = Vis antal top udgangsadresser"
+
+msgid "-F type   = Log type.  type= (clf | ftp | squid)"
+msgstr "-F type   = Log type.  type= (clf | ftp | squid)"
+
+msgid "-G        = supress hourly graph"
+msgstr "-G        = undertryk timegrafer"
+
+msgid "-H        = supress hourly stats"
+msgstr "-H        = undertryk timestatistikker"
+
+msgid "-I name   = Index alias 'name'"
+msgstr "-I name   = Indeks alias 'name'"
+
+msgid "-L        = supress color coded graph legends"
+msgstr "-L        = undertryk farvekodede grafertekst"
+
+msgid "-N num    = Number of DNS processes (0=disable)"
+msgstr "-N num    = Number of DNS processes (0=disable)"
+
+msgid "-P name   = Page type extension 'name'"
+msgstr "-P name   = Side type-efternavn 'name'"
+
+msgid "-Q        = supress _ALL_ messages"
+msgstr "-Q        = undertryk _ALLE_ beskeder"
+
+msgid "-R num    = Display num top referrers"
+msgstr "-R num    = Vis antal top henvisende sider"
+
+msgid "-S num    = Display num top sites"
+msgstr "-S num    = Vis antal top gæster"
+
+msgid "-T        = print timing information"
+msgstr "-T        = udskriv timing-information"
+
+msgid "-U num    = Display num top URLs"
+msgstr "-U num    = Vis antal top URL"
+
+msgid "-X        = Hide individual sites"
+msgstr "-X        = Hide individual sites"
+
+msgid "-Y        = supress country graph"
+msgstr "-Y        = undertryk landegrafer"
+
+msgid "-a name   = hide user agent 'name'"
+msgstr "-a name   = gem browser 'name'"
+
+msgid "-c file   = use configuration file 'file'"
+msgstr "-c file   = brug konfigurationsfilen 'file'"
+
+msgid "-d        = print additional debug info"
+msgstr "-d        = udskriv ekstra fejlsøgningsinformation"
+
+msgid "-e num    = Display num top Entry Pages"
+msgstr "-e num    = Vis antal top indgangsadresser"
+
+msgid "-f        = Fold sequence errors"
+msgstr "-f        = Fold sekvensfejl"
+
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr "-g num    = Group Domains to 'num' levels"
+
+msgid "-h        = print this help message"
+msgstr "-h        = udskriv denne hjælpebesked"
+
+msgid "-i        = ignore history file"
+msgstr "-i        = ignorer historiefil"
+
+msgid "-l num    = use num background lines on graph"
+msgstr "-l num    = brug numeriske baggrundslinier på graf"
+
+msgid "-m num    = Visit timout value (seconds)"
+msgstr "-m num    = Undersøg timeout-værdi (seconds)"
+
+msgid "-n name   = hostname to use"
+msgstr "-n name   = værtsnavn som anvendes"
+
+msgid "-o dir    = output directory to use"
+msgstr "-o dir    = Output bibliotek som anvendes"
+
+msgid "-p        = preserve state (incremental)"
+msgstr "-p        = bevar tilstand (inkremental)"
+
+msgid "-q        = supress informational messages"
+msgstr "-q        = undertryk informationsrelaterede beskeder"
+
+msgid "-r name   = hide referrer 'name'"
+msgstr "-r name   = gem henvisende side 'name'"
+
+msgid "-s name   = hide site 'name'"
+msgstr "-s name   = gem gæste 'name'"
+
+msgid "-t name   = report title 'name'"
+msgstr "-t name   = rapport titel 'name'"
+
+msgid "-u name   = hide URL 'name'"
+msgstr "-u name   = gem URL 'name'"
+
+msgid "-v -V     = print version information"
+msgstr "-v -V     = udskriv versionsoplysninger"
+
+msgid "-x name   = Use filename extension 'name'"
+msgstr "-x name   = Brug filefternavn 'name'"
+
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+msgid "Agents"
+msgstr "Browsere"
+
+msgid "Albania"
+msgstr "Albanien"
+
+msgid "Algeria"
+msgstr "Algeriet"
+
+msgid "American Samoa"
+msgstr "Amerikansk Samoa"
+
+msgid "Andorra"
+msgstr "Andorra"
+
+msgid "Angola"
+msgstr "Angola"
+
+msgid "Anguilla"
+msgstr "Anguilla"
+
+msgid "Antarctica"
+msgstr "Antarktis"
+
+msgid "Antigua and Barbuda"
+msgstr "Antigua og Barbuda"
+
+msgid "Apr"
+msgstr "Apr"
+
+msgid "April"
+msgstr "April"
+
+msgid "Argentina"
+msgstr "Argentina"
+
+msgid "Armenia"
+msgstr "Armenien"
+
+msgid "Aruba"
+msgstr "Aruba"
+
+msgid "Aug"
+msgstr "Aug"
+
+msgid "August"
+msgstr "August"
+
+msgid "Australia"
+msgstr "Australien"
+
+msgid "Austria"
+msgstr "Østrig"
+
+msgid "Avg"
+msgstr "Gn.snit"
+
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+msgid "Bahamas"
+msgstr "Bahamas"
+
+msgid "Bahrain"
+msgstr "Bahrain"
+
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+msgid "Barbados"
+msgstr "Barbados"
+
+msgid "Belarus"
+msgstr "Belarus"
+
+msgid "Belgium"
+msgstr "Belgien"
+
+msgid "Belize"
+msgstr "Belize"
+
+msgid "Benin"
+msgstr "Benin"
+
+msgid "Bermuda"
+msgstr "Bermuda"
+
+msgid "Bhutan"
+msgstr "Bhutan"
+
+msgid "Bolivia"
+msgstr "Bolivia"
+
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnien og Herzegovina"
+
+msgid "Botswana"
+msgstr "Botswana"
+
+msgid "Bouvet Island"
+msgstr "Bouvet Island"
+
+msgid "Brazil"
+msgstr "Brasilien"
+
+msgid "British Indian Ocean Territory"
+msgstr "Det britiske indiske ocean-territorium"
+
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+msgid "Bulgaria"
+msgstr "Bulgarien"
+
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+msgid "Burundi"
+msgstr "Burundi"
+
+msgid "By"
+msgstr "-"
+
+msgid "Cambodia"
+msgstr "Cambodia"
+
+msgid "Cameroon"
+msgstr "Cameroon"
+
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr "Kan ikke allokere nok hukommelse, Top Lande slås fra!"
+
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr "Kan ikke allokere nok hukommelse, Top Referer slås fra!"
+
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr "Kan ikke allokere nok hukommelse, Top Søgestrenge slåes fra!"
+
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr "Kan ikke allokere nok hukommelse, Top Gæster slås fra!"
+
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr "Kan ikke allokere nok hukommelse, Top URL slås fra!"
+
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr "Kan ikke allokere nok hukommelse, Top Web browsere slås fra!"
+
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr "Can't allocate enough memory, Top Usernames disabled!"
+
+msgid "Canada"
+msgstr "Canada"
+
+msgid "Cape Verde"
+msgstr "Kap Verde"
+
+msgid "Cayman Islands"
+msgstr "Cayman-øerne"
+
+msgid "Central African Republic"
+msgstr "Den Centralafrikanske Republik"
+
+msgid "Chad"
+msgstr "Chad"
+
+msgid "Chile"
+msgstr "Chile"
+
+msgid "China"
+msgstr "Kina"
+
+msgid "Christmas Island"
+msgstr "Juleøerne"
+
+msgid "Cocos (Keeling) Islands"
+msgstr "Cocos (Keeling)-øerne"
+
+msgid "Code 100 - Continue"
+msgstr "Kode 100 - Fortsæt"
+
+msgid "Code 101 - Switching Protocols"
+msgstr "Kode 101 - Skift protokoller"
+
+msgid "Code 200 - OK"
+msgstr "Kode 200 - OK"
+
+msgid "Code 201 - Created"
+msgstr "Kode 201 - Oprettet"
+
+msgid "Code 202 - Accepted"
+msgstr "Kode 202 - Accepteret"
+
+msgid "Code 203 - Non-Authoritative Information"
+msgstr "Kode 203 - Ikke-autoritativ information"
+
+msgid "Code 204 - No Content"
+msgstr "Kode 204 - Intet indhold"
+
+msgid "Code 205 - Reset Content"
+msgstr "Kode 205 - Nulstil indhold"
+
+msgid "Code 206 - Partial Content"
+msgstr "Kode 206 - Delvist indhold"
+
+msgid "Code 300 - Multiple Choices"
+msgstr "Kode 300 - Dobbelte data"
+
+msgid "Code 301 - Moved Permanently"
+msgstr "Kode 301 - Flyttet permanent"
+
+msgid "Code 302 - Found"
+msgstr "Kode 302 - Fundet"
+
+msgid "Code 303 - See Other"
+msgstr "Kode 303 - Se andet"
+
+msgid "Code 304 - Not Modified"
+msgstr "Kode 304 - Ikke ændret"
+
+msgid "Code 305 - Use Proxy"
+msgstr "Kode 305 - Brug proxy"
+
+msgid "Code 307 - Moved Temporarily"
+msgstr "Kode 307 - Flyttet midlertidigt"
+
+msgid "Code 400 - Bad Request"
+msgstr "Kode 400 - Forkert forespørgsel"
+
+msgid "Code 401 - Unauthorized"
+msgstr "Kode 401 - Ingen adgang"
+
+msgid "Code 402 - Payment Required"
+msgstr "Kode 402 - Betaling påkrævet"
+
+msgid "Code 403 - Forbidden"
+msgstr "Kode 403 - Forbudt"
+
+msgid "Code 404 - Not Found"
+msgstr "Kode 404 - Findes ikke"
+
+msgid "Code 405 - Method Not Allowed"
+msgstr "Kode 405 - Metoden ikke tilladt"
+
+msgid "Code 406 - Not Acceptable"
+msgstr "Kode 406 - Ikke acceptabelt"
+
+msgid "Code 407 - Proxy Authentication Required"
+msgstr "Kode 407 - Proxygodkendelse påkrævet"
+
+msgid "Code 408 - Request Timeout"
+msgstr "Kode 408 - Tiden er udløbet for forespørgslen"
+
+msgid "Code 409 - Conflict"
+msgstr "Kode 409 - Konflikt"
+
+msgid "Code 410 - Gone"
+msgstr "Kode 410 - Forsvundet"
+
+msgid "Code 411 - Length Required"
+msgstr "Kode 411 - Længde påkrævet"
+
+msgid "Code 412 - Precondition Failed"
+msgstr "Kode 412 - Forudsætning ikke opfyldt"
+
+msgid "Code 413 - Request Entity Too Large"
+msgstr "Kode 413 - Forespørgselsenhed for stor"
+
+msgid "Code 414 - Request-URI Too Long"
+msgstr "Kode 414 - Adresse for lang"
+
+msgid "Code 415 - Unsupported Media Type"
+msgstr "Kode 415 - Medietypen understøttes ikke"
+
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr "Kode 416 - Forespurgt område ikke tilfredsstillende"
+
+msgid "Code 417 - Expectation Failed"
+msgstr "Kode 417 - Det forventede skete ikke"
+
+msgid "Code 500 - Internal Server Error"
+msgstr "Kode 500 - Intern serverfejl"
+
+msgid "Code 501 - Not Implemented"
+msgstr "Kode 501 - Ikke indbygget"
+
+msgid "Code 502 - Bad Gateway"
+msgstr "Kode 502 - Forkert gateway"
+
+msgid "Code 503 - Service Unavailable"
+msgstr "Kode 503 - Tjenesten ikke tilgængelig"
+
+msgid "Code 504 - Gateway Timeout"
+msgstr "Kode 504 - Tiden er udløbet for gateway'en"
+
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr "Kode 505 - HTTP-versionen understøttes ikke"
+
+msgid "Colombia"
+msgstr "Colombia"
+
+msgid "Comoros"
+msgstr "Comoros"
+
+msgid "Congo"
+msgstr "Congo"
+
+msgid "Cook Islands"
+msgstr "Cook-øerne"
+
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "Cote D'Ivoire (Elfenbenskysten)"
+
+msgid "Countries"
+msgstr "Lande"
+
+msgid "Country"
+msgstr "Land"
+
+msgid "Creating output in"
+msgstr "Opretter output i biblioteket"
+
+msgid "Croatia (Hrvatska)"
+msgstr "Kroatien (Hrvatska)"
+
+msgid "Cuba"
+msgstr "Cuba"
+
+msgid "Cyprus"
+msgstr "Cypern"
+
+msgid "Czech Republic"
+msgstr "Tjekkiet"
+
+msgid "Czechoslovakia (former)"
+msgstr "Tjekkoslovakiet (det tidligere)"
+
+msgid "DNS Lookup"
+msgstr "DNS Lookup"
+
+msgid "Daily Avg"
+msgstr "Dagligt gennemsnit"
+
+msgid "Daily Statistics"
+msgstr "Daglig statistik"
+
+msgid "Daily Statistics for"
+msgstr "Daglig statistik for"
+
+msgid "Daily usage for"
+msgstr "Daglig tilgang -"
+
+msgid "Day"
+msgstr "Dag"
+
+msgid "Dec"
+msgstr "Dec"
+
+msgid "December"
+msgstr "December"
+
+msgid "Denmark"
+msgstr "Danmark"
+
+msgid "Djibouti"
+msgstr "Djibouti"
+
+msgid "Dominica"
+msgstr "Dominica"
+
+msgid "Dominican Republic"
+msgstr "Den Dominikanske Republik"
+
+msgid "East Timor"
+msgstr "Øst-Timor"
+
+msgid "Ecuador"
+msgstr "Ecuador"
+
+msgid "Egypt"
+msgstr "Egypten"
+
+msgid "El Salvador"
+msgstr "El Salvador"
+
+msgid "English"
+msgstr "Danish"
+
+msgid "Entry"
+msgstr "Indgangsadresse"
+
+msgid "Equatorial Guinea"
+msgstr "Equatorial Guinea"
+
+msgid "Eritrea"
+msgstr "Eritrea"
+
+msgid "Error adding Referrer node, skipping"
+msgstr "Fejl ved tilføjelse af Referer node, skipping"
+
+msgid "Error adding Search String Node, skipping"
+msgstr "Fejl ved tilføjelse af Søgestrenge Node, skipping"
+
+msgid "Error adding URL node, skipping"
+msgstr "Fejl ved tilføjelse af URL-node, skipping"
+
+msgid "Error adding User Agent node, skipping"
+msgstr "Fejl ved tilføjelse af Web browsere node, skipping"
+
+msgid "Error adding Username node, skipping"
+msgstr "Error adding Username node, skipping"
+
+msgid "Error adding host node (daily), skipping"
+msgstr "Fejl ved tilføjelse af host-node (daglig), skipping"
+
+msgid "Error adding host node (monthly), skipping"
+msgstr "Fejl ved tilføjelse af host-node (månedlig), skipping"
+
+msgid "Error: Can't change directory to"
+msgstr "Fejl: kan ikke skifte bibliotek til"
+
+msgid "Error: Can't open log file"
+msgstr "Fejl: kan ikke åbne logfil"
+
+msgid "Error: Ignoring invalid history record"
+msgstr "Fejl: Ignorerer forkert historiepost"
+
+msgid "Warning: Skipping oversized log record"
+msgstr "Fejl: Springer over streng (for stor log-post)"
+
+msgid "Error: Skipping record (bad date)"
+msgstr "Fejl: Springer over post (forkert dato)"
+
+msgid "Error: Unable to lock DNS cache file"
+msgstr "Error: Unable to lock DNS cache file"
+
+msgid "Error: Unable to open DNS cache file"
+msgstr "Error: Unable to open DNS cache file"
+
+msgid "Error: Unable to open configuration file"
+msgstr "Fejl: Kan ikke åbne konfigurationsfil"
+
+msgid "Error: Unable to open file"
+msgstr "Fejl: Kan ikke åbne filen"
+
+msgid "Error: Unable to restore run data"
+msgstr "Fejl: Kan ikke genindlæse kørselsdata"
+
+msgid "Error: Unable to save current run data"
+msgstr "Fejl: Kan ikke gemme aktive kørselsdata"
+
+msgid "Error: Unable to write history file"
+msgstr "Fejl: Kan ikke skrive til historiefil"
+
+msgid "Estonia"
+msgstr "Estland"
+
+msgid "Ethiopia"
+msgstr "Etiopien"
+
+msgid "Exit"
+msgstr "Udgangsadresse"
+
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falklandsøerne (Malvinas)"
+
+msgid "Faroe Islands"
+msgstr "Færøerne"
+
+msgid "Feb"
+msgstr "Feb"
+
+msgid "February"
+msgstr "Februar"
+
+msgid "Fiji"
+msgstr "Fiji"
+
+msgid "Files"
+msgstr "Filer"
+
+msgid "Files per Day"
+msgstr "Filer pr. dag"
+
+msgid "Finland"
+msgstr "Finland"
+
+msgid "France"
+msgstr "Frankrig"
+
+msgid "France; Metropolitan"
+msgstr "France, Metropolitan"
+
+msgid "French Guiana"
+msgstr "Fransk Guiana"
+
+msgid "French Polynesia"
+msgstr "Fransk Polynesien"
+
+msgid "French Southern Territories"
+msgstr "De franske, sydlige territorier"
+
+msgid "Gabon"
+msgstr "Gabon"
+
+msgid "Gambia"
+msgstr "Gambia"
+
+msgid "Generated"
+msgstr "Sidst opdateret"
+
+msgid "Generating report for"
+msgstr "Genererer rapport for"
+
+msgid "Generating summary report"
+msgstr "Genererer opsummerende rapport"
+
+msgid "Georgia"
+msgstr "Georgien"
+
+msgid "Germany"
+msgstr "Tyskland"
+
+msgid "Ghana"
+msgstr "Ghana"
+
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+msgid "Great Britain (UK)"
+msgstr "Storbritannien (UK)"
+
+msgid "Greece"
+msgstr "Grækenland"
+
+msgid "Greenland"
+msgstr "Grønland"
+
+msgid "Grenada"
+msgstr "Granada"
+
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+msgid "Guam"
+msgstr "Guam"
+
+msgid "Guatemala"
+msgstr "Guatemala"
+
+msgid "Guinea"
+msgstr "Guinea"
+
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+msgid "Guyana"
+msgstr "Guyana"
+
+msgid "Haiti"
+msgstr "Haiti"
+
+msgid "Heard and McDonald Islands"
+msgstr "Heard- og McDonald-øerne"
+
+msgid "History file not found..."
+msgstr "Historiefilen findes ikke..."
+
+msgid "Hits"
+msgstr "Forespørgsler"
+
+msgid "Hits by Response Code"
+msgstr "Forespørgsler fordelt på svarkoder"
+
+msgid "Hits per Day"
+msgstr "Forespørgsler pr. dag"
+
+msgid "Hits per Hour"
+msgstr "Forespørgsler pr. time"
+
+msgid "Honduras"
+msgstr "Honduras"
+
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+msgid "Hostname"
+msgstr "Navn/IP-adresse"
+
+msgid "Hostname for reports is"
+msgstr "Rapporterne ligger på maskinen med værtsnavnet"
+
+msgid "Hour"
+msgstr "Time"
+
+msgid "Hourly Statistics"
+msgstr "Timestatistik"
+
+msgid "Hourly Statistics for"
+msgstr "Timestatistik for"
+
+msgid "Hourly usage for"
+msgstr "Timefordelt tilgang -"
+
+msgid "Hungary"
+msgstr "Ungarn"
+
+msgid "Iceland"
+msgstr "Island"
+
+msgid "Ignoring previous history..."
+msgstr "Ignorerer tidligere historie ..."
+
+msgid "India"
+msgstr "Indien"
+
+msgid "Indonesia"
+msgstr "Indonesien"
+
+msgid "International (int)"
+msgstr "International (int)"
+
+msgid "Iran"
+msgstr "Iran"
+
+msgid "Iraq"
+msgstr "Irak"
+
+msgid "Ireland"
+msgstr "Irland"
+
+msgid "Israel"
+msgstr "Israel"
+
+msgid "Italy"
+msgstr "Italien"
+
+msgid "Jamaica"
+msgstr "Jamaica"
+
+msgid "Jan"
+msgstr "Jan"
+
+msgid "January"
+msgstr "Januar"
+
+msgid "Japan"
+msgstr "Japan"
+
+msgid "Jordan"
+msgstr "Jordan"
+
+msgid "Jul"
+msgstr "Jul"
+
+msgid "July"
+msgstr "Juli"
+
+msgid "Jun"
+msgstr "Jun"
+
+msgid "June"
+msgstr "Juni"
+
+msgid "KBytes"
+msgstr "kB"
+
+msgid "KBytes per Day"
+msgstr "kB pr. dag"
+
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+msgid "Kenya"
+msgstr "Kenya"
+
+msgid "Kiribati"
+msgstr "Kiribati"
+
+msgid "Korea (North)"
+msgstr "Korea (Nord-)"
+
+msgid "Korea (South)"
+msgstr "Korea (Syd-)"
+
+msgid "Kuwait"
+msgstr "Kuwait"
+
+msgid "Kyrgyzstan"
+msgstr "Kyrgyzstan"
+
+msgid "Laos"
+msgstr "Laos"
+
+msgid "Last 12 Months"
+msgstr "De sidste 12 måneder"
+
+msgid "Latvia"
+msgstr "Latvia"
+
+msgid "Lebanon"
+msgstr "Libanon"
+
+msgid "Lesotho"
+msgstr "Lesotho"
+
+msgid "Liberia"
+msgstr "Liberia"
+
+msgid "Libya"
+msgstr "Libyen"
+
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+msgid "Lithuania"
+msgstr "Litauen"
+
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
+msgid "Macau"
+msgstr "Macau"
+
+msgid "Macedonia"
+msgstr "Makedonien"
+
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+msgid "Malawi"
+msgstr "Malawi"
+
+msgid "Malaysia"
+msgstr "Malaysien"
+
+msgid "Maldives"
+msgstr "Maldiverne"
+
+msgid "Mali"
+msgstr "Mali"
+
+msgid "Malta"
+msgstr "Malta"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "March"
+msgstr "Marts"
+
+msgid "Marshall Islands"
+msgstr "Marshall-øerne"
+
+msgid "Martinique"
+msgstr "Martinique"
+
+msgid "Mauritania"
+msgstr "Mauritanien"
+
+msgid "Mauritius"
+msgstr "Mauritius"
+
+msgid "Max"
+msgstr "Maks"
+
+msgid "May"
+msgstr "Maj"
+
+msgid "Mayotte"
+msgstr "Mayotte"
+
+msgid "Mexico"
+msgstr "Mexico"
+
+msgid "Micronesia"
+msgstr "Mikronesien"
+
+msgid "Moldova"
+msgstr "Moldova"
+
+msgid "Monaco"
+msgstr "Monaco"
+
+msgid "Mongolia"
+msgstr "Mongolien"
+
+msgid "Month"
+msgstr "Måned"
+
+msgid "Monthly Statistics for"
+msgstr "Månedlig statistik for"
+
+msgid "Monthly Totals"
+msgstr "Sammenlagt pr. måned"
+
+msgid "Montserrat"
+msgstr "Montserrat"
+
+msgid "Morocco"
+msgstr "Marokko"
+
+msgid "Mozambique"
+msgstr "Mozambique"
+
+msgid "Myanmar"
+msgstr "Myanmar"
+
+msgid "Namibia"
+msgstr "Namibia"
+
+msgid "Nato field (nato)"
+msgstr "NATO-felt (nato)"
+
+msgid "Nauru"
+msgstr "Nauru"
+
+msgid "Nepal"
+msgstr "Nepal"
+
+msgid "Netherlands"
+msgstr "Holland"
+
+msgid "Netherlands Antilles"
+msgstr "De Hollandske Antiller"
+
+msgid "Network"
+msgstr "Netværk"
+
+msgid "Neutral Zone"
+msgstr "Neutral zone"
+
+msgid "New Caledonia"
+msgstr "Ny Kaledonien"
+
+msgid "New Zealand (Aotearoa)"
+msgstr "New Zealand (Aotearoa)"
+
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+msgid "Niger"
+msgstr "Niger"
+
+msgid "Nigeria"
+msgstr "Nigeria"
+
+msgid "Niue"
+msgstr "Niue"
+
+msgid "No cache file specified, aborting..."
+msgstr "No cache file specified, aborting..."
+
+msgid "No valid records found!"
+msgstr "Fandt ingen korrekte poster!"
+
+msgid "Non-Profit Organization"
+msgstr "Almennyttig organisation"
+
+msgid "None to process"
+msgstr "None to process"
+
+msgid "Norfolk Island"
+msgstr "Norfolk Island"
+
+msgid "Northern Mariana Islands"
+msgstr "Nord-Mariana-øerne"
+
+msgid "Norway"
+msgstr "Norge"
+
+msgid "Nov"
+msgstr "Nov"
+
+msgid "November"
+msgstr "November"
+
+msgid "Oct"
+msgstr "Okt"
+
+msgid "October"
+msgstr "Oktober"
+
+msgid "Old style Arpanet (arpa)"
+msgstr "Gammel Stil Arpanet (arpa)"
+
+msgid "Oman"
+msgstr "Oman"
+
+msgid "Other"
+msgstr "Andre"
+
+msgid "Pages"
+msgstr "Sider"
+
+msgid "Pages per Day"
+msgstr "Sider pr. dag"
+
+msgid "Pakistan"
+msgstr "Pakistan"
+
+msgid "Palau"
+msgstr "Palau"
+
+msgid "Panama"
+msgstr "Panama"
+
+msgid "Papua New Guinea"
+msgstr "Papua New Guinea"
+
+msgid "Paraguay"
+msgstr "Paraguay"
+
+msgid "Peru"
+msgstr "Peru"
+
+msgid "Philippines"
+msgstr "Filippinerne"
+
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+msgid "Poland"
+msgstr "Polen"
+
+msgid "Portugal"
+msgstr "Portugal"
+
+msgid "Previous run data not found..."
+msgstr "Tidligere kørselsdata ikke fundet..."
+
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+msgid "Qatar"
+msgstr "Qatar"
+
+msgid "Reading history file..."
+msgstr "Læser historiefil ..."
+
+msgid "Reading previous run data..."
+msgstr "Læser tidligere kørselsdata.."
+
+msgid "Referrer"
+msgstr "Henvisende side"
+
+msgid "Referrers"
+msgstr "Henvisende sider"
+
+msgid "Reunion"
+msgstr "Reunion"
+
+msgid "Romania"
+msgstr "Rumænien"
+
+msgid "Russian Federation"
+msgstr "Rusland"
+
+msgid "Rwanda"
+msgstr "Rwanda"
+
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "S. Georgia- og S. Sandwich-øerne"
+
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts og Nevis"
+
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent og the Grenadines"
+
+msgid "Samoa"
+msgstr "Samoa"
+
+msgid "San Marino"
+msgstr "San Marino"
+
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome og Principe"
+
+msgid "Saudi Arabia"
+msgstr "Saudi Arabien"
+
+msgid "Saving current run data..."
+msgstr "Gemmer aktive kørselsdata..."
+
+msgid "Saving history information..."
+msgstr "Gemmer historie-information ..."
+
+msgid "Search"
+msgstr "Søg"
+
+msgid "Search String"
+msgstr "Søgestreng"
+
+msgid "Senegal"
+msgstr "Senegal"
+
+msgid "Sep"
+msgstr "Sep"
+
+msgid "September"
+msgstr "September"
+
+msgid "Seychelles"
+msgstr "Seychellerne"
+
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+msgid "Singapore"
+msgstr "Singapore"
+
+msgid "Sites"
+msgstr "Gæster"
+
+msgid "Skipping Netscape header record"
+msgstr "Springer over post med Netscapes hoved"
+
+msgid "Skipping bad record"
+msgstr "Springer over forkert post"
+
+msgid "Slovak Republic"
+msgstr "Slovakiet"
+
+msgid "Slovenia"
+msgstr "Slovenien"
+
+msgid "Solomon Islands"
+msgstr "Salomon-øerne"
+
+msgid "Somalia"
+msgstr "Somalien"
+
+msgid "South Africa"
+msgstr "Sydafrika"
+
+msgid "Spain"
+msgstr "Spanien"
+
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+msgid "St. Helena"
+msgstr "St. Helena"
+
+msgid "St. Pierre and Miquelon"
+msgstr "St. Pierre og Miquelon"
+
+msgid "Sudan"
+msgstr "Sudan"
+
+msgid "Summary Period"
+msgstr "Opsummeringsperiode"
+
+msgid "Summary by Month"
+msgstr "Opsummering / måned"
+
+msgid "Suriname"
+msgstr "Suriname"
+
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Svalbard og Jan Mayen-øerne"
+
+msgid "Swaziland"
+msgstr "Swaziland"
+
+msgid "Sweden"
+msgstr "Sverige"
+
+msgid "Switzerland"
+msgstr "Schweitz"
+
+msgid "Syria"
+msgstr "Syrien"
+
+msgid "Taiwan"
+msgstr "Taiwan"
+
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+msgid "Tanzania"
+msgstr "Tanzania"
+
+msgid "Thailand"
+msgstr "Thailand"
+
+msgid "Togo"
+msgstr "Togo"
+
+msgid "Tokelau"
+msgstr "Tokelau"
+
+msgid "Tonga"
+msgstr "Tonga"
+
+msgid "Top"
+msgstr "Top"
+
+msgid "Total"
+msgstr ""
+
+msgid "Total Countries"
+msgstr "Lande"
+
+msgid "Total Entry Pages"
+msgstr "indgangsadresser"
+
+msgid "Total Exit Pages"
+msgstr "udgangsadresser"
+
+msgid "Total Files"
+msgstr "Filer"
+
+msgid "Total Hits"
+msgstr "Forespørgsler"
+
+msgid "Total KBytes"
+msgstr "kB"
+
+msgid "Total Referrers"
+msgstr "henvisende sider"
+
+msgid "Total Search Strings"
+msgstr "søgestrenge"
+
+msgid "Total Sites"
+msgstr "gæster"
+
+msgid "Total URLs"
+msgstr "adresser"
+
+msgid "Total Unique Referrers"
+msgstr "Unikke henvisende sider"
+
+msgid "Total Unique Sites"
+msgstr "Unikke gæster"
+
+msgid "Total Unique URLs"
+msgstr "Unikke adresser"
+
+msgid "Total Unique User Agents"
+msgstr "Unikke browsere"
+
+msgid "Total Unique Usernames"
+msgstr "Total Unique Usernames"
+
+msgid "Total User Agents"
+msgstr "browsere"
+
+msgid "Total Usernames"
+msgstr "Total Usernames"
+
+msgid "Totals"
+msgstr ""
+
+msgid "Trinidad and Tobago"
+msgstr "Trinidad og Tobago"
+
+msgid "Tunisia"
+msgstr "Tunisien"
+
+msgid "Turkey"
+msgstr "Tyrkiet"
+
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+msgid "Turks and Caicos Islands"
+msgstr "Turks og Caicos-øerne"
+
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "URLs"
+msgstr "URL"
+
+msgid "US Commercial"
+msgstr "USA (kommerciel)"
+
+msgid "US Educational"
+msgstr "USA (uddannelsesinstitution)"
+
+msgid "US Government"
+msgstr "USA (regeringen)"
+
+msgid "US Military"
+msgstr "USA (militæret)"
+
+msgid "US Minor Outlying Islands"
+msgstr "USA's mindre, ydre øer"
+
+msgid "USSR (former)"
+msgstr "USSR (det tidligere)"
+
+msgid "Uganda"
+msgstr "Uganda"
+
+msgid "Ukraine"
+msgstr "Ukraine"
+
+msgid "Undefined response code"
+msgstr "Uidentificeret svar Kode"
+
+msgid "United Arab Emirates"
+msgstr "De Forenede Arabiske Emirater"
+
+msgid "United Kingdom"
+msgstr "England"
+
+msgid "United States"
+msgstr "USA"
+
+msgid "Unresolved/Unknown"
+msgstr "Ukendt"
+
+msgid "Uruguay"
+msgstr "Uruguay"
+
+msgid "Usage"
+msgstr "Anvendelse"
+
+msgid "Usage Statistics for"
+msgstr "Webstatistik for"
+
+msgid "Usage by Country for"
+msgstr "Forespørgsler fordelt på lande for"
+
+msgid "Usage summary for"
+msgstr "Tilgang til"
+
+msgid "User Agent"
+msgstr "Browser"
+
+msgid "Username"
+msgstr "Username"
+
+msgid "Users"
+msgstr "Users"
+
+msgid "Using DNS cache file"
+msgstr "Using DNS cache file"
+
+msgid "Using logfile"
+msgstr "Anvender logfil"
+
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+msgid "Vatican City State (Holy See)"
+msgstr "Vatikanstaten"
+
+msgid "Venezuela"
+msgstr "Venezuela"
+
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+msgid "View All Referrers"
+msgstr "View All Referrers"
+
+msgid "View All Search Strings"
+msgstr "View All Search Strings"
+
+msgid "View All Sites"
+msgstr "View All Sites"
+
+msgid "View All URLs"
+msgstr "View All URLs"
+
+msgid "View All User Agents"
+msgstr "View All User Agents"
+
+msgid "View All Usernames"
+msgstr "View All Usernames"
+
+msgid "Virgin Islands (British)"
+msgstr "Jomfruøerne (de britiske)"
+
+msgid "Virgin Islands (U.S.)"
+msgstr "Jomfruøerne (de amerikanske)"
+
+msgid "Visits"
+msgstr "Besøg"
+
+msgid "Visits per Day"
+msgstr "Besøg pr. dag"
+
+msgid "Wallis and Futuna Islands"
+msgstr "Wallis og Futuna-øerne"
+
+msgid "Warning: Invalid keyword"
+msgstr "Advarsel: Forkert nøgleord"
+
+msgid "Warning: Possible duplicate data found"
+msgstr "Advarsel: Mulige dobbelte data fundet"
+
+msgid "Warning: String exceeds storage size"
+msgstr "Advarsel: Strengen overstiger maksimum"
+
+msgid "Warning: Truncating oversized date field"
+msgstr "Advarsel: Afkorter strengen (for stort datofelt)"
+
+msgid "Warning: Truncating oversized hostname"
+msgstr "Advarsel: Afkorter strengen (for stort værtsnavn)"
+
+msgid "Warning: Truncating oversized referrer field"
+msgstr "Advarsel: Afkorter strengen (for stort henvisende side-felt)"
+
+msgid "Warning: Truncating oversized request field"
+msgstr "Advarsel: Afkorter strengen (for stort forespørgsel-felt)"
+
+msgid "Warning: Truncating oversized username"
+msgstr "Warning: Truncating oversized username"
+
+msgid "Western Sahara"
+msgstr "Vest-Sahara"
+
+msgid "Yemen"
+msgstr "Yemen"
+
+msgid "Yugoslavia"
+msgstr "Jugoslavien"
+
+msgid "Zaire"
+msgstr "Zaire"
+
+msgid "Zambia"
+msgstr "Zambia"
+
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+msgid "[options] [log file]"
+msgstr "[parametre] [logfil]"
+
+msgid "addresses"
+msgstr "addresses"
+
+msgid "bad"
+msgstr "fejlagtige"
+
+msgid "current directory"
+msgstr "aktivt bibliotek"
+
+msgid "ignored"
+msgstr "ignorerede"
+
+msgid "in"
+msgstr "på"
+
+msgid "of"
+msgstr "af"
+
+msgid "records"
+msgstr "poster"
+
+msgid "seconds"
+msgstr "sekunder"

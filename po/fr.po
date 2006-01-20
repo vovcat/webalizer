@@ -1,0 +1,1497 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"PO-Revision-Date: 2003-05-25 23:29+0200\n"
+"Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
+"Language-Team: French <tech@jexiste.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit"
+
+msgid "-A num    = Display num top agents"
+msgstr "-A num    = Display num top agents"
+
+msgid "-C num    = Display num top countries"
+msgstr "-C num    = Display num top countries"
+
+msgid "-D name   = Use DNS Cache file 'name'"
+msgstr "-D name   = Use DNS Cache file 'name'"
+
+msgid "-E num    = Display num top Exit Pages"
+msgstr "-E num    = Display num top Exit Pages"
+
+msgid "-F type   = Log type.  type= (clf | ftp | squid)"
+msgstr "-F type   = Log type.  type= (clf | ftp | squid)"
+
+msgid "-G        = supress hourly graph"
+msgstr "-G        = supress hourly graph"
+
+msgid "-H        = supress hourly stats"
+msgstr "-H        = supress hourly stats"
+
+msgid "-I name   = Index alias 'name'"
+msgstr "-I name   = Index alias 'name'"
+
+msgid "-L        = supress color coded graph legends"
+msgstr "-L        = supress color coded graph legends"
+
+msgid "-N num    = Number of DNS processes (0=disable)"
+msgstr "-N num    = Number of DNS processes (0=disable)"
+
+msgid "-P name   = Page type extension 'name'"
+msgstr "-P name   = Page type extension 'name'"
+
+msgid "-Q        = supress _ALL_ messages"
+msgstr "-Q        = supress _ALL_ messages"
+
+msgid "-R num    = Display num top referrers"
+msgstr "-R num    = Display num top referrers"
+
+msgid "-S num    = Display num top sites"
+msgstr "-S num    = Display num top sites"
+
+msgid "-T        = print timing information"
+msgstr "-T        = print timing information"
+
+msgid "-U num    = Display num top URLs"
+msgstr "-U num    = Display num top URLs"
+
+msgid "-X        = Hide individual sites"
+msgstr "-X        = Hide individual sites"
+
+msgid "-Y        = supress country graph"
+msgstr "-Y        = supress country graph"
+
+msgid "-a name   = hide user agent 'name'"
+msgstr "-a name   = hide user agent 'name'"
+
+msgid "-c file   = use configuration file 'file'"
+msgstr "-c file   = use configuration file 'file'"
+
+msgid "-d        = print additional debug info"
+msgstr "-d        = print additional debug info"
+
+msgid "-e num    = Display num top Entry Pages"
+msgstr "-e num    = Display num top Entry Pages"
+
+msgid "-f        = Fold sequence errors"
+msgstr "-f        = fold sequence errors"
+
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr "-g num    = Group Domains to 'num' levels"
+
+msgid "-h        = print this help message"
+msgstr "-h        = print this help message"
+
+msgid "-i        = ignore history file"
+msgstr "-i        = ignore history file"
+
+msgid "-l num    = use num background lines on graph"
+msgstr "-l num    = use num background lines on graph"
+
+msgid "-m num    = Visit timout value (seconds)"
+msgstr "-m num    = Visit timeout value (seconds)"
+
+msgid "-n name   = hostname to use"
+msgstr "-n name   = hostname to use"
+
+msgid "-o dir    = output directory to use"
+msgstr "-o dir    = output directory to use"
+
+msgid "-p        = preserve state (incremental)"
+msgstr "-p        = preserve state (incremental)"
+
+msgid "-q        = supress informational messages"
+msgstr "-q        = supress informational messages"
+
+msgid "-r name   = hide referrer 'name'"
+msgstr "-r name   = hide referrer 'name'"
+
+msgid "-s name   = hide site 'name'"
+msgstr "-s name   = hide site 'name'"
+
+msgid "-t name   = report title 'name'"
+msgstr "-t name   = report title 'name'"
+
+msgid "-u name   = hide URL 'name'"
+msgstr "-u name   = hide URL 'name'"
+
+msgid "-v -V     = print version information"
+msgstr "-v -V     = print version information"
+
+msgid "-x name   = Use filename extension 'name'"
+msgstr "-x name   = use filename extension 'name'"
+
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+msgid "Agents"
+msgstr "Navigateurs"
+
+msgid "Albania"
+msgstr "Albanie"
+
+msgid "Algeria"
+msgstr "Algerie"
+
+msgid "American Samoa"
+msgstr "Samoa Americaines"
+
+msgid "Andorra"
+msgstr "Andorre"
+
+msgid "Angola"
+msgstr "Angola"
+
+msgid "Anguilla"
+msgstr "Anguilla"
+
+msgid "Antarctica"
+msgstr "Antarctique"
+
+msgid "Antigua and Barbuda"
+msgstr "Antigua et Barbuda"
+
+msgid "Apr"
+msgstr "Avr"
+
+msgid "April"
+msgstr "Avril"
+
+msgid "Argentina"
+msgstr "Argentine"
+
+msgid "Armenia"
+msgstr "Armenie"
+
+msgid "Aruba"
+msgstr "Aruba"
+
+msgid "Aug"
+msgstr "Aou"
+
+msgid "August"
+msgstr "Aout"
+
+msgid "Australia"
+msgstr "Australie"
+
+msgid "Austria"
+msgstr "Autriche"
+
+msgid "Avg"
+msgstr "Moy."
+
+msgid "Azerbaijan"
+msgstr "Azerbaidjan"
+
+msgid "Bahamas"
+msgstr "Bahamas"
+
+msgid "Bahrain"
+msgstr "Bahrein"
+
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+msgid "Barbados"
+msgstr "Barbades"
+
+msgid "Belarus"
+msgstr "Bielorussie"
+
+msgid "Belgium"
+msgstr "Belgique"
+
+msgid "Belize"
+msgstr "Belize"
+
+msgid "Benin"
+msgstr "Benin"
+
+msgid "Bermuda"
+msgstr "Bermudes"
+
+msgid "Bhutan"
+msgstr "Bhoutan"
+
+msgid "Bolivia"
+msgstr "Bolivie"
+
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnie Herzegovine"
+
+msgid "Botswana"
+msgstr "Botswana"
+
+msgid "Bouvet Island"
+msgstr "Ile Bouvet"
+
+msgid "Brazil"
+msgstr "Bresil"
+
+msgid "British Indian Ocean Territory"
+msgstr "Territ. Britannique Ocean Indien"
+
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+msgid "Bulgaria"
+msgstr "Bulgarie"
+
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+msgid "Burundi"
+msgstr "Burundi"
+
+msgid "By"
+msgstr "par"
+
+msgid "Cambodia"
+msgstr "Cambodge"
+
+msgid "Cameroon"
+msgstr "Cameroun"
+
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr "Can't allocate enough memory, Top Countries disabled!"
+
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr "Can't allocate enough memory, Top Referrers disabled!"
+
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr "Can't allocate enough memory, Top Search Strings disabled!"
+
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr "Can't allocate enough memory, Top Sites disabled!"
+
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr "Can't allocate enough memory, Top URLs disabled!"
+
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr "Can't allocate enough memory, Top User Agents disabled!"
+
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr "Can't allocate enough memory, Top Usernames disabled!"
+
+msgid "Canada"
+msgstr "Canada"
+
+msgid "Cape Verde"
+msgstr "Cap Vert"
+
+msgid "Cayman Islands"
+msgstr "Iles Caimans"
+
+msgid "Central African Republic"
+msgstr "Republique Centrafricaine"
+
+msgid "Chad"
+msgstr "Tchad"
+
+msgid "Chile"
+msgstr "Chili"
+
+msgid "China"
+msgstr "Chine"
+
+msgid "Christmas Island"
+msgstr "Ile Christmas"
+
+msgid "Cocos (Keeling) Islands"
+msgstr "Iles Cocos (Keeling)"
+
+msgid "Code 100 - Continue"
+msgstr "Code 100 - Continue"
+
+msgid "Code 101 - Switching Protocols"
+msgstr "Code 101 - Switching Protocols"
+
+msgid "Code 200 - OK"
+msgstr "Code 200 - OK"
+
+msgid "Code 201 - Created"
+msgstr "Code 201 - Created"
+
+msgid "Code 202 - Accepted"
+msgstr "Code 202 - Accepted"
+
+msgid "Code 203 - Non-Authoritative Information"
+msgstr "Code 203 - Non-Authoritative Information"
+
+msgid "Code 204 - No Content"
+msgstr "Code 204 - No Content"
+
+msgid "Code 205 - Reset Content"
+msgstr "Code 205 - Reset Content"
+
+msgid "Code 206 - Partial Content"
+msgstr "Code 206 - Partial Content"
+
+msgid "Code 300 - Multiple Choices"
+msgstr "Code 300 - Multiple Choices"
+
+msgid "Code 301 - Moved Permanently"
+msgstr "Code 301 - Moved Permanently"
+
+msgid "Code 302 - Found"
+msgstr "Code 302 - Found"
+
+msgid "Code 303 - See Other"
+msgstr "Code 303 - See Other"
+
+msgid "Code 304 - Not Modified"
+msgstr "Code 304 - Not Modified"
+
+msgid "Code 305 - Use Proxy"
+msgstr "Code 305 - Use Proxy"
+
+msgid "Code 307 - Moved Temporarily"
+msgstr "Code 307 - Moved Temporarily"
+
+msgid "Code 400 - Bad Request"
+msgstr "Code 400 - Bad Request"
+
+msgid "Code 401 - Unauthorized"
+msgstr "Code 401 - Unauthorized"
+
+msgid "Code 402 - Payment Required"
+msgstr "Code 402 - Payment Required"
+
+msgid "Code 403 - Forbidden"
+msgstr "Code 403 - Forbidden"
+
+msgid "Code 404 - Not Found"
+msgstr "Code 404 - Not Found"
+
+msgid "Code 405 - Method Not Allowed"
+msgstr "Code 405 - Method Not Allowed"
+
+msgid "Code 406 - Not Acceptable"
+msgstr "Code 406 - Not Acceptable"
+
+msgid "Code 407 - Proxy Authentication Required"
+msgstr "Code 407 - Proxy Authentication Required"
+
+msgid "Code 408 - Request Timeout"
+msgstr "Code 408 - Request Timeout"
+
+msgid "Code 409 - Conflict"
+msgstr "Code 409 - Conflict"
+
+msgid "Code 410 - Gone"
+msgstr "Code 410 - Gone"
+
+msgid "Code 411 - Length Required"
+msgstr "Code 411 - Length Required"
+
+msgid "Code 412 - Precondition Failed"
+msgstr "Code 412 - Precondition Failed"
+
+msgid "Code 413 - Request Entity Too Large"
+msgstr "Code 413 - Request Entity Too Large"
+
+msgid "Code 414 - Request-URI Too Long"
+msgstr "Code 414 - Request-URI Too Long"
+
+msgid "Code 415 - Unsupported Media Type"
+msgstr "Code 415 - Unsupported Media Type"
+
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr "Code 416 - Requested Range Not Satisfiable"
+
+msgid "Code 417 - Expectation Failed"
+msgstr "Code 417 - Expectation Failed"
+
+msgid "Code 500 - Internal Server Error"
+msgstr "Code 500 - Internal Server Error"
+
+msgid "Code 501 - Not Implemented"
+msgstr "Code 501 - Not Implemented"
+
+msgid "Code 502 - Bad Gateway"
+msgstr "Code 502 - Bad Gateway"
+
+msgid "Code 503 - Service Unavailable"
+msgstr "Code 503 - Service Unavailable"
+
+msgid "Code 504 - Gateway Timeout"
+msgstr "Code 504 - Gateway Timeout"
+
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr "Code 505 - HTTP Version Not Supported"
+
+msgid "Colombia"
+msgstr "Colombie"
+
+msgid "Comoros"
+msgstr "Comores"
+
+msgid "Congo"
+msgstr "Congo"
+
+msgid "Cook Islands"
+msgstr "Iles Cook"
+
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "Cote D'Ivoire"
+
+msgid "Countries"
+msgstr "Pays"
+
+msgid "Country"
+msgstr "Pays"
+
+msgid "Creating output in"
+msgstr "Creating output in"
+
+msgid "Croatia (Hrvatska)"
+msgstr "Croatie (Hrvatska)"
+
+msgid "Cuba"
+msgstr "Cuba"
+
+msgid "Cyprus"
+msgstr "Chypre"
+
+msgid "Czech Republic"
+msgstr "Republique Tcheque"
+
+msgid "Czechoslovakia (former)"
+msgstr "Tchecoslovaquie (ancien)"
+
+msgid "DNS Lookup"
+msgstr "DNS Lookup"
+
+msgid "Daily Avg"
+msgstr "Moyenne journali&egrave;re"
+
+msgid "Daily Statistics"
+msgstr "Statistiques journali&egrave;res"
+
+msgid "Daily Statistics for"
+msgstr "Statistiques journali&egrave;res pour"
+
+msgid "Daily usage for"
+msgstr "Acces journalier pour"
+
+msgid "Day"
+msgstr "Jour"
+
+msgid "Dec"
+msgstr "Dec"
+
+msgid "December"
+msgstr "Decembre"
+
+msgid "Denmark"
+msgstr "Danemark"
+
+msgid "Djibouti"
+msgstr "Djibouti"
+
+msgid "Dominica"
+msgstr "Dominique"
+
+msgid "Dominican Republic"
+msgstr "Republique Dominicaine"
+
+msgid "East Timor"
+msgstr "Timor Oriental"
+
+msgid "Ecuador"
+msgstr "Equateur"
+
+msgid "Egypt"
+msgstr "Egypte"
+
+msgid "El Salvador"
+msgstr "Salvador"
+
+msgid "English"
+msgstr "French"
+
+msgid "Entry"
+msgstr "Pages d'entr&eacute;e"
+
+msgid "Equatorial Guinea"
+msgstr "Guinee Equatoriale"
+
+msgid "Eritrea"
+msgstr "Erythree"
+
+msgid "Error adding Referrer node, skipping"
+msgstr "Error adding Referrer node, skipping"
+
+msgid "Error adding Search String Node, skipping"
+msgstr "Error adding Search String node, skipping"
+
+msgid "Error adding URL node, skipping"
+msgstr "Error adding URL node, skipping"
+
+msgid "Error adding User Agent node, skipping"
+msgstr "Error adding User Agent node, skipping"
+
+msgid "Error adding Username node, skipping"
+msgstr "Error adding Username node, skipping"
+
+msgid "Error adding host node (daily), skipping"
+msgstr "Error adding host node (daily), skipping"
+
+msgid "Error adding host node (monthly), skipping"
+msgstr "Error adding host node (monthly), skipping"
+
+msgid "Error: Can't change directory to"
+msgstr "Error: Can't change directory to"
+
+msgid "Error: Can't open log file"
+msgstr "Error: Can't open log file"
+
+msgid "Error: Ignoring invalid history record"
+msgstr "Error: Ignoring invalid history record"
+
+msgid "Warning: Skipping oversized log record"
+msgstr "Error: Skipping oversized log record"
+
+msgid "Error: Skipping record (bad date)"
+msgstr "Error: Skipping record (bad date)"
+
+msgid "Error: Unable to lock DNS cache file"
+msgstr "Error: Unable to lock DNS cache file"
+
+msgid "Error: Unable to open DNS cache file"
+msgstr "Error: Unable to open DNS cache file"
+
+msgid "Error: Unable to open configuration file"
+msgstr "Error: Unable to open configuration file"
+
+msgid "Error: Unable to open file"
+msgstr "Error: Unable to open file"
+
+msgid "Error: Unable to restore run data"
+msgstr "Error: Unable to restore run data"
+
+msgid "Error: Unable to save current run data"
+msgstr "Error: Unable to save current run data"
+
+msgid "Error: Unable to write history file"
+msgstr "Error: Unable to write history file"
+
+msgid "Estonia"
+msgstr "Estonie"
+
+msgid "Ethiopia"
+msgstr "Ethiopie"
+
+msgid "Exit"
+msgstr "Pages de sortie"
+
+msgid "Falkland Islands (Malvinas)"
+msgstr "Iles Falkland (Malouines)"
+
+msgid "Faroe Islands"
+msgstr "Iles Feroes"
+
+msgid "Feb"
+msgstr "Fev"
+
+msgid "February"
+msgstr "Fevrier"
+
+msgid "Fiji"
+msgstr "Fidji"
+
+msgid "Files"
+msgstr "Fichiers"
+
+msgid "Files per Day"
+msgstr "Fichiers par Jour"
+
+msgid "Finland"
+msgstr "Finlande"
+
+msgid "France"
+msgstr "France"
+
+msgid "France; Metropolitan"
+msgstr "France Metropolitaine"
+
+msgid "French Guiana"
+msgstr "Guyane Francaise"
+
+msgid "French Polynesia"
+msgstr "Polynesie Francaise"
+
+msgid "French Southern Territories"
+msgstr "Terres Australes Antarctiques Fr"
+
+msgid "Gabon"
+msgstr "Gabon"
+
+msgid "Gambia"
+msgstr "Gambie"
+
+msgid "Generated"
+msgstr "G&eacute;n&eacute;r&eacute; le"
+
+msgid "Generating report for"
+msgstr "Generating report for"
+
+msgid "Generating summary report"
+msgstr "Generating summary report"
+
+msgid "Georgia"
+msgstr "Georgie"
+
+msgid "Germany"
+msgstr "Allemagne"
+
+msgid "Ghana"
+msgstr "Ghana"
+
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+msgid "Great Britain (UK)"
+msgstr "Grande Bretagne (UK)"
+
+msgid "Greece"
+msgstr "Grece"
+
+msgid "Greenland"
+msgstr "Groenland"
+
+msgid "Grenada"
+msgstr "Grenade"
+
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+msgid "Guam"
+msgstr "Guam"
+
+msgid "Guatemala"
+msgstr "Guatemala"
+
+msgid "Guinea"
+msgstr "Guinee"
+
+msgid "Guinea-Bissau"
+msgstr "Guinee-Bissau"
+
+msgid "Guyana"
+msgstr "Guyane"
+
+msgid "Haiti"
+msgstr "Haiti"
+
+msgid "Heard and McDonald Islands"
+msgstr "Iles Heard et McDonald"
+
+msgid "History file not found..."
+msgstr "History file not found..."
+
+msgid "Hits"
+msgstr "Hits"
+
+msgid "Hits by Response Code"
+msgstr "Hits par code de r&eacute;ponse"
+
+msgid "Hits per Day"
+msgstr "Hits par Jour"
+
+msgid "Hits per Hour"
+msgstr "Hits par Heure"
+
+msgid "Honduras"
+msgstr "Honduras"
+
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+msgid "Hostname"
+msgstr "Nom d'h&ocirc;te"
+
+msgid "Hostname for reports is"
+msgstr "Hostname for reports is"
+
+msgid "Hour"
+msgstr "Heure"
+
+msgid "Hourly Statistics"
+msgstr "Statistiques horaires"
+
+msgid "Hourly Statistics for"
+msgstr "Statistiques horaires pour"
+
+msgid "Hourly usage for"
+msgstr "Acces horaire pour"
+
+msgid "Hungary"
+msgstr "Hongrie"
+
+msgid "Iceland"
+msgstr "Islande"
+
+msgid "Ignoring previous history..."
+msgstr "Ignoring previous history..."
+
+msgid "India"
+msgstr "Inde"
+
+msgid "Indonesia"
+msgstr "Indonesie"
+
+msgid "International (int)"
+msgstr "International (int)"
+
+msgid "Iran"
+msgstr "Iran"
+
+msgid "Iraq"
+msgstr "Iraq"
+
+msgid "Ireland"
+msgstr "Irlande"
+
+msgid "Israel"
+msgstr "Israel"
+
+msgid "Italy"
+msgstr "Italie"
+
+msgid "Jamaica"
+msgstr "Jamaique"
+
+msgid "Jan"
+msgstr "Jan"
+
+msgid "January"
+msgstr "Janvier"
+
+msgid "Japan"
+msgstr "Japon"
+
+msgid "Jordan"
+msgstr "Jordanie"
+
+msgid "Jul"
+msgstr "Juil"
+
+msgid "July"
+msgstr "Juillet"
+
+msgid "Jun"
+msgstr "Juin"
+
+msgid "June"
+msgstr "Juin"
+
+msgid "KBytes"
+msgstr "Ko"
+
+msgid "KBytes per Day"
+msgstr "KOctets par Jour"
+
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+msgid "Kenya"
+msgstr "Kenya"
+
+msgid "Kiribati"
+msgstr "Kiribati"
+
+msgid "Korea (North)"
+msgstr "Coree (Nord)"
+
+msgid "Korea (South)"
+msgstr "Coree (Sud)"
+
+msgid "Kuwait"
+msgstr "Koweit"
+
+msgid "Kyrgyzstan"
+msgstr "Kirghizistan"
+
+msgid "Laos"
+msgstr "Laos"
+
+msgid "Last 12 Months"
+msgstr "12 derniers mois"
+
+msgid "Latvia"
+msgstr "Lettonie (Latvija)"
+
+msgid "Lebanon"
+msgstr "Liban"
+
+msgid "Lesotho"
+msgstr "Lesotho"
+
+msgid "Liberia"
+msgstr "Liberia"
+
+msgid "Libya"
+msgstr "Libye"
+
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+msgid "Lithuania"
+msgstr "Lituanie"
+
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
+msgid "Macau"
+msgstr "Macao"
+
+msgid "Macedonia"
+msgstr "Macedoine"
+
+msgid "Madagascar"
+msgstr "Madagascar"
+
+msgid "Malawi"
+msgstr "Malawi"
+
+msgid "Malaysia"
+msgstr "Malaisie"
+
+msgid "Maldives"
+msgstr "Maldives"
+
+msgid "Mali"
+msgstr "Mali"
+
+msgid "Malta"
+msgstr "Malte"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "Marshall Islands"
+msgstr "Iles Marshall"
+
+msgid "Martinique"
+msgstr "Martinique"
+
+msgid "Mauritania"
+msgstr "Mauritanie"
+
+msgid "Mauritius"
+msgstr "Ile Maurice"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "Mayotte"
+msgstr "Mayotte"
+
+msgid "Mexico"
+msgstr "Mexique"
+
+msgid "Micronesia"
+msgstr "Micronesie"
+
+msgid "Moldova"
+msgstr "Moldavie"
+
+msgid "Monaco"
+msgstr "Monaco"
+
+msgid "Mongolia"
+msgstr "Mongolie"
+
+msgid "Month"
+msgstr "Mois"
+
+msgid "Monthly Statistics for"
+msgstr "Statistiques mensuelles pour"
+
+msgid "Monthly Totals"
+msgstr "Totaux mensuels"
+
+msgid "Montserrat"
+msgstr "Montserrat"
+
+msgid "Morocco"
+msgstr "Maroc"
+
+msgid "Mozambique"
+msgstr "Mozambique"
+
+msgid "Myanmar"
+msgstr "Birmanie (Myanmar)"
+
+msgid "Namibia"
+msgstr "Namibie"
+
+msgid "Nato field (nato)"
+msgstr "OTAN (.nato)"
+
+msgid "Nauru"
+msgstr "Nauru"
+
+msgid "Nepal"
+msgstr "Nepal"
+
+msgid "Netherlands"
+msgstr "Pays Bas"
+
+msgid "Netherlands Antilles"
+msgstr "Antilles Neerlandaises"
+
+msgid "Network"
+msgstr "Network (.net)"
+
+msgid "Neutral Zone"
+msgstr "Zone Neutre"
+
+msgid "New Caledonia"
+msgstr "Nouvelle Caledonie"
+
+msgid "New Zealand (Aotearoa)"
+msgstr "Nouvelle Zelande (Aotearoa)"
+
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+msgid "Niger"
+msgstr "Niger"
+
+msgid "Nigeria"
+msgstr "Nigeria"
+
+msgid "Niue"
+msgstr "Nioue"
+
+msgid "No cache file specified, aborting..."
+msgstr "No cache file specified, aborting..."
+
+msgid "No valid records found!"
+msgstr "No valid records found!"
+
+msgid "Non-Profit Organization"
+msgstr "Organisations Non-commerciales (.org)"
+
+msgid "None to process"
+msgstr "None to process"
+
+msgid "Norfolk Island"
+msgstr "Ile Norfolk"
+
+msgid "Northern Mariana Islands"
+msgstr "Iles Mariannes Nord"
+
+msgid "Norway"
+msgstr "Norvege"
+
+msgid "Nov"
+msgstr "Nov"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "Oct"
+msgstr "Oct"
+
+msgid "October"
+msgstr "Octobre"
+
+msgid "Old style Arpanet (arpa)"
+msgstr "Ancien style Arpanet (arpa)"
+
+msgid "Oman"
+msgstr "Oman"
+
+msgid "Other"
+msgstr "Autre"
+
+msgid "Pages"
+msgstr "Pages"
+
+msgid "Pages per Day"
+msgstr "Pages par Jour"
+
+msgid "Pakistan"
+msgstr "Pakistan"
+
+msgid "Palau"
+msgstr "Palau"
+
+msgid "Panama"
+msgstr "Panama"
+
+msgid "Papua New Guinea"
+msgstr "Papouasie Nouvelle Guinee"
+
+msgid "Paraguay"
+msgstr "Paraguay"
+
+msgid "Peru"
+msgstr "Perou"
+
+msgid "Philippines"
+msgstr "Philippines"
+
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+msgid "Poland"
+msgstr "Pologne"
+
+msgid "Portugal"
+msgstr "Portugal"
+
+msgid "Previous run data not found..."
+msgstr "Previous run data not found..."
+
+msgid "Puerto Rico"
+msgstr "Porto Rico"
+
+msgid "Qatar"
+msgstr "Qatar"
+
+msgid "Reading history file..."
+msgstr "Reading history file..."
+
+msgid "Reading previous run data..."
+msgstr "Reading previous run data..."
+
+msgid "Referrer"
+msgstr "R&eacute;f&eacute;rent"
+
+msgid "Referrers"
+msgstr "R&eacute;f&eacute;rents"
+
+msgid "Reunion"
+msgstr "Reunion"
+
+msgid "Romania"
+msgstr "Roumanie"
+
+msgid "Russian Federation"
+msgstr "Russie"
+
+msgid "Rwanda"
+msgstr "Rwanda"
+
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "Georgie et Iles Sandwich du Sud"
+
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Christophe et Nevis"
+
+msgid "Saint Lucia"
+msgstr "Sainte Lucie"
+
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent et Grenadines"
+
+msgid "Samoa"
+msgstr "Samoa Occidentales"
+
+msgid "San Marino"
+msgstr "Saint Marin"
+
+msgid "Sao Tome and Principe"
+msgstr "Saint Thomas et Prince"
+
+msgid "Saudi Arabia"
+msgstr "Arabie Saoudite"
+
+msgid "Saving current run data..."
+msgstr "Saving current run data..."
+
+msgid "Saving history information..."
+msgstr "Saving history information..."
+
+msgid "Search"
+msgstr "Mots-cl&eacute;s"
+
+msgid "Search String"
+msgstr "Mots-cl&eacute;s"
+
+msgid "Senegal"
+msgstr "Senegal"
+
+msgid "Sep"
+msgstr "Sep"
+
+msgid "September"
+msgstr "Septembre"
+
+msgid "Seychelles"
+msgstr "Seychelles"
+
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+msgid "Singapore"
+msgstr "Singapour"
+
+msgid "Sites"
+msgstr "Sites"
+
+msgid "Skipping Netscape header record"
+msgstr "Skipping Netscape header record"
+
+msgid "Skipping bad record"
+msgstr "Skipping bad record"
+
+msgid "Slovak Republic"
+msgstr "Slovaquie"
+
+msgid "Slovenia"
+msgstr "Slovenie"
+
+msgid "Solomon Islands"
+msgstr "Iles Salomon"
+
+msgid "Somalia"
+msgstr "Somalie"
+
+msgid "South Africa"
+msgstr "Afrique du Sud"
+
+msgid "Spain"
+msgstr "Espagne"
+
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+msgid "St. Helena"
+msgstr "Sainte Helene"
+
+msgid "St. Pierre and Miquelon"
+msgstr "Saint Pierre et Miquelon"
+
+msgid "Sudan"
+msgstr "Soudan"
+
+msgid "Summary Period"
+msgstr "P&eacute;riode du r&eacute;sum&eacute;"
+
+msgid "Summary by Month"
+msgstr "R&eacute;sum&eacute; par mois"
+
+msgid "Suriname"
+msgstr "Suriname"
+
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Iles Svalbard et Jan Mayen"
+
+msgid "Swaziland"
+msgstr "Swaziland"
+
+msgid "Sweden"
+msgstr "Suede"
+
+msgid "Switzerland"
+msgstr "Suisse"
+
+msgid "Syria"
+msgstr "Syrie"
+
+msgid "Taiwan"
+msgstr "Taiwan"
+
+msgid "Tajikistan"
+msgstr "Tadjikistan"
+
+msgid "Tanzania"
+msgstr "Tanzanie"
+
+msgid "Thailand"
+msgstr "Thailande"
+
+msgid "Togo"
+msgstr "Togo"
+
+msgid "Tokelau"
+msgstr "Tokelau"
+
+msgid "Tonga"
+msgstr "Tonga"
+
+msgid "Top"
+msgstr "Top"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Total Countries"
+msgstr "pays"
+
+msgid "Total Entry Pages"
+msgstr "pages d'entr&eacute;e"
+
+msgid "Total Exit Pages"
+msgstr "pages de sortie"
+
+msgid "Total Files"
+msgstr "Total des Fichiers"
+
+msgid "Total Hits"
+msgstr "Total des Hits"
+
+msgid "Total KBytes"
+msgstr "Total des Ko"
+
+msgid "Total Referrers"
+msgstr "r&eacute;f&eacute;rents"
+
+msgid "Total Search Strings"
+msgstr "groupes de mots-cl&eacute;s"
+
+msgid "Total Sites"
+msgstr "sites"
+
+msgid "Total URLs"
+msgstr "URLs"
+
+msgid "Total Unique Referrers"
+msgstr "Total des R&eacute;f&eacute;rents uniques"
+
+msgid "Total Unique Sites"
+msgstr "Total des Sites uniques"
+
+msgid "Total Unique URLs"
+msgstr "Total des URLs uniques"
+
+msgid "Total Unique User Agents"
+msgstr "Total des Navigateurs"
+
+msgid "Total Unique Usernames"
+msgstr "Total des utilisateurs uniques"
+
+msgid "Total User Agents"
+msgstr "navigateurs"
+
+msgid "Total Usernames"
+msgstr "utilisateurs"
+
+msgid "Totals"
+msgstr "Totaux"
+
+msgid "Trinidad and Tobago"
+msgstr "Trinite et Tobago"
+
+msgid "Tunisia"
+msgstr "Tunisie"
+
+msgid "Turkey"
+msgstr "Turquie"
+
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+msgid "Turks and Caicos Islands"
+msgstr "Iles Turks et Caiques"
+
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "URLs"
+msgstr "URLs"
+
+msgid "US Commercial"
+msgstr "US Commercial (.com)"
+
+msgid "US Educational"
+msgstr "US Enseignement (.edu)"
+
+msgid "US Government"
+msgstr "US Gouvernement (.gov)"
+
+msgid "US Military"
+msgstr "US Militaire (.mil)"
+
+msgid "US Minor Outlying Islands"
+msgstr "US Minor Outlying Islands"
+
+msgid "USSR (former)"
+msgstr "URSS (ancien)"
+
+msgid "Uganda"
+msgstr "Ouganda"
+
+msgid "Ukraine"
+msgstr "Ukraine"
+
+msgid "Undefined response code"
+msgstr "Undefined response code"
+
+msgid "United Arab Emirates"
+msgstr "Emirats Arabes Unis"
+
+msgid "United Kingdom"
+msgstr "Royaume-Uni"
+
+msgid "United States"
+msgstr "Etats Unis"
+
+msgid "Unresolved/Unknown"
+msgstr "Non-resolu/Inconnu"
+
+msgid "Uruguay"
+msgstr "Uruguay"
+
+msgid "Usage"
+msgstr "Usage"
+
+msgid "Usage Statistics for"
+msgstr "Statistiques d'acc&egrave;s &agrave;"
+
+msgid "Usage by Country for"
+msgstr "Acces par pays pour"
+
+msgid "Usage summary for"
+msgstr "Resume des acces pour"
+
+msgid "User Agent"
+msgstr "Navigateur"
+
+msgid "Username"
+msgstr "Utilisateur"
+
+msgid "Users"
+msgstr "Utilisateurs"
+
+msgid "Using DNS cache file"
+msgstr "Using DNS cache file"
+
+msgid "Using logfile"
+msgstr "Using logfile"
+
+msgid "Uzbekistan"
+msgstr "Ouzbekistan"
+
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+msgid "Vatican City State (Holy See)"
+msgstr "Cite du Vatican"
+
+msgid "Venezuela"
+msgstr "Venezuela"
+
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+msgid "View All Referrers"
+msgstr "Voir tous les r&eacute;f&eacute;rents"
+
+msgid "View All Search Strings"
+msgstr "Voir tous les mots-cl&eacute;s"
+
+msgid "View All Sites"
+msgstr "Voir tous les sites"
+
+msgid "View All URLs"
+msgstr "Voir toutes les URLs"
+
+msgid "View All User Agents"
+msgstr "Voir tous les navigateurs"
+
+msgid "View All Usernames"
+msgstr "Voir tous les utilisateurs"
+
+msgid "Virgin Islands (British)"
+msgstr "Iles Vierges Britanniques"
+
+msgid "Virgin Islands (U.S.)"
+msgstr "Iles Vierges Americaines"
+
+msgid "Visits"
+msgstr "Visites"
+
+msgid "Visits per Day"
+msgstr "Visites par Jour"
+
+msgid "Wallis and Futuna Islands"
+msgstr "Iles Wallis et Futuna"
+
+msgid "Warning: Invalid keyword"
+msgstr "Warning: Invalid keyword"
+
+msgid "Warning: Possible duplicate data found"
+msgstr "Warning: Possible duplicate data found"
+
+msgid "Warning: String exceeds storage size"
+msgstr "Warning: String exceeds storage size"
+
+msgid "Warning: Truncating oversized date field"
+msgstr "Warning: Truncating oversized date field"
+
+msgid "Warning: Truncating oversized hostname"
+msgstr "Warning: Truncating oversized hostname"
+
+msgid "Warning: Truncating oversized referrer field"
+msgstr "Warning: Truncating oversized referrer field"
+
+msgid "Warning: Truncating oversized request field"
+msgstr "Warning: Truncating oversized request field"
+
+msgid "Warning: Truncating oversized username"
+msgstr "Warning: Truncating oversized username"
+
+msgid "Western Sahara"
+msgstr "Sahara Occidental"
+
+msgid "Yemen"
+msgstr "Yemen"
+
+msgid "Yugoslavia"
+msgstr "Yougoslavie"
+
+msgid "Zaire"
+msgstr "Zaire"
+
+msgid "Zambia"
+msgstr "Zambie"
+
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+msgid "[options] [log file]"
+msgstr "[options] [log file]"
+
+msgid "addresses"
+msgstr "addresses"
+
+msgid "bad"
+msgstr "bad"
+
+msgid "current directory"
+msgstr "current directory"
+
+msgid "ignored"
+msgstr "ignored"
+
+msgid "in"
+msgstr "in"
+
+msgid "of"
+msgstr "sur un total de"
+
+msgid "records"
+msgstr "records"
+
+msgid "seconds"
+msgstr "seconds"

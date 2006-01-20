@@ -1,0 +1,1491 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"PO-Revision-Date: 2003-05-25 23:29+0200\n"
+"Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
+"Language-Team: French <tech@jexiste.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit"
+
+msgid "-A num    = Display num top agents"
+msgstr "-R poc    = Zobraz 'poc' Nej odkazovacu"
+
+msgid "-C num    = Display num top countries"
+msgstr "-S poc    = Zobraz 'poc' Nej mist"
+
+msgid "-E num    = Display num top Exit Pages"
+msgstr "-X        = Skryt jednotlive site"
+
+msgid "-F type   = Log type.  type= (clf | ftp | squid)"
+msgstr "-F type   = typ logu.  type= (clf | ftp | squid)"
+
+msgid "-G        = supress hourly graph"
+msgstr "-G        = potlac hodinovy graf"
+
+msgid "-H        = supress hourly stats"
+msgstr "-H        = potlac hodinove statistiky"
+
+msgid "-I name   = Index alias 'name'"
+msgstr "-C poc    = Zobraz 'poc' Nej zemi"
+
+msgid "-L        = supress color coded graph legends"
+msgstr "-L        = potlac barevne kody v legendach grafu"
+
+msgid "-P name   = Page type extension 'name'"
+msgstr "-A poc    = Zobraz 'poc' Nej prohlizecu"
+
+msgid "-Q        = supress _ALL_ messages"
+msgstr "-Q        = potlac VSECHNY zpravy"
+
+msgid "-R num    = Display num top referrers"
+msgstr "-U poc    = Zobraz 'poc' Nej URL"
+
+msgid "-S num    = Display num top sites"
+msgstr "-e poc    = Zobraz 'poc' vstupnich stranek"
+
+msgid "-T        = print timing information"
+msgstr "-T        = vypis casove informace"
+
+msgid "-U num    = Display num top URLs"
+msgstr "-E poc    = Zobraz 'poc' odchozich stranek"
+
+msgid "-X        = Hide individual sites"
+msgstr "-N poc    = Pocet DNS procesu (0=zakazat)"
+
+msgid "-Y        = supress country graph"
+msgstr "-Y        = potlac graf statu"
+
+msgid "-a name   = hide user agent 'name'"
+msgstr "-a name   = skryj prohlizec 'name'"
+
+msgid "-c file   = use configuration file 'file'"
+msgstr "-c file   = pouzij konfig. soubor 'file'"
+
+msgid "-d        = print additional debug info"
+msgstr "-d        = vypis dalsi ladici informace"
+
+msgid "-e num    = Display num top Entry Pages"
+msgstr "-g poc    = Seskup domeny do 'poc' urovni"
+
+msgid "-f        = Fold sequence errors"
+msgstr "-f        = chyby v prekladu stranek"
+
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr "-D name   = Pouzi DNS Cache 'name'"
+
+msgid "-h        = print this help message"
+msgstr "-h        = vypis tento help"
+
+msgid "-i        = ignore history file"
+msgstr "-i        = ignoruj soubor historie"
+
+msgid "-l num    = use num background lines on graph"
+msgstr "-l poc    = pouzij 'num' radek v podkladu grafu"
+
+msgid "-m num    = Visit timout value (seconds)"
+msgstr "-m poc    = cas pro navstevu (seconds)"
+
+msgid "-n name   = hostname to use"
+msgstr "-n name   = pouzij jmeno pocitace"
+
+msgid "-o dir    = output directory to use"
+msgstr "-o adr    = vystupni adresar"
+
+msgid "-p        = preserve state (incremental)"
+msgstr "-p        = zapamatuj stav (inkrementalne)"
+
+msgid "-q        = supress informational messages"
+msgstr "-q        = potlac informativni zpravy"
+
+msgid "-r name   = hide referrer 'name'"
+msgstr "-r name   = skryj odkazovac 'name'"
+
+msgid "-s name   = hide site 'name'"
+msgstr "-s name   = skryj misto 'name'"
+
+msgid "-t name   = report title 'name'"
+msgstr "-t name   = nazev sestavy 'name'"
+
+msgid "-u name   = hide URL 'name'"
+msgstr "-u name   = skryj URL 'name'"
+
+msgid "-v -V     = print version information"
+msgstr "-v -V     = vypis informaci o verzi"
+
+msgid "-x name   = Use filename extension 'name'"
+msgstr "-I name   = nazev Index(u) 'name'"
+
+msgid "Afghanistan"
+msgstr "Afghánistán"
+
+msgid "Agents"
+msgstr "Prohlí¾eèe"
+
+msgid "Albania"
+msgstr "Albánie"
+
+msgid "Algeria"
+msgstr "Al¾írsko"
+
+msgid "American Samoa"
+msgstr "Americká Samoa"
+
+msgid "Andorra"
+msgstr "Andora"
+
+msgid "Angola"
+msgstr "Angola"
+
+msgid "Anguilla"
+msgstr "Anguilla"
+
+msgid "Antarctica"
+msgstr "Antarktida"
+
+msgid "Antigua and Barbuda"
+msgstr "Antigua a Barbuda"
+
+msgid "Apr"
+msgstr "Dub"
+
+msgid "April"
+msgstr "duben"
+
+msgid "Argentina"
+msgstr "Argentina"
+
+msgid "Armenia"
+msgstr "Arménie"
+
+msgid "Aruba"
+msgstr "Aruba"
+
+msgid "Aug"
+msgstr "Srp"
+
+msgid "August"
+msgstr "srpen"
+
+msgid "Australia"
+msgstr "Austrálie"
+
+msgid "Austria"
+msgstr "Rakousko"
+
+msgid "Avg"
+msgstr "Prùm"
+
+msgid "Azerbaijan"
+msgstr "Azerbajd¾án"
+
+msgid "Bahamas"
+msgstr "Bahamy"
+
+msgid "Bahrain"
+msgstr "Bahrajn"
+
+msgid "Bangladesh"
+msgstr "Bangladé¹"
+
+msgid "Barbados"
+msgstr "Barbados"
+
+msgid "Belarus"
+msgstr "Bìlorusko"
+
+msgid "Belgium"
+msgstr "Belgie"
+
+msgid "Belize"
+msgstr "Belize"
+
+msgid "Benin"
+msgstr "Benin"
+
+msgid "Bermuda"
+msgstr "Bermuda"
+
+msgid "Bhutan"
+msgstr "Bhùtán"
+
+msgid "Bolivia"
+msgstr "Bolívie"
+
+msgid "Bosnia and Herzegovina"
+msgstr "Bosna a Hercegovina"
+
+msgid "Botswana"
+msgstr "Botswana"
+
+msgid "Bouvet Island"
+msgstr "Bouvet Island"
+
+msgid "Brazil"
+msgstr "Brazílie"
+
+msgid "British Indian Ocean Territory"
+msgstr "British Indian Ocean Territory"
+
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+msgid "Bulgaria"
+msgstr "Bulharsko"
+
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+msgid "Burundi"
+msgstr "Burundi"
+
+msgid "By"
+msgstr "podle"
+
+msgid "Cambodia"
+msgstr "Kambod¾a"
+
+msgid "Cameroon"
+msgstr "Kamerun"
+
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr "Nemohu alokovat dost pameti, Nej zeme jsou nefunkcni!"
+
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr "Nemohu alokovat dost pameti, Nej odkazovace jsou nefunkcni!"
+
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr "Nemohu alokovat dost pameti, Nej hledane retezce jsou nefunkcni!"
+
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr "Nemohu alokovat dost pameti, Nej mista jsou nefunkcni!"
+
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr "Nemohu alokovat dost pameti, Nej URL jsou nefunkcni!"
+
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr "Nemohu alokovat dost pameti, Nej prohlizece jsou nefunkcni!"
+
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr "Nemohu alokovat dost pameti, Nej uzivatele jsou nefunkcni!"
+
+msgid "Canada"
+msgstr "Kanada"
+
+msgid "Cape Verde"
+msgstr "Cape Verde"
+
+msgid "Cayman Islands"
+msgstr "Kajmanské ostrovy"
+
+msgid "Central African Republic"
+msgstr "Støedoafrická republika"
+
+msgid "Chad"
+msgstr "Èad"
+
+msgid "Chile"
+msgstr "Chile"
+
+msgid "China"
+msgstr "Cina"
+
+msgid "Christmas Island"
+msgstr "Vánoèní ostrovy"
+
+msgid "Cocos (Keeling) Islands"
+msgstr "Kokosové (Keelingovy) ostrovy"
+
+msgid "Code 100 - Continue"
+msgstr "Kód 100 - Pokraèovat"
+
+msgid "Code 101 - Switching Protocols"
+msgstr "Kód 101 - Pøepínání protokolù"
+
+msgid "Code 200 - OK"
+msgstr "Kód 200 - OK"
+
+msgid "Code 201 - Created"
+msgstr "Kód 201 - Vytvoøeno"
+
+msgid "Code 202 - Accepted"
+msgstr "Kód 202 - Pøijato"
+
+msgid "Code 203 - Non-Authoritative Information"
+msgstr "Kód 203 - Neautoritativní informace"
+
+msgid "Code 204 - No Content"
+msgstr "Kód 204 - ®ádný obsah"
+
+msgid "Code 205 - Reset Content"
+msgstr "Kód 205 - Obnovit obsah"
+
+msgid "Code 206 - Partial Content"
+msgstr "Kód 206 - Èásteèný obsah"
+
+msgid "Code 300 - Multiple Choices"
+msgstr "Kód 300 - Vícenásobné volby"
+
+msgid "Code 301 - Moved Permanently"
+msgstr "Kód 301 - Pøesunuto trvale"
+
+msgid "Code 302 - Found"
+msgstr "Kód 302 - Pøítomno"
+
+msgid "Code 303 - See Other"
+msgstr "Kód 303 - Viz dal¹í"
+
+msgid "Code 304 - Not Modified"
+msgstr "Kód 304 - Nezmìnìno"
+
+msgid "Code 305 - Use Proxy"
+msgstr "Kód 305 - Pou¾ij proxy"
+
+msgid "Code 307 - Moved Temporarily"
+msgstr "Kód 307 - Pøesunuto doèasnì"
+
+msgid "Code 400 - Bad Request"
+msgstr "Kód 400 - ©patný po¾adavek"
+
+msgid "Code 401 - Unauthorized"
+msgstr "Kód 401 - Neautorizován"
+
+msgid "Code 402 - Payment Required"
+msgstr "Kód 402 - Vy¾adována platba"
+
+msgid "Code 403 - Forbidden"
+msgstr "Kód 403 - Zakázáno"
+
+msgid "Code 404 - Not Found"
+msgstr "Kód 404 - Nenalezeno"
+
+msgid "Code 405 - Method Not Allowed"
+msgstr "Kód 405 - Nepovolená Metoda"
+
+msgid "Code 406 - Not Acceptable"
+msgstr "Kód 406 - Nepøípustné"
+
+msgid "Code 407 - Proxy Authentication Required"
+msgstr "Kód 407 - Vy¾adována autentikace proxy"
+
+msgid "Code 408 - Request Timeout"
+msgstr "Kód 408 - Pøekroèen èasový limit"
+
+msgid "Code 409 - Conflict"
+msgstr "Kód 409 - Konflikt"
+
+msgid "Code 410 - Gone"
+msgstr "Kód 410 - Zru¹eno"
+
+msgid "Code 411 - Length Required"
+msgstr "Kód 411 - ®ádost o délku"
+
+msgid "Code 412 - Precondition Failed"
+msgstr "Kód 412 - Podmínka nesplnìna"
+
+msgid "Code 413 - Request Entity Too Large"
+msgstr "Kód 413 - Po¾adavek je pøíli¹ velký"
+
+msgid "Code 414 - Request-URI Too Long"
+msgstr "Kód 414 - URI je pøíli¹ dlouhé"
+
+msgid "Code 415 - Unsupported Media Type"
+msgstr "Kód 415 - Nepodporovaný typ média"
+
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr "Kód 416 - Po¾adovaný rozsah neodpovídá"
+
+msgid "Code 417 - Expectation Failed"
+msgstr "Kód 417 - Oèekávání selhalo"
+
+msgid "Code 500 - Internal Server Error"
+msgstr "Kód 500 - Intenrní chyba serveru"
+
+msgid "Code 501 - Not Implemented"
+msgstr "Kód 501 - Nezavedeno"
+
+msgid "Code 502 - Bad Gateway"
+msgstr "Kód 502 - ©patná brána"
+
+msgid "Code 503 - Service Unavailable"
+msgstr "Kód 503 - Slu¾ba nedostupná"
+
+msgid "Code 504 - Gateway Timeout"
+msgstr "Kód 504 - Brána neodpovìdìla"
+
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr "Kód 505 - Nepodporovaná verze HTTP"
+
+msgid "Colombia"
+msgstr "Kolumbie"
+
+msgid "Comoros"
+msgstr "Komory"
+
+msgid "Congo"
+msgstr "Kongo"
+
+msgid "Cook Islands"
+msgstr "Cookovy ostrovy"
+
+msgid "Costa Rica"
+msgstr "Kostarika"
+
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "Pobøe¾í slonoviny"
+
+msgid "Countries"
+msgstr "Zemì"
+
+msgid "Country"
+msgstr "Zemì"
+
+msgid "Creating output in"
+msgstr "Vytvarim vystup v"
+
+msgid "Croatia (Hrvatska)"
+msgstr "Chorvatsko"
+
+msgid "Cuba"
+msgstr "Kuba"
+
+msgid "Cyprus"
+msgstr "Kypr"
+
+msgid "Czech Republic"
+msgstr "Èeská republika"
+
+msgid "Czechoslovakia (former)"
+msgstr "Èeskoslovensko"
+
+msgid "DNS Lookup"
+msgstr "DNS Kontrola"
+
+msgid "Daily Avg"
+msgstr "Denní prùmìr"
+
+msgid "Daily Statistics"
+msgstr "Denní statistiky"
+
+msgid "Daily Statistics for"
+msgstr "Denní statistiky za"
+
+msgid "Daily usage for"
+msgstr "Denní vyu¾ití za"
+
+msgid "Day"
+msgstr "Den"
+
+msgid "Dec"
+msgstr "Pro"
+
+msgid "December"
+msgstr "prosinec"
+
+msgid "Denmark"
+msgstr "Dánsko"
+
+msgid "Djibouti"
+msgstr "D¾ibuti"
+
+msgid "Dominica"
+msgstr "Dominica"
+
+msgid "Dominican Republic"
+msgstr "Dominikánská republika"
+
+msgid "East Timor"
+msgstr "Východní Timur"
+
+msgid "Ecuador"
+msgstr "Ekvádor"
+
+msgid "Egypt"
+msgstr "Egypt"
+
+msgid "El Salvador"
+msgstr "Salvádor"
+
+msgid "English"
+msgstr "Czech"
+
+msgid "Entry"
+msgstr "Vstupy"
+
+msgid "Equatorial Guinea"
+msgstr "Rovníková Guinea"
+
+msgid "Eritrea"
+msgstr "Eritrea"
+
+msgid "Error adding Referrer node, skipping"
+msgstr "Chyba doplneni bloku odkazovace, preskakuji"
+
+msgid "Error adding Search String Node, skipping"
+msgstr "Chyba doplneni hledanych retezcu, preskakuji"
+
+msgid "Error adding URL node, skipping"
+msgstr "Chyba doplneni bloku URL, preskakuji"
+
+msgid "Error adding User Agent node, skipping"
+msgstr "Chyba doplneni bloku prohlizece, preskakuji"
+
+msgid "Error adding Username node, skipping"
+msgstr "Chyba doplneni uzivatelu, preskakuji"
+
+msgid "Error adding host node (daily), skipping"
+msgstr "Chyba doplneni bloku pocitace (denni), preskakuji"
+
+msgid "Error adding host node (monthly), skipping"
+msgstr "Chyba doplneni bloku pocitace (mesicni), preskakuji"
+
+msgid "Error: Can't change directory to"
+msgstr "Chyba: Nemohu prejit do adresare"
+
+msgid "Error: Can't open log file"
+msgstr "Chyba: Nemohu otevrit log soubor"
+
+msgid "Error: Ignoring invalid history record"
+msgstr "Chyba: Ignoruji chybny zaznam v historii"
+
+msgid "Warning: Skipping oversized log record"
+msgstr "Chyba: Preskakuji prilis dlouhy zaznam v logu"
+
+msgid "Error: Skipping record (bad date)"
+msgstr "Chyba: Preskakuji zaznam (spatne datum)"
+
+msgid "Error: Unable to lock DNS cache file"
+msgstr "Chyba: Nemohu zamknout soubory DNS cache"
+
+msgid "Error: Unable to open DNS cache file"
+msgstr "Chyba: Namohu odevrit soubory DNS cache"
+
+msgid "Error: Unable to open configuration file"
+msgstr "Chyba: Nemohu otevrit konfiguracni soubor"
+
+msgid "Error: Unable to open file"
+msgstr "Chyba: Nemohu otevrit soubor"
+
+msgid "Error: Unable to restore run data"
+msgstr "Chyba: Nemohu obnovit data aktualniho zpracovani"
+
+msgid "Error: Unable to save current run data"
+msgstr "Chyba: Nemohu ulozit udaje aktualniho zpracovani"
+
+msgid "Error: Unable to write history file"
+msgstr "Chyba: Nemohu zapsat soubor historie"
+
+msgid "Estonia"
+msgstr "Estonsko"
+
+msgid "Ethiopia"
+msgstr "Etiopie"
+
+msgid "Exit"
+msgstr "Výstupy"
+
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falklandské ostrovy (Malvíny)"
+
+msgid "Faroe Islands"
+msgstr "Faerské ostrovy"
+
+msgid "Feb"
+msgstr "Úno"
+
+msgid "February"
+msgstr "únor"
+
+msgid "Fiji"
+msgstr "Fid¾i"
+
+msgid "Files"
+msgstr "Souborù"
+
+msgid "Files per Day"
+msgstr "Souborù za den"
+
+msgid "Finland"
+msgstr "Finsko"
+
+msgid "France"
+msgstr "Francie"
+
+msgid "France; Metropolitan"
+msgstr "France, Metropolitan"
+
+msgid "French Guiana"
+msgstr "Francouzská Guajana"
+
+msgid "French Polynesia"
+msgstr "Francouzská Polynésie"
+
+msgid "French Southern Territories"
+msgstr "Francouzská ji¾ní teritoria"
+
+msgid "Gabon"
+msgstr "Gabun"
+
+msgid "Gambia"
+msgstr "Gambie"
+
+msgid "Generated"
+msgstr "Generováno"
+
+msgid "Generating report for"
+msgstr "Vytvarim sestavu pro"
+
+msgid "Generating summary report"
+msgstr "Vytvarim sumarni sestavu"
+
+msgid "Georgia"
+msgstr "Gruzie"
+
+msgid "Germany"
+msgstr "Nìmecko"
+
+msgid "Ghana"
+msgstr "Ghana"
+
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+msgid "Great Britain (UK)"
+msgstr "Velká Británie (GB)"
+
+msgid "Greece"
+msgstr "Øecko"
+
+msgid "Greenland"
+msgstr "Grónsko"
+
+msgid "Grenada"
+msgstr "Grenada"
+
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+msgid "Guam"
+msgstr "Guam"
+
+msgid "Guatemala"
+msgstr "Guatemala"
+
+msgid "Guinea"
+msgstr "Guinea"
+
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+msgid "Guyana"
+msgstr "Guyana"
+
+msgid "Haiti"
+msgstr "Haiti"
+
+msgid "Heard and McDonald Islands"
+msgstr "Heardovy a McDonaldovy ostrovy"
+
+msgid "History file not found..."
+msgstr "Nemohu najit soubor historie..."
+
+msgid "Hits"
+msgstr "Pøístupù"
+
+msgid "Hits by Response Code"
+msgstr "Náv¹tìvy podle kódu odpovìdi"
+
+msgid "Hits per Day"
+msgstr "Objektù za den"
+
+msgid "Hits per Hour"
+msgstr "Objektù za hodinu"
+
+msgid "Honduras"
+msgstr "Honduras"
+
+msgid "Hong Kong"
+msgstr "Hongkong"
+
+msgid "Hostname"
+msgstr "Poèítaè"
+
+msgid "Hostname for reports is"
+msgstr "Jmeno pocitace pro sestavy je"
+
+msgid "Hour"
+msgstr "Hodina"
+
+msgid "Hourly Statistics"
+msgstr "Hodinové statistiky"
+
+msgid "Hourly Statistics for"
+msgstr "Hodinové statistiky za"
+
+msgid "Hourly usage for"
+msgstr "Hodinové vyu¾ití za"
+
+msgid "Hungary"
+msgstr "Maïarsko"
+
+msgid "Iceland"
+msgstr "Island"
+
+msgid "Ignoring previous history..."
+msgstr "Ignoruji predchozi historii..."
+
+msgid "India"
+msgstr "Indie"
+
+msgid "Indonesia"
+msgstr "Indonésie"
+
+msgid "International (int)"
+msgstr "Mezinárodní (int)"
+
+msgid "Iran"
+msgstr "Irán"
+
+msgid "Iraq"
+msgstr "Irák"
+
+msgid "Ireland"
+msgstr "Irsko"
+
+msgid "Israel"
+msgstr "Izrael"
+
+msgid "Italy"
+msgstr "Itálie"
+
+msgid "Jamaica"
+msgstr "Jamajka"
+
+msgid "Jan"
+msgstr "Led"
+
+msgid "January"
+msgstr "leden"
+
+msgid "Japan"
+msgstr "Japonsko"
+
+msgid "Jordan"
+msgstr "Jordánsko"
+
+msgid "Jul"
+msgstr "Èvc"
+
+msgid "July"
+msgstr "èervenec"
+
+msgid "Jun"
+msgstr "Èer"
+
+msgid "June"
+msgstr "èerven"
+
+msgid "KBytes"
+msgstr "KBytù"
+
+msgid "KBytes per Day"
+msgstr "KBytú za den"
+
+msgid "Kazakhstan"
+msgstr "Kazachstan"
+
+msgid "Kenya"
+msgstr "Keòa"
+
+msgid "Kiribati"
+msgstr "Kiribati"
+
+msgid "Korea (North)"
+msgstr "Korea (Severní)"
+
+msgid "Korea (South)"
+msgstr "Korea (Ji¾ní)"
+
+msgid "Kuwait"
+msgstr "Kuvajt"
+
+msgid "Kyrgyzstan"
+msgstr "Kyrgyzstan"
+
+msgid "Laos"
+msgstr "Laos"
+
+msgid "Last 12 Months"
+msgstr "Posledních 12 mìsícù"
+
+msgid "Latvia"
+msgstr "Loty¹sko"
+
+msgid "Lebanon"
+msgstr "Libanon"
+
+msgid "Lesotho"
+msgstr "Lesotho"
+
+msgid "Liberia"
+msgstr "Libérie"
+
+msgid "Libya"
+msgstr "Libie"
+
+msgid "Liechtenstein"
+msgstr "Lichten¹tejnsko"
+
+msgid "Lithuania"
+msgstr "Litva"
+
+msgid "Luxembourg"
+msgstr "Lucembursko"
+
+msgid "Macau"
+msgstr "Macao"
+
+msgid "Macedonia"
+msgstr "Makedonie"
+
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+msgid "Malawi"
+msgstr "Malawi"
+
+msgid "Malaysia"
+msgstr "Malajsie"
+
+msgid "Maldives"
+msgstr "Maledivy"
+
+msgid "Mali"
+msgstr "Mali"
+
+msgid "Malta"
+msgstr "Malta"
+
+msgid "Mar"
+msgstr "Bøe"
+
+msgid "March"
+msgstr "bøezen"
+
+msgid "Marshall Islands"
+msgstr "Marshallovy ostrovy"
+
+msgid "Martinique"
+msgstr "Martinik"
+
+msgid "Mauritania"
+msgstr "Mauretánie"
+
+msgid "Mauritius"
+msgstr "Mauricius"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "May"
+msgstr "kvìten"
+
+msgid "Mayotte"
+msgstr "Mayotte"
+
+msgid "Mexico"
+msgstr "Mexiko"
+
+msgid "Micronesia"
+msgstr "Mikronézie"
+
+msgid "Moldova"
+msgstr "Moldávie"
+
+msgid "Monaco"
+msgstr "Monako"
+
+msgid "Mongolia"
+msgstr "Mongolsko"
+
+msgid "Month"
+msgstr "Mìsíc"
+
+msgid "Monthly Statistics for"
+msgstr "Mìsíèní statistiky za"
+
+msgid "Monthly Totals"
+msgstr "Mìsíèní souèty"
+
+msgid "Montserrat"
+msgstr "Montserrat"
+
+msgid "Morocco"
+msgstr "Maroko"
+
+msgid "Mozambique"
+msgstr "Mozambik"
+
+msgid "Myanmar"
+msgstr "Myanmar"
+
+msgid "Namibia"
+msgstr "Namíbie"
+
+msgid "Nato field (nato)"
+msgstr "NATO (nato)"
+
+msgid "Nauru"
+msgstr "Nauru"
+
+msgid "Nepal"
+msgstr "Nepál"
+
+msgid "Netherlands"
+msgstr "Nizozemsko"
+
+msgid "Netherlands Antilles"
+msgstr "Nizozemské Antily"
+
+msgid "Network"
+msgstr "Sí»"
+
+msgid "Neutral Zone"
+msgstr "Neutrální zóna"
+
+msgid "New Caledonia"
+msgstr "Nová Kaledonie"
+
+msgid "New Zealand (Aotearoa)"
+msgstr "Nový Zéland"
+
+msgid "Nicaragua"
+msgstr "Nikaragua"
+
+msgid "Niger"
+msgstr "Niger"
+
+msgid "Nigeria"
+msgstr "Nigerie"
+
+msgid "Niue"
+msgstr "Niue"
+
+msgid "No cache file specified, aborting..."
+msgstr "Nejsou specifikovany zadne cache soubory, koncim..."
+
+msgid "No valid records found!"
+msgstr "Nenalezeny platne zaznamy!"
+
+msgid "Non-Profit Organization"
+msgstr "Nezisková organizace"
+
+msgid "None to process"
+msgstr "Neni co zpracovat"
+
+msgid "Norfolk Island"
+msgstr "Norfolk Island"
+
+msgid "Northern Mariana Islands"
+msgstr "Northern Mariana Islands"
+
+msgid "Norway"
+msgstr "Norsko"
+
+msgid "Nov"
+msgstr "Lis"
+
+msgid "November"
+msgstr "listopad"
+
+msgid "Oct"
+msgstr "Øíj"
+
+msgid "October"
+msgstr "øíjen"
+
+msgid "Old style Arpanet (arpa)"
+msgstr "Pùvodní Arpanet (arpa)"
+
+msgid "Oman"
+msgstr "Omán"
+
+msgid "Other"
+msgstr "Jiné"
+
+msgid "Pages"
+msgstr "Stránek"
+
+msgid "Pages per Day"
+msgstr "Stránek za den"
+
+msgid "Pakistan"
+msgstr "Pakistán"
+
+msgid "Palau"
+msgstr "Palau"
+
+msgid "Panama"
+msgstr "Panama"
+
+msgid "Papua New Guinea"
+msgstr "Papua Nová Guinea"
+
+msgid "Paraguay"
+msgstr "Paraguaj"
+
+msgid "Peru"
+msgstr "Peru"
+
+msgid "Philippines"
+msgstr "Filipíny"
+
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+msgid "Poland"
+msgstr "Polsko"
+
+msgid "Portugal"
+msgstr "Portugalsko"
+
+msgid "Previous run data not found..."
+msgstr "Nemohu najit udaje z minuleho zpracovani..."
+
+msgid "Puerto Rico"
+msgstr "Portoriko"
+
+msgid "Qatar"
+msgstr "Katar"
+
+msgid "Reading history file..."
+msgstr "Ctu soubor historie..."
+
+msgid "Reading previous run data..."
+msgstr "Ctu udaje z minuleho zpracovani..."
+
+msgid "Referrer"
+msgstr "Odkazovaè"
+
+msgid "Referrers"
+msgstr "Odkazovaèe"
+
+msgid "Reunion"
+msgstr "Reunion"
+
+msgid "Romania"
+msgstr "Rumunsko"
+
+msgid "Russian Federation"
+msgstr "Ruská federace"
+
+msgid "Rwanda"
+msgstr "Rwanda"
+
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "Sv. Georgia a Sv. Sandwich ostr."
+
+msgid "Saint Kitts and Nevis"
+msgstr "Svatý Kitts a Nevis"
+
+msgid "Saint Lucia"
+msgstr "Santa Lucia"
+
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent and the Grenadines"
+
+msgid "Samoa"
+msgstr "Samoa"
+
+msgid "San Marino"
+msgstr "San Marino"
+
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome and Principe"
+
+msgid "Saudi Arabia"
+msgstr "Saudská Arábie"
+
+msgid "Saving current run data..."
+msgstr "Ukladam udaje aktualniho zpracovani..."
+
+msgid "Saving history information..."
+msgstr "Ukladam soubor historie..."
+
+msgid "Search"
+msgstr "Hledání"
+
+msgid "Search String"
+msgstr "Hledání"
+
+msgid "Senegal"
+msgstr "Senegal"
+
+msgid "Sep"
+msgstr "Záø"
+
+msgid "September"
+msgstr "záøí"
+
+msgid "Seychelles"
+msgstr "Seychely"
+
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+msgid "Singapore"
+msgstr "Singapur"
+
+msgid "Sites"
+msgstr "Místa"
+
+msgid "Skipping Netscape header record"
+msgstr "Preskakuji hlavickovy zaznam z Netscape"
+
+msgid "Skipping bad record"
+msgstr "Preskakuji spatny zaznam"
+
+msgid "Slovak Republic"
+msgstr "Slovenská republika"
+
+msgid "Slovenia"
+msgstr "Slovinsko"
+
+msgid "Solomon Islands"
+msgstr "©alamounovy ostrovy"
+
+msgid "Somalia"
+msgstr "Somálsko"
+
+msgid "South Africa"
+msgstr "Jihoafrická republika"
+
+msgid "Spain"
+msgstr "©panìlsko"
+
+msgid "Sri Lanka"
+msgstr "Srí Lanka"
+
+msgid "St. Helena"
+msgstr "Sv. Helena"
+
+msgid "St. Pierre and Miquelon"
+msgstr "St. Pierre and Miquelon"
+
+msgid "Sudan"
+msgstr "Sùdán"
+
+msgid "Summary Period"
+msgstr "Období statistiky"
+
+msgid "Summary by Month"
+msgstr "Mìsíèní pøehled"
+
+msgid "Suriname"
+msgstr "Surinam"
+
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Svalbard and Jan Mayen Islands"
+
+msgid "Swaziland"
+msgstr "Svazijsko"
+
+msgid "Sweden"
+msgstr "©védsko"
+
+msgid "Switzerland"
+msgstr "©výcarsko"
+
+msgid "Syria"
+msgstr "Sýrie"
+
+msgid "Taiwan"
+msgstr "Taiwan"
+
+msgid "Tajikistan"
+msgstr "Tad¾ikistan"
+
+msgid "Tanzania"
+msgstr "Tanzánie"
+
+msgid "Thailand"
+msgstr "Thajsko"
+
+msgid "Togo"
+msgstr "Togo"
+
+msgid "Tokelau"
+msgstr "Tokelau"
+
+msgid "Tonga"
+msgstr "Tongo"
+
+msgid "Top"
+msgstr "Nej"
+
+msgid "Total"
+msgstr "Celkem"
+
+msgid "Total Countries"
+msgstr "zemí celkem"
+
+msgid "Total Entry Pages"
+msgstr "vstupních stránek celkem"
+
+msgid "Total Exit Pages"
+msgstr "výstupních stránek celkem"
+
+msgid "Total Files"
+msgstr "Celkem souborù"
+
+msgid "Total Hits"
+msgstr "Celkem náv¹tìv"
+
+msgid "Total KBytes"
+msgstr "Celkem KBytù"
+
+msgid "Total Referrers"
+msgstr "odkazovaèù celkem"
+
+msgid "Total Search Strings"
+msgstr "hledaných øetìzcù celkem"
+
+msgid "Total Sites"
+msgstr "míst celkem"
+
+msgid "Total URLs"
+msgstr "URL celkem"
+
+msgid "Total Unique Referrers"
+msgstr "Celkem jedineèných odkazovaèù"
+
+msgid "Total Unique Sites"
+msgstr "Celkem jedineèných míst"
+
+msgid "Total Unique URLs"
+msgstr "Celkem jedineèných URL"
+
+msgid "Total Unique User Agents"
+msgstr "Celkem jedineèných Prohlí¾eèù"
+
+msgid "Total Unique Usernames"
+msgstr "Celkem jedineèných u¾ivatelù"
+
+msgid "Total User Agents"
+msgstr "prohlí¾eèù celkem"
+
+msgid "Total Usernames"
+msgstr "u¾ivatelù celkem"
+
+msgid "Totals"
+msgstr "Celkem"
+
+msgid "Trinidad and Tobago"
+msgstr "Trinidad a Tobago"
+
+msgid "Tunisia"
+msgstr "Tunisko"
+
+msgid "Turkey"
+msgstr "Turecko"
+
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+msgid "Turks and Caicos Islands"
+msgstr "Turks and Caicos Islands"
+
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "URLs"
+msgstr "URL"
+
+msgid "US Commercial"
+msgstr "US komerèní"
+
+msgid "US Educational"
+msgstr "US akademická"
+
+msgid "US Government"
+msgstr "US vládní"
+
+msgid "US Military"
+msgstr "US vojenská"
+
+msgid "US Minor Outlying Islands"
+msgstr "US Minor Outlying Islands"
+
+msgid "USSR (former)"
+msgstr "SSSR"
+
+msgid "Uganda"
+msgstr "Uganda"
+
+msgid "Ukraine"
+msgstr "Ukrajina"
+
+msgid "Undefined response code"
+msgstr "Nedefinovaný kód odpovìdi"
+
+msgid "United Arab Emirates"
+msgstr "Spojené arabské emiráty"
+
+msgid "United Kingdom"
+msgstr "Velká Británie (UK)"
+
+msgid "United States"
+msgstr "USA (US)"
+
+msgid "Unresolved/Unknown"
+msgstr "Nezji¹tìná/neznámá"
+
+msgid "Uruguay"
+msgstr "Uruguay"
+
+msgid "Usage"
+msgstr "Pouzivani"
+
+msgid "Usage Statistics for"
+msgstr "Statistiky pøístupù pro"
+
+msgid "Usage by Country for"
+msgstr "Vyu¾ití podle zemì"
+
+msgid "Usage summary for"
+msgstr "Statistiky pøístupù pro"
+
+msgid "User Agent"
+msgstr "Prohlí¾eè"
+
+msgid "Username"
+msgstr "U¾ivatel"
+
+msgid "Users"
+msgstr "U¾ivatelé"
+
+msgid "Using DNS cache file"
+msgstr "Pouzivam soubory DNS cache"
+
+msgid "Using logfile"
+msgstr "Pouzivam log soubor"
+
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+msgid "Vatican City State (Holy See)"
+msgstr "Vatikán"
+
+msgid "Venezuela"
+msgstr "Venezuela"
+
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+msgid "View All Referrers"
+msgstr "zobrazit v¹echny referery"
+
+msgid "View All Search Strings"
+msgstr "zobrazit v¹echny hledané stránky"
+
+msgid "View All Sites"
+msgstr "zobrazit v¹echny sítì"
+
+msgid "View All URLs"
+msgstr "zobrazit v¹echny URL"
+
+msgid "View All User Agents"
+msgstr "zobrazit v¹echny u¾ivatelské prohlí¾eèe"
+
+msgid "View All Usernames"
+msgstr "zobrazit v¹echna u¾ivatelská jména"
+
+msgid "Virgin Islands (British)"
+msgstr "Panenské ostrovy (Britské)"
+
+msgid "Virgin Islands (U.S.)"
+msgstr "Panenske ostrovy (US)"
+
+msgid "Visits"
+msgstr "Náv¹tìv"
+
+msgid "Visits per Day"
+msgstr "Náv¹tìv za den"
+
+msgid "Wallis and Futuna Islands"
+msgstr "Wallis and Futuna Islands"
+
+msgid "Warning: Invalid keyword"
+msgstr "Pozor: Neplatne klicove slovo"
+
+msgid "Warning: Possible duplicate data found"
+msgstr "Pozor: Nalezeny pravdepodobne duplicitni udaje"
+
+msgid "Warning: String exceeds storage size"
+msgstr "Pozor: Retezec prekrocil velikost ukladaciho mista"
+
+msgid "Warning: Truncating oversized date field"
+msgstr "Pozor: Orezavam prilis dlouhe pole datumu"
+
+msgid "Warning: Truncating oversized hostname"
+msgstr "Pozor: Orezavam prilis dlouhe jmeno pocitace"
+
+msgid "Warning: Truncating oversized referrer field"
+msgstr "Pozor: Orezavam prilis dlouhe pole odkazovace"
+
+msgid "Warning: Truncating oversized request field"
+msgstr "Pozor: Orezavam prilis dlouhe pole zadosti"
+
+msgid "Warning: Truncating oversized username"
+msgstr "Pozor: Orezavam prilis dlouhe jmeno uzivatele"
+
+msgid "Western Sahara"
+msgstr "Západní Sahara"
+
+msgid "Yemen"
+msgstr "Jemen"
+
+msgid "Yugoslavia"
+msgstr "Jugoslávie"
+
+msgid "Zaire"
+msgstr "Zair"
+
+msgid "Zambia"
+msgstr "Zambie"
+
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+msgid "[options] [log file]"
+msgstr "[volby] [log soubor]"
+
+msgid "addresses"
+msgstr "adres"
+
+msgid "bad"
+msgstr "chybnych"
+
+msgid "current directory"
+msgstr "aktualnim adresari"
+
+msgid "ignored"
+msgstr "ignorovano"
+
+msgid "in"
+msgstr "za"
+
+msgid "of"
+msgstr "z"
+
+msgid "records"
+msgstr "zaznamu"
+
+msgid "seconds"
+msgstr "vterin"

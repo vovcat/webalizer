@@ -114,7 +114,7 @@ int parse_record(char *buffer)
    log_rec.ident[0]=0;
 */
 #ifdef USE_DNS
-   memset(&log_rec.addr,0,sizeof(struct in_addr));
+   memset(&log_rec.addr,0,sizeof(struct sockaddr_storage));
 #endif
 
    /* call appropriate handler */
@@ -134,7 +134,7 @@ int parse_record(char *buffer)
 int parse_record_ftp(char *buffer)
 {
    int size;
-   int i,j;
+   int i,j,count;
    char *cp1, *cp2, *cpx, *cpy, *eob;
 
    size = strlen(buffer);                 /* get length of buffer        */
@@ -162,7 +162,8 @@ int parse_record_ftp(char *buffer)
    if (i<1 || i>31) return 0;
 
    /* format date/time field         */
-   sprintf(log_rec.datetime,"[%02d/%s/%4d:%s -0000]",i,cpx,j,cpy);
+   snprintf(log_rec.datetime,sizeof(log_rec.datetime),
+           "[%02d/%s/%4d:%s -0000]",i,cpx,j,cpy);
 
    /* skip seconds... */
    while (*cp1!=0 && cp1<eob) cp1++;
@@ -196,15 +197,17 @@ int parse_record_ftp(char *buffer)
    while (*cp1==0) cp1++;
 
    /* fabricate an appropriate request string based on direction */
-   if (*cp1=='i') sprintf(log_rec.url,"\"POST %s HTTP/1.0\"",cpx);
-      else        sprintf(log_rec.url,"\"GET %s HTTP/1.0\"",cpx);
+   if (*cp1=='i')
+      snprintf(log_rec.url,sizeof(log_rec.url),"\"POST %s HTTP/1.0\"",cpx);
+   else
+      snprintf(log_rec.url,sizeof(log_rec.url),"\"GET %s HTTP/1.0\"",cpx);
 
    if (cp1<eob) cp1++;
    if (cp1<eob) cp1++;
    while (*cp1!=0 && cp1<eob) cp1++;
    if (cp1<eob) cp1++;
-   cp2=log_rec.ident;
-   while (*cp1!=0 && cp1<eob) *cp2++ = *cp1++;
+   cp2=log_rec.ident;count=MAXIDENT-1;
+   while (*cp1!=0 && cp1<eob && count) { *cp2++ = *cp1++; count--; }
    *cp2='\0';
 
    /* return appropriate response code */
@@ -237,7 +240,7 @@ int parse_record_web(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_host);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized hostname"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -269,7 +272,7 @@ int parse_record_web(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_user);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized username"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -291,7 +294,7 @@ int parse_record_web(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_date);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized date field"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -316,7 +319,7 @@ int parse_record_web(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_req);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized request field"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -353,7 +356,7 @@ int parse_record_web(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_ref);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized referrer field"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -412,7 +415,7 @@ int parse_record_squid(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_host);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized hostname"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -449,7 +452,7 @@ int parse_record_squid(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_req);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized request field"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -461,8 +464,9 @@ int parse_record_squid(char *buffer)
 
    /* HTTP URL requested */
    cpx = cp1;
-   eos = (cp1+MAXURL-1);
-   if (eos >= eob) eos = eob-1;
+// next two lines removed , see debian bug #218889
+//   eos = (cp1+MAXURL-1);
+//   if (eos >= eob) eos = eob-1;
 
    while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
    *cp2 = '\0';
@@ -470,7 +474,7 @@ int parse_record_squid(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_req);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized request field"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }

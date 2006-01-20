@@ -1,0 +1,23 @@
+Source: webalizer
+Priority: optional
+Section: web
+Maintainer: Jose Carlos Medeiros <debian@psabs.com.br>
+Uploaders: Ola Lundqvist <opal@debian.org>, Lionel Elie Mamane <lionel@mamane.lu>
+Build-Depends: debhelper (>= 4.1.16), libgd2-noxpm-dev, libttf-dev, libpng3-dev, libdb4.2-dev, libgd2-noxpm, libttf2, zlib1g-dev, gettext, po-debconf
+Standards-Version: 3.6.2
+
+Package: webalizer
+Architecture: any
+Suggests: httpd
+Depends: ${shlibs:Depends}
+Pre-Depends: debconf (>= 1.4.58) | debconf-2.0
+Description: Web server log analysis program
+ The Webalizer is a web server log analysis program. It is designed to scan
+ web server log files in various formats and produce usage statistics in
+ HTML format for viewing through a browser.
+ The Webalizer produces yearly, monthly, daily and hourly statistics. In the
+ monthly reports, various statistics may be produced to show overall usage,
+ usage by day and hour, usage by visiting sites, URLs, user agents
+ (browsers), referrers and country. The Webalizer is highly configurable by
+ use of either command line options or a configuration file, allowing the
+ program to be tailored to individual needs easily.

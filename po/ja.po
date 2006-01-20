@@ -1,0 +1,1485 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"PO-Revision-Date: 2003-07-17 19:57+0900\n"
+"Last-Translator: Tatsuki Sugiura <sugi@nemui.org>\n"
+"Language-Team: French <tech@jexiste.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=EUC-JP\n"
+"Content-Transfer-Encoding: 8bit"
+
+msgid "-A num    = Display num top agents"
+msgstr "-A num    = エージェントの上位 num 件を表示"
+
+msgid "-C num    = Display num top countries"
+msgstr "-C num    = 国の上位 num 件を表示"
+
+msgid "-D name   = Use DNS Cache file 'name'"
+msgstr "-D name   = 'name' をDNSのキャッシュファイルとして使う"
+
+msgid "-E num    = Display num top Exit Pages"
+msgstr "-E num    = 終了ページの上位 num 件を表示"
+
+msgid "-F type   = Log type.  type= (clf | ftp | squid)"
+msgstr "-F type   = ログファイルのタイプ  type= (clf | ftp | squid)"
+
+msgid "-G        = supress hourly graph"
+msgstr "-G        = 時間別グラフを表示しない"
+
+msgid "-H        = supress hourly stats"
+msgstr "-H        = 時間別統計を表示しない"
+
+msgid "-I name   = Index alias 'name'"
+msgstr "-I name   = インデックスエイリアスを 'name' とする"
+
+msgid "-L        = supress color coded graph legends"
+msgstr "-L        = 色つきのグラフラベルを使わない"
+
+msgid "-N num    = Number of DNS processes (0=disable)"
+msgstr "-N num    = DNS 問い合わせプロセス数 (0=無効)"
+
+msgid "-P name   = Page type extension 'name'"
+msgstr "-P name   = 拡張子 'name' をページとして扱う"
+
+msgid "-Q        = supress _ALL_ messages"
+msgstr "-Q        = *全ての* メッセージを表示しない"
+
+msgid "-R num    = Display num top referrers"
+msgstr "-R num    = 参照元の上位 num 件を表示"
+
+msgid "-S num    = Display num top sites"
+msgstr "-S num    = リモートサイトの上位 num 件を表示"
+
+msgid "-T        = print timing information"
+msgstr "-T        = 時刻情報を出力"
+
+msgid "-U num    = Display num top URLs"
+msgstr "-U num    = URL の上位 num 件を表示"
+
+msgid "-X        = Hide individual sites"
+msgstr "-X        = グループ化されていないサイトを隠す"
+
+msgid "-Y        = supress country graph"
+msgstr "-Y        = 国別グラフを表示しない"
+
+msgid "-a name   = hide user agent 'name'"
+msgstr "-a name   = ユーザエージェント 'name' を隠す"
+
+msgid "-c file   = use configuration file 'file'"
+msgstr "-c file   = 設定ファイルとして 'file' を使用する"
+
+msgid "-d        = print additional debug info"
+msgstr "-d        = デバッグ情報を出力する"
+
+msgid "-e num    = Display num top Entry Pages"
+msgstr "-e num    = エントリーページの上位 num 件を表示"
+
+msgid "-f        = Fold sequence errors"
+msgstr "-f        = シーケンスエラーがあっても統計に含める"
+
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr "-g num    = ドメインを深さ 'num' でグループ化する"
+
+msgid "-h        = print this help message"
+msgstr "-h        = このヘルプメッセージを出力する"
+
+msgid "-i        = ignore history file"
+msgstr "-i        = ヒストリファイルを無視する"
+
+msgid "-l num    = use num background lines on graph"
+msgstr "-l num    = グラフの罫線を num 本にする"
+
+msgid "-m num    = Visit timout value (seconds)"
+msgstr "-m num    = 訪問タイムアウト値 (秒)"
+
+msgid "-n name   = hostname to use"
+msgstr "-n name   = ホスト名を指定"
+
+msgid "-o dir    = output directory to use"
+msgstr "-o dir    = 出力ディレクトリの指定"
+
+msgid "-p        = preserve state (incremental)"
+msgstr "-p        = 状態を保存する (追加モード)"
+
+msgid "-q        = supress informational messages"
+msgstr "-q        = 経過メッセージを表示しない"
+
+msgid "-r name   = hide referrer 'name'"
+msgstr "-r name   = 参照元 'name' を隠す"
+
+msgid "-s name   = hide site 'name'"
+msgstr "-s name   = リモートサイト 'name' を隠す"
+
+msgid "-t name   = report title 'name'"
+msgstr "-t name   = レポートのタイトルを指定する"
+
+msgid "-u name   = hide URL 'name'"
+msgstr "-u name   = URL 'name' を隠す"
+
+msgid "-v -V     = print version information"
+msgstr "-v -V     = バージョン情報を出力する"
+
+msgid "-x name   = Use filename extension 'name'"
+msgstr "-x name   = 出力ファイルの拡張子を 'name' にする"
+
+msgid "Afghanistan"
+msgstr "アフガニスタン"
+
+msgid "Agents"
+msgstr "エージェント"
+
+msgid "Albania"
+msgstr "アルバニア"
+
+msgid "Algeria"
+msgstr "アルジェリア"
+
+msgid "American Samoa"
+msgstr "米領東サモア"
+
+msgid "Andorra"
+msgstr "アンドラ"
+
+msgid "Angola"
+msgstr "アンゴラ"
+
+msgid "Anguilla"
+msgstr "アングィラ"
+
+msgid "Antarctica"
+msgstr "南極大陸"
+
+msgid "Antigua and Barbuda"
+msgstr "アンティグアとバービュダ島"
+
+msgid "Apr"
+msgstr "4月"
+
+msgid "April"
+msgstr "4月"
+
+msgid "Argentina"
+msgstr "アルゼンチン"
+
+msgid "Armenia"
+msgstr "アルメニア"
+
+msgid "Aruba"
+msgstr "アルーバ"
+
+msgid "Aug"
+msgstr "8月"
+
+msgid "August"
+msgstr "8月"
+
+msgid "Australia"
+msgstr "オーストラリア"
+
+msgid "Austria"
+msgstr "オーストリア"
+
+msgid "Avg"
+msgstr "平均"
+
+msgid "Azerbaijan"
+msgstr "アゼルバイジャン"
+
+msgid "Bahamas"
+msgstr "バハマ"
+
+msgid "Bahrain"
+msgstr "バーレーン"
+
+msgid "Bangladesh"
+msgstr "バングラディシュ"
+
+msgid "Benin"
+msgstr "ベナン"
+
+msgid "Bermuda"
+msgstr "バミューダ諸島"
+
+msgid "Bhutan"
+msgstr "ブータン"
+
+msgid "Bolivia"
+msgstr "ボリビア"
+
+msgid "Bosnia and Herzegovina"
+msgstr "ボスニアヘルツェゴビナ"
+
+msgid "Botswana"
+msgstr "ボツワナ"
+
+msgid "Bouvet Island"
+msgstr "ブーヴェ島"
+
+msgid "Brazil"
+msgstr "ブラジル"
+
+msgid "British Indian Ocean Territory"
+msgstr "イギリスインド洋領"
+
+msgid "Brunei Darussalam"
+msgstr "ブルネイ・ダルサラーム国"
+
+msgid "Bulgaria"
+msgstr "ブルガリア"
+
+msgid "Burkina Faso"
+msgstr "ブルキナファソ"
+
+msgid "Burundi"
+msgstr "ブルンジ"
+
+msgid "By"
+msgstr "/"
+
+msgid "Cambodia"
+msgstr "カンボジア"
+
+msgid "Cameroon"
+msgstr "カメルーン"
+
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr "十分なメモリが確保できません。国別集計を無効にします！"
+
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr "十分なメモリが確保できません。参照元の集計を無効にします！"
+
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr "十分なメモリが確保できません。検索文字列の集計を無効にします！"
+
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr "十分なメモリが確保できません。リモートサイトの集計を無効にします！"
+
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr "十分なメモリが確保できません。URL の集計を無効にします！"
+
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr "十分なメモリが確保できません。ユーザエージェントの集計を無効にします！"
+
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr "十分なメモリが確保できません。ユーザ名の集計を無効にします！"
+
+msgid "Canada"
+msgstr "カナダ"
+
+msgid "Cape Verde"
+msgstr "カーボベルデ共和国"
+
+msgid "Cayman Islands"
+msgstr "ケーマン諸島"
+
+msgid "Central African Republic"
+msgstr "中央アフリカ共和国"
+
+msgid "Chad"
+msgstr "チャド"
+
+msgid "Chile"
+msgstr "チリ"
+
+msgid "China"
+msgstr "中国"
+
+msgid "Christmas Island"
+msgstr "クリスマス島"
+
+msgid "Cocos (Keeling) Islands"
+msgstr "ココス諸島"
+
+msgid "Code 100 - Continue"
+msgstr ""
+
+msgid "Code 101 - Switching Protocols"
+msgstr ""
+
+msgid "Code 200 - OK"
+msgstr ""
+
+msgid "Code 201 - Created"
+msgstr ""
+
+msgid "Code 202 - Accepted"
+msgstr ""
+
+msgid "Code 203 - Non-Authoritative Information"
+msgstr ""
+
+msgid "Code 204 - No Content"
+msgstr ""
+
+msgid "Code 205 - Reset Content"
+msgstr ""
+
+msgid "Code 206 - Partial Content"
+msgstr ""
+
+msgid "Code 300 - Multiple Choices"
+msgstr ""
+
+msgid "Code 301 - Moved Permanently"
+msgstr ""
+
+msgid "Code 302 - Found"
+msgstr ""
+
+msgid "Code 303 - See Other"
+msgstr ""
+
+msgid "Code 304 - Not Modified"
+msgstr ""
+
+msgid "Code 305 - Use Proxy"
+msgstr ""
+
+msgid "Code 307 - Moved Temporarily"
+msgstr ""
+
+msgid "Code 400 - Bad Request"
+msgstr ""
+
+msgid "Code 401 - Unauthorized"
+msgstr ""
+
+msgid "Code 402 - Payment Required"
+msgstr ""
+
+msgid "Code 403 - Forbidden"
+msgstr ""
+
+msgid "Code 404 - Not Found"
+msgstr ""
+
+msgid "Code 405 - Method Not Allowed"
+msgstr ""
+
+msgid "Code 406 - Not Acceptable"
+msgstr ""
+
+msgid "Code 407 - Proxy Authentication Required"
+msgstr ""
+
+msgid "Code 408 - Request Timeout"
+msgstr ""
+
+msgid "Code 409 - Conflict"
+msgstr ""
+
+msgid "Code 410 - Gone"
+msgstr ""
+
+msgid "Code 411 - Length Required"
+msgstr ""
+
+msgid "Code 412 - Precondition Failed"
+msgstr ""
+
+msgid "Code 413 - Request Entity Too Large"
+msgstr ""
+
+msgid "Code 414 - Request-URI Too Long"
+msgstr ""
+
+msgid "Code 415 - Unsupported Media Type"
+msgstr ""
+
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr ""
+
+msgid "Code 417 - Expectation Failed"
+msgstr ""
+
+msgid "Code 500 - Internal Server Error"
+msgstr ""
+
+msgid "Code 501 - Not Implemented"
+msgstr ""
+
+msgid "Code 502 - Bad Gateway"
+msgstr ""
+
+msgid "Code 503 - Service Unavailable"
+msgstr ""
+
+msgid "Code 504 - Gateway Timeout"
+msgstr ""
+
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr ""
+
+msgid "Colombia"
+msgstr "コロンビア"
+
+msgid "Comoros"
+msgstr "コモロ"
+
+msgid "Congo"
+msgstr "コンゴ"
+
+msgid "Cook Islands"
+msgstr "クック諸島"
+
+msgid "Costa Rica"
+msgstr "コスタリカ"
+
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "コートジボワール (象牙海岸)"
+
+msgid "Countries"
+msgstr "国"
+
+msgid "Country"
+msgstr "国"
+
+msgid "Creating output in"
+msgstr "出力先 ="
+
+msgid "Croatia (Hrvatska)"
+msgstr "クロアチア (ユーゴスラビア)"
+
+msgid "Cuba"
+msgstr "キューバ"
+
+msgid "Cyprus"
+msgstr "キプロス"
+
+msgid "Czech Republic"
+msgstr "チェコ共和国"
+
+msgid "Czechoslovakia (former)"
+msgstr "(旧) チェコスロバキア"
+
+msgid "DNS Lookup"
+msgstr "DNS 参照"
+
+msgid "Daily Avg"
+msgstr "一日あたりの平均"
+
+msgid "Daily Statistics"
+msgstr "日ごとの統計"
+
+msgid "Daily Statistics for"
+msgstr "日ごとの統計 -"
+
+msgid "Daily usage for"
+msgstr "日ごとの状況 -"
+
+msgid "Day"
+msgstr "日"
+
+msgid "Dec"
+msgstr "12月"
+
+msgid "December"
+msgstr "12月"
+
+msgid "Denmark"
+msgstr "デンマーク"
+
+msgid "Djibouti"
+msgstr "ジブチ"
+
+msgid "Dominica"
+msgstr "ドミニカ"
+
+msgid "Dominican Republic"
+msgstr "ドミニカ共和国"
+
+msgid "East Timor"
+msgstr "東チモール"
+
+msgid "Ecuador"
+msgstr "エクアドル"
+
+msgid "Egypt"
+msgstr "エジプト"
+
+msgid "El Salvador"
+msgstr "エルサルバドル"
+
+msgid "English"
+msgstr "日本語"
+
+msgid "Entry"
+msgstr "エントリー"
+
+msgid "Equatorial Guinea"
+msgstr "赤道ギニア"
+
+msgid "Eritrea"
+msgstr "エリトリア"
+
+msgid "Error adding Referrer node, skipping"
+msgstr "参照元ノード追加中にエラーが発生しました。スキップします。"
+
+msgid "Error adding Search String Node, skipping"
+msgstr "検索文字列ノード追加中にエラーが発生しました。スキップします"
+
+msgid "Error adding URL node, skipping"
+msgstr "URLノード追加中にエラーが発生しました。スキップします"
+
+msgid "Error adding User Agent node, skipping"
+msgstr "ユーザエージェントノード追加中にエラーが発生しました。スキップします"
+
+msgid "Error adding Username node, skipping"
+msgstr "ユーザ名ノード追加中にエラーが発生しました。スキップします"
+
+msgid "Error adding host node (daily), skipping"
+msgstr "ホストノード(日毎)追加中にエラーが発生しました。スキップします"
+
+msgid "Error adding host node (monthly), skipping"
+msgstr "ホストノード(月毎)追加中にエラーが発生しました。スキップします"
+
+msgid "Error: Can't change directory to"
+msgstr "エラー: ディレクトリを変更できません;"
+
+msgid "Error: Can't open log file"
+msgstr "エラー: ログファイルが開けません"
+
+msgid "Error: Ignoring invalid history record"
+msgstr "エラー: 無効なヒストリレコードを無視します"
+
+msgid "Warning: Skipping oversized log record"
+msgstr "エラー: 大きすぎるログレコードをスキップします"
+
+msgid "Error: Skipping record (bad date)"
+msgstr "エラー: 不正な日付のレコードをスキップします"
+
+msgid "Error: Unable to lock DNS cache file"
+msgstr "エラー: DNS キャッシュファイルをロックできません"
+
+msgid "Error: Unable to open DNS cache file"
+msgstr "エラー: DNS キャッシュファイルを開けません"
+
+msgid "Error: Unable to open configuration file"
+msgstr "エラー: 設定ファイルを開けません"
+
+msgid "Error: Unable to open file"
+msgstr "エラー: ファイルが開けません"
+
+msgid "Error: Unable to restore run data"
+msgstr "エラー: 実行データが復旧できません"
+
+msgid "Error: Unable to save current run data"
+msgstr "エラー: 現在の実行データを保存できません"
+
+msgid "Error: Unable to write history file"
+msgstr "エラー: ヒストリファイルに書き込めません"
+
+msgid "Estonia"
+msgstr "エストニア"
+
+msgid "Ethiopia"
+msgstr "エチオピア"
+
+msgid "Exit"
+msgstr "終了"
+
+msgid "Falkland Islands (Malvinas)"
+msgstr "フォークランド諸島 (マルビナス諸島)"
+
+msgid "Faroe Islands"
+msgstr "フェロー諸島"
+
+msgid "Feb"
+msgstr "2月"
+
+msgid "February"
+msgstr "2月"
+
+msgid "Fiji"
+msgstr "フィジー"
+
+msgid "Files"
+msgstr "ファイル"
+
+msgid "Files per Day"
+msgstr "一日あたりのファイル数"
+
+msgid "Finland"
+msgstr "フィンランド"
+
+msgid "France"
+msgstr "フランス"
+
+msgid "France; Metropolitan"
+msgstr "フランス本国"
+
+msgid "French Guiana"
+msgstr "仏領ギアナ"
+
+msgid "French Polynesia"
+msgstr "仏領ポリネシア"
+
+msgid "French Southern Territories"
+msgstr "フランス南方領"
+
+msgid "Gabon"
+msgstr "ガボン"
+
+msgid "Gambia"
+msgstr "ガンビア"
+
+msgid "Generated"
+msgstr "作成日時: "
+
+msgid "Generating report for"
+msgstr "レポートを生成しています -"
+
+msgid "Generating summary report"
+msgstr "概要レポートを生成しています"
+
+msgid "Georgia"
+msgstr "グルジア"
+
+msgid "Germany"
+msgstr "ドイツ"
+
+msgid "Ghana"
+msgstr "ガーナ"
+
+msgid "Gibraltar"
+msgstr "ジブラルタル"
+
+msgid "Great Britain (UK)"
+msgstr "イギリス"
+
+msgid "Greece"
+msgstr "ギリシャ"
+
+msgid "Greenland"
+msgstr "グリーンランド"
+
+msgid "Grenada"
+msgstr "グレナダ"
+
+msgid "Guadeloupe"
+msgstr "グアドループ島"
+
+msgid "Guam"
+msgstr "グアム"
+
+msgid "Guatemala"
+msgstr "グアテマラ"
+
+msgid "Guinea"
+msgstr "ギニア"
+
+msgid "Guinea-Bissau"
+msgstr "ギニア‐ビサオ"
+
+msgid "Guyana"
+msgstr "ガイアナ"
+
+msgid "Haiti"
+msgstr "ハイチ"
+
+msgid "Heard and McDonald Islands"
+msgstr "ハード及びマクドナルド諸島"
+
+msgid "History file not found..."
+msgstr "ヒストリファイルが見つかりません..."
+
+msgid "Hits"
+msgstr "ヒット"
+
+msgid "Hits by Response Code"
+msgstr "応答コードごとのヒット数"
+
+msgid "Hits per Day"
+msgstr "一日あたりのヒット数"
+
+msgid "Hits per Hour"
+msgstr "一時間あたりのヒット数"
+
+msgid "Honduras"
+msgstr "ホンジュラス"
+
+msgid "Hong Kong"
+msgstr "香港"
+
+msgid "Hostname"
+msgstr "ホスト名"
+
+msgid "Hostname for reports is"
+msgstr "レポートするホスト名 ="
+
+msgid "Hour"
+msgstr "時"
+
+msgid "Hourly Statistics"
+msgstr "時間ごとの統計"
+
+msgid "Hourly Statistics for"
+msgstr "時間ごとの統計 - "
+
+msgid "Hourly usage for"
+msgstr "時間ごとの状況 - "
+
+msgid "Hungary"
+msgstr "ハンガリー"
+
+msgid "Iceland"
+msgstr "アイスランド"
+
+msgid "Ignoring previous history..."
+msgstr "既に存在するヒストリファイルを無視します..."
+
+msgid "India"
+msgstr "インド"
+
+msgid "Indonesia"
+msgstr "インドネシア"
+
+msgid "International (int)"
+msgstr "国際機関 (.int)"
+
+msgid "Iran"
+msgstr "イラン"
+
+msgid "Iraq"
+msgstr "イラク"
+
+msgid "Ireland"
+msgstr "アイルランド"
+
+msgid "Israel"
+msgstr "イスラエル"
+
+msgid "Italy"
+msgstr "イタリア"
+
+msgid "Jamaica"
+msgstr "ジャマイカ"
+
+msgid "Jan"
+msgstr "1月"
+
+msgid "January"
+msgstr "1月"
+
+msgid "Japan"
+msgstr "日本"
+
+msgid "Jordan"
+msgstr "ヨルダン"
+
+msgid "Jul"
+msgstr "7月"
+
+msgid "July"
+msgstr "7月"
+
+msgid "Jun"
+msgstr "6月"
+
+msgid "June"
+msgstr "6月"
+
+msgid "KBytes"
+msgstr "バイト数(K)"
+
+msgid "KBytes per Day"
+msgstr "一日あたりのバイト数(K)"
+
+msgid "Kazakhstan"
+msgstr "カザフスタン"
+
+msgid "Kenya"
+msgstr "ケニア"
+
+msgid "Kiribati"
+msgstr "キリバス"
+
+msgid "Korea (North)"
+msgstr "北朝鮮"
+
+msgid "Korea (South)"
+msgstr "韓国"
+
+msgid "Kuwait"
+msgstr "クウェート"
+
+msgid "Kyrgyzstan"
+msgstr "キルギスタン"
+
+msgid "Laos"
+msgstr "ラオス"
+
+msgid "Last 12 Months"
+msgstr "過去12ヶ月"
+
+msgid "Latvia"
+msgstr "ラトビア"
+
+msgid "Lebanon"
+msgstr "レバノン"
+
+msgid "Lesotho"
+msgstr "レソト"
+
+msgid "Liberia"
+msgstr "リベリア"
+
+msgid "Libya"
+msgstr "リビア"
+
+msgid "Liechtenstein"
+msgstr "リヒテンシュタイン"
+
+msgid "Lithuania"
+msgstr "リトアニア"
+
+msgid "Luxembourg"
+msgstr "ルクセンブルグ"
+
+msgid "Macau"
+msgstr "マカオ"
+
+msgid "Macedonia"
+msgstr "マケドニア"
+
+msgid "Madagascar"
+msgstr "マダガスカル"
+
+msgid "Malawi"
+msgstr "マラウイ"
+
+msgid "Malaysia"
+msgstr "マレーシア"
+
+msgid "Maldives"
+msgstr "モルジヴ"
+
+msgid "Mali"
+msgstr "マリ"
+
+msgid "Malta"
+msgstr "マルタ"
+
+msgid "Mar"
+msgstr "3月"
+
+msgid "March"
+msgstr "3月"
+
+msgid "Marshall Islands"
+msgstr "マーシャル諸島"
+
+msgid "Martinique"
+msgstr "マルティニク島"
+
+msgid "Mauritania"
+msgstr "モーリタニア"
+
+msgid "Mauritius"
+msgstr "モーリシャス"
+
+msgid "Max"
+msgstr "最大"
+
+msgid "May"
+msgstr "5月"
+
+msgid "Mayotte"
+msgstr "仏領マヨット島"
+
+msgid "Mexico"
+msgstr "メキシコ"
+
+msgid "Micronesia"
+msgstr "ミクロネシア"
+
+msgid "Moldova"
+msgstr "モルドヴァ"
+
+msgid "Monaco"
+msgstr "モナコ"
+
+msgid "Mongolia"
+msgstr "モンゴル"
+
+msgid "Month"
+msgstr "月"
+
+msgid "Monthly Statistics for"
+msgstr "月ごとの統計 -"
+
+msgid "Monthly Totals"
+msgstr "月の合計"
+
+msgid "Montserrat"
+msgstr "モンセラト"
+
+msgid "Morocco"
+msgstr "モロッコ"
+
+msgid "Mozambique"
+msgstr "モザンビーク"
+
+msgid "Myanmar"
+msgstr "ミャンマー"
+
+msgid "Namibia"
+msgstr "ナミビア"
+
+msgid "Nato field (nato)"
+msgstr "NATO 領域 (.nato)"
+
+msgid "Nauru"
+msgstr "ナウル"
+
+msgid "Nepal"
+msgstr "ネパール"
+
+msgid "Netherlands"
+msgstr "オランダ"
+
+msgid "Netherlands Antilles"
+msgstr "オランダ領 アンティル諸島"
+
+msgid "Network"
+msgstr "アメリカ ネットワーク組織(.net)"
+
+msgid "Neutral Zone"
+msgstr "中立地帯"
+
+msgid "New Caledonia"
+msgstr "ニューカレドニア"
+
+msgid "New Zealand (Aotearoa)"
+msgstr "ニュージーランド (アオテアロア)"
+
+msgid "Nicaragua"
+msgstr "ニカラグア"
+
+msgid "Niger"
+msgstr "ニジェール"
+
+msgid "Nigeria"
+msgstr "ナイジェリア"
+
+msgid "Niue"
+msgstr "ニウエ"
+
+msgid "No cache file specified, aborting..."
+msgstr "キャッシュファイルが指定されていません。中断します..."
+
+msgid "No valid records found!"
+msgstr "有効なレコードが見つかりません！"
+
+msgid "Non-Profit Organization"
+msgstr "アメリカ 非営利団体(.org)"
+
+msgid "None to process"
+msgstr "処理するものがありません"
+
+msgid "Norfolk Island"
+msgstr "ノーフォーク島"
+
+msgid "Northern Mariana Islands"
+msgstr "北マリアナ諸島"
+
+msgid "Norway"
+msgstr "ノルウェー"
+
+msgid "Nov"
+msgstr "11月"
+
+msgid "November"
+msgstr "11月"
+
+msgid "Oct"
+msgstr "10月"
+
+msgid "October"
+msgstr "10月"
+
+msgid "Old style Arpanet (arpa)"
+msgstr "旧形式 ARPANET (.arpa)"
+
+msgid "Oman"
+msgstr "オマーン"
+
+msgid "Other"
+msgstr "その他"
+
+msgid "Pages"
+msgstr "ページ"
+
+msgid "Pages per Day"
+msgstr "一日あたりのページ数"
+
+msgid "Pakistan"
+msgstr "パキスタン"
+
+msgid "Palau"
+msgstr "パラオ共和国"
+
+msgid "Panama"
+msgstr "パナマ"
+
+msgid "Papua New Guinea"
+msgstr "パプアニューギニア"
+
+msgid "Paraguay"
+msgstr "パラグアイ"
+
+msgid "Peru"
+msgstr "ペルー"
+
+msgid "Philippines"
+msgstr "フィリピン"
+
+msgid "Pitcairn"
+msgstr "ピトケアン島"
+
+msgid "Poland"
+msgstr "ポーランド"
+
+msgid "Portugal"
+msgstr "ポルトガル"
+
+msgid "Previous run data not found..."
+msgstr "前回実行時のデータが見つかりません..."
+
+msgid "Puerto Rico"
+msgstr "プエルト・リコ"
+
+msgid "Qatar"
+msgstr "カタール"
+
+msgid "Reading history file..."
+msgstr "ヒストリファイルを読み込んでいます..."
+
+msgid "Reading previous run data..."
+msgstr "前回実行時のデータを読み込んでいます..."
+
+msgid "Referrer"
+msgstr "参照元"
+
+msgid "Referrers"
+msgstr "参照元"
+
+msgid "Reunion"
+msgstr "レユニオン"
+
+msgid "Romania"
+msgstr "ルーマニア"
+
+msgid "Russian Federation"
+msgstr "ロシア連邦"
+
+msgid "Rwanda"
+msgstr "ルワンダ"
+
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "サウスジョージア・サウスサンドイッチ島"
+
+msgid "Saint Kitts and Nevis"
+msgstr "セントクリストファーネビス"
+
+msgid "Saint Lucia"
+msgstr "セント・ルシア"
+
+msgid "Saint Vincent and the Grenadines"
+msgstr "セント・ヴィンセント 及び グレナディーン諸島"
+
+msgid "Samoa"
+msgstr "サモア"
+
+msgid "San Marino"
+msgstr "サン・マリノ"
+
+msgid "Sao Tome and Principe"
+msgstr "サントメプリンシペ"
+
+msgid "Saudi Arabia"
+msgstr "サウジアラビア"
+
+msgid "Saving current run data..."
+msgstr "現在の実行データを保存しています..."
+
+msgid "Saving history information..."
+msgstr "ヒストリ情報を保存しています..."
+
+msgid "Search"
+msgstr "検索文字列"
+
+msgid "Search String"
+msgstr "検索文字列"
+
+msgid "Senegal"
+msgstr "セネガル"
+
+msgid "Sep"
+msgstr "9月"
+
+msgid "September"
+msgstr "9月"
+
+msgid "Seychelles"
+msgstr "セイシェル"
+
+msgid "Sierra Leone"
+msgstr "シエラ・レオネ"
+
+msgid "Singapore"
+msgstr "シンガポール"
+
+msgid "Sites"
+msgstr "サイト"
+
+msgid "Skipping Netscape header record"
+msgstr "Netscape ヘッダレコードをスキップします"
+
+msgid "Skipping bad record"
+msgstr "不正なレコードをスキップします"
+
+msgid "Slovak Republic"
+msgstr "スロバキア共和国"
+
+msgid "Slovenia"
+msgstr "スロベニア"
+
+msgid "Solomon Islands"
+msgstr "ソロモン諸島"
+
+msgid "Somalia"
+msgstr "ソマリア"
+
+msgid "South Africa"
+msgstr "南アフリカ"
+
+msgid "Spain"
+msgstr "スペイン"
+
+msgid "Sri Lanka"
+msgstr "スリランカ"
+
+msgid "St. Helena"
+msgstr "セントヘレナ島"
+
+msgid "St. Pierre and Miquelon"
+msgstr "仏領サンピエール・ミクロン諸島"
+
+msgid "Sudan"
+msgstr "スーダン"
+
+msgid "Summary Period"
+msgstr "統計期間"
+
+msgid "Summary by Month"
+msgstr "月の統計"
+
+msgid "Suriname"
+msgstr "スリナム"
+
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "スバルバール 及び Jan Mayen 諸島"
+
+msgid "Swaziland"
+msgstr "スワジランド"
+
+msgid "Sweden"
+msgstr "スウェーデン"
+
+msgid "Switzerland"
+msgstr "スイス"
+
+msgid "Syria"
+msgstr "シリア"
+
+msgid "Taiwan"
+msgstr "台湾"
+
+msgid "Tajikistan"
+msgstr "タジキスタン"
+
+msgid "Tanzania"
+msgstr "タンザニア"
+
+msgid "Thailand"
+msgstr "タイ"
+
+msgid "Togo"
+msgstr "トーゴ"
+
+msgid "Tokelau"
+msgstr "トケラウ諸島"
+
+msgid "Tonga"
+msgstr "トンガ"
+
+msgid "Top"
+msgstr "上位"
+
+msgid "Total"
+msgstr "合計"
+
+msgid "Total Countries"
+msgstr "- 国"
+
+msgid "Total Entry Pages"
+msgstr "- エントリーページ"
+
+msgid "Total Exit Pages"
+msgstr "- 終了ページ"
+
+msgid "Total Files"
+msgstr "合計ファイル数"
+
+msgid "Total Hits"
+msgstr "合計ヒット数"
+
+msgid "Total KBytes"
+msgstr "合計バイト数(K)"
+
+msgid "Total Referrers"
+msgstr "- 参照元"
+
+msgid "Total Search Strings"
+msgstr "- 検索文字列"
+
+msgid "Total Sites"
+msgstr "- リモートサイト"
+
+msgid "Total URLs"
+msgstr "- URL"
+
+msgid "Total Unique Referrers"
+msgstr "異なり参照元数"
+
+msgid "Total Unique Sites"
+msgstr "異なりサイト数"
+
+msgid "Total Unique URLs"
+msgstr "異なりURL数"
+
+msgid "Total Unique User Agents"
+msgstr "異なりユーザエージェント数"
+
+msgid "Total Unique Usernames"
+msgstr "異なりユーザ数"
+
+msgid "Total User Agents"
+msgstr "- ユーザエージェント"
+
+msgid "Total Usernames"
+msgstr "- ユーザ名"
+
+msgid "Totals"
+msgstr "総合計"
+
+msgid "Trinidad and Tobago"
+msgstr "トリニダード・トバゴ"
+
+msgid "Tunisia"
+msgstr "チュニジア"
+
+msgid "Turkey"
+msgstr "トルコ"
+
+msgid "Turkmenistan"
+msgstr "トルクメニスタン"
+
+msgid "Turks and Caicos Islands"
+msgstr "タークス 及び Caicos 諸島"
+
+msgid "Tuvalu"
+msgstr "ツヴァル"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "URLs"
+msgstr "URL"
+
+msgid "US Commercial"
+msgstr "アメリカ 営利企業(.com)"
+
+msgid "US Educational"
+msgstr "アメリカ 教育団体(.edu)"
+
+msgid "US Government"
+msgstr "アメリカ 政府機関(.gov)"
+
+msgid "US Military"
+msgstr "アメリカ 軍事組織(.mil)"
+
+msgid "US Minor Outlying Islands"
+msgstr "アメリカ合衆国外諸島"
+
+msgid "USSR (former)"
+msgstr "(旧) ソビエト社会主義共和国連邦"
+
+msgid "Uganda"
+msgstr "ウガンダ"
+
+msgid "Ukraine"
+msgstr "ウクライナ"
+
+msgid "Undefined response code"
+msgstr "不明な応答コード"
+
+msgid "United Arab Emirates"
+msgstr "アラブ首長国連邦"
+
+msgid "United Kingdom"
+msgstr "イギリス連合王国"
+
+msgid "United States"
+msgstr "アメリカ合衆国"
+
+msgid "Unresolved/Unknown"
+msgstr "名前解決不能/不明"
+
+msgid "Uruguay"
+msgstr "ウルグアイ"
+
+msgid "Usage"
+msgstr "使い方"
+
+msgid "Usage Statistics for"
+msgstr "利用統計 - "
+
+msgid "Usage by Country for"
+msgstr "国別状況 - "
+
+msgid "Usage summary for"
+msgstr "概要 -"
+
+msgid "User Agent"
+msgstr "ユーザエージェント"
+
+msgid "Username"
+msgstr "ユーザ名"
+
+msgid "Users"
+msgstr "ユーザ数"
+
+msgid "Using DNS cache file"
+msgstr "DNS キャッシュファイルを使う"
+
+msgid "Using logfile"
+msgstr "使用するログファイル ="
+
+msgid "Uzbekistan"
+msgstr "ウズベキスタン共和国"
+
+msgid "Vanuatu"
+msgstr "ヴァヌアツ"
+
+msgid "Vatican City State (Holy See)"
+msgstr "バチカン市国 (法王庁)"
+
+msgid "Venezuela"
+msgstr "ベネズエラ"
+
+msgid "Viet Nam"
+msgstr "ベトナム"
+
+msgid "View All Referrers"
+msgstr "全ての参照元を表示"
+
+msgid "View All Search Strings"
+msgstr "全ての検索文字列を表示"
+
+msgid "View All Sites"
+msgstr "全てのリモートサイトを表示"
+
+msgid "View All URLs"
+msgstr "全ての URL を表示"
+
+msgid "View All User Agents"
+msgstr "全てのユーザエージェントを表示"
+
+msgid "View All Usernames"
+msgstr "View All Usernames"
+
+msgid "Virgin Islands (British)"
+msgstr "バージン諸島 (イギリス領)"
+
+msgid "Virgin Islands (U.S.)"
+msgstr "バージン諸島 (アメリカ領)"
+
+msgid "Visits"
+msgstr "訪問者"
+
+msgid "Visits per Day"
+msgstr "一日あたりの訪問者数"
+
+msgid "Wallis and Futuna Islands"
+msgstr "ウォリス及びフトゥナ諸島"
+
+msgid "Warning: Invalid keyword"
+msgstr "警告: 無効なキーワードです"
+
+msgid "Warning: Possible duplicate data found"
+msgstr "警告: 重複するデータが見つかりました"
+
+msgid "Warning: String exceeds storage size"
+msgstr "警告: 文字列がメモリサイズを超えました"
+
+msgid "Warning: Truncating oversized date field"
+msgstr "警告: 長すぎる日付フィールドを切り詰めます"
+
+msgid "Warning: Truncating oversized hostname"
+msgstr "警告: 長すぎるホスト名を切り詰めます"
+
+msgid "Warning: Truncating oversized referrer field"
+msgstr "警告: 長すぎる参照元フィールドを切り詰めます"
+
+msgid "Warning: Truncating oversized request field"
+msgstr "警告: 長すぎるリクエストフィールドを切り詰めます"
+
+msgid "Warning: Truncating oversized username"
+msgstr "警告: 長すぎるユーザ名を切り詰めます"
+
+msgid "Western Sahara"
+msgstr "西サハラ"
+
+msgid "Yemen"
+msgstr "イエメン"
+
+msgid "Yugoslavia"
+msgstr "ユーゴスラビア"
+
+msgid "Zaire"
+msgstr "ザイール"
+
+msgid "Zambia"
+msgstr "ザンビア"
+
+msgid "Zimbabwe"
+msgstr "ジンバブエ"
+
+msgid "[options] [log file]"
+msgstr "[オプション] [ログファイル]"
+
+msgid "addresses"
+msgstr "アドレス"
+
+msgid "bad"
+msgstr "不正"
+
+msgid "current directory"
+msgstr "カレントディレクトリ"
+
+msgid "ignored"
+msgstr "無視"
+
+msgid "in"
+msgstr ""
+
+msgid "of"
+msgstr "/"
+
+msgid "records"
+msgstr "レコード"
+
+msgid "seconds"
+msgstr "秒"

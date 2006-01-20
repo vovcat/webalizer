@@ -18,7 +18,7 @@ typedef struct dnode *DNODEPTR;            /* DNS hash table node struct   */
 
 #ifdef USE_DNS
 struct dnode {  char *string;              /* DNS node hash table struct   */
-              struct in_addr  addr;
+              struct sockaddr_storage  addr;
               struct dnode    *llist;
               struct dnode    *next; };
 #endif
@@ -87,7 +87,7 @@ extern int    put_anode(char *, int, u_long, u_long *, ANODEPTR *);
 extern int    put_snode(char *, u_long, SNODEPTR *);
 
 #ifdef USE_DNS
-extern int    put_dnode(char *, struct in_addr *, DNODEPTR *);
+extern int    put_dnode(char *, struct sockaddr_storage *, DNODEPTR *);
 extern void   del_dlist(DNODEPTR *);
 #endif
 

@@ -1,0 +1,40 @@
+#!/bin/sh
+# /etc/cron.daily/webalizer: webalizer daily maintenance script
+# Written by Remco van de Meent <remco@debian.org>
+
+WEBALIZER_BIN=/usr/bin/webalizer
+WEBALIZER_CONF=/etc/webalizer.conf
+
+# See if the webalizer binary and config file exists
+# if not, exit without warning to prevent daily mails
+[ -f ${WEBALIZER_BIN} ] || exit 0
+[ -f ${WEBALIZER_CONF} ] || exit 0
+
+
+# Figure out rotated logfile
+rotatedlog=`awk '$1 ~ /^LogFile$/ {print $2}' $WEBALIZER_CONF`
+
+# empty logfile?
+[ -s "${rotatedlog}" ] || exit 0
+# Can we read it? not readable means we made something wrong...
+[ -r "${rotatedlog}" ] || exit 1
+
+# Run webalizer quietly, exit with ststus code if !0
+${WEBALIZER_BIN} -c ${WEBALIZER_CONF} -q || exit $?
+
+######
+# check current log as well...
+# Figure out non-rotated logfile
+
+nonrotatedlog=`awk '$1 ~ /^LogFile$/ {gsub(/\.[0-9]+(\.gz)?/,""); print $2}' $WEBALIZER_CONF`
+
+# empty logfile?
+[ -s "${nonrotatedlog}" ] || exit 0
+# Can we read it? may not be an error if not readable
+[ -r "${nonrotatedlog}" ] || exit 0
+
+# Run webalizer quietly
+${WEBALIZER_BIN} -c ${WEBALIZER_CONF} -q ${nonrotatedlog}
+
+# Exit with webalizer's exit code
+exit $?

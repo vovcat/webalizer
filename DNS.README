@@ -157,6 +157,10 @@ for i in /etc/webalizer/*.conf; do webalizer -c $i -D /etc/cache.db; done
 Considerations
 --------------
 
+If you use STDIN and need to do DNS lookups, then you MUST run the program
+twice (once to resolve, once to produce the report).  The reason is that you
+cannot 'rewind' a STDIN input stream.  This is discussed in the README file.
+
 Processing of live log files is discouraged, as the chances of log records
 being written between the time of DNS resolution and normal processing will
 cause problems.

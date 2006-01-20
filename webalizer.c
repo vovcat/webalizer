@@ -63,6 +63,7 @@
 #ifdef USE_DNS
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <netdb.h>
 
 #ifdef HAVE_DB_185_H
 #include <db_185.h>
@@ -77,7 +78,7 @@
 #include "preserve.h"
 #include "hashtab.h"
 #include "linklist.h"
-#include "webalizer_lang.h"                    /* lang. support            */
+#include "lang2.h"                             /* lang. support            */
 #ifdef USE_DNS
 #include "dns_resolv.h"
 #endif
@@ -88,7 +89,7 @@ void    clear_month();                              /* clear monthly stuff */
 char    *unescape(char *);                          /* unescape URL's      */
 char    from_hex(char);                             /* convert hex to dec  */
 void    print_opts(char *);                         /* print options       */
-void    print_version();                            /* duhh...             */
+void    print_version(char * locale);                            /* duhh...             */
 int     isurlchar(unsigned char);                   /* valid URL char fnc. */
 void    get_config(char *);                         /* Read a config file  */
 static  char *save_opt(char *);                     /* save conf option    */
@@ -138,6 +139,7 @@ char    *out_dir     = NULL;                  /* output directory         */
 char    *blank_str   = "";                    /* blank string             */
 char    *dns_cache   = NULL;                  /* DNS cache file name      */
 int     dns_children = 0;                     /* DNS children (0=don't do)*/
+int     nofollow     = 1;                     /* Referrer Following (0=no)*/
 
 int     ntop_sites   = 30;                    /* top n sites to display   */
 int     ntop_sitesK  = 10;                    /* top n sites (by kbytes)  */
@@ -230,6 +232,7 @@ int     f_end;                                /* count to end of buffer   */
 
 int main(int argc, char *argv[])
 {
+
    int      i;                           /* generic counter             */
    char     *cp1, *cp2, *cp3, *str;      /* generic char pointers       */
    NLISTPTR lptr;                        /* generic list pointer        */
@@ -241,6 +244,7 @@ int main(int argc, char *argv[])
    time_t start_time, end_time;          /* program timers              */
    float  temp_time;                     /* temporary time storage      */
    struct tms     mytms;                 /* bogus tms structure         */
+   char *current_locale;
 
    int    rec_year,rec_month=1,rec_day,rec_hour,rec_min,rec_sec;
 
@@ -256,6 +260,10 @@ int main(int argc, char *argv[])
                          "apr", "may", "jun",
                          "jul", "aug", "sep",
                          "oct", "nov", "dec"};
+
+   current_locale = setlocale (LC_ALL, "");
+   bindtextdomain ("webalizer", DATADIR"/locale");
+   textdomain ("webalizer");
 
    /* initalize epoch */
    epoch=jdate(1,1,1970);                /* used for timestamp adj.     */
@@ -314,7 +322,7 @@ int main(int argc, char *argv[])
         case 'u': add_nlist(optarg,&hidden_urls);   break; /* hide URL      */
         case 'U': ntop_urls=atoi(optarg);    break;  /* Top urls            */
         case 'v':
-        case 'V': print_version();           break;  /* Version             */
+        case 'V': print_version(current_locale);           break;  /* Version             */
         case 'x': html_ext=optarg;           break;  /* HTML file extension */
         case 'X': hide_sites=1;              break;  /* Hide ind. sites     */
         case 'Y': ctry_graph=0;              break;  /* Supress ctry graph  */
@@ -359,6 +367,11 @@ int main(int argc, char *argv[])
          add_glist("yahoo.com      p="      ,&search_list);
          add_glist("altavista.com  q="      ,&search_list);
          add_glist("google.com     q="      ,&search_list);
+         add_glist("google.nl      q="      ,&search_list);
+         add_glist("google.fr      q="      ,&search_list);
+         add_glist("google.be      q="      ,&search_list);
+         add_glist("google.ca      q="      ,&search_list);
+         add_glist("google.ch      q="      ,&search_list);
          add_glist("eureka.com     q="      ,&search_list);
          add_glist("lycos.com      query="  ,&search_list);
          add_glist("hotbot.com     MT="     ,&search_list);
@@ -391,9 +404,9 @@ int main(int argc, char *argv[])
    if (verbose>1)
    {
       uname(&system_info);
-      printf("Webalizer V%s-%s (%s %s) %s\n",
+      printf("Webalizer V%s-%s (%s %s) %s: %s\n",
               version,editlvl,system_info.sysname,
-              system_info.release,language);
+              system_info.release,_("locale"), current_locale);
    }
 
 #ifndef USE_DNS
@@ -411,7 +424,7 @@ int main(int argc, char *argv[])
       if (gzlog_fp==Z_NULL)
       {
          /* Error: Can't open log file ... */
-         fprintf(stderr, "%s %s\n",msg_log_err,log_fname);
+         fprintf(stderr, "%s %s\n",_("Error: Can't open log file"),log_fname);
          exit(1);
       }
    }
@@ -423,7 +436,7 @@ int main(int argc, char *argv[])
          if (log_fp==NULL)
          {
             /* Error: Can't open log file ... */
-            fprintf(stderr, "%s %s\n",msg_log_err,log_fname);
+            fprintf(stderr, "%s %s\n",_("Error: Can't open log file"),log_fname);
             exit(1);
          }
       }
@@ -432,7 +445,7 @@ int main(int argc, char *argv[])
    /* Using logfile ... */
    if (verbose>1)
    {
-      printf("%s %s (",msg_log_use,log_fname?log_fname:"STDIN");
+      printf("%s %s (",_("Using logfile"),log_fname?log_fname:"STDIN");
       if (gz_log) printf("gzip-");
       switch (log_type)
       {
@@ -449,7 +462,7 @@ int main(int argc, char *argv[])
       if (chdir(out_dir) != 0)
       {
          /* Error: Can't change directory to ... */
-         fprintf(stderr, "%s %s\n",msg_dir_err,out_dir);
+         fprintf(stderr, "%s %s\n",_("Error: Can't change directory to"),out_dir);
          exit(1);
       }
    }
@@ -461,7 +474,7 @@ int main(int argc, char *argv[])
       if (!dns_cache)
       {
          /* No cache file specified, aborting... */
-         fprintf(stderr,"%s\n",msg_dns_nocf);     /* Must have a cache file */
+         fprintf(stderr,"%s\n",_("No cache file specified, aborting..."));     /* Must have a cache file */
          exit(1);
       }
    }
@@ -470,7 +483,7 @@ int main(int argc, char *argv[])
    {
       if (dns_children > MAXCHILD) dns_children=MAXCHILD;
       /* DNS Lookup (#children): */
-      if (verbose>1) printf("%s (%d): ",msg_dns_rslv,dns_children);
+      if (verbose>1) printf("%s (%d): ",_("DNS Lookup"),dns_children);
       fflush(stdout);
       (gz_log)?dns_resolver(gzlog_fp):dns_resolver(log_fp);
       (gz_log)?gzrewind(gzlog_fp):(log_fname)?rewind(log_fp):exit(0);
@@ -484,14 +497,14 @@ int main(int argc, char *argv[])
       else
       {
          /* Using DNS cache file <filaneme> */
-         if (verbose>1) printf("%s %s\n",msg_dns_usec,dns_cache);
+         if (verbose>1) printf("%s %s\n",_("Using DNS cache file"),dns_cache);
       }
    }
 #endif  /* USE_DNS */
 
    /* Creating output in ... */
    if (verbose>1)
-      printf("%s %s\n",msg_dir_use,out_dir?out_dir:msg_cur_dir);
+      printf("%s %s\n",_("Creating output in"),out_dir?out_dir:_("current directory"));
 
    /* prep hostname */
    if (!hname)
@@ -501,10 +514,10 @@ int main(int argc, char *argv[])
    }
 
    /* Hostname for reports is ... */
-   if (verbose>1) printf("%s '%s'\n",msg_hostname,hname);
+   if (verbose>1) printf("%s '%s'\n",_("Hostname for reports is"),hname);
 
    /* get past history */
-   if (ignore_hist) {if (verbose>1) printf("%s\n",msg_ign_hist); }
+   if (ignore_hist) {if (verbose>1) printf("%s\n",_("Ignoring previous history...")); }
    else get_history();
 
    if (incremental)                      /* incremental processing?         */
@@ -512,8 +525,8 @@ int main(int argc, char *argv[])
       if ((i=restore_state()))           /* restore internal data structs   */
       {
          /* Error: Unable to restore run data (error num) */
-         /* if (verbose) fprintf(stderr,"%s (%d)\n",msg_bad_data,i); */
-         fprintf(stderr,"%s (%d)\n",msg_bad_data,i);
+         /* if (verbose) fprintf(stderr,"%s (%d)\n",_("msg_bad_data"),i); */
+         fprintf(stderr,"%s (%d)\n",_("Error: Unable to restore run data"),i);
          exit(1);
       }
    }
@@ -522,7 +535,7 @@ int main(int argc, char *argv[])
    if (ntop_ctrys  != 0)
    { if ( (top_ctrys=calloc(ntop_ctrys,sizeof(CLISTPTR))) == NULL)
     /* Can't get memory, Top Countries disabled! */
-    {if (verbose) fprintf(stderr,"%s\n",msg_nomem_tc); ntop_ctrys=0;}}
+    {if (verbose) fprintf(stderr,"%s\n",_("Can't allocate enough memory, Top Countries disabled!")); ntop_ctrys=0;}}
 
    start_time = times(&mytms);
 
@@ -536,9 +549,9 @@ int main(int argc, char *argv[])
       total_rec++;
       if (strlen(buffer) == (BUFSIZE-1))
       {
-         if (verbose)
+         if (verbose>1)
          {
-            fprintf(stderr,"%s",msg_big_rec);
+            fprintf(stderr,"%s",_("Warning: Skipping oversized log record"));
             if (debug_mode) fprintf(stderr,":\n%s",buffer);
             else fprintf(stderr,"\n");
          }
@@ -594,7 +607,7 @@ int main(int argc, char *argv[])
             if (verbose)
             {
                fprintf(stderr,"%s: %s [%lu]",
-                 msg_bad_date,log_rec.datetime,total_rec);
+                 _("Error: Skipping record (bad date)"),log_rec.datetime,total_rec);
                if (debug_mode) fprintf(stderr,":\n%s\n",tmp_buf);
                else fprintf(stderr,"\n");
             }
@@ -786,22 +799,37 @@ int main(int argc, char *argv[])
 	    cp1=strstr(str,"ompatible"); /* check known fakers */
 	    if (cp1!=NULL) {
 		while (*cp1!=';'&&*cp1!='\0') cp1++;
+
 		/* kludge for Mozilla/3.01 (compatible;) */
 		if (*cp1++==';' && strcmp(cp1,")\"")) { /* success! */
-		    while (*cp1 == ' ') cp1++; /* eat spaces */
-		    while (*cp1!='.'&&*cp1!='\0'&&*cp1!=';') *cp2++=*cp1++;
-		    if (mangle_agent<5)
-		    {
-			while (*cp1!='.'&&*cp1!=';'&&*cp1!='\0') *cp2++=*cp1++;
-			if (*cp1!=';'&&*cp1!='\0') {
-			    *cp2++=*cp1++;
-			    *cp2++=*cp1++;
-			}
-		    }
-		    if (mangle_agent<4)
-			if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
-		    if (mangle_agent<3)
-			while (*cp1!=';'&&*cp1!='\0'&&*cp1!='(') *cp2++=*cp1++;
+		    /* Opera can hide as MSIE */
+		    cp3=strstr(str,"Opera");
+		    if (cp3!=NULL) {
+                       while (*cp3!='.'&&*cp3!='\0')
+                       {
+                           if(*cp3=='/')
+                               *cp2++=' ';
+                           else
+                               *cp2++=*cp3;
+                           cp3++;
+                       }
+                       cp1=cp3;
+                    } else {
+                        while (*cp1 == ' ') cp1++; /* eat spaces */
+                        while (*cp1!='.'&&*cp1!='\0'&&*cp1!=';') *cp2++=*cp1++;
+                    }
+            if (mangle_agent<5)
+            {
+                while (*cp1!='.'&&*cp1!=';'&&*cp1!='\0') *cp2++=*cp1++;
+                if (*cp1!=';'&&*cp1!='\0') {
+                    *cp2++=*cp1++;
+                    *cp2++=*cp1++;
+                }
+            }
+            if (mangle_agent<4)
+                if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
+            if (mangle_agent<3)
+                while (*cp1!=';'&&*cp1!='\0'&&*cp1!='('&&*cp1!=' ') *cp2++=*cp1++;
 		    if (mangle_agent<2)
 		    {
 			/* Level 1 - try to get OS */
@@ -826,7 +854,13 @@ int main(int argc, char *argv[])
 		if (cp1!=NULL)
 		{
 		    while (*cp1!='/'&&*cp1!=' '&&*cp1!='\0') *cp2++=*cp1++;
-		    while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
+		    while (*cp1!='.'&&*cp1!='\0') {
+                        if(*cp1=='/')
+                            *cp2++=' ';
+                        else
+                            *cp2++=*cp1;
+                        cp1++;
+		    }
 		    if (mangle_agent<5)
 		    {
 			while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
@@ -894,7 +928,7 @@ int main(int argc, char *argv[])
          if (strlen(log_rec.refer)>=MAXREFH)
          {
             if (verbose) fprintf(stderr,"%s [%lu]\n",
-                msg_big_ref,total_rec);
+                _("Warning: Truncating oversized referrer field"),total_rec);
             log_rec.refer[MAXREFH-1]='\0';
          }
 
@@ -902,7 +936,7 @@ int main(int argc, char *argv[])
          if (strlen(log_rec.url)>=MAXURLH)
          {
             if (verbose) fprintf(stderr,"%s [%lu]\n",
-                msg_big_req,total_rec);
+                _("Warning: Truncating oversized request field"),total_rec);
             log_rec.url[MAXURLH-1]='\0';
          }
 
@@ -991,8 +1025,15 @@ int main(int argc, char *argv[])
          /* Resolve IP address if needed */
          if (dns_db)
          {
-            if (inet_addr(log_rec.hostname) != INADDR_NONE)
-            resolve_dns(&log_rec);
+	   struct addrinfo hints, *ares;
+	   memset(&hints, 0, sizeof(hints));
+	   hints.ai_family = AF_UNSPEC;
+	   hints.ai_socktype = SOCK_STREAM;
+	   hints.ai_flags = AI_NUMERICHOST;
+	   if (0 == getaddrinfo(log_rec.hostname, "0", &hints, &ares)) {
+	     freeaddrinfo(ares);
+	     resolve_dns(&log_rec);
+	   }
          }
 #endif
 
@@ -1088,7 +1129,7 @@ int main(int argc, char *argv[])
             {
                if (verbose)
                /* Error adding URL node, skipping ... */
-               fprintf(stderr,"%s %s\n", msg_nomem_u, log_rec.url);
+               fprintf(stderr,"%s %s\n", _("Error adding URL node, skipping"), log_rec.url);
             }
 
             /* ident (username) hash table */
@@ -1098,7 +1139,7 @@ int main(int argc, char *argv[])
             {
                if (verbose)
                /* Error adding ident node, skipping .... */
-               fprintf(stderr,"%s %s\n", msg_nomem_i, log_rec.ident);
+               fprintf(stderr,"%s %s\n", _("Error adding Username node, skipping"), log_rec.ident);
             }
          }
 
@@ -1109,7 +1150,7 @@ int main(int argc, char *argv[])
              if (put_rnode(log_rec.refer,OBJ_REG,(u_long)1,&t_ref,rm_htab))
              {
               if (verbose)
-              fprintf(stderr,"%s %s\n", msg_nomem_r, log_rec.refer);
+              fprintf(stderr,"%s %s\n", _("Error adding Referrer node, skipping"), log_rec.refer);
              }
          }
 
@@ -1120,7 +1161,7 @@ int main(int argc, char *argv[])
          {
             if (verbose)
             /* Error adding host node (daily), skipping .... */
-            fprintf(stderr,"%s %s\n",msg_nomem_dh, log_rec.hostname);
+            fprintf(stderr,"%s %s\n",_("Error adding host node (daily), skipping"), log_rec.hostname);
          }
 
          /* hostname (site) hash table - monthly */
@@ -1130,7 +1171,7 @@ int main(int argc, char *argv[])
          {
             if (verbose)
             /* Error adding host node (monthly), skipping .... */
-            fprintf(stderr,"%s %s\n", msg_nomem_mh, log_rec.hostname);
+            fprintf(stderr,"%s %s\n", _("Error adding host node (monthly), skipping"), log_rec.hostname);
          }
 
          /* user agent hash table */
@@ -1140,7 +1181,7 @@ int main(int argc, char *argv[])
              if (put_anode(log_rec.agent,OBJ_REG,(u_long)1,&t_agent,am_htab))
              {
               if (verbose)
-              fprintf(stderr,"%s %s\n", msg_nomem_a, log_rec.agent);
+              fprintf(stderr,"%s %s\n", _("Error adding User Agent node, skipping"), log_rec.agent);
              }
          }
 
@@ -1183,7 +1224,7 @@ int main(int argc, char *argv[])
             {
                if (verbose)
                /* Error adding URL node, skipping ... */
-               fprintf(stderr,"%s %s\n", msg_nomem_u, cp1);
+               fprintf(stderr,"%s %s\n", _("Error adding URL node, skipping"), cp1);
             }
          }
 
@@ -1196,7 +1237,7 @@ int main(int argc, char *argv[])
             {
                if (verbose)
                /* Error adding Site node, skipping ... */
-               fprintf(stderr,"%s %s\n", msg_nomem_mh, cp1);
+               fprintf(stderr,"%s %s\n", _("Error adding host node (monthly), skipping"), cp1);
             }
          }
          else
@@ -1214,7 +1255,7 @@ int main(int argc, char *argv[])
                   {
                      if (verbose)
                      /* Error adding Site node, skipping ... */
-                     fprintf(stderr,"%s %s\n", msg_nomem_mh, cp1);
+                     fprintf(stderr,"%s %s\n", _("Error adding host node (monthly), skipping"), cp1);
                   }
                }
             }
@@ -1227,7 +1268,7 @@ int main(int argc, char *argv[])
             {
                if (verbose)
                /* Error adding Referrer node, skipping ... */
-               fprintf(stderr,"%s %s\n", msg_nomem_r, cp1);
+               fprintf(stderr,"%s %s\n", _("Error adding Referrer node, skipping"), cp1);
             }
          }
 
@@ -1238,7 +1279,7 @@ int main(int argc, char *argv[])
             {
                if (verbose)
                /* Error adding User Agent node, skipping ... */
-               fprintf(stderr,"%s %s\n", msg_nomem_a, cp1);
+               fprintf(stderr,"%s %s\n", _("Error adding User Agent node, skipping"), cp1);
             }
          }
 
@@ -1251,7 +1292,7 @@ int main(int argc, char *argv[])
             {
                if (verbose)
                /* Error adding Username node, skipping ... */
-               fprintf(stderr,"%s %s\n", msg_nomem_i, cp1);
+               fprintf(stderr,"%s %s\n", _("Error adding Username node, skipping"), cp1);
             }
          }
       }
@@ -1266,7 +1307,7 @@ int main(int argc, char *argv[])
          if ( (total_rec==1) && (strncmp(buffer,"format=",7)==0) )
          {
             /* Skipping Netscape header record */
-            if (verbose>1) printf("%s\n",msg_ign_nscp);
+            if (verbose>1) printf("%s\n",_("Skipping Netscape header record"));
             /* count it as ignored... */
             total_ignore++;
          }
@@ -1276,7 +1317,7 @@ int main(int argc, char *argv[])
             total_bad++;
             if (verbose)
             {
-               fprintf(stderr,"%s (%lu)",msg_bad_rec,total_rec);
+               fprintf(stderr,"%s (%lu)",_("Skipping bad record"),total_rec);
                if (debug_mode) fprintf(stderr,":\n%s\n",tmp_buf);
                else fprintf(stderr,"\n");
             }
@@ -1306,7 +1347,7 @@ int main(int argc, char *argv[])
             if (save_state())                /* incremental stuff        */
             {
                /* Error: Unable to save current run data */
-               if (verbose) fprintf(stderr,"%s\n",msg_data_err);
+               if (verbose) fprintf(stderr,"%s\n",_("Error: Unable to save current run data"));
                unlink(state_fname);
             }
          }
@@ -1319,18 +1360,18 @@ int main(int argc, char *argv[])
       end_time = times(&mytms);              /* display timing totals?   */
       if (time_me || (verbose>1))
       {
-         printf("%lu %s ",total_rec, msg_records);
+         printf("%lu %s ",total_rec, _("records"));
          if (total_ignore)
          {
-            printf("(%lu %s",total_ignore,msg_ignored);
-            if (total_bad) printf(", %lu %s) ",total_bad,msg_bad);
+            printf("(%lu %s",total_ignore,_("ignored"));
+            if (total_bad) printf(", %lu %s) ",total_bad,_("bad"));
                else        printf(") ");
          }
-         else if (total_bad) printf("(%lu %s) ",total_bad,msg_bad);
+         else if (total_bad) printf("(%lu %s) ",total_bad,_("bad"));
 
          /* get processing time (end-start) */
          temp_time = (float)(end_time-start_time)/CLK_TCK;
-         printf("%s %.2f %s", msg_in, temp_time, msg_seconds);
+         printf("%s %.2f %s", _("in"), temp_time, _("seconds"));
 
          /* calculate records per second */
          if (temp_time)
@@ -1351,7 +1392,7 @@ int main(int argc, char *argv[])
    else
    {
       /* No valid records found... exit with error (1) */
-      if (verbose) printf("%s\n",msg_no_vrec);
+      if (verbose) printf("%s\n",_("No valid records found!"));
       exit(1);
    }
 }
@@ -1449,7 +1490,8 @@ void get_config(char *fname)
                      "DNSCache",          /* DNS Cache file name        84  */
                      "DNSChildren",       /* DNS Children (0=no DNS)    85  */
                      "DailyGraph",        /* Daily Graph (0=no)         86  */
-                     "DailyStats"         /* Daily Stats (0=no)         87  */
+                     "DailyStats",        /* Daily Stats (0=no)         87  */
+                     "NoFollow"           /* Referrer Following (0=no)  88  */
                    };
 
    FILE *fp;
@@ -1458,13 +1500,13 @@ void get_config(char *fname)
    char keyword[32];
    char value[132];
    char *cp1, *cp2;
-   int  i,key;
+   int  i,key,count;
    int	num_kwords=sizeof(kwords)/sizeof(char *);
 
    if ( (fp=fopen(fname,"r")) == NULL)
    {
       if (verbose)
-      fprintf(stderr,"%s %s\n",msg_bad_conf,fname);
+      fprintf(stderr,"%s %s\n",_("Error: Unable to open configuration file"),fname);
       return;
    }
 
@@ -1474,14 +1516,14 @@ void get_config(char *fname)
       if ( (buffer[0]=='#') || isspace((int)buffer[0]) ) continue;
 
       /* Get keyword */
-      cp1=buffer;cp2=keyword;
-      while ( isalnum((int)*cp1) ) *cp2++ = *cp1++;
+      cp1=buffer;cp2=keyword;count=31;
+      while ( (isalnum((int)*cp1)) && count ) { *cp2++ = *cp1++; count--; }
       *cp2='\0';
 
       /* Get value */
-      cp2=value;
+      cp2=value;count=131;
       while ( (*cp1!='\n')&&(*cp1!='\0')&&(isspace((int)*cp1)) ) cp1++;
-      while ( (*cp1!='\n')&&(*cp1!='\0') ) *cp2++ = *cp1++;
+      while ( (*cp1!='\n')&&(*cp1!='\0')&&count ) { *cp2++ = *cp1++; count--; }
       *cp2--='\0';
       while ( (isspace((int)*cp2)) && (cp2 != value) ) *cp2--='\0';
 
@@ -1493,7 +1535,7 @@ void get_config(char *fname)
          if (!strcmp(keyword,kwords[i])) { key=i; break; }
 
       if (key==0) { printf("%s '%s' (%s)\n",       /* Invalid keyword       */
-                    msg_bad_key,keyword,fname);
+                    _("Warning: Invalid keyword"),keyword,fname);
                     continue;
                   }
 
@@ -1589,10 +1631,11 @@ void get_config(char *fname)
         case 85: dns_children=atoi(value);         break; /* DNSChildren    */
 #else
         case 84: /* Disable DNSCache and DNSChildren if DNS is not enabled  */
-        case 85: printf("%s '%s' (%s)\n",msg_bad_key,keyword,fname); break;
+        case 85: printf("%s '%s' (%s)\n",_("Warning: Invalid keyword"),keyword,fname); break;
 #endif  /* USE_DNS */
         case 86: daily_graph=(value[0]=='n')?0:1; break;  /* HourlyGraph    */
         case 87: daily_stats=(value[0]=='n')?0:1; break;  /* HourlyStats    */
+        case 88: nofollow=atoi(value);            break;  /* NoFollow       */
       }
    }
    fclose(fp);
@@ -1663,8 +1706,9 @@ void print_opts(char *pname)
 {
    int i;
 
-   printf("%s: %s %s\n",h_usage1,pname,h_usage2);
-   for (i=0;h_msg[i];i++) printf("%s\n",h_msg[i]);
+   printf("%s: %s %s\n",_("Usage"),pname,_("[options] [log file]"));
+   for (i=0;h_msg[i];i++) printf("%s\n",_(h_msg[i]));
+
    exit(1);
 }
 
@@ -1672,13 +1716,13 @@ void print_opts(char *pname)
 /* PRINT_VERSION                             */
 /*********************************************/
 
-void print_version()
+void print_version(char *locale)
 {
  uname(&system_info);
- printf("Webalizer V%s-%s (%s %s) %s\n%s\n",
+ printf("Webalizer V%s-%s (%s %s) %s %s\n",
     version,editlvl,
     system_info.sysname,system_info.release,
-    language,copyright);
+    _("locale"),copyright);
  if (debug_mode)
  {
     printf("Mod date: %s  Options: ",moddate);
@@ -1809,7 +1853,8 @@ void srch_string(char *ptr)
    if ( (cps=isinglist(search_list,log_rec.refer))==NULL) return;
 
    /* Try to find query variable */
-   srch[0]='?'; strcpy(&srch[1],cps);              /* First, try "?..."      */
+   srch[0]='?'; srch[sizeof(srch)-1] = '\0';
+   strncpy(&srch[1],cps,sizeof(srch)-2);           /* First, try "?...   "   */
    if ((cp1=strstr(ptr,srch))==NULL)
    {
       srch[0]='&';                                 /* Next, try "&..."       */
@@ -1847,7 +1892,7 @@ void srch_string(char *ptr)
    {
       if (verbose)
       /* Error adding search string node, skipping .... */
-      fprintf(stderr,"%s %s\n", msg_nomem_sc, tmpbuf);
+      fprintf(stderr,"%s %s\n", _("msg_nomem_sc"), tmpbuf);
    }
    return;
 }
