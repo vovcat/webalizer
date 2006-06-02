@@ -30,6 +30,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #include <gd.h>
 #include <gdfontt.h>
 #include <gdfonts.h>
@@ -69,6 +71,7 @@ char *numchar[] = { " 0"," 1"," 2"," 3"," 4"," 5"," 6"," 7"," 8"," 9","10",
 
 gdImagePtr	im;                        /* image buffer        */
 FILE		*out;                      /* output file for PNG */
+struct stat     out_stat;                  /* stat struct for PNG */
 char		maxvaltxt[32];             /* graph values        */
 float		percent;                   /* percent storage     */
 u_long		julday;                    /* julday value        */
@@ -128,8 +131,8 @@ int year_graph6x(  char *fname,            /* file name use      */
    s_mth = fmonth;
    for (i=0;i<12;i++)
    {
-      gdImageString(im,gdFontSmall,28+(i*23),             /* use language   */
-                    238,s_month[s_mth-1],black);          /* specific array */
+      gdImageString(im,gdFontSmall,28+(i*23),238,_(s_month[s_mth-1]),black);
+
       s_mth++;
       if (s_mth > 12) s_mth = 1;
       if (data1[i] > maxval) maxval = data1[i];           /* get max val    */
@@ -143,33 +146,33 @@ int year_graph6x(  char *fname,            /* file name use      */
    if (graph_legend)                          /* print color coded legends? */
    {
       /* Kbytes Legend */
-      i = (strlen(msg_h_xfer)*6);
-      gdImageString(im,gdFontSmall,491-i,239,msg_h_xfer,dkgrey);
-      gdImageString(im,gdFontSmall,490-i,238,msg_h_xfer,COLOR4);
+      i = (strlen(_("KBytes"))*6);
+      gdImageString(im,gdFontSmall,491-i,239,_("KBytes"),dkgrey);
+      gdImageString(im,gdFontSmall,490-i,238,_("KBytes"),COLOR4);
 
       /* Sites/Visits Legend */
-      i = (strlen(msg_h_visits)*6);
-      j = (strlen(msg_h_sites)*6);
-      gdImageString(im,gdFontSmall,491-i-j-12,11,msg_h_visits,dkgrey);
-      gdImageString(im,gdFontSmall,490-i-j-12,10,msg_h_visits,COLOR6);
+      i = (strlen(_("Visits"))*6);
+      j = (strlen(_("Sites"))*6);
+      gdImageString(im,gdFontSmall,491-i-j-12,11,_("Visits"),dkgrey);
+      gdImageString(im,gdFontSmall,490-i-j-12,10,_("Visits"),COLOR6);
       gdImageString(im,gdFontSmall,491-j-9,11,"/",dkgrey);
       gdImageString(im,gdFontSmall,490-j-9,10,"/",black);
-      gdImageString(im,gdFontSmall,491-j,11,msg_h_sites,dkgrey);
-      gdImageString(im,gdFontSmall,490-j,10,msg_h_sites,COLOR3);
+      gdImageString(im,gdFontSmall,491-j,11,_("Sites"),dkgrey);
+      gdImageString(im,gdFontSmall,490-j,10,_("Sites"),COLOR3);
 
       /* Hits/Files/Pages Legend */
-      i = (strlen(msg_h_pages)*6);
-      j = (strlen(msg_h_files)*6);
-      gdImageStringUp(im,gdFontSmall,8,231,msg_h_pages,dkgrey);
-      gdImageStringUp(im,gdFontSmall,7,230,msg_h_pages,COLOR5);
+      i = (strlen(_("Pages"))*6);
+      j = (strlen(_("Files"))*6);
+      gdImageStringUp(im,gdFontSmall,8,231,_("Pages"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,7,230,_("Pages"),COLOR5);
       gdImageStringUp(im,gdFontSmall,8,231-i-3,"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,7,230-i-3,"/",black);
-      gdImageStringUp(im,gdFontSmall,8,231-i-12,msg_h_files,dkgrey);
-      gdImageStringUp(im,gdFontSmall,7,230-i-12,msg_h_files,COLOR2);
+      gdImageStringUp(im,gdFontSmall,8,231-i-12,_("Files"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,7,230-i-12,_("Files"),COLOR2);
       gdImageStringUp(im,gdFontSmall,8,231-i-j-15,"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,7,230-i-j-15,"/",black);
-      gdImageStringUp(im,gdFontSmall,8,231-i-j-24,msg_h_hits,dkgrey);
-      gdImageStringUp(im,gdFontSmall,7,230-i-j-24,msg_h_hits,COLOR1);
+      gdImageStringUp(im,gdFontSmall,8,231-i-j-24,_("Hits"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,7,230-i-j-24,_("Hits"),COLOR1);
    }
 
    /* data1 */
@@ -275,6 +278,18 @@ int year_graph6x(  char *fname,            /* file name use      */
       gdImageRectangle(im, x1, y1, x2, 232, black);
    }
 
+   /* stat the file */
+   if ( !(lstat(fname, &out_stat)) )
+   {
+     /* check if the file a symlink */
+     if ( S_ISLNK(out_stat.st_mode) )
+     {
+       if (verbose)
+       fprintf(stderr,"%s %s!\n",_("Error: File is a symlink"),fname);
+       return;
+     }
+   }
+
    /* save png image */
    if ((out = fopen(fname, "wb")) != NULL)
    {
@@ -361,32 +376,32 @@ int month_graph6(  char *fname,            /* filename           */
    if (graph_legend)                           /* Print color coded legends? */
    {
       /* Kbytes Legend */
-      gdImageStringUp(im,gdFontSmall,494,376,msg_h_xfer,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,375,msg_h_xfer,COLOR4);
+      gdImageStringUp(im,gdFontSmall,494,376,_("KBytes"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,375,_("KBytes"),COLOR4);
 
       /* Sites/Visits Legend */
-      i = (strlen(msg_h_sites)*6);
-      gdImageStringUp(im,gdFontSmall,494,276,msg_h_sites,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,275,msg_h_sites,COLOR3);
+      i = (strlen(_("Sites"))*6);
+      gdImageStringUp(im,gdFontSmall,494,276,_("Sites"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,275,_("Sites"),COLOR3);
       gdImageStringUp(im,gdFontSmall,494,276-i-3,"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,493,275-i-3,"/",black);
-      gdImageStringUp(im,gdFontSmall,494,276-i-12,msg_h_visits,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,275-i-12,msg_h_visits,COLOR6);
+      gdImageStringUp(im,gdFontSmall,494,276-i-12,_("Visits"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,275-i-12,_("Visits"),COLOR6);
 
       /* Pages/Files/Hits Legend */
-      s = ( i=(strlen(msg_h_pages)*6) )+
-          ( j=(strlen(msg_h_files)*6) )+
-          ( strlen(msg_h_hits)*6 )+ 52;
-      gdImageStringUp(im,gdFontSmall,494,s,msg_h_pages,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,s-1,msg_h_pages,COLOR5);
+      s = ( i=(strlen(_("Pages"))*6) )+
+          ( j=(strlen(_("Files"))*6) )+
+          ( strlen(_("Hits"))*6 )+ 52;
+      gdImageStringUp(im,gdFontSmall,494,s,_("Pages"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-1,_("Pages"),COLOR5);
       gdImageStringUp(im,gdFontSmall,494,s-i-3,"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-4,"/",black);
-      gdImageStringUp(im,gdFontSmall,494,s-i-12,msg_h_files,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,s-i-13,msg_h_files,COLOR2);
+      gdImageStringUp(im,gdFontSmall,494,s-i-12,_("Files"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-13,_("Files"),COLOR2);
       gdImageStringUp(im,gdFontSmall,494,s-i-j-15,"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-j-16,"/",black);
-      gdImageStringUp(im,gdFontSmall,494,s-i-j-24,msg_h_hits,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,s-i-j-25,msg_h_hits,COLOR1);
+      gdImageStringUp(im,gdFontSmall,494,s-i-j-24,_("Hits"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-j-25,_("Hits"),COLOR1);
    }
 
    /* data1 */
@@ -538,19 +553,19 @@ int day_graph3(  char *fname,
    if (graph_legend)                          /* print color coded legends? */
    {
       /* Pages/Files/Hits Legend */
-      s = ( i=(strlen(msg_h_pages)*6) )+
-          ( j=(strlen(msg_h_files)*6) )+
-          ( strlen(msg_h_hits)*6 )+ 52;
-      gdImageStringUp(im,gdFontSmall,494,s,msg_h_pages,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,s-1,msg_h_pages,COLOR5);
+      s = ( i=(strlen(_("Pages"))*6) )+
+          ( j=(strlen(_("Files"))*6) )+
+          ( strlen(_("Hits"))*6 )+ 52;
+      gdImageStringUp(im,gdFontSmall,494,s,_("Pages"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-1,_("Pages"),COLOR5);
       gdImageStringUp(im,gdFontSmall,494,s-i-3,"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-4,"/",black);
-      gdImageStringUp(im,gdFontSmall,494,s-i-12,msg_h_files,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,s-i-13,msg_h_files,COLOR2);
+      gdImageStringUp(im,gdFontSmall,494,s-i-12,_("Files"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-13,_("Files"),COLOR2);
       gdImageStringUp(im,gdFontSmall,494,s-i-j-15,"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-j-16,"/",black);
-      gdImageStringUp(im,gdFontSmall,494,s-i-j-24,msg_h_hits,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,s-i-j-25,msg_h_hits,COLOR1);
+      gdImageStringUp(im,gdFontSmall,494,s-i-j-24,_("Hits"),dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,s-i-j-25,_("Hits"),COLOR1);
    }
 
    /* data1 */
@@ -587,6 +602,18 @@ int day_graph3(  char *fname,
       y1 = 232 - (percent * 203);
       gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR5);
       gdImageRectangle(im, x1, y1, x2, 232, black);
+   }
+
+   /* stat the file */
+   if ( !(lstat(fname, &out_stat)) )
+   {
+     /* check if the file a symlink */
+     if ( S_ISLNK(out_stat.st_mode) )
+     {
+       if (verbose)
+       fprintf(stderr,"%s %s!\n",_("Error: File is a symlink"),fname);
+       return(1);
+     }
    }
 
    /* save as png	file */
@@ -654,7 +681,7 @@ int pie_chart(char *fname, char *title, u_long t_val,
          gdImageLine(im, CX, CY, gdata.x, gdata.y, black);
          gdImageFill(im, gdata.mx, gdata.my, i+4);
 
-         sprintf(buffer,"%s (%d%%)",legend[i], percent);
+         snprintf(buffer,sizeof(buffer),"%s (%d%%)",legend[i], percent);
          x=480-(strlen(buffer)*7);
          gdImageString(im,gdFontMediumBold, x+1, y+1, buffer, black);
          gdImageString(im,gdFontMediumBold, x, y, buffer, i+4);
@@ -667,10 +694,23 @@ int pie_chart(char *fname, char *title, u_long t_val,
       gdata=*calc_arc(s_arc,1.0);
 
       gdImageFill(im, gdata.mx, gdata.my, white);
-      sprintf(buffer,"%s (%d%%)",msg_h_other,100-(int)(s_arc*100));
+      snprintf(buffer,sizeof(buffer),"%s (%d%%)",
+              _("Other") ,100-(int)(s_arc*100));
       x=480-(strlen(buffer)*7);
       gdImageString(im,gdFontMediumBold, x+1, y+1, buffer, black);
       gdImageString(im,gdFontMediumBold, x, y, buffer, white);
+   }
+
+   /* stat the file */
+   if ( !(lstat(fname, &out_stat)) )
+   {
+     /* check if the file a symlink */
+     if ( S_ISLNK(out_stat.st_mode) )
+     {
+       if (verbose)
+       fprintf(stderr,"%s %s!\n",_("Error: File is a symlink"),fname);
+       return;
+     }
    }
 
    /* save png image */

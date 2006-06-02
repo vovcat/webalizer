@@ -1,0 +1,1497 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"PO-Revision-Date: 2003-05-25 23:29+0200\n"
+"Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
+"Language-Team: French <tech@jexiste.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit"
+
+msgid "-A num    = Display num top agents"
+msgstr "-A num    = afiseaza numeric topul navigatoarelor clientilor"
+
+msgid "-C num    = Display num top countries"
+msgstr "-C num    = afiseaza numeric topul tarilor"
+
+msgid "-D name   = Use DNS Cache file 'name'"
+msgstr "-D name   = Foloseste fisierul cache DNS 'name'"
+
+msgid "-E num    = Display num top Exit Pages"
+msgstr "-E num    = afiseaza numeric topul Paginilor de iesire"
+
+msgid "-F type   = Log type.  type= (clf | ftp | squid)"
+msgstr "-F type   = Tip jurnal.  type= (clf | ftp | squid)"
+
+msgid "-G        = supress hourly graph"
+msgstr "-G        = elimina graficul orelor"
+
+msgid "-H        = supress hourly stats"
+msgstr "-H        = elimina starea pe ore"
+
+msgid "-I name   = Index alias 'name'"
+msgstr "-I name   = aliasul index-ului va fi 'name'"
+
+msgid "-L        = supress color coded graph legends"
+msgstr "-L        = elimina legenda graficelor color"
+
+msgid "-N num    = Number of DNS processes (0=disable)"
+msgstr "-N num    = Numarul de procese DNS (0=dezactivat)"
+
+msgid "-P name   = Page type extension 'name'"
+msgstr "-P name   = extensia tipului de pagina va fi 'name'"
+
+msgid "-Q        = supress _ALL_ messages"
+msgstr "-Q        = elimina _TOATE_ mesajele"
+
+msgid "-R num    = Display num top referrers"
+msgstr "-R num    = afiseaza numeric topul referentilor"
+
+msgid "-S num    = Display num top sites"
+msgstr "-S num    = afiseaza numeric topul siturilor"
+
+msgid "-T        = print timing information"
+msgstr "-T        = afiseaza informatiile despre temporizare"
+
+msgid "-U num    = Display num top URLs"
+msgstr "-U num    = afiseaza numeric topul URL-urilor"
+
+msgid "-X        = Hide individual sites"
+msgstr "-X        = Ascunde siturile individuale"
+
+msgid "-Y        = supress country graph"
+msgstr "-Y        = elimina graficul tarilor"
+
+msgid "-a name   = hide user agent 'name'"
+msgstr "-a name   = ascunde navigatoarele clientilor de tipul 'name'"
+
+msgid "-c file   = use configuration file 'file'"
+msgstr "-c file   = foloseste fisierul de configurare 'file'"
+
+msgid "-d        = print additional debug info"
+msgstr "-d        = afiseaza informatii de depanare suplimentare"
+
+msgid "-e num    = Display num top Entry Pages"
+msgstr "-e num    = afiseaza numeric topul Paginilor de intrare"
+
+msgid "-f        = Fold sequence errors"
+msgstr "-f        = eroare la secventa de fold"
+
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr "-g num    = Grupeaza Domeniile in 'num' niveluri"
+
+msgid "-h        = print this help message"
+msgstr "-h        = afiseaza acest mesaj de ajutor"
+
+msgid "-i        = ignore history file"
+msgstr "-i        = ignora fisierul de istoric"
+
+msgid "-l num    = use num background lines on graph"
+msgstr "-l num    = foloseste linii numerotate pe fundalul graficelor"
+
+msgid "-m num    = Visit timout value (seconds)"
+msgstr "-m num    = valoarea timeout-ului pentru vizite (secunde)"
+
+msgid "-n name   = hostname to use"
+msgstr "-n name   = hostname-ul de folosit"
+
+msgid "-o dir    = output directory to use"
+msgstr "-o dir    = directorul folosit pentru rezultate"
+
+msgid "-p        = preserve state (incremental)"
+msgstr "-p        = pastreaza starea (incremental)"
+
+msgid "-q        = supress informational messages"
+msgstr "-q        = elimina mesajele de informare"
+
+msgid "-r name   = hide referrer 'name'"
+msgstr "-r name   = ascunde pagina referenta cu numele 'name'"
+
+msgid "-s name   = hide site 'name'"
+msgstr "-s name   = ascunde situl 'name'"
+
+msgid "-t name   = report title 'name'"
+msgstr "-t name   = titlul raportului va fi 'name'"
+
+msgid "-u name   = hide URL 'name'"
+msgstr "-u name   = ascunde URL-ul 'name'"
+
+msgid "-v -V     = print version information"
+msgstr "-v -V     = afiseaza informatii despre versiune"
+
+msgid "-x name   = Use filename extension 'name'"
+msgstr "-x name   = foloseste extensia de nume fisier 'name'"
+
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+msgid "Agents"
+msgstr "Navigator"
+
+msgid "Albania"
+msgstr "Albania"
+
+msgid "Algeria"
+msgstr "Algeria"
+
+msgid "American Samoa"
+msgstr "Samoa americana"
+
+msgid "Andorra"
+msgstr "Andorra"
+
+msgid "Angola"
+msgstr "Angola"
+
+msgid "Anguilla"
+msgstr "Anguilla"
+
+msgid "Antarctica"
+msgstr "Antarctica"
+
+msgid "Antigua and Barbuda"
+msgstr "Antigua si Barbuda"
+
+msgid "Apr"
+msgstr "Apr"
+
+msgid "April"
+msgstr "Aprilie"
+
+msgid "Argentina"
+msgstr "Argentina"
+
+msgid "Armenia"
+msgstr "Armenia"
+
+msgid "Aruba"
+msgstr "Aruba"
+
+msgid "Aug"
+msgstr "Aug"
+
+msgid "August"
+msgstr "August"
+
+msgid "Australia"
+msgstr "Australia"
+
+msgid "Austria"
+msgstr "Austria"
+
+msgid "Avg"
+msgstr "Medie"
+
+msgid "Azerbaijan"
+msgstr "Azerbaidjan"
+
+msgid "Bahamas"
+msgstr "Bahamas"
+
+msgid "Bahrain"
+msgstr "Bahrain"
+
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+msgid "Barbados"
+msgstr "Barbados"
+
+msgid "Belarus"
+msgstr "Bielorusia"
+
+msgid "Belgium"
+msgstr "Belgia"
+
+msgid "Belize"
+msgstr "Belize"
+
+msgid "Benin"
+msgstr "Benin"
+
+msgid "Bermuda"
+msgstr "Bermuda"
+
+msgid "Bhutan"
+msgstr "Bhutan"
+
+msgid "Bolivia"
+msgstr "Bolivia"
+
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnia si Hertegovina"
+
+msgid "Botswana"
+msgstr "Botswana"
+
+msgid "Bouvet Island"
+msgstr "Insula Bouvet"
+
+msgid "Brazil"
+msgstr "Brazilia"
+
+msgid "British Indian Ocean Territory"
+msgstr "Teritoriul Britanic din Oceanul Indian"
+
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+msgid "Burundi"
+msgstr "Burundi"
+
+msgid "By"
+msgstr "dupa"
+
+msgid "Cambodia"
+msgstr "Cambodgia"
+
+msgid "Cameroon"
+msgstr "Camerun"
+
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr "Nu pot aloca suficienta memorie, dezactivez Top Tari!"
+
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr "Nu pot aloca suficienta memorie, dezactivez Top Pagini referente!"
+
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr "Nu pot aloca suficienta memorie, dezactivez Top Siruri cautate!"
+
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr "Nu pot aloca suficienta memorie, dezactivez Top Situri!"
+
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr "Nu pot aloca suficienta memorie, dezactivez Top URL-uri!"
+
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr "Nu pot aloca suficienta memorie, dezactivez Top Navigatoare vizitatori!"
+
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr "Nu pot aloca suficienta memorie, dezactivez Top Utilizatori!"
+
+msgid "Canada"
+msgstr "Canada"
+
+msgid "Cape Verde"
+msgstr "Insulele Capului Verde"
+
+msgid "Cayman Islands"
+msgstr "Insulele Cayman"
+
+msgid "Central African Republic"
+msgstr "Republica Centrafricana"
+
+msgid "Chad"
+msgstr "Ciad"
+
+msgid "Chile"
+msgstr "Chile"
+
+msgid "China"
+msgstr "China"
+
+msgid "Christmas Island"
+msgstr "Insulele Christmas"
+
+msgid "Cocos (Keeling) Islands"
+msgstr "Insulele Cocos (Keeling)"
+
+msgid "Code 100 - Continue"
+msgstr "Cod 100 - Continua"
+
+msgid "Code 101 - Switching Protocols"
+msgstr "Cod 101 - Schimb de protocol"
+
+msgid "Code 200 - OK"
+msgstr "Cod 200 - OK"
+
+msgid "Code 201 - Created"
+msgstr "Cod 201 - Creat"
+
+msgid "Code 202 - Accepted"
+msgstr "Cod 202 - Aceptat"
+
+msgid "Code 203 - Non-Authoritative Information"
+msgstr "Cod 203 - Informatie fara autoritate"
+
+msgid "Code 204 - No Content"
+msgstr "Cod 204 - Fara continut"
+
+msgid "Code 205 - Reset Content"
+msgstr "Cod 205 - Initializare continut"
+
+msgid "Code 206 - Partial Content"
+msgstr "Cod 206 - Continut partial"
+
+msgid "Code 300 - Multiple Choices"
+msgstr "Cod 300 - Optiuni multiple"
+
+msgid "Code 301 - Moved Permanently"
+msgstr "Cod 301 - Mutat permanent"
+
+msgid "Code 302 - Found"
+msgstr "Cod 302 - Gasit"
+
+msgid "Code 303 - See Other"
+msgstr "Cod 303 - Vezi alt"
+
+msgid "Code 304 - Not Modified"
+msgstr "Cod 304 - Nemodificat"
+
+msgid "Code 305 - Use Proxy"
+msgstr "Cod 305 - Foloseste proxy"
+
+msgid "Code 307 - Moved Temporarily"
+msgstr "Cod 307 - Mutat temporar"
+
+msgid "Code 400 - Bad Request"
+msgstr "Cod 400 - Cerere gresita"
+
+msgid "Code 401 - Unauthorized"
+msgstr "Cod 401 - Neautorizat"
+
+msgid "Code 402 - Payment Required"
+msgstr "Cod 402 - Plata solicitata"
+
+msgid "Code 403 - Forbidden"
+msgstr "Cod 403 - Interzis"
+
+msgid "Code 404 - Not Found"
+msgstr "Cod 404 - Lipsa"
+
+msgid "Code 405 - Method Not Allowed"
+msgstr "Cod 405 - Metoda nepermisa"
+
+msgid "Code 406 - Not Acceptable"
+msgstr "Cod 406 - Inacceptabil"
+
+msgid "Code 407 - Proxy Authentication Required"
+msgstr "Cod 407 - Autentificare prin proxy necesara"
+
+msgid "Code 408 - Request Timeout"
+msgstr "Cod 408 - Timeout cerere"
+
+msgid "Code 409 - Conflict"
+msgstr "Cod 409 - Conflict"
+
+msgid "Code 410 - Gone"
+msgstr "Cod 410 - Satisfacut"
+
+msgid "Code 411 - Length Required"
+msgstr "Cod 411 - Lungime solicitata"
+
+msgid "Code 412 - Precondition Failed"
+msgstr "Cod 412 - Precondite esuata"
+
+msgid "Code 413 - Request Entity Too Large"
+msgstr "Cod 413 - Entitatea ceruta este prea mare"
+
+msgid "Code 414 - Request-URI Too Long"
+msgstr "Cod 414 - URI-ul cerut prea lung"
+
+msgid "Code 415 - Unsupported Media Type"
+msgstr "Cod 415 - Tip de mediu necunoscut"
+
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr "Cod 416 - Domeniul cererii nerealizabil"
+
+msgid "Code 417 - Expectation Failed"
+msgstr "Cod 417 - Asteptare esuata"
+
+msgid "Code 500 - Internal Server Error"
+msgstr "Cod 500 - Eroare interna a serverului"
+
+msgid "Code 501 - Not Implemented"
+msgstr "Cod 501 - Neimplementat"
+
+msgid "Code 502 - Bad Gateway"
+msgstr "Cod 502 - Gateway gresit"
+
+msgid "Code 503 - Service Unavailable"
+msgstr "Cod 503 - Serviciu indisponibil"
+
+msgid "Code 504 - Gateway Timeout"
+msgstr "Cod 504 - Timeout la gateway"
+
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr "Cod 505 - Versiune de HTTP nesuportata"
+
+msgid "Colombia"
+msgstr "Columbia"
+
+msgid "Comoros"
+msgstr "Insulele Comore"
+
+msgid "Congo"
+msgstr "Congo"
+
+msgid "Cook Islands"
+msgstr "Insulele Cook"
+
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "Cote D'Ivoire (Coasta de Fildes)"
+
+msgid "Countries"
+msgstr "Tari"
+
+msgid "Country"
+msgstr "Tara"
+
+msgid "Creating output in"
+msgstr "Rezultatul este salvat in"
+
+msgid "Croatia (Hrvatska)"
+msgstr "Croatia (Hrvatska)"
+
+msgid "Cuba"
+msgstr "Cuba"
+
+msgid "Cyprus"
+msgstr "Cipru"
+
+msgid "Czech Republic"
+msgstr "Republica Ceha"
+
+msgid "Czechoslovakia (former)"
+msgstr "Cehoslovacia (fosta)"
+
+msgid "DNS Lookup"
+msgstr "DNS Lookup"
+
+msgid "Daily Avg"
+msgstr "Media zilnica"
+
+msgid "Daily Statistics"
+msgstr "Statistici zilnice"
+
+msgid "Daily Statistics for"
+msgstr "Statistici zilnice pe luna"
+
+msgid "Daily usage for"
+msgstr "Utilizarea zilnica pe luna"
+
+msgid "Day"
+msgstr "Zi"
+
+msgid "Dec"
+msgstr "Dec"
+
+msgid "December"
+msgstr "Decembrie"
+
+msgid "Denmark"
+msgstr "Danemarca"
+
+msgid "Djibouti"
+msgstr "Djibouti"
+
+msgid "Dominica"
+msgstr "Dominica"
+
+msgid "Dominican Republic"
+msgstr "Republica Dominicana"
+
+msgid "East Timor"
+msgstr "Timorul de Est"
+
+msgid "Ecuador"
+msgstr "Ecuador"
+
+msgid "Egypt"
+msgstr "Egipt"
+
+msgid "El Salvador"
+msgstr "El Salvador"
+
+msgid "English"
+msgstr "in romana"
+
+msgid "Entry"
+msgstr "Intrari"
+
+msgid "Equatorial Guinea"
+msgstr "Guineea Ecuatoriala"
+
+msgid "Eritrea"
+msgstr "Eritreea"
+
+msgid "Error adding Referrer node, skipping"
+msgstr "Eroare adaugare nod de Pagina referenta, sar"
+
+msgid "Error adding Search String Node, skipping"
+msgstr "Eroare adaugare nod Sir de cautare, sar"
+
+msgid "Error adding URL node, skipping"
+msgstr "Eroare adaugare nod URL, sar"
+
+msgid "Error adding User Agent node, skipping"
+msgstr "Eroare adaugare nod Navigator client, sar"
+
+msgid "Error adding Username node, skipping"
+msgstr "Eroare adaugare nod Utilizatori, sar"
+
+msgid "Error adding host node (daily), skipping"
+msgstr "Eroare adaugare nod host (zilnic), sar"
+
+msgid "Error adding host node (monthly), skipping"
+msgstr "Eroare adaugare nod host (lunar), sar"
+
+msgid "Error: Can't change directory to"
+msgstr "Eroare: Nu pot sa ajung in directorul"
+
+msgid "Error: Can't open log file"
+msgstr "Eroare: Nu pot deschide fisierul jurnal"
+
+msgid "Error: Ignoring invalid history record"
+msgstr "Eroare: Ignor inregistrarile invalide din fisierul de istoric"
+
+msgid "Warning: Skipping oversized log record"
+msgstr "Eroare: Sar o inregistrare de jurnal supradimensionata"
+
+msgid "Error: Skipping record (bad date)"
+msgstr "Eroare: Sar inregistrarea (date incorecte)"
+
+msgid "Error: Unable to lock DNS cache file"
+msgstr "Eroare: Nu pot bloca fisierul cache al DNS"
+
+msgid "Error: Unable to open DNS cache file"
+msgstr "Eroare: Nu pot deschide fisierul cache al DNS"
+
+msgid "Error: Unable to open configuration file"
+msgstr "Eroare: Nu pot deschide fisierul de configurare"
+
+msgid "Error: Unable to open file"
+msgstr "Eroare: Nu pot deschide fisierul"
+
+msgid "Error: Unable to restore run data"
+msgstr "Eroare: Nu pot reface datele rulate"
+
+msgid "Error: Unable to save current run data"
+msgstr "Eroare: Nu pot salva datele rulate acum"
+
+msgid "Error: Unable to write history file"
+msgstr "Eroare: Nu pot sa scriu in fisierul de istoric"
+
+msgid "Estonia"
+msgstr "Estonia"
+
+msgid "Ethiopia"
+msgstr "Etiopia"
+
+msgid "Exit"
+msgstr "Iesiri"
+
+msgid "Falkland Islands (Malvinas)"
+msgstr "Insulele Falkland (Malvinas)"
+
+msgid "Faroe Islands"
+msgstr "Insulele Faroe"
+
+msgid "Feb"
+msgstr "Feb"
+
+msgid "February"
+msgstr "Februarie"
+
+msgid "Fiji"
+msgstr "Fiji"
+
+msgid "Files"
+msgstr "Fisiere"
+
+msgid "Files per Day"
+msgstr "Fisiere pe zi"
+
+msgid "Finland"
+msgstr "Finlanda"
+
+msgid "France"
+msgstr "Franta"
+
+msgid "France; Metropolitan"
+msgstr "Franta metropolitana"
+
+msgid "French Guiana"
+msgstr "Guiana Franceza"
+
+msgid "French Polynesia"
+msgstr "Polinezia franceza"
+
+msgid "French Southern Territories"
+msgstr "Teritoriile Antarctice Franceze"
+
+msgid "Gabon"
+msgstr "Gabon"
+
+msgid "Gambia"
+msgstr "Gambia"
+
+msgid "Generated"
+msgstr "Generat in"
+
+msgid "Generating report for"
+msgstr "Generez un raport pentru"
+
+msgid "Generating summary report"
+msgstr "Generez cuprinsul raportului"
+
+msgid "Georgia"
+msgstr "Georgia"
+
+msgid "Germany"
+msgstr "Germania"
+
+msgid "Ghana"
+msgstr "Ghana"
+
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+msgid "Great Britain (UK)"
+msgstr "Marea Britanie (UK)"
+
+msgid "Greece"
+msgstr "Grecia"
+
+msgid "Greenland"
+msgstr "Groenlanda"
+
+msgid "Grenada"
+msgstr "Grenada"
+
+msgid "Guadeloupe"
+msgstr "Guadelupe"
+
+msgid "Guam"
+msgstr "Guam"
+
+msgid "Guatemala"
+msgstr "Guatemala"
+
+msgid "Guinea"
+msgstr "Guineea"
+
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+msgid "Guyana"
+msgstr "Guiana"
+
+msgid "Haiti"
+msgstr "Haiti"
+
+msgid "Heard and McDonald Islands"
+msgstr "Insulele Heard si McDonald"
+
+msgid "History file not found..."
+msgstr "Nu pot gasi fisierul de istoric..."
+
+msgid "Hits"
+msgstr "Accesari"
+
+msgid "Hits by Response Code"
+msgstr "Accesari dupa codul de raspuns"
+
+msgid "Hits per Day"
+msgstr "Vizitari pe zi"
+
+msgid "Hits per Hour"
+msgstr "Vizitari pe ora"
+
+msgid "Honduras"
+msgstr "Honduras"
+
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+msgid "Hostname"
+msgstr "Nume"
+
+msgid "Hostname for reports is"
+msgstr "Hostname-ul pentru rapoarte este"
+
+msgid "Hour"
+msgstr "Ora"
+
+msgid "Hourly Statistics"
+msgstr "Statistici orare"
+
+msgid "Hourly Statistics for"
+msgstr "Statistici orare pe luna"
+
+msgid "Hourly usage for"
+msgstr "Utilizarea orara pe luna"
+
+msgid "Hungary"
+msgstr "Ungaria"
+
+msgid "Iceland"
+msgstr "Islanda"
+
+msgid "Ignoring previous history..."
+msgstr "Ignor fisierul de istoric precedent..."
+
+msgid "India"
+msgstr "India"
+
+msgid "Indonesia"
+msgstr "Indonezia"
+
+msgid "International (int)"
+msgstr "International (int)"
+
+msgid "Iran"
+msgstr "Iran"
+
+msgid "Iraq"
+msgstr "Irak"
+
+msgid "Ireland"
+msgstr "Irlanda"
+
+msgid "Israel"
+msgstr "Israel"
+
+msgid "Italy"
+msgstr "Italia"
+
+msgid "Jamaica"
+msgstr "Jamaica"
+
+msgid "Jan"
+msgstr "Ian"
+
+msgid "January"
+msgstr "Ianuarie"
+
+msgid "Japan"
+msgstr "Japan"
+
+msgid "Jordan"
+msgstr "Iordania"
+
+msgid "Jul"
+msgstr "Iul"
+
+msgid "July"
+msgstr "Iulie"
+
+msgid "Jun"
+msgstr "Iun"
+
+msgid "June"
+msgstr "Iunie"
+
+msgid "KBytes"
+msgstr "KBytes"
+
+msgid "KBytes per Day"
+msgstr "KBytes pe zi"
+
+msgid "Kazakhstan"
+msgstr "Kazahstan"
+
+msgid "Kenya"
+msgstr "Kenia"
+
+msgid "Kiribati"
+msgstr "Kiribati"
+
+msgid "Korea (North)"
+msgstr "Coreea (de Nord)"
+
+msgid "Korea (South)"
+msgstr "Coreea (de Sud)"
+
+msgid "Kuwait"
+msgstr "Kuwait"
+
+msgid "Kyrgyzstan"
+msgstr "Kirgizstan"
+
+msgid "Laos"
+msgstr "Laos"
+
+msgid "Last 12 Months"
+msgstr "ultimele 12 luni"
+
+msgid "Latvia"
+msgstr "Letonia"
+
+msgid "Lebanon"
+msgstr "Liban"
+
+msgid "Lesotho"
+msgstr "Lesotho"
+
+msgid "Liberia"
+msgstr "Liberia"
+
+msgid "Libya"
+msgstr "Libia"
+
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+msgid "Lithuania"
+msgstr "Lituania"
+
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+msgid "Macau"
+msgstr "Macao"
+
+msgid "Macedonia"
+msgstr "Macedonia"
+
+msgid "Madagascar"
+msgstr "Madagascar"
+
+msgid "Malawi"
+msgstr "Malawi"
+
+msgid "Malaysia"
+msgstr "Malaezia"
+
+msgid "Maldives"
+msgstr "Maldive"
+
+msgid "Mali"
+msgstr "Mali"
+
+msgid "Malta"
+msgstr "Malta"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "March"
+msgstr "Martie"
+
+msgid "Marshall Islands"
+msgstr "Insulele Marshall"
+
+msgid "Martinique"
+msgstr "Martinica"
+
+msgid "Mauritania"
+msgstr "Mauritania"
+
+msgid "Mauritius"
+msgstr "Mauritius"
+
+msgid "Max"
+msgstr "Maxim"
+
+msgid "May"
+msgstr "Mai"
+
+msgid "Mayotte"
+msgstr "Mayotte"
+
+msgid "Mexico"
+msgstr "Mexic"
+
+msgid "Micronesia"
+msgstr "Micronezia"
+
+msgid "Moldova"
+msgstr "Moldova"
+
+msgid "Monaco"
+msgstr "Monaco"
+
+msgid "Mongolia"
+msgstr "Mongolia"
+
+msgid "Month"
+msgstr "Luna"
+
+msgid "Monthly Statistics for"
+msgstr "Statistici lunare pentru"
+
+msgid "Monthly Totals"
+msgstr "Totaluri lunare"
+
+msgid "Montserrat"
+msgstr "Montserrat"
+
+msgid "Morocco"
+msgstr "Maroc"
+
+msgid "Mozambique"
+msgstr "Mozambic"
+
+msgid "Myanmar"
+msgstr "Myanmar (Birmania)"
+
+msgid "Namibia"
+msgstr "Namibia"
+
+msgid "Nato field (nato)"
+msgstr "Cimp Nato (nato)"
+
+msgid "Nauru"
+msgstr "Nauru"
+
+msgid "Nepal"
+msgstr "Nepal"
+
+msgid "Netherlands"
+msgstr "Olanda"
+
+msgid "Netherlands Antilles"
+msgstr "Antilele olandeze"
+
+msgid "Network"
+msgstr "Retea (Network)"
+
+msgid "Neutral Zone"
+msgstr "Zona Neutra"
+
+msgid "New Caledonia"
+msgstr "Noua Caledonie"
+
+msgid "New Zealand (Aotearoa)"
+msgstr "Noua Zeelanda (Aotearoa)"
+
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+msgid "Niger"
+msgstr "Nigeria"
+
+msgid "Nigeria"
+msgstr "Nigeria"
+
+msgid "Niue"
+msgstr "Niue"
+
+msgid "No cache file specified, aborting..."
+msgstr "Nu s-a specificat nici un fisier cache, renunt..."
+
+msgid "No valid records found!"
+msgstr "Nu am gasit nici o inregsitare corecta!"
+
+msgid "Non-Profit Organization"
+msgstr "Organizatie Non-Profit"
+
+msgid "None to process"
+msgstr "Nimic de prelucrat"
+
+msgid "Norfolk Island"
+msgstr "Insula Norfolk"
+
+msgid "Northern Mariana Islands"
+msgstr "Insulele Mariane de Nord"
+
+msgid "Norway"
+msgstr "Norvegia"
+
+msgid "Nov"
+msgstr "Noi"
+
+msgid "November"
+msgstr "Noiembrie"
+
+msgid "Oct"
+msgstr "Oct"
+
+msgid "October"
+msgstr "Octombrie"
+
+msgid "Old style Arpanet (arpa)"
+msgstr "Arpanet stilul vechi (arpa)"
+
+msgid "Oman"
+msgstr "Oman"
+
+msgid "Other"
+msgstr "Altele"
+
+msgid "Pages"
+msgstr "Pagini"
+
+msgid "Pages per Day"
+msgstr "Pagini pe zi"
+
+msgid "Pakistan"
+msgstr "Pakistan"
+
+msgid "Palau"
+msgstr "Palau"
+
+msgid "Panama"
+msgstr "Panama"
+
+msgid "Papua New Guinea"
+msgstr "Papua Noua Guinee"
+
+msgid "Paraguay"
+msgstr "Paraguay"
+
+msgid "Peru"
+msgstr "Peru"
+
+msgid "Philippines"
+msgstr "Filipine"
+
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+msgid "Poland"
+msgstr "Polonia"
+
+msgid "Portugal"
+msgstr "Portugalia"
+
+msgid "Previous run data not found..."
+msgstr "Datele rulate inainte nu au fost gasite..."
+
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+msgid "Qatar"
+msgstr "Qatar"
+
+msgid "Reading history file..."
+msgstr "Citesc fisierul de istoric..."
+
+msgid "Reading previous run data..."
+msgstr "Citesc datele rulate inainte..."
+
+msgid "Referrer"
+msgstr "Pagina referenta"
+
+msgid "Referrers"
+msgstr "Pagini referente"
+
+msgid "Reunion"
+msgstr "Reunion"
+
+msgid "Romania"
+msgstr "Romania"
+
+msgid "Russian Federation"
+msgstr "Rusia"
+
+msgid "Rwanda"
+msgstr "Rwanda"
+
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "Ins. S. Georgia si S. Sandwich"
+
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts si Nevis"
+
+msgid "Saint Lucia"
+msgstr "Sfinta Lucia"
+
+msgid "Saint Vincent and the Grenadines"
+msgstr "Sifintul Vincent si Grenadine"
+
+msgid "Samoa"
+msgstr "Samoa"
+
+msgid "San Marino"
+msgstr "San Marino"
+
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome si Principe"
+
+msgid "Saudi Arabia"
+msgstr "Arabia Saudita"
+
+msgid "Saving current run data..."
+msgstr "Salvez datele rulate acum..."
+
+msgid "Saving history information..."
+msgstr "Salvez informatiile in fisierul de istoric..."
+
+msgid "Search"
+msgstr "Cautare"
+
+msgid "Search String"
+msgstr "Sir de cautare"
+
+msgid "Senegal"
+msgstr "Senegal"
+
+msgid "Sep"
+msgstr "Sep"
+
+msgid "September"
+msgstr "Septembrie"
+
+msgid "Seychelles"
+msgstr "Seychelles"
+
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+msgid "Singapore"
+msgstr "Singapore"
+
+msgid "Sites"
+msgstr "Situri"
+
+msgid "Skipping Netscape header record"
+msgstr "Sar inregistrarea antetului Netscape"
+
+msgid "Skipping bad record"
+msgstr "Sar o inregistrare gresita"
+
+msgid "Slovak Republic"
+msgstr "Republica Slovaca"
+
+msgid "Slovenia"
+msgstr "Slovenia"
+
+msgid "Solomon Islands"
+msgstr "Insulele Solomon"
+
+msgid "Somalia"
+msgstr "Somalia"
+
+msgid "South Africa"
+msgstr "Africa de Sud"
+
+msgid "Spain"
+msgstr "Spania"
+
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+msgid "St. Helena"
+msgstr "Sfinta Elena"
+
+msgid "St. Pierre and Miquelon"
+msgstr "St. Pierre si Miquelon"
+
+msgid "Sudan"
+msgstr "Sudan"
+
+msgid "Summary Period"
+msgstr "Perioada analizata"
+
+msgid "Summary by Month"
+msgstr "Sumarul pe luna"
+
+msgid "Suriname"
+msgstr "Surinam"
+
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Insulele Svalbard si Jan Mayen"
+
+msgid "Swaziland"
+msgstr "Swaziland"
+
+msgid "Sweden"
+msgstr "Suedia"
+
+msgid "Switzerland"
+msgstr "Elvetia"
+
+msgid "Syria"
+msgstr "Siria"
+
+msgid "Taiwan"
+msgstr "Taiwan"
+
+msgid "Tajikistan"
+msgstr "Tadjikistan"
+
+msgid "Tanzania"
+msgstr "Tanzania"
+
+msgid "Thailand"
+msgstr "Tailanda"
+
+msgid "Togo"
+msgstr "Togo"
+
+msgid "Tokelau"
+msgstr "Tokelau"
+
+msgid "Tonga"
+msgstr "Tonga"
+
+msgid "Top"
+msgstr "Top"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Total Countries"
+msgstr "al Tarilor"
+
+msgid "Total Entry Pages"
+msgstr "total Pagini de intrare"
+
+msgid "Total Exit Pages"
+msgstr "total Pagini de iesire"
+
+msgid "Total Files"
+msgstr "Total fisiere"
+
+msgid "Total Hits"
+msgstr "Total accesari"
+
+msgid "Total KBytes"
+msgstr "Total Kbytes"
+
+msgid "Total Referrers"
+msgstr "al Paginilor referente"
+
+msgid "Total Search Strings"
+msgstr "total Siruri de cautare"
+
+msgid "Total Sites"
+msgstr "al Siturilor"
+
+msgid "Total URLs"
+msgstr "al URL-urilor"
+
+msgid "Total Unique Referrers"
+msgstr "Total pagini referente unice"
+
+msgid "Total Unique Sites"
+msgstr "Total situri unice"
+
+msgid "Total Unique URLs"
+msgstr "Total URL-uri unice"
+
+msgid "Total Unique User Agents"
+msgstr "Total navigatoare"
+
+msgid "Total Unique Usernames"
+msgstr "Total Utilizatori unici"
+
+msgid "Total User Agents"
+msgstr "al Navigatoarelor"
+
+msgid "Total Usernames"
+msgstr "Total Utilizatori"
+
+msgid "Totals"
+msgstr "Totaluri"
+
+msgid "Trinidad and Tobago"
+msgstr "Trinidad-Tobago"
+
+msgid "Tunisia"
+msgstr "Tunisia"
+
+msgid "Turkey"
+msgstr "Turcia"
+
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+msgid "Turks and Caicos Islands"
+msgstr "Insulele Turks si Caicos"
+
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "URLs"
+msgstr "URL-uri"
+
+msgid "US Commercial"
+msgstr "US Commercial"
+
+msgid "US Educational"
+msgstr "US Educational"
+
+msgid "US Government"
+msgstr "US Guvernamental"
+
+msgid "US Military"
+msgstr "US Militar"
+
+msgid "US Minor Outlying Islands"
+msgstr "Insulele US Minor Outlying"
+
+msgid "USSR (former)"
+msgstr "URSS (fosta)"
+
+msgid "Uganda"
+msgstr "Uganda"
+
+msgid "Ukraine"
+msgstr "Ucraina"
+
+msgid "Undefined response code"
+msgstr "Cod de raspuns nedefinit"
+
+msgid "United Arab Emirates"
+msgstr "Emiratele Arabe Unite"
+
+msgid "United Kingdom"
+msgstr "Regatul Unit"
+
+msgid "United States"
+msgstr "Statele Unite ale Americii"
+
+msgid "Unresolved/Unknown"
+msgstr "Nerezolvat/Necunoscut"
+
+msgid "Uruguay"
+msgstr "Uruguay"
+
+msgid "Usage"
+msgstr "Utilizare"
+
+msgid "Usage Statistics for"
+msgstr "Statisticile de utilizare ale lui"
+
+msgid "Usage by Country for"
+msgstr "Utilizarea dupa tara pe luna"
+
+msgid "Usage summary for"
+msgstr "Sumarul utilizarii lui"
+
+msgid "User Agent"
+msgstr "Navigator"
+
+msgid "Username"
+msgstr "Utilizator"
+
+msgid "Users"
+msgstr "Utilizatori"
+
+msgid "Using DNS cache file"
+msgstr "Folosesc fisierul cache al DNS"
+
+msgid "Using logfile"
+msgstr "Accesez fisierul jurnal"
+
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+msgid "Vatican City State (Holy See)"
+msgstr "Vatican (Sfintul Scaun)"
+
+msgid "Venezuela"
+msgstr "Venezuela"
+
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+msgid "View All Referrers"
+msgstr "Vizualizarea tuturor paginilor referente"
+
+msgid "View All Search Strings"
+msgstr "Vizualizarea tuturor cuvintelor cheie"
+
+msgid "View All Sites"
+msgstr "Vizualizarea tuturor siturilor"
+
+msgid "View All URLs"
+msgstr "Vizualizarea tuturor URL-urilor"
+
+msgid "View All User Agents"
+msgstr "Vizualizarea tuturor navigatoarelor"
+
+msgid "View All Usernames"
+msgstr "Vizualizarea tuturor utiltizatorilor"
+
+msgid "Virgin Islands (British)"
+msgstr "Insulele Virgine (britance)"
+
+msgid "Virgin Islands (U.S.)"
+msgstr "Insulele Virgine (americane)"
+
+msgid "Visits"
+msgstr "Vizite"
+
+msgid "Visits per Day"
+msgstr "Vizite pe zi"
+
+msgid "Wallis and Futuna Islands"
+msgstr "Insulele Wallis si Futuna"
+
+msgid "Warning: Invalid keyword"
+msgstr "Avertisment: Cuvint cheie invalid"
+
+msgid "Warning: Possible duplicate data found"
+msgstr "Avertisment: S-ar putea sa fi gasit date duplicate"
+
+msgid "Warning: String exceeds storage size"
+msgstr "Avertisment: Sirul depaseste dimensiunea spatiului de stocare"
+
+msgid "Warning: Truncating oversized date field"
+msgstr "Avertisment: Trunchiez cimpul data supradimensionat"
+
+msgid "Warning: Truncating oversized hostname"
+msgstr "Avertisment: Trunchiez hostname supradimensionat"
+
+msgid "Warning: Truncating oversized referrer field"
+msgstr "Avertisment: Trunchiez cimpul paginii referente supradimensionat"
+
+msgid "Warning: Truncating oversized request field"
+msgstr "Avertisment: Trunchiez cimpul cerere supradimensionat"
+
+msgid "Warning: Truncating oversized username"
+msgstr "Avertisment: Trunchiez cimpul utilizator supradimensionat"
+
+msgid "Western Sahara"
+msgstr "Sahara Occidentala"
+
+msgid "Yemen"
+msgstr "Yemen"
+
+msgid "Yugoslavia"
+msgstr "Yugoslavia"
+
+msgid "Zaire"
+msgstr "Zair"
+
+msgid "Zambia"
+msgstr "Zambia"
+
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+msgid "[options] [log file]"
+msgstr "[optiuni] [fisier jurnal]"
+
+msgid "addresses"
+msgstr "adrese"
+
+msgid "bad"
+msgstr "gresit"
+
+msgid "current directory"
+msgstr "directorul curent"
+
+msgid "ignored"
+msgstr "ignorat"
+
+msgid "in"
+msgstr "in"
+
+msgid "of"
+msgstr "din"
+
+msgid "records"
+msgstr "inregistrari"
+
+msgid "seconds"
+msgstr "secunde"

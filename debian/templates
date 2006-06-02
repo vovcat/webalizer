@@ -1,0 +1,22 @@
+Template: webalizer/upgrading
+Type: note
+_Description: Are you upgrading from a version < 2.01.6?
+ WARNING: If you're upgrading from a version < 2.01.6, see
+ /usr/share/doc/webalizer/README.FIRST.gz for details on upgrading your old
+ data!!
+
+Template: webalizer/directory
+Type: string
+Default: /var/www/webalizer
+_Description: Which directory should webalizer put the output in?
+
+Template: webalizer/doc_title
+Type: string
+_Default: Usage Statistics for
+_Description: Enter the title of the reports webalizer will generate.
+ (your system's hostname will be appended to it)
+
+Template: webalizer/logfile
+Type: string
+Default: /var/log/apache/access.log.1
+_Description: What is the filename of the rotated webserver log?

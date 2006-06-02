@@ -1,0 +1,39 @@
+Here is a small modification to your script.
+This mod enable the handling of multiple configuration files.
+It is useful for Virtual Hosts.
+
+
+---< Damien METZLER >-----------------------------
+
+
+
+#!/bin/sh
+# /etc/cron.daily/webalizer: webalizer daily maintenance script
+# Written by Remco van de Meent <remco@debian.org>
+# Modified by Damien METZLER <dmetzler@nordnet.fr>
+
+WEBALIZER_BIN=/usr/bin/webalizer
+WEBALIZER_CONFDIR=/etc/webalizer
+
+for i in ${WEBALIZER_CONFDIR}/*.conf; do (
+
+WEBALIZER_CONF=$i;
+# See if the webalizer binary and config file exists
+# if not, exit without warning to prevent daily mails
+[ -f ${WEBALIZER_BIN} ] || exit 0;
+[ -f ${WEBALIZER_CONF} ] || exit 0;
+
+# Check for empty logfile
+logsz=`egrep '^LogFile' $WEBALIZER_CONF | \
+       sed -e 's/[[:space:]]\+/ /' | \
+       cut -d ' ' -f2 | \
+       xargs ls -l | \
+       sed -e 's/[[:space:]]\+/ /g' | \
+       cut -d ' ' -f5`;
+[ $logsz -gt 0 ] || exit 0;
+
+# Run webalizer quietly
+${WEBALIZER_BIN}  -q -c ${WEBALIZER_CONF};
+) done
+# Exit with last webalizer's exit code
+exit $?
