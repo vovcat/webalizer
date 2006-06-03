@@ -1,0 +1,83 @@
+# German translation for webalizer (debconf).
+# Copyright 2005 Free Software Foundation, Inc.
+# Erik Schanze <mail@erikschanze.de>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer_2.01.10-26_templates\n"
+"Report-Msgid-Bugs-To: debian@psabs.com.br\n"
+"POT-Creation-Date: 2006-07-06 16:24-0300\n"
+"PO-Revision-Date: 2004-08-11 07:52+0200\n"
+"Last-Translator: Erik Schanze <mail@erikschanze.de>\n"
+"Language-Team: German <debian-l10n-german@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+#, fuzzy
+msgid "Upgrading from a version < 2.01.6"
+msgstr "Aktualisieren Sie eine Version < 2.01.6?"
+
+#. Type: note
+#. Description
+#: ../templates:1002
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"ACHTUNG: Wenn Sie eine Version < 2.01.6 aktualisieren, sehen Sie sich die "
+"Datei /usr/share/doc/webalizer/README.FIRST.gz für Einzelheiten der "
+"Aktualisierung Ihrer alten Daten an!!"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+#, fuzzy
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "Aktualisieren Sie eine Version < 2.01.10-30?"
+
+#. Type: note
+#. Description
+#: ../templates:2002
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory. There was too new features. Please read README.FIST.gz,  README."
+"gz and new examples/sample.conf.gz in /usr/share/doc/webalizer directory."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:3001
+#, fuzzy
+msgid "Directory to put the output in:"
+msgstr "In welchem Verzeichnis soll webalizer seine Ausgaben ablegen?"
+
+#. Type: string
+#. Default
+#: ../templates:4001
+msgid "Usage Statistics for"
+msgstr "Benutzungsstatistik für"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+#, fuzzy
+msgid "Title of the reports webalizer will generate:"
+msgstr "Geben Sie den Titel der Berichte ein, die webalizer erstellt."
+
+#. Type: string
+#. Description
+#: ../templates:4003
+msgid "(your system's hostname will be appended to it)"
+msgstr "(Ihr Rechnername wird daran angehängt.)"
+
+#. Type: string
+#. Description
+#: ../templates:5001
+msgid "Webserver's rotated log filename:"
+msgstr ""

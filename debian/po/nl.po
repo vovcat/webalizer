@@ -1,0 +1,81 @@
+# Dutch translation for webalizer (debconf).
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# Tim Vandermeersch <qber66@skolelinux.no>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer 2.01.10-19\n"
+"Report-Msgid-Bugs-To: debian@psabs.com.br\n"
+"POT-Creation-Date: 2006-07-06 16:24-0300\n"
+"PO-Revision-Date: 2003-09-26 00:41+0100\n"
+"Last-Translator: Tim Vandermeersch <qber66@skolelinux.no>\n"
+"Language-Team: dutch <debian-l10n-dutch@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+#, fuzzy
+msgid "Upgrading from a version < 2.01.6"
+msgstr "Waardeert u op van een versie < 2.01.6?"
+
+#. Type: note
+#. Description
+#: ../templates:1002
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"WAARSCHUWING: Zie bij opwaardering van een versie < 2.01.6, /usr/share/doc/"
+"webalizer/README.FIRST.gz voor meer informatie over het opwaarderen van uw "
+"oude data!!"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+#, fuzzy
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "Waardeert u op van een versie < 2.01.10-30?"
+
+#. Type: note
+#. Description
+#: ../templates:2002
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory. There was too new features. Please read README.FIST.gz,  README."
+"gz and new examples/sample.conf.gz in /usr/share/doc/webalizer directory."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:3001
+#, fuzzy
+msgid "Directory to put the output in:"
+msgstr "Welke map dient webalizer te gebruiken voor de uitvoer?"
+
+#. Type: string
+#. Default
+#: ../templates:4001
+msgid "Usage Statistics for"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:4002
+#, fuzzy
+msgid "Title of the reports webalizer will generate:"
+msgstr "\"Geef de titel van de rapporten die webalizer zal genereren."
+
+#. Type: string
+#. Description
+#: ../templates:4003
+msgid "(your system's hostname will be appended to it)"
+msgstr "(de computernaam van uw systeem zal eraan worden toegevoegd)"
+
+#. Type: string
+#. Description
+#: ../templates:5001
+msgid "Webserver's rotated log filename:"
+msgstr ""
