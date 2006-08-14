@@ -1,0 +1,596 @@
+webalizer (2.01.10-30.1) unstable; urgency=medium
+
+  * Non-maintainer upload for RC bug.
+
+  * Fix RC build failure: add autoconf to the build-dependencies.
+    Thanks Martin Braure de Calignon, closes: #379584.
+
+  [ Debconf Translations ]
+  * Portuguese by Rui Branco (Closes: #381383).
+  * French by Gregory Colpart (Closes: #382792).
+
+ -- Thijs Kinkhorst <thijs@debian.org>  Mon, 14 Aug 2006 17:07:07 +0200
+
+webalizer (2.01.10-30) unstable; urgency=low
+
+  * Added dpatch support, changed and ordered old changes to dpatch.
+  * 01_basic_patch. Thanks to Landon Curt Noll.
+     - Ability to process very large log files (> 2GB in size).
+     - Added some missing locations from the ISO UN codes and from GeoIP's list.
+     - Some location names have been corrected or changed to their official name.
+     - Added some more TLDs.
+     - Let the DNS cache exist for at least a month.
+     - Avoid referrer spamming, turns the "top N referrer" table into just values.
+     - Correctly process log entries made during a leap second.
+    02_64bit. Thanks to Landon Curt Noll.
+     - Avoid 32 bit counter overflow.
+    03_history. Thanks to Landon Curt Noll.
+     - Extend the summary page for longer than 12 months.
+     - Added track_hist bash script.
+    04_geolizer. Thanks to Landon Curt Noll.
+     - Added support to geolizer. (Closes: #285434)
+     - Added libgeoip-dev as Build-depends.
+    05_apache_logio.
+     - Added logio support for new apache2 mod_logio logfiles.
+    06_UserColor. Thanks to Benoît Rouits. <brouits@free.fr.
+     - Allow one to customize the colors of the charts.
+    07_w3c-v4. Thanks to Klaus Reimer <k@ailis.de>.
+     - Implement W3C extended log file format support.
+    08_symlink_vulnerability. Thanks to Julien Danjou <acid@debian.org>.
+     - Converted patch that solve a "symlink vulnerability".
+    09_ipv6_support. Thanks to Arkadiusz Mi¶kiewicz <misiek@pldorg.pl>
+     - Added IPV6 support.
+    10_remove_db1_dependence
+     - Removed db1_* dependence.
+    11_various_buffer_overflows. Thanks to Torsten <torsten.hilbrich@gmx.net>,
+       Timo Sirainen <tss@iki.fi> and  Ulf Harnhammar <metaur@telia.com>.
+     - Fixed buffer overflow while parsing squid logs.
+     - Fixed several "potential" buffer overflows.
+     - Fixed ftp parser overflowing timestamp from log file.
+     - Fixed buffer overflow when parsing FTP xfer log files.
+     - Fixed buffer overflow when parsing webalizer.conf.
+     - Fixed off-by-one bug in the DNS handling.
+    12_recognize_Opera_browsers. Thanks to
+       Steinar H. Gunderson <sgunderson@bigfoot.com>
+     - Webalizer now recognizes Opera browsers.
+    13_add_NoFollow_feature. Thanks to Robert Cheramy <robert@cheramy.net>.
+     - Add "Nofollow" option.
+    14_add_search_engines. Thanks to Gavin Rogers <grogers@vk6hgr.echidna.id.au>
+       and Cyril Bouthors <cyb@debian.org>.
+     - Added more search engines in sample.conf file.
+    15_ignore_localhost. Thanks to
+       Norbert Bottlaender-Prier <norbert@globenet.org>
+     - Ignore localhost by default in sample.conf file.
+    16_fix_typos_webalizer.1
+     - Fix typo errors in webalizer.1 man file.
+    17_gettext
+     - German po translation, thanks to Florian Zumbiehl <florz@gmx.de>.
+       (Closes: #364086)
+     - Changed wrong country name in no.po file. (Closes: #351753)
+     - Added support to "string context" with gettext, this solve problem
+       with equal strings that have different mean. (Closes: #295219)
+     - Added a little text about this patch in README.Debian.(Closes: #334984)
+    18_ttf_support_throught_libgd. Thanks to Tatsuki Sugiura <sugi@nemui.org>.
+     - make possible to use TrueTypeFont throught libgd. (Closes: #201723)
+    19_add_PagePrefix_feature. Thanks to
+       Remco van de Meent <remco@vandemeent.net>
+     - Added new PagePrefix feature. (Closes: #149183)
+    20_fix_capital_letter_option. Thanks to
+       Frank IJskes <frank@debbie.xs4all.nl> (Closes: #358764)
+    21_remove_-v_option. (Closes: #308190)
+       Remove -v option to follows common and already established guidelines.
+  * Removed debian/cron-multiple-config file.
+  * Recreated a new daily cron file (webalizer.cron.daily) with support to
+    many .conf files. (Closes: #229179)
+  * Add msfree.png and webalizer.png to package. (Closes: #352366)
+  * Changed Build-Dependence from libpng3-dev to libpng12-dev.
+  * Added Homepage: in debian/control and updated Long Description.
+  * Added autotools-dev as build dependence, and always run autoconf in rules
+    file.
+  * Standards-Version: 3.7.2.
+  * Updated Descriptions in debian/templates file to complain with Policy.
+  * Updated debian/config script to check if webalizer is older than this
+    release and if yes move /etc/webalizer.conf to new place.
+  * Suggests apache2's log file on installation. (Closes: #232564)
+  * Remove /var/www/webalizer directory after purge, remove output for
+    /dev/null in mkdir command and change exit code to 1 instead -1.
+    (Closes: #349594)
+  * Updated pt_BR debconf translation.
+
+ -- Jose Carlos Medeiros <debian@psabs.com.br>  Fri, 3 Jun 2006 20:23:36 -0300
+
+webalizer (2.01.10-29) unstable; urgency=low
+
+  * Solved "symlink vulnerability", Thanks to Julien Danjou <acid@debian.org>.
+    (Closes: #359745)
+
+ -- Jose Carlos Medeiros <debian@psabs.com.br>  Fri,  2 Jun 2006 15:35:35 -0300
+
+webalizer (2.01.10-28) unstable; urgency=low
+
+  * Added a simple FAQ with Questions and Answers in README.Debian.
+    (closes: #81918, #114768, #258058, #98749, #298823)
+  * Portuguese po-debconf translation, thanks to Miguel Figueiredo
+    <elmig@debianpt.org>. (closes: #338067)
+  * Added more information about DNS lookups in DNS.README file (line 160 to
+    162). (closes: #309359)
+  * Changed webalizer.cron.daily to run webalizer even when current log file
+    is empty. (closes: #252816)
+  * Solved various buffer overflows, thanks to: Ulf Harnhammar
+    <metaur@telia.com>. (closes: #343877)
+  * Removed unused file "x".
+  * Added "sensis.com.au" as SearchEngine in sample.conf. (closes: #327496)
+  * Deleted CVS directory to solve "source-contains-CVS-dir CVS" lintian
+    error.
+  * Added patch with new "Nofollow" option. Thanks to Robert Cheramy
+    <robert@cheramy.net> (Closes: #293794)
+
+ -- Jose Carlos Medeiros <debian@psabs.com.br>  Fri, 20 Jan 2006 15:59:42 -0200
+
+webalizer (2.01.10-27) unstable; urgency=low
+
+  * New maintainer (closes: #332235)
+  * Added compat, watch, examples and links files in debian directory.
+  * Deleted debian/conffiles, there were one that was changed to use dh_installcron.
+  * Deleted po.old and templates.old, they are not necessary.
+  * Updated copyright, docs, postinst, postrm and rules files in debian directory.
+    (closes: #207943)
+  * Conforms to Standards version 3.6.2.
+  * Added debconf-2.0 as pre-depends. (closes: #332143)
+  * Updated debian/webalizer.cron.daily. Thanks to Nicolas François
+    <nicolas.francois@centraliens.net> (closes: #308279)
+  * Formatting issue in the webalizer.1 man page. Thanks to Nicolas François
+    <nicolas.francois@centraliens.net>(closes: #272583)
+  * Added Brazilian po-debconf translation, thanks to Tiago Bortoletto Vaz
+    <tiagovaz@gmail.com>. (closes: #269359, #269358)
+  * Added Swedish po-debconf translation, thanks to Daniel Nylander
+    <yeager@lidkoping.net>. (closes: #330766)
+  * Added Vietnamese po-debconf translation, thanks to Clytie Siddall
+    <clytie@riverland.net.au>. (closes: #324088)
+  * Added Czech po-debconf translation, thanks to Miroslav Kure
+    <kurem@upcase.inf.upol.cz>. (closes: #314944)
+  * Finnish po-debconf translation, thanks to Matti Pöllä <mpo@iki.fi>.
+    (closes: #303807)
+  * Danish po-debconf translation, thanks to Morten Bo Johansen
+    <mojo@mbjnet.dk>. (closes: #286094)
+  * Catalan po-debconf updated and changed from ca_ES.po to ca.po, thanks to
+    Guillem Jover <guillem@debian.org> and Christian Perrier
+    <bubulle@debian.org>. (closes: #272316, #275288)
+  * German po-debconf translation, thanks to Erik Schanze
+    <schanzi_usenet@gmx.de>. (closes: #265070)
+  * po/pl.po: Bad encoding, changed to ISO-8859-2, thanks to Pawel
+    Jarosz <pj@rsi.pl>. (closes: #297928)
+  * po/ru.po: Bad encoding, changed to KOI8-R, thanks to Dmitry Baryshkov
+    <mitya@school.ioffe.ru>. (closes: #293333)
+  * Deleted CVS and lang/CVS folders to complain with lintian.
+
+ -- Jose Carlos Medeiros <debian@psabs.com.br>  Mon, 10 Oct 2005 17:12:55 -0300
+
+webalizer (2.01.10-26) unstable; urgency=low
+
+  * Closes: #261046: "Warning: Skipping oversized log record" is not
+    suppressed by Quiet or ReallyQuiet   (changed to verbose>1  in
+    webalizer.c)
+  * Upgraded to libdb4.2
+
+ -- Remco van de Meent <remco@debian.org>  Sun, 25 Jul 2004 21:10:54 +0200
+
+webalizer (2.01.10-25) unstable; urgency=low
+
+  * By popular request: oversized log records (e.g. because of viruses
+    trying to access the web server, causing extremely long records) no
+    longer result in a error, but instead in a warning (closes: #258059)
+  * Display (locale) language name in output (closes: #202293, #202295)
+  * Fix ISO C99 problem with locale initialization, preventing
+    compilation on older gcc versions (closes: #252541)
+  * Add Catalan debconf translation (closes: #254869)
+  * Add Spanish debconf translation (closes: #251464)
+  * Add Dutch debconf translation (closes: #216937)
+  * Add some local Google sites to SearchEngine list (closes: #253830)
+
+ -- Remco van de Meent <remco@debian.org>  Fri,  9 Jul 2004 15:00:58 +0200
+
+webalizer (2.01.10-24) unstable; urgency=low
+
+  * Add Japanese debconf template translation, thanks to Hideki Yamane
+    (closes: #223454)
+  * DNS resolving works again (closes: #236321)
+  * Fix race condition which might cause webalizer to miss some entries
+    in the access.log (closes: #239831)
+  * Fix a possible buffer overflow causing incorrect xfer sizes in
+    output (closes: #218889)
+
+ -- Remco van de Meent <remco@debian.org>  Wed, 28 Apr 2004 20:24:12 +0200
+
+webalizer (2.01.10-23) unstable; urgency=low
+
+  * Added French debconf template translation, thanks to Christian
+    Perrier (closes: #220802)
+  * Fix debconf templates file for non-translatable strings (closes:
+    #220028)
+
+ -- Remco van de Meent <remco@debian.org>  Mon, 24 Nov 2003 21:05:03 +0100
+
+webalizer (2.01.10-22) unstable; urgency=low
+
+  * Upgraded to Standards-Version: 3.6.1
+  * Added po-debconf to build depends
+  * Fix problems with debconf, by "re-gettextizeing" the templates file
+    (closes: #218006, #215531, #215532)
+
+ -- Remco van de Meent <remco@debian.org>  Tue,  4 Nov 2003 14:39:31 +0100
+
+webalizer (2.01.10-21) unstable; urgency=low
+
+  * Add gettext to build depends to fix hppa port
+
+ -- Remco van de Meent <remco@debian.org>  Tue,  7 Oct 2003 23:28:22 +0200
+
+webalizer (2.01.10-20) unstable; urgency=low
+
+  * Remove German translation, is it was actually Danish (closes:
+    #202404)
+  * Update configuration template (closes: #203496)
+  * Updated Japanese translation, thanks to Tatsuki Sugiura (closes:
+    #201710)
+  * Fix problem with list of months, thanks to Brad Roberts  (closes:
+    #206171)
+
+ -- Remco van de Meent <remco@debian.org>  Tue,  7 Oct 2003 14:30:38 +0200
+
+webalizer (2.01.10-19) unstable; urgency=low
+
+  * Updated to Standards-Version 3.6.0
+  * List all months correctly again in index; applied patch from Tatsuki
+    Sugiura (closes: #200592, #201697)
+
+ -- Remco van de Meent <remco@debian.org>  Tue,  5 Aug 2003 12:51:56 +0200
+
+webalizer (2.01.10-18) unstable; urgency=low
+
+  * Fix trailing space error in cron job (closes: #199640)
+  * Added French translation of the debconf templates, thanks to Michel
+    Grentzinger (closes: #199980)
+  * Add gettext support for webalizer, thanks to Cyril Bouthors and
+    Johan Poirier
+
+ -- Remco van de Meent <remco@debian.org>  Sun,  6 Jul 2003 16:17:49 +0200
+
+webalizer (2.01.10-17) unstable; urgency=low
+
+  * Switch to gettext format for the debconf templates (closes: #199038)
+
+ -- Remco van de Meent <remco@debian.org>  Mon, 30 Jun 2003 21:16:19 +0200
+
+webalizer (2.01.10-16) unstable; urgency=low
+
+  * Updated standards-version to 3.5.10
+  * Change call from cron to include conf file (closes: #198084)
+  * Change cron files to test for logfile in configuration (closes:
+    #187029)
+
+ -- Remco van de Meent <remco@debian.org>  Sun, 22 Jun 2003 09:16:54 +0200
+
+webalizer (2.01.10-15) unstable; urgency=low
+
+  * Webalizer now recognizes Opera browsers (closes: #182980)
+
+ -- Remco van de Meent <remco@debian.org>  Fri,  7 Mar 2003 17:29:24 +0100
+
+webalizer (2.01.10-14) unstable; urgency=low
+
+  * Increase URL size in webalizer.h; hopefully this results in less
+    "oversized request field" warnings
+
+ -- Remco van de Meent <remco@debian.org>  Sun,  2 Feb 2003 21:23:26 +0100
+
+webalizer (2.01.10-13) unstable; urgency=low
+
+  * Fix MAXAGENT typo (closes: #177543)
+
+ -- Remco van de Meent <remco@debian.org>  Mon, 20 Jan 2003 12:44:50 +0100
+
+webalizer (2.01.10-12) unstable; urgency=low
+
+  * Include IPv6 support (patch from PLD) (closes: #128158)
+
+ -- Remco van de Meent <remco@debian.org>  Mon,  6 Jan 2003 13:52:34 +0100
+
+webalizer (2.01.10-11) unstable; urgency=low
+
+  * Redone debconf'ization
+  * Increased MAXAGENT in webalizer.h to 128 (closes: #171266)
+  * Old and already fixed bugs. Closes: #172382,#173589,#173652
+  * LFS support to cater for large log files (closes: #174394)
+  * Add localhost to Ignore lists (closes: #168418)
+  * Fix some possible buffer overflows (only exploitable with some weird
+    settings that require recompilation) (closes: #166126)
+
+ -- Remco van de Meent <remco@debian.org>  Sat, 28 Dec 2002 13:58:16 +0000
+
+webalizer (2.01.10-10) unstable; urgency=low
+
+  * Fix build dependencies (closes: #167074)
+
+ -- Remco van de Meent <remco@debian.org>  Thu, 31 Oct 2002 10:20:22 +0000
+
+webalizer (2.01.10-9) unstable; urgency=low
+
+  * Add example cron script for multiple configuration files to
+    documentation.
+  * Both cron.daily and cron.weekly scripts. Defaults should work fine
+    with apache. (closes: #162757)
+  * Check for logfile existence in cron scripts (closes: #148794)
+  * Fixed spelling errors in manual page (closes: #148711)
+
+ -- Remco van de Meent <remco@debian.org>  Tue, 29 Oct 2002 09:06:43 +0000
+
+webalizer (2.01.10-8) unstable; urgency=low
+
+  * Force the use of newer libgd2 to solve libpng issues (closes: #157917,
+    #157820)
+
+ -- Remco van de Meent <remco@debian.org>  Fri, 23 Aug 2002 08:44:26 +0000
+
+webalizer (2.01.10-7) unstable; urgency=low
+
+  * Recompile (closes: #157377)
+
+ -- Remco van de Meent <remco@debian.org>  Tue, 20 Aug 2002 10:58:38 +0000
+
+webalizer (2.01.10-6) unstable; urgency=low
+
+  * No longer use db1 (closes: #155871)
+
+ -- Remco van de Meent <remco@debian.org>  Fri,  9 Aug 2002 12:59:34 +0000
+
+webalizer (2.01.10-5) unstable; urgency=low
+
+  * Darn. Same fix. but now for real
+  * Add check for zero-sized logfiles (closes: #147445)
+
+ -- Remco van de Meent <remco@debian.org>  Sun, 26 May 2002 14:27:11 +0000
+
+webalizer (2.01.10-4) unstable; urgency=low
+
+  * Add check for zero-sized logfiles (closes: #147445)
+
+ -- Remco van de Meent <remco@debian.org>  Sun, 26 May 2002 13:19:39 +0000
+
+webalizer (2.01.10-3) unstable; urgency=medium
+
+  * Don't read config file twice in cron job (now really fixed) (closes:
+    #138097)
+  * Add debconf question to determine where the rotated logfile is
+    (closes: #117355, #145752, #144645)
+
+ -- Remco van de Meent <remco@debian.org>  Wed, 15 May 2002 18:30:53 +0200
+
+webalizer (2.01.10-2) unstable; urgency=medium
+
+  * Changed exit 1 into exit 0 in cron.daily scripts (closes: #143990)
+
+ -- Remco van de Meent <remco@debian.org>  Mon, 22 Apr 2002 09:51:16 +0200
+
+webalizer (2.01.10-1) unstable; urgency=high
+
+  * SECURITY New upstream release (closes: #143019)
+  * Upstream fix for weird crashes on certain logfiles (closes: #106164, #106165)
+  * Old bug on dns cache, fixed in earlier version (closes: #115099)
+  * Fixes for webalizer.conf generation (closes: #70559)
+  * Closing old bug that was already fixed (closes: #72875)
+  * Webalizer uses correct logfile (access.log.0) thus no information is
+    lost (closes: #95126, #117355)
+  * Another DNS cache problem fixed (closes: #106632)
+  * Webalizer now uses debconf (closes: #127904)
+  * Webalizer now uses libgd2, dependencies fixed (closes: #134793)
+  * Upgraded to Standards-Version: 3.5.6
+  * Webalizer now only reads the config file once in the cronjob
+    (closes: #138097)
+  * Spelling error in Description fixed (closes: #125474)
+
+ -- Remco van de Meent <remco@debian.org>  Wed, 17 Apr 2002 10:32:40 +0200
+
+webalizer (2.01.9-1) unstable; urgency=high
+
+  * SECURITY: New upstream release  (see upstream changelog for details)
+
+ -- Remco van de Meent <remco@debian.org>  Wed, 24 Oct 2001 12:17:54 +0200
+
+webalizer (2.01.6-7) unstable; urgency=low
+
+  * Incorporating changes from 2.01.6-6.1 NMU (closes: #95621)
+  * Changed build-depends on freetype2-dev to libttf-dev
+  * Changed build-depends on libdb2-dev to libdb3-dev
+  * Made sure that /usr/doc/webalizer -> ../share/doc/webalizer is made
+    (closes: #102455)
+
+ -- Remco van de Meent <remco@debian.org>  Mon,  9 Jul 2001 20:58:07 +0200
+
+webalizer (2.01.6-6.1) unstable; urgency=low
+
+  * NMU with permission of Remco van de Meent <remco@debian.org>.
+  * Added the missing build dependency on libdb2-dev and improved
+    the clean target in debian/rules. (closes: #95621)
+
+ -- Adrian Bunk <bunk@fs.tum.de>  Mon,  4 Jun 2001 11:40:02 +0200
+
+webalizer (2.01.6-6) unstable; urgency=low
+
+  * Removed INSTALL file from docs (closes: #94049)
+  * Added cron.daily script (closes: #83563)
+  * Included better sample.conf file (closes: #93631)
+  * Upgraded Standards-Version to 3.1.0
+
+ -- Remco van de Meent <remco@debian.org>  Fri, 20 Apr 2001 10:43:39 +0200
+
+webalizer (2.01.6-5) unstable; urgency=low
+
+  * Fixed postinst, closes: #85108
+
+ -- Remco van de Meent <remco@debian.org>  Tue,  6 Mar 2001 15:49:58 +0100
+
+webalizer (2.01.6-4) unstable; urgency=low
+
+  * Closing 'old' bug about DNS resolving (again) (closes: #78769)
+  * Fixed reference to README.FIRST in postinst (closes: #78861)
+  * Smoother upgrade (closes: #80920)
+  * Closing 'old' bug about webalizer manpage (closes: #78768)
+
+ -- Remco van de Meent <remco@debian.org>  Sat,  4 Jan 2001 11:59:21 +0100
+
+webalizer (2.01.6-3) unstable; urgency=low
+
+  * Closing 'old' bug about DNS resolving (closes: #78769)
+  * Made manpage for webazolver pointing the the webalizer.1 manpage
+    (closes: #78768)
+
+ -- Remco van de Meent <remco@debian.org>  Mon,  4 Dec 2000 16:49:52 +0100
+
+webalizer (2.01.6-2) unstable; urgency=low
+
+  * Compile with DNS options
+  * Closing not-so-relevant bugreport about problems on potato
+    (closes: #78486)
+
+ -- Remco van de Meent <remco@debian.org>  Mon,  4 Dec 2000 13:37:18 +0100
+
+webalizer (2.01.6-1) unstable; urgency=low
+
+  * New upstream release. Closes: Bug#74597
+  * Cleaning up old bugreports. Closes: Bug#69571, Bug#69900, Bug#67137,
+    Bug#68449, Bug#72082, Bug#60254, Bug#74138, Bug#72915
+
+ -- Remco van de Meent <remco@debian.org>  Tue, 28 Nov 2000 16:13:46 +0100
+
+webalizer (1.30.4-4.3) unstable; urgency=medium
+
+  * NMU to fix library dependencies. (Fixes: #67137, #68449, #69571, #69900)
+  * Added Build-Depends: field to control file. (Fixes: #72082)
+
+ -- Gerfried Fuchs <alfie@debian.org>  Thu, 21 Sep 2000 12:15:34 +0200
+
+webalizer (1.30.4-4.2) unstable; urgency=medium
+
+  * NMU at Remco's request to fix library dependencies. (Fixes: #67137)
+  * linked against libgd1
+
+ -- J.H.M. Dassen (Ray) <alfie@debian.org>  Wed, 20 Sep 2000 09:16:07 +0200
+
+webalizer (1.30.4-4.1) unstable; urgency=low
+
+  * NMU to coordinate with libgd
+
+ -- Frank Belew (Myth) <frb@debian.org>  Tue, 11 Jul 2000 14:46:53 -0700
+
+webalizer (1.30.4-4) unstable; urgency=low
+
+  * Fix in postinst, closes: Bug#60130
+  * Addresses Bug#60254, which has been forwarded upstream
+  * Package now lintian-clean.
+
+ -- Remco van de Meent <remco@debian.org>  Mon, 29 May 2000 12:28:24 +0200
+
+webalizer (1.30.4-3) unstable; urgency=low
+
+  * Updated to Standards-Version: 3.0.1.1
+
+ -- Remco van de Meent <remco@debian.org>  Tue, 26 Oct 1999 19:52:05 +0200
+
+webalizer (1.30.4-2) unstable; urgency=low
+
+  * Due to the new libgd1g, webalizer now uses PNG instead of GIF formatted.
+    The upstream author will put PNG support in webalizer in a next version
+    as well.
+
+ -- Remco van de Meent <remco@debian.org>  Sun,  5 Sep 1999 13:48:56 +0200
+
+webalizer (1.30.4-1) unstable; urgency=low
+
+  * New upstream version (closes: Bug#41097)
+  * Removes webalizer.conf on purge, closes: Bug#39570
+
+ -- Remco van de Meent <remco@debian.org>  Sun, 18 Jul 1999 14:19:58 +0200
+
+webalizer (1.22.3-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Tue,  6 Apr 1999 09:38:14 +0200
+
+webalizer (1.22.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Sun, 28 Mar 1999 13:08:15 +0200
+
+webalizer (1.22.1-1) unstable; urgency=low
+
+  * New upstream release
+  * Updated postinst with latest configuration directives
+
+ -- Remco van de Meent <remco@debian.org>  Wed, 24 Mar 1999 11:29:28 +0100
+
+webalizer (1.21.10-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Sun, 21 Mar 1999 15:29:32 +0100
+
+webalizer (1.21.7b-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Sat, 13 Mar 1999 12:14:36 +0100
+
+webalizer (1.21.6-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Tue,  9 Mar 1999 23:10:19 +0100
+
+webalizer (1.20.11-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Fri, 15 Jan 1999 02:01:34 +0100
+
+webalizer (1.20-4) unstable; urgency=low
+
+  * Converted debian/rules to dh_* style
+  * Fixed Architecture line in the control file, fixing bug #27452
+  * Little change in postinst to to support 'recursive' mkdir
+
+ -- Remco van de Meent <remco@debian.org>  Mon, 5 Oct 1998 21:57:58 +0200
+
+webalizer (1.20-3) unstable; urgency=low
+
+  * Changed the way the configuration file is generated
+  * Changes to postinst
+
+ -- Remco van de Meent <remco@debian.org>  Fri, 24 Jul 1998 00:42:06 +0200
+
+webalizer (1.20-2) unstable; urgency=low
+
+  * Fixed wrong placement of sample.conf
+
+ -- Remco van de Meent <remco@debian.org>  Thu, 23 Jul 1998 23:28:59 +0200
+
+webalizer (1.20-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Remco van de Meent <remco@debian.org>  Thu, 23 Jul 1998 19:39:59 +0200
+
+webalizer (1.12-2) unstable; urgency=low
+
+  * Added postinst script that asks some things about configuration of
+    webalizer
+
+ -- Remco van de Meent <remco@debian.org>  Sat, 20 Jun 1998 19:37:37 +0200
+
+webalizer (1.12-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Remco van de Meent <remco@debian.org>  Wed, 10 Jun 1998 20:07:55 +0200

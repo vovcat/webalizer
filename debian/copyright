@@ -1,0 +1,93 @@
+This package was debianized by Remco van de Meent remco@debian.org on
+Wed, 10 Jun 1998 20:07:55 +0200.
+
+It was downloaded from: http://www.mrunix.net/webalizer/
+
+Copyright Holder: Bradford L. Barrett (brad@mrunix.net)
+
+License:
+
+   Copyright (C) 1997, 1998  Bradford L. Barrett (brad@mrunix.net)
+
+   This package is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+
+   This package is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this package; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+On Debian systems, the complete text of the GNU General
+Public License can be found in `/usr/share/common-licenses/GPL'.
+
+   =====================================================================
+   Copyright of libgd1 1.3:
+   ------------------------------------------
+   Portions copyright 1994, 1995, 1996, 1997, 1998, by Cold Spring
+   Harbor Laboratory. Funded under Grant P41-RR02188 by the National
+   Institutes of Health.
+
+   Portions copyright 1996, 1997, 1998, by Boutell.Com, Inc.
+
+   GIF decompression code copyright 1990, 1991, 1993, by David Koblas
+   (koblas@netcom.com).
+
+   Non-LZW-based GIF compression code copyright 1998, by Hutchison
+   Avenue Software Corporation (http://www.hasc.com/, info@hasc.com).
+
+   Permission has been granted to copy and distribute gd in any
+   context, including a commercial application, provided that this
+   notice is present in user-accessible supporting documentation.
+
+   This does not affect your ownership of the derived work itself, and
+   the intent is to assure proper credit for the authors of gd, not to
+   interfere with your productive use of gd. If you have questions,
+   ask. "Derived works" includes all programs that utilize the
+   library. Credit must be given in user-accessible documentation.
+
+   Permission to use, copy, modify, and distribute this software and
+   its documentation for any purpose and without fee is hereby
+   granted, provided that the above copyright notice appear in all
+   copies and that both that copyright notice and this permission
+   notice appear in supporting documentation. This software is
+   provided "as is" without express or implied warranty.
+   -------------------------------------------
+
+   ==================================================================
+   Copyright of 02_basic_patch, 03_64bit, 04_history, 05_geolizer patches.
+   --------------------------------------
+
+   Copyright (c) 2004 by Landon Curt Noll.  All Rights Reserved.
+
+   Permission to use, copy, modify, and distribute this software and
+   its documentation for any purpose and without fee is hereby granted,
+   provided that the above copyright, this permission notice and text
+   this comment, and the disclaimer below appear in all of the following:
+
+   supporting documentation
+   source copies of this file
+
+   LANDON CURT NOLL DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+    INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO
+   EVENT SHALL LANDON CURT NOLL BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+   CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+   USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+   PERFORMANCE OF THIS SOFTWARE.
+
+   chongo (Landon Curt Noll, http://www.isthe.com/chongo/index.html) /\oo/\
+
+   Share and enjoy! :-)
+
+    PLEASE NOTE:
+
+   I do not support nor did I write webalizer, I just use it.
+   These patches are offered to you in the hopes that you
+   will find them useful and in the hopes that they might
+   make it into a webalizer release someday.
