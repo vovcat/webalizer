@@ -1,0 +1,34 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 14_add_search_engines.dpatch by Jose Carlos Medeiros <debian@psabs.com.br>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: add more SearchEngines in .conf file
+
+#################################
+# SearchEngine field for the sensis.com.au search engine
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=327496
+# From: Gavin Rogers <grogers@vk6hgr.echidna.id.au>
+
+################################
+# Support for French versions of Google keywords
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=253830
+# From: Cyril Bouthors <cyb@debian.org>
+
+
+@DPATCH@
+diff -urNad webalizer-2.01.10~/sample.conf webalizer-2.01.10/sample.conf
+--- webalizer-2.01.10~/sample.conf	2006-06-22 10:41:20.000000000 -0300
++++ webalizer-2.01.10/sample.conf	2006-06-22 10:44:57.000000000 -0300
+@@ -530,6 +530,12 @@
+ SearchEngine	mamma.com	query=
+ SearchEngine	alltheweb.com	query=
+ SearchEngine	northernlight.com  qr=
++SearchEngine	sensis.com.au	find=
++SearchEngine	google.nl	q=
++SearchEngine	google.fr	q=
++SearchEngine	google.ch	q=
++SearchEngine	google.ca	q=
++SearchEngine	google.be	q=
+
+ # The Dump* keywords allow the dumping of Sites, URL's, Referrers
+ # User Agents, Usernames and Search strings to seperate tab delimited
