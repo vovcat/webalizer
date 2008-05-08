@@ -1,0 +1,143 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 19_add_PagePrefix_feature.dpatch by Jose Carlos Medeiros <debian@psabs.com.br>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: add new PagePrefix feature.
+
+######################
+# new PagePrefix feature
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=149183
+# From: Remco van de Meent <remco@vandemeent.net>
+#
+# I wanted all requests to particular directory to be treated as "pages"
+# so I made this patch to webalizer. It adds the configure-directive
+# "PagePrefix" which specifies prefixes for requests that always will be
+# considered as pages. This is also extremly useful when a cgi is used
+# with pathinfo like this /mycgi/parameters. I'm running my patched
+# webalizer on several production-servers.
+# More Information in README and sample.conf file
+
+@DPATCH@
+diff -urNad webalizer-2.01.10~/README webalizer-2.01.10/README
+--- webalizer-2.01.10~/README	2006-06-28 18:05:20.000000000 -0300
++++ webalizer-2.01.10/README	2006-06-28 18:07:48.000000000 -0300
+@@ -232,10 +232,10 @@
+ on 'Grouped' records, and thought of as the "Minimum number of visits"
+ that came from that grouping instead.  Note: Visits only occur on
+ PageType requests, that is, for any request whose URL is one of the
+-'page' types defined with the PageType option.  Due to the limitation
+-of the HTTP protocol, log rotations and other factors, this number
+-should not be taken as absolutely accurate,  rather, it should be
+-considered a pretty close "guess".
++'page' types defined with the PageType and PagePrefix option.  Due to
++the limitation of the HTTP protocol, log rotations and other factors,
++this number should not be taken as absolutely accurate,  rather, it
++should be considered a pretty close "guess".
+
+ KBytes
+
+@@ -762,6 +762,11 @@
+               'txt' for ftp logs.
+               Command line argument: -P
+
++PagePrefix    Allows all requests with a specified prefix to be considered
++              as 'pages'. If you want everything under /documents to be
++              treated as pages no matter what their extension is. Also
++              useful if you have cgi-scripts with PATH_INFO.
++
+ GraphLegend   Enable/disable the display of color coded legends on the
+               produced graphs.  Default is 'yes', to display them.
+               Command line argument: -L
+diff -urNad webalizer-2.01.10~/linklist.c webalizer-2.01.10/linklist.c
+--- webalizer-2.01.10~/linklist.c	2006-06-28 18:05:21.000000000 -0300
++++ webalizer-2.01.10/linklist.c	2006-06-28 18:08:20.000000000 -0300
+@@ -102,6 +102,7 @@
+ NLISTPTR html_tail     = NULL;                /* tail HTML code           */
+ NLISTPTR html_end      = NULL;                /* after everything else    */
+ NLISTPTR page_type     = NULL;                /* page view types          */
++NLISTPTR page_prefix   = NULL;                /* page view prefixes       */
+ GLISTPTR search_list   = NULL;                /* Search engine list       */
+
+ /*********************************************/
+diff -urNad webalizer-2.01.10~/linklist.h webalizer-2.01.10/linklist.h
+--- webalizer-2.01.10~/linklist.h	2000-09-29 00:50:30.000000000 -0300
++++ webalizer-2.01.10/linklist.h	2006-06-28 18:08:44.000000000 -0300
+@@ -38,6 +38,7 @@
+ extern NLISTPTR html_tail     ;               /* tail HTML code            */
+ extern NLISTPTR html_end      ;               /* after everything else     */
+ extern NLISTPTR page_type     ;               /* page view types           */
++extern NLISTPTR page_prefix   ;               /* page view prefixes        */
+ extern GLISTPTR search_list   ;               /* Search engine list        */
+
+ extern char     *isinlist(NLISTPTR, char *);        /* scan list for str   */
+diff -urNad webalizer-2.01.10~/sample.conf webalizer-2.01.10/sample.conf
+--- webalizer-2.01.10~/sample.conf	2006-06-28 18:05:21.000000000 -0300
++++ webalizer-2.01.10/sample.conf	2006-06-28 18:17:57.000000000 -0300
+@@ -111,6 +111,12 @@
+ #PageType	php3
+ #PageType	pl
+
++# PagePrefix allows all requests with a specified prefix to be
++# considered as 'pages'. If you want everything under /documents
++# to be treated as pages no matter what their extension is. Also
++# useful if you have cgi-scripts with PATH_INFO.
++#PagePrefix /mycgi/parameters
++
+ # UseHTTPS should be used if the analysis is being run on a
+ # secure server, and links to urls should use 'https://' instead
+ # of the default 'http://'.  If you need this, set it to 'yes'.
+diff -urNad webalizer-2.01.10~/webalizer.c webalizer-2.01.10/webalizer.c
+--- webalizer-2.01.10~/webalizer.c	2006-06-28 18:05:21.000000000 -0300
++++ webalizer-2.01.10/webalizer.c	2006-06-28 18:14:16.000000000 -0300
+@@ -137,8 +137,8 @@
+ char    *hname       = NULL;                  /* hostname for reports     */
+ char    *state_fname = "webalizer.current";   /* run state file name      */
+ char    *hist_fname  = "webalizer.hist";      /* name of history file     */
+-char    *html_ext    = "html";                /* HTML file prefix         */
+-char    *dump_ext    = "tab";                 /* Dump file prefix         */
++char    *html_ext    = "html";                /* HTML file suffix         */
++char    *dump_ext    = "tab";                 /* Dump file suffix         */
+ char    *conf_fname  = NULL;                  /* name of config file      */
+ char    *log_fname   = NULL;                  /* log file pointer         */
+ char    *out_dir     = NULL;                  /* output directory         */
+@@ -1603,8 +1603,9 @@
+                       "PieColor4",         /* Pie Color 4 (def=ffc480)   99  */
+		      "NoFollow",          /* Referrer Following (2=no)  100 */
+ #ifdef HAVE_LIBGD_TTF
+-		      "TrueTypeFont"       /* TrueType Font file         101 */
++		      "TrueTypeFont",      /* TrueType Font file         101 */
+ #endif
++                      "PagePrefix"         /* Prefix classified as pages 102 */
+                    };
+
+    FILE *fp;
+@@ -1767,6 +1768,7 @@
+ #ifdef HAVE_LIBGD_TTF
+          case 101: ttf_file=save_opt(value);     break;   /* TrueType font  */
+ #endif
++         case 102: add_nlist(value,&page_prefix); break;  /* PagePrefix     */
+       }
+    }
+    fclose(fp);
+@@ -1902,12 +1904,20 @@
+
+ int ispage(char *str)
+ {
++   NLISTPTR t;
+    char *cp1, *cp2;
+
+    cp1=cp2=str;
+    while (*cp1!='\0') { if (*cp1=='.') cp2=cp1; cp1++; }
+    if ((cp2++==str)||(*(--cp1)=='/')) return 1;
+-   else return (isinlist(page_type,cp2)!=NULL);
++   t=page_prefix;
++   while(t!=NULL){
++     if(strncmp(str,t->string,strlen(t->string))==0){
++       return 1;
++     }
++     t=t->next;
++   }
++   return (isinlist(page_type,cp2)!=NULL);
+ }
+
+ /*********************************************/

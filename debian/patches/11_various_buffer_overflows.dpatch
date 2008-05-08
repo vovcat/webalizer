@@ -1,0 +1,517 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 11_various_buffer_overflows.dpatch by Jose Carlos Medeiros <debian@psabs.com.br>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Solve various buffer overflows.
+
+#############################################################
+# Buffer overflow while parsing squid logs
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=218889
+# From: Torsten <torsten.hilbrich@gmx.net>
+#
+# Note: I also reported this bug to upstream author (Bradford L. Barret).
+#
+# While checking the results of webalizer (the transfer volume was much
+# too large) we noticed a buffer overflow while parsing the squid logs.
+# This buffer overflows modifies the xfer_size used in the result pages of
+# webalizer.
+#
+# In the function parse_record_squid there is a little bug when
+# constructing the eos variable to limit the copy operation while
+# processing the HTTP URL.  The same destination buffer is used as for the
+# HTTP request type however, the eos is calculated once again based on the
+# cp1 variable no longer pointing to the begin.  If the request url is
+# longer than about 1020 characters, the xfer_size element of the logrec
+# struct will get overwritten.
+#
+# The attach squid.log file contains an example line that exploits the
+# bug.  The "123" characters at the end of the url are those written into
+# xfer_size (at least on my machine).
+#
+# The patch shown below (based on the debian source) removes the
+# recalculation of eos and is therefore avoiding the overflow of the
+# logrec.url buffer.
+#
+# The patch is the same as send upstream shifted by 3 lines (due to
+# debians changes on the source).
+
+#squid.log
+#---- cut here and get off # --
+#1066652973.681      0 12.34.56.78 UDP_MISS/000 1749 ICP_QUERY http://yyyy.example.com/cgi?xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx123 - NONE/- -
+#---- cut here --
+
+#############################################################
+# webalizer buffer overflow prevention patch
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=166126
+# From: Timo Sirainen <tss@iki.fi>
+#
+# Just fixed several "potential" buffer overflows, most of them most
+# likely wouldn't be overflown without some weird local configuration
+# (like changed language settings), but I just wanted to be sure.
+#
+# The first parser.c change fixes also ftp parser overflowing timestamp
+# from log file. Not a remotely overflowable either.
+
+#############################################################
+# webalizer: various buffer overflows
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=343877
+# From: Ulf Harnhammar <metaur@telia.com>
+#
+# I have found some more buffer overflows in webalizer. People from Debian seem to
+# have worked on this earlier on, and here are some more bugs to fix. None of them
+# seem to have any security impact.
+#
+# The first overflow occurs when parsing FTP xfer log files, specifically the IDENT
+# part which can write far beyond its limits. During my testing, I was unable to
+# make this bug crash the program because of the way things are laid out in memory,
+# but I still think it is worth fixing, as writing outside of char buffers in C is
+# a serious matter. You can test it with the attached ftplog.txt file (but you have
+# to add a printf() statement to verify that the overflow occurs).
+#
+# The second overflow occurs when parsing webalizer.conf, where bad config files cause
+# Segmentation faults. I have attached a webalizer.conf file that causes this problem
+# in two different ways.
+#
+# The third overflow is an off-by-one bug in the DNS handling.
+
+# ftplog.txt
+#---- cut here and get off # --
+x Dec 18 13:18:15 2005 5 5 xy 5 xy xy xy UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+#---- cut here --
+
+# webalizer.conf
+#---- cut here and get off # --
+UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU a
+a UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+#---- cut here --
+
+@DPATCH@
+diff -urNad webalizer-2.01.10~/dns_resolv.c webalizer-2.01.10/dns_resolv.c
+--- webalizer-2.01.10~/dns_resolv.c	2006-06-20 17:42:14.000000000 -0300
++++ webalizer-2.01.10/dns_resolv.c	2006-06-20 17:47:24.000000000 -0300
+@@ -156,7 +156,7 @@
+          strncpy (log_rec->hostname,
+                   ((struct dnsRecord *)response.data)->hostName,
+                   MAXHOST);
+-         log_rec->hostname[MAXHOST]=0;
++         log_rec->hostname[MAXHOST-1]=0;
+          if (debug_mode)
+             fprintf(stderr," found: %s (%ld)\n",
+              log_rec->hostname, alignedRecord.timeStamp);
+diff -urNad webalizer-2.01.10~/graphs.c webalizer-2.01.10/graphs.c
+--- webalizer-2.01.10~/graphs.c	2006-06-20 17:42:14.000000000 -0300
++++ webalizer-2.01.10/graphs.c	2006-06-20 17:42:14.000000000 -0300
+@@ -836,7 +836,7 @@
+          gdImageLine(im, CX, CY, gdata.x, gdata.y, black);
+          gdImageFill(im, gdata.mx, gdata.my, i+4);
+
+-         sprintf(buffer,"%s (%d%%)",legend[i], percent);
++	 snprintf(buffer,sizeof(buffer),"%s (%d%%)",legend[i], percent);
+          x=480-(strlen(buffer)*7);
+          gdImageString(im,gdFontMediumBold, x+1, y+1, buffer, black);
+          gdImageString(im,gdFontMediumBold, x, y, buffer, i+4);
+@@ -849,7 +849,7 @@
+       gdata=*calc_arc(s_arc,1.0);
+
+       gdImageFill(im, gdata.mx, gdata.my, white);
+-      sprintf(buffer,"%s (%d%%)",msg_h_other,100-(int)(s_arc*100));
++      snprintf(buffer,sizeof(buffer),"%s (%d%%)",msg_h_other,100-(int)(s_arc*100));
+       x=480-(strlen(buffer)*7);
+       gdImageString(im,gdFontMediumBold, x+1, y+1, buffer, black);
+       gdImageString(im,gdFontMediumBold, x, y, buffer, white);
+diff -urNad webalizer-2.01.10~/output.c webalizer-2.01.10/output.c
+--- webalizer-2.01.10~/output.c	2006-06-20 17:42:14.000000000 -0300
++++ webalizer-2.01.10/output.c	2006-06-20 17:42:14.000000000 -0300
+@@ -312,14 +312,16 @@
+    hist_lday[i]  =  l_day;
+
+    /* fill in filenames */
+-   sprintf(html_fname,"usage_%04d%02d.%s",cur_year,cur_month,html_ext);
++   snprintf(html_fname,sizeof(html_fname),"usage_%04d%02d.%s",
++            cur_year,cur_month,html_ext);
+    sprintf(png1_fname,"daily_usage_%04d%02d.png",cur_year,cur_month);
+    sprintf(png2_fname,"hourly_usage_%04d%02d.png",cur_year,cur_month);
+
+    /* create PNG images for web page */
+    if (daily_graph)
+    {
+-      sprintf(dtitle,"%s %s %d",msg_hmth_du,l_month[cur_month-1],cur_year);
++      snprintf(dtitle,sizeof(dtitle),"%s %s %d",
++               msg_hmth_du,l_month[cur_month-1],cur_year);
+       month_graph6 (  png1_fname,          /* filename          */
+                       dtitle,              /* graph title       */
+                       cur_month,           /* graph month       */
+@@ -336,7 +338,8 @@
+
+    if (hourly_graph)
+    {
+-      sprintf(htitle,"%s %s %d",msg_hmth_hu,l_month[cur_month-1],cur_year);
++      snprintf(htitle,sizeof(htitle),"%s %s %d",
++               msg_hmth_hu,l_month[cur_month-1],cur_year);
+       day_graph3(    png2_fname,
+                      htitle,
+                      th_hit,
+@@ -348,7 +351,7 @@
+    /* first, open the file */
+    if ( (out_fp=open_out_file(html_fname))==NULL ) return 1;
+
+-   sprintf(buffer,"%s %d",l_month[cur_month-1],cur_year);
++   snprintf(buffer,sizeof(buffer),"%s %d",l_month[cur_month-1],cur_year);
+    write_html_head(buffer, out_fp);
+    month_links();
+    month_total_table();
+@@ -1031,12 +1034,14 @@
+    int      i=(h_grp)?1:0;
+
+    /* generate file name */
+-   sprintf(site_fname,"site_%04d%02d.%s",cur_year,cur_month,html_ext);
++   snprintf(site_fname,sizeof(site_fname),"site_%04d%02d.%s",
++            cur_year,cur_month,html_ext);
+
+    /* open file */
+    if ( (out_fp=open_out_file(site_fname))==NULL ) return 0;
+
+-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_sites);
++   snprintf(buffer,sizeof(buffer),"%s %d - %s",
++            l_month[cur_month-1],cur_year,msg_h_sites);
+    write_html_head(buffer, out_fp);
+
+    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
+@@ -1259,12 +1264,14 @@
+    int      i=(u_grp)?1:0;
+
+    /* generate file name */
+-   sprintf(url_fname,"url_%04d%02d.%s",cur_year,cur_month,html_ext);
++   snprintf(url_fname,sizeof(url_fname),"url_%04d%02d.%s",
++            cur_year,cur_month,html_ext);
+
+    /* open file */
+    if ( (out_fp=open_out_file(url_fname))==NULL ) return 0;
+
+-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_url);
++   snprintf(buffer,sizeof(buffer),"%s %d - %s",
++            l_month[cur_month-1],cur_year,msg_h_url);
+    write_html_head(buffer, out_fp);
+
+    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
+@@ -1548,12 +1555,14 @@
+    int      i=(r_grp)?1:0;
+
+    /* generate file name */
+-   sprintf(ref_fname,"ref_%04d%02d.%s",cur_year,cur_month,html_ext);
++   snprintf(ref_fname,sizeof(ref_fname),"ref_%04d%02d.%s",
++            cur_year,cur_month,html_ext);
+
+    /* open file */
+    if ( (out_fp=open_out_file(ref_fname))==NULL ) return 0;
+
+-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_ref);
++   snprintf(buffer,sizeof(buffer),"%s %d - %s",
++            l_month[cur_month-1],cur_year,msg_h_ref);
+    write_html_head(buffer, out_fp);
+
+    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
+@@ -1700,12 +1709,14 @@
+    int      i=(a_grp)?1:0;
+
+    /* generate file name */
+-   sprintf(agent_fname,"agent_%04d%02d.%s",cur_year,cur_month,html_ext);
++   snprintf(agent_fname,sizeof(agent_fname),"agent_%04d%02d.%s",
++            cur_year,cur_month,html_ext);
+
+    /* open file */
+    if ( (out_fp=open_out_file(agent_fname))==NULL ) return 0;
+
+-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_agent);
++   snprintf(buffer,sizeof(buffer),"%s %d - %s",
++            l_month[cur_month-1],cur_year,msg_h_agent);
+    write_html_head(buffer, out_fp);
+
+    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
+@@ -1834,12 +1845,14 @@
+    if (!tot_num) return 0;
+
+    /* generate file name */
+-   sprintf(search_fname,"search_%04d%02d.%s",cur_year,cur_month,html_ext);
++   snprintf(search_fname,sizeof(search_fname),"search_%04d%02d.%s",
++            cur_year,cur_month,html_ext);
+
+    /* open file */
+    if ( (out_fp=open_out_file(search_fname))==NULL ) return 0;
+
+-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_search);
++   snprintf(buffer,sizeof(buffer),"%s %d - %s",
++            l_month[cur_month-1],cur_year,msg_h_search);
+    write_html_head(buffer, out_fp);
+
+    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
+@@ -1987,12 +2000,14 @@
+    int      i=(i_grp)?1:0;
+
+    /* generate file name */
+-   sprintf(user_fname,"user_%04d%02d.%s",cur_year,cur_month,html_ext);
++   snprintf(user_fname,sizeof(user_fname),"user_%04d%02d.%s",
++            cur_year,cur_month,html_ext);
+
+    /* open file */
+    if ( (out_fp=open_out_file(user_fname))==NULL ) return 0;
+
+-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_uname);
++   snprintf(buffer,sizeof(buffer),"%s %d - %s",
++            l_month[cur_month-1],cur_year,msg_h_uname);
+    write_html_head(buffer, out_fp);
+
+    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
+@@ -2192,7 +2207,8 @@
+          pie_data[i]=top_ctrys[i]->count;           /* load the array       */
+          pie_legend[i]=top_ctrys[i]->desc;
+       }
+-      sprintf(pie_title,"%s %s %d",msg_ctry_use,l_month[cur_month-1],cur_year);
++      snprintf(pie_title,sizeof(pie_title),"%s %s %d",
++               msg_ctry_use,l_month[cur_month-1],cur_year);
+       sprintf(pie_fname,"ctry_usage_%04d%02d.png",cur_year,cur_month);
+
+       pie_chart(pie_fname,pie_title,t_hit,pie_data,pie_legend);  /* do it   */
+@@ -2269,7 +2285,7 @@
+    u_int64_t   cnt=a_ctr;
+
+    /* generate file name */
+-   sprintf(filename,"%s/site_%04d%02d.%s",
++   snprintf(filename,sizeof(filename),"%s/site_%04d%02d.%s",
+       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
+
+    /* open file */
+@@ -2314,7 +2330,7 @@
+    u_int64_t   cnt=a_ctr;
+
+    /* generate file name */
+-   sprintf(filename,"%s/url_%04d%02d.%s",
++   snprintf(filename,sizeof(filename),"%s/url_%04d%02d.%s",
+       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
+
+    /* open file */
+@@ -2356,7 +2372,7 @@
+    u_int64_t   cnt=a_ctr;
+
+    /* generate file name */
+-   sprintf(filename,"%s/ref_%04d%02d.%s",
++   snprintf(filename,sizeof(filename),"%s/ref_%04d%02d.%s",
+       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
+
+    /* open file */
+@@ -2395,7 +2411,7 @@
+    u_char   cnt=a_ctr;
+
+    /* generate file name */
+-   sprintf(filename,"%s/agent_%04d%02d.%s",
++   snprintf(filename,sizeof(filename),"%s/agent_%04d%02d.%s",
+       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
+
+    /* open file */
+@@ -2434,7 +2450,7 @@
+    u_int64_t   cnt=a_ctr;
+
+    /* generate file name */
+-   sprintf(filename,"%s/user_%04d%02d.%s",
++   snprintf(filename,sizeof(filename),"%s/user_%04d%02d.%s",
+       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
+
+    /* open file */
+@@ -2479,7 +2495,7 @@
+    u_char   cnt=a_ctr;
+
+    /* generate file name */
+-   sprintf(filename,"%s/search_%04d%02d.%s",
++   snprintf(filename,sizeof(filename),"%s/search_%04d%02d.%s",
+       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
+
+    /* open file */
+@@ -2528,7 +2544,7 @@
+
+    if (verbose>1) printf("%s\n",msg_gen_sum);
+
+-   sprintf(buffer,"%s %s",msg_main_us,hname);
++   snprintf(buffer,sizeof(buffer),"%s %s",msg_main_us,hname);
+
+    for (i=0;i<12;i++)                   /* get last month in history */
+    {
+@@ -2556,7 +2572,7 @@
+                    hist_visit);         /* data set 8        */
+
+    /* now do html stuff... */
+-   sprintf(index_fname,"index.%s",html_ext);
++   snprintf(index_fname,sizeof(index_fname),"index.%s",html_ext);
+
+    if ( (out_fp=open_out_file(index_fname)) == NULL)
+    {
+diff -urNad webalizer-2.01.10~/parser.c webalizer-2.01.10/parser.c
+--- webalizer-2.01.10~/parser.c	2006-06-20 17:42:14.000000000 -0300
++++ webalizer-2.01.10/parser.c	2006-06-20 17:44:45.000000000 -0300
+@@ -137,7 +137,7 @@
+ int parse_record_ftp(char *buffer)
+ {
+    int size;
+-   int i,j;
++   int i,j,count;
+    char *cp1, *cp2, *cpx, *cpy, *eob;
+
+    size = strlen(buffer);                 /* get length of buffer        */
+@@ -165,7 +165,8 @@
+    if (i<1 || i>31) return 0;
+
+    /* format date/time field         */
+-   sprintf(log_rec.datetime,"[%02d/%s/%4d:%s -0000]",i,cpx,j,cpy);
++   snprintf(log_rec.datetime,sizeof(log_rec.datetime),
++            "[%02d/%s/%4d:%s -0000]",i,cpx,j,cpy);
+
+    /* skip seconds... */
+    while (*cp1!=0 && cp1<eob) cp1++;
+@@ -199,15 +200,17 @@
+    while (*cp1==0) cp1++;
+
+    /* fabricate an appropriate request string based on direction */
+-   if (*cp1=='i') sprintf(log_rec.url,"\"POST %s HTTP/1.0\"",cpx);
+-      else        sprintf(log_rec.url,"\"GET %s HTTP/1.0\"",cpx);
++   if (*cp1=='i')
++      snprintf(log_rec.url,sizeof(log_rec.url),"\"POST %s HTTP/1.0\"",cpx);
++   else
++      snprintf(log_rec.url,sizeof(log_rec.url),"\"GET %s HTTP/1.0\"",cpx);
+
+    if (cp1<eob) cp1++;
+    if (cp1<eob) cp1++;
+    while (*cp1!=0 && cp1<eob) cp1++;
+    if (cp1<eob) cp1++;
+-   cp2=log_rec.ident;
+-   while (*cp1!=0 && cp1<eob) *cp2++ = *cp1++;
++   cp2=log_rec.ident;count=MAXIDENT-1;
++   while (*cp1!=0 && cp1<eob && count) { *cp2++ = *cp1++; count--; }
+    *cp2='\0';
+
+    /* return appropriate response code */
+@@ -479,8 +482,6 @@
+
+    /* HTTP URL requested */
+    cpx = cp1;
+-   eos = (cp1+MAXURL-1);
+-   if (eos >= eob) eos = eob-1;
+
+    while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
+    *cp2 = '\0';
+diff -urNad webalizer-2.01.10~/preserve.c webalizer-2.01.10/preserve.c
+--- webalizer-2.01.10~/preserve.c	2006-06-20 17:42:14.000000000 -0300
++++ webalizer-2.01.10/preserve.c	2006-06-20 17:42:14.000000000 -0300
+@@ -237,7 +237,7 @@
+
+    /* first, save the easy stuff */
+    /* Header record */
+-   sprintf(buffer,
++   snprintf(buffer,sizeof(buffer),
+      "# Webalizer V%s-%s Incremental Data - %02d/%02d/%04d %02d:%02d:%02d\n",
+       version,editlvl,cur_month,cur_day,cur_year,cur_hour,cur_min,cur_sec);
+    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
+@@ -290,8 +290,8 @@
+       uptr=um_htab[i];
+       while (uptr!=NULL)
+       {
+-         sprintf(buffer,"%s\n%d %lld %lld %.0f %lld %lld %.0f %.0f\n", uptr->string,
+-              uptr->flag, uptr->count, uptr->files, uptr->xfer,
++         snprintf(buffer,sizeof(buffer),"%s\n%d %lld %lld %.0f %lld %lld %.0f %.0f\n",
++              uptr->string, uptr->flag, uptr->count, uptr->files, uptr->xfer,
+               uptr->entry, uptr->exit,uptr->ixfer, uptr->oxfer);
+          if (fputs(buffer,fp)==EOF) return 1;
+          uptr=uptr->next;
+@@ -307,7 +307,7 @@
+       hptr=sm_htab[i];
+       while (hptr!=NULL)
+       {
+-         sprintf(buffer,"%s\n%d %lld %lld %.0f %lld %lld\n%s %.0f %.0f\n",
++         snprintf(buffer,sizeof(buffer),"%s\n%d %lld %lld %.0f %lld %lld\n%s %.0f %.0f\n",
+               hptr->string,
+               hptr->flag,
+               hptr->count,
+@@ -331,7 +331,7 @@
+       hptr=sd_htab[i];
+       while (hptr!=NULL)
+       {
+-         sprintf(buffer,"%s\n%d %lld %lld %.0f %lld %lld\n%s %.0f %.0f\n",
++         snprintf(buffer,sizeof(buffer),"%s\n%d %lld %lld %.0f %lld %lld\n%s %.0f %.0f\n",
+               hptr->string,
+               hptr->flag,
+               hptr->count,
+@@ -357,7 +357,7 @@
+          rptr=rm_htab[i];
+          while (rptr!=NULL)
+          {
+-            sprintf(buffer,"%s\n%d %lld\n", rptr->string,
++            snprintf(buffer,sizeof(buffer),"%s\n%d %lld\n", rptr->string,
+                  rptr->flag, rptr->count);
+             if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
+             rptr=rptr->next;
+@@ -375,7 +375,7 @@
+          aptr=am_htab[i];
+          while (aptr!=NULL)
+          {
+-            sprintf(buffer,"%s\n%d %lld\n", aptr->string,
++            snprintf(buffer,sizeof(buffer),"%s\n%d %lld\n", aptr->string,
+                  aptr->flag, aptr->count);
+             if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
+             aptr=aptr->next;
+@@ -391,7 +391,7 @@
+       sptr=sr_htab[i];
+       while (sptr!=NULL)
+       {
+-         sprintf(buffer,"%s\n%lld\n", sptr->string,sptr->count);
++         snprintf(buffer,sizeof(buffer),"%s\n%lld\n", sptr->string,sptr->count);
+          if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
+          sptr=sptr->next;
+       }
+@@ -406,7 +406,7 @@
+       iptr=im_htab[i];
+       while (iptr!=NULL)
+       {
+-         sprintf(buffer,"%s\n%d %lld %lld %.0f %lld %lld %.0f %.0f\n",
++         snprintf(buffer,sizeof(buffer),"%s\n%d %lld %lld %.0f %lld %lld %.0f %.0f\n",
+               iptr->string,
+               iptr->flag,
+               iptr->count,
+diff -urNad webalizer-2.01.10~/webalizer.c webalizer-2.01.10/webalizer.c
+--- webalizer-2.01.10~/webalizer.c	2006-06-20 17:42:14.000000000 -0300
++++ webalizer-2.01.10/webalizer.c	2006-06-20 17:46:51.000000000 -0300
+@@ -1580,7 +1580,7 @@
+    char keyword[32];
+    char value[132];
+    char *cp1, *cp2;
+-   int  i,key;
++   int  i,key,count;
+    int	num_kwords=sizeof(kwords)/sizeof(char *);
+
+    if ( (fp=fopen(fname,"r")) == NULL)
+@@ -1596,14 +1596,14 @@
+       if ( (buffer[0]=='#') || isspace((int)buffer[0]) ) continue;
+
+       /* Get keyword */
+-      cp1=buffer;cp2=keyword;
+-      while ( isalnum((int)*cp1) ) *cp2++ = *cp1++;
++      cp1=buffer;cp2=keyword;count=31;
++      while ( (isalnum((int)*cp1)) && count ) { *cp2++ = *cp1++; count--; }
+       *cp2='\0';
+
+       /* Get value */
+-      cp2=value;
++      cp2=value;count=131;
+       while ( (*cp1!='\n')&&(*cp1!='\0')&&(isspace((int)*cp1)) ) cp1++;
+-      while ( (*cp1!='\n')&&(*cp1!='\0') ) *cp2++ = *cp1++;
++      while ( (*cp1!='\n')&&(*cp1!='\0')&&count ) { *cp2++ = *cp1++; count--; }
+       *cp2--='\0';
+       while ( (isspace((int)*cp2)) && (cp2 != value) ) *cp2--='\0';
+
+@@ -1956,7 +1956,8 @@
+    if ( (cps=isinglist(search_list,log_rec.refer))==NULL) return;
+
+    /* Try to find query variable */
+-   srch[0]='?'; strcpy(&srch[1],cps);              /* First, try "?..."      */
++   srch[0]='?'; srch[sizeof(srch)-1] = '\0';
++   strncpy(&srch[1],cps,sizeof(srch)-2);           /* First, try "?..."      */
+    if ((cp1=strstr(ptr,srch))==NULL)
+    {
+       srch[0]='&';                                 /* Next, try "&..."       */

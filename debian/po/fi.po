@@ -1,0 +1,96 @@
+# Finnish translation for webalizer (debconf).
+# Copyright 2005 Free Software Foundation, Inc.
+# Matti Pöllä <mpo@iki.fi>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer\n"
+"Report-Msgid-Bugs-To: debian@psabs.com.br\n"
+"POT-Creation-Date: 2006-11-13 19:03-0200\n"
+"PO-Revision-Date: 2005-04-09 00:21+0300\n"
+"Last-Translator: Matti Pöllä <mpo@iki.fi>\n"
+"Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+#, fuzzy
+msgid "Upgrading from a version < 2.01.6"
+msgstr "Oletko päivittämässä versiota < 2.01.6?"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"VAROITUS: Jos olet päivittämässä versiosta < 2.01.6, lue tiedostosta\n"
+"/usr/share/doc/webalizer/README.FIRST.gz yksityiskohtaiset ohjeet\n"
+"vanhan datan päivittämiseen."
+
+#. Type: note
+#. Description
+#: ../templates:2001
+#, fuzzy
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "Oletko päivittämässä versiota <2.01.10-30?"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:3001
+#, fuzzy
+msgid "Directory to put the output in:"
+msgstr "Mihin hakemistoon webalizer:in tulisi sijoittaa tuloste?"
+
+#. Type: string
+#. Default
+#: ../templates:4001
+msgid "Usage Statistics for"
+msgstr "Käyttötilastot kohteelle"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+#, fuzzy
+msgid "Title of the reports webalizer will generate:"
+msgstr "Syötä otsikkoteksti webalizer:in raporteille."
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "(your system's hostname will be appended to it)"
+msgstr "(koneen nimi lisätään loppuun)"
+
+#. Type: string
+#. Description
+#: ../templates:5001
+msgid "Webserver's rotated log filename:"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
