@@ -1,0 +1,100 @@
+# translation of webalizer-eu.po to Euskara
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Piarres Beobide <pi@beobide.net>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer-eu\n"
+"Report-Msgid-Bugs-To: debian@psabs.com.br\n"
+"POT-Creation-Date: 2006-11-13 19:03-0200\n"
+"PO-Revision-Date: 2008-08-12 11:27+0200\n"
+"Last-Translator: Piarres Beobide <pi@beobide.net>\n"
+"Language-Team: Euskara <debian-l10n-basque@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid "Upgrading from a version < 2.01.6"
+msgstr "2.01.6 baino txikiago den bertsio batetatik bertsio-berritzen"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"ABISUA: 2.01.6 baino bertsio txikiago batetatik bertsio-berritzen ari bazara "
+"ikusi /usr/share/doc/webalizer/README.FIRST.gz zure datu zaharrak bertsio-"
+"berritzeko xehetasunetarako."
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "2.01.10-30 baino txikiago den bertsio batetatik bertsio-berritzen"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
+msgstr ""
+"KONTUZ: Bertsio honek webalizer konfigurazio fitxategia /etc/webalizer "
+"direktoriora mugituko du. Ezaugarri berriak ere gehitu zaizkio. Mesedez "
+"irakurri README.FIRST.gz, README.gz eta /usr/share/doc/webalizer "
+"direktorioan dauden examples/samples.conf.gz adibideak."
+
+#. Type: string
+#. Description
+#: ../templates:3001
+msgid "Directory to put the output in:"
+msgstr "Irteera bertan ipintzeko direktorioa:"
+
+#. Type: string
+#. Default
+#: ../templates:4001
+msgid "Usage Statistics for"
+msgstr "Erabilera estatistikak: "
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "Title of the reports webalizer will generate:"
+msgstr "Webalizer-ek sortuko dituen txostenen izenburua:"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "(your system's hostname will be appended to it)"
+msgstr "(zure sistemaren ostalari izena gehituko zaio)"
+
+#. Type: string
+#. Description
+#: ../templates:5001
+msgid "Webserver's rotated log filename:"
+msgstr "Web zerbitzariaren mugitutako erregistroaren fitxategi-izena:"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr "DNSCache aukera gaitu?"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
+"Bizkortu izen ebaztea DNSCache aukera gaituaz. Ikusi /usr/share/doc/"
+"webalizer/DNS.README.gz xehetasun gehiagorako."
