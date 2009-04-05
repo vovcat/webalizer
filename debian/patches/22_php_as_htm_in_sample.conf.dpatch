@@ -1,0 +1,21 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 22_php_as_htm_in_sample.conf.dpatch by Jose Carlos Medeiros <debian@psabs.com.br>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad webalizer-2.01.10~/sample.conf webalizer-2.01.10/sample.conf
+--- webalizer-2.01.10~/sample.conf	2006-11-01 20:58:17.000000000 -0200
++++ webalizer-2.01.10/sample.conf	2006-11-01 20:58:36.000000000 -0200
+@@ -108,8 +108,9 @@
+ PageType	htm*
+ PageType	cgi
+ #PageType	phtml
+-#PageType	php3
++PageType	php3
+ #PageType	pl
++PageType	php
+
+ # PagePrefix allows all requests with a specified prefix to be
+ # considered as 'pages'. If you want everything under /documents
