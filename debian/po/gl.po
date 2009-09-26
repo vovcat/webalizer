@@ -1,0 +1,97 @@
+# Galician translation of webalizer's debconf templates
+# This file is distributed under the same license as the webalizer package.
+# Jacobo Tarrio <jtarrio@debian.org>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer\n"
+"Report-Msgid-Bugs-To: debian@psabs.com.br\n"
+"POT-Creation-Date: 2006-11-13 19:03-0200\n"
+"PO-Revision-Date: 2007-02-28 09:08+0100\n"
+"Last-Translator: Jacobo Tarrio <jtarrio@debian.org>\n"
+"Language-Team: Galician <proxecto@trasno.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid "Upgrading from a version < 2.01.6"
+msgstr "A actualizar dunha versión < 2.01.6"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"AVISO: Se está a actualizar dunha versión < 2.01.6, consulte /usr/share/doc/"
+"webalizer/README.FIRST.gz para saber como actualizar os seus datos antigos."
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "A actualizar dunha versión < 2.01.10-30"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
+msgstr ""
+"AVISO: Esta versión ha trasladar o ficheiro webalizer.conf ao directorio /"
+"etc/webalizer. Tamén se engadiron novas características. Consulte README."
+"FIRST.gz, README.gz e o novo ficheiro examples/sample.conf.gz no directorio /"
+"usr/share/doc/webalizer ."
+
+#. Type: string
+#. Description
+#: ../templates:3001
+msgid "Directory to put the output in:"
+msgstr "Directorio no que pór a saída:"
+
+#. Type: string
+#. Default
+#: ../templates:4001
+msgid "Usage Statistics for"
+msgstr "Estatísticas de"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "Title of the reports webalizer will generate:"
+msgstr "Título dos informes que ha xerar webalizer:"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "(your system's hostname will be appended to it)"
+msgstr "(hase engadir o nome da súa máquina)"
+
+#. Type: string
+#. Description
+#: ../templates:5001
+msgid "Webserver's rotated log filename:"
+msgstr "Nome do ficheiro de rexistro rotado do servidor web:"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr "¿Activar a opción DNSCache?"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
+"Pode acelerar a resolución de nomes coa opción DNSCache activada. Consulte /"
+"usr/share/doc/webalizer/DNS.README.gz para máis información."

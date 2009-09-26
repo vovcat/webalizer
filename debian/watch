@@ -1,0 +1,3 @@
+version=3
+opts=uversionmangle=s/-/./ \
+	http://www.mrunix.net/webalizer/download.html webalizer-(.*)-src\.tgz
