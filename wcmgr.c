@@ -683,7 +683,7 @@ void del_rec()
    }
    dns_db->close(dns_db, 0);
    if (verbose)
-      printf("%s sucessfully deleted from cache file\n",addr);
+      printf("%s successfully deleted from cache file\n",addr);
 }
 
 /*********************************************/
@@ -761,7 +761,7 @@ void add_rec()
          if (db_put(addr, name, (strcmp(name,addr))?0:1, runtime)==0)
             dns_db->close(dns_db,0);
          if (verbose)
-            printf("%s sucessfully added to cache file\n",addr);
+            printf("%s successfully added to cache file\n",addr);
       }
    }
 }
