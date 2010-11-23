@@ -2408,6 +2408,21 @@ int write_main_index()
    /* .htaccess file needed? */
    if (htaccess)
    {
+      struct stat out_stat;
+
+      /* stat the file */
+      if ( !(lstat(".htaccess", &out_stat)) )
+      {
+         /* check if the file a symlink */
+         if ( S_ISLNK(out_stat.st_mode) )
+         {
+            if (verbose)
+	    fprintf(stderr,"%s %s (symlink)\n",msg_no_open,".htaccess");
+            return NULL;
+         }
+      }
+
+      /* open the file... */
       if ((out_fp=fopen(".htaccess","wx")) != NULL)
       {
          fprintf(out_fp,"DirectoryIndex %s\n",index_fname);
