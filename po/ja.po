@@ -1,0 +1,2451 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-24 15:03+0100\n"
+"PO-Revision-Date: 2003-07-17 19:57+0900\n"
+"Last-Translator: Tatsuki Sugiura <sugi@nemui.org>\n"
+"Language-Team: French <tech@jexiste.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=EUC-JP\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: dns_resolv.c:123
+#, c-format
+msgid "Checking %s..."
+msgstr ""
+
+#: dns_resolv.c:133
+#, c-format
+msgid " found: %s (%ld)\n"
+msgstr ""
+
+#: dns_resolv.c:140
+#, c-format
+msgid " not found\n"
+msgstr ""
+
+#: dns_resolv.c:141
+#, c-format
+msgid " error (%d)\n"
+msgstr ""
+
+#: dns_resolv.c:202 dns_resolv.c:777
+msgid "Error: Unable to open DNS cache file"
+msgstr "エラー: DNS キャッシュファイルを開けません"
+
+#: dns_resolv.c:215 dns_resolv.c:787
+msgid "Error: Unable to lock DNS cache file"
+msgstr "エラー: DNS キャッシュファイルをロックできません"
+
+#: dns_resolv.c:302
+msgid "None to process"
+msgstr "処理するものがありません"
+
+#: dns_resolv.c:319
+msgid "addresses"
+msgstr "アドレス"
+
+#: dns_resolv.c:324 webalizer.c:1500
+msgid "in"
+msgstr ""
+
+#: dns_resolv.c:324 webalizer.c:1500
+msgid "seconds"
+msgstr "秒"
+
+#: dns_resolv.c:331
+#, c-format
+msgid ", %d/sec\n"
+msgstr ""
+
+#: dns_resolv.c:374
+#, c-format
+msgid "INPIPE creation error"
+msgstr ""
+
+#: dns_resolv.c:380
+#, c-format
+msgid "OUTPIPE creation error"
+msgstr ""
+
+#: dns_resolv.c:389
+#, c-format
+msgid "FORK error"
+msgstr ""
+
+#: dns_resolv.c:405
+msgid "read error"
+msgstr ""
+
+#: dns_resolv.c:428
+#, c-format
+msgid "Child %d getnameinfo bad hbuf!\n"
+msgstr ""
+
+#: dns_resolv.c:434
+#, c-format
+msgid "Child %d getnameinfo failed!\n"
+msgstr ""
+
+#: dns_resolv.c:439
+msgid "write error"
+msgstr ""
+
+#: dns_resolv.c:448
+#, c-format
+msgid "Child %d got closed input, shutting down\n"
+msgstr ""
+
+#: dns_resolv.c:493
+#, c-format
+msgid "Reaped Child %d\n"
+msgstr ""
+
+#: dns_resolv.c:522
+#, c-format
+msgid "Giving %d bytes to Child %d\n"
+msgstr ""
+
+#: dns_resolv.c:531
+msgid "Could not write to pipe"
+msgstr ""
+
+#: dns_resolv.c:560
+msgid "Error in select"
+msgstr ""
+
+#: dns_resolv.c:568
+#, c-format
+msgid "tick\n"
+msgstr ""
+
+#: dns_resolv.c:603
+#, c-format
+msgid "Child %d wants to be reaped\n"
+msgstr ""
+
+#: dns_resolv.c:616
+#, c-format
+msgid "Child %d Got a result: %s -> %s\n"
+msgstr ""
+
+#: dns_resolv.c:623
+#, c-format
+msgid "Child %d could not resolve: %s (%s)\n"
+msgstr ""
+
+#: dns_resolv.c:632
+#, c-format
+msgid "Child %d back in task pool\n"
+msgstr ""
+
+#: dns_resolv.c:724
+#, c-format
+msgid "db_put fail!\n"
+msgstr ""
+
+#: graphs.c:143 graphs.c:147 graphs.c:149 graphs.c:473 graphs.c:476
+#: graphs.c:478 output.c:715 output.c:806 output.c:925 output.c:937
+#: output.c:1039 output.c:1131 output.c:1143 output.c:1268 output.c:1901
+#: output.c:1998 output.c:2225 output.c:2301 output.c:2345 output.c:2466
+#: output.c:2623
+msgid "kB F"
+msgstr ""
+
+#: graphs.c:144 graphs.c:153 graphs.c:155 graphs.c:474 graphs.c:482
+#: graphs.c:484 output.c:716 output.c:807 output.c:939 output.c:1039
+#: output.c:1146 output.c:1268 output.c:1903 output.c:1998 output.c:2227
+#: output.c:2301 output.c:2345 output.c:2466 output.c:2625
+msgid "kB In"
+msgstr ""
+
+#: graphs.c:145 graphs.c:159 graphs.c:161 graphs.c:488 graphs.c:490
+#: output.c:717 output.c:808 output.c:941 output.c:1039 output.c:1149
+#: output.c:1268 output.c:1905 output.c:1998 output.c:2229 output.c:2301
+#: output.c:2346 output.c:2466 output.c:2627
+msgid "kB Out"
+msgstr ""
+
+#: graphs.c:164 graphs.c:167 graphs.c:169 graphs.c:501 graphs.c:503
+#: output.c:547 output.c:713 output.c:943 output.c:1040 output.c:1374
+#: output.c:1907 output.c:1999 output.c:2301 output.c:2466 output.c:2619
+#: output.c:2629
+msgid "Visits"
+msgstr "訪問者"
+
+#: graphs.c:165 graphs.c:173 graphs.c:175 graphs.c:493 graphs.c:495
+#: graphs.c:497 output.c:490 output.c:714 output.c:1032 output.c:2621
+msgid "Sites"
+msgstr "サイト"
+
+#: graphs.c:178 graphs.c:181 graphs.c:183 graphs.c:506 graphs.c:510
+#: graphs.c:512 graphs.c:718 graphs.c:722 graphs.c:724 output.c:543
+#: output.c:712 output.c:805 output.c:2617 output.c:2631
+msgid "Pages"
+msgstr "ページ"
+
+#: graphs.c:179 graphs.c:187 graphs.c:189 graphs.c:507 graphs.c:516
+#: graphs.c:518 graphs.c:719 graphs.c:728 graphs.c:730 output.c:711
+#: output.c:804 output.c:935 output.c:1039 output.c:1899 output.c:1998
+#: output.c:2223 output.c:2301 output.c:2466 output.c:2615 output.c:2633
+msgid "Files"
+msgstr "ファイル"
+
+#: graphs.c:193 graphs.c:195 graphs.c:508 graphs.c:522 graphs.c:524
+#: graphs.c:720 graphs.c:734 graphs.c:736 output.c:710 output.c:803
+#: output.c:933 output.c:1039 output.c:1140 output.c:1268 output.c:1371
+#: output.c:1466 output.c:1551 output.c:1631 output.c:1705 output.c:1778
+#: output.c:1841 output.c:1897 output.c:1998 output.c:2221 output.c:2301
+#: output.c:2345 output.c:2387 output.c:2426 output.c:2466 output.c:2510
+#: output.c:2613 output.c:2635
+msgid "Hits"
+msgstr "ヒット"
+
+#: graphs.c:378 graphs.c:656 graphs.c:782 graphs.c:888 output.c:2570
+#: output.c:2592 output.c:3075 output.c:3084 preserve.c:169 preserve.c:339
+msgid "Error: Unable to open file"
+msgstr "エラー: ファイルが開けません"
+
+#: graphs.c:873 lang2.h:432
+msgid "Other"
+msgstr "その他"
+
+#: hashtab.c:118 hashtab.c:316 hashtab.c:450 hashtab.c:570 hashtab.c:687
+#: hashtab.c:792 hashtab.c:970 linklist.c:109 linklist.c:166
+msgid "Warning: String exceeds storage size"
+msgstr "警告: 文字列がメモリサイズを超えました"
+
+#: lang2.h:40
+msgid "-h        = print this help message"
+msgstr "-h        = このヘルプメッセージを出力する"
+
+#: lang2.h:41
+#, fuzzy
+msgid "-V        = print version information"
+msgstr "-v -V     = バージョン情報を出力する"
+
+#: lang2.h:42
+#, fuzzy
+msgid "-v        = be verbose"
+msgstr "-f        = シーケンスエラーがあっても統計に含める"
+
+#: lang2.h:43
+msgid "-d        = print additional debug info"
+msgstr "-d        = デバッグ情報を出力する"
+
+#: lang2.h:44
+#, fuzzy
+msgid "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
+msgstr "-F type   = ログファイルのタイプ  type= (clf | ftp | squid)"
+
+#: lang2.h:45
+msgid "-f        = Fold sequence errors"
+msgstr "-f        = シーケンスエラーがあっても統計に含める"
+
+#: lang2.h:46
+msgid "-i        = ignore history file"
+msgstr "-i        = ヒストリファイルを無視する"
+
+#: lang2.h:47
+msgid "-p        = preserve state (incremental)"
+msgstr "-p        = 状態を保存する (追加モード)"
+
+#: lang2.h:48
+#, fuzzy
+msgid "-b        = ignore state (incremental)"
+msgstr "-p        = 状態を保存する (追加モード)"
+
+#: lang2.h:49
+msgid "-q        = supress informational messages"
+msgstr "-q        = 経過メッセージを表示しない"
+
+#: lang2.h:50
+msgid "-Q        = supress _ALL_ messages"
+msgstr "-Q        = *全ての* メッセージを表示しない"
+
+#: lang2.h:51
+msgid "-Y        = supress country graph"
+msgstr "-Y        = 国別グラフを表示しない"
+
+#: lang2.h:52
+msgid "-G        = supress hourly graph"
+msgstr "-G        = 時間別グラフを表示しない"
+
+#: lang2.h:53
+msgid "-H        = supress hourly stats"
+msgstr "-H        = 時間別統計を表示しない"
+
+#: lang2.h:54
+msgid "-L        = supress color coded graph legends"
+msgstr "-L        = 色つきのグラフラベルを使わない"
+
+#: lang2.h:55
+msgid "-l num    = use num background lines on graph"
+msgstr "-l num    = グラフの罫線を num 本にする"
+
+#: lang2.h:56
+msgid "-m num    = Visit timout value (seconds)"
+msgstr "-m num    = 訪問タイムアウト値 (秒)"
+
+#: lang2.h:57
+msgid "-T        = print timing information"
+msgstr "-T        = 時刻情報を出力"
+
+#: lang2.h:58
+msgid "-c file   = use configuration file 'file'"
+msgstr "-c file   = 設定ファイルとして 'file' を使用する"
+
+#: lang2.h:59
+msgid "-n name   = hostname to use"
+msgstr "-n name   = ホスト名を指定"
+
+#: lang2.h:60
+msgid "-o dir    = output directory to use"
+msgstr "-o dir    = 出力ディレクトリの指定"
+
+#: lang2.h:61
+msgid "-t name   = report title 'name'"
+msgstr "-t name   = レポートのタイトルを指定する"
+
+#: lang2.h:62
+msgid "-a name   = hide user agent 'name'"
+msgstr "-a name   = ユーザエージェント 'name' を隠す"
+
+#: lang2.h:63
+msgid "-r name   = hide referrer 'name'"
+msgstr "-r name   = 参照元 'name' を隠す"
+
+#: lang2.h:64
+msgid "-s name   = hide site 'name'"
+msgstr "-s name   = リモートサイト 'name' を隠す"
+
+#: lang2.h:65
+msgid "-u name   = hide URL 'name'"
+msgstr "-u name   = URL 'name' を隠す"
+
+#: lang2.h:66
+msgid "-x name   = Use filename extension 'name'"
+msgstr "-x name   = 出力ファイルの拡張子を 'name' にする"
+
+#: lang2.h:67
+#, fuzzy
+msgid "-O name   = Omit page 'name'"
+msgstr "-s name   = リモートサイト 'name' を隠す"
+
+#: lang2.h:68
+msgid "-P name   = Page type extension 'name'"
+msgstr "-P name   = 拡張子 'name' をページとして扱う"
+
+#: lang2.h:69
+msgid "-I name   = Index alias 'name'"
+msgstr "-I name   = インデックスエイリアスを 'name' とする"
+
+#: lang2.h:70
+msgid "-K num    = num months in summary table"
+msgstr ""
+
+#: lang2.h:71
+#, fuzzy
+msgid "-k num    = num months in summary graph"
+msgstr "-l num    = グラフの罫線を num 本にする"
+
+#: lang2.h:72
+msgid "-A num    = Display num top agents"
+msgstr "-A num    = エージェントの上位 num 件を表示"
+
+#: lang2.h:73
+msgid "-C num    = Display num top countries"
+msgstr "-C num    = 国の上位 num 件を表示"
+
+#: lang2.h:74
+msgid "-R num    = Display num top referrers"
+msgstr "-R num    = 参照元の上位 num 件を表示"
+
+#: lang2.h:75
+msgid "-S num    = Display num top sites"
+msgstr "-S num    = リモートサイトの上位 num 件を表示"
+
+#: lang2.h:76
+msgid "-U num    = Display num top URLs"
+msgstr "-U num    = URL の上位 num 件を表示"
+
+#: lang2.h:77
+msgid "-e num    = Display num top Entry Pages"
+msgstr "-e num    = エントリーページの上位 num 件を表示"
+
+#: lang2.h:78
+msgid "-E num    = Display num top Exit Pages"
+msgstr "-E num    = 終了ページの上位 num 件を表示"
+
+#: lang2.h:79
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr "-g num    = ドメインを深さ 'num' でグループ化する"
+
+#: lang2.h:80
+msgid "-X        = Hide individual sites"
+msgstr "-X        = グループ化されていないサイトを隠す"
+
+#: lang2.h:81
+msgid "-z dir    = Use country flags in 'dir'"
+msgstr ""
+
+#: lang2.h:83
+msgid "-D name   = Use DNS Cache file 'name'"
+msgstr "-D name   = 'name' をDNSのキャッシュファイルとして使う"
+
+#: lang2.h:84
+msgid "-N num    = Number of DNS processes (0=disable)"
+msgstr "-N num    = DNS 問い合わせプロセス数 (0=無効)"
+
+#: lang2.h:85
+msgid "-j        = Enable native GeoDB lookups"
+msgstr ""
+
+#: lang2.h:86
+#, fuzzy
+msgid "-J name   = Use GeoDB database 'name'"
+msgstr "-D name   = 'name' をDNSのキャッシュファイルとして使う"
+
+#: lang2.h:89
+msgid "-w        = Enable GeoIP lookups"
+msgstr ""
+
+#: lang2.h:90
+#, fuzzy
+msgid "-W name   = Use GeoIP database 'name'"
+msgstr "-I name   = インデックスエイリアスを 'name' とする"
+
+#: lang2.h:95
+msgid "Feb"
+msgstr "2月"
+
+#: lang2.h:95
+msgid "Jan"
+msgstr "1月"
+
+#: lang2.h:95
+msgid "Mar"
+msgstr "3月"
+
+#: lang2.h:96
+msgid "Apr"
+msgstr "4月"
+
+#: lang2.h:96
+msgid "Jun"
+msgstr "6月"
+
+#: lang2.h:96
+msgid "short|May"
+msgstr ""
+
+#: lang2.h:97
+msgid "Aug"
+msgstr "8月"
+
+#: lang2.h:97
+msgid "Jul"
+msgstr "7月"
+
+#: lang2.h:97
+msgid "Sep"
+msgstr "9月"
+
+#: lang2.h:98
+msgid "Dec"
+msgstr "12月"
+
+#: lang2.h:98
+msgid "Nov"
+msgstr "11月"
+
+#: lang2.h:98
+msgid "Oct"
+msgstr "10月"
+
+#: lang2.h:101
+msgid "February"
+msgstr "2月"
+
+#: lang2.h:101
+msgid "January"
+msgstr "1月"
+
+#: lang2.h:101
+msgid "March"
+msgstr "3月"
+
+#: lang2.h:102
+msgid "April"
+msgstr "4月"
+
+#: lang2.h:102
+msgid "June"
+msgstr "6月"
+
+#: lang2.h:102
+#, fuzzy
+msgid "long|May"
+msgstr "トンガ"
+
+#: lang2.h:103
+msgid "August"
+msgstr "8月"
+
+#: lang2.h:103
+msgid "July"
+msgstr "7月"
+
+#: lang2.h:103
+msgid "September"
+msgstr "9月"
+
+#: lang2.h:104
+msgid "December"
+msgstr "12月"
+
+#: lang2.h:104
+msgid "November"
+msgstr "11月"
+
+#: lang2.h:104
+msgid "October"
+msgstr "10月"
+
+#: lang2.h:108
+msgid "Undefined response code"
+msgstr "不明な応答コード"
+
+#: lang2.h:109
+msgid "Code 100 - Continue"
+msgstr ""
+
+#: lang2.h:110
+msgid "Code 101 - Switching Protocols"
+msgstr ""
+
+#: lang2.h:111
+msgid "Code 200 - OK"
+msgstr ""
+
+#: lang2.h:112
+msgid "Code 201 - Created"
+msgstr ""
+
+#: lang2.h:113
+msgid "Code 202 - Accepted"
+msgstr ""
+
+#: lang2.h:114
+msgid "Code 203 - Non-Authoritative Information"
+msgstr ""
+
+#: lang2.h:115
+msgid "Code 204 - No Content"
+msgstr ""
+
+#: lang2.h:116
+msgid "Code 205 - Reset Content"
+msgstr ""
+
+#: lang2.h:117
+msgid "Code 206 - Partial Content"
+msgstr ""
+
+#: lang2.h:118
+msgid "Code 300 - Multiple Choices"
+msgstr ""
+
+#: lang2.h:119
+msgid "Code 301 - Moved Permanently"
+msgstr ""
+
+#: lang2.h:120
+msgid "Code 302 - Found"
+msgstr ""
+
+#: lang2.h:121
+msgid "Code 303 - See Other"
+msgstr ""
+
+#: lang2.h:122
+msgid "Code 304 - Not Modified"
+msgstr ""
+
+#: lang2.h:123
+msgid "Code 305 - Use Proxy"
+msgstr ""
+
+#: lang2.h:124
+msgid "Code 307 - Moved Temporarily"
+msgstr ""
+
+#: lang2.h:125
+msgid "Code 400 - Bad Request"
+msgstr ""
+
+#: lang2.h:126
+msgid "Code 401 - Unauthorized"
+msgstr ""
+
+#: lang2.h:127
+msgid "Code 402 - Payment Required"
+msgstr ""
+
+#: lang2.h:128
+msgid "Code 403 - Forbidden"
+msgstr ""
+
+#: lang2.h:129
+msgid "Code 404 - Not Found"
+msgstr ""
+
+#: lang2.h:130
+msgid "Code 405 - Method Not Allowed"
+msgstr ""
+
+#: lang2.h:131
+msgid "Code 406 - Not Acceptable"
+msgstr ""
+
+#: lang2.h:132
+msgid "Code 407 - Proxy Authentication Required"
+msgstr ""
+
+#: lang2.h:133
+msgid "Code 408 - Request Timeout"
+msgstr ""
+
+#: lang2.h:134
+msgid "Code 409 - Conflict"
+msgstr ""
+
+#: lang2.h:135
+msgid "Code 410 - Gone"
+msgstr ""
+
+#: lang2.h:136
+msgid "Code 411 - Length Required"
+msgstr ""
+
+#: lang2.h:137
+msgid "Code 412 - Precondition Failed"
+msgstr ""
+
+#: lang2.h:138
+msgid "Code 413 - Request Entity Too Large"
+msgstr ""
+
+#: lang2.h:139
+msgid "Code 414 - Request-URI Too Long"
+msgstr ""
+
+#: lang2.h:140
+msgid "Code 415 - Unsupported Media Type"
+msgstr ""
+
+#: lang2.h:141
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr ""
+
+#: lang2.h:142
+msgid "Code 417 - Expectation Failed"
+msgstr ""
+
+#: lang2.h:143
+msgid "Code 500 - Internal Server Error"
+msgstr ""
+
+#: lang2.h:144
+msgid "Code 501 - Not Implemented"
+msgstr ""
+
+#: lang2.h:145
+msgid "Code 502 - Bad Gateway"
+msgstr ""
+
+#: lang2.h:146
+msgid "Code 503 - Service Unavailable"
+msgstr ""
+
+#: lang2.h:147
+msgid "Code 504 - Gateway Timeout"
+msgstr ""
+
+#: lang2.h:148
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr ""
+
+#: lang2.h:155
+msgid "Unresolved/Unknown"
+msgstr "名前解決不能/不明"
+
+#: lang2.h:156
+#, fuzzy
+msgid "Commercial (com)"
+msgstr "アメリカ 営利企業(.com)"
+
+#: lang2.h:157
+#, fuzzy
+msgid "Educational (edu)"
+msgstr "アメリカ 教育団体(.edu)"
+
+#: lang2.h:158
+#, fuzzy
+msgid "US Government (gov)"
+msgstr "アメリカ 政府機関(.gov)"
+
+#: lang2.h:159
+msgid "International (int)"
+msgstr "国際機関 (.int)"
+
+#: lang2.h:160
+#, fuzzy
+msgid "US Military (mil)"
+msgstr "アメリカ 軍事組織(.mil)"
+
+#: lang2.h:161
+#, fuzzy
+msgid "Network (net)"
+msgstr "アメリカ ネットワーク組織(.net)"
+
+#: lang2.h:162
+#, fuzzy
+msgid "Non-Profit (org)"
+msgstr "アメリカ 非営利団体(.org)"
+
+#: lang2.h:163
+msgid "Generic Business (biz)"
+msgstr ""
+
+#: lang2.h:164
+msgid "Catalan Community (cat)"
+msgstr ""
+
+#: lang2.h:165
+msgid "Professional (pro)"
+msgstr ""
+
+#: lang2.h:166
+msgid "Ind. Contact Data (tel)"
+msgstr ""
+
+#: lang2.h:167
+msgid "Air Transport Industry (aero)"
+msgstr ""
+
+#: lang2.h:168
+msgid "Asia Pacific Community (asia)"
+msgstr ""
+
+#: lang2.h:169
+msgid "Cooperative Association (coop)"
+msgstr ""
+
+#: lang2.h:170
+msgid "Generic TLD (info)"
+msgstr ""
+
+#: lang2.h:171
+msgid "Human Resources (jobs)"
+msgstr ""
+
+#: lang2.h:172
+msgid "Generic Mobile TLD (mobi)"
+msgstr ""
+
+#: lang2.h:173
+msgid "Individual (name)"
+msgstr ""
+
+#: lang2.h:174
+msgid "Address Routing (arpa)"
+msgstr ""
+
+#: lang2.h:175
+msgid "Nato field (nato)"
+msgstr "NATO 領域 (.nato)"
+
+#: lang2.h:176
+msgid "Museums (museum)"
+msgstr ""
+
+#: lang2.h:177
+msgid "Travel Ind. (travel)"
+msgstr ""
+
+#: lang2.h:178
+msgid "Ascension Island"
+msgstr ""
+
+#: lang2.h:179
+msgid "Andorra"
+msgstr "アンドラ"
+
+#: lang2.h:180
+msgid "United Arab Emirates"
+msgstr "アラブ首長国連邦"
+
+#: lang2.h:181
+msgid "Afghanistan"
+msgstr "アフガニスタン"
+
+#: lang2.h:182
+msgid "Antigua and Barbuda"
+msgstr "アンティグアとバービュダ島"
+
+#: lang2.h:183
+msgid "Anguilla"
+msgstr "アングィラ"
+
+#: lang2.h:184
+msgid "Albania"
+msgstr "アルバニア"
+
+#: lang2.h:185
+msgid "Armenia"
+msgstr "アルメニア"
+
+#: lang2.h:186
+msgid "Netherlands Antilles"
+msgstr "オランダ領 アンティル諸島"
+
+#: lang2.h:187
+msgid "Angola"
+msgstr "アンゴラ"
+
+#: lang2.h:188
+msgid "Antarctica"
+msgstr "南極大陸"
+
+#: lang2.h:189
+msgid "Argentina"
+msgstr "アルゼンチン"
+
+#: lang2.h:190
+msgid "American Samoa"
+msgstr "米領東サモア"
+
+#: lang2.h:191
+msgid "Austria"
+msgstr "オーストリア"
+
+#: lang2.h:192
+msgid "Australia"
+msgstr "オーストラリア"
+
+#: lang2.h:193
+msgid "Aruba"
+msgstr "アルーバ"
+
+#: lang2.h:194
+#, fuzzy
+msgid "Aland Islands"
+msgstr "ケーマン諸島"
+
+#: lang2.h:195
+msgid "Azerbaijan"
+msgstr "アゼルバイジャン"
+
+#: lang2.h:196
+msgid "Bosnia and Herzegovina"
+msgstr "ボスニアヘルツェゴビナ"
+
+#: lang2.h:197
+msgid "Barbados"
+msgstr ""
+
+#: lang2.h:198
+msgid "Bangladesh"
+msgstr "バングラディシュ"
+
+#: lang2.h:199
+msgid "Belgium"
+msgstr ""
+
+#: lang2.h:200
+msgid "Burkina Faso"
+msgstr "ブルキナファソ"
+
+#: lang2.h:201
+msgid "Bulgaria"
+msgstr "ブルガリア"
+
+#: lang2.h:202
+msgid "Bahrain"
+msgstr "バーレーン"
+
+#: lang2.h:203
+msgid "Burundi"
+msgstr "ブルンジ"
+
+#: lang2.h:204
+msgid "Benin"
+msgstr "ベナン"
+
+#: lang2.h:205
+msgid "Saint Barthelemy"
+msgstr ""
+
+#: lang2.h:206
+msgid "Bermuda"
+msgstr "バミューダ諸島"
+
+#: lang2.h:207
+msgid "Brunei Darussalam"
+msgstr "ブルネイ・ダルサラーム国"
+
+#: lang2.h:208
+msgid "Bolivia"
+msgstr "ボリビア"
+
+#: lang2.h:209
+msgid "Brazil"
+msgstr "ブラジル"
+
+#: lang2.h:210
+msgid "Bahamas"
+msgstr "バハマ"
+
+#: lang2.h:211
+msgid "Bhutan"
+msgstr "ブータン"
+
+#: lang2.h:212
+msgid "Bouvet Island"
+msgstr "ブーヴェ島"
+
+#: lang2.h:213
+msgid "Botswana"
+msgstr "ボツワナ"
+
+#: lang2.h:214
+msgid "Belarus"
+msgstr ""
+
+#: lang2.h:215
+msgid "Belize"
+msgstr ""
+
+#: lang2.h:216
+msgid "Canada"
+msgstr "カナダ"
+
+#: lang2.h:217
+msgid "Cocos (Keeling) Islands"
+msgstr "ココス諸島"
+
+#: lang2.h:218
+#, fuzzy
+msgid "Congo, Democratic Republic"
+msgstr "中央アフリカ共和国"
+
+#: lang2.h:219
+msgid "Central African Republic"
+msgstr "中央アフリカ共和国"
+
+#: lang2.h:220
+msgid "Congo"
+msgstr "コンゴ"
+
+#: lang2.h:221
+msgid "Switzerland"
+msgstr "スイス"
+
+#: lang2.h:222
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "コートジボワール (象牙海岸)"
+
+#: lang2.h:223
+msgid "Cook Islands"
+msgstr "クック諸島"
+
+#: lang2.h:224
+msgid "Chile"
+msgstr "チリ"
+
+#: lang2.h:225
+msgid "Cameroon"
+msgstr "カメルーン"
+
+#: lang2.h:226
+msgid "China"
+msgstr "中国"
+
+#: lang2.h:227
+msgid "Colombia"
+msgstr "コロンビア"
+
+#: lang2.h:228
+msgid "Costa Rica"
+msgstr "コスタリカ"
+
+#: lang2.h:229
+msgid "Cuba"
+msgstr "キューバ"
+
+#: lang2.h:230
+msgid "Cape Verde"
+msgstr "カーボベルデ共和国"
+
+#: lang2.h:231
+msgid "Christmas Island"
+msgstr "クリスマス島"
+
+#: lang2.h:232
+msgid "Cyprus"
+msgstr "キプロス"
+
+#: lang2.h:233
+msgid "Czech Republic"
+msgstr "チェコ共和国"
+
+#: lang2.h:234
+msgid "Germany"
+msgstr "ドイツ"
+
+#: lang2.h:235
+msgid "Djibouti"
+msgstr "ジブチ"
+
+#: lang2.h:236
+msgid "Denmark"
+msgstr "デンマーク"
+
+#: lang2.h:237
+msgid "Dominica"
+msgstr "ドミニカ"
+
+#: lang2.h:238
+msgid "Dominican Republic"
+msgstr "ドミニカ共和国"
+
+#: lang2.h:239
+msgid "Algeria"
+msgstr "アルジェリア"
+
+#: lang2.h:240
+msgid "Ecuador"
+msgstr "エクアドル"
+
+#: lang2.h:241
+msgid "Estonia"
+msgstr "エストニア"
+
+#: lang2.h:242
+msgid "Egypt"
+msgstr "エジプト"
+
+#: lang2.h:243
+msgid "Western Sahara"
+msgstr "西サハラ"
+
+#: lang2.h:244
+msgid "Eritrea"
+msgstr "エリトリア"
+
+#: lang2.h:245
+msgid "Spain"
+msgstr "スペイン"
+
+#: lang2.h:246
+msgid "Ethiopia"
+msgstr "エチオピア"
+
+#: lang2.h:247
+msgid "European Union"
+msgstr ""
+
+#: lang2.h:248
+msgid "Finland"
+msgstr "フィンランド"
+
+#: lang2.h:249
+msgid "Fiji"
+msgstr "フィジー"
+
+#: lang2.h:250
+msgid "Falkland Islands (Malvinas)"
+msgstr "フォークランド諸島 (マルビナス諸島)"
+
+#: lang2.h:251
+msgid "Micronesia"
+msgstr "ミクロネシア"
+
+#: lang2.h:252
+msgid "Faroe Islands"
+msgstr "フェロー諸島"
+
+#: lang2.h:253
+msgid "France"
+msgstr "フランス"
+
+#: lang2.h:254
+msgid "Gabon"
+msgstr "ガボン"
+
+#: lang2.h:255
+msgid "Great Britain (UK)"
+msgstr "イギリス"
+
+#: lang2.h:256
+msgid "Grenada"
+msgstr "グレナダ"
+
+#: lang2.h:257
+msgid "Georgia"
+msgstr "グルジア"
+
+#: lang2.h:258
+msgid "French Guiana"
+msgstr "仏領ギアナ"
+
+#: lang2.h:259
+msgid "Guernsey"
+msgstr ""
+
+#: lang2.h:260
+msgid "Ghana"
+msgstr "ガーナ"
+
+#: lang2.h:261
+msgid "Gibraltar"
+msgstr "ジブラルタル"
+
+#: lang2.h:262
+msgid "Greenland"
+msgstr "グリーンランド"
+
+#: lang2.h:263
+msgid "Gambia"
+msgstr "ガンビア"
+
+#: lang2.h:264
+msgid "Guinea"
+msgstr "ギニア"
+
+#: lang2.h:265
+msgid "Guadeloupe"
+msgstr "グアドループ島"
+
+#: lang2.h:266
+msgid "Equatorial Guinea"
+msgstr "赤道ギニア"
+
+#: lang2.h:267
+msgid "Greece"
+msgstr "ギリシャ"
+
+#: lang2.h:268
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "サウスジョージア・サウスサンドイッチ島"
+
+#: lang2.h:269
+msgid "Guatemala"
+msgstr "グアテマラ"
+
+#: lang2.h:270
+msgid "Guam"
+msgstr "グアム"
+
+#: lang2.h:271
+msgid "Guinea-Bissau"
+msgstr "ギニア‐ビサオ"
+
+#: lang2.h:272
+msgid "Guyana"
+msgstr "ガイアナ"
+
+#: lang2.h:273
+msgid "Hong Kong"
+msgstr "香港"
+
+#: lang2.h:274
+msgid "Heard and McDonald Islands"
+msgstr "ハード及びマクドナルド諸島"
+
+#: lang2.h:275
+msgid "Honduras"
+msgstr "ホンジュラス"
+
+#: lang2.h:276
+msgid "Croatia"
+msgstr ""
+
+#: lang2.h:277
+msgid "Haiti"
+msgstr "ハイチ"
+
+#: lang2.h:278
+msgid "Hungary"
+msgstr "ハンガリー"
+
+#: lang2.h:279
+msgid "Indonesia"
+msgstr "インドネシア"
+
+#: lang2.h:280
+msgid "Ireland"
+msgstr "アイルランド"
+
+#: lang2.h:281
+msgid "Israel"
+msgstr "イスラエル"
+
+#: lang2.h:282
+msgid "Isle of Man"
+msgstr ""
+
+#: lang2.h:283
+msgid "India"
+msgstr "インド"
+
+#: lang2.h:284
+msgid "British Indian Ocean Territory"
+msgstr "イギリスインド洋領"
+
+#: lang2.h:285
+msgid "Iraq"
+msgstr "イラク"
+
+#: lang2.h:286
+msgid "Iran"
+msgstr "イラン"
+
+#: lang2.h:287
+msgid "Iceland"
+msgstr "アイスランド"
+
+#: lang2.h:288
+msgid "Italy"
+msgstr "イタリア"
+
+#: lang2.h:289
+msgid "Jersey"
+msgstr ""
+
+#: lang2.h:290
+msgid "Jamaica"
+msgstr "ジャマイカ"
+
+#: lang2.h:291
+msgid "Jordan"
+msgstr "ヨルダン"
+
+#: lang2.h:292
+msgid "Japan"
+msgstr "日本"
+
+#: lang2.h:293
+msgid "Kenya"
+msgstr "ケニア"
+
+#: lang2.h:294
+msgid "Kyrgyzstan"
+msgstr "キルギスタン"
+
+#: lang2.h:295
+msgid "Cambodia"
+msgstr "カンボジア"
+
+#: lang2.h:296
+msgid "Kiribati"
+msgstr "キリバス"
+
+#: lang2.h:297
+msgid "Comoros"
+msgstr "コモロ"
+
+#: lang2.h:298
+msgid "Saint Kitts and Nevis"
+msgstr "セントクリストファーネビス"
+
+#: lang2.h:299
+msgid "Korea, Democratic Republic of"
+msgstr ""
+
+#: lang2.h:300
+#, fuzzy
+msgid "Korea, Republic of"
+msgstr "スロバキア共和国"
+
+#: lang2.h:301
+msgid "Kuwait"
+msgstr "クウェート"
+
+#: lang2.h:302
+msgid "Cayman Islands"
+msgstr "ケーマン諸島"
+
+#: lang2.h:303
+msgid "Kazakhstan"
+msgstr "カザフスタン"
+
+#: lang2.h:304
+msgid "Laos"
+msgstr "ラオス"
+
+#: lang2.h:305
+msgid "Lebanon"
+msgstr "レバノン"
+
+#: lang2.h:306
+msgid "Saint Lucia"
+msgstr "セント・ルシア"
+
+#: lang2.h:307
+msgid "Liechtenstein"
+msgstr "リヒテンシュタイン"
+
+#: lang2.h:308
+msgid "Sri Lanka"
+msgstr "スリランカ"
+
+#: lang2.h:309
+msgid "Liberia"
+msgstr "リベリア"
+
+#: lang2.h:310
+msgid "Lesotho"
+msgstr "レソト"
+
+#: lang2.h:311
+msgid "Lithuania"
+msgstr "リトアニア"
+
+#: lang2.h:312
+msgid "Luxembourg"
+msgstr "ルクセンブルグ"
+
+#: lang2.h:313
+msgid "Latvia"
+msgstr "ラトビア"
+
+#: lang2.h:314
+msgid "Libya"
+msgstr "リビア"
+
+#: lang2.h:315
+msgid "Morocco"
+msgstr "モロッコ"
+
+#: lang2.h:316
+msgid "Monaco"
+msgstr "モナコ"
+
+#: lang2.h:317
+msgid "Moldova"
+msgstr "モルドヴァ"
+
+#: lang2.h:318
+#, fuzzy
+msgid "Montenegro"
+msgstr "モンセラト"
+
+#: lang2.h:319
+msgid "Saint Martin (French part)"
+msgstr ""
+
+#: lang2.h:320
+msgid "Madagascar"
+msgstr "マダガスカル"
+
+#: lang2.h:321
+msgid "Marshall Islands"
+msgstr "マーシャル諸島"
+
+#: lang2.h:322
+msgid "Macedonia"
+msgstr "マケドニア"
+
+#: lang2.h:323
+msgid "Mali"
+msgstr "マリ"
+
+#: lang2.h:324
+msgid "Myanmar"
+msgstr "ミャンマー"
+
+#: lang2.h:325
+msgid "Mongolia"
+msgstr "モンゴル"
+
+#: lang2.h:326
+msgid "Macau"
+msgstr "マカオ"
+
+#: lang2.h:327
+msgid "Northern Mariana Islands"
+msgstr "北マリアナ諸島"
+
+#: lang2.h:328
+msgid "Martinique"
+msgstr "マルティニク島"
+
+#: lang2.h:329
+msgid "Mauritania"
+msgstr "モーリタニア"
+
+#: lang2.h:330
+msgid "Montserrat"
+msgstr "モンセラト"
+
+#: lang2.h:331
+msgid "Malta"
+msgstr "マルタ"
+
+#: lang2.h:332
+msgid "Mauritius"
+msgstr "モーリシャス"
+
+#: lang2.h:333
+msgid "Maldives"
+msgstr "モルジヴ"
+
+#: lang2.h:334
+msgid "Malawi"
+msgstr "マラウイ"
+
+#: lang2.h:335
+msgid "Mexico"
+msgstr "メキシコ"
+
+#: lang2.h:336
+msgid "Malaysia"
+msgstr "マレーシア"
+
+#: lang2.h:337
+msgid "Mozambique"
+msgstr "モザンビーク"
+
+#: lang2.h:338
+msgid "Namibia"
+msgstr "ナミビア"
+
+#: lang2.h:339
+msgid "New Caledonia"
+msgstr "ニューカレドニア"
+
+#: lang2.h:340
+msgid "Niger"
+msgstr "ニジェール"
+
+#: lang2.h:341
+msgid "Norfolk Island"
+msgstr "ノーフォーク島"
+
+#: lang2.h:342
+msgid "Nigeria"
+msgstr "ナイジェリア"
+
+#: lang2.h:343
+msgid "Nicaragua"
+msgstr "ニカラグア"
+
+#: lang2.h:344
+msgid "Netherlands"
+msgstr "オランダ"
+
+#: lang2.h:345
+msgid "Norway"
+msgstr "ノルウェー"
+
+#: lang2.h:346
+msgid "Nepal"
+msgstr "ネパール"
+
+#: lang2.h:347
+msgid "Nauru"
+msgstr "ナウル"
+
+#: lang2.h:348
+msgid "Niue"
+msgstr "ニウエ"
+
+#: lang2.h:349
+#, fuzzy
+msgid "New Zealand"
+msgstr "ニュージーランド (アオテアロア)"
+
+#: lang2.h:350
+msgid "Oman"
+msgstr "オマーン"
+
+#: lang2.h:351
+msgid "Panama"
+msgstr "パナマ"
+
+#: lang2.h:352
+msgid "Peru"
+msgstr "ペルー"
+
+#: lang2.h:353
+msgid "French Polynesia"
+msgstr "仏領ポリネシア"
+
+#: lang2.h:354
+msgid "Papua New Guinea"
+msgstr "パプアニューギニア"
+
+#: lang2.h:355
+msgid "Philippines"
+msgstr "フィリピン"
+
+#: lang2.h:356
+msgid "Pakistan"
+msgstr "パキスタン"
+
+#: lang2.h:357
+msgid "Poland"
+msgstr "ポーランド"
+
+#: lang2.h:358
+msgid "St. Pierre and Miquelon"
+msgstr "仏領サンピエール・ミクロン諸島"
+
+#: lang2.h:359
+msgid "Pitcairn"
+msgstr "ピトケアン島"
+
+#: lang2.h:360
+msgid "Puerto Rico"
+msgstr "プエルト・リコ"
+
+#: lang2.h:361
+msgid "Palestinian Territory, Occupied"
+msgstr ""
+
+#: lang2.h:362
+msgid "Portugal"
+msgstr "ポルトガル"
+
+#: lang2.h:363
+msgid "Palau"
+msgstr "パラオ共和国"
+
+#: lang2.h:364
+msgid "Paraguay"
+msgstr "パラグアイ"
+
+#: lang2.h:365
+msgid "Qatar"
+msgstr "カタール"
+
+#: lang2.h:366
+msgid "Reunion"
+msgstr "レユニオン"
+
+#: lang2.h:367
+msgid "Romania"
+msgstr "ルーマニア"
+
+#: lang2.h:368
+msgid "Serbia"
+msgstr ""
+
+#: lang2.h:369
+msgid "Russian Federation"
+msgstr "ロシア連邦"
+
+#: lang2.h:370
+msgid "Rwanda"
+msgstr "ルワンダ"
+
+#: lang2.h:371
+msgid "Saudi Arabia"
+msgstr "サウジアラビア"
+
+#: lang2.h:372
+msgid "Solomon Islands"
+msgstr "ソロモン諸島"
+
+#: lang2.h:373
+msgid "Seychelles"
+msgstr "セイシェル"
+
+#: lang2.h:374
+msgid "Sudan"
+msgstr "スーダン"
+
+#: lang2.h:375
+msgid "Sweden"
+msgstr "スウェーデン"
+
+#: lang2.h:376
+msgid "Singapore"
+msgstr "シンガポール"
+
+#: lang2.h:377
+msgid "St. Helena"
+msgstr "セントヘレナ島"
+
+#: lang2.h:378
+msgid "Slovenia"
+msgstr "スロベニア"
+
+#: lang2.h:379
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "スバルバール 及び Jan Mayen 諸島"
+
+#: lang2.h:380
+#, fuzzy
+msgid "Slovakia"
+msgstr "スロベニア"
+
+#: lang2.h:381
+msgid "Sierra Leone"
+msgstr "シエラ・レオネ"
+
+#: lang2.h:382
+msgid "San Marino"
+msgstr "サン・マリノ"
+
+#: lang2.h:383
+msgid "Senegal"
+msgstr "セネガル"
+
+#: lang2.h:384
+msgid "Somalia"
+msgstr "ソマリア"
+
+#: lang2.h:385
+msgid "Suriname"
+msgstr "スリナム"
+
+#: lang2.h:386
+msgid "Sao Tome and Principe"
+msgstr "サントメプリンシペ"
+
+#: lang2.h:387
+msgid "Soviet Union"
+msgstr ""
+
+#: lang2.h:388
+msgid "El Salvador"
+msgstr "エルサルバドル"
+
+#: lang2.h:389
+#, fuzzy
+msgid "Syrian Arab Republic"
+msgstr "中央アフリカ共和国"
+
+#: lang2.h:390
+msgid "Swaziland"
+msgstr "スワジランド"
+
+#: lang2.h:391
+msgid "Turks and Caicos Islands"
+msgstr "タークス 及び Caicos 諸島"
+
+#: lang2.h:392
+msgid "Chad"
+msgstr "チャド"
+
+#: lang2.h:393
+msgid "French Southern Territories"
+msgstr "フランス南方領"
+
+#: lang2.h:394
+msgid "Togo"
+msgstr "トーゴ"
+
+#: lang2.h:395
+msgid "Thailand"
+msgstr "タイ"
+
+#: lang2.h:396
+msgid "Tajikistan"
+msgstr "タジキスタン"
+
+#: lang2.h:397
+msgid "Tokelau"
+msgstr "トケラウ諸島"
+
+#: lang2.h:398
+msgid "Timor-Leste"
+msgstr ""
+
+#: lang2.h:399
+msgid "Turkmenistan"
+msgstr "トルクメニスタン"
+
+#: lang2.h:400
+msgid "Tunisia"
+msgstr "チュニジア"
+
+#: lang2.h:401
+msgid "Tonga"
+msgstr "トンガ"
+
+#: lang2.h:402
+msgid "Portuguese Timor"
+msgstr ""
+
+#: lang2.h:403
+msgid "Turkey"
+msgstr "トルコ"
+
+#: lang2.h:404
+msgid "Trinidad and Tobago"
+msgstr "トリニダード・トバゴ"
+
+#: lang2.h:405
+msgid "Tuvalu"
+msgstr "ツヴァル"
+
+#: lang2.h:406
+msgid "Taiwan"
+msgstr "台湾"
+
+#: lang2.h:407
+msgid "Tanzania"
+msgstr "タンザニア"
+
+#: lang2.h:408
+msgid "Ukraine"
+msgstr "ウクライナ"
+
+#: lang2.h:409
+msgid "Uganda"
+msgstr "ウガンダ"
+
+#: lang2.h:410
+msgid "United Kingdom"
+msgstr "イギリス連合王国"
+
+#: lang2.h:411
+msgid "US Minor Outlying Islands"
+msgstr "アメリカ合衆国外諸島"
+
+#: lang2.h:412
+msgid "United States"
+msgstr "アメリカ合衆国"
+
+#: lang2.h:413
+msgid "Uruguay"
+msgstr "ウルグアイ"
+
+#: lang2.h:414
+msgid "Uzbekistan"
+msgstr "ウズベキスタン共和国"
+
+#: lang2.h:415
+msgid "Vatican City State (Holy See)"
+msgstr "バチカン市国 (法王庁)"
+
+#: lang2.h:416
+msgid "Saint Vincent and the Grenadines"
+msgstr "セント・ヴィンセント 及び グレナディーン諸島"
+
+#: lang2.h:417
+msgid "Venezuela"
+msgstr "ベネズエラ"
+
+#: lang2.h:418
+msgid "Virgin Islands (British)"
+msgstr "バージン諸島 (イギリス領)"
+
+#: lang2.h:419
+msgid "Virgin Islands (U.S.)"
+msgstr "バージン諸島 (アメリカ領)"
+
+#: lang2.h:420
+#, fuzzy
+msgid "Vietnam"
+msgstr "ベトナム"
+
+#: lang2.h:421
+msgid "Vanuatu"
+msgstr "ヴァヌアツ"
+
+#: lang2.h:422
+msgid "Wallis and Futuna Islands"
+msgstr "ウォリス及びフトゥナ諸島"
+
+#: lang2.h:423
+msgid "Samoa"
+msgstr "サモア"
+
+#: lang2.h:424
+msgid "Yemen"
+msgstr "イエメン"
+
+#: lang2.h:425
+msgid "Mayotte"
+msgstr "仏領マヨット島"
+
+#: lang2.h:426
+msgid "Yugoslavia"
+msgstr "ユーゴスラビア"
+
+#: lang2.h:427
+msgid "South Africa"
+msgstr "南アフリカ"
+
+#: lang2.h:428
+msgid "Zambia"
+msgstr "ザンビア"
+
+#: lang2.h:429
+msgid "Zimbabwe"
+msgstr "ジンバブエ"
+
+#: lang2.h:430
+msgid "Anonymous Proxy"
+msgstr ""
+
+#: lang2.h:431
+msgid "Satellite Provider"
+msgstr ""
+
+#: lang2.h:433
+msgid "Asia/Pacific Region"
+msgstr ""
+
+#: lang2.h:434
+msgid "Local Network (lan)"
+msgstr ""
+
+#: output.c:190
+msgid "en"
+msgstr ""
+
+#: output.c:192 output.c:218 output.c:2604
+msgid "Summary by Month"
+msgstr "月の統計"
+
+#: output.c:216
+msgid "Summary Period"
+msgstr "統計期間"
+
+#: output.c:219
+msgid "Generated"
+msgstr "作成日時: "
+
+#: output.c:290
+msgid "Generating report for"
+msgstr "レポートを生成しています -"
+
+#: output.c:302
+msgid "Daily usage for"
+msgstr "日ごとの状況 -"
+
+#: output.c:320
+msgid "Hourly usage for"
+msgstr "時間ごとの状況 - "
+
+#: output.c:372
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr "十分なメモリが確保できません。URL の集計を無効にします！"
+
+#: output.c:394
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr "十分なメモリが確保できません。リモートサイトの集計を無効にします！"
+
+#: output.c:411
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr "十分なメモリが確保できません。参照元の集計を無効にします！"
+
+#: output.c:428
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr "十分なメモリが確保できません。検索文字列の集計を無効にします！"
+
+#: output.c:445
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr "十分なメモリが確保できません。ユーザ名の集計を無効にします！"
+
+#: output.c:462
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr "十分なメモリが確保できません。ユーザエージェントの集計を無効にします！"
+
+#: output.c:480
+msgid "Daily Statistics"
+msgstr "日ごとの統計"
+
+#: output.c:482
+msgid "Hourly Statistics"
+msgstr "時間ごとの統計"
+
+#: output.c:484
+msgid "URLs"
+msgstr "URL"
+
+#: output.c:486
+msgid "Entry"
+msgstr "エントリー"
+
+#: output.c:488
+msgid "Exit"
+msgstr "終了"
+
+#: output.c:492
+msgid "Referrers"
+msgstr "参照元"
+
+#: output.c:494
+msgid "Search"
+msgstr "検索文字列"
+
+#: output.c:496
+msgid "Users"
+msgstr "ユーザ数"
+
+#: output.c:498
+msgid "Agents"
+msgstr "エージェント"
+
+#: output.c:500
+msgid "Countries"
+msgstr "国"
+
+#: output.c:530
+msgid "Monthly Statistics for"
+msgstr "月ごとの統計 -"
+
+#: output.c:535
+msgid "Total Hits"
+msgstr "合計ヒット数"
+
+#: output.c:539
+msgid "Total Files"
+msgstr "合計ファイル数"
+
+#: output.c:543 output.c:547 output.c:813 output.c:818 output.c:823
+#: output.c:828 output.c:833 output.c:838
+msgid "Total"
+msgstr "合計"
+
+#: output.c:551
+#, fuzzy
+msgid "Total kB Files"
+msgstr "合計ファイル数"
+
+#: output.c:554
+#, fuzzy
+msgid "Total kB In"
+msgstr "合計"
+
+#: output.c:557
+#, fuzzy
+msgid "Total kB Out"
+msgstr "合計バイト数(K)"
+
+#: output.c:564
+msgid "Total Unique Sites"
+msgstr "異なりサイト数"
+
+#: output.c:569
+msgid "Total Unique URLs"
+msgstr "異なりURL数"
+
+#: output.c:575
+msgid "Total Unique Referrers"
+msgstr "異なり参照元数"
+
+#: output.c:581
+msgid "Total Unique Usernames"
+msgstr "異なりユーザ数"
+
+#: output.c:587
+msgid "Total Unique User Agents"
+msgstr "異なりユーザエージェント数"
+
+#: output.c:597 output.c:813 output.c:818 output.c:823 output.c:828
+#: output.c:833 output.c:838
+msgid "Avg"
+msgstr "平均"
+
+#: output.c:597
+msgid "Max"
+msgstr "最大"
+
+#: output.c:604
+msgid "Hits per Hour"
+msgstr "一時間あたりのヒット数"
+
+#: output.c:610
+msgid "Hits per Day"
+msgstr "一日あたりのヒット数"
+
+#: output.c:616
+msgid "Files per Day"
+msgstr "一日あたりのファイル数"
+
+#: output.c:622
+msgid "Pages per Day"
+msgstr "一日あたりのページ数"
+
+#: output.c:628
+#, fuzzy
+msgid "Sites per Day"
+msgstr "一日あたりのヒット数"
+
+#: output.c:634
+msgid "Visits per Day"
+msgstr "一日あたりの訪問者数"
+
+#: output.c:640
+#, fuzzy
+msgid "kB Files per Day"
+msgstr "一日あたりのファイル数"
+
+#: output.c:646
+#, fuzzy
+msgid "kB In per Day"
+msgstr "一日あたりのバイト数(K)"
+
+#: output.c:652
+#, fuzzy
+msgid "kB Out per Day"
+msgstr "一日あたりのバイト数(K)"
+
+#: output.c:658
+msgid "Hits by Response Code"
+msgstr "応答コードごとのヒット数"
+
+#: output.c:689
+msgid "Daily Statistics for"
+msgstr "日ごとの統計 -"
+
+#: output.c:709
+msgid "Day"
+msgstr "日"
+
+#: output.c:786
+msgid "Hourly Statistics for"
+msgstr "時間ごとの統計 - "
+
+#: output.c:802
+msgid "Hour"
+msgstr "時"
+
+#: output.c:924 output.c:928 output.c:1130 output.c:1134 output.c:1363
+#: output.c:1459 output.c:1624 output.c:1771 output.c:1892 output.c:2216
+msgid "Top"
+msgstr "上位"
+
+#: output.c:924 output.c:928 output.c:1130 output.c:1134 output.c:1363
+#: output.c:1459 output.c:1624 output.c:1771 output.c:1892 output.c:2216
+msgid "of"
+msgstr "/"
+
+#: output.c:925 output.c:1131
+msgid "By"
+msgstr "/"
+
+#: output.c:925 output.c:928
+msgid "Total Sites"
+msgstr "- リモートサイト"
+
+#: output.c:945 output.c:1040 output.c:2302
+msgid "Hostname"
+msgstr "ホスト名"
+
+#: output.c:1004
+msgid "View All Sites"
+msgstr "全てのリモートサイトを表示"
+
+#: output.c:1131 output.c:1134
+msgid "Total URLs"
+msgstr "- URL"
+
+#: output.c:1152 output.c:1262 output.c:1268 output.c:1377 output.c:2346
+msgid "URL"
+msgstr "URL"
+
+#: output.c:1234
+msgid "View All URLs"
+msgstr "全ての URL を表示"
+
+#: output.c:1364
+msgid "Total Entry Pages"
+msgstr "- エントリーページ"
+
+#: output.c:1364
+msgid "Total Exit Pages"
+msgstr "- 終了ページ"
+
+#: output.c:1459
+msgid "Total Referrers"
+msgstr "- 参照元"
+
+#: output.c:1469 output.c:1546 output.c:1551 output.c:2387
+msgid "Referrer"
+msgstr "参照元"
+
+#: output.c:1521
+msgid "View All Referrers"
+msgstr "全ての参照元を表示"
+
+#: output.c:1624
+msgid "Total User Agents"
+msgstr "- ユーザエージェント"
+
+#: output.c:1634 output.c:1700 output.c:1705 output.c:2426
+msgid "User Agent"
+msgstr "ユーザエージェント"
+
+#: output.c:1675
+msgid "View All User Agents"
+msgstr "全てのユーザエージェントを表示"
+
+#: output.c:1771
+msgid "Total Search Strings"
+msgstr "- 検索文字列"
+
+#: output.c:1781 output.c:1836 output.c:1841 output.c:2510
+msgid "Search String"
+msgstr "検索文字列"
+
+#: output.c:1810
+msgid "View All Search Strings"
+msgstr "全ての検索文字列を表示"
+
+#: output.c:1892
+msgid "Total Usernames"
+msgstr "- ユーザ名"
+
+#: output.c:1909 output.c:1991 output.c:1999 output.c:2467
+msgid "Username"
+msgstr "ユーザ名"
+
+#: output.c:1966
+msgid "View All Usernames"
+msgstr "View All Usernames"
+
+#: output.c:2101
+#, c-format
+msgid "GeoDB: %s unknown!\n"
+msgstr ""
+
+#: output.c:2114
+#, c-format
+msgid "GeoIP: %s unknown (returns '%s')\n"
+msgstr ""
+
+#: output.c:2199
+#, fuzzy
+msgid "Usage by Country for"
+msgstr "国別状況 - "
+
+#: output.c:2216
+#, fuzzy
+msgid "Total Countries"
+msgstr "国"
+
+#: output.c:2231
+msgid "Country"
+msgstr "国"
+
+#: output.c:2550
+msgid "Generating summary report"
+msgstr "概要レポートを生成しています"
+
+#: output.c:2552
+msgid "Usage summary for"
+msgstr "概要 -"
+
+#: output.c:2584
+#, fuzzy, c-format
+msgid "Error: Failed to create .htaccess file: %s\n"
+msgstr "エラー: ヒストリファイルに書き込めません"
+
+#: output.c:2607
+msgid "Month"
+msgstr "月"
+
+#: output.c:2609
+msgid "Daily Avg"
+msgstr "一日あたりの平均"
+
+#: output.c:2611
+msgid "Monthly Totals"
+msgstr "月の合計"
+
+#: output.c:2743
+msgid "Totals"
+msgstr "総合計"
+
+#: parser.c:232 parser.c:426
+msgid "Warning: Truncating oversized hostname"
+msgstr "警告: 長すぎるホスト名を切り詰めます"
+
+#: parser.c:264
+msgid "Warning: Truncating oversized username"
+msgstr "警告: 長すぎるユーザ名を切り詰めます"
+
+#: parser.c:286
+msgid "Warning: Truncating oversized date field"
+msgstr "警告: 長すぎる日付フィールドを切り詰めます"
+
+#: parser.c:311 parser.c:463 parser.c:492 webalizer.c:1005
+msgid "Warning: Truncating oversized request field"
+msgstr "警告: 長すぎるリクエストフィールドを切り詰めます"
+
+#: parser.c:355 webalizer.c:997
+msgid "Warning: Truncating oversized referrer field"
+msgstr "警告: 長すぎる参照元フィールドを切り詰めます"
+
+#: preserve.c:78
+msgid "Reading history file..."
+msgstr "ヒストリファイルを読み込んでいます..."
+
+#: preserve.c:89
+msgid "Error: Ignoring invalid history record"
+msgstr "エラー: 無効なヒストリレコードを無視します"
+
+#: preserve.c:142
+msgid "History file not found..."
+msgstr "ヒストリファイルが見つかりません..."
+
+#: preserve.c:182
+msgid "Saving history information..."
+msgstr "ヒストリ情報を保存しています..."
+
+#: preserve.c:222
+msgid "Error: Unable to write history file"
+msgstr "エラー: ヒストリファイルに書き込めません"
+
+#: preserve.c:353
+msgid "Saving current run data..."
+msgstr "現在の実行データを保存しています..."
+
+#: preserve.c:567
+msgid "Previous run data not found..."
+msgstr "前回実行時のデータが見つかりません..."
+
+#: preserve.c:572
+#, fuzzy
+msgid "Reading previous run data.."
+msgstr "前回実行時のデータを読み込んでいます..."
+
+#: preserve.c:679 webalizer.c:1227 webalizer.c:1332
+msgid "Error adding URL node, skipping"
+msgstr "URLノード追加中にエラーが発生しました。スキップします"
+
+#: preserve.c:720 webalizer.c:1272 webalizer.c:1347 webalizer.c:1365
+msgid "Error adding host node (monthly), skipping"
+msgstr "ホストノード(月毎)追加中にエラーが発生しました。スキップします"
+
+#: preserve.c:761 webalizer.c:1261
+msgid "Error adding host node (daily), skipping"
+msgstr "ホストノード(日毎)追加中にエラーが発生しました。スキップします"
+
+#: preserve.c:786 webalizer.c:1249 webalizer.c:1378
+msgid "Error adding Referrer node, skipping"
+msgstr "参照元ノード追加中にエラーが発生しました。スキップします。"
+
+#: preserve.c:811 webalizer.c:1282 webalizer.c:1389
+msgid "Error adding User Agent node, skipping"
+msgstr "ユーザエージェントノード追加中にエラーが発生しました。スキップします"
+
+#: preserve.c:835 webalizer.c:2223
+msgid "Error adding Search String Node, skipping"
+msgstr "検索文字列ノード追加中にエラーが発生しました。スキップします"
+
+#: preserve.c:868 webalizer.c:1238 webalizer.c:1404
+msgid "Error adding Username node, skipping"
+msgstr "ユーザ名ノード追加中にエラーが発生しました。スキップします"
+
+#: webalizer.c:326
+msgid "Usage Statistics for"
+msgstr "利用統計 - "
+
+#: webalizer.c:491 webalizer.c:1989
+msgid "locale"
+msgstr ""
+
+#: webalizer.c:497
+msgid "DNS support not present, aborting..."
+msgstr ""
+
+#: webalizer.c:514 webalizer.c:531 webalizer.c:542
+msgid "Error: Can't open log file"
+msgstr "エラー: ログファイルが開けません"
+
+#: webalizer.c:551
+msgid "Using logfile"
+msgstr "使用するログファイル ="
+
+#: webalizer.c:572
+msgid "Error: Can't change directory to"
+msgstr "エラー: ディレクトリを変更できません;"
+
+#: webalizer.c:584
+msgid "No cache file specified, aborting..."
+msgstr "キャッシュファイルが指定されていません。中断します..."
+
+#: webalizer.c:593
+msgid "DNS Lookup"
+msgstr "DNS 参照"
+
+#: webalizer.c:611
+msgid "Using DNS cache file"
+msgstr "DNS キャッシュファイルを使う"
+
+#: webalizer.c:621
+#, fuzzy
+msgid "Error opening file"
+msgstr "エラー: ログファイルが開けません"
+
+#: webalizer.c:622 webalizer.c:652
+msgid "default"
+msgstr ""
+
+#: webalizer.c:623 webalizer.c:647
+msgid "lookups disabled"
+msgstr ""
+
+#: webalizer.c:627 webalizer.c:650
+msgid "Using"
+msgstr ""
+
+#: webalizer.c:658
+msgid "Creating output in"
+msgstr "出力先 ="
+
+#: webalizer.c:658
+msgid "current directory"
+msgstr "カレントディレクトリ"
+
+#: webalizer.c:668
+msgid "Hostname for reports is"
+msgstr "レポートするホスト名 ="
+
+#: webalizer.c:671
+msgid "Ignoring previous history..."
+msgstr "既に存在するヒストリファイルを無視します..."
+
+#: webalizer.c:680
+msgid "Error: Unable to restore run data"
+msgstr "エラー: 実行データが復旧できません"
+
+#: webalizer.c:689
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr "十分なメモリが確保できません。国別集計を無効にします！"
+
+#: webalizer.c:706
+#, fuzzy
+msgid "Error: Skipping oversized log record"
+msgstr "エラー: 大きすぎるログレコードをスキップします"
+
+#: webalizer.c:766
+msgid "Error: Skipping record (bad date)"
+msgstr "エラー: 不正な日付のレコードをスキップします"
+
+#: webalizer.c:1419
+msgid "Skipping Netscape header record"
+msgstr "Netscape ヘッダレコードをスキップします"
+
+#: webalizer.c:1436
+msgid "Skipping bad record"
+msgstr "不正なレコードをスキップします"
+
+#: webalizer.c:1471
+msgid "Error: Unable to save current run data"
+msgstr "エラー: 現在の実行データを保存できません"
+
+#: webalizer.c:1488
+msgid "records"
+msgstr "レコード"
+
+#: webalizer.c:1491
+msgid "ignored"
+msgstr "無視"
+
+#: webalizer.c:1492 webalizer.c:1495
+msgid "bad"
+msgstr "不正"
+
+#: webalizer.c:1529
+msgid "No valid records found!"
+msgstr "有効なレコードが見つかりません！"
+
+#: webalizer.c:1679
+msgid "Error: Unable to open configuration file"
+msgstr "エラー: 設定ファイルを開けません"
+
+#: webalizer.c:1709 webalizer.c:1835 webalizer.c:1866 webalizer.c:1884
+msgid "Warning: Invalid keyword"
+msgstr "警告: 無効なキーワードです"
+
+#: webalizer.c:1972
+msgid "Usage"
+msgstr "使い方"
+
+#: webalizer.c:1972
+msgid "[options] [log file]"
+msgstr "[オプション] [ログファイル]"
+
+#: webalizer.c:2008
+#, c-format
+msgid "Default GeoDB dir : %s\n"
+msgstr ""
+
+#: webalizer.c:2010
+#, c-format
+msgid "Default config dir: %s\n"
+msgstr ""
+
+#~ msgid "Old style Arpanet (arpa)"
+#~ msgstr "旧形式 ARPANET (.arpa)"
+
+#~ msgid "Czechoslovakia (former)"
+#~ msgstr "(旧) チェコスロバキア"
+
+#, fuzzy
+#~ msgid "France, Metropolitan"
+#~ msgstr "フランス本国"
+
+#~ msgid "Croatia (Hrvatska)"
+#~ msgstr "クロアチア (ユーゴスラビア)"
+
+#~ msgid "Korea (North)"
+#~ msgstr "北朝鮮"
+
+#~ msgid "Korea (South)"
+#~ msgstr "韓国"
+
+#~ msgid "Neutral Zone"
+#~ msgstr "中立地帯"
+
+#~ msgid "USSR (former)"
+#~ msgstr "(旧) ソビエト社会主義共和国連邦"
+
+#~ msgid "Syria"
+#~ msgstr "シリア"
+
+#~ msgid "East Timor"
+#~ msgstr "東チモール"
+
+#~ msgid "Zaire"
+#~ msgstr "ザイール"
+
+#, fuzzy
+#~ msgid "Locations"
+#~ msgstr "ラオス"
+
+#, fuzzy
+#~ msgid "Total Locations"
+#~ msgstr "- 国"
+
+#~ msgid "Last 12 Months"
+#~ msgstr "過去12ヶ月"
+
+#, fuzzy
+#~ msgid "Can't allocate enough memory, Top Locations disabled!"
+#~ msgstr "十分なメモリが確保できません。URL の集計を無効にします！"
+
+#~ msgid "English"
+#~ msgstr "日本語"
+
+#~ msgid "KBytes"
+#~ msgstr "バイト数(K)"
+
+#~ msgid "May"
+#~ msgstr "5月"
+
+#~ msgid "Warning: Possible duplicate data found"
+#~ msgstr "警告: 重複するデータが見つかりました"

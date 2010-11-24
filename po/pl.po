@@ -1,0 +1,2453 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-24 15:03+0100\n"
+"PO-Revision-Date: 2003-05-25 23:29+0200\n"
+"Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
+"Language-Team: French <tech@jexiste.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: dns_resolv.c:123
+#, c-format
+msgid "Checking %s..."
+msgstr ""
+
+#: dns_resolv.c:133
+#, c-format
+msgid " found: %s (%ld)\n"
+msgstr ""
+
+#: dns_resolv.c:140
+#, c-format
+msgid " not found\n"
+msgstr ""
+
+#: dns_resolv.c:141
+#, c-format
+msgid " error (%d)\n"
+msgstr ""
+
+#: dns_resolv.c:202 dns_resolv.c:777
+msgid "Error: Unable to open DNS cache file"
+msgstr "B³±d: Nie mogê otworzyæ pliku buforuj±cego DNS"
+
+#: dns_resolv.c:215 dns_resolv.c:787
+msgid "Error: Unable to lock DNS cache file"
+msgstr "B³±d: Nie mogê zablokowaæ pliku buforuj±cego DNS"
+
+#: dns_resolv.c:302
+msgid "None to process"
+msgstr "Brak adresów IP do przetworzenia"
+
+#: dns_resolv.c:319
+msgid "addresses"
+msgstr "adres(ów)"
+
+#: dns_resolv.c:324 webalizer.c:1500
+msgid "in"
+msgstr "w"
+
+#: dns_resolv.c:324 webalizer.c:1500
+msgid "seconds"
+msgstr "sekund"
+
+#: dns_resolv.c:331
+#, c-format
+msgid ", %d/sec\n"
+msgstr ""
+
+#: dns_resolv.c:374
+#, c-format
+msgid "INPIPE creation error"
+msgstr ""
+
+#: dns_resolv.c:380
+#, c-format
+msgid "OUTPIPE creation error"
+msgstr ""
+
+#: dns_resolv.c:389
+#, c-format
+msgid "FORK error"
+msgstr ""
+
+#: dns_resolv.c:405
+msgid "read error"
+msgstr ""
+
+#: dns_resolv.c:428
+#, c-format
+msgid "Child %d getnameinfo bad hbuf!\n"
+msgstr ""
+
+#: dns_resolv.c:434
+#, c-format
+msgid "Child %d getnameinfo failed!\n"
+msgstr ""
+
+#: dns_resolv.c:439
+msgid "write error"
+msgstr ""
+
+#: dns_resolv.c:448
+#, c-format
+msgid "Child %d got closed input, shutting down\n"
+msgstr ""
+
+#: dns_resolv.c:493
+#, c-format
+msgid "Reaped Child %d\n"
+msgstr ""
+
+#: dns_resolv.c:522
+#, c-format
+msgid "Giving %d bytes to Child %d\n"
+msgstr ""
+
+#: dns_resolv.c:531
+msgid "Could not write to pipe"
+msgstr ""
+
+#: dns_resolv.c:560
+msgid "Error in select"
+msgstr ""
+
+#: dns_resolv.c:568
+#, c-format
+msgid "tick\n"
+msgstr ""
+
+#: dns_resolv.c:603
+#, c-format
+msgid "Child %d wants to be reaped\n"
+msgstr ""
+
+#: dns_resolv.c:616
+#, c-format
+msgid "Child %d Got a result: %s -> %s\n"
+msgstr ""
+
+#: dns_resolv.c:623
+#, c-format
+msgid "Child %d could not resolve: %s (%s)\n"
+msgstr ""
+
+#: dns_resolv.c:632
+#, c-format
+msgid "Child %d back in task pool\n"
+msgstr ""
+
+#: dns_resolv.c:724
+#, c-format
+msgid "db_put fail!\n"
+msgstr ""
+
+#: graphs.c:143 graphs.c:147 graphs.c:149 graphs.c:473 graphs.c:476
+#: graphs.c:478 output.c:715 output.c:806 output.c:925 output.c:937
+#: output.c:1039 output.c:1131 output.c:1143 output.c:1268 output.c:1901
+#: output.c:1998 output.c:2225 output.c:2301 output.c:2345 output.c:2466
+#: output.c:2623
+msgid "kB F"
+msgstr ""
+
+#: graphs.c:144 graphs.c:153 graphs.c:155 graphs.c:474 graphs.c:482
+#: graphs.c:484 output.c:716 output.c:807 output.c:939 output.c:1039
+#: output.c:1146 output.c:1268 output.c:1903 output.c:1998 output.c:2227
+#: output.c:2301 output.c:2345 output.c:2466 output.c:2625
+msgid "kB In"
+msgstr ""
+
+#: graphs.c:145 graphs.c:159 graphs.c:161 graphs.c:488 graphs.c:490
+#: output.c:717 output.c:808 output.c:941 output.c:1039 output.c:1149
+#: output.c:1268 output.c:1905 output.c:1998 output.c:2229 output.c:2301
+#: output.c:2346 output.c:2466 output.c:2627
+msgid "kB Out"
+msgstr ""
+
+#: graphs.c:164 graphs.c:167 graphs.c:169 graphs.c:501 graphs.c:503
+#: output.c:547 output.c:713 output.c:943 output.c:1040 output.c:1374
+#: output.c:1907 output.c:1999 output.c:2301 output.c:2466 output.c:2619
+#: output.c:2629
+msgid "Visits"
+msgstr "Wizyty"
+
+#: graphs.c:165 graphs.c:173 graphs.c:175 graphs.c:493 graphs.c:495
+#: graphs.c:497 output.c:490 output.c:714 output.c:1032 output.c:2621
+msgid "Sites"
+msgstr "Lokalizacje"
+
+#: graphs.c:178 graphs.c:181 graphs.c:183 graphs.c:506 graphs.c:510
+#: graphs.c:512 graphs.c:718 graphs.c:722 graphs.c:724 output.c:543
+#: output.c:712 output.c:805 output.c:2617 output.c:2631
+msgid "Pages"
+msgstr "Strony"
+
+#: graphs.c:179 graphs.c:187 graphs.c:189 graphs.c:507 graphs.c:516
+#: graphs.c:518 graphs.c:719 graphs.c:728 graphs.c:730 output.c:711
+#: output.c:804 output.c:935 output.c:1039 output.c:1899 output.c:1998
+#: output.c:2223 output.c:2301 output.c:2466 output.c:2615 output.c:2633
+msgid "Files"
+msgstr "Pliki"
+
+#: graphs.c:193 graphs.c:195 graphs.c:508 graphs.c:522 graphs.c:524
+#: graphs.c:720 graphs.c:734 graphs.c:736 output.c:710 output.c:803
+#: output.c:933 output.c:1039 output.c:1140 output.c:1268 output.c:1371
+#: output.c:1466 output.c:1551 output.c:1631 output.c:1705 output.c:1778
+#: output.c:1841 output.c:1897 output.c:1998 output.c:2221 output.c:2301
+#: output.c:2345 output.c:2387 output.c:2426 output.c:2466 output.c:2510
+#: output.c:2613 output.c:2635
+msgid "Hits"
+msgstr "Wywo³ania"
+
+#: graphs.c:378 graphs.c:656 graphs.c:782 graphs.c:888 output.c:2570
+#: output.c:2592 output.c:3075 output.c:3084 preserve.c:169 preserve.c:339
+msgid "Error: Unable to open file"
+msgstr "B³±d: Nie mogê otworzyæ pliku"
+
+#: graphs.c:873 lang2.h:432
+msgid "Other"
+msgstr "Inne"
+
+#: hashtab.c:118 hashtab.c:316 hashtab.c:450 hashtab.c:570 hashtab.c:687
+#: hashtab.c:792 hashtab.c:970 linklist.c:109 linklist.c:166
+msgid "Warning: String exceeds storage size"
+msgstr "Ostrze¿enie: Napis przekracza dopuszczaln± wielko¶æ"
+
+#: lang2.h:40
+msgid "-h        = print this help message"
+msgstr "-h        = wy¶wietla te informacje"
+
+#: lang2.h:41
+#, fuzzy
+msgid "-V        = print version information"
+msgstr "-v -V     = wy¶wietla informacje o wersji"
+
+#: lang2.h:42
+#, fuzzy
+msgid "-v        = be verbose"
+msgstr "-f        = zignoruj b³êdy czasu kolejnych wywo³añ"
+
+#: lang2.h:43
+msgid "-d        = print additional debug info"
+msgstr "-d        = wy¶wietla dodatkowe informacje"
+
+#: lang2.h:44
+#, fuzzy
+msgid "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
+msgstr "-F typ    = typ logu.  typ= (clf | ftp | squid)"
+
+#: lang2.h:45
+msgid "-f        = Fold sequence errors"
+msgstr "-f        = zignoruj b³êdy czasu kolejnych wywo³añ"
+
+#: lang2.h:46
+msgid "-i        = ignore history file"
+msgstr "-i        = pomija plik historii"
+
+#: lang2.h:47
+msgid "-p        = preserve state (incremental)"
+msgstr "-p        = zachowuje stan (przyrostowy)"
+
+#: lang2.h:48
+#, fuzzy
+msgid "-b        = ignore state (incremental)"
+msgstr "-p        = zachowuje stan (przyrostowy)"
+
+#: lang2.h:49
+msgid "-q        = supress informational messages"
+msgstr "-q        = wy³±cza komunikaty informacyjne"
+
+#: lang2.h:50
+msgid "-Q        = supress _ALL_ messages"
+msgstr "-Q        = wy³±cza wszystkie komunikaty"
+
+#: lang2.h:51
+msgid "-Y        = supress country graph"
+msgstr "-Y        = wy³±cza wykres krajów"
+
+#: lang2.h:52
+msgid "-G        = supress hourly graph"
+msgstr "-G        = wy³±cza wykres godzinny"
+
+#: lang2.h:53
+msgid "-H        = supress hourly stats"
+msgstr "-H        = wy³±cza statystykê godzinn±"
+
+#: lang2.h:54
+msgid "-L        = supress color coded graph legends"
+msgstr "-L        = wy³±cza kolorowe s³upki ledendy"
+
+#: lang2.h:55
+msgid "-l num    = use num background lines on graph"
+msgstr "-l num    = w³±cza num linii w tle wykresów"
+
+#: lang2.h:56
+msgid "-m num    = Visit timout value (seconds)"
+msgstr "-m num    = czas pojedynczej wizyty (seconds)"
+
+#: lang2.h:57
+msgid "-T        = print timing information"
+msgstr "-T        = wy¶wietla informacje czasowe"
+
+#: lang2.h:58
+msgid "-c file   = use configuration file 'file'"
+msgstr "-c plik   = u¿ywa pliku konfiguracyjnego 'plik'"
+
+#: lang2.h:59
+msgid "-n name   = hostname to use"
+msgstr "-n nazwa  = u¿ywana nazwa hosta"
+
+#: lang2.h:60
+msgid "-o dir    = output directory to use"
+msgstr "-o katalog= katalog u¿ywany do zapisu"
+
+#: lang2.h:61
+msgid "-t name   = report title 'name'"
+msgstr "-t nazwa  = tytu³ 'nazwa' dla raportu"
+
+#: lang2.h:62
+msgid "-a name   = hide user agent 'name'"
+msgstr "-a nazwa  = ukrywa program klienta 'nazwa'"
+
+#: lang2.h:63
+msgid "-r name   = hide referrer 'name'"
+msgstr "-r nazwa  = ukrywa odno¶nik 'nazwa'"
+
+#: lang2.h:64
+msgid "-s name   = hide site 'name'"
+msgstr "-s nazwa  = ukrywa lokalizacjê 'nazwa'"
+
+#: lang2.h:65
+msgid "-u name   = hide URL 'name'"
+msgstr "-u nazwa  = ukrywa URL 'nazwa'"
+
+#: lang2.h:66
+msgid "-x name   = Use filename extension 'name'"
+msgstr "-x nazwa  = stosuje pliki o rozszerzeniu 'nazwa'"
+
+#: lang2.h:67
+#, fuzzy
+msgid "-O name   = Omit page 'name'"
+msgstr "-s nazwa  = ukrywa lokalizacjê 'nazwa'"
+
+#: lang2.h:68
+msgid "-P name   = Page type extension 'name'"
+msgstr "-P nazwa  = strony o rozszerzeniu 'nazwa'"
+
+#: lang2.h:69
+msgid "-I name   = Index alias 'name'"
+msgstr "-I nazwa  = inna nazwa plików index.*: 'nazwa'"
+
+#: lang2.h:70
+msgid "-K num    = num months in summary table"
+msgstr ""
+
+#: lang2.h:71
+#, fuzzy
+msgid "-k num    = num months in summary graph"
+msgstr "-l num    = w³±cza num linii w tle wykresów"
+
+#: lang2.h:72
+msgid "-A num    = Display num top agents"
+msgstr "-A num    = wy¶wietla num najczêstszych przegl±darek"
+
+#: lang2.h:73
+msgid "-C num    = Display num top countries"
+msgstr "-C num    = wy¶wietla num najczêstszych krajów"
+
+#: lang2.h:74
+msgid "-R num    = Display num top referrers"
+msgstr "-R num    = wy¶wietla num najczêstszych odno¶ników"
+
+#: lang2.h:75
+msgid "-S num    = Display num top sites"
+msgstr "-S num    = wy¶wietla num najczêstszych lokalizacji"
+
+#: lang2.h:76
+msgid "-U num    = Display num top URLs"
+msgstr "-U num    = wy¶wietla num najczêstszych URLi"
+
+#: lang2.h:77
+msgid "-e num    = Display num top Entry Pages"
+msgstr "-e num    = wy¶wietla num najczêstszych stron wej¶ciowych"
+
+#: lang2.h:78
+msgid "-E num    = Display num top Exit Pages"
+msgstr "-E num    = wy¶wietla num najczêstszych stron wyj¶ciowych"
+
+#: lang2.h:79
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr "-g num    = grupuj domeny do poziomu 'num'"
+
+#: lang2.h:80
+msgid "-X        = Hide individual sites"
+msgstr "-X        = ukryj pojedyncze lokalizacje"
+
+#: lang2.h:81
+msgid "-z dir    = Use country flags in 'dir'"
+msgstr ""
+
+#: lang2.h:83
+msgid "-D name   = Use DNS Cache file 'name'"
+msgstr "-D nazwa  = u¿ywaj pliku buforuj±cego DNS 'nazwa'"
+
+#: lang2.h:84
+msgid "-N num    = Number of DNS processes (0=disable)"
+msgstr "-N num    = liczba procesów DNS (0=wy³±cz)"
+
+#: lang2.h:85
+msgid "-j        = Enable native GeoDB lookups"
+msgstr ""
+
+#: lang2.h:86
+#, fuzzy
+msgid "-J name   = Use GeoDB database 'name'"
+msgstr "-D nazwa  = u¿ywaj pliku buforuj±cego DNS 'nazwa'"
+
+#: lang2.h:89
+msgid "-w        = Enable GeoIP lookups"
+msgstr ""
+
+#: lang2.h:90
+#, fuzzy
+msgid "-W name   = Use GeoIP database 'name'"
+msgstr "-I nazwa  = inna nazwa plików index.*: 'nazwa'"
+
+#: lang2.h:95
+msgid "Feb"
+msgstr "Lut"
+
+#: lang2.h:95
+msgid "Jan"
+msgstr "Sty"
+
+#: lang2.h:95
+msgid "Mar"
+msgstr "Mar"
+
+#: lang2.h:96
+msgid "Apr"
+msgstr "Kwi"
+
+#: lang2.h:96
+msgid "Jun"
+msgstr "Cze"
+
+#: lang2.h:96
+msgid "short|May"
+msgstr ""
+
+#: lang2.h:97
+msgid "Aug"
+msgstr "Sie"
+
+#: lang2.h:97
+msgid "Jul"
+msgstr "Lip"
+
+#: lang2.h:97
+msgid "Sep"
+msgstr "Wrz"
+
+#: lang2.h:98
+msgid "Dec"
+msgstr "Gru"
+
+#: lang2.h:98
+msgid "Nov"
+msgstr "Lis"
+
+#: lang2.h:98
+msgid "Oct"
+msgstr "Pa¼"
+
+#: lang2.h:101
+msgid "February"
+msgstr "luty"
+
+#: lang2.h:101
+msgid "January"
+msgstr "styczeñ"
+
+#: lang2.h:101
+msgid "March"
+msgstr "marzec"
+
+#: lang2.h:102
+msgid "April"
+msgstr "kwiecieñ"
+
+#: lang2.h:102
+msgid "June"
+msgstr "czerwiec"
+
+#: lang2.h:102
+#, fuzzy
+msgid "long|May"
+msgstr "Tonga"
+
+#: lang2.h:103
+msgid "August"
+msgstr "sierpieñ"
+
+#: lang2.h:103
+msgid "July"
+msgstr "lipiec"
+
+#: lang2.h:103
+msgid "September"
+msgstr "wrzesieñ"
+
+#: lang2.h:104
+msgid "December"
+msgstr "grudzieñ"
+
+#: lang2.h:104
+msgid "November"
+msgstr "listopad"
+
+#: lang2.h:104
+msgid "October"
+msgstr "pa¼dziernik"
+
+#: lang2.h:108
+msgid "Undefined response code"
+msgstr "Niezdefiniowany kod odpowiedzi"
+
+#: lang2.h:109
+msgid "Code 100 - Continue"
+msgstr "Code 100 - Kontynuuj"
+
+#: lang2.h:110
+msgid "Code 101 - Switching Protocols"
+msgstr "Code 101 - Zmieniam protoko³y"
+
+#: lang2.h:111
+msgid "Code 200 - OK"
+msgstr "Code 200 - OK"
+
+#: lang2.h:112
+msgid "Code 201 - Created"
+msgstr "Code 201 - Utworzono"
+
+#: lang2.h:113
+msgid "Code 202 - Accepted"
+msgstr "Code 202 - Zaakceptowano"
+
+#: lang2.h:114
+msgid "Code 203 - Non-Authoritative Information"
+msgstr "Code 203 - Niewiarygodna informacja"
+
+#: lang2.h:115
+msgid "Code 204 - No Content"
+msgstr "Code 204 - Brak zawarto¶ci"
+
+#: lang2.h:116
+msgid "Code 205 - Reset Content"
+msgstr "Code 205 - Kasujê zawarto¶æ"
+
+#: lang2.h:117
+msgid "Code 206 - Partial Content"
+msgstr "Code 206 - Czê¶ciowa zawarto¶æ"
+
+#: lang2.h:118
+msgid "Code 300 - Multiple Choices"
+msgstr "Code 300 - Wielokrotny wybór"
+
+#: lang2.h:119
+msgid "Code 301 - Moved Permanently"
+msgstr "Code 301 - Przeniesiono na sta³e"
+
+#: lang2.h:120
+msgid "Code 302 - Found"
+msgstr "Code 302 - Przeniesiono tymczasowo"
+
+#: lang2.h:121
+msgid "Code 303 - See Other"
+msgstr "Code 303 - Zobacz inne"
+
+#: lang2.h:122
+msgid "Code 304 - Not Modified"
+msgstr "Code 304 - Niezmodyfikowany"
+
+#: lang2.h:123
+msgid "Code 305 - Use Proxy"
+msgstr "Code 305 - U¿yj proxy"
+
+#: lang2.h:124
+msgid "Code 307 - Moved Temporarily"
+msgstr "Code 307 - Tymczasowe przekierowanie"
+
+#: lang2.h:125
+msgid "Code 400 - Bad Request"
+msgstr "Code 400 - B³êdne ¿±danie"
+
+#: lang2.h:126
+msgid "Code 401 - Unauthorized"
+msgstr "Code 401 - Nieautoryzowany"
+
+#: lang2.h:127
+msgid "Code 402 - Payment Required"
+msgstr "Code 402 - ¯±dana zap³ata"
+
+#: lang2.h:128
+msgid "Code 403 - Forbidden"
+msgstr "Code 403 - Zakazane"
+
+#: lang2.h:129
+msgid "Code 404 - Not Found"
+msgstr "Code 404 - Nie znaleziono"
+
+#: lang2.h:130
+msgid "Code 405 - Method Not Allowed"
+msgstr "Code 405 - Nieuznawana metoda"
+
+#: lang2.h:131
+msgid "Code 406 - Not Acceptable"
+msgstr "Code 406 - Nie akceptowane"
+
+#: lang2.h:132
+msgid "Code 407 - Proxy Authentication Required"
+msgstr "Code 407 - Niezbêdna autentykacja przez proxy"
+
+#: lang2.h:133
+msgid "Code 408 - Request Timeout"
+msgstr "Code 408 - Czas zapytania min±³"
+
+#: lang2.h:134
+msgid "Code 409 - Conflict"
+msgstr "Code 409 - Konflikt"
+
+#: lang2.h:135
+msgid "Code 410 - Gone"
+msgstr "Code 410 - Ju¿ niedostêpne"
+
+#: lang2.h:136
+msgid "Code 411 - Length Required"
+msgstr "Code 411 - Wymagana d³ugo¶æ"
+
+#: lang2.h:137
+msgid "Code 412 - Precondition Failed"
+msgstr "Code 412 - Warunki niespe³nione"
+
+#: lang2.h:138
+msgid "Code 413 - Request Entity Too Large"
+msgstr "Code 413 - Zapytanie za du¿e"
+
+#: lang2.h:139
+msgid "Code 414 - Request-URI Too Long"
+msgstr "Code 414 - Zapytanie URI za d³ugie"
+
+#: lang2.h:140
+msgid "Code 415 - Unsupported Media Type"
+msgstr "Code 415 - Nieobs³ugiwany typ no¶nika"
+
+#: lang2.h:141
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr "Code 416 - Zapytanie-Zakres niedostêpny"
+
+#: lang2.h:142
+msgid "Code 417 - Expectation Failed"
+msgstr "Code 417 - Warunek niespe³niony"
+
+#: lang2.h:143
+msgid "Code 500 - Internal Server Error"
+msgstr "Code 500 - Wewnêtrzny b³±d serwera"
+
+#: lang2.h:144
+msgid "Code 501 - Not Implemented"
+msgstr "Code 501 - Niezaimplementowane"
+
+#: lang2.h:145
+msgid "Code 502 - Bad Gateway"
+msgstr "Code 502 - Z³a brama"
+
+#: lang2.h:146
+msgid "Code 503 - Service Unavailable"
+msgstr "Code 503 - Serwis niedostêpny"
+
+#: lang2.h:147
+msgid "Code 504 - Gateway Timeout"
+msgstr "Code 504 - Up³yn±³ czas bramkowania"
+
+#: lang2.h:148
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr "Code 505 - Nieobs³ugiwana wersja HTTP"
+
+#: lang2.h:155
+msgid "Unresolved/Unknown"
+msgstr "Nieznany"
+
+#: lang2.h:156
+#, fuzzy
+msgid "Commercial (com)"
+msgstr "Komercyjna USA"
+
+#: lang2.h:157
+#, fuzzy
+msgid "Educational (edu)"
+msgstr "Edukacyjna USA"
+
+#: lang2.h:158
+#, fuzzy
+msgid "US Government (gov)"
+msgstr "Rz±dowa USA"
+
+#: lang2.h:159
+msgid "International (int)"
+msgstr "Miêdzynarodowa (int)"
+
+#: lang2.h:160
+#, fuzzy
+msgid "US Military (mil)"
+msgstr "Wojskowa USA"
+
+#: lang2.h:161
+#, fuzzy
+msgid "Network (net)"
+msgstr "Sieæ (net)"
+
+#: lang2.h:162
+#, fuzzy
+msgid "Non-Profit (org)"
+msgstr "Organizacja niekomercyjna"
+
+#: lang2.h:163
+msgid "Generic Business (biz)"
+msgstr ""
+
+#: lang2.h:164
+msgid "Catalan Community (cat)"
+msgstr ""
+
+#: lang2.h:165
+msgid "Professional (pro)"
+msgstr ""
+
+#: lang2.h:166
+msgid "Ind. Contact Data (tel)"
+msgstr ""
+
+#: lang2.h:167
+msgid "Air Transport Industry (aero)"
+msgstr ""
+
+#: lang2.h:168
+msgid "Asia Pacific Community (asia)"
+msgstr ""
+
+#: lang2.h:169
+msgid "Cooperative Association (coop)"
+msgstr ""
+
+#: lang2.h:170
+msgid "Generic TLD (info)"
+msgstr ""
+
+#: lang2.h:171
+msgid "Human Resources (jobs)"
+msgstr ""
+
+#: lang2.h:172
+msgid "Generic Mobile TLD (mobi)"
+msgstr ""
+
+#: lang2.h:173
+msgid "Individual (name)"
+msgstr ""
+
+#: lang2.h:174
+msgid "Address Routing (arpa)"
+msgstr ""
+
+#: lang2.h:175
+msgid "Nato field (nato)"
+msgstr "Sieæ NATO"
+
+#: lang2.h:176
+msgid "Museums (museum)"
+msgstr ""
+
+#: lang2.h:177
+msgid "Travel Ind. (travel)"
+msgstr ""
+
+#: lang2.h:178
+msgid "Ascension Island"
+msgstr ""
+
+#: lang2.h:179
+msgid "Andorra"
+msgstr "Andorra"
+
+#: lang2.h:180
+msgid "United Arab Emirates"
+msgstr "Zjednoczone Emiraty Arabskie"
+
+#: lang2.h:181
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+#: lang2.h:182
+msgid "Antigua and Barbuda"
+msgstr "Antigua i Barbuda"
+
+#: lang2.h:183
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: lang2.h:184
+msgid "Albania"
+msgstr "Albania"
+
+#: lang2.h:185
+msgid "Armenia"
+msgstr "Armenia"
+
+#: lang2.h:186
+msgid "Netherlands Antilles"
+msgstr "Antyle Holenderskie"
+
+#: lang2.h:187
+msgid "Angola"
+msgstr "Angola"
+
+#: lang2.h:188
+msgid "Antarctica"
+msgstr "Antarktyka"
+
+#: lang2.h:189
+msgid "Argentina"
+msgstr "Argentyna"
+
+#: lang2.h:190
+msgid "American Samoa"
+msgstr "Samoa Amerykañskie"
+
+#: lang2.h:191
+msgid "Austria"
+msgstr "Austria"
+
+#: lang2.h:192
+msgid "Australia"
+msgstr "Australia"
+
+#: lang2.h:193
+msgid "Aruba"
+msgstr "Aruba"
+
+#: lang2.h:194
+#, fuzzy
+msgid "Aland Islands"
+msgstr "Kajmany"
+
+#: lang2.h:195
+msgid "Azerbaijan"
+msgstr "Azerbejd¿an"
+
+#: lang2.h:196
+msgid "Bosnia and Herzegovina"
+msgstr "Bo¶nia i Hercegowina"
+
+#: lang2.h:197
+msgid "Barbados"
+msgstr "Barbados"
+
+#: lang2.h:198
+msgid "Bangladesh"
+msgstr "Bangladesz"
+
+#: lang2.h:199
+msgid "Belgium"
+msgstr "Belgia"
+
+#: lang2.h:200
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: lang2.h:201
+msgid "Bulgaria"
+msgstr "Bu³garia"
+
+#: lang2.h:202
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: lang2.h:203
+msgid "Burundi"
+msgstr "Burundi"
+
+#: lang2.h:204
+msgid "Benin"
+msgstr "Benin"
+
+#: lang2.h:205
+msgid "Saint Barthelemy"
+msgstr ""
+
+#: lang2.h:206
+msgid "Bermuda"
+msgstr "Bermudy"
+
+#: lang2.h:207
+msgid "Brunei Darussalam"
+msgstr "Brunei"
+
+#: lang2.h:208
+msgid "Bolivia"
+msgstr "Boliwia"
+
+#: lang2.h:209
+msgid "Brazil"
+msgstr "Brazylia"
+
+#: lang2.h:210
+msgid "Bahamas"
+msgstr "Wyspy Bahama"
+
+#: lang2.h:211
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: lang2.h:212
+msgid "Bouvet Island"
+msgstr "Wyspa Bouvet"
+
+#: lang2.h:213
+msgid "Botswana"
+msgstr "Botswana"
+
+#: lang2.h:214
+msgid "Belarus"
+msgstr "Bia³oru¶"
+
+#: lang2.h:215
+msgid "Belize"
+msgstr "Belize"
+
+#: lang2.h:216
+msgid "Canada"
+msgstr "Kanada"
+
+#: lang2.h:217
+msgid "Cocos (Keeling) Islands"
+msgstr "Wyspy Kokosowe"
+
+#: lang2.h:218
+#, fuzzy
+msgid "Congo, Democratic Republic"
+msgstr "Republika ¦rodkowoafrykañska"
+
+#: lang2.h:219
+msgid "Central African Republic"
+msgstr "Republika ¦rodkowoafrykañska"
+
+#: lang2.h:220
+msgid "Congo"
+msgstr "Kongo"
+
+#: lang2.h:221
+msgid "Switzerland"
+msgstr "Szwajcaria"
+
+#: lang2.h:222
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr "Wybrze¿e Ko¶ci S³oniowej"
+
+#: lang2.h:223
+msgid "Cook Islands"
+msgstr "Wyspy Cooka"
+
+#: lang2.h:224
+msgid "Chile"
+msgstr "Chile"
+
+#: lang2.h:225
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: lang2.h:226
+msgid "China"
+msgstr "Chiny"
+
+#: lang2.h:227
+msgid "Colombia"
+msgstr "Kolumbia"
+
+#: lang2.h:228
+msgid "Costa Rica"
+msgstr "Kostaryka"
+
+#: lang2.h:229
+msgid "Cuba"
+msgstr "Kuba"
+
+#: lang2.h:230
+msgid "Cape Verde"
+msgstr "Wyspy Zielonego Przyl±dka"
+
+#: lang2.h:231
+msgid "Christmas Island"
+msgstr "Wyspa Bo¿ego Narodzenia"
+
+#: lang2.h:232
+msgid "Cyprus"
+msgstr "Cypr"
+
+#: lang2.h:233
+msgid "Czech Republic"
+msgstr "Czechy"
+
+#: lang2.h:234
+msgid "Germany"
+msgstr "Niemcy"
+
+#: lang2.h:235
+msgid "Djibouti"
+msgstr "D¿ibuti"
+
+#: lang2.h:236
+msgid "Denmark"
+msgstr "Dania"
+
+#: lang2.h:237
+msgid "Dominica"
+msgstr "Dominika"
+
+#: lang2.h:238
+msgid "Dominican Republic"
+msgstr "Dominikana"
+
+#: lang2.h:239
+msgid "Algeria"
+msgstr "Algieria"
+
+#: lang2.h:240
+msgid "Ecuador"
+msgstr "Ekwador"
+
+#: lang2.h:241
+msgid "Estonia"
+msgstr "Estonia"
+
+#: lang2.h:242
+msgid "Egypt"
+msgstr "Egipt"
+
+#: lang2.h:243
+msgid "Western Sahara"
+msgstr "Sahara Zachodnia"
+
+#: lang2.h:244
+msgid "Eritrea"
+msgstr "Erytrea"
+
+#: lang2.h:245
+msgid "Spain"
+msgstr "Hiszpania"
+
+#: lang2.h:246
+msgid "Ethiopia"
+msgstr "Etiopia"
+
+#: lang2.h:247
+msgid "European Union"
+msgstr ""
+
+#: lang2.h:248
+msgid "Finland"
+msgstr "Finlandia"
+
+#: lang2.h:249
+msgid "Fiji"
+msgstr "Fid¿i"
+
+#: lang2.h:250
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falklandy"
+
+#: lang2.h:251
+msgid "Micronesia"
+msgstr "Mikronezja"
+
+#: lang2.h:252
+msgid "Faroe Islands"
+msgstr "Wyspy Owcze"
+
+#: lang2.h:253
+msgid "France"
+msgstr "Francja"
+
+#: lang2.h:254
+msgid "Gabon"
+msgstr "Gabon"
+
+#: lang2.h:255
+msgid "Great Britain (UK)"
+msgstr "Wielka Brytania"
+
+#: lang2.h:256
+msgid "Grenada"
+msgstr "Grenada"
+
+#: lang2.h:257
+msgid "Georgia"
+msgstr "Gruzja"
+
+#: lang2.h:258
+msgid "French Guiana"
+msgstr "Gujana Francuska"
+
+#: lang2.h:259
+msgid "Guernsey"
+msgstr ""
+
+#: lang2.h:260
+msgid "Ghana"
+msgstr "Ghana"
+
+#: lang2.h:261
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: lang2.h:262
+msgid "Greenland"
+msgstr "Grenlandia"
+
+#: lang2.h:263
+msgid "Gambia"
+msgstr "Gambia"
+
+#: lang2.h:264
+msgid "Guinea"
+msgstr "Gwinea"
+
+#: lang2.h:265
+msgid "Guadeloupe"
+msgstr "Gwadelupa"
+
+#: lang2.h:266
+msgid "Equatorial Guinea"
+msgstr "Gwinea Równikowa"
+
+#: lang2.h:267
+msgid "Greece"
+msgstr "Grecja"
+
+#: lang2.h:268
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr "Georgia P³d. i Wyspy Sandwicha P³d."
+
+#: lang2.h:269
+msgid "Guatemala"
+msgstr "Gwatemala"
+
+#: lang2.h:270
+msgid "Guam"
+msgstr "Guam"
+
+#: lang2.h:271
+msgid "Guinea-Bissau"
+msgstr "Gwinea Bissau"
+
+#: lang2.h:272
+msgid "Guyana"
+msgstr "Gujana"
+
+#: lang2.h:273
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: lang2.h:274
+msgid "Heard and McDonald Islands"
+msgstr "Wyspy Heard i McDonald"
+
+#: lang2.h:275
+msgid "Honduras"
+msgstr "Honduras"
+
+#: lang2.h:276
+msgid "Croatia"
+msgstr ""
+
+#: lang2.h:277
+msgid "Haiti"
+msgstr "Haiti"
+
+#: lang2.h:278
+msgid "Hungary"
+msgstr "Wêgry"
+
+#: lang2.h:279
+msgid "Indonesia"
+msgstr "Indonezja"
+
+#: lang2.h:280
+msgid "Ireland"
+msgstr "Irlandia"
+
+#: lang2.h:281
+msgid "Israel"
+msgstr "Izrael"
+
+#: lang2.h:282
+msgid "Isle of Man"
+msgstr ""
+
+#: lang2.h:283
+msgid "India"
+msgstr "Indie"
+
+#: lang2.h:284
+msgid "British Indian Ocean Territory"
+msgstr "Bryt. Teryt. Oceanu Indyjskiego"
+
+#: lang2.h:285
+msgid "Iraq"
+msgstr "Irak"
+
+#: lang2.h:286
+msgid "Iran"
+msgstr "Iran"
+
+#: lang2.h:287
+msgid "Iceland"
+msgstr "Islandia"
+
+#: lang2.h:288
+msgid "Italy"
+msgstr "W³ochy"
+
+#: lang2.h:289
+msgid "Jersey"
+msgstr ""
+
+#: lang2.h:290
+msgid "Jamaica"
+msgstr "Jamajka"
+
+#: lang2.h:291
+msgid "Jordan"
+msgstr "Jordania"
+
+#: lang2.h:292
+msgid "Japan"
+msgstr "Japonia"
+
+#: lang2.h:293
+msgid "Kenya"
+msgstr "Kenia"
+
+#: lang2.h:294
+msgid "Kyrgyzstan"
+msgstr "Kirgistan"
+
+#: lang2.h:295
+msgid "Cambodia"
+msgstr "Kambod¿a"
+
+#: lang2.h:296
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: lang2.h:297
+msgid "Comoros"
+msgstr "Komory"
+
+#: lang2.h:298
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts i Nevis"
+
+#: lang2.h:299
+msgid "Korea, Democratic Republic of"
+msgstr ""
+
+#: lang2.h:300
+#, fuzzy
+msgid "Korea, Republic of"
+msgstr "S³owacja"
+
+#: lang2.h:301
+msgid "Kuwait"
+msgstr "Kuwejt"
+
+#: lang2.h:302
+msgid "Cayman Islands"
+msgstr "Kajmany"
+
+#: lang2.h:303
+msgid "Kazakhstan"
+msgstr "Kazachstan"
+
+#: lang2.h:304
+msgid "Laos"
+msgstr "Laos"
+
+#: lang2.h:305
+msgid "Lebanon"
+msgstr "Liban"
+
+#: lang2.h:306
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: lang2.h:307
+msgid "Liechtenstein"
+msgstr "Lichtenstein"
+
+#: lang2.h:308
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: lang2.h:309
+msgid "Liberia"
+msgstr "Liberia"
+
+#: lang2.h:310
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: lang2.h:311
+msgid "Lithuania"
+msgstr "Litwa"
+
+#: lang2.h:312
+msgid "Luxembourg"
+msgstr "Luksemburg"
+
+#: lang2.h:313
+msgid "Latvia"
+msgstr "£otwa"
+
+#: lang2.h:314
+msgid "Libya"
+msgstr "Libia"
+
+#: lang2.h:315
+msgid "Morocco"
+msgstr "Maroko"
+
+#: lang2.h:316
+msgid "Monaco"
+msgstr "Monako"
+
+#: lang2.h:317
+msgid "Moldova"
+msgstr "Mo³dawia"
+
+#: lang2.h:318
+#, fuzzy
+msgid "Montenegro"
+msgstr "Montserrat"
+
+#: lang2.h:319
+msgid "Saint Martin (French part)"
+msgstr ""
+
+#: lang2.h:320
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: lang2.h:321
+msgid "Marshall Islands"
+msgstr "Wyspy Marshalla"
+
+#: lang2.h:322
+msgid "Macedonia"
+msgstr "Macedonia"
+
+#: lang2.h:323
+msgid "Mali"
+msgstr "Mali"
+
+#: lang2.h:324
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: lang2.h:325
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: lang2.h:326
+msgid "Macau"
+msgstr "Makao"
+
+#: lang2.h:327
+msgid "Northern Mariana Islands"
+msgstr "Mariany Pó³nocne"
+
+#: lang2.h:328
+msgid "Martinique"
+msgstr "Martynika"
+
+#: lang2.h:329
+msgid "Mauritania"
+msgstr "Mauretania"
+
+#: lang2.h:330
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: lang2.h:331
+msgid "Malta"
+msgstr "Malta"
+
+#: lang2.h:332
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: lang2.h:333
+msgid "Maldives"
+msgstr "Malediwy"
+
+#: lang2.h:334
+msgid "Malawi"
+msgstr "Malawi"
+
+#: lang2.h:335
+msgid "Mexico"
+msgstr "Meksyk"
+
+#: lang2.h:336
+msgid "Malaysia"
+msgstr "Malezja"
+
+#: lang2.h:337
+msgid "Mozambique"
+msgstr "Mozambik"
+
+#: lang2.h:338
+msgid "Namibia"
+msgstr "Namibia"
+
+#: lang2.h:339
+msgid "New Caledonia"
+msgstr "Nowa Kaledonia"
+
+#: lang2.h:340
+msgid "Niger"
+msgstr "Niger"
+
+#: lang2.h:341
+msgid "Norfolk Island"
+msgstr "Norfolk"
+
+#: lang2.h:342
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: lang2.h:343
+msgid "Nicaragua"
+msgstr "Nikaragua"
+
+#: lang2.h:344
+msgid "Netherlands"
+msgstr "Holandia"
+
+#: lang2.h:345
+msgid "Norway"
+msgstr "Norwegia"
+
+#: lang2.h:346
+msgid "Nepal"
+msgstr "Nepal"
+
+#: lang2.h:347
+msgid "Nauru"
+msgstr "Nauru"
+
+#: lang2.h:348
+msgid "Niue"
+msgstr "Niue"
+
+#: lang2.h:349
+#, fuzzy
+msgid "New Zealand"
+msgstr "Nowa Zelandia"
+
+#: lang2.h:350
+msgid "Oman"
+msgstr "Oman"
+
+#: lang2.h:351
+msgid "Panama"
+msgstr "Panama"
+
+#: lang2.h:352
+msgid "Peru"
+msgstr "Peru"
+
+#: lang2.h:353
+msgid "French Polynesia"
+msgstr "Polinezja Francuska"
+
+#: lang2.h:354
+msgid "Papua New Guinea"
+msgstr "Papua Nowa Gwinea"
+
+#: lang2.h:355
+msgid "Philippines"
+msgstr "Filipiny"
+
+#: lang2.h:356
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: lang2.h:357
+msgid "Poland"
+msgstr "Polska"
+
+#: lang2.h:358
+msgid "St. Pierre and Miquelon"
+msgstr "St. Pierre i Miquelon"
+
+#: lang2.h:359
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+#: lang2.h:360
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: lang2.h:361
+msgid "Palestinian Territory, Occupied"
+msgstr ""
+
+#: lang2.h:362
+msgid "Portugal"
+msgstr "Portugalia"
+
+#: lang2.h:363
+msgid "Palau"
+msgstr "Palau"
+
+#: lang2.h:364
+msgid "Paraguay"
+msgstr "Paragwaj"
+
+#: lang2.h:365
+msgid "Qatar"
+msgstr "Katar"
+
+#: lang2.h:366
+msgid "Reunion"
+msgstr "Reunion"
+
+#: lang2.h:367
+msgid "Romania"
+msgstr "Rumunia"
+
+#: lang2.h:368
+msgid "Serbia"
+msgstr ""
+
+#: lang2.h:369
+msgid "Russian Federation"
+msgstr "Rosja"
+
+#: lang2.h:370
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: lang2.h:371
+msgid "Saudi Arabia"
+msgstr "Arabia Saudyjska"
+
+#: lang2.h:372
+msgid "Solomon Islands"
+msgstr "Wyspy Salomona"
+
+#: lang2.h:373
+msgid "Seychelles"
+msgstr "Seszele"
+
+#: lang2.h:374
+msgid "Sudan"
+msgstr "Sudan"
+
+#: lang2.h:375
+msgid "Sweden"
+msgstr "Szwecja"
+
+#: lang2.h:376
+msgid "Singapore"
+msgstr "Singapur"
+
+#: lang2.h:377
+msgid "St. Helena"
+msgstr "¦w. Helena"
+
+#: lang2.h:378
+msgid "Slovenia"
+msgstr "S³owenia"
+
+#: lang2.h:379
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Wyspy Svalbard i Jan Mayen"
+
+#: lang2.h:380
+#, fuzzy
+msgid "Slovakia"
+msgstr "S³owenia"
+
+#: lang2.h:381
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: lang2.h:382
+msgid "San Marino"
+msgstr "San Marino"
+
+#: lang2.h:383
+msgid "Senegal"
+msgstr "Senegal"
+
+#: lang2.h:384
+msgid "Somalia"
+msgstr "Somalia"
+
+#: lang2.h:385
+msgid "Suriname"
+msgstr "Surinam"
+
+#: lang2.h:386
+msgid "Sao Tome and Principe"
+msgstr "Wyspy ¦w. Tomasza i Ksi±¿êca"
+
+#: lang2.h:387
+msgid "Soviet Union"
+msgstr ""
+
+#: lang2.h:388
+msgid "El Salvador"
+msgstr "Salwador"
+
+#: lang2.h:389
+#, fuzzy
+msgid "Syrian Arab Republic"
+msgstr "Republika ¦rodkowoafrykañska"
+
+#: lang2.h:390
+msgid "Swaziland"
+msgstr "Suazi"
+
+#: lang2.h:391
+msgid "Turks and Caicos Islands"
+msgstr "Turks i Caicos"
+
+#: lang2.h:392
+msgid "Chad"
+msgstr "Czad"
+
+#: lang2.h:393
+msgid "French Southern Territories"
+msgstr "Francuskie Terytoria Po³udniowe"
+
+#: lang2.h:394
+msgid "Togo"
+msgstr "Togo"
+
+#: lang2.h:395
+msgid "Thailand"
+msgstr "Tajlandia"
+
+#: lang2.h:396
+msgid "Tajikistan"
+msgstr "Tad¿ykistan"
+
+#: lang2.h:397
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: lang2.h:398
+msgid "Timor-Leste"
+msgstr ""
+
+#: lang2.h:399
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: lang2.h:400
+msgid "Tunisia"
+msgstr "Tunezja"
+
+#: lang2.h:401
+msgid "Tonga"
+msgstr "Tonga"
+
+#: lang2.h:402
+msgid "Portuguese Timor"
+msgstr ""
+
+#: lang2.h:403
+msgid "Turkey"
+msgstr "Turcja"
+
+#: lang2.h:404
+msgid "Trinidad and Tobago"
+msgstr "Trynidad i Tobago"
+
+#: lang2.h:405
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: lang2.h:406
+msgid "Taiwan"
+msgstr "Tajwan"
+
+#: lang2.h:407
+msgid "Tanzania"
+msgstr "Tanzania"
+
+#: lang2.h:408
+msgid "Ukraine"
+msgstr "Ukraina"
+
+#: lang2.h:409
+msgid "Uganda"
+msgstr "Uganda"
+
+#: lang2.h:410
+msgid "United Kingdom"
+msgstr "Wielka Brytania"
+
+#: lang2.h:411
+msgid "US Minor Outlying Islands"
+msgstr "Mniejsze Wyspy USA"
+
+#: lang2.h:412
+msgid "United States"
+msgstr "Stany Zjednoczone"
+
+#: lang2.h:413
+msgid "Uruguay"
+msgstr "Urugwaj"
+
+#: lang2.h:414
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: lang2.h:415
+msgid "Vatican City State (Holy See)"
+msgstr "Watykan"
+
+#: lang2.h:416
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent i Grenadyny"
+
+#: lang2.h:417
+msgid "Venezuela"
+msgstr "Wenezuela"
+
+#: lang2.h:418
+msgid "Virgin Islands (British)"
+msgstr "Brytyjskie Wyspy Dziewicze"
+
+#: lang2.h:419
+msgid "Virgin Islands (U.S.)"
+msgstr "Wyspy Dziewicze (USA)"
+
+#: lang2.h:420
+#, fuzzy
+msgid "Vietnam"
+msgstr "Wietnam"
+
+#: lang2.h:421
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: lang2.h:422
+msgid "Wallis and Futuna Islands"
+msgstr "Wyspy Wallis i Futuna"
+
+#: lang2.h:423
+msgid "Samoa"
+msgstr "Samoa"
+
+#: lang2.h:424
+msgid "Yemen"
+msgstr "Jemen"
+
+#: lang2.h:425
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: lang2.h:426
+msgid "Yugoslavia"
+msgstr "Jugos³awia"
+
+#: lang2.h:427
+msgid "South Africa"
+msgstr "Republika Po³udniowej Afryki"
+
+#: lang2.h:428
+msgid "Zambia"
+msgstr "Zambia"
+
+#: lang2.h:429
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: lang2.h:430
+msgid "Anonymous Proxy"
+msgstr ""
+
+#: lang2.h:431
+msgid "Satellite Provider"
+msgstr ""
+
+#: lang2.h:433
+msgid "Asia/Pacific Region"
+msgstr ""
+
+#: lang2.h:434
+msgid "Local Network (lan)"
+msgstr ""
+
+#: output.c:190
+msgid "en"
+msgstr ""
+
+#: output.c:192 output.c:218 output.c:2604
+msgid "Summary by Month"
+msgstr "Sumarycznie w miesi±cu:"
+
+#: output.c:216
+msgid "Summary Period"
+msgstr "Prezentowany okres"
+
+#: output.c:219
+msgid "Generated"
+msgstr "Wygenerowano"
+
+#: output.c:290
+msgid "Generating report for"
+msgstr "Generujê raport dla"
+
+#: output.c:302
+msgid "Daily usage for"
+msgstr "Raport Dzienny - "
+
+#: output.c:320
+msgid "Hourly usage for"
+msgstr "Raport Godzinowy - "
+
+#: output.c:372
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr "Nie mogê przydzieliæ pamiêci, najczêstsze URLe anulowane!"
+
+#: output.c:394
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr "Nie mogê przydzieliæ pamiêci, najczêstsze lokalizacje anulowane!"
+
+#: output.c:411
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr "Nie mogê przydzieliæ pamiêci, najczêstsze odno¶niki anulowane!"
+
+#: output.c:428
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr "Nie mogê przydzieliæ pamiêci, najczê¶ciej szukane s³owa anulowane!"
+
+#: output.c:445
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr ""
+"Nie mogê przydzieliæ pamiêci, najczêstsze po³±czenia u¿ytkowników anulowane!"
+
+#: output.c:462
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr ""
+"Nie mogê przydzieliæ pamiêci, najczê¶ciej u¿ywane przegl±darki anulowane!"
+
+#: output.c:480
+msgid "Daily Statistics"
+msgstr "Statystyki dzienne"
+
+#: output.c:482
+msgid "Hourly Statistics"
+msgstr "Statystyki godzinne"
+
+#: output.c:484
+msgid "URLs"
+msgstr "URL'e"
+
+#: output.c:486
+msgid "Entry"
+msgstr "Wej¶cia"
+
+#: output.c:488
+msgid "Exit"
+msgstr "Wyj¶cia"
+
+#: output.c:492
+msgid "Referrers"
+msgstr "Odno¶niki"
+
+#: output.c:494
+msgid "Search"
+msgstr "Poszukiwane"
+
+#: output.c:496
+msgid "Users"
+msgstr "U¿ytkownicy"
+
+#: output.c:498
+msgid "Agents"
+msgstr "Przegl±darki"
+
+#: output.c:500
+msgid "Countries"
+msgstr "Kraje"
+
+#: output.c:530
+msgid "Monthly Statistics for"
+msgstr "Statystyka w miesi±cu:"
+
+#: output.c:535
+msgid "Total Hits"
+msgstr "Ca³kowita liczba wywo³añ"
+
+#: output.c:539
+msgid "Total Files"
+msgstr "Ca³kowita liczba plików"
+
+#: output.c:543 output.c:547 output.c:813 output.c:818 output.c:823
+#: output.c:828 output.c:833 output.c:838
+msgid "Total"
+msgstr "Wszystkie"
+
+#: output.c:551
+#, fuzzy
+msgid "Total kB Files"
+msgstr "Ca³kowita liczba plików"
+
+#: output.c:554
+#, fuzzy
+msgid "Total kB In"
+msgstr "Wszystkie"
+
+#: output.c:557
+#, fuzzy
+msgid "Total kB Out"
+msgstr "Ca³kowita liczba KB"
+
+#: output.c:564
+msgid "Total Unique Sites"
+msgstr "Ca³kowita liczba unikalnych lokalizacji"
+
+#: output.c:569
+msgid "Total Unique URLs"
+msgstr "Ca³kowita liczba unikalnych URLi"
+
+#: output.c:575
+msgid "Total Unique Referrers"
+msgstr "Ca³kowita liczba unikalnych odno¶ników"
+
+#: output.c:581
+msgid "Total Unique Usernames"
+msgstr "Ca³kowita liczba unikalnych u¿ytkowników"
+
+#: output.c:587
+msgid "Total Unique User Agents"
+msgstr "Ca³kowita liczba unikalnych przegl±darek"
+
+#: output.c:597 output.c:813 output.c:818 output.c:823 output.c:828
+#: output.c:833 output.c:838
+msgid "Avg"
+msgstr "¦rednio"
+
+#: output.c:597
+msgid "Max"
+msgstr "Maks."
+
+#: output.c:604
+msgid "Hits per Hour"
+msgstr "Wywo³añ na godzinê"
+
+#: output.c:610
+msgid "Hits per Day"
+msgstr "Wywo³añ dziennie"
+
+#: output.c:616
+msgid "Files per Day"
+msgstr "Plików dziennie"
+
+#: output.c:622
+msgid "Pages per Day"
+msgstr "Stron dziennie"
+
+#: output.c:628
+#, fuzzy
+msgid "Sites per Day"
+msgstr "Wywo³añ dziennie"
+
+#: output.c:634
+msgid "Visits per Day"
+msgstr "Wizyt dziennie"
+
+#: output.c:640
+#, fuzzy
+msgid "kB Files per Day"
+msgstr "Plików dziennie"
+
+#: output.c:646
+#, fuzzy
+msgid "kB In per Day"
+msgstr "Kilobajtów dziennie"
+
+#: output.c:652
+#, fuzzy
+msgid "kB Out per Day"
+msgstr "Kilobajtów dziennie"
+
+#: output.c:658
+msgid "Hits by Response Code"
+msgstr "Wywo³ania wed³ug kodu odpowiedzi"
+
+#: output.c:689
+msgid "Daily Statistics for"
+msgstr "Dzienne statystyki - "
+
+#: output.c:709
+msgid "Day"
+msgstr "Dzieñ"
+
+#: output.c:786
+msgid "Hourly Statistics for"
+msgstr "Godzinowe statystyki - "
+
+#: output.c:802
+msgid "Hour"
+msgstr "Godzina"
+
+#: output.c:924 output.c:928 output.c:1130 output.c:1134 output.c:1363
+#: output.c:1459 output.c:1624 output.c:1771 output.c:1892 output.c:2216
+msgid "Top"
+msgstr "Pierwsze"
+
+#: output.c:924 output.c:928 output.c:1130 output.c:1134 output.c:1363
+#: output.c:1459 output.c:1624 output.c:1771 output.c:1892 output.c:2216
+msgid "of"
+msgstr "z ogólnej liczby"
+
+#: output.c:925 output.c:1131
+msgid "By"
+msgstr "uszeregowane wg"
+
+#: output.c:925 output.c:928
+msgid "Total Sites"
+msgstr "lokalizacji"
+
+#: output.c:945 output.c:1040 output.c:2302
+msgid "Hostname"
+msgstr "Nazwa hosta"
+
+#: output.c:1004
+msgid "View All Sites"
+msgstr "Podgl±d wszystkich lokalizacji"
+
+#: output.c:1131 output.c:1134
+msgid "Total URLs"
+msgstr "URLi"
+
+#: output.c:1152 output.c:1262 output.c:1268 output.c:1377 output.c:2346
+msgid "URL"
+msgstr "URL"
+
+#: output.c:1234
+msgid "View All URLs"
+msgstr "Podgl±d wszystkich URL'i"
+
+#: output.c:1364
+msgid "Total Entry Pages"
+msgstr "stron wej¶ciowych"
+
+#: output.c:1364
+msgid "Total Exit Pages"
+msgstr "stron wyj¶ciowych"
+
+#: output.c:1459
+msgid "Total Referrers"
+msgstr "odno¶ników"
+
+#: output.c:1469 output.c:1546 output.c:1551 output.c:2387
+msgid "Referrer"
+msgstr "Odno¶niki"
+
+#: output.c:1521
+msgid "View All Referrers"
+msgstr "Podgl±d wszystkich odno¶ników"
+
+#: output.c:1624
+msgid "Total User Agents"
+msgstr "przegl±darek"
+
+#: output.c:1634 output.c:1700 output.c:1705 output.c:2426
+msgid "User Agent"
+msgstr "Przegl±darka"
+
+#: output.c:1675
+msgid "View All User Agents"
+msgstr "Podgl±d wszystkich przegl±darek"
+
+#: output.c:1771
+msgid "Total Search Strings"
+msgstr "szukanych ci±gów znaków"
+
+#: output.c:1781 output.c:1836 output.c:1841 output.c:2510
+msgid "Search String"
+msgstr "Wyszukiwany ci±g znaków"
+
+#: output.c:1810
+msgid "View All Search Strings"
+msgstr "Podgl±d wszystkich ci±gów znaków"
+
+#: output.c:1892
+msgid "Total Usernames"
+msgstr "u¿ytkowników"
+
+#: output.c:1909 output.c:1991 output.c:1999 output.c:2467
+msgid "Username"
+msgstr "U¿ytkownik"
+
+#: output.c:1966
+msgid "View All Usernames"
+msgstr "Podgl±d wszystkich u¿ytkowników"
+
+#: output.c:2101
+#, c-format
+msgid "GeoDB: %s unknown!\n"
+msgstr ""
+
+#: output.c:2114
+#, c-format
+msgid "GeoIP: %s unknown (returns '%s')\n"
+msgstr ""
+
+#: output.c:2199
+#, fuzzy
+msgid "Usage by Country for"
+msgstr "Odwo³ania wg krajów - "
+
+#: output.c:2216
+#, fuzzy
+msgid "Total Countries"
+msgstr "Kraje"
+
+#: output.c:2231
+msgid "Country"
+msgstr "Kraj"
+
+#: output.c:2550
+msgid "Generating summary report"
+msgstr "Generujê raport sumaryczny"
+
+#: output.c:2552
+msgid "Usage summary for"
+msgstr "Raport sumaryczny"
+
+#: output.c:2584
+#, fuzzy, c-format
+msgid "Error: Failed to create .htaccess file: %s\n"
+msgstr "B³±d: Nie mogê zapisaæ pliku historii"
+
+#: output.c:2607
+msgid "Month"
+msgstr "Miesi±c"
+
+#: output.c:2609
+msgid "Daily Avg"
+msgstr "¦rednio dziennie"
+
+#: output.c:2611
+msgid "Monthly Totals"
+msgstr "Ogólnie w miesi±cu: "
+
+#: output.c:2743
+msgid "Totals"
+msgstr "Suma"
+
+#: parser.c:232 parser.c:426
+msgid "Warning: Truncating oversized hostname"
+msgstr "Ostrze¿enie: Obcinam, przekroczona wielko¶æ nazwy hosta"
+
+#: parser.c:264
+msgid "Warning: Truncating oversized username"
+msgstr "Ostrze¿enie: Obcinam, przekroczona d³ugo¶æ nazwy u¿ytkownika"
+
+#: parser.c:286
+msgid "Warning: Truncating oversized date field"
+msgstr "Ostrze¿enie: Obcinam, przekroczona wielko¶æ pola daty"
+
+#: parser.c:311 parser.c:463 parser.c:492 webalizer.c:1005
+msgid "Warning: Truncating oversized request field"
+msgstr "Ostrze¿enie: Obcinam, przekroczona wielko¶æ pola ¿±dania"
+
+#: parser.c:355 webalizer.c:997
+msgid "Warning: Truncating oversized referrer field"
+msgstr "Ostrze¿enie: Obcinam, przekroczona wielko¶æ pola odno¶nika"
+
+#: preserve.c:78
+msgid "Reading history file..."
+msgstr "Czytam plik historii..."
+
+#: preserve.c:89
+msgid "Error: Ignoring invalid history record"
+msgstr "B³±d: Pomijam b³êdny zapis historii"
+
+#: preserve.c:142
+msgid "History file not found..."
+msgstr "Nie znalaz³em pliku historii..."
+
+#: preserve.c:182
+msgid "Saving history information..."
+msgstr "Zapisujê informacjê historii..."
+
+#: preserve.c:222
+msgid "Error: Unable to write history file"
+msgstr "B³±d: Nie mogê zapisaæ pliku historii"
+
+#: preserve.c:353
+msgid "Saving current run data..."
+msgstr "Zapisujê dane z bie¿±cego uruchomienia..."
+
+#: preserve.c:567
+msgid "Previous run data not found..."
+msgstr "Nie znalaz³em danych z poprzedniego uruchomienia..."
+
+#: preserve.c:572
+#, fuzzy
+msgid "Reading previous run data.."
+msgstr "Czytam dane z poprzedniego uruchomienia..."
+
+#: preserve.c:679 webalizer.c:1227 webalizer.c:1332
+msgid "Error adding URL node, skipping"
+msgstr "B³±d w trakcie dodawania kolejnego URLa, pomijam"
+
+#: preserve.c:720 webalizer.c:1272 webalizer.c:1347 webalizer.c:1365
+msgid "Error adding host node (monthly), skipping"
+msgstr "B³±d w trakcie dodawania kolejnego hosta (miesiêczne), pomijam"
+
+#: preserve.c:761 webalizer.c:1261
+msgid "Error adding host node (daily), skipping"
+msgstr "B³±d w trakcie dodawania kolejnego hosta (dzienne), pomijam"
+
+#: preserve.c:786 webalizer.c:1249 webalizer.c:1378
+msgid "Error adding Referrer node, skipping"
+msgstr "B³±d w trakcie dodawania kolejnego odno¶nika, pomijam"
+
+#: preserve.c:811 webalizer.c:1282 webalizer.c:1389
+msgid "Error adding User Agent node, skipping"
+msgstr "B³±d w trakcie dodawania kolejnego przegl±darki, pomijam"
+
+#: preserve.c:835 webalizer.c:2223
+msgid "Error adding Search String Node, skipping"
+msgstr "B³±d w trakcie dodawania kolejnego szukanego s³owa, pomijam"
+
+#: preserve.c:868 webalizer.c:1238 webalizer.c:1404
+msgid "Error adding Username node, skipping"
+msgstr "B³±d w trakcie dodawania kolejnego u¿ytkownika, pomijam"
+
+#: webalizer.c:326
+msgid "Usage Statistics for"
+msgstr "Statystyki serwera dla"
+
+#: webalizer.c:491 webalizer.c:1989
+msgid "locale"
+msgstr ""
+
+#: webalizer.c:497
+msgid "DNS support not present, aborting..."
+msgstr ""
+
+#: webalizer.c:514 webalizer.c:531 webalizer.c:542
+msgid "Error: Can't open log file"
+msgstr "B³±d: Nie mogê otworzyæ pliku logu"
+
+#: webalizer.c:551
+msgid "Using logfile"
+msgstr "U¿ywam pliku logu"
+
+#: webalizer.c:572
+msgid "Error: Can't change directory to"
+msgstr "B³±d: Nie mogê zmieniæ katalogu na"
+
+#: webalizer.c:584
+msgid "No cache file specified, aborting..."
+msgstr "Nie podano pliku buforuj±cego, przerywam dzia³anie..."
+
+#: webalizer.c:593
+msgid "DNS Lookup"
+msgstr "Przeszukujê DNS"
+
+#: webalizer.c:611
+msgid "Using DNS cache file"
+msgstr "Wykorzystujê plik buforuj±cy DNS"
+
+#: webalizer.c:621
+#, fuzzy
+msgid "Error opening file"
+msgstr "B³±d: Nie mogê otworzyæ pliku logu"
+
+#: webalizer.c:622 webalizer.c:652
+msgid "default"
+msgstr ""
+
+#: webalizer.c:623 webalizer.c:647
+msgid "lookups disabled"
+msgstr ""
+
+#: webalizer.c:627 webalizer.c:650
+msgid "Using"
+msgstr ""
+
+#: webalizer.c:658
+msgid "Creating output in"
+msgstr "Tworzê wynik w"
+
+#: webalizer.c:658
+msgid "current directory"
+msgstr "bie¿±cym katalogu"
+
+#: webalizer.c:668
+msgid "Hostname for reports is"
+msgstr "Raport tworzony dla hosta"
+
+#: webalizer.c:671
+msgid "Ignoring previous history..."
+msgstr "Ignorujê poprzedni± historiê..."
+
+#: webalizer.c:680
+msgid "Error: Unable to restore run data"
+msgstr "B³±d: Nie mogê odczytaæ danych z poprzedniego uruchomienia"
+
+#: webalizer.c:689
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr "Nie mogê przydzieliæ pamiêci, najczêstsze kraje anulowane!"
+
+#: webalizer.c:706
+#, fuzzy
+msgid "Error: Skipping oversized log record"
+msgstr "B³±d: Pomijam zbyt du¿y zapis logu"
+
+#: webalizer.c:766
+msgid "Error: Skipping record (bad date)"
+msgstr "B³±d: Pomijam rekord (b³êdna data)"
+
+#: webalizer.c:1419
+msgid "Skipping Netscape header record"
+msgstr "Pomijam nag³ówek rekordu Netscepe'a"
+
+#: webalizer.c:1436
+msgid "Skipping bad record"
+msgstr "Pomijam b³êdny zapis"
+
+#: webalizer.c:1471
+msgid "Error: Unable to save current run data"
+msgstr "B³±d: Nie mogê zapisaæ danych z bie¿±cego uruchomienia"
+
+#: webalizer.c:1488
+msgid "records"
+msgstr "zapisów"
+
+#: webalizer.c:1491
+msgid "ignored"
+msgstr "opuszczono"
+
+#: webalizer.c:1492 webalizer.c:1495
+msgid "bad"
+msgstr "z³y(ch)"
+
+#: webalizer.c:1529
+msgid "No valid records found!"
+msgstr "Nie znalaz³em prawid³owych rekordów!"
+
+#: webalizer.c:1679
+msgid "Error: Unable to open configuration file"
+msgstr "B³±d: Nie mogê otworzyæ pliku konfiguracyjnego"
+
+#: webalizer.c:1709 webalizer.c:1835 webalizer.c:1866 webalizer.c:1884
+msgid "Warning: Invalid keyword"
+msgstr "Ostrze¿enie: B³êdne s³owo kluczowe"
+
+#: webalizer.c:1972
+msgid "Usage"
+msgstr "U¿ycie"
+
+#: webalizer.c:1972
+msgid "[options] [log file]"
+msgstr "[opcje] [plik logu]"
+
+#: webalizer.c:2008
+#, c-format
+msgid "Default GeoDB dir : %s\n"
+msgstr ""
+
+#: webalizer.c:2010
+#, c-format
+msgid "Default config dir: %s\n"
+msgstr ""
+
+#~ msgid "Old style Arpanet (arpa)"
+#~ msgstr "Stara Arpanet (arpa)"
+
+#~ msgid "Czechoslovakia (former)"
+#~ msgstr "Czechos³owacja (by³a)"
+
+#, fuzzy
+#~ msgid "France, Metropolitan"
+#~ msgstr "Francja (Terytorium Europejskie)"
+
+#~ msgid "Croatia (Hrvatska)"
+#~ msgstr "Chorwacja"
+
+#~ msgid "Korea (North)"
+#~ msgstr "Korea Pó³nocna"
+
+#~ msgid "Korea (South)"
+#~ msgstr "Korea Po³udniowa"
+
+#~ msgid "Neutral Zone"
+#~ msgstr "Strefa Neutralna"
+
+#~ msgid "USSR (former)"
+#~ msgstr "ZSRR (by³y)"
+
+#~ msgid "Syria"
+#~ msgstr "Syria"
+
+#~ msgid "East Timor"
+#~ msgstr "Wschodni Timor"
+
+#~ msgid "Zaire"
+#~ msgstr "Zair"
+
+#, fuzzy
+#~ msgid "Locations"
+#~ msgstr "Laos"
+
+#, fuzzy
+#~ msgid "Total Locations"
+#~ msgstr "krajów"
+
+#~ msgid "Last 12 Months"
+#~ msgstr "Ostatnie 12 miesiêcy"
+
+#, fuzzy
+#~ msgid "Can't allocate enough memory, Top Locations disabled!"
+#~ msgstr "Nie mogê przydzieliæ pamiêci, najczêstsze URLe anulowane!"
+
+#~ msgid "English"
+#~ msgstr "Polish"
+
+#~ msgid "KBytes"
+#~ msgstr "KB"
+
+#~ msgid "May"
+#~ msgstr "maj"
+
+#~ msgid "Warning: Possible duplicate data found"
+#~ msgstr "Ostrze¿enie: Prawdopodobnie znalaz³em zdublowane dane"
