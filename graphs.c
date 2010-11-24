@@ -51,8 +51,8 @@
 #define FILECOLOR  file_or_blue            /* files               */
 #define SITECOLOR  site_or_orange          /* sites               */
 #define KBYTECOLOR kbyte_or_red            /* KBytes              */
-#define IKBYTECOLOR file_or_blue           /* In KBytes           */
-#define OKBYTECOLOR hit_or_green           /* Out KBytes          */
+#define IKBYTECOLOR ikbyte_or_blue         /* In KBytes           */
+#define OKBYTECOLOR okbyte_or_green        /* Out KBytes          */
 #define PAGECOLOR  page_or_cyan            /* Files               */
 #define VISITCOLOR visit_or_yellow         /* Visits              */
 
@@ -95,6 +95,7 @@ struct pie_data { int x; int y;            /* line x,y            */
                   int mx; int my; };       /* midpoint x,y        */
 /* colors */
 int             black, white, grey, dkgrey, kbyte_or_red,
+                ikbyte_or_blue, okbyte_or_green,
                 file_or_blue, site_or_orange, hit_or_green,
                 page_or_cyan, visit_or_yellow, blue;
 
@@ -992,6 +993,10 @@ void init_graph(char *title, int xsize, int ysize)
    file_or_blue = gdImageColorAllocate(im, r, g, b);
    r=getred(kbyte_color); g=getgreen(kbyte_color); b=getblue(kbyte_color);
    kbyte_or_red = gdImageColorAllocate(im, r, g, b);
+   r=getred(ikbyte_color); g=getgreen(ikbyte_color); b=getblue(ikbyte_color);
+   ikbyte_or_blue = gdImageColorAllocate(im, r, g, b);
+   r=getred(okbyte_color); g=getgreen(okbyte_color); b=getblue(okbyte_color);
+   okbyte_or_green = gdImageColorAllocate(im, r, g, b);
    r=getred(page_color); g=getgreen(page_color); b=getblue(page_color);
    page_or_cyan = gdImageColorAllocate(im, r, g, b);
    r=getred(visit_color); g=getgreen(visit_color); b=getblue(visit_color);

@@ -267,6 +267,8 @@ char    hit_color[]   = "#00805c";            /* graph hit color          */
 char    file_color[]  = "#0040ff";            /* graph file color         */
 char    site_color[]  = "#ff8000";            /* graph site color         */
 char    kbyte_color[] = "#ff0000";            /* graph kbyte color        */
+char    ikbyte_color[]= "#0080ff";            /* graph ikbyte color       */
+char    okbyte_color[]= "#00e000";            /* graph okbyte color       */
 char    page_color[]  = "#00e0ff";            /* graph page color         */
 char    visit_color[] = "#ffff00";            /* graph visit color        */
 char    misc_color[]  = "#00e0ff";            /* graph misc color         */
@@ -1664,7 +1666,9 @@ void get_config(char *fname)
                      "CountryFlags",      /* show country flags? (0-no) 118 */
                      "FlagDir",           /* directory w/flag images    119 */
                      "SearchCaseI",       /* srch str case insensitive  120 */
-		     "InOutkB"            /* logio (0=no,1=yes,2=auto)  121 */
+		     "InOutkB",           /* logio (0=no,1=yes,2=auto)  121 */
+                     "ColorIKbyte",       /* IKbyte Color (def=0080ff)  122 */
+                     "ColorOKbyte"        /* OKbyte Color (def=00e000)  123 */
                    };
 
    FILE *fp;
@@ -1902,6 +1906,8 @@ void get_config(char *fname)
 	case 121: dump_inout=
 	            (tolower(value[0])=='n')?0:
                     (tolower(value[0])=='y')?1:2;  break; /* InOutkB        */
+        case 122: strncpy(ikbyte_color+1,value,6); break; /* ColorIKbyte    */
+        case 123: strncpy(okbyte_color+1,value,6); break; /* ColorOKbyte    */
       }
    }
    fclose(fp);
