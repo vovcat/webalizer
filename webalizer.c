@@ -202,6 +202,7 @@ int     dump_users   = 0;                     /* Usernames                */
 int     dump_search  = 0;                     /* Search strings           */
 int     dump_header  = 0;                     /* Dump header as first rec */
 char    *dump_path   = NULL;                  /* Path for dump files      */
+int     dump_inout   = 2;                     /* In Out kB (logio) 2=auto */
 
 int        cur_year=0, cur_month=0,           /* year/month/day/hour      */
            cur_day=0, cur_hour=0,             /* tracking variables       */
@@ -1450,6 +1451,21 @@ int main(int argc, char *argv[])
       t_visit=tot_visit(sm_htab);
       if (ht_hit > mh_hit) mh_hit = ht_hit;
 
+      if(dump_inout == 2)                    /* auto display InOutKb?    */
+      {
+         /* check with monthly totals */
+         /* if some In Out totals are not 0, enable displaying them */
+         /* else hide them*/
+         if((t_ixfer != 0) && (t_oxfer != 0))
+         {
+            dump_inout = 1;
+         }
+	 else
+         {
+            dump_inout = 0;
+         }
+      }
+
       if (total_rec > (total_ignore+total_bad)) /* did we process any?   */
       {
          if (incremental)
@@ -1647,7 +1663,8 @@ void get_config(char *fname)
                      "YearTotals",        /* show year subtotals (0=no) 117 */
                      "CountryFlags",      /* show country flags? (0-no) 118 */
                      "FlagDir",           /* directory w/flag images    119 */
-                     "SearchCaseI"        /* srch str case insensitive  120 */
+                     "SearchCaseI",       /* srch str case insensitive  120 */
+		     "InOutkB"            /* logio (0=no,1=yes,2=auto)  121 */
                    };
 
    FILE *fp;
@@ -1882,6 +1899,9 @@ void get_config(char *fname)
         case 119: use_flags=1; flag_dir=save_opt(value); break; /* FlagDir  */
         case 120: searchcasei=
                     (tolower(value[0])=='n')?0:1;  break; /* SearchCaseI    */
+	case 121: dump_inout=
+	            (tolower(value[0])=='n')?0:
+                    (tolower(value[0])=='y')?1:2;  break; /* InOutkB        */
       }
    }
    fclose(fp);
