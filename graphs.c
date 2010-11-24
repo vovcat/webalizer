@@ -141,6 +141,15 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
    {
       /* Kbytes Legend */
       i = (strlen(msg_h_xfer)*6);
+      if (dump_inout == 0)
+      {
+         gdImageString(im,gdFontSmall,491-i,237,
+                    (unsigned char *)msg_h_xfer,dkgrey);
+         gdImageString(im,gdFontSmall,490-i,236,
+                    (unsigned char *)msg_h_xfer,KBYTECOLOR);
+      }
+      else
+      {
       j = (strlen(msg_h_ixfer)*6);
       k = (strlen(msg_h_oxfer)*6);
       gdImageString(im,gdFontSmall,491-i-j-k-24,237,
@@ -159,7 +168,7 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
                     (unsigned char *)msg_h_oxfer,dkgrey);
       gdImageString(im,gdFontSmall,490-k,236,
                     (unsigned char *)msg_h_oxfer,OKBYTECOLOR);
-
+      }
       /* Sites/Visits Legend */
       i = (strlen(msg_h_visits)*6);
       j = (strlen(msg_h_sites)*6);
@@ -321,17 +330,30 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
    fmaxval=0.0;
    for (i=s_mth; i<HISTSIZE; i++){
        if (data[i].xfer > fmaxval) fmaxval = data[i].xfer;
-       if (data[i].ixfer > fmaxval) fmaxval = data[i].ixfer;
-       if (data[i].oxfer > fmaxval) fmaxval = data[i].oxfer;
+       if (dump_inout != 0)
+       {
+	  if (data[i].ixfer > fmaxval) fmaxval = data[i].ixfer;
+	  if (data[i].oxfer > fmaxval) fmaxval = data[i].oxfer;
+       }
    }
    if (fmaxval <= 0.0) fmaxval = 1.0;
    sprintf(maxvaltxt, "%.0f", fmaxval);
    gdImageStringUp(im, gdFontSmall,493,130+(strlen(maxvaltxt)*6),
                    (unsigned char *)maxvaltxt,black);
 
-   cs = 180.0/graph_mths; cw = (cs/2);
-   co = (36/graph_mths<1)?1:36/graph_mths;
-   ci = 308+((cw-2*co)/2);
+   cs = 180.0/graph_mths;
+   if (dump_inout == 0)
+   {
+      co = (48/graph_mths<1)?1:48/graph_mths;
+      cw = (cs/2)+(co/2);
+      ci = 308+((cw-co)/2);
+   }
+   else
+   {
+      co = (36/graph_mths<1)?1:36/graph_mths;
+      cw = (cs/2);
+      ci = 308+((cw-2*co)/2);
+   }
 
    /* xfer */
    for (i=s_mth; i<HISTSIZE; i++)
@@ -345,28 +367,31 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
       if (cw>2) gdImageRectangle(im, x1, y1, x2, 232, black);
    }
 
-   /* ixfer */
-   for (i=s_mth; i<HISTSIZE; i++)
+   if (dump_inout != 0)
    {
-      percent = ((float)data[i].ixfer / (float)fmaxval);
-      if (percent <= 0.0) continue;
-      x1 = ci + co + ((i-s_mth)*cs);
-      x2 = x1 + cw;
-      y1 = 232 - (percent * 98);
-      gdImageFilledRectangle(im, x1, y1, x2, 232, IKBYTECOLOR);
-      if (cw>2) gdImageRectangle(im, x1, y1, x2, 232, black);
-   }
+      /* ixfer */
+      for (i=s_mth; i<HISTSIZE; i++)
+      {
+	 percent = ((float)data[i].ixfer / (float)fmaxval);
+	 if (percent <= 0.0) continue;
+	 x1 = ci + co + ((i-s_mth)*cs);
+	 x2 = x1 + cw;
+	 y1 = 232 - (percent * 98);
+	 gdImageFilledRectangle(im, x1, y1, x2, 232, IKBYTECOLOR);
+	 if (cw>2) gdImageRectangle(im, x1, y1, x2, 232, black);
+      }
 
-   /* oxfer */
-   for (i=s_mth; i<HISTSIZE; i++)
-   {
-      percent = ((float)data[i].oxfer / (float)fmaxval);
-      if (percent <= 0.0) continue;
-      x1 = ci + co + co + ((i-s_mth)*cs);
-      x2 = x1 + cw;
-      y1 = 232 - (percent * 98);
-      gdImageFilledRectangle(im, x1, y1, x2, 232, OKBYTECOLOR);
-      if (cw>2) gdImageRectangle(im, x1, y1, x2, 232, black);
+      /* oxfer */
+      for (i=s_mth; i<HISTSIZE; i++)
+      {
+	 percent = ((float)data[i].oxfer / (float)fmaxval);
+	 if (percent <= 0.0) continue;
+	 x1 = ci + co + co + ((i-s_mth)*cs);
+	 x2 = x1 + cw;
+	 y1 = 232 - (percent * 98);
+	 gdImageFilledRectangle(im, x1, y1, x2, 232, OKBYTECOLOR);
+	 if (cw>2) gdImageRectangle(im, x1, y1, x2, 232, black);
+      }
    }
 
    /* stat the file */
@@ -471,24 +496,27 @@ int month_graph6(     char  *fname,        /* filename           */
    if (graph_legend)                           /* Print color coded legends? */
    {
       /* Kbytes Legend */
-      i=(strlen(msg_h_xfer)*6);
-      j=(strlen(msg_h_ixfer)*6);
       gdImageStringUp(im,gdFontSmall,494,376,
                       (unsigned char *)msg_h_xfer,dkgrey);
       gdImageStringUp(im,gdFontSmall,493,375,
                       (unsigned char *)msg_h_xfer,KBYTECOLOR);
-      gdImageStringUp(im,gdFontSmall,494,376-i-3,"/",dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,375-i-3,"/",black);
-      gdImageStringUp(im,gdFontSmall,494,376-i-12,
-                      (unsigned char *)msg_h_ixfer,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,375-i-12,
-                      (unsigned char *)msg_h_ixfer,IKBYTECOLOR);
-      gdImageStringUp(im,gdFontSmall,494,376-i-j-15,"/",dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,375-i-j-15,"/",black);
-      gdImageStringUp(im,gdFontSmall,494,376-i-j-24,
-                      (unsigned char *)msg_h_oxfer,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,375-i-j-24,
-                      (unsigned char *)msg_h_oxfer,OKBYTECOLOR);
+      if (dump_inout != 0)
+      {
+	 i=(strlen(msg_h_xfer)*6);
+	 j=(strlen(msg_h_ixfer)*6);
+	 gdImageStringUp(im,gdFontSmall,494,376-i-3,"/",dkgrey);
+	 gdImageStringUp(im,gdFontSmall,493,375-i-3,"/",black);
+	 gdImageStringUp(im,gdFontSmall,494,376-i-12,
+			 (unsigned char *)msg_h_ixfer,dkgrey);
+	 gdImageStringUp(im,gdFontSmall,493,375-i-12,
+			 (unsigned char *)msg_h_ixfer,IKBYTECOLOR);
+	 gdImageStringUp(im,gdFontSmall,494,376-i-j-15,"/",dkgrey);
+	 gdImageStringUp(im,gdFontSmall,493,375-i-j-15,"/",black);
+	 gdImageStringUp(im,gdFontSmall,494,376-i-j-24,
+			 (unsigned char *)msg_h_oxfer,dkgrey);
+	 gdImageStringUp(im,gdFontSmall,493,375-i-j-24,
+			 (unsigned char *)msg_h_oxfer,OKBYTECOLOR);
+      }
 
       /* Sites/Visits Legend */
       i = (strlen(msg_h_sites)*6);
@@ -602,8 +630,11 @@ int month_graph6(     char  *fname,        /* filename           */
    fmaxval=0.0;
    for (i=0; i<31; i++){
       if (data4[i]>fmaxval) fmaxval = data4[i];
-      if (data5[i]>fmaxval) fmaxval = data5[i];
-      if (data6[i]>fmaxval) fmaxval = data6[i];
+      if (dump_inout != 0)
+      {
+	 if (data5[i]>fmaxval) fmaxval = data5[i];
+	 if (data6[i]>fmaxval) fmaxval = data6[i];
+      }
    }
    if (fmaxval <= 0.0) fmaxval = 1.0;
    sprintf(maxvaltxt, "%.0f", fmaxval/1024);
@@ -615,37 +646,47 @@ int month_graph6(     char  *fname,        /* filename           */
    {
       percent = data4[i] / fmaxval;
       if (percent <= 0.0) continue;
-      x1 = 25 + (i*15);
-      x2 = x1 + 7;
+      if (dump_inout == 0)
+      {
+	 x1 = 26 + (i*15);
+	 x2 = x1 + 10;
+      }
+      else
+      {
+	 x1 = 25 + (i*15);
+	 x2 = x1 + 7;
+      }
       y1 = 375 - ( percent * 91 );
       gdImageFilledRectangle(im, x1, y1, x2, 375, KBYTECOLOR);
       gdImageRectangle(im, x1, y1, x2, 375, black);
    }
 
-   /* data5 */
-   for (i=0; i<31; i++)
+   if (dump_inout != 0)
    {
-      percent = data5[i] / fmaxval;
-      if (percent <= 0.0) continue;
-      x1 = 27 + (i*15);
-      x2 = x1 + 7;
-      y1 = 375 - ( percent * 91 );
-      gdImageFilledRectangle(im, x1, y1, x2, 375, IKBYTECOLOR);
-      gdImageRectangle(im, x1, y1, x2, 375, black);
-   }
+      /* data5 */
+      for (i=0; i<31; i++)
+      {
+	 percent = data5[i] / fmaxval;
+	 if (percent <= 0.0) continue;
+	 x1 = 27 + (i*15);
+	 x2 = x1 + 7;
+	 y1 = 375 - ( percent * 91 );
+	 gdImageFilledRectangle(im, x1, y1, x2, 375, IKBYTECOLOR);
+	 gdImageRectangle(im, x1, y1, x2, 375, black);
+      }
 
-   /* data6 */
-   for (i=0; i<31; i++)
-   {
-      percent = data6[i] / fmaxval;
-      if (percent <= 0.0) continue;
-      x1 = 29 + (i*15);
-      x2 = x1 + 7;
-      y1 = 375 - ( percent * 91 );
-      gdImageFilledRectangle(im, x1, y1, x2, 375, OKBYTECOLOR);
-      gdImageRectangle(im, x1, y1, x2, 375, black);
+      /* data6 */
+      for (i=0; i<31; i++)
+      {
+	 percent = data6[i] / fmaxval;
+	 if (percent <= 0.0) continue;
+	 x1 = 29 + (i*15);
+	 x2 = x1 + 7;
+	 y1 = 375 - ( percent * 91 );
+	 gdImageFilledRectangle(im, x1, y1, x2, 375, OKBYTECOLOR);
+	 gdImageRectangle(im, x1, y1, x2, 375, black);
+      }
    }
-
 
    /* stat the file */
    if ( !(lstat(fname, &out_stat)) )
