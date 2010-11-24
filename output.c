@@ -132,6 +132,8 @@ void    dump_all_search();                          /* dump search file    */
 #define FILECOLOR      file_color
 #define SITECOLOR      site_color
 #define KBYTECOLOR     kbyte_color
+#define IKBYTECOLOR    ikbyte_color
+#define OKBYTECOLOR    okbyte_color
 #define PAGECOLOR      page_color
 #define VISITCOLOR     visit_color
 #define MISCCOLOR      misc_color
@@ -726,8 +728,8 @@ void daily_total_table()
 		     "<FONT SIZE=\"-1\">%s</FONT></TH>\n"                    \
 		     "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"            \
 		     "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
-		     LTBLUE,  msg_h_ixfer,
-		     GREEN,   msg_h_oxfer);
+		     IKBYTECOLOR,  msg_h_ixfer,
+		     OKBYTECOLOR,   msg_h_oxfer);
    }
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
@@ -833,8 +835,8 @@ void hourly_total_table()
 		     "<FONT SIZE=\"-1\">%s</FONT></TH>\n"          \
 		     "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=3>"  \
 		     "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
-		     LTBLUE,  msg_h_ixfer,
-		     GREEN,   msg_h_oxfer);
+		     IKBYTECOLOR,  msg_h_ixfer,
+		     OKBYTECOLOR,   msg_h_oxfer);
    }
    fprintf(out_fp,"<TR><TH ALIGN=center BGCOLOR=\"%s\">"           \
                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
@@ -867,12 +869,12 @@ void hourly_total_table()
 		     "<FONT SIZE=\"-2\">%s</FONT></TH>\n"          \
 		     "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"  \
 		     "<FONT SIZE=\"-2\">%s</FONT></TH>\n",
-		     LTBLUE, msg_h_avg, LTBLUE, msg_h_total);
+		     IKBYTECOLOR, msg_h_avg, IKBYTECOLOR, msg_h_total);
       fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"            \
 		     "<FONT SIZE=\"-2\">%s</FONT></TH>\n"          \
 		     "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"  \
 		     "<FONT SIZE=\"-2\">%s</FONT></TH></TR>\n",
-		     GREEN, msg_h_avg, GREEN, msg_h_total);
+		     OKBYTECOLOR, msg_h_avg, OKBYTECOLOR, msg_h_total);
    }
 
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
@@ -984,9 +986,9 @@ void top_sites_table(int flag)
    if (dump_inout != 0)
    {
       fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"           \
-	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_ixfer);
+	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",IKBYTECOLOR,msg_h_ixfer);
       fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"           \
-	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",GREEN,msg_h_oxfer);
+	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",OKBYTECOLOR,msg_h_oxfer);
    }
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
@@ -1217,10 +1219,10 @@ void top_urls_table(int flag)
    {
       fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"         \
 		     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
-		     LTBLUE,msg_h_ixfer);
+		     IKBYTECOLOR,msg_h_ixfer);
       fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"         \
 		     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
-		     GREEN,msg_h_oxfer);
+		     OKBYTECOLOR,msg_h_oxfer);
    }
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                      \
                   "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
@@ -2001,9 +2003,9 @@ void top_users_table()
    if (dump_inout != 0)
    {
       fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
-	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_ixfer);
+	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",IKBYTECOLOR,msg_h_ixfer);
       fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
-	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",GREEN,msg_h_oxfer);
+	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",OKBYTECOLOR,msg_h_oxfer);
    }
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
@@ -2352,9 +2354,9 @@ void top_ctry_table()
    if (dump_inout != 0)
    {
       fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"          \
-	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_ixfer);
+	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",IKBYTECOLOR,msg_h_ixfer);
       fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"          \
-	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",GREEN,msg_h_oxfer);
+	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",OKBYTECOLOR,msg_h_oxfer);
    }
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                       \
           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",MISCCOLOR,msg_h_ctry);
@@ -2782,9 +2784,9 @@ int write_main_index()
    if (dump_inout != 0)
    {
       fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                   \
-	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_ixfer);
+	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",IKBYTECOLOR,msg_h_ixfer);
       fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                   \
-	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",GREEN,msg_h_oxfer);
+	     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",OKBYTECOLOR,msg_h_oxfer);
    }
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
