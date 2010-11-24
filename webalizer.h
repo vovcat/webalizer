@@ -246,6 +246,7 @@ extern int     dump_users   ;                 /* Usernames                */
 extern int     dump_search  ;                 /* Search strings           */
 extern int     dump_header  ;                 /* Dump header as first rec */
 extern char    *dump_path   ;                 /* Path for dump files      */
+extern int     dump_inout   ;                 /* In Out kB (logio) 2=auto */
 
 extern u_int64_t cur_tstamp;                  /* Current timestamp        */
 extern u_int64_t epoch;                       /* used for timestamp adj.  */
