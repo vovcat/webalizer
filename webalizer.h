@@ -291,6 +291,8 @@ extern char    hit_color[];                   /* graph hit color          */
 extern char    file_color[];                  /* graph file color         */
 extern char    site_color[];                  /* graph site color         */
 extern char    kbyte_color[];                 /* graph kbyte color        */
+extern char    ikbyte_color[];                /* graph ikbyte color       */
+extern char    okbyte_color[];                /* graph okbyte color       */
 extern char    page_color[];                  /* graph page color         */
 extern char    visit_color[];                 /* graph visit color        */
 extern char    misc_color[];                  /* graph misc color         */
