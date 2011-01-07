@@ -217,12 +217,12 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
       if (graph_mths<16)
       {
          gdImageString(im,gdFontSmall,ci+((i-s_mth)*cs)+(((cw+co+co)-18)/2)+1,
-                     236,(unsigned char *)s_month[data[i].month-1],black);
+                     236,(unsigned char *)Q_(s_month[data[i].month-1]),black);
       }
       else if (graph_mths<36)
       {
          gdImageChar(im,gdFontSmall,ci+((i-s_mth)*cs)+(((cw+co+co)-6)/2)+1,
-                     236,s_month[data[i].month-1][0],
+                     236,Q_(s_month[data[i].month-1])[0],
                      (data[i].month==1)?blue:black);
       }
       else

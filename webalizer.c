@@ -86,7 +86,7 @@ int bz2_rewind(void **, char *, char *);
 #include "preserve.h"
 #include "hashtab.h"
 #include "linklist.h"
-#include "webalizer_lang.h"                    /* lang. support            */
+#include "lang2.h"                             /* lang. support            */
 #ifdef USE_DNS
 #include "dns_resolv.h"
 #endif
@@ -96,7 +96,7 @@ int bz2_rewind(void **, char *, char *);
 void    clear_month();                              /* clear monthly stuff */
 char    *unescape(char *);                          /* unescape URLs       */
 void    print_opts(char *);                         /* print options       */
-void    print_version();                            /* duhh...             */
+void    print_version(char * locale);               /* duhh...             */
 int     isurlchar(unsigned char, int);              /* valid URL char fnc. */
 void    get_config(char *);                         /* Read a config file  */
 static  char *save_opt(char *);                     /* save conf option    */
@@ -299,6 +299,7 @@ int main(int argc, char *argv[])
 
    time_t start_time, end_time;          /* program timers              */
    float  temp_time;                     /* temporary time storage      */
+   char *current_locale;
 
    int    rec_year,rec_month=1,rec_day,rec_hour,rec_min,rec_sec;
 
@@ -317,9 +318,15 @@ int main(int argc, char *argv[])
 
    /* stat struct for files */
    struct stat log_stat;
+   current_locale = setlocale (LC_ALL, "");
+   bindtextdomain ("webalizer", DATADIR"/locale");
+   textdomain ("webalizer");
 
    /* Assume that LC_CTYPE is what the user wants for non-ASCII chars   */
    setlocale(LC_CTYPE,"");
+
+   /* Initialise report_title with the default localized value          */
+   report_title = msg_title;
 
    /* initalize epoch */
    epoch=jdate(1,1,1970);                /* used for timestamp adj.     */
@@ -377,12 +384,12 @@ int main(int argc, char *argv[])
         case 'R': ntop_refs=atoi(optarg);    break;  /* Top referrers       */
         case 's': add_nlist(optarg,&hidden_sites);  break; /* Hide site     */
         case 'S': ntop_sites=atoi(optarg);   break;  /* Top sites           */
-        case 't': msg_title=optarg;          break;  /* Report title        */
+        case 't': report_title=optarg;       break;  /* Report title        */
         case 'T': time_me=1;                 break;  /* TimeMe              */
         case 'u': add_nlist(optarg,&hidden_urls);   break; /* hide URL      */
         case 'U': ntop_urls=atoi(optarg);    break;  /* Top urls            */
         case 'v': verbose=2; debug_mode=1;   break;  /* Verbose             */
-        case 'V': print_version();           break;  /* Version             */
+        case 'V': print_version(current_locale); break;  /* Version         */
 #ifdef USE_GEOIP
         case 'w': geoip=1;                   break;  /* Enable GeoIP        */
         case 'W': geoip_db=optarg;           break;  /* GeoIP database name */
@@ -482,9 +489,9 @@ int main(int argc, char *argv[])
    if (verbose>1)
    {
       uname(&system_info);
-      printf("Webalizer V%s-%s (%s %s %s) %s\n", version,editlvl,
+      printf("Webalizer V%s-%s (%s %s %s) %s: %s\n", version,editlvl,
               system_info.sysname, system_info.release,
-              system_info.machine,language);
+              system_info.machine, _("locale"), current_locale);
    }
 
 #ifndef USE_DNS
@@ -697,7 +704,7 @@ int main(int argc, char *argv[])
       total_rec++;
       if (strlen(buffer) == (BUFSIZE-1))
       {
-         if (verbose)
+         if (verbose>1)
          {
             fprintf(stderr,"%s",msg_big_rec);
             if (debug_mode) fprintf(stderr,":\n%s",buffer);
@@ -1728,7 +1735,7 @@ void get_config(char *fname)
       {
         case 1:  out_dir=save_opt(value);          break; /* OutputDir      */
         case 2:  log_fname=save_opt(value);        break; /* LogFile        */
-        case 3:  msg_title=save_opt(value);        break; /* ReportTitle    */
+        case 3:  report_title=save_opt(value);     break; /* ReportTitle    */
         case 4:  hname=save_opt(value);            break; /* HostName       */
         case 5:  ignore_hist=
                     (tolower(value[0])=='y')?1:0;  break; /* IgnoreHist     */
@@ -1989,7 +1996,7 @@ void print_opts(char *pname)
    int i;
 
    printf("%s: %s %s\n",h_usage1,pname,h_usage2);
-   for (i=0;h_msg[i];i++) printf("%s\n",h_msg[i]);
+   for (i=0;h_msg[i];i++) printf("%s\n",_(h_msg[i]));
    exit(1);
 }
 
@@ -1997,7 +2004,7 @@ void print_opts(char *pname)
 /* PRINT_VERSION                             */
 /*********************************************/
 
-void print_version()
+void print_version(char *locale)
 {
    char buf[128]="";
    uname(&system_info);
@@ -2005,7 +2012,7 @@ void print_version()
    printf("Webalizer V%s-%s (%s %s %s) %s\n%s\n",
       version,editlvl,
       system_info.sysname,system_info.release,system_info.machine,
-      language,copyright);
+      _("locale"),copyright);
 
 #ifdef USE_DNS
    strncpy(&buf[strlen(buf)],"DNS/GeoDB ",11);
@@ -2024,9 +2031,9 @@ void print_version()
       else           printf("none");
       printf("\n");
 #if USE_DNS
-      printf("Default GeoDB dir : %s\n",GEODB_LOC);
+      printf(_("Default GeoDB dir : %s\n"),GEODB_LOC);
 #endif
-      printf("Default config dir: %s\n",ETCDIR);
+      printf(_("Default config dir: %s\n"),ETCDIR);
       printf("\n");
    }
    else printf("\n");
@@ -2531,4 +2538,33 @@ u_int64_t jdate( int day, int month, int year )
    /* done, return with calculated value */
 
    return(days+5);
+}
+
+/*****************************************************************/
+/*                                                               */
+/* intl_strip_context - Strip Context in gettext                 */
+/*                                                               */
+/* Strip "|" string from a string that will be translated        */
+/*                                                               */
+/* Originally copied from gettext info page.                     */
+/* Returns a translated string witout nothing before the first   */
+/* "|" character.                                                */
+/*                                                               */
+/* Usage: string = intl_strip_context(string)                    */
+/*    Or: string = Q_(string)                                    */
+/*                                                               */
+/* This function is useful to help translation of strings like   */
+/* month "May" that its forms is equal in Short and Long         */
+/*****************************************************************/
+
+char *intl_strip_context (const char *msgid)
+{
+   char *msgval = gettext (msgid);
+   char *pipe;
+
+   pipe = strchr(msgval, '|');
+   if (pipe != NULL)
+      return (char*)(pipe + 1);
+
+   return (char*)msgval;
 }

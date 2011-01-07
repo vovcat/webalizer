@@ -301,7 +301,7 @@ extern char    pie_color2[];                  /* pie additionnal color 2  */
 extern char    pie_color3[];                  /* pie additionnal color 3  */
 extern char    pie_color4[];                  /* pie additionnal color 4  */
 
-/* define our externally visable functions */
+/* define our externally visible functions */
 
 extern char      *cur_time();
 extern u_int64_t ctry_idx(char *);
@@ -311,5 +311,6 @@ extern int       ispage(char *);
 extern u_int64_t jdate(int,int,int);
 extern char      from_hex(char);
 extern int       isipaddr(char *);
+extern char      *intl_strip_context();
 
 #endif  /* _WEBALIZER_H */

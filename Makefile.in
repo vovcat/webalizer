@@ -23,10 +23,11 @@ datadir         = @datarootdir@
 BINDIR          = @bindir@
 MANDIR          = ${datadir}/man/man1
 ETCDIR          = @sysconfdir@
+LOCALEDIR       = @localedir@
 GEODB           = @GEODB_LOC@
 CC              = @CC@
 CFLAGS          = @CFLAGS@ @CPPFLAGS@
-LIBS            = @LIBS@
+LIBS            = @LIBS@ -ldb
 WCMGR_LIBS      = @WCMGR_LIBS@
 DEFS            = -DETCDIR=\"${ETCDIR}\" -DGEODB_LOC=\"${GEODB}\" @DEFS@ @OPTS@
 LDFLAGS         = @LDFLAGS@
@@ -34,6 +35,9 @@ INSTALL         = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_DATA    = @INSTALL_DATA@
 DEFLANG         = @DEFAULT_LANG@
+
+LANGS=$(shell for a in po/*.po; do basename $${a%.po}; done)
+
 
 # Shouldn't have to touch below here!
 
@@ -43,13 +47,13 @@ webalizer:	webalizer.o webalizer.h hashtab.o hashtab.h  \
 		linklist.o linklist.h preserve.o preserve.h  \
                 dns_resolv.o dns_resolv.h parser.o parser.h  \
                 output.o output.h graphs.o graphs.h lang.h   \
-		webalizer_lang.h
+		$(LANGS:%=po/%.mo)
 	$(CC) ${LDFLAGS} -o webalizer webalizer.o hashtab.o linklist.o preserve.o parser.o output.o dns_resolv.o graphs.o ${LIBS}
 	rm -f webazolver
 	@LN_S@ webalizer webazolver
 
 webalizer.o:	webalizer.c webalizer.h parser.h output.h preserve.h \
-		graphs.h dns_resolv.h webalizer_lang.h
+		graphs.h dns_resolv.h
 	$(CC) ${CFLAGS} ${DEFS} -c webalizer.c
 
 parser.o:	parser.c parser.h webalizer.h lang.h
@@ -81,14 +85,16 @@ wcmgr:	wcmgr.o
 wcmgr.o:	wcmgr.c
 	$(CC) ${CFLAGS} ${DEFS} -c wcmgr.c
 
+$(LANGS:%=po/%.mo): %.mo: %.po
+	msgfmt $< -o $@
+
 clean:
 	rm -f webalizer webazolver wcmgr *.o usage*.png daily*.png hourly*.png
 	rm -f ctry*.png *.html *.hist *.current core *.gif
 
 distclean: clean
 	rm -f webalizer.conf *.tar *.tgz *.Z *.tar.gz
-	rm -f Makefile webalizer_lang.h config.cache config.log config.status
-	@LN_S@ lang/webalizer_lang.@DEFAULT_LANG@ webalizer_lang.h
+	rm -f Makefile config.cache config.log config.status $(LANGS:%=po/%.mo)
 
 install: all
 	mkdir -p ${DESTDIR}${BINDIR}
@@ -103,6 +109,7 @@ install: all
 	rm -f ${DESTDIR}${MANDIR}/webazolver.1
 	@LN_S@ webalizer.1 ${DESTDIR}${MANDIR}/webazolver.1
 	$(INSTALL_DATA) sample.conf ${DESTDIR}${ETCDIR}/webalizer.conf.sample
+	for a in $(LANGS); do $(INSTALL_DATA) po/$$a.mo ${DESTDIR}/$(LOCALEDIR)/$$a/LC_MESSAGES/webalizer.mo; done
 
 uninstall:
 	rm -f ${DESTDIR}${BINDIR}/webalizer
@@ -112,5 +119,4 @@ uninstall:
 	rm -f ${DESTDIR}${MANDIR}/webazolver.1
 	rm -f ${DESTDIR}${MANDIR}/wcmgr.1
 	rm -f ${DESTDIR}${ETCDIR}/webalizer.conf.sample
-	rm -f webalizer_lang.h
-	@LN_S@ lang/webalizer_lang.${DEFLANG} webalizer_lang.h
+	for a in $(LANGS); do rm -f $(LOCALEDIR)/$$a/LC_MESSAGES/webalizer.mo; done

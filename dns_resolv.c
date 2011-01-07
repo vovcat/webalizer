@@ -120,7 +120,7 @@ void resolve_dns(struct log_struct *log_rec)
    query.data = log_rec->hostname;
    query.size = strlen(log_rec->hostname);
 
-   if (debug_mode) fprintf(stderr,"Checking %s...", log_rec->hostname);
+   if (debug_mode) fprintf(stderr,_("Checking %s..."), log_rec->hostname);
 
    if ( (i=dns_db->get(dns_db, NULL, &query, &response, 0)) == 0)
    {
@@ -130,15 +130,15 @@ void resolve_dns(struct log_struct *log_rec)
                MAXHOST);
       log_rec->hostname[MAXHOST-1]=0;
       if (debug_mode)
-         fprintf(stderr," found: %s (%ld)\n",
+         fprintf(stderr,_(" found: %s (%ld)\n"),
            log_rec->hostname, alignedRecord.timeStamp);
    }
-   else  /* not found or error occured during get */
+   else  /* not found or error occurred during get */
    {
       if (debug_mode)
       {
-         if (i==DB_NOTFOUND) fprintf(stderr," not found\n");
-         else                fprintf(stderr," error (%d)\n",i);
+         if (i==DB_NOTFOUND) fprintf(stderr,_(" not found\n"));
+         else                fprintf(stderr,_(" error (%d)\n"),i);
       }
    }
 }
@@ -328,7 +328,7 @@ int dns_resolver(void *log_fp)
          i=( (int)((float)listEntries/temp_time) );
       else i=0;
 
-      if ( (i>0) && (i<=listEntries) ) printf(", %d/sec\n", i);
+      if ( (i>0) && (i<=listEntries) ) printf(_(", %d/sec\n"), i);
          else  printf("\n");
    }
 
@@ -371,13 +371,13 @@ static void process_list(DNODEPTR l_list)
    {
       if(pipe(child[i].inpipe))
       {
-         if (verbose) fprintf(stderr,"INPIPE creation error");
+         if (verbose) fprintf(stderr,_("INPIPE creation error"));
          return;   /* exit(1) */
       }
 
       if(pipe(child[i].outpipe))
       {
-         if (verbose) fprintf(stderr,"OUTPIPE creation error");
+         if (verbose) fprintf(stderr,_("OUTPIPE creation error"));
          return;   /* exit(1); */
       }
 
@@ -386,7 +386,7 @@ static void process_list(DNODEPTR l_list)
       {
          case -1:
          {
-            if (verbose) fprintf(stderr,"FORK error");
+            if (verbose) fprintf(stderr,_("FORK error"));
             return;  /* exit(1); */
          }
 
@@ -402,7 +402,7 @@ static void process_list(DNODEPTR l_list)
             {
                if(size < 0)
                {
-                  perror("read error");
+                  perror(_("read error"));
                   exit(1);
                }
                else
@@ -425,18 +425,18 @@ static void process_list(DNODEPTR l_list)
                      else
                      {
                         if (debug_mode)
-                           printf("Child %d getnameinfo bad hbuf!\n",i);
+                           printf(_("Child %d getnameinfo bad hbuf!\n"),i);
                      }
                   }
                   else
                   {
                      if(debug_mode)
-                       printf("Child %d getnameinfo failed!\n",i);
+                       printf(_("Child %d getnameinfo failed!\n"),i);
                   }
 
                   if (write(child[i].inpipe[1], child_buf, size) == -1)
                   {
-                     perror("write error");
+                     perror(_("write error"));
                      exit(1);
                   }
                }
@@ -445,7 +445,7 @@ static void process_list(DNODEPTR l_list)
             close(child[i].outpipe[0]);
 
             if(debug_mode)
-               printf( "Child %d got closed input, shutting down\n", i);
+               printf( _("Child %d got closed input, shutting down\n"), i);
 
             fflush(stdout);
             exit(0);
@@ -490,7 +490,7 @@ static void process_list(DNODEPTR l_list)
                   nof_children--;
 
                   if(debug_mode)
-                  printf("Reaped Child %d\n", pid);
+                  printf(_("Reaped Child %d\n"), pid);
 
                   break;
                }
@@ -519,7 +519,7 @@ static void process_list(DNODEPTR l_list)
                      max_fd = MAX(max_fd, child[i].inpipe[0]);
 
                      if(debug_mode)
-                        printf("Giving %d bytes to Child %d\n",
+                        printf(_("Giving %d bytes to Child %d\n"),
                         trav->addrlen, i);
 
                      trav = trav->llist;
@@ -528,7 +528,7 @@ static void process_list(DNODEPTR l_list)
                   {
                      if(errno != EINTR)           /* Could be a signal */
                      {
-                        perror("Could not write to pipe");
+                        perror(_("Could not write to pipe"));
                         close(child[i].outpipe[1]);           /* kill     */
                         child[i].flags &= ~DNS_CHILD_RUNNING; /* child    */
                      }
@@ -557,7 +557,7 @@ static void process_list(DNODEPTR l_list)
          case -1:
          {
             if(errno != EINTR)   /* Could be a signal */
-            perror("Error in select");
+            perror(_("Error in select"));
 
             break;
          }
@@ -565,7 +565,7 @@ static void process_list(DNODEPTR l_list)
          case 0:   /* Timeout, just fall once through the child loop */
          {
             if(debug_mode)
-            printf("tick\n");
+            printf(_("tick\n"));
 
             break;
          }
@@ -600,7 +600,7 @@ static void process_list(DNODEPTR l_list)
                         child[i].flags &= ~DNS_CHILD_RUNNING;
 
                         if(debug_mode)
-                           printf("Child %d wants to be reaped\n", i);
+                           printf(_("Child %d wants to be reaped\n"), i);
 
                         break;
                      }
@@ -613,14 +613,14 @@ static void process_list(DNODEPTR l_list)
                                     sizeof(child[i].cur->addr)))
                         {
                            if(debug_mode)
-                              printf("Child %d Got a result: %s -> %s\n",
+                              printf(_("Child %d Got a result: %s -> %s\n"),
                                      i, child[i].cur->string, dns_buf);
                            db_put(child[i].cur->string, dns_buf, 0);
                         }
                         else
                         {
                            if(debug_mode)
-                              printf("Child %d could not resolve: %s (%s)\n",
+                              printf(_("Child %d could not resolve: %s (%s)\n"),
                                      i, child[i].cur->string,
                                      (cache_ips)?"cache":"no cache");
                            if (cache_ips)      /* Cache non-resolved? */
@@ -629,7 +629,7 @@ static void process_list(DNODEPTR l_list)
                         }
 
                         if(debug_mode)
-                           printf("Child %d back in task pool\n", i);
+                           printf(_("Child %d back in task pool\n"), i);
 
                         /* Child is back in the task pool */
                         child[i].flags |= DNS_CHILD_READY;
@@ -721,7 +721,7 @@ static void db_put(char *key, char *value, int numeric)
          v.data = recPtr;
 
          if ( dns_db->put(dns_db, NULL, &k, &v, 0) != 0 )
-            if (verbose>1) fprintf(stderr,"db_put fail!\n");
+            if (verbose>1) fprintf(stderr,_("db_put fail!\n"));
          free(recPtr);
       }
    }
