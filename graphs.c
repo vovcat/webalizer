@@ -141,68 +141,68 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
    if (graph_legend)
    {
       /* Kbytes Legend */
-      i = (strlen(msg_h_xfer)*6);
+      i = (strlen(_("kB F"))*6);
       if (dump_inout == 0)
       {
          gdImageString(im,gdFontSmall,491-i,237,
-                    (unsigned char *)msg_h_xfer,dkgrey);
+                    (unsigned char *)_("kB F"),dkgrey);
          gdImageString(im,gdFontSmall,490-i,236,
-                    (unsigned char *)msg_h_xfer,KBYTECOLOR);
+                    (unsigned char *)_("kB F"),KBYTECOLOR);
       }
       else
       {
-      j = (strlen(msg_h_ixfer)*6);
-      k = (strlen(msg_h_oxfer)*6);
+      j = (strlen(_("kB In"))*6);
+      k = (strlen(_("kB Out"))*6);
       gdImageString(im,gdFontSmall,491-i-j-k-24,237,
-                    (unsigned char *)msg_h_xfer,dkgrey);
+                    (unsigned char *)_("kB F"),dkgrey);
       gdImageString(im,gdFontSmall,490-i-j-k-24,236,
-                    (unsigned char *)msg_h_xfer,KBYTECOLOR);
+                    (unsigned char *)_("kB F"),KBYTECOLOR);
       gdImageString(im,gdFontSmall,491-k-j-21,237,"/",dkgrey);
       gdImageString(im,gdFontSmall,490-k-j-21,236,"/",black);
       gdImageString(im,gdFontSmall,491-k-j-12,237,
-                    (unsigned char *)msg_h_ixfer,dkgrey);
+                    (unsigned char *)_("kB In"),dkgrey);
       gdImageString(im,gdFontSmall,490-k-j-12,236,
-                    (unsigned char *)msg_h_ixfer,IKBYTECOLOR);
+                    (unsigned char *)_("kB In"),IKBYTECOLOR);
       gdImageString(im,gdFontSmall,491-k-9,237,"/",dkgrey);
       gdImageString(im,gdFontSmall,490-k-9,236,"/",black);
       gdImageString(im,gdFontSmall,491-k,237,
-                    (unsigned char *)msg_h_oxfer,dkgrey);
+                    (unsigned char *)_("kB Out"),dkgrey);
       gdImageString(im,gdFontSmall,490-k,236,
-                    (unsigned char *)msg_h_oxfer,OKBYTECOLOR);
+                    (unsigned char *)_("kB Out"),OKBYTECOLOR);
       }
       /* Sites/Visits Legend */
-      i = (strlen(msg_h_visits)*6);
-      j = (strlen(msg_h_sites)*6);
+      i = (strlen(_("Visits"))*6);
+      j = (strlen(_("Sites"))*6);
       gdImageString(im,gdFontSmall,491-i-j-12,11,
-                    (unsigned char *)msg_h_visits,dkgrey);
+                    (unsigned char *)_("Visits"),dkgrey);
       gdImageString(im,gdFontSmall,490-i-j-12,10,
-                    (unsigned char *)msg_h_visits,VISITCOLOR);
+                    (unsigned char *)_("Visits"),VISITCOLOR);
       gdImageString(im,gdFontSmall,491-j-9,11,(unsigned char *)"/",dkgrey);
       gdImageString(im,gdFontSmall,490-j-9,10,(unsigned char *)"/",black);
       gdImageString(im,gdFontSmall,491-j,11,
-                    (unsigned char *)msg_h_sites,dkgrey);
+                    (unsigned char *)_("Sites"),dkgrey);
       gdImageString(im,gdFontSmall,490-j,10,
-                    (unsigned char *)msg_h_sites,SITECOLOR);
+                    (unsigned char *)_("Sites"),SITECOLOR);
 
       /* Hits/Files/Pages Legend */
-      i = (strlen(msg_h_pages)*6);
-      j = (strlen(msg_h_files)*6);
+      i = (strlen(_("Pages"))*6);
+      j = (strlen(_("Files"))*6);
       gdImageStringUp(im,gdFontSmall,6,231,
-                      (unsigned char *)msg_h_pages,dkgrey);
+                      (unsigned char *)_("Pages"),dkgrey);
       gdImageStringUp(im,gdFontSmall,5,230,
-                      (unsigned char *)msg_h_pages,PAGECOLOR);
+                      (unsigned char *)_("Pages"),PAGECOLOR);
       gdImageStringUp(im,gdFontSmall,6,231-i-3,(unsigned char *)"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,5,230-i-3,(unsigned char *)"/",black);
       gdImageStringUp(im,gdFontSmall,6,231-i-12,
-                      (unsigned char *)msg_h_files,dkgrey);
+                      (unsigned char *)_("Files"),dkgrey);
       gdImageStringUp(im,gdFontSmall,5,230-i-12,
-                      (unsigned char *)msg_h_files,FILECOLOR);
+                      (unsigned char *)_("Files"),FILECOLOR);
       gdImageStringUp(im,gdFontSmall,6,231-i-j-15,(unsigned char *)"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,5,230-i-j-15,(unsigned char *)"/",black);
       gdImageStringUp(im,gdFontSmall,6,231-i-j-24,
-                      (unsigned char *)msg_h_hits,dkgrey);
+                      (unsigned char *)_("Hits"),dkgrey);
       gdImageStringUp(im,gdFontSmall,5,230-i-j-24,
-                      (unsigned char *)msg_h_hits,HITCOLOR);
+                      (unsigned char *)_("Hits"),HITCOLOR);
    }
 
    /* Now draw data areas */
@@ -402,7 +402,7 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
       if ( S_ISLNK(out_stat.st_mode) )
       {
          if (verbose)
-         fprintf(stderr,"%s %s (symlink)\n",msg_no_open,fname);
+         fprintf(stderr,"%s %s (symlink)\n",_("Error: Unable to open file"),fname);
          return(EBADF);
       }
    }
@@ -498,60 +498,60 @@ int month_graph6(     char  *fname,        /* filename           */
    {
       /* Kbytes Legend */
       gdImageStringUp(im,gdFontSmall,494,376,
-                      (unsigned char *)msg_h_xfer,dkgrey);
+                      (unsigned char *)_("kB F"),dkgrey);
       gdImageStringUp(im,gdFontSmall,493,375,
-                      (unsigned char *)msg_h_xfer,KBYTECOLOR);
+                      (unsigned char *)_("kB F"),KBYTECOLOR);
       if (dump_inout != 0)
       {
-	 i=(strlen(msg_h_xfer)*6);
-	 j=(strlen(msg_h_ixfer)*6);
+	 i=(strlen(_("kB F"))*6);
+	 j=(strlen(_("kB In"))*6);
 	 gdImageStringUp(im,gdFontSmall,494,376-i-3,"/",dkgrey);
 	 gdImageStringUp(im,gdFontSmall,493,375-i-3,"/",black);
 	 gdImageStringUp(im,gdFontSmall,494,376-i-12,
-			 (unsigned char *)msg_h_ixfer,dkgrey);
+			 (unsigned char *)_("kB In"),dkgrey);
 	 gdImageStringUp(im,gdFontSmall,493,375-i-12,
-			 (unsigned char *)msg_h_ixfer,IKBYTECOLOR);
+			 (unsigned char *)_("kB In"),IKBYTECOLOR);
 	 gdImageStringUp(im,gdFontSmall,494,376-i-j-15,"/",dkgrey);
 	 gdImageStringUp(im,gdFontSmall,493,375-i-j-15,"/",black);
 	 gdImageStringUp(im,gdFontSmall,494,376-i-j-24,
-			 (unsigned char *)msg_h_oxfer,dkgrey);
+			 (unsigned char *)_("kB Out"),dkgrey);
 	 gdImageStringUp(im,gdFontSmall,493,375-i-j-24,
-			 (unsigned char *)msg_h_oxfer,OKBYTECOLOR);
+			 (unsigned char *)_("kB Out"),OKBYTECOLOR);
       }
 
       /* Sites/Visits Legend */
-      i = (strlen(msg_h_sites)*6);
+      i = (strlen(_("Sites"))*6);
       gdImageStringUp(im,gdFontSmall,494,256,
-                      (unsigned char *)msg_h_sites,dkgrey);
+                      (unsigned char *)_("Sites"),dkgrey);
       gdImageStringUp(im,gdFontSmall,493,255,
-                      (unsigned char *)msg_h_sites,SITECOLOR);
+                      (unsigned char *)_("Sites"),SITECOLOR);
       gdImageStringUp(im,gdFontSmall,494,256-i-3,(unsigned char *)"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,493,255-i-3,(unsigned char *)"/",black);
       gdImageStringUp(im,gdFontSmall,494,256-i-12,
-                      (unsigned char *)msg_h_visits,dkgrey);
+                      (unsigned char *)_("Visits"),dkgrey);
       gdImageStringUp(im,gdFontSmall,493,255-i-12,
-                      (unsigned char *)msg_h_visits,VISITCOLOR);
+                      (unsigned char *)_("Visits"),VISITCOLOR);
 
       /* Pages/Files/Hits Legend */
-      s = ( i=(strlen(msg_h_pages)*6) )+
-          ( j=(strlen(msg_h_files)*6) )+
-          ( strlen(msg_h_hits)*6 )+ 52;
+      s = ( i=(strlen(_("Pages"))*6) )+
+          ( j=(strlen(_("Files"))*6) )+
+          ( strlen(_("Hits"))*6 )+ 52;
       gdImageStringUp(im,gdFontSmall,494,s,
-                      (unsigned char *)msg_h_pages,dkgrey);
+                      (unsigned char *)_("Pages"),dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-1,
-                      (unsigned char *)msg_h_pages,PAGECOLOR);
+                      (unsigned char *)_("Pages"),PAGECOLOR);
       gdImageStringUp(im,gdFontSmall,494,s-i-3,(unsigned char *)"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-4,(unsigned char *)"/",black);
       gdImageStringUp(im,gdFontSmall,494,s-i-12,
-                      (unsigned char *)msg_h_files,dkgrey);
+                      (unsigned char *)_("Files"),dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-13,
-                      (unsigned char *)msg_h_files,FILECOLOR);
+                      (unsigned char *)_("Files"),FILECOLOR);
       gdImageStringUp(im,gdFontSmall,494,s-i-j-15,(unsigned char *)"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-j-16,(unsigned char *)"/",black);
       gdImageStringUp(im,gdFontSmall,494,s-i-j-24,
-                      (unsigned char *)msg_h_hits,dkgrey);
+                      (unsigned char *)_("Hits"),dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-j-25,
-                      (unsigned char *)msg_h_hits,HITCOLOR);
+                      (unsigned char *)_("Hits"),HITCOLOR);
    }
 
    /* data1 */
@@ -696,7 +696,7 @@ int month_graph6(     char  *fname,        /* filename           */
       if ( S_ISLNK(out_stat.st_mode) )
       {
          if (verbose)
-         fprintf(stderr,"%s %s (symlink)\n",msg_no_open,fname);
+         fprintf(stderr,"%s %s (symlink)\n",_("Error: Unable to open file"),fname);
          return(EBADF);
       }
    }
@@ -758,25 +758,25 @@ int day_graph3(     char  *fname,
    if (graph_legend)                          /* print color coded legends? */
    {
       /* Pages/Files/Hits Legend */
-      s = ( i=(strlen(msg_h_pages)*6) )+
-          ( j=(strlen(msg_h_files)*6) )+
-          ( strlen(msg_h_hits)*6 )+ 52;
+      s = ( i=(strlen(_("Pages"))*6) )+
+          ( j=(strlen(_("Files"))*6) )+
+          ( strlen(_("Hits"))*6 )+ 52;
       gdImageStringUp(im,gdFontSmall,494,s,
-                      (unsigned char *)msg_h_pages,dkgrey);
+                      (unsigned char *)_("Pages"),dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-1,
-                      (unsigned char *)msg_h_pages,PAGECOLOR);
+                      (unsigned char *)_("Pages"),PAGECOLOR);
       gdImageStringUp(im,gdFontSmall,494,s-i-3,(unsigned char *)"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-4,(unsigned char *)"/",black);
       gdImageStringUp(im,gdFontSmall,494,s-i-12,
-                      (unsigned char *)msg_h_files,dkgrey);
+                      (unsigned char *)_("Files"),dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-13,
-                      (unsigned char *)msg_h_files,FILECOLOR);
+                      (unsigned char *)_("Files"),FILECOLOR);
       gdImageStringUp(im,gdFontSmall,494,s-i-j-15,(unsigned char *)"/",dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-j-16,(unsigned char *)"/",black);
       gdImageStringUp(im,gdFontSmall,494,s-i-j-24,
-                      (unsigned char *)msg_h_hits,dkgrey);
+                      (unsigned char *)_("Hits"),dkgrey);
       gdImageStringUp(im,gdFontSmall,493,s-i-j-25,
-                      (unsigned char *)msg_h_hits,HITCOLOR);
+                      (unsigned char *)_("Hits"),HITCOLOR);
    }
 
    /* data1 */
@@ -822,7 +822,7 @@ int day_graph3(     char  *fname,
       if ( S_ISLNK(out_stat.st_mode) )
       {
          if (verbose)
-         fprintf(stderr,"%s %s (symlink)\n",msg_no_open,fname);
+         fprintf(stderr,"%s %s (symlink)\n",_("Error: Unable to open file"),fname);
          return(EBADF);
       }
    }
@@ -913,7 +913,7 @@ int pie_chart(char *fname, char *title, u_int64_t t_val,
 
       gdImageFill(im, gdata.mx, gdata.my, white);
       snprintf(buffer,sizeof(buffer),"%s (%d%%)",
-           msg_h_other,100-(int)(s_arc*100));
+           _("Other"),100-(int)(s_arc*100));
       x=480-(strlen(buffer)*7);
       gdImageString(im,gdFontMediumBold, x+1, y+1,
                     (unsigned char *)buffer, black);
@@ -928,7 +928,7 @@ int pie_chart(char *fname, char *title, u_int64_t t_val,
       if ( S_ISLNK(out_stat.st_mode) )
       {
          if (verbose)
-         fprintf(stderr,"%s %s (symlink)\n",msg_no_open,fname);
+         fprintf(stderr,"%s %s (symlink)\n",_("Error: Unable to open file"),fname);
          return(EBADF);
       }
    }

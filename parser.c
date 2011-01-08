@@ -229,7 +229,7 @@ int parse_record_clf(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_host);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized hostname"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -261,7 +261,7 @@ int parse_record_clf(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_user);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized username"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -283,7 +283,7 @@ int parse_record_clf(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_date);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized date field"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -308,7 +308,7 @@ int parse_record_clf(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_req);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized request field"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -352,7 +352,7 @@ int parse_record_clf(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_ref);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized referrer field"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -423,7 +423,7 @@ int parse_record_squid(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_host);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized hostname"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -460,7 +460,7 @@ int parse_record_squid(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_req);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized request field"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }
@@ -489,7 +489,7 @@ int parse_record_squid(char *buffer)
    {
       if (verbose)
       {
-         fprintf(stderr,"%s",msg_big_req);
+         fprintf(stderr,"%s",_("Warning: Truncating oversized request field"));
          if (debug_mode) fprintf(stderr,": %s\n",cpx);
          else fprintf(stderr,"\n");
       }

@@ -124,7 +124,7 @@ HNODEPTR new_hnode(char *str)
    {
       if (verbose)
       {
-         fprintf(stderr,"[new_hnode] %s (%d)",msg_big_one,strlen(str));
+         fprintf(stderr,"[new_hnode] %s (%d)",_("Warning: String exceeds storage size"),strlen(str));
          if (debug_mode)
             fprintf(stderr,":\n--> %s",str);
          fprintf(stderr,"\n");
@@ -343,7 +343,7 @@ UNODEPTR new_unode(char *str)
    {
       if (verbose)
       {
-         fprintf(stderr,"[new_unode] %s (%d)",msg_big_one,strlen(str));
+         fprintf(stderr,"[new_unode] %s (%d)",_("Warning: String exceeds storage size"),strlen(str));
          if (debug_mode)
             fprintf(stderr,":\n--> %s",str);
          fprintf(stderr,"\n");
@@ -479,7 +479,7 @@ RNODEPTR new_rnode(char *str)
    {
       if (verbose)
       {
-         fprintf(stderr,"[new_rnode] %s (%d)",msg_big_one,strlen(str));
+         fprintf(stderr,"[new_rnode] %s (%d)",_("Warning: String exceeds storage size"),strlen(str));
          if (debug_mode)
             fprintf(stderr,":\n--> %s",str);
          fprintf(stderr,"\n");
@@ -605,7 +605,7 @@ ANODEPTR new_anode(char *str)
    {
       if (verbose)
       {
-         fprintf(stderr,"[new_anode] %s (%d)",msg_big_one,strlen(str));
+         fprintf(stderr,"[new_anode] %s (%d)",_("Warning: String exceeds storage size"),strlen(str));
          if (debug_mode)
             fprintf(stderr,":\n--> %s",str);
          fprintf(stderr,"\n");
@@ -724,7 +724,7 @@ SNODEPTR new_snode(char *str)
    {
       if (verbose)
       {
-         fprintf(stderr,"[new_snode] %s (%d)",msg_big_one,strlen(str));
+         fprintf(stderr,"[new_snode] %s (%d)",_("Warning: String exceeds storage size"),strlen(str));
          if (debug_mode)
             fprintf(stderr,":\n--> %s",str);
          fprintf(stderr,"\n");
@@ -831,7 +831,7 @@ INODEPTR new_inode(char *str)
    {
       if (verbose)
       {
-         fprintf(stderr,"[new_inode] %s (%d)",msg_big_one,strlen(str));
+         fprintf(stderr,"[new_inode] %s (%d)",_("Warning: String exceeds storage size"),strlen(str));
          if (debug_mode)
             fprintf(stderr,":\n--> %s",str);
          fprintf(stderr,"\n");
@@ -1011,7 +1011,7 @@ DNODEPTR new_dnode(char *str)
    {
       if (verbose)
       {
-         fprintf(stderr,"[new_dnode] %s (%d)",msg_big_one,strlen(str));
+         fprintf(stderr,"[new_dnode] %s (%d)",_("Warning: String exceeds storage size"),strlen(str));
          if (debug_mode)
             fprintf(stderr,":\n--> %s",str);
          fprintf(stderr,"\n");
