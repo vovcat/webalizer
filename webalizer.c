@@ -175,6 +175,10 @@ char    *geoip_db    = NULL;                  /* GeoIP database filename  */
 GeoIP   *geo_fp      = NULL;                  /* GeoIP database handle    */
 #endif
 
+#ifdef HAVE_LIBGD_TTF
+char    *ttf_file    = "";                    /* truetype font file       */
+#endif
+
 int     ntop_sites   = 30;                    /* top n sites to display   */
 int     ntop_sitesK  = 10;                    /* top n sites (by kbytes)  */
 int     ntop_urls    = 30;                    /* top n url's to display   */
@@ -1668,7 +1672,10 @@ void get_config(char *fname)
                      "SearchCaseI",       /* srch str case insensitive  120 */
 		     "InOutkB",           /* logio (0=no,1=yes,2=auto)  121 */
                      "ColorIKbyte",       /* IKbyte Color (def=0080ff)  122 */
-                     "ColorOKbyte"        /* OKbyte Color (def=00e000)  123 */
+                     "ColorOKbyte",       /* OKbyte Color (def=00e000)  123 */
+#ifdef HAVE_LIBGD_TTF
+                     "TrueTypeFont"       /* TrueType Font file         124 */
+#endif
                    };
 
    FILE *fp;
@@ -1908,6 +1915,9 @@ void get_config(char *fname)
                     (tolower(value[0])=='y')?1:2;  break; /* InOutkB        */
         case 122: strncpy(ikbyte_color+1,value,6); break; /* ColorIKbyte    */
         case 123: strncpy(okbyte_color+1,value,6); break; /* ColorOKbyte    */
+#ifdef HAVE_LIBGD_TTF
+        case 124: ttf_file=save_opt(value);        break; /* TrueType font  */
+#endif
       }
    }
    fclose(fp);

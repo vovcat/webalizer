@@ -140,11 +140,16 @@ dnl ------------------------------------------
 AC_CHECK_LIB(gd, main, LIBGD="yes"; LIBS="-lgd ${LIBS}")
 if test "${LIBGD}" = "yes"; then
   AC_CHECK_LIB(gd, gdImagePng, LIBGD="yes", LIBGD="no")
+  AC_CHECK_LIB(gd, gdImageStringFT, LIBS="-lgd ${LIBS}"; HAVE_LIBGD_TTF="yes", HAVE_LIBGD_TTF="")
   if test "${LIBGD}" = "no"; then
     AC_MSG_ERROR(Old version of libgd found.. please upgrade!)
   fi
 else
   AC_MSG_ERROR(gd library not found.. please install libgd)
+fi
+
+if test "$HAVE_LIBGD_TTF" = "yes" ;then
+ AC_DEFINE(HAVE_LIBGD_TTF)
 fi
 
 AC_CHECK_HEADER(gd.h, HDR="yes", HDR="no")
