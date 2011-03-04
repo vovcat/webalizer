@@ -48,10 +48,12 @@ webalizer:	webalizer.o webalizer.h hashtab.o hashtab.h  \
 		dns_resolv.o dns_resolv.h parser.o parser.h  \
 		output.o output.h graphs.o graphs.h lang.h   \
 		gdfontg.o gdfontl.o gdfontmb.o gdfonts.o gdfontt.o \
+		xcode.o \
 		$(LANGS:%=po/%.mo)
 	$(CC) ${LDFLAGS} -o webalizer webalizer.o hashtab.o linklist.o \
 		preserve.o parser.o output.o dns_resolv.o graphs.o \
 		gdfontg.o gdfontl.o gdfontmb.o gdfonts.o gdfontt.o \
+		xcode.o \
 		-Wl,-Bstatic -lGeoIP -lgd -lpng -ldb -Wl,-Bdynamic -lz -lm \
 		${LIBS}
 	rm -f webazolver
@@ -92,6 +94,9 @@ wcmgr.o:	wcmgr.c webalizer.h
 
 $(LANGS:%=po/%.mo): %.mo: %.po
 	msgfmt $< -o $@
+
+xcode.o:	xcode.c xcode.h
+	$(CC) ${CFLAGS} ${DEFS} -c xcode.c
 
 clean:
 	rm -f webalizer webazolver wcmgr *.o usage*.png daily*.png hourly*.png

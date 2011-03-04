@@ -81,6 +81,8 @@
 int bz2_rewind(void **, char *, char *);
 #endif
 
+#include "xcode.h"                             /* xcode */
+
 #include "webalizer.h"                         /* main header              */
 #include "output.h"
 #include "parser.h"
@@ -282,7 +284,7 @@ char    pie_color2[]  = "#80ffc0";            /* pie additionnal color 2  */
 char    pie_color3[]  = "#ff00ff";            /* pie additionnal color 3  */
 char    pie_color4[]  = "#ffc080";            /* pie additionnal color 4  */
 
-iconv_t cd_from_sjis, cd_from_utf8;
+iconv_t cd_from_utf8;
 
 /*********************************************/
 /* MAIN - start here                         */
@@ -697,8 +699,7 @@ int main(int argc, char *argv[])
    /* get processing start time */
    start_time = time(NULL);
 
-   cd_from_sjis = iconv_open("EUC-JP", "Shift_JIS");
-   cd_from_utf8 = iconv_open("EUC-JP", "UTF-8");
+   cd_from_utf8 = iconv_open("CP1251", "UTF-8");
 
    /*********************************************/
    /* MAIN PROCESS LOOP - read through log file */
@@ -1544,7 +1545,6 @@ int main(int argc, char *argv[])
       if (geo_fp) GeoIP_delete(geo_fp);
 #endif
 
-      iconv_close(cd_from_sjis);
       iconv_close(cd_from_utf8);
 
       /* Whew, all done! Exit with completion status (0) */
@@ -2336,7 +2336,7 @@ void srch_string(char *ptr)
    char srch[80]="";
    unsigned char *cp1, *cp2, *cps;
    int  sp_flg=0;
-   int sjis, eucj, utf8;
+   int utf8;
    char tmpbuf2[BUFSIZE];
    size_t inlen, outlen;
    unsigned char *cp3;
@@ -2378,29 +2378,22 @@ void srch_string(char *ptr)
    cp1=cp2+strlen((char *)cp2)-1;
    while (cp1!=cp2) if (isspace((unsigned char)*cp1)) *cp1--='\0'; else break;
 
+   /* unescape second time */
+   unescape(cp2);
+
    utf8 = score_utf8(cp2);
-   sjis = score_sjis(cp2);
-   eucj = score_eucj(cp2);
-   if (utf8 >= sjis && utf8 >= eucj){
-     iconv(cd_from_utf8, NULL, 0, NULL, 0);
+   if (utf8 > 0) {
      cp3 = cp2;
      inlen = strlen(cp2)+1;
      cp1 = tmpbuf2;
      outlen = sizeof(tmpbuf2);
+     iconv(cd_from_utf8, NULL, 0, NULL, 0);
      if (iconv(cd_from_utf8, (char **)&cp3, &inlen,
         (char**)&cp1, &outlen) >= 0 && inlen == 0) {
        cp2 = tmpbuf2;
      }
-   } else if (sjis > utf8 && sjis > eucj) {
-     iconv(cd_from_sjis, NULL, 0, NULL, 0);
-     cp3 = cp2;
-     inlen = strlen(cp2)+1;
-     cp1 = tmpbuf2;
-     outlen = sizeof(tmpbuf2);
-     if (iconv(cd_from_sjis, (char **)&cp3, &inlen,
-        (char**)&cp1, &outlen) >= 0 && inlen == 0) {
-       cp2 = tmpbuf2;
-     }
+   } else {
+     xdecode(cp2);
    }
 
    /* strip invalid chars */
