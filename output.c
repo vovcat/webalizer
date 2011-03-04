@@ -1675,10 +1675,17 @@ int all_refs_page(u_int64_t r_reg, u_int64_t r_grp)
       rptr=*pointer++;
       if (rptr->flag == OBJ_REG)
       {
-         fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
-            rptr->count,
-            (t_hit==0)?0:((float)rptr->count/t_hit)*100.0,
-            rptr->string);
+         if (strstr(rptr->string,"://")!=NULL)
+            fprintf(out_fp,"%-8llu %6.02f%%  <A HREF=\"%s\" rel=\"nofollow\">%s</A>\n",
+               rptr->count,
+               (t_hit==0)?0:((float)rptr->count/t_hit)*100.0,
+               rptr->string,
+               rptr->string);
+         else
+            fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
+               rptr->count,
+               (t_hit==0)?0:((float)rptr->count/t_hit)*100.0,
+               rptr->string);
          r_reg--;
       }
    }
