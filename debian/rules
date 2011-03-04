@@ -26,7 +26,13 @@ unpatch:
 	rm -rf .pc
 	rm -f patch-stamp
 
-debian/geoip/usr/lib/libGeoIP.a:
+debian/GeoIP.dat.gz.uue:
+	rm -f GeoIP.dat.gz
+	wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
+	uuencode GeoIP.dat.gz < GeoIP.dat.gz > $@
+	rm -f GeoIP.dat.gz
+
+debian/geoip/usr/lib/libGeoIP.a: debian/GeoIP.dat.gz.uue
 	rm -rf debian/tmp
 	mkdir -p debian/tmp
 	cd debian/tmp && sh ../GeoIP-lib/configure --prefix=/usr \
