@@ -845,8 +845,22 @@ int main(int argc, char *argv[])
 		while (*cp1!=';'&&*cp1!='\0') cp1++;
 		/* kludge for Mozilla/3.01 (compatible;) */
 		if (*cp1++==';' && strcmp(cp1,")\"")) { /* success! */
-		    while (*cp1 == ' ') cp1++; /* eat spaces */
-		    while (*cp1!='.'&&*cp1!='\0'&&*cp1!=';') *cp2++=*cp1++;
+		    /* Opera can hide as MSIE */
+		    cp3=strstr(str,"Opera");
+		    if (cp3!=NULL) {
+			while (*cp3!='.'&&*cp3!='\0')
+			{
+			    if(*cp3=='/')
+				*cp2++=' ';
+			    else
+				*cp2++=*cp3;
+				cp3++;
+			}
+			cp1=cp3;
+		    } else {
+			while (*cp1 == ' ') cp1++; /* eat spaces */
+			while (*cp1!='.'&&*cp1!='\0'&&*cp1!=';') *cp2++=*cp1++;
+		    }
 		    if (mangle_agent<5)
 		    {
 			while (*cp1!='.'&&*cp1!=';'&&*cp1!='\0') *cp2++=*cp1++;
@@ -858,7 +872,7 @@ int main(int argc, char *argv[])
 		    if (mangle_agent<4)
 			if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
 		    if (mangle_agent<3)
-			while (*cp1!=';'&&*cp1!='\0'&&*cp1!='(') *cp2++=*cp1++;
+			while (*cp1!=';'&&*cp1!='\0'&&*cp1!='('&&*cp1!=' ') *cp2++=*cp1++;
 		    if (mangle_agent<2)
 		    {
 			/* Level 1 - try to get OS */
@@ -883,7 +897,13 @@ int main(int argc, char *argv[])
 		if (cp1!=NULL)
 		{
 		    while (*cp1!='/'&&*cp1!=' '&&*cp1!='\0') *cp2++=*cp1++;
-		    while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
+		    while (*cp1!='.'&&*cp1!='\0') {
+                        if(*cp1=='/')
+                            *cp2++=' ';
+                        else
+                            *cp2++=*cp1;
+                        cp1++;
+		    }
 		    if (mangle_agent<5)
 		    {
 			while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
