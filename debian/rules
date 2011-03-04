@@ -17,13 +17,13 @@ DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 CFLAGS := -Wall -g -O$(if $(findstring noopt,$(DEB_BUILD_OPTIONS)),0,2)
 CFLAGS += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
 
-debian/GeoIP.dat.gz.uue:
+debian/GeoIP.dat.gz.uue: config.status
 	rm -f GeoIP.dat.gz
 	wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
 	uuencode GeoIP.dat.gz < GeoIP.dat.gz > $@
 	rm -f GeoIP.dat.gz
 
-debian/geoip/usr/lib/libGeoIP.a: debian/GeoIP.dat.gz.uue
+debian/geoip/usr/lib/libGeoIP.a:
 	rm -rf debian/tmp
 	mkdir -p debian/tmp
 	cd debian/tmp && sh ../GeoIP-lib/configure --prefix=/usr \
@@ -49,7 +49,7 @@ endif
 	--with-geoip-lib=debian/geoip/usr/lib --with-language=russian-cp1251
 
 build: build-stamp
-build-stamp: config.status
+build-stamp: config.status debian/GeoIP.dat.gz.uue
 	dh_testdir
 	$(MAKE) CFLAGS="$(CFLAGS) -Idebian/geoip/usr/include -Idebian/geoip/usr/lib"
 	touch build-stamp
