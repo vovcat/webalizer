@@ -44,7 +44,7 @@ endif
 	autoconf
 	./configure --host=$(DEB_HOST_GNU_TYPE) --build=$(DEB_BUILD_GNU_TYPE) \
 	--prefix=/usr --mandir=\$${prefix}/share/man \
-	--sysconfdir=/etc/webalizer --datadir=/usr/share \
+	--sysconfdir=/etc/webalizer --datadir=/usr/share --with-etcdir=/etc/webalizer \
 	--enable-dns --enable-geoip --with-geoip-inc=debian/geoip/usr/include \
 	--with-geoip-lib=debian/geoip/usr/lib --with-language=russian-cp1251
 
