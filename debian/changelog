@@ -1,3 +1,9 @@
+webalizer (2.01.10-30.4vc) unstable; urgency=low
+
+  * Link BDB dynamically
+
+ -- Vladimir Prodan <vc@artstyle.ru>  Sat, 05 Mar 2011 00:31:26 +0300
+
 webalizer (2.01.10-30.3) unstable; urgency=low
 
   * New GeoIP library version
