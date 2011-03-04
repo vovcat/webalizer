@@ -1,25 +1,26 @@
-# Dutch translation for webalizer (debconf).
-# Copyright (C) 2004 Free Software Foundation, Inc.
-# Tim Vandermeersch <qber66@skolelinux.no>, 2003.
+# translation of webalizer-eu.po to Euskara
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Piarres Beobide <pi@beobide.net>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: webalizer 2.01.10-19\n"
+"Project-Id-Version: webalizer-eu\n"
 "Report-Msgid-Bugs-To: debian@psabs.com.br\n"
 "POT-Creation-Date: 2006-11-13 19:03-0200\n"
-"PO-Revision-Date: 2003-09-26 00:41+0100\n"
-"Last-Translator: Tim Vandermeersch <qber66@skolelinux.no>\n"
-"Language-Team: dutch <debian-l10n-dutch@lists.debian.org>\n"
+"PO-Revision-Date: 2008-10-29 11:18+0100\n"
+"Last-Translator: Piarres Beobide <pi@beobide.net>\n"
+"Language-Team: Euskara <debian-l10n-basque@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #. Type: note
 #. Description
 #: ../templates:1001
-#, fuzzy
 msgid "Upgrading from a version < 2.01.6"
-msgstr "Waardeert u op van een versie < 2.01.6?"
+msgstr "2.01.6 aurreko bertsio batetatik bertsio-berritzen"
 
 #. Type: note
 #. Description
@@ -28,16 +29,15 @@ msgid ""
 "WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
 "webalizer/README.FIRST.gz for details on upgrading your old data!!"
 msgstr ""
-"WAARSCHUWING: Zie bij opwaardering van een versie < 2.01.6, /usr/share/doc/"
-"webalizer/README.FIRST.gz voor meer informatie over het opwaarderen van uw "
-"oude data!!"
+"ABISUA: 2.01.6 aurreko bertsio batetatik eguneratzen ari bazara, ikusi /usr/"
+"share/doc/webalizer/README.FIRST.gz zure datu zaharrak eguneratzeaz "
+"xehetasunetarako!!"
 
 #. Type: note
 #. Description
 #: ../templates:2001
-#, fuzzy
 msgid "Upgrading from a version < 2.01.10-30"
-msgstr "Waardeert u op van een versie < 2.01.10-30?"
+msgstr "2.01.10-30 aurreko bertsio batetatik bertsio-berritzen"
 
 #. Type: note
 #. Description
@@ -48,44 +48,46 @@ msgid ""
 "gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
 "directory."
 msgstr ""
+"ABISUA: Bertsio honek webalizer.conf fitxategia /etc/webalizer direktoriora "
+"mugitu du. Ezaugarri berriak gehitu zaizkio ere. Mesedez irakurri /usr/share/"
+"doc/webalizer direktorioko README.FIRST.gz, README.gz eta examples/sample."
+"conf.gz fitxategiak."
 
 #. Type: string
 #. Description
 #: ../templates:3001
-#, fuzzy
 msgid "Directory to put the output in:"
-msgstr "Welke map dient webalizer te gebruiken voor de uitvoer?"
+msgstr "Irteera ipintzeko direktorioa:"
 
 #. Type: string
 #. Default
 #: ../templates:4001
 msgid "Usage Statistics for"
-msgstr ""
+msgstr "Erabilera estatistikak: "
 
 #. Type: string
 #. Description
 #: ../templates:4002
-#, fuzzy
 msgid "Title of the reports webalizer will generate:"
-msgstr "\"Geef de titel van de rapporten die webalizer zal genereren."
+msgstr "Webalizer sortuko dituen txostenen izenburua:"
 
 #. Type: string
 #. Description
 #: ../templates:4002
 msgid "(your system's hostname will be appended to it)"
-msgstr "(de computernaam van uw systeem zal eraan worden toegevoegd)"
+msgstr "(zure sistemaren ostalari-izena erantsiko zaio)"
 
 #. Type: string
 #. Description
 #: ../templates:5001
 msgid "Webserver's rotated log filename:"
-msgstr ""
+msgstr "Web-zerbitzariaren txandakatutako erregistroaren fitxategi-izena:"
 
 #. Type: boolean
 #. Description
 #: ../templates:6001
 msgid "Enable DNSCache Option?"
-msgstr ""
+msgstr "Gaitu DNSCache aukera?"
 
 #. Type: boolean
 #. Description
@@ -94,3 +96,5 @@ msgid ""
 "Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
 "webalizer/DNS.README.gz for more information."
 msgstr ""
+"Izen ebaztea azkartu DNSCache aukera gaituaz. Begiratu /usr/share/doc/"
+"webalizer/DNS.README.gz argibide gehiagorako."

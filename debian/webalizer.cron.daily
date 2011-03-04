@@ -4,7 +4,7 @@
 # Remco van de Meent <remco@debian.org>
 # and now, all rewrited by Jose Carlos Medeiros <jose@psabs.com.br>
 
-# This script just run webalizer agains all .conf files in /etc/webalizer directory
+# This script just run webalizer against all .conf files in /etc/webalizer directory
 
 WEBALIZER=/usr/bin/webalizer
 WEBALIZER_CONFDIR=/etc/webalizer
@@ -17,21 +17,21 @@ for i in ${WEBALIZER_CONFDIR}/*.conf; do
   LOGFILE=`awk '$1 ~ /^LogFile$/ {print $2}' $i`;
 
   # empty ?
-  [ -s "${LOGFILE}" ] || exit 0;
+  [ -s "${LOGFILE}" ] || continue;
   # readable ?
-  [ -r "${LOGFILE}" ] || exit 1;
+  [ -r "${LOGFILE}" ] || continue;
 
   # there was a output ?
   OUTDIR=`awk '$1 ~ /^OutputDir$/ {print $2}' $i`;
   #  exists something ?
-  [ "${OUTDIR}" != "" ] || exit 1;
+  [ "${OUTDIR}" != "" ] || continue;
   # its a directory ?
-  [ -d ${OUTDIR} ] || exit 1;
+  [ -d ${OUTDIR} ] || continue;
   # its writable ?
-  [ -w ${OUTDIR} ] || exit 1;
+  [ -w ${OUTDIR} ] || continue;
 
   # Run Really quietly, exit with status code if !0
-  ${WEBALIZER} -c ${i} -Q || exit $?;
+  ${WEBALIZER} -c ${i} -Q || continue;
   RET=$?;
 
   # Non rotated log file
@@ -40,9 +40,9 @@ for i in ${WEBALIZER_CONFDIR}/*.conf; do
   # check current log, if last log is a rotated logfile
   if [ "${LOGFILE}" != "${NLOGFILE}" ]; then
     # empty ?
-    [ -s "${NLOGFILE}" ] || exit 0;
+    [ -s "${NLOGFILE}" ] || continue;
     # readable ?
-    [ -r "${NLOGFILE}" ] || exit 1;
+    [ -r "${NLOGFILE}" ] || continue;
 
     ${WEBALIZER} -c ${i} -Q ${NLOGFILE};
     RET=$?;

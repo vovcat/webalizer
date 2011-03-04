@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webalizer 2.01.10\n"
 "Report-Msgid-Bugs-To: debian@psabs.com.br\n"
-"POT-Creation-Date: 2006-07-06 16:24-0300\n"
+"POT-Creation-Date: 2006-11-13 19:03-0200\n"
 "PO-Revision-Date: 2004-06-14 22:36+0200\n"
 "Last-Translator: Aleix Badia i Bosch <a.badia@callusdigital.org>\n"
 "Language-Team: Catalan <debian-l10n-catalan@lists.debian.org>\n"
@@ -23,7 +23,7 @@ msgstr "Esteu actualitzant d'una versió < 2.01.6?"
 
 #. Type: note
 #. Description
-#: ../templates:1002
+#: ../templates:1001
 msgid ""
 "WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
 "webalizer/README.FIRST.gz for details on upgrading your old data!!"
@@ -41,11 +41,12 @@ msgstr "Esteu actualitzant d'una versió < 2.01.10-30?"
 
 #. Type: note
 #. Description
-#: ../templates:2002
+#: ../templates:2001
 msgid ""
 "WARNING: This release will move webalizer.conf file to /etc/webalizer  "
-"directory. There was too new features. Please read README.FIST.gz,  README."
-"gz and new examples/sample.conf.gz in /usr/share/doc/webalizer directory."
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
 msgstr ""
 
 #. Type: string
@@ -71,7 +72,7 @@ msgstr "Introduïu el títol dels informes que generarà el webalizer."
 
 #. Type: string
 #. Description
-#: ../templates:4003
+#: ../templates:4002
 msgid "(your system's hostname will be appended to it)"
 msgstr "(s'hi afegirà el nom de l'ordinador principal)"
 
@@ -79,4 +80,18 @@ msgstr "(s'hi afegirà el nom de l'ordinador principal)"
 #. Description
 #: ../templates:5001
 msgid "Webserver's rotated log filename:"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
 msgstr ""

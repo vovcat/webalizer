@@ -9,9 +9,8 @@ Template: webalizer/upgrade2011030
 Type: note
 _Description: Upgrading from a version < 2.01.10-30
  WARNING: This release will move webalizer.conf file to /etc/webalizer
- directory. There was too new features. Please read README.FIST.gz,
- README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer
- directory.
+ directory.  New features have been included, too. Please read README.FIRST.gz,
+ README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer directory.
 
 Template: webalizer/directory
 Type: string
@@ -28,3 +27,10 @@ Template: webalizer/logfile
 Type: string
 Default: /var/log/apache/access.log.1
 _Description: Webserver's rotated log filename:
+
+Template: webalizer/dnscache
+Type: boolean
+Default: false
+_Description: Enable DNSCache Option?
+ Speed up name resolving with the DNSCache option enabled. See
+ /usr/share/doc/webalizer/DNS.README.gz for more information.

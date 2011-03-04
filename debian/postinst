@@ -23,7 +23,60 @@ db_version 2.0
 
 case "$1" in
     configure)
+      db_get webalizer/directory || true
+      OUTPUTDIR="$RET"
+      if [ -z "$OUTPUTDIR" ]; then
+	echo "Fatal: No ouptut dir given, not creating webalizer configuration" >&2
+        exit 1;
+      else
+	if [ ! -d $OUTPUTDIR ]; then
+          if mkdir -p $OUTPUTDIR; then
+            echo "$OUTPUTDIR created" >&2
+          else
+            echo "Something went wrong..." >&2
+            exit 1;
+          fi;
+	fi
+      fi
 
+      db_get webalizer/doc_title || true
+      REPORTTITLE="$RET";
+
+      db_get webalizer/logfile || true
+      LOGFILE="$RET";
+
+      db_get webalizer/dnscache || true
+      DNSCACHE="$RET";
+
+      # create conffile if it doesn't exist yet
+      conffile="/etc/webalizer/webalizer.conf"
+      template_gz=/usr/share/doc/webalizer/examples/sample.conf.gz
+      if [ ! -f $conffile ]; then
+	zcat $template_gz > $conffile
+	HOSTNAME=$(hostname)
+	# uncomment the debconf-handled items
+	sed -i \
+	  -e "s/^#HostName .*/HostName ${HOSTNAME}/" \
+	  -e "s/^#OutputDir /OutputDir /" \
+	  -e "s/^#ReportTitle /ReportTitle/" \
+	  -e "s/^#LogFile /LogFile /" \
+	  $conffile
+      fi
+
+      # Finally put these variables in /etc/webalizer/webalizer.conf using sed
+      sed -i \
+	-e "s|^OutputDir .*|OutputDir ${OUTPUTDIR}|" \
+	-e "s/^ReportTitle .*/ReportTitle ${REPORTTITLE}/" \
+	-e "s|^LogFile .*|LogFile ${LOGFILE}|" \
+	$conffile
+
+      # Enable DNSCache Option
+      if [ "$DNSCACHE" = "true" ]; then
+        sed -i \
+		-e "s/^#DNSCache /DNSCache /" \
+		-e "s/^#DNSChildren .*/DNSChildren 10/" \
+		$conffile
+      fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

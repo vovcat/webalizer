@@ -1,13 +1,13 @@
 # Czech translation for webalizer (debconf).
 # Copyright 2005 Free Software Foundation, Inc.
-# Miroslav Kure <kurem@debian.cz>, 2005.
+# Miroslav Kure <kurem@debian.cz>, 2005, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webalizer\n"
 "Report-Msgid-Bugs-To: debian@psabs.com.br\n"
-"POT-Creation-Date: 2006-07-06 16:24-0300\n"
-"PO-Revision-Date: 2005-06-19 16:51+0200\n"
+"POT-Creation-Date: 2006-11-13 19:03-0200\n"
+"PO-Revision-Date: 2006-11-17 15:20+0100\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,13 +17,12 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../templates:1001
-#, fuzzy
 msgid "Upgrading from a version < 2.01.6"
-msgstr "Přecházíte z verze < 2.01.6?"
+msgstr "Přechod z verze < 2.01.6"
 
 #. Type: note
 #. Description
-#: ../templates:1002
+#: ../templates:1001
 msgid ""
 "WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
 "webalizer/README.FIRST.gz for details on upgrading your old data!!"
@@ -35,25 +34,28 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../templates:2001
-#, fuzzy
 msgid "Upgrading from a version < 2.01.10-30"
-msgstr "Přecházíte z verze < 2.01.10-30?"
+msgstr "Přechod z verze < 2.01.10-30"
 
 #. Type: note
 #. Description
-#: ../templates:2002
+#: ../templates:2001
 msgid ""
 "WARNING: This release will move webalizer.conf file to /etc/webalizer  "
-"directory. There was too new features. Please read README.FIST.gz,  README."
-"gz and new examples/sample.conf.gz in /usr/share/doc/webalizer directory."
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
 msgstr ""
+"VAROVÁNÍ: Tato verze přesune soubor webalizer.conf do adresáře /etc/"
+"webalizer. V této verzi je mnoho nových vlastností. Projděte si prosím "
+"README.FIRST.gz, README.gz a examples/sample.conf.gz v adresáři /usr/share/"
+"doc/webalizer."
 
 #. Type: string
 #. Description
 #: ../templates:3001
-#, fuzzy
 msgid "Directory to put the output in:"
-msgstr "Do kterého adresáře má webalizer ukládat výstup?"
+msgstr "Adresář, do kterého se má ukládat výstup:"
 
 #. Type: string
 #. Default
@@ -64,13 +66,12 @@ msgstr "Statistika využívání na"
 #. Type: string
 #. Description
 #: ../templates:4002
-#, fuzzy
 msgid "Title of the reports webalizer will generate:"
-msgstr "Zadejte titulek pro zprávy, které bude webalizer vytvářet."
+msgstr "Titulek zpráv, které bude webalizer vytvářet:"
 
 #. Type: string
 #. Description
-#: ../templates:4003
+#: ../templates:4002
 msgid "(your system's hostname will be appended to it)"
 msgstr "(k titulku bude připojeno jméno počítače)"
 
@@ -78,4 +79,20 @@ msgstr "(k titulku bude připojeno jméno počítače)"
 #. Description
 #: ../templates:5001
 msgid "Webserver's rotated log filename:"
+msgstr "Jméno souboru s logem webového serveru:"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr "Povolit volbu DNSCache?"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
 msgstr ""
+"Volbou DNSCache se urychlí překlad jmen. Více informací naleznete v souboru "
+"/usr/share/doc/webalizer/DNS.README.gz."

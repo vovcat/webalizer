@@ -1,14 +1,14 @@
 # Finnish translation for webalizer (debconf).
 # Copyright 2005 Free Software Foundation, Inc.
-# Matti P�ll� <mpo@iki.fi>, 2005.
+# Matti Pöllä <mpo@iki.fi>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: webalizer\n"
 "Report-Msgid-Bugs-To: debian@psabs.com.br\n"
-"POT-Creation-Date: 2006-07-06 16:24-0300\n"
-"PO-Revision-Date: 2005-04-09 00:21+0300\n"
-"Last-Translator: Matti Pöllä <mpo@iki.fi>\n"
+"POT-Creation-Date: 2006-11-13 19:03-0200\n"
+"PO-Revision-Date: 2008-08-16 09:10+0200\n"
+"Last-Translator: Esko Arajärvi <edu@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,43 +17,46 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../templates:1001
-#, fuzzy
 msgid "Upgrading from a version < 2.01.6"
-msgstr "Oletko päivittämässä versiota < 2.01.6?"
+msgstr "Päivitetään versiosta < 2.01.6"
 
 #. Type: note
 #. Description
-#: ../templates:1002
+#: ../templates:1001
 msgid ""
 "WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
 "webalizer/README.FIRST.gz for details on upgrading your old data!!"
 msgstr ""
-"VAROITUS: Jos olet päivittämässä versiosta < 2.01.6, lue tiedostosta\n"
-"/usr/share/doc/webalizer/README.FIRST.gz yksityiskohtaiset ohjeet\n"
-"vanhan datan päivittämiseen."
+"VAROITUS: Jos olet päivittämässä versiosta < 2.01.6, lue tiedostosta/usr/"
+"share/doc/webalizer/README.FIRST.gz yksityiskohtaiset ohjeet vanhan datan "
+"päivittämiseen."
 
 #. Type: note
 #. Description
 #: ../templates:2001
-#, fuzzy
 msgid "Upgrading from a version < 2.01.10-30"
-msgstr "Oletko päivittämässä versiota <2.01.10-30?"
+msgstr "Päivitetään versiosta <2.01.10-30"
 
 #. Type: note
 #. Description
-#: ../templates:2002
+#: ../templates:2001
 msgid ""
 "WARNING: This release will move webalizer.conf file to /etc/webalizer  "
-"directory. There was too new features. Please read README.FIST.gz,  README."
-"gz and new examples/sample.conf.gz in /usr/share/doc/webalizer directory."
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
 msgstr ""
+"VAROITUS: Tämä päivitys siirtää tiedoston webalizer.conf hakemistoon /etc/"
+"webalizer. Lisäksi ohjelmaan on sisällytetty uusia ominaisuuksia. Katso "
+"lisätietoja tiedostoista README.FIRST.gz ja README.gz, sekä uusia "
+"esimerkkejä tiedostosta examples/sample.conf.gz hakemistossa /usr/share/doc/"
+"webalizer."
 
 #. Type: string
 #. Description
 #: ../templates:3001
-#, fuzzy
 msgid "Directory to put the output in:"
-msgstr "Mihin hakemistoon webalizer:in tulisi sijoittaa tuloste?"
+msgstr "Hakemisto, johon tuloste ohjataan:"
 
 #. Type: string
 #. Default
@@ -64,18 +67,33 @@ msgstr "Käyttötilastot kohteelle"
 #. Type: string
 #. Description
 #: ../templates:4002
-#, fuzzy
 msgid "Title of the reports webalizer will generate:"
-msgstr "Syötä otsikkoteksti webalizer:in raporteille."
+msgstr "webalizerin tuottamien raporttien otsikko:"
 
 #. Type: string
 #. Description
-#: ../templates:4003
+#: ../templates:4002
 msgid "(your system's hostname will be appended to it)"
-msgstr "(koneen nimi lisätään loppuun)"
+msgstr "(järjestelmän konenimi lisätään loppuun)"
 
 #. Type: string
 #. Description
 #: ../templates:5001
 msgid "Webserver's rotated log filename:"
+msgstr "Verkkopalvelimen kierrätettävän lokitiedoston nimi:"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr "Otetaanko DNSCache käyttöön?"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
 msgstr ""
+"Nimipalvelua voidaan nopeuttaa ottamalla ominaisuus DNSCache käyttöön. Katso "
+"lisätietoja tiedostosta /usr/share/doc/webalizer/DNS.README.gz."

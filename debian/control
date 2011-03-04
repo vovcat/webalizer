@@ -1,15 +1,15 @@
 Source: webalizer
 Priority: optional
 Section: web
-Maintainer: Jose Carlos Medeiros <debian@psabs.com.br>
-Uploaders: Ola Lundqvist <opal@debian.org>
-Build-Depends: debhelper (>= 4.1.16), libgd2-xpm-dev|libgd2-noxpm-dev, libpng12-dev, libdb-dev, zlib1g-dev, gettext, po-debconf, autotools-dev, quilt, autoconf
+Maintainer: Felipe Augusto van de Wiel (faw) <faw@debian.org>
+Build-Depends: debhelper (>= 7), libgd2-noxpm-dev, libfreetype6-dev, libpng12-dev, libdb-dev (>= 4.7), libgd2-noxpm, libfreetype6, zlib1g-dev, gettext, po-debconf, autotools-dev, libgeoip-dev, dpatch, autoconf
 Standards-Version: 3.7.2
+Homepage: http://www.mrunix.net/webalizer/
 
 Package: webalizer
 Architecture: any
 Suggests: httpd
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Pre-Depends: debconf (>= 1.4.58) | debconf-2.0
 Description: web server log analysis program
  The Webalizer was designed to scan web server log files in various formats
@@ -20,5 +20,3 @@ Description: web server log analysis program
  (browsers), referrers and country. The Webalizer is highly configurable by
  use of either command line options or a configuration file, allowing the
  program to be tailored to individual needs easily.
- .
- Homepage: http://www.mrunix.net/webalizer/

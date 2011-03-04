@@ -17,7 +17,9 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
-. /usr/share/debconf/confmodule
+if [ -f /usr/share/debconf/confmodule ]; then
+	. /usr/share/debconf/confmodule
+fi
 
 case "$1" in
     purge)

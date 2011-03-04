@@ -1,25 +1,26 @@
-# Dutch translation for webalizer (debconf).
-# Copyright (C) 2004 Free Software Foundation, Inc.
-# Tim Vandermeersch <qber66@skolelinux.no>, 2003.
+# webalizer po-debconf translation
+# Copyright (C) 2008 webalizer package
+# This file is distributed under the same license as the webalizer package.
+# Kanru Chen <koster@debian.org.tw>, 2008.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: webalizer 2.01.10-19\n"
+"Project-Id-Version: 2.01.10-32.3\n"
 "Report-Msgid-Bugs-To: debian@psabs.com.br\n"
 "POT-Creation-Date: 2006-11-13 19:03-0200\n"
-"PO-Revision-Date: 2003-09-26 00:41+0100\n"
-"Last-Translator: Tim Vandermeersch <qber66@skolelinux.no>\n"
-"Language-Team: dutch <debian-l10n-dutch@lists.debian.org>\n"
+"PO-Revision-Date: 2008-10-23 11:57+0800\n"
+"Last-Translator: Kanru Chen <koster@debian.org.tw>\n"
+"Language-Team: Debian-user in Chinese [Big5] <debian-chinese-big5@lists."
+"debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Type: note
 #. Description
 #: ../templates:1001
-#, fuzzy
 msgid "Upgrading from a version < 2.01.6"
-msgstr "Waardeert u op van een versie < 2.01.6?"
+msgstr "從小於 2.01.6 的版本升級"
 
 #. Type: note
 #. Description
@@ -28,16 +29,14 @@ msgid ""
 "WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
 "webalizer/README.FIRST.gz for details on upgrading your old data!!"
 msgstr ""
-"WAARSCHUWING: Zie bij opwaardering van een versie < 2.01.6, /usr/share/doc/"
-"webalizer/README.FIRST.gz voor meer informatie over het opwaarderen van uw "
-"oude data!!"
+"警告：如果您從小於 2.01.6 的版本升級，請參考 /usr/share/doc/webalizer/README."
+"FIRST.gz 如何升級您的舊資料！！"
 
 #. Type: note
 #. Description
 #: ../templates:2001
-#, fuzzy
 msgid "Upgrading from a version < 2.01.10-30"
-msgstr "Waardeert u op van een versie < 2.01.10-30?"
+msgstr "從小於 2.01.10-30 的版本升級"
 
 #. Type: note
 #. Description
@@ -48,44 +47,45 @@ msgid ""
 "gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
 "directory."
 msgstr ""
+"警告：這個釋出版本會把 webalizer.conf 檔案移到 /etc/webalizer  目錄。新特性也"
+"會包含在內。請參考 /usr/share/doc/webalizer 目錄中的README.FIRST.gz, README."
+"gz 以及範例 examples/sample.conf.gz。"
 
 #. Type: string
 #. Description
 #: ../templates:3001
-#, fuzzy
 msgid "Directory to put the output in:"
-msgstr "Welke map dient webalizer te gebruiken voor de uitvoer?"
+msgstr "將結果輸出到目錄："
 
 #. Type: string
 #. Default
 #: ../templates:4001
 msgid "Usage Statistics for"
-msgstr ""
+msgstr "使用習慣分析"
 
 #. Type: string
 #. Description
 #: ../templates:4002
-#, fuzzy
 msgid "Title of the reports webalizer will generate:"
-msgstr "\"Geef de titel van de rapporten die webalizer zal genereren."
+msgstr "設定 webalizer 報表產生的標題："
 
 #. Type: string
 #. Description
 #: ../templates:4002
 msgid "(your system's hostname will be appended to it)"
-msgstr "(de computernaam van uw systeem zal eraan worden toegevoegd)"
+msgstr "(您的系統 hostname 會附加在後面)"
 
 #. Type: string
 #. Description
 #: ../templates:5001
 msgid "Webserver's rotated log filename:"
-msgstr ""
+msgstr "網頁伺服器的日誌紀錄名稱："
 
 #. Type: boolean
 #. Description
 #: ../templates:6001
 msgid "Enable DNSCache Option?"
-msgstr ""
+msgstr "啟用 DNSCache 選項？"
 
 #. Type: boolean
 #. Description
@@ -94,3 +94,5 @@ msgid ""
 "Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
 "webalizer/DNS.README.gz for more information."
 msgstr ""
+"使用 DNSCache 選項以加快域名查詢的速度。更多資訊參見 /usr/share/doc/"
+"webalizer/DNS.README.gz。"

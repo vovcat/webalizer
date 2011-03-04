@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: webalizer_2.01.10-26_da.po\n"
 "Report-Msgid-Bugs-To: debian@psabs.com.br\n"
-"POT-Creation-Date: 2006-07-06 16:24-0300\n"
-"PO-Revision-Date: 2004-12-17 16:20+0100\n"
+"POT-Creation-Date: 2006-11-13 19:03-0200\n"
+"PO-Revision-Date: 2006-12-04 23:17+0100\n"
 "Last-Translator: Morten Bo Johansen <mojo@mbjnet.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -17,13 +17,12 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../templates:1001
-#, fuzzy
 msgid "Upgrading from a version < 2.01.6"
-msgstr "Opgraderer du fra en version < 2.01.6?"
+msgstr "Opgraderer fra en version < 2.01.6"
 
 #. Type: note
 #. Description
-#: ../templates:1002
+#: ../templates:1001
 msgid ""
 "WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
 "webalizer/README.FIRST.gz for details on upgrading your old data!!"
@@ -35,25 +34,28 @@ msgstr ""
 #. Type: note
 #. Description
 #: ../templates:2001
-#, fuzzy
 msgid "Upgrading from a version < 2.01.10-30"
-msgstr "Opgraderer du fra en version < 2.01.10-30?"
+msgstr "Opgraderer fra en version < 2.01.10-30"
 
 #. Type: note
 #. Description
-#: ../templates:2002
+#: ../templates:2001
 msgid ""
 "WARNING: This release will move webalizer.conf file to /etc/webalizer  "
-"directory. There was too new features. Please read README.FIST.gz,  README."
-"gz and new examples/sample.conf.gz in /usr/share/doc/webalizer directory."
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
 msgstr ""
+"ADVARSEL: I denne udgave vil filen webalizer.conf blive flyttet til "
+"kataloget /etc/webalizer. Der er også kommet nye egenskaber til. Læs "
+"venligst README.FIRST.gz, README.gz og den nye examples/sample.conf.gz i "
+"kataloget /usr/share/doc/webalizer."
 
 #. Type: string
 #. Description
 #: ../templates:3001
-#, fuzzy
 msgid "Directory to put the output in:"
-msgstr "Hvilket katalog skal webalizer lægge sine rapporter i?"
+msgstr "Katalog som webalizer lægger sine rapporter i:"
 
 #. Type: string
 #. Default
@@ -64,13 +66,12 @@ msgstr "Brugsstatistik for"
 #. Type: string
 #. Description
 #: ../templates:4002
-#, fuzzy
 msgid "Title of the reports webalizer will generate:"
-msgstr "Angiv titlen på de rapporter som webalizer skal generere."
+msgstr "Titel på de rapporter som webalizer danner:"
 
 #. Type: string
 #. Description
-#: ../templates:4003
+#: ../templates:4002
 msgid "(your system's hostname will be appended to it)"
 msgstr "(dit systems værtsnavn vil blive tilføjet til den)"
 
@@ -78,4 +79,20 @@ msgstr "(dit systems værtsnavn vil blive tilføjet til den)"
 #. Description
 #: ../templates:5001
 msgid "Webserver's rotated log filename:"
+msgstr "Rotationsnavn på webserverens logfil:"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr "Aktivér mulighed for DNSCache?"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
 msgstr ""
+"Sæt fart på opløsning af navn med aktivering af DNSCache. Se /usr/share/doc/"
+"webalizer/DNS.README.gz for yderligere oplysninger.."

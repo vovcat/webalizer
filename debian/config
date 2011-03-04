@@ -10,7 +10,7 @@ set -e
 db_version 2.0
 
 case "$1" in
-    configure)
+    configure|reconfigure)
       if [ "$2" ] && dpkg --compare-versions $2 lt 2.01.6-1; then
         db_input high webalizer/upgrading || true
         db_go
@@ -22,68 +22,57 @@ case "$1" in
       fi
 
       if [ -f "/etc/webalizer.conf" ] && [ ! -f "/etc/webalizer/webalizer.conf" ]; then
+        [ -d /etc/webalizer/ ] || mkdir /etc/webalizer/;
         mv /etc/webalizer.conf /etc/webalizer/webalizer.conf;
-        exit 0;  # already configured
       fi
-      [ ! -f "/etc/webalizer/webalizer.conf" ] || exit 0;
 
-      # Now determine the system's hostname and domainname
-      HOSTNAME=$(/bin/hostname);
+      conffile="/etc/webalizer/webalizer.conf"
+      OUTPUTDIR=""
+      REPORTTITLE=""
+      LOGFILE=""
+      if [ -f $conffile ]; then
+	# parse existing configuration.  This code happily
+	# concatenates multiple occurences of a configuration item,
+	# but that should never occur <frank@debian.org>.
+	OUTPUTDIR=`sed -ne '/^OutputDir/ {s@OutputDir[[:space:]]\([^[:space:]]*\)@\1@;p}' $conffile`
+	REPORTTITLE=`sed -ne '/^ReportTitle/ {s@ReportTitle[[:space:]]\([^[:space:]]*\)@\1@;p}' $conffile`
+	LOGFILE=`sed -ne '/^LogFile/ {s@LogFile[[:space:]]\([^[:space:]]*\)@\1@;p}' $conffile`
+      fi
+      # assign default values
+      [ -n "$OUTPUTDIR" ] || OUTPUTDIR="/var/www/webalizer"
+      [ -n "$REPORTTITLE" ] || REPORTTITLE="Usage statistics for"
+      if [ -z "$LOGFILE" ]; then
+        # apache2 found?
+	if [ -f /var/log/apache2/access.log.1 ] || [ -f /var/log/apache2/access.log ]; then
+          LOGFILE="/var/log/apache2/access.log.1";
+	else
+          LOGFILE="/var/log/apache/access.log.1";
+	fi
+      fi
+
+      # now preseed the debconf questions with what we found
+      db_set webalizer/directory "$OUTPUTDIR" || true
+      db_set webalizer/doc_title "$REPORTTITLE" || true
+      db_set webalizer/logfile "$LOGFILE" || true
 
       # Ask for the directory the output should be put in
       db_input medium webalizer/directory || true
       db_go
-      db_get webalizer/directory
-      OUTPUTDIR="$RET";
-      [ ! -z $OUTPUTDIR ] || OUTPUTDIR="/var/www/webalizer";
-
-      if [ ! -d $OUTPUTDIR ]; then
-        mkdir -p $OUTPUTDIR;
-        if [ $? -eq 0 ]; then
-          echo "$OUTPUTDIR created";
-        else
-          echo "Something went wrong...";
-          exit 1;
-        fi;
-      fi
 
       # At this point, ask the user what the title of webalizer's reports should be
       db_input medium webalizer/doc_title || true
       db_go
-      db_get webalizer/doc_title
-      REPORTTITLE="$RET";
-      [ ! -z "$REPORTTITLE" ] || REPORTTITLE="Usage statistics for";
 
       # Ask for the rotated logfile
       # by default  is access log file of apache, but if I found apache2 log file,
       # I changed default to this one.
-
-      # apache2 found
-      if [ -f /var/log/apache2/access.log.1 ] || [ -f /var/log/apache2/access.log ]; then
-        LOGFILE="/var/log/apache2/access.log.1";
-      else
-        LOGFILE="/var/log/apache/access.log.1";
-      fi
-
-      db_set "webalizer/logfile" $LOGFILE || true
       db_input medium webalizer/logfile || true
       db_go
-      db_get webalizer/logfile
-      [ ! -z "$RET" ] || LOGFILE="$RET";
 
-      # Finally put these variables in /etc/webalizer/webalizer.conf using sed
-      cat /usr/share/doc/webalizer/examples/sample.conf.gz | gunzip | /bin/sed \
-	-e "s/^#HostName .*/HostName ${HOSTNAME}/" \
-	-e "s|^#OutputDir .*|OutputDir ${OUTPUTDIR}|" \
-	-e "s/^#ReportTitle .*/ReportTitle ${REPORTTITLE}/" \
-	-e "s|^#LogFile .*|LogFile ${LOGFILE}|" \
-	> /etc/webalizer/webalizer.conf;
+      # Ask for enable DNSCache option
+      db_input medium webalizer/dnscache || true
+      db_go
     ;;
-
-    reconfigure)
-        exit 1;
-    ;;
-
     *)
         echo "config called with unknown argument \`$1'" >&2;
         exit 1;

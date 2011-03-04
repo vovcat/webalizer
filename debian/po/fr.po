@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: webalizer\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-25 05:04-0600\n"
-"PO-Revision-Date: 2006-08-13 14:47+0200\n"
+"Report-Msgid-Bugs-To: debian@psabs.com.br\n"
+"POT-Creation-Date: 2006-11-13 19:03-0200\n"
+"PO-Revision-Date: 2006-11-29 21:53+0100\n"
 "Last-Translator: Gregory Colpart <reg@evolix.fr>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,8 +44,9 @@ msgstr "Mise à niveau depuis une version inférieure à 2.01.10-30"
 #: ../templates:2001
 msgid ""
 "WARNING: This release will move webalizer.conf file to /etc/webalizer  "
-"directory. There was too new features. Please read README.FIST.gz,  README."
-"gz and new examples/sample.conf.gz in /usr/share/doc/webalizer directory."
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
 msgstr ""
 "ATTENTION : cette version déplace le fichier webalizer.conf vers le "
 "répertoire /etc/webalizer. De nouvelles fonctionnalités apparaissent "
@@ -82,3 +83,19 @@ msgstr "Le nom de votre machine sera ajouté à ce titre."
 #: ../templates:5001
 msgid "Webserver's rotated log filename:"
 msgstr "Nom du journal du serveur web après rotation :"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr "Faut-il activer l'option DNSCache ?"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
+"Choisir l'option DNSCache accélère la résolution de noms. Veuillez lire le "
+"fichier /usr/share/doc/webalizer/DNS.README.gz pour plus d'informations."
