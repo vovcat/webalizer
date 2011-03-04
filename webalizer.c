@@ -877,7 +877,7 @@ int main(int argc, char *argv[])
 		    if (mangle_agent<2)
 		    {
 			/* Level 1 - try to get OS */
-			cp1=strstr(str,")");
+			cp1=strstr(cp1,")");
 			if (cp1!=NULL)
 			{
 			    *cp2++=' ';
@@ -918,7 +918,7 @@ int main(int argc, char *argv[])
 			    *cp2++=*cp1++;
 		    if (mangle_agent<2)
 		    {
-			cp1=strstr(str,"(");
+			cp1=strstr(cp1,"(");
 			if (cp1!=NULL)
 			{
 			    cp1++;
@@ -951,7 +951,7 @@ int main(int argc, char *argv[])
 			if (mangle_agent<2)
 			{
 			    /* Level 1 - Try to get OS */
-			    cp1=strstr(str,"(");
+			    cp1=strstr(cp1,"(");
 			    if (cp1!=NULL)
 			    {
 				cp1++;
