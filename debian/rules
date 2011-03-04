@@ -28,7 +28,7 @@ debian/geoip/usr/lib/libGeoIP.a:
 	mkdir -p debian/tmp
 	cd debian/tmp && sh ../GeoIP-lib/configure --prefix=/usr \
 		--disable-shared --with-dbdir=/var/lib/webalizer \
-		&& make
+		&& touch data/GeoIP.dat && make
 	cd debian/tmp && make install DESTDIR=`pwd`/../geoip
 	rm -rf debian/tmp
 
