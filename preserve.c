@@ -446,7 +446,12 @@ int restore_state()
    /* get easy stuff */
    sprintf(tmp_buf,"# Webalizer V%s    ",version);
    if ((fgets(buffer,BUFSIZE,fp)) != NULL)                 /* Header record */
-     {if (strncmp(buffer,tmp_buf,17)) return 99;} /* bad magic? */
+     {
+        if (strncmp(buffer,tmp_buf,17))
+	{
+	    printf("Warning: state file was created by another version of webalizer!\n");
+	};
+    } /* bad magic? */
    else return 1;   /* error exit */
 
    /* Get current timestamp */
