@@ -746,6 +746,14 @@ int main(int argc, char *argv[])
          /* un-escape URL */
          unescape(log_rec.url);
 
+         /* strip query portion of cgi scripts */
+         cp1 = log_rec.url;
+         while (*cp1 != '\0')
+           if (!isurlchar(*cp1)) { *cp1 = '\0'; break; }
+           else cp1++;
+         if (log_rec.url[0]=='\0')
+           { log_rec.url[0]='/'; log_rec.url[1]='\0'; }
+
          /* check for service (ie: http://) and lowercase if found */
          if ( (cp2=strstr(log_rec.url,"://")) != NULL)
          {
@@ -756,14 +764,6 @@ int main(int argc, char *argv[])
                cp1++;
             }
          }
-
-         /* strip query portion of cgi scripts */
-         cp1 = log_rec.url;
-         while (*cp1 != '\0')
-           if (!isurlchar(*cp1)) { *cp1 = '\0'; break; }
-           else cp1++;
-         if (log_rec.url[0]=='\0')
-           { log_rec.url[0]='/'; log_rec.url[1]='\0'; }
 
          /* strip off index.html (or any aliases) */
          lptr=index_alias;
