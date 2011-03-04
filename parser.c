@@ -114,7 +114,7 @@ int parse_record(char *buffer)
    log_rec.ident[0]=0;
 */
 #ifdef USE_DNS
-   memset(&log_rec.addr,0,sizeof(struct in_addr));
+   memset(&log_rec.addr,0,sizeof(struct sockaddr_storage));
 #endif
 
    /* call appropriate handler */

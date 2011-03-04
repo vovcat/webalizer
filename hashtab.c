@@ -976,7 +976,7 @@ DNODEPTR new_dnode(char *str)
 /* PUT_DNODE - insert/update dns host node   */
 /*********************************************/
 
-int put_dnode(char *str, struct in_addr *addr, DNODEPTR *htab)
+int put_dnode(char *str, struct sockaddr_storage *addr, DNODEPTR *htab)
 {
    DNODEPTR cptr,nptr;
 
@@ -988,8 +988,8 @@ int put_dnode(char *str, struct in_addr *addr, DNODEPTR *htab)
       /* not hashed */
       if ( (nptr=new_dnode(str)) != NULL)
       {
-         if (addr) memcpy(&nptr->addr, addr, sizeof(struct in_addr));
-            else   memset(&nptr->addr, 0, sizeof(struct in_addr));
+         if (addr) memcpy(&nptr->addr, addr, sizeof(struct sockaddr_storage));
+            else   memset(&nptr->addr, 0, sizeof(struct sockaddr_storage));
          nptr->next = NULL;
          htab[hash(str)] = nptr;
       }
@@ -1005,8 +1005,8 @@ int put_dnode(char *str, struct in_addr *addr, DNODEPTR *htab)
       /* not found... */
       if ( (nptr = new_dnode(str)) != NULL)
       {
-         if (addr) memcpy(&nptr->addr, addr, sizeof(struct in_addr));
-            else   memset(&nptr->addr, 0, sizeof(struct in_addr));
+         if (addr) memcpy(&nptr->addr, addr, sizeof(struct sockaddr_storage));
+            else   memset(&nptr->addr, 0, sizeof(struct sockaddr_storage));
          nptr->next  = htab[hash(str)];
          htab[hash(str)]=nptr;
       }

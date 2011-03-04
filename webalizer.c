@@ -64,6 +64,7 @@
 #ifdef USE_DNS
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <netdb.h>
 
 #ifdef HAVE_DB_185_H
 #include <db_185.h>
@@ -1047,8 +1048,15 @@ int main(int argc, char *argv[])
          /* Resolve IP address if needed */
          if (dns_db)
          {
-            if (inet_addr(log_rec.hostname) != INADDR_NONE)
+          struct addrinfo hints, *ares;
+          memset(&hints, 0, sizeof(hints));
+          hints.ai_family = AF_UNSPEC;
+          hints.ai_socktype = SOCK_STREAM;
+          hints.ai_flags = AI_NUMERICHOST;
+          if (0 == getaddrinfo(log_rec.hostname, "0", &hints, &ares)) {
+            freeaddrinfo(ares);
             resolve_dns(&log_rec);
+          }
          }
 #endif
 

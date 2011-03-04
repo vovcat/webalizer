@@ -147,7 +147,7 @@ struct  log_struct  {  char   hostname[MAXHOST];   /* hostname             */
                        int    resp_code;           /* response code        */
                        u_int64_t xfer_size;           /* xfer size in bytes   */
 #ifdef USE_DNS
-                       struct in_addr addr;        /* IP address structure */
+                       struct sockaddr_storage addr; /* IP address structure */
 #endif  /* USE_DNS */
                        char   refer[MAXREF];       /* referrer             */
                        char   agent[MAXAGENT];     /* user agent (browser) */
