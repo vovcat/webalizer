@@ -1,0 +1,223 @@
+#!/bin/sh -
+#
+# track_hist - track the webalizer history for all but current month
+#
+# @(#) $Revision: 1.6 $
+# @(#) $Id: track_hist,v 1.6 2004/07/21 05:54:18 chongo Exp $
+# @(#) $Source: /usr/local/src/etc/webalizer/tool/RCS/track_hist,v $
+#
+# Copyright (c) 2003 by Landon Curt Noll.  All Rights Reserved.
+#
+# Permission to use, copy, modify, and distribute this software and
+# its documentation for any purpose and without fee is hereby granted,
+# provided that the above copyright, this permission notice and text
+# this comment, and the disclaimer below appear in all of the following:
+#
+#       supporting documentation
+#       source copies
+#       source works derived from this source
+#       binaries derived from this source or from derived source
+#
+# LANDON CURT NOLL DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
+# INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO
+# EVENT SHALL LANDON CURT NOLL BE LIABLE FOR ANY SPECIAL, INDIRECT OR
+# CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
+# USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+# OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+# PERFORMANCE OF THIS SOFTWARE.
+#
+# chongo (Landon Curt Noll, http://www.isthe.com/chongo/index.html) /\oo/\
+#
+# Share and enjoy! :-)
+
+# setup
+#
+USAGE="usage: $0 webalizer_dir ...
+
+        webalizer_dir    where the webalizer usage and history dirs reside"
+
+# parse args
+#
+case $# in
+0) echo "usage: $0 webalizer_dir ...
+
+	webalizer_dir    where the usage and history sub-dirs reside" 1>&2
+	exit 1 ;;
+*) ;;
+esac
+
+# process each set
+#
+for i in $@; do
+
+    # Note the set start
+    #
+    echo "=-= track_hist start for $i =-="
+
+    # firewall for set specific items and determine the web server name
+    #
+    WEBALIZE_DIR="$i"
+    if [ ! -d "$WEBALIZE_DIR" ]; then
+	echo "$0: webalizer usage root: $WEBALIZE_DIR not found"
+	echo "skipping the rest of $i"
+	echo "=-= track_hist end for $i =-="
+	continue
+    fi
+    USAGE_DIR="$WEBALIZE_DIR"
+    if [ ! -d "$USAGE_DIR" ]; then
+	echo "$0: webalizer usage dir: $USAGE_DIR not found"
+	echo "skipping the rest of $i"
+	echo "=-= track_hist end for $i =-="
+	continue
+    fi
+    HIST="$WEBALIZE_DIR/history"
+    if [ ! -d "$HIST" ]; then
+	mkdir -p "$HIST"
+    fi
+    if [ ! -d "$HIST" ]; then
+	echo "$0: webalizer history dir: $HIST cannot be made"
+	echo "skipping the rest of $i"
+	echo "=-= track_hist end for $i =-="
+	continue
+    fi
+
+    # determine current yyyymm (so we can ignore it)
+    #
+    YYYYMM=`date '+%Y%m'`
+
+    # We copy any usage file (other than those that belong to this month)
+    # that is newer or not found in the history directory.
+    #
+    rm -f "$HIST/rebuild_needed"
+    (cd "$USAGE_DIR"; find . -type f -name '*usage_*') | grep -v "$YYYYMM" |
+      while read file; do
+	if [[ "$USAGE_DIR/$file" -nt "$HIST/$file" ]]; then
+	    # safely update history from the new or newer usage file
+	    echo "adding $file to $i/history"
+	    rm -f "$HIST/$file".new
+	    cp -f "$USAGE_DIR/$file" "$HIST/$file".new
+	    mv -f "$HIST/$file".new "$HIST/$file"
+	    chmod 0444 "$HIST/$file"
+	    date > "$HIST/rebuild_needed"
+	fi
+      done
+
+    # build a new summary file if we updated history, or if empty/missing
+    #
+    if [ -f "$HIST/rebuild_needed" -o ! -s "$HIST/summary" ]; then
+
+	# prep new summary
+	#
+	echo "forming summary file `date`"
+	rm -f "$HIST/summary".new
+	:> "$HIST/summary".new
+
+	# form a summary line for each month going in reverse cron order
+	#
+	find "$HIST" -name 'usage_[0-9][0-9][0-9][0-9][0-9][0-9].html' |
+	  sort -r |
+	  while read file; do
+
+	    # determine the Month Year of this usage file
+	    #
+	    year="`echo $file | sed -e 's;.*/usage_\([0-9][0-9][0-9][0-9]\).*;\1;'`"
+	    mnum="`echo $file | sed -e 's;.*/usage_....\([0-9][0-9]\).*;\1;'`"
+	    case "$mnum" in
+	    01) month="Jan" ;;
+	    02) month="Feb" ;;
+	    03) month="Mar" ;;
+	    04) month="Apr" ;;
+	    05) month="May" ;;
+	    06) month="Jun" ;;
+	    07) month="Jul" ;;
+	    08) month="Aug" ;;
+	    09) month="Sep" ;;
+	    10) month="Oct" ;;
+	    11) month="Nov" ;;
+	    12) month="Dec" ;;
+	    *)  month="???" ;;
+	    esac
+
+	    # Determine Monthly totals for this month
+	    #
+	    THITS=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
+	      head -1 |
+	      tail -1 |
+	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
+	    TFILES=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
+	      head -2 |
+	      tail -1 |
+	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
+	    TPAGES=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
+	      head -3 |
+	      tail -1 |
+	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
+	    TVISITS=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
+	      head -4 |
+	      tail -1 |
+	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
+	    TKBYTES=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
+	      head -5 |
+	      tail -1 |
+	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
+	    TSITES=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
+	      head -6 |
+	      tail -1 |
+	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
+
+	    # determine the daily averages for this month
+	    #
+	    DHITS=`fgrep '<TD ALIGN=right WIDTH=65><FONT SIZE="-1">' $file |
+	      head -2 |
+	      tail -1 |
+	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
+	    DFILES=`fgrep '<TD ALIGN=right WIDTH=65><FONT SIZE="-1">' $file |
+	      head -3 |
+	      tail -1 |
+	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
+	    DPAGES=`fgrep '<TD ALIGN=right WIDTH=65><FONT SIZE="-1">' $file |
+	      head -4 |
+	      tail -1 |
+	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
+	    DVISITS=`fgrep '<TD ALIGN=right WIDTH=65><FONT SIZE="-1">' $file |
+	      head -5 |
+	      tail -1 |
+	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
+
+	    # output the summary line for this month
+	    #
+	    # Fields in order are:
+	    #
+	    #	year of summary as yyyy (e.g., 2004)
+	    #	month of summary as 2 digit number (e.g., 01)
+	    #	month of summary as 3 char month name (e.g., Jan)
+	    #	path history usage_yyyymm.html file from usage directory
+	    #	daily average Hits for this month
+	    #	daily average Files for this month
+	    #	daily average Pages for this month
+	    #	daily average Visits for this month
+	    #	total Sites for this month
+	    #	total KBytes for this month
+	    #	total Pages for this month
+	    #	total Files for this month
+	    #	total Hits for this month
+	    #
+	    echo "$year $mnum $month ./history/usage_$year$mnum.html $DHITS $DFILES $DPAGES $DVISITS $TSITES $TKBYTES $TVISITS $TPAGES $TFILES $THITS" >> "$HIST/summary".new
+	  done
+
+	# new summary file built
+	#
+	chmod 0444 "$HIST/summary".new
+	mv -f "$HIST/summary".new "$HIST/summary"
+        rm -f "$HIST/rebuild_needed"
+	echo "summary file formed `date`"
+    fi
+
+    # finished with this set
+    #
+    echo "=-= track_hist end for $i =-="
+done
+
+# All done!!! -- Jessica Noll, Age 2
+#
+exit 0

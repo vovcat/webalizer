@@ -2310,13 +2310,15 @@ int write_main_index()
    int  i,days_in_month;
    int  lyear=0;
    int	s_mth=0;
-   double  gt_hit=0.0;
-   double  gt_files=0.0;
-   double  gt_pages=0.0;
-   double  gt_xfer=0.0;
-   double  gt_visits=0.0;
+   u_int64_t  gt_hit=0;
+   u_int64_t  gt_files=0;
+   u_int64_t  gt_pages=0;
+   u_int64_t  gt_xfer=0;
+   u_int64_t  gt_visits=0;
    char    index_fname[256];
    char    buffer[BUFSIZE];
+   int	earliest_month = 0;	/* earliest month in the 1st 12 month summary */
+   int	earliest_year = 0;	/* earliest month in the 1st 12 year summary */
 
    if (verbose>1) printf("%s\n",msg_gen_sum);
 
@@ -2391,6 +2393,8 @@ int write_main_index()
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",DKGREEN,msg_h_hits);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+
+   /* output up to the most recent 12 months */
    for (i=0;i<12;i++)
    {
       if (--s_mth < 0) s_mth = 11;
@@ -2425,25 +2429,196 @@ int write_main_index()
       gt_pages += hist_page[s_mth];
       gt_xfer  += hist_xfer[s_mth];
       gt_visits+= hist_visit[s_mth];
+      /* remember the oldest month we processed */
+      earliest_month = hist_month[s_mth];
+      earliest_year = hist_year[s_mth];
    }
-   fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
-   fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" COLSPAN=6 ALIGN=left>"          \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",GREY,msg_h_totals);
-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=right>"                       \
-          "<FONT SIZE=\"-1\">%.0f</FONT></TH>\n",GREY,gt_xfer);
-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=right>"                       \
-          "<FONT SIZE=\"-1\">%.0f</FONT></TH>\n",GREY,gt_visits);
-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=right>"                       \
-          "<FONT SIZE=\"-1\">%.0f</FONT></TH>\n",GREY,gt_pages);
-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=right>"                       \
-          "<FONT SIZE=\"-1\">%.0f</FONT></TH>\n",GREY,gt_files);
-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=right>"                       \
-          "<FONT SIZE=\"-1\">%.0f</FONT></TH></TR>\n",GREY,gt_hit);
-   fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
-   fprintf(out_fp,"</TABLE>\n");
-   write_html_tail(out_fp);
-   fclose(out_fp);
-   return 0;
+
+   /* output HTML for any older months in the summary file */
+   {
+	FILE *sumfile;		/* open history summary file */
+	char inbuf[BUFSIZ+1];	/* input buffer */
+	int summary_year;	/* year of summary as yyyy */
+	int summary_month;	/* month of summary as 2 digit number */
+	char summary_mname[BUFSIZ+1];	/* month of summary as 3 char name */
+	char summary_path[BUFSIZ+1];	/* usage_yyyymm.html file path */
+	u_int64_t summary_dhits;	/* daily average Hits for this month */
+	u_int64_t summary_dfiles;	/* daily average Files for this month */
+	u_int64_t summary_dpages;	/* daily average Pages for this month */
+	u_int64_t summary_dvisits;	/* daily average Visits for month */
+	u_int64_t summary_tsites;	/* total Sites for this month */
+	u_int64_t summary_tkbytes;	/* total KBytes for this month */
+	u_int64_t summary_tvisits;	/* total Visits for this month */
+	u_int64_t summary_tpages;	/* total Pages for this month */
+	u_int64_t summary_tfiles;	/* total Files for this month */
+	u_int64_t summary_thits;	/* total Hits for this month */
+
+	/* open the summary which is found in the history sub-directory */
+	sumfile = fopen("./history/summary","r");
+	if (sumfile != NULL) {
+
+	    /* process lines in summary file */
+	    while (fgets(inbuf, BUFSIZ, sumfile) != NULL) {
+
+		/* parse the summary line */
+		inbuf[BUFSIZ] = '\0';
+		if (sscanf(inbuf,
+			   "%4d %2d %3s %s "
+			   "%llu %llu %llu %llu %llu "
+			   "%llu %llu %llu %llu %llu\n",
+			   &summary_year, &summary_month, summary_mname,
+			   summary_path, &summary_dhits, &summary_dfiles,
+			   &summary_dpages, &summary_dvisits, &summary_tsites,
+			   &summary_tkbytes, &summary_tvisits, &summary_tpages,
+			   &summary_tfiles, &summary_thits) == 14) {
+
+		    /*
+		     * ignore this month if it is as or more recent than
+		     * the earliest month printed in the 12 month recent
+		     * months as procssed in the previous section of code
+		     */
+		    if (summary_year > earliest_year ||
+		        (summary_year == earliest_year &&
+			 summary_month >= earliest_month)) {
+			continue;
+		    }
+
+		    /* output the HTML for this summary month */
+		    fprintf(out_fp,
+			"<TR><TD NOWRAP><A HREF=\"%s\">"
+			"<FONT SIZE=\"-1\">%s %d</FONT></A></TD>\n",
+			summary_path, summary_mname, summary_year);
+
+		    fprintf(out_fp,
+			"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+			summary_dhits);
+		    fprintf(out_fp,
+		        "<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_dfiles);
+		    fprintf(out_fp,
+			"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_dpages);
+		    fprintf(out_fp,
+			"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_dvisits);
+		    fprintf(out_fp,
+			"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_tsites);
+		    fprintf(out_fp,
+			"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_tkbytes);
+		    fprintf(out_fp,
+			"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_tvisits);
+		    fprintf(out_fp,
+			"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_tpages);
+		    fprintf(out_fp,
+			"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_tfiles);
+		    fprintf(out_fp,
+			"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD></TR>\n",
+			summary_thits);
+		    gt_hit   += summary_thits;
+		    gt_files += summary_tfiles;
+		    gt_pages += summary_tpages;
+		    gt_xfer  += summary_tkbytes;
+		    gt_visits+= summary_tvisits;
+		}
+	   }
+	   fclose(sumfile);
+	}
+    }
+
+   /* output the pre-history file */
+   {
+	FILE *prehist;		/* open pre-history file */
+	char inbuf[BUFSIZ+1];	/* input buffer */
+	int summary_year;	/* year of summary as yyyy */
+	int summary_month;	/* month of summary as 2 digit number */
+	char summary_mname[BUFSIZ+1];	/* month of summary as 3 char name */
+	char summary_path[BUFSIZ+1];	/* usage_yyyymm.html file path */
+	u_int64_t summary_dhits;	/* daily average Hits for this month */
+	u_int64_t summary_dfiles;	/* daily average Files for this month */
+	u_int64_t summary_dpages;	/* daily average Pages for this month */
+	u_int64_t summary_dvisits;	/* daily average Visits for month */
+	u_int64_t summary_tsites;	/* total Sites for this month */
+	u_int64_t summary_tkbytes;	/* total KBytes for this month */
+	u_int64_t summary_tvisits;	/* total Visits for this month */
+	u_int64_t summary_tpages;	/* total Pages for this month */
+	u_int64_t summary_tfiles;	/* total Files for this month */
+	u_int64_t summary_thits;	/* total Hits for this month */
+
+	/* open the pre-history which is found in the history sub-directory */
+	prehist = fopen("./history/prehistory","r");
+	if (prehist != NULL) {
+
+	    /* there is just 1 line in the pre-history file - process it */
+	    if (fgets(inbuf, BUFSIZ, prehist) != NULL) {
+
+		/* parse the summary line */
+		inbuf[BUFSIZ] = '\0';
+		if (sscanf(inbuf,
+			   "%4d %2d %3s %s "
+			   "%llu %llu %llu %llu %llu "
+			   "%llu %llu %llu %llu %llu\n",
+			   &summary_year, &summary_month, summary_mname,
+			   summary_path, &summary_dhits, &summary_dfiles,
+			   &summary_dpages, &summary_dvisits, &summary_tsites,
+			   &summary_tkbytes, &summary_tvisits, &summary_tpages,
+			   &summary_tfiles, &summary_thits) == 14) {
+
+		    fprintf(out_fp, "<TR><TH HEIGHT=4></TH></TR>\n");
+		    fprintf(out_fp,
+		        "<TR><TD COLSPAN=6 ALIGN=left NOWRAP>"
+			"<FONT SIZE=\"-1\"><B>Before %s %d</B></FONT></TD>\n",
+			summary_mname, summary_year);
+		    fprintf(out_fp,
+		        "<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_tkbytes);
+		    fprintf(out_fp,
+			"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_tvisits);
+		    fprintf(out_fp,
+		        "<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_tpages);
+		    fprintf(out_fp,
+		        "<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
+			summary_tfiles);
+		    fprintf(out_fp,
+		        "<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n"
+			"</TR>\n",
+			summary_thits);
+
+		    gt_hit   += summary_thits;
+		    gt_files += summary_tfiles;
+		    gt_pages += summary_tpages;
+		    gt_xfer  += summary_tkbytes;
+		    gt_visits+= summary_tvisits;
+		}
+	   }
+	   fclose(prehist);
+	}
+    }
+
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+    fprintf(out_fp,"<TR><TD BGCOLOR=\"%s\" COLSPAN=6 ALIGN=left>"          \
+	  "<FONT SIZE=\"-1\"><B>%s</B></FONT></TD>\n",GREY,msg_h_totals);
+    fprintf(out_fp,"<TD BGCOLOR=\"%s\" ALIGN=right>"                       \
+	  "<FONT SIZE=\"-1\"><B>%lld</B></FONT></TD>\n",GREY,gt_xfer);
+    fprintf(out_fp,"<TD BGCOLOR=\"%s\" ALIGN=right>"                       \
+	  "<FONT SIZE=\"-1\"><B>%lld</B></FONT></TD>\n",GREY,gt_visits);
+    fprintf(out_fp,"<TD BGCOLOR=\"%s\" ALIGN=right>"                       \
+	  "<FONT SIZE=\"-1\"><B>%lld</B></FONT></TD>\n",GREY,gt_pages);
+    fprintf(out_fp,"<TD BGCOLOR=\"%s\" ALIGN=right>"                       \
+	  "<FONT SIZE=\"-1\"><B>%lld</B></FONT></TD>\n",GREY,gt_files);
+    fprintf(out_fp,"<TD BGCOLOR=\"%s\" ALIGN=right>"                       \
+	  "<FONT SIZE=\"-1\"><B>%lld</B></FONT></TD></TR>\n",GREY,gt_hit);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+    fprintf(out_fp,"</TABLE>\n");
+    write_html_tail(out_fp);
+    fclose(out_fp);
+    return 0;
 }
 
 /*********************************************/

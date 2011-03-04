@@ -256,3 +256,84 @@ README file for additional information.
 #       ./configure --help
 #
 #for a list of optional flags.
+
+###################  SUMMARY 03_history  ##########################
+
+##################
+# By default, webalizer only keeps the last 12 months of data.  And at the
+# start of a month, the oldest month is discarded resulting in only 11+
+# months of data.
+#
+# This code gets around the 12 month limit by maintaining a history of
+# older months in a parallel directory ./history.  The summary file:
+#
+#      ./history/summary
+#
+# contains lines, which of which descibes a row in the 'Summary by Month'
+# table.  Each line as the following fields separated by a single space:
+#
+#      field  0: yyyy              4 digit year (e.g., 2003)
+#      field  1: MM                2 digit month, with leading 0 (e.g., 08)
+#      field  2: Mon               3 Char month name (e.g., Aug)
+#      field  3: ./history/usage_yyyyMM.html
+#                                  URL of the monthly stats.  In that same
+#                                  directory is the ctry_usage_yyyyMM.png,
+#                                  daily_usage_yyyyMM.png, and the
+#                                  hourly_usage_yyyyMM.png files.
+#      field  4: summary_dhits     Average daily hits
+#      field  5: summary_dfiles    Average daily files
+#      field  6: summary_dpages    Average daily pages
+#      field  7: summary_dvisits   Average daily visits
+#      field  8: summary_tsites    Monthly total sites
+#      field  9: summary_tkbytes   Monthly total KBytes
+#      field 10: summary_tvisits   Monthly total visits
+#      field 11: summary_tpages    Monthly total pages
+#      field 12: summary_tfiles    Monthly total files
+#      field 13: summary_thits     Monthly total hits
+#
+# Example of a ./history/summary line:
+#
+#      2003 08 Aug ./history/usage_200308.html 13364 3634 10954 567 11138 3623829 17587 339601 112666 414304
+#
+# The ./history/summary file contains lines that prefer to completed webalizer
+# month summaries.  Webalizer will process its 12 monthly as it does before.
+# However with this patch it will look over into the ./history/summary file
+# for even older months to append to the end of the 'Summary by Month' table.
+#
+# The file ./history/prehistory should contain a single line in the same
+# form as ./history/summary except that the field 3 is just 'index.html'.
+# Fields 0, 1 and 2 refer to the oldest month in the ./history/summary file.
+# This is the total of the stats that have been lost / rolled off the
+# end and are no longer available.  If you have no prehistory just use:
+#
+#      2004 07 Jul index.html 0 0 0 0 0 0 0 0 0 0
+#
+# where '2004 07 (Jul)' is the current month.
+#
+# Webalizer will produce a grand total that includes the 12 recent months,
+# all of the history months mentioned in the ./history/summary file and
+# the stats from the ./history/prehistory file.
+#
+# If ./history/summary or ./history/prehistory are not found, Webalizer
+# will ignore them and just output the standard last 12 months.
+#
+# The track_hist tool will generate and update your ./history directory.
+# All you need to do is once a month, run the track_hist
+# script giving it the director(ies) under which webalizer works.
+# So if your webalizer data is found in:
+#
+#      /var/www/html/webalizer/usage/index.html
+#
+# at the 1st of the month, after you run webalizer, run:
+#
+#      track_hist /var/www/html/webalizer
+#
+# NOTE: You should apply the patch-1.64bit.ptch before you apply
+#      this patch.
+#
+# See:
+#
+#      http://www.isthe.com/site/isthe/webalizer/usage/index.html
+#
+# for an example if what an extended history looks like.
+##################
