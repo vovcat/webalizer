@@ -197,12 +197,12 @@ int add_glist(char *str, GLISTPTR *list)
    strncpy(temp_buf,str,79);
    temp_buf[79]=0;
 
-   while (!isspace((int)*name)&&*name!=0) name++;
+   while (!isspace((unsigned char)*name)&&*name!=0) name++;
    if (*name==0) name=temp_buf;
    else
    {
       *name++=0;
-      while (isspace((int)*name)&&*name!=0) name++;
+      while (isspace((unsigned char)*name)&&*name!=0) name++;
       if (*name==0) name=temp_buf;
    }
 
