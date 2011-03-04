@@ -1389,19 +1389,35 @@ void top_refs_table()
          }
          else
          {
-	    /* do not print as anchor tags to avoid referrer spamming */
-	    /* skip over any initial protocol:// */
-	    char *p = rptr->string;
-	    while (*p && isalpha(*p)) {
-		++p;
-	    }
-	    if (*p && strncmp(p, "://", 3) == 0) {
-		fprintf(out_fp,"%s", p+3);
-	    } else if (*p && strncmp(p, ":/", 2) == 0) {
-		fprintf(out_fp,"%s", p+1);
-	    } else {
-		fprintf(out_fp,"%s", rptr->string);
-	    }
+	    /* Added option to put rel=nofollow or just strip protocol:// */
+            if (rptr->string[0] != '-')
+            {
+               if (nofollow == 0) /* default option, strip protocol:// */
+               {
+                  /* do not print as anchor tags to avoid referrer spamming */
+                  /* skip over any initial protocol:// */
+                  char *p = rptr->string;
+                  while (*p && isalpha(*p)) {
+                        ++p;
+                  }
+                  if (*p && strncmp(p, "://", 3) == 0) {
+                     fprintf(out_fp,"%s", p+3);
+                  } else if (*p && strncmp(p, ":/", 2) == 0) {
+                     fprintf(out_fp,"%s", p+1);
+                  } else {
+                     fprintf(out_fp,"%s", rptr->string);
+	          }
+               } else if (nofollow == 1) { /* put with rel=nofollow option */
+                  fprintf(out_fp,"<A HREF=\"%s\" rel=\"nofollow\" target=\"_blank\">%s</A>",
+                          rptr->string, rptr->string);
+               } else { /* put as original ( with protocol:// ) ( I dont know why, but you can do it ) */
+                  fprintf(out_fp,"<A HREF=\"%s\">%s</A>",
+                          rptr->string, rptr->string);
+               }
+            } else {
+               fprintf(out_fp,"%s", rptr->string);
+            }
+
          }
          fprintf(out_fp,"</FONT></TD></TR>\n");
          tot_num--;

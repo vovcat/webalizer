@@ -145,6 +145,7 @@ char    *out_dir     = NULL;                  /* output directory         */
 char    *blank_str   = "";                    /* blank string             */
 char    *dns_cache   = NULL;                  /* DNS cache file name      */
 int     dns_children = 0;                     /* DNS children (0=don't do)*/
+int     nofollow     = 1;                     /* Referrer Following (2=no)*/
 
 #ifdef USE_GEOIP
 int     use_geoip    = 1;                     /* Use GeoIP library        */
@@ -1542,6 +1543,7 @@ void get_config(char *fname)
                      "GeoIP",             /* Use GeoIP library (0=no)   88  */
                      "GeoIPDatabase",     /* GeoIP database             89  */
 #endif	/* USE_GEOIP */
+                     "NoFollow"           /* Referrer Following (2=no)  90 */
                    };
 
    FILE *fp;
@@ -1689,6 +1691,7 @@ void get_config(char *fname)
         case 88: use_geoip=(value[0]=='n')?0:1; break;    /* GeoIP          */
         case 89: geoip_dbase=save_opt(value); break;      /* GeoIPDatabase  */
 #endif	/* USE_GEOIP */
+        case 90: nofollow== atoi(value); break;           /* NoFollow       */
       }
    }
    fclose(fp);

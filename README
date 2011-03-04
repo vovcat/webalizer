@@ -870,6 +870,10 @@ DNSChildren   The number of DNS children processes to run in order to
               a value of zero ('0') to disable.  See the DNS.README
               file for additional information.
 
+NoFollow      Specifies if the attribute 'rel="nofollow"' should be added
+              to the links to the referrers. Use a value of zero ('0') to
+              strip protocol://, use ('1') to put rel=nofollow or ('2') to
+              put original string (disable this option). Default is ('1').
 
 Top Table Keywords
 ------------------

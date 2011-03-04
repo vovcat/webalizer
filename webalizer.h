@@ -194,6 +194,7 @@ extern char    *out_dir     ;                 /* output directory         */
 extern char    *blank_str   ;                 /* blank string             */
 extern char    *dns_cache   ;                 /* DNS cache file name      */
 extern int     dns_children ;                 /* # of DNS children        */
+extern int     nofollow     ;                 /* Referrer Following (2=no)*/
 
 #ifdef USE_GEOIP
 extern int     use_geoip    ;                 /* Use GeoIP library        */
