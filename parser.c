@@ -338,8 +338,15 @@ int parse_record_clf(char *buffer)
    /* done with CLF record */
    if (cp1>=eob) return 1;
 
+   /* Extended log format: has canonical site name */
    while ( (*cp1 != '\0') && (*cp1 != '\n') && (cp1 < eob) ) cp1++;
    if (cp1 < eob) cp1++;
+
+   if (*cp1 != '"') {
+      while ( (*cp1 != '\0') && (*cp1 != '\n') && (cp1 < eob) ) cp1++;
+      if (cp1 < eob) cp1++;
+   }
+
    /* get referrer if present */
    cpx = cp1;
    cp2 = log_rec.refer;
