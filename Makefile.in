@@ -54,7 +54,7 @@ webalizer:	webalizer.o webalizer.h hashtab.o hashtab.h  \
 		preserve.o parser.o output.o dns_resolv.o graphs.o \
 		gdfontg.o gdfontl.o gdfontmb.o gdfonts.o gdfontt.o \
 		xcode.o \
-		-Wl,-Bstatic -lGeoIP -lgd -lpng -ldb -Wl,-Bdynamic -lz -lm \
+		-Wl,-Bstatic -lGeoIP -lgd -lpng -Wl,-Bdynamic -ldb -lz -lm \
 		${LIBS}
 	rm -f webazolver
 	@LN_S@ webalizer webazolver
