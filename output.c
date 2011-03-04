@@ -1375,11 +1375,19 @@ void top_refs_table()
          }
          else
          {
-            if (rptr->string[0] != '-')
-            fprintf(out_fp,"<A HREF=\"%s\">%s</A>",
-                rptr->string, rptr->string);
-            else
-            fprintf(out_fp,"%s", rptr->string);
+	    /* do not print as anchor tags to avoid referrer spamming */
+	    /* skip over any initial protocol:// */
+	    char *p = rptr->string;
+	    while (*p && isalpha(*p)) {
+		++p;
+	    }
+	    if (*p && strncmp(p, "://", 3) == 0) {
+		fprintf(out_fp,"%s", p+3);
+	    } else if (*p && strncmp(p, ":/", 2) == 0) {
+		fprintf(out_fp,"%s", p+1);
+	    } else {
+		fprintf(out_fp,"%s", rptr->string);
+	    }
          }
          fprintf(out_fp,"</FONT></TD></TR>\n");
          tot_num--;

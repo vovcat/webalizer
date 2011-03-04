@@ -189,3 +189,44 @@ been changed in this version.  If you were using the HTMLHead
 keyword in previous versions, change it to "HTMLBody", in order
 to have it work as expected (as in previous versions).  See the
 README file for additional information.
+
+###################  SUMMARY 01_basic_patch  ##########################
+
+# Allow webalizer on systems such as Linux to process very large log
+# files (such as >2GB in size).
+##################
+# Some of the entries on the list are not countries.  In some cases the
+# nation state status is contested.  In other cases the entry is related
+# to a territory that does not claim to be a country.  In some cases
+# what some claim is a country is in dispute by another country.  And
+# things like .arpa are not a country.
+#
+# I recommend that one use the term 'location' instead of 'Nation' or
+# 'Country' to avoid the whole mess.  ;-)
+#
+# Added are some missing locations (from the ISO UN codes and
+# from GeoIP's list).  Some location names have been corrected
+# or changed to their official name.  Added some more TLDs.
+##################
+# Spammers and other low-life forms have been stuffing the
+# "top N referrer" table in order to get webalizer to generate
+# links to their sites ... (perhaps because they think this
+# will improve their search engine placement or perhaps because
+# they wish to direct people to a poisoned web page in an effort
+# to exploit some browser bug?).  Whatever the reason, we don't
+# need to give them their links.
+#
+# This patch turns the "top N referrer" table into just values
+# instead of A tags.
+##################
+# A number of Linux distributions need this change (because
+# they do not ship with the DB compat headers and libs?).
+#
+# The POSIX time spec says that during a leap second, the seconds value
+# may be 60.  And yes ... we had an entry that came in during a leap
+# second that was rejected.  :-)
+##################
+# The URL, referrer and search frequently are a bit longer than
+# what the original code wanted to deal with.  A 256 char limit
+# seems to catch most of the longer values.
+##################

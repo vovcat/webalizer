@@ -588,7 +588,7 @@ int main(int argc, char *argv[])
          if (rec_hour>23) rec_hour=0;
 
          /* minimal sanity check on date */
-         if ((i>=12)||(rec_min>59)||(rec_sec>59)||(rec_year<1990))
+         if ((i>=12)||(rec_min>59)||(rec_sec>60)||(rec_year<1990))
          {
             total_bad++;                /* if a bad date, bump counter      */
             if (verbose)

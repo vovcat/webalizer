@@ -33,7 +33,7 @@ extern int  close_cache();
 #define DNS_CHILD_RUNNING 0x2
 
 #define MAXCHILD          100         /* Maximum number of DNS children     */
-#define DNS_CACHE_TTL     86400*3     /* TTL of an Entry in the DNS cache   */
+#define DNS_CACHE_TTL     86400*32    /* TTL of an Entry in the DNS cache   */
 
 #endif  /* USE_DNS */
 #endif  /* _DNS_RESOLV_H */

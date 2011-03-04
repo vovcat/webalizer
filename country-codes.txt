@@ -1,7 +1,8 @@
+AC   Ascension Island
 AD   Andorra
 AE   United Arab Emirates
 AF   Afghanistan
-AG   Antigua and Barbuda
+AG   Antigua &amp; Barbuda
 AI   Anguilla
 AL   Albania
 AM   Armenia
@@ -14,7 +15,7 @@ AT   Austria
 AU   Australia
 AW   Aruba
 AZ   Azerbaijan
-BA   Bosnia and Herzegovina
+BA   Bosnia &amp; Herzegovina
 BB   Barbados
 BD   Bangladesh
 BE   Belgium
@@ -35,10 +36,11 @@ BY   Belarus
 BZ   Belize
 CA   Canada
 CC   Cocos (Keeling) Islands
+CD   Congo, Dem. Rep. of the
 CF   Central African Republic
-CG   Congo
+CG   Congo, Republic of
 CH   Switzerland
-CI   Cote D'Ivoire (Ivory Coast)
+CI   Cote D'Ivoire
 CK   Cook Islands
 CL   Chile
 CM   Cameroon
@@ -67,7 +69,7 @@ ET   Ethiopia
 FI   Finland
 FJ   Fiji
 FK   Falkland Islands (Malvinas)
-FM   Micronesia
+FM   Micronesia, Fed. State of
 FO   Faroe Islands
 FR   France
 FX   France, Metropolitan
@@ -76,6 +78,7 @@ GB   Great Britain (UK)
 GD   Grenada
 GE   Georgia
 GF   French Guiana
+GG   Guernsey
 GH   Ghana
 GI   Gibraltar
 GL   Greenland
@@ -84,13 +87,13 @@ GN   Guinea
 GP   Guadeloupe
 GQ   Equatorial Guinea
 GR   Greece
-GS   S. Georgia and S. Sandwich Isls.
+GS   S.Georgia &amp; S.Sandwich Isls.
 GT   Guatemala
 GU   Guam
 GW   Guinea-Bissau
 GY   Guyana
 HK   Hong Kong
-HM   Heard and McDonald Islands
+HM   Heard &amp; McDonald Islands
 HN   Honduras
 HR   Croatia (Hrvatska)
 HT   Haiti
@@ -98,12 +101,14 @@ HU   Hungary
 ID   Indonesia
 IE   Ireland
 IL   Israel
+IM   Isle of Man
 IN   India
-IO   British Indian Ocean Territory
+IO   British Indian Ocean Terr.
 IQ   Iraq
 IR   Iran
 IS   Iceland
 IT   Italy
+JE   Jersey
 JM   Jamaica
 JO   Jordan
 JP   Japan
@@ -112,12 +117,13 @@ KG   Kyrgyzstan
 KH   Cambodia
 KI   Kiribati
 KM   Comoros
-KN   Saint Kitts and Nevis
+KN   Saint Kitts &amp; Nevis
 KP   Korea (North)
 KR   Korea (South)
 KW   Kuwait
 KY   Cayman Islands
 KZ   Kazakhstan
+LA   Lao People's Dem. Republic
 LA   Laos
 LB   Lebanon
 LC   Saint Lucia
@@ -128,15 +134,15 @@ LS   Lesotho
 LT   Lithuania
 LU   Luxembourg
 LV   Latvia
-LY   Libya
+LY   Libyan Arab Jamahiriya
 MA   Morocco
 MC   Monaco
-MD   Moldova
+MD   Moldova, Republic of
 MG   Madagascar
 MH   Marshall Islands
-MK   Macedonia
+MK   Macedonia, Republic of
 ML   Mali
-MM   Myanmar
+MM   Burma (Myanmar)
 MN   Mongolia
 MO   Macau
 MP   Northern Mariana Islands
@@ -162,7 +168,7 @@ NP   Nepal
 NR   Nauru
 NT   Neutral Zone
 NU   Niue
-NZ   New Zealand (Aotearoa)
+NZ   New Zealand
 OM   Oman
 PA   Panama
 PE   Peru
@@ -171,38 +177,39 @@ PG   Papua New Guinea
 PH   Philippines
 PK   Pakistan
 PL   Poland
-PM   St. Pierre and Miquelon
-PN   Pitcairn
+PM   St. Pierre &amp; Miquelon
+PN   Pitcairn Island
 PR   Puerto Rico
+PS   Palestinian Territories
 PT   Portugal
 PW   Palau
 PY   Paraguay
 QA   Qatar
-RE   Reunion
+RE   Reunion Island
 RO   Romania
 RU   Russian Federation
 RW   Rwanda
 SA   Saudi Arabia
-Sb   Solomon Islands
+SB   Solomon Islands
 SC   Seychelles
 SD   Sudan
 SE   Sweden
 SG   Singapore
 SH   St. Helena
 SI   Slovenia
-SJ   Svalbard and Jan Mayen Islands
+SJ   Svalbard &amp; Jan Mayen Isls.
 SK   Slovak Republic
 SL   Sierra Leone
 SM   San Marino
 SN   Senegal
 SO   Somalia
 SR   Suriname
-ST   Sao Tome and Principe
+ST   Sao Tome &amp; Principe
 SU   USSR (former)
 SV   El Salvador
-SY   Syria
+SY   Syrian Arab Republic
 SZ   Swaziland
-TC   Turks and Caicos Islands
+TC   Turks &amp; Caicos Islands
 TD   Chad
 TF   French Southern Territories
 TG   Togo
@@ -214,7 +221,7 @@ TN   Tunisia
 TO   Tonga
 TP   East Timor
 TR   Turkey
-TT   Trinidad and Tobago
+TT   Trinidad &amp; Tobago
 TV   Tuvalu
 TW   Taiwan
 TZ   Tanzania
@@ -225,14 +232,14 @@ UM   US Minor Outlying Islands
 US   United States
 UY   Uruguay
 UZ   Uzbekistan
-VA   Vatican City State (Holy See)
-VC   Saint Vincent and the Grenadines
+VA   Holy See (Vatican City)
+VC   Saint Vincent &amp; the Grenadines
 VE   Venezuela
-VG   Virgin Islands (British)
-VI   Virgin Islands (U.S.)
-VN   Viet Nam
+VG   Virgin Islands (UK)
+VI   Virgin Islands (US)
+VN   Vietnam
 VU   Vanuatu
-WF   Wallis and Futuna Islands
+WF   Wallis &amp; Futuna Islands
 WS   Samoa
 YE   Yemen
 YT   Mayotte
@@ -241,12 +248,20 @@ ZA   South Africa
 ZM   Zambia
 ZR   Zaire
 ZW   Zimbabwe
-COM   US Commercial
-EDU   US Educational
-GOV   US Government
-INT   International
-MIL   US Military
-NET   Network
-ORG   Non-Profit Organization
-ARPA   Old style Arpanet
-NATO   Nato field
+BIZ   Business (biz)
+COM   Commercial (com)
+EDU   Educational (edu)
+GOV   US Government (gov)
+INT   International (int)
+MIL   US Military (mil)
+NET   Network (net)
+ORG   Non-Profit Organization (org)
+PRO   Professional firm (pro)
+ARPA   Old style Arpanet (arpa)
+INFO   Information (info)
+NAME   Family name (name)
+NATO   Nato field (nato)
+A1   Anonymous Proxy
+A2   Satellite Provider
+AP   Asia/Pacific Region
+EU   Europe Region

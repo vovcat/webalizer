@@ -13,14 +13,14 @@
 #define MAXHASH  2048                  /* Size of our hash tables          */
 #define BUFSIZE  4096                  /* Max buffer size for log record   */
 #define MAXHOST  128                   /* Max hostname buffer size         */
-#define MAXURL   1024                  /* Max HTTP request/URL field size  */
-#define MAXURLH  128                   /* Max URL field size in htab       */
+#define MAXURL   4096                  /* Max HTTP request/URL field size  */
+#define MAXURLH  256                   /* Max URL field size in htab       */
 #define MAXREF   1024                  /* Max referrer field size          */
-#define MAXREFH  128                   /* Max referrer field size in htab  */
-#define MAXAGENT 64                    /* Max user agent field size        */
+#define MAXREFH  256                   /* Max referrer field size in htab  */
+#define MAXAGENT 128                   /* Max user agent field size        */
 #define MAXCTRY  48                    /* Max country name size            */
 #define MAXSRCH  256                   /* Max size of search string buffer */
-#define MAXSRCHH 64                    /* Max size of search str in htab   */
+#define MAXSRCHH 256                   /* Max size of search str in htab   */
 #define MAXIDENT 64                    /* Max size of ident string (user)  */
 
 #define SLOP_VAL 3600                  /* out of sequence slop (seconds)   */
