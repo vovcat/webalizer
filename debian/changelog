@@ -1,3 +1,10 @@
+webalizer (2.01.10-30.7vc) unstable; urgency=low
+
+  * update to debian webalizer (2.01.10-32.7)
+  * update GeoIP-lib, GeoIP.dat
+
+ -- Vladimir Prodan <vc@artstyle.ru>  Sat, 05 Mar 2011 01:25:47 +0300
+
 webalizer (2.01.10-30.4vc) unstable; urgency=low
 
   * Link BDB dynamically
