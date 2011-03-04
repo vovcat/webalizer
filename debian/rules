@@ -29,10 +29,10 @@ unpatch:
 debian/geoip/usr/lib/libGeoIP.a:
 	rm -rf debian/tmp
 	mkdir -p debian/tmp
-	(cd debian/tmp && sh ../GeoIP-1.4.0/configure \
-	--prefix=/usr --disable-shared \
-	--with-dbdir=/var/lib/webalizer && make)
-	-(cd debian/tmp && make install DESTDIR=`pwd`/../geoip)
+	cd debian/tmp && sh ../GeoIP-1.4.4/configure --prefix=/usr \
+		--disable-shared --with-dbdir=/var/lib/webalizer \
+		&& make
+	cd debian/tmp && make install DESTDIR=`pwd`/../geoip
 	rm -rf debian/tmp
 
 config.status: configure patch-stamp debian/geoip/usr/lib/libGeoIP.a
@@ -81,6 +81,8 @@ install: build
 		mkdir -p $(CURDIR)/debian/webalizer/usr/share/locale/$$i/LC_MESSAGES; \
 	done
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/webalizer
+	cd debian && uudecode GeoIP.dat.gz.uue && gzip -d GeoIP.dat.gz
+	mv debian/GeoIP.dat debian/webalizer/var/lib/webalizer/GeoIP.dat
 
 	# Remove webalizer.conf.sample, this files will be created in postinst
 	# based in sample file that is in usr/share/doc/webalizer

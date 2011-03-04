@@ -31,7 +31,7 @@
 80-fbsd20-webalizer-a-urasim_2.patch -p0
 80-fbsd21-ja-webalizer.conf-dist.patch -p0
 92_russian.diff
-92_gdfont-cp125.diff
+92_gdfont-cp1251.diff
 92_static.diff
 93-webalizer-clf-extrafield.diff
 94_xcode.diff

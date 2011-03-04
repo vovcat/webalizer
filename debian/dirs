@@ -1,3 +1,4 @@
 usr/bin
 etc/webalizer
 usr/share/man/man1
+var/lib/webalizer

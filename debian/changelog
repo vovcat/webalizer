@@ -1,8 +1,15 @@
+webalizer (2.01.10-30.3) unstable; urgency=low
+
+  * New GeoIP library version
+  * Bundled free GeoIP.dat in /var/lib/webalizer/
+
+ -- Vladimir Prodan <vc@artstyle.ru>  Wed, 23 Jul 2008 23:42:06 +0400
+
 webalizer (2.01.10-30.2) unstable; urgency=medium
 
   * Use better russian font + some other fixes
 
- -- Vladimir Prodan <vc2artstyle.ru>  Fri, 27 Oct 2006 10:49:51 +0400
+ -- Vladimir Prodan <vc@artstyle.ru>  Fri, 27 Oct 2006 10:49:51 +0400
 
 webalizer (2.01.10-30.1) unstable; urgency=medium
 
