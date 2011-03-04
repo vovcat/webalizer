@@ -19,7 +19,6 @@
 139.20.112.104	DE	DEU
 139.20.112.3	DE	DEU
 145.236.125.211	HU	HUN
-172.168.1.1	US	USA
 yahoo.com	US	USA
 amazon.com	US	USA
 www.uspto.gov	US	USA

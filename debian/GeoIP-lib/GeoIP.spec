@@ -1,5 +1,5 @@
 Name:	    GeoIP
-Version:    1.4.4
+Version:    1.4.6
 Summary:    GeoIP is a C library finds the location of an IP address.
 Release:    1
 Group:	    System Environment/Libraries

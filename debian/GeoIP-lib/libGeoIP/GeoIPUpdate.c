@@ -26,7 +26,7 @@
 #include "global.h"
 #include "md5.h"
 #include <sys/types.h>
-#ifndef WIN32
+#if !defined(_WIN32)
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
@@ -40,19 +40,28 @@
 #include <stdio.h>
 #include <unistd.h>
 
+
 #define BLOCK_SIZE 1024
 
+/* Update DB Host & HTTP GET Request formats:
+ * ------------------------------------------
+ * GET must support an optional HTTP Proxy.
+ */
 const char *GeoIPUpdateHost = "updates.maxmind.com";
-const char *GeoIPHTTPRequest = "GET /app/update?license_key=%s&md5=%s HTTP/1.0\nHost: updates.maxmind.com\n\n";
-const char *GeoIPHTTPRequestMD5 = "GET /app/update_secure?db_md5=%s&challenge_md5=%s&user_id=%s&edition_id=%s HTTP/1.0\nHost: updates.maxmind.com\n\n";
+/* This is the direct, or proxy port number. */
+static int GeoIPHTTPPort = 80;
+/* License-only format (OLD) */
+const char *GeoIPHTTPRequest = "GET %s%s/app/update?license_key=%s&md5=%s HTTP/1.0\nHost: updates.maxmind.com\n\n";
+/* General DB Types formats */
+const char *GeoIPHTTPRequestFilename = "GET %s%s/app/update_getfilename?product_id=%s HTTP/1.0\nHost: %s\n\n";
+const char *GeoIPHTTPRequestClientIP = "GET %s%s/app/update_getipaddr HTTP/1.0\nHost: %s\n\n";
+const char *GeoIPHTTPRequestMD5 = "GET %s%s/app/update_secure?db_md5=%s&challenge_md5=%s&user_id=%s&edition_id=%s HTTP/1.0\nHost: updates.maxmind.com\n\n";
 
 /* messages */
 const char *NoCurrentDB = "%s can't be opened, proceeding to download database\n";
 const char *MD5Info = "MD5 Digest of installed database is %s\n";
 const char *SavingGzip = "Saving gzip file to %s ... ";
 const char *WritingFile = "Writing uncompressed data to %s ...";
-
-/* TODO replace printf with GeoIP_printf - we need someway of having vargs with GeoIP_printf */
 
 const char * GeoIP_get_error_message(int i) {
   switch (i) {
@@ -98,18 +107,126 @@ const char * GeoIP_get_error_message(int i) {
     return "no error";
   }
 }
+int GeoIP_fprintf(int (*f)(FILE *, char *),FILE *fp, const char *str, ...) {
+  va_list ap;
+  int rc;
+  char * f_str;
+  int silence;
 
-void GeoIP_printf(void (*f)(char *), const char *str) {
-	char * f_str;
-	size_t len = strlen(str)+1;
-	f_str = malloc(len);
-	strncpy(f_str,str,len);
-	if (f != NULL)
-		(*f)(f_str);
-	free(f_str);
+  if ( f == NULL )
+    return 0;
+  va_start(ap, str);
+#if defined(HAVE_VASPRINTF)
+  silence = vasprintf(&f_str, str, ap);
+#elif defined (HAVE_VSNPRINTF)
+  f_str = malloc(4096);
+  if ( f_str )
+    silence = vsnprintf(f_str, 4096, str, ap);
+#else
+  f_str = malloc(4096);
+  if ( f_str )
+    silence = vsprintf(f_str, str, ap);
+#endif
+  va_end(ap);
+  if (  f_str == NULL )
+    return -1;
+  rc = (*f)(fp, f_str);
+  free(f_str);
+  return(rc);
 }
 
-short int GeoIP_update_database (char * license_key, int verbose, void (*f)( char *)) {
+void GeoIP_printf(void (*f)(char *), const char *str,...) {
+  va_list params;
+  char * f_str;
+  int silence;
+  if (f == NULL)
+    return;
+  va_start(params, str);
+#if defined(HAVE_VASPRINTF)
+  silence = vasprintf(&f_str, str, params);
+#elif defined (HAVE_VSNPRINTF)
+  f_str = malloc(4096);
+  if ( f_str )
+    silence = vsnprintf(f_str, 4096, str, params);
+#else
+  f_str = malloc(4096);
+  if ( f_str )
+    silence = vsprintf(f_str, str, params);
+#endif
+  va_end(params);
+  if ( f_str == NULL )
+    return;
+  (*f)(f_str);
+  free(f_str);
+}
+
+/* Support HTTP Proxy Host
+ * --------------------------------------------------
+ * Use typical OS support for the optional HTTP Proxy.
+ *
+ * Proxy adds http://{real-hostname} to URI format strings:
+ * sprintf("GET %s%s/ HTTP/1.0\r\n",GeoIPProxyHTTP,GeoIPProxiedHost, ...);
+ */
+
+/* The Protocol is usually "" OR "http://" with a proxy. */
+static char *GeoIPProxyHTTP = "";
+/* GeoIP Hostname where proxy forwards requests. */
+static char *GeoIPProxiedHost = "";
+
+/* Read http_proxy env. variable & parse it.
+ * -----------------------------------------
+ * Allow only these formats:
+ * "http://server.com", "http://server.com:8080"
+ * OR
+ * "server.com", "server.com:8080"
+ *
+ * A "user:password@" part will break this.
+ */
+short int parse_http_proxy(char **proxy_host, int *port) {
+	char * http_proxy;
+	char * port_value;
+
+	if ((http_proxy = getenv("http_proxy"))) {
+
+		if (! strncmp("http://", http_proxy, 7)) http_proxy += 7;
+
+		*proxy_host = strdup(http_proxy);
+		if ( *proxy_host == NULL )
+			return 0; /* let the other functions deal with the memory error */
+
+		if ((port_value = strchr(*proxy_host, ':'))) {
+			*port_value++ = '\0';
+			*port = atoi(port_value);
+		}
+		else {
+			*port = 80;
+		}
+		return(1);
+	}
+	else {
+		return(0);
+	}
+}
+
+/* Get the GeoIP host or the current HTTP Proxy host. */
+struct hostent *GeoIP_get_host_or_proxy (void) {
+	char * hostname = (char *) GeoIPUpdateHost;
+	char * proxy_host;
+	int proxy_port;
+
+	/* Set Proxy from OS: Unix/Linux */
+	if (parse_http_proxy(&proxy_host,&proxy_port)) {
+		hostname = proxy_host;
+		GeoIPProxyHTTP = "http://";
+		GeoIPProxiedHost = (char *) GeoIPUpdateHost;
+		GeoIPHTTPPort = proxy_port;
+	}
+
+	/* Resolve DNS host entry. */
+	return(gethostbyname(hostname));
+}
+
+short int GeoIP_update_database (char * license_key, int verbose, void (*f)( char * )) {
 	struct hostent *hostlist;
 	int sock;
 	char * buf;
@@ -125,23 +242,17 @@ short int GeoIP_update_database (char * license_key, int verbose, void (*f)( cha
 	unsigned char buffer[1024], digest[16];
 	char hex_digest[33] = "00000000000000000000000000000000\0";
 	unsigned int i;
-	char *f_str;
 	GeoIP * gi;
 	char * db_info;
 	char block[BLOCK_SIZE];
 	int block_size = BLOCK_SIZE;
 	size_t len;
-
+	size_t written;
 	_GeoIP_setup_dbfilename();
 
 	/* get MD5 of current GeoIP database file */
 	if ((cur_db_fh = fopen (GeoIPDBFileName[GEOIP_COUNTRY_EDITION], "rb")) == NULL) {
-		len = strlen(NoCurrentDB) + strlen(GeoIPDBFileName[GEOIP_COUNTRY_EDITION]) - 1;
-		f_str = malloc(len);
-		snprintf(f_str, len, NoCurrentDB, GeoIPDBFileName[GEOIP_COUNTRY_EDITION]);
-		if (f != NULL)
-			(*f)(f_str);
-		free(f_str);
+    GeoIP_printf(f,"%s%s",  NoCurrentDB, GeoIPDBFileName[GEOIP_COUNTRY_EDITION]);
 	} else {
 		md5_init(&context);
 		while ((len = fread (buffer, 1, 1024, cur_db_fh)) > 0)
@@ -153,15 +264,10 @@ short int GeoIP_update_database (char * license_key, int verbose, void (*f)( cha
 			// "%02x" will write 3 chars
 			snprintf (&hex_digest[2*i], 3, "%02x", digest[i]);
 		}
-		len = strlen(MD5Info) + strlen(hex_digest) - 1;
-		f_str = malloc(len);
-		snprintf(f_str, len, MD5Info, hex_digest);
-		if (f != NULL)
-			(*f)(f_str);
-		free(f_str);
+    GeoIP_printf(f, MD5Info, hex_digest);
 	}
 
-	hostlist = gethostbyname(GeoIPUpdateHost);
+	hostlist = GeoIP_get_host_or_proxy();
 
 	if (hostlist == NULL)
 		return GEOIP_DNS_ERR;
@@ -174,12 +280,14 @@ short int GeoIP_update_database (char * license_key, int verbose, void (*f)( cha
 	}
 
 	memset(&sa, 0, sizeof(struct sockaddr_in));
-	sa.sin_port = htons(80);
+	sa.sin_port = htons(GeoIPHTTPPort);
 	memcpy(&sa.sin_addr, hostlist->h_addr_list[0], hostlist->h_length);
 	sa.sin_family = AF_INET;
 
-	if (verbose == 1)
+	if (verbose == 1){
 		GeoIP_printf(f,"Connecting to MaxMind GeoIP Update server\n");
+		GeoIP_printf(f, "via Host or Proxy Server: %s:%d\n", hostlist->h_name, GeoIPHTTPPort);
+	}
 
 	/* Download gzip file */
 	if (connect(sock, (struct sockaddr *)&sa, sizeof(struct sockaddr))< 0)
@@ -188,7 +296,7 @@ short int GeoIP_update_database (char * license_key, int verbose, void (*f)( cha
 	request_uri = malloc(sizeof(char) * (strlen(license_key) + strlen(GeoIPHTTPRequest)+36));
 	if (request_uri == NULL)
 		return GEOIP_OUT_OF_MEMORY_ERR;
-	sprintf(request_uri,GeoIPHTTPRequest,license_key, hex_digest);
+	sprintf(request_uri,GeoIPHTTPRequest,GeoIPProxyHTTP,GeoIPProxiedHost,license_key, hex_digest);
 	send(sock, request_uri, strlen(request_uri),0);
 	free(request_uri);
 
@@ -240,12 +348,7 @@ short int GeoIP_update_database (char * license_key, int verbose, void (*f)( cha
 	strcpy(file_path_gz,GeoIPDBFileName[GEOIP_COUNTRY_EDITION]);
 	strcat(file_path_gz,".gz");
 	if (verbose == 1) {
-		len = strlen(SavingGzip) + strlen(file_path_gz) - 1;
-		f_str = malloc(len);
-		snprintf(f_str, len, SavingGzip,file_path_gz);
-		if (f != NULL)
-			(*f)(f_str);
-		free(f_str);
+    GeoIP_printf(f, SavingGzip, file_path_gz);
 	}
 	comp_fh = fopen(file_path_gz, "wb");
 
@@ -255,9 +358,12 @@ short int GeoIP_update_database (char * license_key, int verbose, void (*f)( cha
 		return GEOIP_GZIP_IO_ERR;
 	}
 
-	fwrite(compr, 1, comprLen, comp_fh);
+	written = fwrite(compr, 1, comprLen, comp_fh);
 	fclose(comp_fh);
 	free(buf);
+
+        if ( written != comprLen )
+		return GEOIP_GZIP_IO_ERR;
 
 	if (verbose == 1)
 		GeoIP_printf(f,"Done\n");
@@ -290,7 +396,12 @@ short int GeoIP_update_database (char * license_key, int verbose, void (*f)( cha
 		if (amt == 0) {
 			break;
 		}
-		fwrite(block,1,amt,gi_fh);
+		if ( fwrite(block,1,amt,gi_fh) != amt ){
+			free(file_path_test);
+			fclose(gi_fh);
+			gzclose(gz_fh);
+			return GEOIP_GZIP_READ_ERR;
+		}
 	}
 	gzclose(gz_fh);
 	unlink(file_path_gz);
@@ -301,11 +412,7 @@ short int GeoIP_update_database (char * license_key, int verbose, void (*f)( cha
 		GeoIP_printf(f,"Done\n");
 
 	if (verbose == 1) {
-		f_str = malloc(strlen(WritingFile) + strlen(GeoIPDBFileName[GEOIP_COUNTRY_EDITION]) - 1);
-		sprintf(f_str,WritingFile,GeoIPDBFileName[GEOIP_COUNTRY_EDITION]);
-		if (f != NULL)
-			(*f)(f_str);
-		free(f_str);
+    GeoIP_printf(f, WritingFile, GeoIPDBFileName[GEOIP_COUNTRY_EDITION]);
 	}
 
 	/* sanity check */
@@ -397,8 +504,9 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 	int block_size = BLOCK_SIZE;
 	size_t len;
 	size_t request_uri_len;
+	size_t size;
 
-	hostlist = gethostbyname(GeoIPUpdateHost);
+	hostlist = GeoIP_get_host_or_proxy();
 
 	if (hostlist == NULL)
 		return GEOIP_DNS_ERR;
@@ -410,9 +518,15 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 	}
 
 	memset(&sa, 0, sizeof(struct sockaddr_in));
-	sa.sin_port = htons(80);
+	sa.sin_port = htons(GeoIPHTTPPort);
 	memcpy(&sa.sin_addr, hostlist->h_addr_list[0], hostlist->h_length);
 	sa.sin_family = AF_INET;
+
+	if (verbose == 1) {
+		GeoIP_printf(f,"Connecting to MaxMind GeoIP server\n");
+		GeoIP_printf(f, "via Host or Proxy Server: %s:%d\n", hostlist->h_name, GeoIPHTTPPort);
+	}
+
 	if (connect(sock, (struct sockaddr *)&sa, sizeof(struct sockaddr))< 0)
 		return GEOIP_CONNECTION_ERR;
 	request_uri = malloc(sizeof(char) * (strlen(license_key) + strlen(GeoIPHTTPRequestMD5)+1036));
@@ -420,9 +534,9 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 		return GEOIP_OUT_OF_MEMORY_ERR;
 
 	/* get the file name from a web page using the product id */
-	sprintf(request_uri,"GET /app/update_getfilename?product_id=%s HTTP/1.0\nHost: %s\n\n",data_base_type,GeoIPUpdateHost);
+	sprintf(request_uri,GeoIPHTTPRequestFilename,GeoIPProxyHTTP,GeoIPProxiedHost,data_base_type,GeoIPUpdateHost);
 	if (verbose == 1) {
-		printf("sending request %s \n",request_uri);
+		GeoIP_printf(f, "sending request %s \n",request_uri);
 	}
 	send(sock, request_uri, strlen(request_uri),0); /* send the request */
 	free(request_uri);
@@ -454,19 +568,13 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 
 	/* print the database product id and the database filename */
 	if (verbose == 1){
-		printf("database product id %s database file name %s \n",data_base_type,geoipfilename);
+		GeoIP_printf(f, "database product id %s database file name %s \n",data_base_type,geoipfilename);
 	}
 	_GeoIP_setup_dbfilename();
 
 	/* get MD5 of current GeoIP database file */
 	if ((cur_db_fh = fopen (geoipfilename, "rb")) == NULL) {
-		len = strlen(NoCurrentDB) + strlen(geoipfilename) - 1;
-		f_str = malloc(len);
-		snprintf(f_str, len, NoCurrentDB, geoipfilename);
-
-		if (f != NULL)
-			(*f)(f_str);
-		free(f_str);
+    GeoIP_printf(f, NoCurrentDB, geoipfilename);
 	} else {
 		md5_init(&context);
 		while ((len = fread (buffer, 1, 1024, cur_db_fh)) > 0)
@@ -476,15 +584,10 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 		fclose (cur_db_fh);
 		for (i = 0; i < 16; i++)
 			sprintf (&hex_digest[2*i], "%02x", digest[i]);
-		len = strlen(MD5Info) + strlen(hex_digest) - 1;
-		f_str = malloc(len);
-		snprintf(f_str, len, MD5Info, hex_digest);
-		if (f != NULL)
-			(*f)(f_str);
-		free(f_str);
+    GeoIP_printf(f, MD5Info, hex_digest );
 	}
 	if (verbose == 1) {
-		printf("MD5 sum of database %s is %s \n",geoipfilename,hex_digest);
+		GeoIP_printf(f,"MD5 sum of database %s is %s \n",geoipfilename,hex_digest);
 	}
 	if (client_ipaddr[0] == NULL) {
 		/* We haven't gotten our IP address yet, so let's request it */
@@ -494,7 +597,7 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 		}
 
 		memset(&sa, 0, sizeof(struct sockaddr_in));
-		sa.sin_port = htons(80);
+		sa.sin_port = htons(GeoIPHTTPPort);
 		memcpy(&sa.sin_addr, hostlist->h_addr_list[0], hostlist->h_length);
 		sa.sin_family = AF_INET;
 
@@ -513,10 +616,10 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 		}
 
 		/* get client ip address from MaxMind web page */
-		sprintf(request_uri,"GET /app/update_getipaddr HTTP/1.0\nHost: %s\n\n",GeoIPUpdateHost);
+		sprintf(request_uri,GeoIPHTTPRequestClientIP,GeoIPProxyHTTP,GeoIPProxiedHost,GeoIPUpdateHost);
 		send(sock, request_uri, strlen(request_uri),0); /* send the request */
 		if (verbose == 1) {
-			printf("sending request %s", request_uri);
+			GeoIP_printf(f, "sending request %s", request_uri);
 		}
 		free(request_uri);
 		buf = malloc(sizeof(char) * (block_size+1));
@@ -546,7 +649,7 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 		strcpy(ipaddress,strstr(buf, "\r\n\r\n") + 4);
 		client_ipaddr[0] = ipaddress;
 		if (verbose == 1) {
-			printf("client ip address: %s\n",ipaddress);
+			GeoIP_printf(f, "client ip address: %s\n",ipaddress);
 		}
 		free(buf);
 		close(sock);
@@ -558,14 +661,14 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 	request_uri_len = sizeof(char) * 2036;
 	request_uri = malloc(request_uri_len);
 	md5_init(&context2);
-	md5_write (&context2, license_key, 12);//add license key to the md5 sum
-	md5_write (&context2, ipaddress, strlen(ipaddress));//add ip address to the md5 sum
+	md5_write (&context2, (byte *)license_key, 12);//add license key to the md5 sum
+	md5_write (&context2, (byte *)ipaddress, strlen(ipaddress));//add ip address to the md5 sum
 	md5_final (&context2);
 	memcpy(digest2,context2.buf,16);
 	for (i = 0; i < 16; i++)
 		snprintf (&hex_digest2[2*i], 3, "%02x", digest2[i]);// change the digest to a hex digest
 	if (verbose == 1) {
-		printf("md5sum of ip address and license key is %s \n",hex_digest2);
+		GeoIP_printf(f, "md5sum of ip address and license key is %s \n",hex_digest2);
 	}
 
 	/* send the request using the user id,product id,
@@ -575,15 +678,15 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 		return GEOIP_SOCKET_OPEN_ERR;
 	}
 	memset(&sa, 0, sizeof(struct sockaddr_in));
-	sa.sin_port = htons(80);
+	sa.sin_port = htons(GeoIPHTTPPort);
 	memcpy(&sa.sin_addr, hostlist->h_addr_list[0], hostlist->h_length);
 	sa.sin_family = AF_INET;
 	if (connect(sock, (struct sockaddr *)&sa, sizeof(struct sockaddr))< 0)
 		return GEOIP_CONNECTION_ERR;
-	snprintf(request_uri, request_uri_len, GeoIPHTTPRequestMD5,hex_digest,hex_digest2,user_id,data_base_type);
+	snprintf(request_uri, request_uri_len, GeoIPHTTPRequestMD5,GeoIPProxyHTTP,GeoIPProxiedHost,hex_digest,hex_digest2,user_id,data_base_type);
 	send(sock, request_uri, strlen(request_uri),0);
 	if (verbose == 1) {
-		printf("sending request %s\n",request_uri);
+		GeoIP_printf(f, "sending request %s\n",request_uri);
 	}
 
 	free(request_uri);
@@ -622,7 +725,7 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 		return GEOIP_LICENSE_KEY_INVALID_ERR;
 	} else if (strstr(compr, "No new updates available") != NULL) {
 		free(buf);
-		printf("%s is up to date, no updates required\n", geoipfilename);
+		GeoIP_printf(f, "%s is up to date, no updates required\n", geoipfilename);
 		return GEOIP_NO_NEW_UPDATES;
 	} else if (strstr(compr, "Invalid UserId") != NULL){
 		free(buf);
@@ -635,7 +738,7 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 	if (verbose == 1)
 		GeoIP_printf(f,"Done\n");
 
-	printf("Updating %s\n", geoipfilename);
+	GeoIP_printf(f, "Updating %s\n", geoipfilename);
 
 	/* save gzip file */
 	file_path_gz = malloc(sizeof(char) * (strlen(geoipfilename) + 4));
@@ -645,12 +748,7 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 	strcpy(file_path_gz,geoipfilename);
 	strcat(file_path_gz,".gz");
 	if (verbose == 1) {
-		len = strlen(SavingGzip) + strlen(file_path_gz) - 1;
-		f_str = malloc(len);
-		snprintf(f_str,len,SavingGzip,file_path_gz);
-		if (f != NULL)
-			(*f)(f_str);
-		free(f_str);
+    GeoIP_printf(f, "%s%s", SavingGzip, file_path_gz );
 	}
 	comp_fh = fopen(file_path_gz, "wb");
 
@@ -660,18 +758,18 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 		return GEOIP_GZIP_IO_ERR;
 	}
 
-	fwrite(compr, 1, comprLen, comp_fh);
+	size = fwrite(compr, 1, comprLen, comp_fh);
 	fclose(comp_fh);
 	free(buf);
+        if ( size != comprLen ) {
+		return GEOIP_GZIP_IO_ERR;
+	}
 
 	if (verbose == 1) {
-		printf("download data to a gz file named %s \n",file_path_gz);
-	}
-	if (verbose == 1)
+		GeoIP_printf(f, "download data to a gz file named %s \n",file_path_gz);
 		GeoIP_printf(f,"Done\n");
-
-	if (verbose == 1)
 		GeoIP_printf(f,"Uncompressing gzip file ... ");
+	}
 
 	file_path_test = malloc(sizeof(char) * (strlen(GeoIPDBFileName[GEOIP_COUNTRY_EDITION]) + 6));
 	if (file_path_test == NULL) {
@@ -702,7 +800,9 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 		if (amt == 0) {
 			break;
 		}
-		fwrite(block,1,amt,gi_fh);
+		if ( amt != fwrite(block,1,amt,gi_fh) ){
+			return GEOIP_GZIP_IO_ERR;
+		}
 	}
 	gzclose(gz_fh);
 	unlink(file_path_gz);
@@ -734,7 +834,7 @@ short int GeoIP_update_database_general (char * user_id,char * license_key,char 
 	/* get the database type */
 	dbtype = GeoIP_database_edition(gi);
 	if (verbose == 1) {
-		printf("Database type is %d\n",dbtype);
+		GeoIP_printf(f, "Database type is %d\n",dbtype);
 	}
 
 	/* this checks to make sure the files is complete, since info is at the end

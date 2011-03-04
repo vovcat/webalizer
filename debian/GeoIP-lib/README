@@ -1,5 +1,18 @@
-				GeoIP 1.4.4
+				GeoIP 1.4.6
 				-----------
+
+*** Experimental IPv6 notice ***
+
+- the experimental IPv6 part of libGeoIP may change in the future.
+- It is possible, that geoiplookup and geoiplookup6 will merged.
+
+***
+
+The new perl script geoipupdate-pureperl.pl is a drop in replacement for
+geoipupdate. Useful, if you like to customize, pre or postprocess new or
+old databases. To archive the databases or signal apache whatever.
+Another advantage is, that geoipupdate-pureperl.pl is able to handle proxy
+requests even with authentication.
 
 IMPORTANT API Change for 1.3.x and above users for GeoIP Region database
 GeoIPRegion.region is no longer a pointer but an in-structure
@@ -26,7 +39,13 @@ We also offer commercial GeoIP databases with greater accuracy and
 additional network information, for more details, see:
 http://www.maxmind.com/app/products
 
-As of version 1.3.6, the GeoIP C library is thread safe.
+As of version 1.4.5 geoipupdate can handle updates via  HTTP Proxy Server.
+If the environ variable http_proxy="http://proxy-host:port" is set.
+The username:password (as in FTP URLs) is not supported!
+Thanks to Andrew Droffner for the patch!
+
+As of version 1.3.6, the GeoIP C library is thread safe, as long as
+GEOIP_CHECK_CACHE is not used.
 
 This module can be used to automatically select the geographically closest
 mirror, to analyze your web server logs to determine the countries of your
@@ -65,7 +84,7 @@ GEOIP_INDEX_CACHE - just cache
 	GeoIP Organization and GeoIP City.  Note, for GeoIP Country, Region
 	and Netspeed databases, GEOIP_INDEX_CACHE is equivalent to GEOIP_MEMORY_CACHE
 
-GEOIP_MMAP_CACHE - load database into mmap shared memory
+GEOIP_MMAP_CACHE - load database into mmap shared memory ( MMAP is not avail for WIN32 )
 
 The options can be combined using bit operators.  For example you can
 use both GEOIP_MEMORY_CACHE and GEOIP_CHECK_CACHE by calling:
@@ -102,7 +121,21 @@ automically each week.  For more details see:
 
 http://www.maxmind.com/app/license_key
 
+RESOURCES Mailinglists
+
+Please join the very low traffic mailinglists you are interested in.
+
+http://sourceforge.net/mail/?group_id=66844
+
+Preformance Patches.
+
+Patrick McManus provide a patch to enhance the lookupspeed in MEMORY_CACHE mode. If you feel, that the current MEMORY_CACHE mode is to slow try the patch:
+
+http://sourceforge.net/mailarchive/forum.php?forum_name=geoip-c-discuss&max_rows=25&style=nested&viewmonth=200803
+
 TROUBLESHOOTING
+
+If you run into trouble building your application with GeoIP support, try adding -fms-extensions to your CFLAGS. If you use Solaris and there C-Compiler use -features=extensions instead. These options enable unnamed union support and fix problems like: 'improper member use: dma_code' or 'GeoIPRecord' has no member named 'dma_code'.
 
 Note that it is recommended that you use GNU make.  Also, if you are using
 OpenBSD, GeoIP requires OpenBSD 3.1 or greater.
@@ -149,5 +182,4 @@ from XORG X-Server). It happens at least with gcc 3.3.1 and with gcc
 If GEOIP_MMAP_CACHE doesn't work on a 64bit machine, try adding
 the flag "MAP_32BIT" to the mmap call.
 
-Please contact support@maxmind.com with any questions or bug
-reports.
+To submit a patch, please contact support@maxmind.com

@@ -41,7 +41,7 @@ void usage() {
 }
 
 void my_printf(char * str) {
-	printf(str);
+	printf("%s", str);
 }
 
 void print_status (int err, char * license_file) {
@@ -69,6 +69,7 @@ int main (int argc, char *argv[]) {
 	unsigned char *lineptr = malloc(sizeof(char) * n);
 	char *a_license_key_str, *a_ptr;
 	char *the_license_key_str = "";
+  char * the_reference_empty_license_key_str = the_license_key_str;
 	char *a_user_id_str = NULL;
 	/* the string that holds the user id */
 	char *the_user_id_str = NULL;
@@ -147,7 +148,7 @@ int main (int argc, char *argv[]) {
 			if (lineptr[0] == '#')
 				continue;
 			/* get the product ids from the config file */
-			a_product_id_str = strstr(lineptr, PRODUCT_ID_TOKEN);//search for a product id token in the line
+			a_product_id_str = strstr((char *)lineptr, PRODUCT_ID_TOKEN);//search for a product id token in the line
 			if (a_product_id_str != NULL) {
 				a_ptr = a_product_id_str;
 				/* set pos at the end of product id token */
@@ -194,7 +195,7 @@ int main (int argc, char *argv[]) {
 			}
 
 			/* get the user id from the config file */
-			a_user_id_str = strstr(lineptr, USER_ID_TOKEN); /* search for a user id token in the line */
+			a_user_id_str = strstr((char *)lineptr, USER_ID_TOKEN); /* search for a user id token in the line */
 			if (a_user_id_str != NULL) {
 				a_ptr = a_user_id_str;
 				/* set the position at the end of user id token */
@@ -220,7 +221,7 @@ int main (int argc, char *argv[]) {
 				}
 				the_user_id_str[the_user_id_strl] = 0; /* add NUL char */
 			}
-			a_license_key_str = strstr(lineptr, LICENSE_KEY_TOKEN);
+			a_license_key_str = strstr((char *)lineptr, LICENSE_KEY_TOKEN);
 			if (a_license_key_str != NULL) {
 				a_ptr = a_license_key_str;
 				a_ptr += strlen(LICENSE_KEY_TOKEN) + 1;
@@ -269,7 +270,9 @@ int main (int argc, char *argv[]) {
 		free(the_product_id_stral);
 	}
 
-	free(the_license_key_str);
+  if ( the_reference_empty_license_key_str != the_license_key_str )
+    free(the_license_key_str);
+
 	if (the_user_id_str)
 		free(the_user_id_str);
 

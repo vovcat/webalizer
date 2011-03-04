@@ -1,3 +1,126 @@
+1.4.6	2009-02-25
+	* Fix geoipupdate's my_printf function ( Boris Zentner )
+	* Fix typo in apps/geoipupdate-pureperl.pl replace PerlIO::Gzip with PerlIO::gzip ( Boris Zentner )
+	* Update region codes in libGeoIP/regionName.c ( Boris Zentner )
+	* Fix regioncode/generate_regionName.pl to handle regioncodes with ',' correct ( Boris Zentner )
+	* Update fips codes 20090201 ( Boris Zentner )
+	* Fix unicode builds on WIN32 and eliminate some warnings ( Stu Redman )
+	* Fix sign error in _iso_8859_1__utf8 for PPC64 ( Boris Zentner )
+	* Change WIN32 to _WIN32, since _WIN32 is defined by default. _WIN32 is also defined for WIN64 machines ( Boris Zentner )
+	! Remove the WSAStartup call from GeoIP_open. All Applications need to call WSAStartup and WSACleanup to initialize the Windows Socket library. Before they use any of the GeoIP_*_by_name functions. ( Boris Zentner )
+	* geoiplookup and test-geoip-* output N/A instead of (null) ( Boris Zentner )
+	* Silence various warnings. ( Boris Zentner )
+	* Add more timezone region's for Australia
+	* Fix possible segfault in apps/geoiplookup with null pointers in non gnu printf implementations for example solaris ( Boris Zentner )
+	* Add README.OSX to build fat binaries easy ( Boris Zentner )
+	* Silence vasprintf warning via AC_GNU_SOURCE ( Boris Zentner )
+	* Add several Makefiles to build a static GeoIP.lib for w32 ( Stanislaw Pusep and Randy Kobes )
+	* Silence signedness warnings ( Peter Volkov )
+	* Remove --with-city configure option. ( Boris Zentner )
+	* Remove configure's --with-dbdir option. Use the similar --datadir instead ( Peter Volkov )
+	* Various autotools improvements and cleanups. Including parallel
+	build fix ( Peter Volkov )
+	* Fix libGeoIP/timeZone.c ( Martin Haller )
+	* Fix timezone/generate_timeZone.pl ( Boris Zenter )
+	* Sync FIPS codes again Jan 14th, 2009 ( Boris Zentner )
+	* Fix CA,NL regioncode. ( Boris Zentner )
+	* Change logic in generate_regionName.pl and GeoIP_region_name_by_code to handle any mixture of two letter fips codes matching [A-Z0-9]{2} the change allow GZ and WE region codes ( Boris Zentner )
+	* Sync regionName.c with http://www.maxmind.com/app/fips10_4 from Dec 17th, 2008 ( Boris Zentner )
+	* Fix _GeoIP_lookupaddress for 64bit big endian systems like ppc64 ( Peter Volkov )
+	* Add proper WIN32/64 support ( Gerald Combs )
+	* Escape - in all manpages ( Patrick Matthaei )
+	* Add manpage for geoiplookup6 ( Boris Zentner )
+	* Fix -d command line option ( Klaus Heinz )
+	* GeoIPUpdate.c use vasprintf if avail, otherwise try vsnprintf and sprintf ( Boris Zentner )
+	* avoid pre/postincrement and assignment on the same variable ( Boris Zentner )
+1.4.5	2008-09-16
+	* metro_code replace the depreciated dma_code field ( Boris Zentner )
+	* Add new function GeoIP_range_by_ip_delete
+		r = GeoIP_range_by_ip(gi, '24.24.24.24');
+		...
+		GeoIP_range_by_ip_delete(r); ( Boris Zentner )
+	* Fix small memoryleak and wrap around in GeoIP_range_by_ip ( Boris Zentner )
+	* CHECK_CACHE stat the database file not faster than once a second anymore ( Patrick McManus )
+	* Fixed a typo in the geoipupdate(1) manpage and also an non-existent path on Debian (Patrick Matthäi)
+	* Fixes two little format errors (hyphen used as minus sign) in both manpages (Patrick Matthäi)
+	* Sync regionName.c with a recent fips code list ( Boris Zentner )
+	* Fix segfault when open failed for a custom file (-f) ( Boris Zentner )
+	* Fix sync geoiplookup's man page with the code ( Klaus Heinz )
+	* remove unused code from GeoIP_country_name_by_addr and GeoIP_country_code3_by_addr ( Boris Zentner )
+	* Fix geoiplookup and geoiplookup6 to distinguish between failed namelookups and unknown ips ( Boris Zentner )
+	* add geoiplookup6 that can handle the new database type GEOIP_COUNTRY_EDITION_V6 ( Boris Zentner )
+	* add new functions to handle ipv6
+
+		GEOIP_API const char *GeoIP_country_name_by_ipnum_v6 (GeoIP* gi, geoipv6_t ipnum);
+		GEOIP_API const char *GeoIP_country_code_by_ipnum_v6 (GeoIP* gi, geoipv6_t ipnum);
+		GEOIP_API const char *GeoIP_country_code3_by_ipnum_v6 (GeoIP* gi, geoipv6_t ipnum);
+		GEOIP_API char *GeoIP_org_by_ipnum_v6 (GeoIP* gi, geoipv6_t ipnum);
+		GEOIP_API char *GeoIP_org_by_addr_v6 (GeoIP* gi, const char *addr);
+		GEOIP_API char *GeoIP_org_by_name_v6 (GeoIP* gi, const char *name);
+		GEOIP_API int GeoIP_id_by_addr_v6 (GeoIP* gi, const char *addr);
+		GEOIP_API int GeoIP_id_by_name_v6 (GeoIP* gi, const char *host);
+		GEOIP_API int GeoIP_id_by_ipnum_v6 (GeoIP* gi, geoipv6_t ipnum);
+		GEOIP_API GeoIPRegion * GeoIP_region_by_addr_v6 (GeoIP* gi, const char *addr);
+		GEOIP_API GeoIPRegion * GeoIP_region_by_name_v6 (GeoIP* gi, const char *host);
+		GEOIP_API GeoIPRegion * GeoIP_region_by_ipnum_v6 (GeoIP *gi, geoipv6_t ipnum);
+		GEOIP_API void GeoIP_assign_region_by_inetaddr_v6(GeoIP* gi, geoipv6_t inetaddr, GeoIPRegion *gir);
+		GEOIP_API char *GeoIP_name_by_ipnum_v6 (GeoIP* gi, geoipv6_t ipnum);
+		GEOIP_API char *GeoIP_name_by_addr_v6 (GeoIP* gi, const char *addr);
+		GEOIP_API char *GeoIP_name_by_name_v6 (GeoIP* gi, const char *name);
+
+		# allowed input for addr
+		2001:4860:0:1001::68
+		::85.8.93.71
+		::1
+		::5508::5d47
+		::ffff:5508::5d47
+
+		# allowed input for host
+		ipv6.google.com
+		2001:4860:0:1001::68
+		::85.8.93.71
+		::1
+		::5508::5d47
+		::ffff:5508::5d47
+         ( Boris Zentner )
+	* Fix geoiplookup usage string ( add -d -f ) ( Boris Zentner )
+	* Added GeoIP_range_by_ip, returns the start and end IP address for the range containing the IP address.
+		This range has a constant value in the GeoIP database.
+	* Add geoipupdate-pureperl.pl a alternative geoipupdate version. with Proxy Server support via via the "http_proxy" environment variable. Easy to customize. ( Boris Zentner )
+	* Add WIN64 since WIN32 is not defined on WIN64 Systems ( Boris Zentner )
+	* Fix WIN32 compilation by encircle all MMAP functions with #ifdef WIN32 #endif pairs. MMAP is not avail in W32 ( Boris Zentner )
+	* Update timezone/generate_timeZone.pl ( Boris Zentner )
+	* Update libGeoIP/timeZone.c ( Boris Zentner )
+	* Added GeoIP_printf and GeoIP_fprintf as a experimental feature to
+		libGeoIPUpdate. ( Boris Zentner, Andrew Droffner )
+	* Added cast in _iso_8859_1__utf8 function to fix NetWare/Win32 compilation issue (Guenter Knauf)
+	* Add HTTP Proxy Server support for geoipupdate via the "http_proxy"
+		environment variable.
+		ie: export http_proxy="http://proxy-hostname:port"
+		( Andrew Droffner, Derek Nicol )
+	* Notice, that __YOU__ need to free the results of
+
+			GeoIP_database_info
+			GeoIP_name_by_ipnum
+			GeoIP_name_by_addr
+			GeoIP_name_by_name
+			GeoIP_org_by_ipnum
+			GeoIP_org_by_addr
+			GeoIP_org_by_name
+
+		not libgeoip
+		( Boris Zentner, Andrew Cheung )
+	* Fixed segfault with geoiplookup, if used with a custom_file database, that
+		could not be opened. ( Boris Zentner )
+	* Add Usage info for options -f and -d in geoipupdate ( Boris Zentner )
+	* Fixed segfault with geoipupdate when called with a illformed license file
+		( Boris Zentner )
+	* Update add more timezones to GeoIP_time_zone_by_country_and_region
+		( Boris Zentner )
+	* Add array access functions so programs can avoid accessing the
+		arrays directly which whould break binary compatability (Ludwig Nussel at SUSE)
+	* Updated README to state API is only thread-safe if GEOIP_CHECK_CACHE is not used
+
 1.4.4	2008-1-21
 	* Updated original geoipupdate to return "Invalid product ID or subscription expired"
 	* Added BL/Saint Barthelemy, MF/Saint Martin (ISO-3166-1 additions)

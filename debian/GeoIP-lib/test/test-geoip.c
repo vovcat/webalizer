@@ -34,10 +34,10 @@ int main () {
 	for (i = 0; i < 2; ++i) {
 		if (0 == i) {
 			/* Read from filesystem, check for updated file */
-			gi = GeoIP_open("../data/GeoIP.dat", GEOIP_STANDARD | GEOIP_CHECK_CACHE);
+			gi = GeoIP_open(SRCDIR"/data/GeoIP.dat", GEOIP_STANDARD | GEOIP_CHECK_CACHE);
 		} else {
 			/* Read from memory, faster but takes up more memory */
-			gi = GeoIP_open("../data/GeoIP.dat", GEOIP_MEMORY_CACHE);
+			gi = GeoIP_open(SRCDIR"/data/GeoIP.dat", GEOIP_MEMORY_CACHE);
 		}
 
 		if (gi == NULL) {
@@ -58,11 +58,9 @@ int main () {
 			failed = 1;
 		}
 
-		f = fopen("country_test.txt","r");
+		f = fopen(SRCDIR"/test/country_test.txt","r");
 
-		while (fscanf(f, "%s", ipAddress) != EOF) {
-			fscanf(f, "%s", expectedCountry);
-			fscanf(f, "%s", expectedCountry3);
+		while (fscanf(f, "%s%s%s", ipAddress, expectedCountry, expectedCountry3) != EOF) {
 			returnedCountry = GeoIP_country_code_by_addr(gi,ipAddress);
 			if (returnedCountry == NULL || strcmp(returnedCountry, expectedCountry) != 0) {
 				fprintf(stderr,"Test addr %d for %s failed, got %s, expected %s\n",test_num,ipAddress,returnedCountry,expectedCountry);
@@ -87,9 +85,8 @@ int main () {
 		}
 		fclose(f);
 
-		f = fopen("country_test2.txt","r");
-		while (fscanf(f, "%s", ipAddress) != EOF) {
-			fscanf(f, "%s", expectedCountry);
+		f = fopen(SRCDIR"/test/country_test2.txt","r");
+		while (fscanf(f, "%s%s", ipAddress, expectedCountry ) != EOF) {
 			returnedCountry = GeoIP_country_code_by_addr(gi,ipAddress);
 			if (returnedCountry == NULL || strcmp(returnedCountry, expectedCountry) != 0) {
 				fprintf(stderr,"Test addr %d %s failed, got %s, expected %s\n",test_num,ipAddress,returnedCountry,expectedCountry);
@@ -99,9 +96,8 @@ int main () {
 		}
 		fclose(f);
 
-		f = fopen("country_test_name.txt","r");
-		while (fscanf(f, "%s", ipAddress) != EOF) {
-			fscanf(f, "%s", expectedCountry);
+		f = fopen(SRCDIR"/test/country_test_name.txt","r");
+		while (fscanf(f, "%s%s", ipAddress, expectedCountry) != EOF) {
 			returnedCountry = GeoIP_country_code_by_name(gi,ipAddress);
 			if (returnedCountry == NULL || strcmp(returnedCountry, expectedCountry) != 0) {
 				fprintf(stderr,"Test addr %d %s failed, got %s, expected %s\n",test_num,ipAddress,returnedCountry,expectedCountry);
