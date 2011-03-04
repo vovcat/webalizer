@@ -1,0 +1,15 @@
+/Makefile
+/build-stamp
+/config.guess
+/config.log
+/config.status
+/config.sub
+/debian/files
+/debian/geoip
+/debian/webalizer.debhelper.log
+/debian/webalizer.postrm.debhelper
+/debian/webalizer.substvars
+/debian/webalizer
+/webalizer
+/webazolver
+/autom4te.cache
