@@ -29,7 +29,7 @@ unpatch:
 debian/geoip/usr/lib/libGeoIP.a:
 	rm -rf debian/tmp
 	mkdir -p debian/tmp
-	cd debian/tmp && sh ../GeoIP-1.4.4/configure --prefix=/usr \
+	cd debian/tmp && sh ../GeoIP-lib/configure --prefix=/usr \
 		--disable-shared --with-dbdir=/var/lib/webalizer \
 		&& make
 	cd debian/tmp && make install DESTDIR=`pwd`/../geoip
