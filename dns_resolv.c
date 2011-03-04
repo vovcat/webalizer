@@ -178,7 +178,7 @@ int dns_resolver(void *log_fp)
    int       i;
    int       save_verbose=verbose;
 
-   u_long    listEntries = 0;
+   u_int64_t    listEntries = 0;
 
    struct sigaction sigPipeAction;
    struct stat dbStat;
@@ -338,7 +338,7 @@ int dns_resolver(void *log_fp)
    if (time_me || (verbose>1))
    {
       if (verbose<2 && time_me) printf("DNS: ");
-      printf("%lu %s ",listEntries, msg_addresses);
+      printf("%lld %s ",listEntries, msg_addresses);
 
       /* get processing time (end-start) */
       temp_time = (float)(end_time-start_time)/CLK_TCK;

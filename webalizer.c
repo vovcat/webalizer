@@ -171,30 +171,30 @@ int     cur_year=0, cur_month=0,              /* year/month/day/hour      */
         cur_day=0, cur_hour=0,                /* tracking variables       */
         cur_min=0, cur_sec=0;
 
-u_long  cur_tstamp=0;                         /* Timestamp...             */
-u_long  rec_tstamp=0;
-u_long  req_tstamp=0;
-u_long  epoch;                                /* used for timestamp adj.  */
+u_int64_t  cur_tstamp=0;                         /* Timestamp...             */
+u_int64_t  rec_tstamp=0;
+u_int64_t  req_tstamp=0;
+u_int64_t  epoch;                                /* used for timestamp adj.  */
 
 int     check_dup=0;                          /* check for dup flag       */
 int     gz_log=0;                             /* gziped log? (0=no)       */
 
 double  t_xfer=0.0;                           /* monthly total xfer value */
-u_long  t_hit=0,t_file=0,t_site=0,            /* monthly total vars       */
+u_int64_t  t_hit=0,t_file=0,t_site=0,            /* monthly total vars       */
         t_url=0,t_ref=0,t_agent=0,
         t_page=0, t_visit=0, t_user=0;
 
 double  tm_xfer[31];                          /* daily transfer totals    */
 
-u_long  tm_hit[31], tm_file[31],              /* daily total arrays       */
+u_int64_t  tm_hit[31], tm_file[31],              /* daily total arrays       */
         tm_site[31], tm_page[31],
         tm_visit[31];
 
-u_long  dt_site;                              /* daily 'sites' total      */
+u_int64_t  dt_site;                              /* daily 'sites' total      */
 
-u_long  ht_hit=0, mh_hit=0;                   /* hourly hits totals       */
+u_int64_t  ht_hit=0, mh_hit=0;                   /* hourly hits totals       */
 
-u_long  th_hit[24], th_file[24],              /* hourly total arrays      */
+u_int64_t  th_hit[24], th_file[24],              /* hourly total arrays      */
         th_page[24];
 
 double  th_xfer[24];
@@ -203,7 +203,7 @@ int     f_day,l_day;                          /* first/last day vars      */
 
 struct  utsname system_info;                  /* system info structure    */
 
-u_long  ul_bogus =0;                          /* Dummy counter for groups */
+u_int64_t  ul_bogus =0;                          /* Dummy counter for groups */
 
 struct  log_struct log_rec;                   /* expanded log storage     */
 
@@ -245,9 +245,9 @@ int main(int argc, char *argv[])
    int    rec_year,rec_month=1,rec_day,rec_hour,rec_min,rec_sec;
 
    int    good_rec    =0;                /* 1 if we had a good record   */
-   u_long total_rec   =0;                /* Total Records Processed     */
-   u_long total_ignore=0;                /* Total Records Ignored       */
-   u_long total_bad   =0;                /* Total Bad Records           */
+   u_int64_t total_rec   =0;                /* Total Records Processed     */
+   u_int64_t total_ignore=0;                /* Total Records Ignored       */
+   u_int64_t total_bad   =0;                /* Total Bad Records           */
 
    int    max_ctry;                      /* max countries defined       */
 
@@ -593,7 +593,7 @@ int main(int argc, char *argv[])
             total_bad++;                /* if a bad date, bump counter      */
             if (verbose)
             {
-               fprintf(stderr,"%s: %s [%lu]",
+               fprintf(stderr,"%s: %s [%lld]",
                  msg_bad_date,log_rec.datetime,total_rec);
                if (debug_mode) fprintf(stderr,":\n%s\n",tmp_buf);
                else fprintf(stderr,"\n");
@@ -893,7 +893,7 @@ int main(int argc, char *argv[])
          /* if necessary, shrink referrer to fit storage */
          if (strlen(log_rec.refer)>=MAXREFH)
          {
-            if (verbose) fprintf(stderr,"%s [%lu]\n",
+            if (verbose) fprintf(stderr,"%s [%lld]\n",
                 msg_big_ref,total_rec);
             log_rec.refer[MAXREFH-1]='\0';
          }
@@ -901,7 +901,7 @@ int main(int argc, char *argv[])
          /* if necessary, shrink URL to fit storage */
          if (strlen(log_rec.url)>=MAXURLH)
          {
-            if (verbose) fprintf(stderr,"%s [%lu]\n",
+            if (verbose) fprintf(stderr,"%s [%lld]\n",
                 msg_big_req,total_rec);
             log_rec.url[MAXURLH-1]='\0';
          }
@@ -1083,8 +1083,8 @@ int main(int argc, char *argv[])
              (log_rec.resp_code==RC_PARTIALCONTENT))
          {
             /* URL hash table */
-            if (put_unode(log_rec.url,OBJ_REG,(u_long)1,
-                log_rec.xfer_size,&t_url,(u_long)0,(u_long)0,um_htab))
+            if (put_unode(log_rec.url,OBJ_REG,(u_int64_t)1,
+                log_rec.xfer_size,&t_url,(u_int64_t)0,(u_int64_t)0,um_htab))
             {
                if (verbose)
                /* Error adding URL node, skipping ... */
@@ -1093,7 +1093,7 @@ int main(int argc, char *argv[])
 
             /* ident (username) hash table */
             if (put_inode(log_rec.ident,OBJ_REG,
-                1,(u_long)i,log_rec.xfer_size,&t_user,
+                1,(u_int64_t)i,log_rec.xfer_size,&t_user,
                 0,rec_tstamp,im_htab))
             {
                if (verbose)
@@ -1106,7 +1106,7 @@ int main(int argc, char *argv[])
          if (ntop_refs)
          {
             if (log_rec.refer[0]!='\0')
-             if (put_rnode(log_rec.refer,OBJ_REG,(u_long)1,&t_ref,rm_htab))
+             if (put_rnode(log_rec.refer,OBJ_REG,(u_int64_t)1,&t_ref,rm_htab))
              {
               if (verbose)
               fprintf(stderr,"%s %s\n", msg_nomem_r, log_rec.refer);
@@ -1115,7 +1115,7 @@ int main(int argc, char *argv[])
 
          /* hostname (site) hash table - daily */
          if (put_hnode(log_rec.hostname,OBJ_REG,
-             1,(u_long)i,log_rec.xfer_size,&dt_site,
+             1,(u_int64_t)i,log_rec.xfer_size,&dt_site,
              0,rec_tstamp,"",sd_htab))
          {
             if (verbose)
@@ -1125,7 +1125,7 @@ int main(int argc, char *argv[])
 
          /* hostname (site) hash table - monthly */
          if (put_hnode(log_rec.hostname,OBJ_REG,
-             1,(u_long)i,log_rec.xfer_size,&t_site,
+             1,(u_int64_t)i,log_rec.xfer_size,&t_site,
              0,rec_tstamp,"",sm_htab))
          {
             if (verbose)
@@ -1137,7 +1137,7 @@ int main(int argc, char *argv[])
          if (ntop_agents)
          {
             if (log_rec.agent[0]!='\0')
-             if (put_anode(log_rec.agent,OBJ_REG,(u_long)1,&t_agent,am_htab))
+             if (put_anode(log_rec.agent,OBJ_REG,(u_int64_t)1,&t_agent,am_htab))
              {
               if (verbose)
               fprintf(stderr,"%s %s\n", msg_nomem_a, log_rec.agent);
@@ -1178,8 +1178,8 @@ int main(int argc, char *argv[])
          /* URL Grouping */
          if ( (cp1=isinglist(group_urls,log_rec.url))!=NULL)
          {
-            if (put_unode(cp1,OBJ_GRP,(u_long)1,log_rec.xfer_size,
-                &ul_bogus,(u_long)0,(u_long)0,um_htab))
+            if (put_unode(cp1,OBJ_GRP,(u_int64_t)1,log_rec.xfer_size,
+                &ul_bogus,(u_int64_t)0,(u_int64_t)0,um_htab))
             {
                if (verbose)
                /* Error adding URL node, skipping ... */
@@ -1190,7 +1190,7 @@ int main(int argc, char *argv[])
          /* Site Grouping */
          if ( (cp1=isinglist(group_sites,log_rec.hostname))!=NULL)
          {
-            if (put_hnode(cp1,OBJ_GRP,1,(u_long)(log_rec.resp_code==RC_OK)?1:0,
+            if (put_hnode(cp1,OBJ_GRP,1,(u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
                           log_rec.xfer_size,&ul_bogus,
                           0,rec_tstamp,"",sm_htab))
             {
@@ -1208,7 +1208,7 @@ int main(int argc, char *argv[])
                if (cp1 != NULL)
                {
                   if (put_hnode(cp1,OBJ_GRP,1,
-                      (u_long)(log_rec.resp_code==RC_OK)?1:0,
+                      (u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
                       log_rec.xfer_size,&ul_bogus,
                       0,rec_tstamp,"",sm_htab))
                   {
@@ -1223,7 +1223,7 @@ int main(int argc, char *argv[])
          /* Referrer Grouping */
          if ( (cp1=isinglist(group_refs,log_rec.refer))!=NULL)
          {
-            if (put_rnode(cp1,OBJ_GRP,(u_long)1,&ul_bogus,rm_htab))
+            if (put_rnode(cp1,OBJ_GRP,(u_int64_t)1,&ul_bogus,rm_htab))
             {
                if (verbose)
                /* Error adding Referrer node, skipping ... */
@@ -1234,7 +1234,7 @@ int main(int argc, char *argv[])
          /* User Agent Grouping */
          if ( (cp1=isinglist(group_agents,log_rec.agent))!=NULL)
          {
-            if (put_anode(cp1,OBJ_GRP,(u_long)1,&ul_bogus,am_htab))
+            if (put_anode(cp1,OBJ_GRP,(u_int64_t)1,&ul_bogus,am_htab))
             {
                if (verbose)
                /* Error adding User Agent node, skipping ... */
@@ -1245,7 +1245,7 @@ int main(int argc, char *argv[])
          /* Ident (username) Grouping */
          if ( (cp1=isinglist(group_users,log_rec.ident))!=NULL)
          {
-            if (put_inode(cp1,OBJ_GRP,1,(u_long)(log_rec.resp_code==RC_OK)?1:0,
+            if (put_inode(cp1,OBJ_GRP,1,(u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
                           log_rec.xfer_size,&ul_bogus,
                           0,rec_tstamp,im_htab))
             {
@@ -1276,7 +1276,7 @@ int main(int argc, char *argv[])
             total_bad++;
             if (verbose)
             {
-               fprintf(stderr,"%s (%lu)",msg_bad_rec,total_rec);
+               fprintf(stderr,"%s (%lld)",msg_bad_rec,total_rec);
                if (debug_mode) fprintf(stderr,":\n%s\n",tmp_buf);
                else fprintf(stderr,"\n");
             }
@@ -1319,14 +1319,14 @@ int main(int argc, char *argv[])
       end_time = times(&mytms);              /* display timing totals?   */
       if (time_me || (verbose>1))
       {
-         printf("%lu %s ",total_rec, msg_records);
+         printf("%lld %s ",total_rec, msg_records);
          if (total_ignore)
          {
-            printf("(%lu %s",total_ignore,msg_ignored);
-            if (total_bad) printf(", %lu %s) ",total_bad,msg_bad);
+            printf("(%lld %s",total_ignore,msg_ignored);
+            if (total_bad) printf(", %lld %s) ",total_bad,msg_bad);
                else        printf(") ");
          }
-         else if (total_bad) printf("(%lu %s) ",total_bad,msg_bad);
+         else if (total_bad) printf("(%lld %s) ",total_bad,msg_bad);
 
          /* get processing time (end-start) */
          temp_time = (float)(end_time-start_time)/CLK_TCK;
@@ -1741,10 +1741,10 @@ int isurlchar(unsigned char ch)
 /* CTRY_IDX - create unique # from domain    */
 /*********************************************/
 
-u_long ctry_idx(char *str)
+u_int64_t ctry_idx(char *str)
 {
    int i=strlen(str),j=0;
-   u_long idx=0;
+   u_int64_t idx=0;
    char *cp1=str+i;
    for (;i>0;i--) { idx+=((*--cp1-'a'+1)<<j); j+=5; }
    return idx;
@@ -1843,7 +1843,7 @@ void srch_string(char *ptr)
    cp1=cp2;
    while (*cp1!=0) { if ((*cp1<32)||(*cp1==127)) *cp1='_'; cp1++; }
 
-   if (put_snode(cp2,(u_long)1,sr_htab))
+   if (put_snode(cp2,(u_int64_t)1,sr_htab))
    {
       if (verbose)
       /* Error adding search string node, skipping .... */
@@ -1923,14 +1923,14 @@ char *our_gzgets(gzFile fp, char *buf, int size)
 /*                                                               */
 /*****************************************************************/
 
-u_long jdate( int day, int month, int year )
+u_int64_t jdate( int day, int month, int year )
 {
-   u_long days;                      /* value returned */
+   u_int64_t days;                      /* value returned */
    int mtable[] = {0,31,59,90,120,151,181,212,243,273,304,334};
 
    /* First, calculate base number including leap and Centenial year stuff */
 
-   days=(((u_long)year*365)+day+mtable[month-1]+
+   days=(((u_int64_t)year*365)+day+mtable[month-1]+
            ((year+4)/4) - ((year/100)-(year/400)));
 
    /* now adjust for leap year before March 1st */

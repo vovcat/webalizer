@@ -79,7 +79,7 @@ DNODEPTR new_dnode(char *);                   /* new DNS node             */
 void     update_entry(char *);                /* update entry/exit        */
 void     update_exit(char *);                 /* page totals              */
 
-u_long   hash(char *);                        /* hash function            */
+u_int64_t   hash(char *);                        /* hash function            */
 
 /* local data */
 
@@ -154,12 +154,12 @@ HNODEPTR new_hnode(char *str)
 
 int put_hnode( char     *str,   /* Hostname  */
                int       type,  /* obj type  */
-               u_long    count, /* hit count */
-               u_long    file,  /* File flag */
+               u_int64_t    count, /* hit count */
+               u_int64_t    file,  /* File flag */
                double    xfer,  /* xfer size */
-               u_long   *ctr,   /* counter   */
-               u_long    visit, /* visits    */
-               u_long    tstamp,/* timestamp */
+               u_int64_t   *ctr,   /* counter   */
+               u_int64_t    visit, /* visits    */
+               u_int64_t    tstamp,/* timestamp */
                char     *lasturl, /* lasturl */
                HNODEPTR *htab)  /* ptr>next  */
 {
@@ -341,8 +341,8 @@ UNODEPTR new_unode(char *str)
 /* PUT_UNODE - insert/update URL node        */
 /*********************************************/
 
-int put_unode(char *str, int type, u_long count, double xfer,
-              u_long *ctr, u_long entry, u_long exit, UNODEPTR *htab)
+int put_unode(char *str, int type, u_int64_t count, double xfer,
+              u_int64_t *ctr, u_int64_t entry, u_int64_t exit, UNODEPTR *htab)
 {
    UNODEPTR cptr,nptr;
 
@@ -468,7 +468,7 @@ RNODEPTR new_rnode(char *str)
 /* PUT_RNODE - insert/update referrer node   */
 /*********************************************/
 
-int put_rnode(char *str, int type, u_long count, u_long *ctr, RNODEPTR *htab)
+int put_rnode(char *str, int type, u_int64_t count, u_int64_t *ctr, RNODEPTR *htab)
 {
    RNODEPTR cptr,nptr;
 
@@ -587,7 +587,7 @@ ANODEPTR new_anode(char *str)
 /* PUT_ANODE - insert/update user agent node */
 /*********************************************/
 
-int put_anode(char *str, int type, u_long count, u_long *ctr, ANODEPTR *htab)
+int put_anode(char *str, int type, u_int64_t count, u_int64_t *ctr, ANODEPTR *htab)
 {
    ANODEPTR cptr,nptr;
 
@@ -702,7 +702,7 @@ SNODEPTR new_snode(char *str)
 /* PUT_SNODE - insert/update search str node */
 /*********************************************/
 
-int put_snode(char *str, u_long count, SNODEPTR *htab)
+int put_snode(char *str, u_int64_t count, SNODEPTR *htab)
 {
    SNODEPTR cptr,nptr;
 
@@ -810,12 +810,12 @@ INODEPTR new_inode(char *str)
 
 int put_inode( char     *str,   /* ident str */
                int       type,  /* obj type  */
-               u_long    count, /* hit count */
-               u_long    file,  /* File flag */
+               u_int64_t    count, /* hit count */
+               u_int64_t    file,  /* File flag */
                double    xfer,  /* xfer size */
-               u_long   *ctr,   /* counter   */
-               u_long    visit, /* visits    */
-               u_long    tstamp,/* timestamp */
+               u_int64_t   *ctr,   /* counter   */
+               u_int64_t    visit, /* visits    */
+               u_int64_t    tstamp,/* timestamp */
                INODEPTR *htab)  /* hashtable */
 {
    INODEPTR cptr,nptr;
@@ -1047,9 +1047,9 @@ void	del_dlist(DNODEPTR *htab)
 /* HASH - return hash value for string       */
 /*********************************************/
 
-u_long hash(char *str)
+u_int64_t hash(char *str)
 {
-   u_long hashval;
+   u_int64_t hashval;
    for (hashval = 0; *str != '\0'; str++)
       hashval = *str + 31 * hashval;
    return hashval % MAXHASH;
@@ -1133,7 +1133,7 @@ void update_exit(char *str)
 /* MONTH_UPDATE_EXIT  - eom exit page update */
 /*********************************************/
 
-void month_update_exit(u_long tstamp)
+void month_update_exit(u_int64_t tstamp)
 {
    HNODEPTR nptr;
    int i;
@@ -1157,10 +1157,10 @@ void month_update_exit(u_long tstamp)
 /* TOT_VISIT - calculate total visits        */
 /*********************************************/
 
-u_long tot_visit(HNODEPTR *list)
+u_int64_t tot_visit(HNODEPTR *list)
 {
    HNODEPTR   hptr;
-   u_long     tot=0;
+   u_int64_t     tot=0;
    int        i;
 
    for (i=0;i<MAXHASH;i++)

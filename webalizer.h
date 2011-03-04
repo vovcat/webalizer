@@ -125,13 +125,13 @@
 
 /* Response code structure */
 struct response_code {     char    *desc;         /* response code struct  */
-                         u_long    count; };
+                         u_int64_t    count; };
 
 /* Country code structure */
-struct	country_code { u_long idx;
+struct	country_code { u_int64_t idx;
                          char *desc;
-                       u_long count;
-                       u_long files;
+                       u_int64_t count;
+                       u_int64_t files;
                        double  xfer; };
 
 typedef struct country_code *CLISTPTR;
@@ -141,7 +141,7 @@ struct  log_struct  {  char   hostname[MAXHOST];   /* hostname             */
                        char   datetime[29];        /* raw timestamp        */
                        char   url[MAXURL];         /* raw request field    */
                        int    resp_code;           /* response code        */
-                       u_long xfer_size;           /* xfer size in bytes   */
+                       u_int64_t xfer_size;           /* xfer size in bytes   */
 #ifdef USE_DNS
                        struct in_addr addr;        /* IP address structure */
 #endif  /* USE_DNS */
@@ -219,8 +219,8 @@ extern int     dump_search  ;                 /* Search strings           */
 extern int     dump_header  ;                 /* Dump header as first rec */
 extern char    *dump_path   ;                 /* Path for dump files      */
 
-extern u_long  cur_tstamp;                    /* Current timestamp        */
-extern u_long  epoch;                         /* used for timestamp adj.  */
+extern u_int64_t  cur_tstamp;                    /* Current timestamp        */
+extern u_int64_t  epoch;                         /* used for timestamp adj.  */
 extern int     check_dup;                     /* check for dups flag      */
 
 extern int     cur_year,cur_month,            /* year/month/day/hour      */
@@ -228,21 +228,21 @@ extern int     cur_year,cur_month,            /* year/month/day/hour      */
                cur_min, cur_sec;
 
 extern double  t_xfer;                        /* monthly total xfer value */
-extern u_long  t_hit, t_file, t_site,         /* monthly total vars       */
+extern u_int64_t  t_hit, t_file, t_site,         /* monthly total vars       */
                t_url, t_ref,  t_agent,
                t_page,t_visit,t_user;
 
 extern double  tm_xfer[31];                   /* daily transfer totals    */
 
-extern u_long  tm_hit[31], tm_file[31],       /* daily total arrays       */
+extern u_int64_t  tm_hit[31], tm_file[31],       /* daily total arrays       */
                tm_site[31],tm_page[31],
                tm_visit[31];
 
-extern u_long  dt_site;                       /* daily 'sites' total      */
+extern u_int64_t  dt_site;                       /* daily 'sites' total      */
 
-extern u_long  ht_hit,mh_hit;                 /* hourly hits totals       */
+extern u_int64_t  ht_hit,mh_hit;                 /* hourly hits totals       */
 
-extern u_long  th_hit[24], th_file[24],       /* hourly total arrays      */
+extern u_int64_t  th_hit[24], th_file[24],       /* hourly total arrays      */
                th_page[24];
 
 extern double  th_xfer[24];
@@ -255,9 +255,9 @@ extern CLISTPTR *top_ctrys;                   /* Top countries table      */
 /* define our externally visable functions */
 
 extern char   *cur_time();
-extern u_long ctry_idx(char *);
+extern u_int64_t ctry_idx(char *);
 extern void   init_counters();
 extern int    ispage(char *);
-extern u_long jdate(int,int,int);
+extern u_int64_t jdate(int,int,int);
 
 #endif  /* _WEBALIZER_H */

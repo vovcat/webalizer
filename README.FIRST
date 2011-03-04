@@ -230,3 +230,29 @@ README file for additional information.
 # what the original code wanted to deal with.  A 256 char limit
 # seems to catch most of the longer values.
 ##################
+
+###################  SUMMARY 02_64bit  ##########################
+
+##################
+# For very busy sites, 32 bit signed counters can overflow.  This
+# is particularly when using webalizer to cover a long span of time.
+# This patch converts a few values to be u_int64_t to avoid these
+# numeric overflow problems.
+#
+# NOTE: While not required, it is recommened that you apply the
+#      patch-0.basic.ptch before you apply this patch.
+##################
+#Solaris users:
+
+#Solaris uses u_longlong_t instead of u_int64_t.  So when you build and install, try:
+#
+#       cd somepath/webalizer-2.01-10
+#       rm -f config.cache
+#       CFLAGS="$CFLAGS -Du_int64_t=u_longlong_t" ./configure [--optional_flags ...]
+#       make all
+#       make install
+#
+#See:
+#       ./configure --help
+#
+#for a list of optional flags.

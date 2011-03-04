@@ -71,7 +71,7 @@ gdImagePtr	im;                        /* image buffer        */
 FILE		*out;                      /* output file for PNG */
 char		maxvaltxt[32];             /* graph values        */
 float		percent;                   /* percent storage     */
-u_long		julday;                    /* julday value        */
+u_int64_t		julday;                    /* julday value        */
 
 struct pie_data { int x; int y;            /* line x,y            */
                   int mx; int my; };       /* midpoint x,y        */
@@ -88,19 +88,19 @@ int		black, white, grey, dkgrey, red,
 int year_graph6x(  char *fname,            /* file name use      */
                    char *title,            /* title for graph    */
                     int fmonth,            /* begin month number */
-                 u_long data1[12],         /* data1 (hits)       */
-                 u_long data2[12],         /* data2 (files)      */
-                 u_long data3[12],         /* data3 (sites)      */
+                 u_int64_t data1[12],         /* data1 (hits)       */
+                 u_int64_t data2[12],         /* data2 (files)      */
+                 u_int64_t data3[12],         /* data3 (sites)      */
                  double data4[12],         /* data4 (kbytes)     */
-                 u_long data5[12],         /* data5 (views)      */
-                 u_long data6[12])         /* data6 (visits)     */
+                 u_int64_t data5[12],         /* data5 (views)      */
+                 u_int64_t data6[12])         /* data6 (visits)     */
 {
 
    /* local variables */
    int i,j,x1,y1,x2;
    int s_mth;
 
-   u_long maxval=1;
+   u_int64_t maxval=1;
    double fmaxval=0.0;
 
    /* initalize the graph */
@@ -137,7 +137,7 @@ int year_graph6x(  char *fname,            /* file name use      */
       if (data5[i] > maxval) maxval = data5[i];
    }
    if (maxval <= 0) maxval = 1;
-   sprintf(maxvaltxt, "%lu", maxval);
+   sprintf(maxvaltxt, "%lld", maxval);
    gdImageStringUp(im,gdFontSmall,8,26+(strlen(maxvaltxt)*6),maxvaltxt,black);
 
    if (graph_legend)                          /* print color coded legends? */
@@ -221,7 +221,7 @@ int year_graph6x(  char *fname,            /* file name use      */
        if (data6[i] > maxval) maxval = data6[i];
    }
    if (maxval <= 0) maxval = 1;
-   sprintf(maxvaltxt, "%lu", maxval);
+   sprintf(maxvaltxt, "%lld", maxval);
    gdImageStringUp(im, gdFontSmall,493,26+(strlen(maxvaltxt)*6),
                    maxvaltxt, black);
 
@@ -299,17 +299,17 @@ int month_graph6(  char *fname,            /* filename           */
                    char *title,            /* graph title        */
                     int month,             /* graph month        */
                     int year,              /* graph year         */
-                 u_long data1[31],         /* data1 (hits)       */
-                 u_long data2[31],         /* data2 (files)      */
-                 u_long data3[31],         /* data3 (sites)      */
+                 u_int64_t data1[31],         /* data1 (hits)       */
+                 u_int64_t data2[31],         /* data2 (files)      */
+                 u_int64_t data3[31],         /* data3 (sites)      */
                  double data4[31],         /* data4 (kbytes)     */
-                 u_long data5[31],         /* data5 (views)      */
-                 u_long data6[31])         /* data6 (visits)     */
+                 u_int64_t data5[31],         /* data5 (views)      */
+                 u_int64_t data6[31])         /* data6 (visits)     */
 {
 
    /* local variables */
    int i,j,s,x1,y1,x2;
-   u_long maxval=0;
+   u_int64_t maxval=0;
    double fmaxval=0.0;
 
    /* calc julian date for month */
@@ -354,7 +354,7 @@ int month_graph6(  char *fname,            /* filename           */
        if (data5[i] > maxval) maxval = data5[i];
    }
    if (maxval <= 0) maxval = 1;
-   sprintf(maxvaltxt, "%lu", maxval);
+   sprintf(maxvaltxt, "%lld", maxval);
    gdImageStringUp(im, gdFontSmall,8,26+(strlen(maxvaltxt)*6),
                    maxvaltxt,black);
 
@@ -434,7 +434,7 @@ int month_graph6(  char *fname,            /* filename           */
       if (data6[i]>maxval) maxval = data6[i];
    }
    if (maxval <= 0) maxval = 1;
-   sprintf(maxvaltxt, "%lu", maxval);
+   sprintf(maxvaltxt, "%lld", maxval);
    gdImageStringUp(im, gdFontSmall,8,180+(strlen(maxvaltxt)*6),
                    maxvaltxt, black);
 
@@ -502,14 +502,14 @@ int month_graph6(  char *fname,            /* filename           */
 
 int day_graph3(  char *fname,
                  char *title,
-               u_long data1[24],
-               u_long data2[24],
-               u_long data3[24])
+               u_int64_t data1[24],
+               u_int64_t data2[24],
+               u_int64_t data3[24])
 {
 
    /* local variables */
    int i,j,s,x1,y1,x2;
-   u_long maxval=0;
+   u_int64_t maxval=0;
 
    /* initalize the graph */
    init_graph(title,512,256);
@@ -531,7 +531,7 @@ int day_graph3(  char *fname,
       if (data3[i] > maxval) maxval = data3[i];
    }
    if (maxval <= 0) maxval = 1;
-   sprintf(maxvaltxt, "%lu", maxval);
+   sprintf(maxvaltxt, "%lld", maxval);
    gdImageStringUp(im, gdFontSmall, 8, 26+(strlen(maxvaltxt)*6),
                    maxvaltxt, black);
 
@@ -607,8 +607,8 @@ int day_graph3(  char *fname,
 /*                                                               */
 /*****************************************************************/
 
-int pie_chart(char *fname, char *title, u_long t_val,
-              u_long data1[], char *legend[])
+int pie_chart(char *fname, char *title, u_int64_t t_val,
+              u_int64_t data1[], char *legend[])
 {
    int i,x,percent,y=47;
    double s_arc=0.0;
