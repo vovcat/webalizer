@@ -245,7 +245,7 @@ int     f_end;                                /* count to end of buffer   */
 int main(int argc, char *argv[])
 {
    int      i;                           /* generic counter             */
-   char     *cp1, *cp2, *cp3, *str;      /* generic char pointers       */
+   unsigned char *cp1, *cp2, *cp3, *str;      /* generic char pointers       */
    NLISTPTR lptr;                        /* generic list pointer        */
 
    extern char *optarg;                  /* used for command line       */
@@ -627,7 +627,7 @@ int main(int argc, char *argv[])
 
          /* convert month name to lowercase */
          for (i=4;i<7;i++)
-            log_rec.datetime[i]=tolower(log_rec.datetime[i]);
+	    log_rec.datetime[i]=tolower((unsigned char)log_rec.datetime[i]);
 
          /* get year/month/day/hour/min/sec values    */
          for (i=0;i<12;i++)
@@ -771,7 +771,7 @@ int main(int argc, char *argv[])
          {
             if ((cp1=strstr(log_rec.url,lptr->string))!=NULL)
             {
-               if ((cp1==log_rec.url)||(*(cp1-1)=='/'))
+	       if ((cp1==(unsigned char *)log_rec.url)||(*(cp1-1)=='/'))
                {
                   *cp1='\0';
                   if (log_rec.url[0]=='\0')
@@ -1565,19 +1565,19 @@ void get_config(char *fname)
    while ( (fgets(buffer,BUFSIZE,fp)) != NULL)
    {
       /* skip comments and blank lines */
-      if ( (buffer[0]=='#') || isspace((int)buffer[0]) ) continue;
+      if ( (buffer[0]=='#') || isspace((unsigned char)buffer[0]) ) continue;
 
       /* Get keyword */
       cp1=buffer;cp2=keyword;count=31;
-      while ( (isalnum((int)*cp1)) && count ) { *cp2++ = *cp1++; count--; }
+      while ( (isalnum((unsigned char)*cp1)) && count ) { *cp2++ = *cp1++; count--; }
       *cp2='\0';
 
       /* Get value */
       cp2=value;count=131;
-      while ( (*cp1!='\n')&&(*cp1!='\0')&&(isspace((int)*cp1)) ) cp1++;
+      while ( (*cp1!='\n')&&(*cp1!='\0')&&(isspace((unsigned char)*cp1)) ) cp1++;
       while ( (*cp1!='\n')&&(*cp1!='\0')&&count ) { *cp2++ = *cp1++; count--; }
       *cp2--='\0';
-      while ( (isspace((int)*cp2)) && (cp2 != value) ) *cp2--='\0';
+      while ( (isspace((unsigned char)*cp2)) && (cp2 != value) ) *cp2--='\0';
 
       /* check if blank keyword/value */
       if ( (keyword[0]=='\0') || (value[0]=='\0') ) continue;
@@ -1936,7 +1936,7 @@ void srch_string(char *ptr)
          if (*cp1=='+') *cp1=' ';                      /* change + to space  */
          if (sp_flg && *cp1==' ') { cp1++; continue; } /* compress spaces    */
          if (*cp1==' ') sp_flg=1; else sp_flg=0;       /* (flag spaces here) */
-         *cp2++=tolower(*cp1);                         /* normal character   */
+	 *cp2++= *cp1;                               /* normal character   */
          cp1++;
       }
    }
@@ -1972,7 +1972,7 @@ char *get_domain(char *str)
    int  i=group_domains+1;
 
    cp = str+strlen(str)-1;
-   if (isdigit((int)*cp)) return NULL;   /* ignore IP addresses */
+   if (isdigit((unsigned char)*cp)) return NULL;   /* ignore IP addresses */
 
    while (cp!=str)
    {
