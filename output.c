@@ -38,6 +38,7 @@
 #include <ctype.h>
 #include <sys/utsname.h>
 #include <sys/times.h>
+#include <sys/stat.h>
 
 /* ensure getopt */
 #ifdef HAVE_GETOPT_H
@@ -2393,7 +2394,7 @@ int write_main_index()
    /* now do html stuff... */
    sprintf(index_fname,"index.%s",html_ext);
 
-   if ( (out_fp=fopen(index_fname,"w")) == NULL)
+   if ( (out_fp=open_out_file(index_fname)) == NULL)
    {
       if (verbose)
       fprintf(stderr,"%s %s!\n",msg_no_open,index_fname);
@@ -2964,7 +2965,20 @@ u_int64_t load_ident_array(INODEPTR *pointer)
 
 FILE *open_out_file(char *filename)
 {
+   struct stat out_stat;
    FILE *out_fp;
+
+   /* stat the file */
+   if ( !(lstat(filename, &out_stat)) )
+   {
+      /* check if the file a symlink */
+      if ( S_ISLNK(out_stat.st_mode) )
+      {
+        if (verbose)
+        fprintf(stderr,"%s %s!\n","Error: File is a symlink",filename);
+        return NULL;
+      }
+   }
 
    /* open the file... */
    if ( (out_fp=fopen(filename,"w")) == NULL)

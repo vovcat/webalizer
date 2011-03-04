@@ -30,6 +30,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #include <gd.h>
 #include <gdfontt.h>
 #include <gdfonts.h>
@@ -69,6 +71,7 @@ char *numchar[] = { " 0"," 1"," 2"," 3"," 4"," 5"," 6"," 7"," 8"," 9","10",
 
 gdImagePtr	im;                        /* image buffer        */
 FILE		*out;                      /* output file for PNG */
+struct stat	out_stat;                  /* stat struct for PNG */
 char		maxvaltxt[32];             /* graph values        */
 float		percent;                   /* percent storage     */
 u_int64_t		julday;                    /* julday value        */
@@ -273,6 +276,18 @@ int year_graph6x(  char *fname,            /* file name use      */
       y1 = 232 - (percent * 98);
       gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR4);
       gdImageRectangle(im, x1, y1, x2, 232, black);
+   }
+
+   /* stat the file */
+   if ( !(lstat(fname, &out_stat)) )
+   {
+     /* check if the file a symlink */
+     if ( S_ISLNK(out_stat.st_mode) )
+     {
+       if (verbose)
+       fprintf(stderr,"%s %s!\n","Error: File is a symlink",fname);
+       return;
+     }
    }
 
    /* save png image */
@@ -482,6 +497,18 @@ int month_graph6(  char *fname,            /* filename           */
       gdImageRectangle(im, x1, y1, x2, 375, black);
    }
 
+   /* stat the file */
+   if ( !(lstat(fname, &out_stat)) )
+   {
+     /* check if the file a symlink */
+     if ( S_ISLNK(out_stat.st_mode) )
+     {
+       if (verbose)
+       fprintf(stderr,"%s %s!\n","Error: File is a symlink",fname);
+       return;
+     }
+   }
+
    /* open file for writing */
    if ((out = fopen(fname, "wb")) != NULL)
    {
@@ -589,6 +616,18 @@ int day_graph3(  char *fname,
       gdImageRectangle(im, x1, y1, x2, 232, black);
    }
 
+   /* stat the file */
+   if ( !(lstat(fname, &out_stat)) )
+   {
+     /* check if the file a symlink */
+     if ( S_ISLNK(out_stat.st_mode) )
+     {
+       if (verbose)
+       fprintf(stderr,"%s %s!\n","Error: File is a symlink",fname);
+       return(1);
+     }
+   }
+
    /* save as png	file */
    if ( (out = fopen(fname, "wb")) != NULL)
    {
@@ -671,6 +710,18 @@ int pie_chart(char *fname, char *title, u_int64_t t_val,
       x=480-(strlen(buffer)*7);
       gdImageString(im,gdFontMediumBold, x+1, y+1, buffer, black);
       gdImageString(im,gdFontMediumBold, x, y, buffer, white);
+   }
+
+   /* stat the file */
+   if ( !(lstat(fname, &out_stat)) )
+   {
+     /* check if the file a symlink */
+     if ( S_ISLNK(out_stat.st_mode) )
+     {
+       if (verbose)
+       fprintf(stderr,"%s %s!\n","Error: File is a symlink",fname);
+       return;
+     }
    }
 
    /* save png image */

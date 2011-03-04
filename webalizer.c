@@ -39,6 +39,7 @@
 #include <sys/utsname.h>
 #include <sys/times.h>
 #include <zlib.h>
+#include <sys/stat.h>
 
 /* ensure getopt */
 #ifdef HAVE_GETOPT_H
@@ -267,6 +268,7 @@ int main(int argc, char *argv[])
                          "apr", "may", "jun",
                          "jul", "aug", "sep",
                          "oct", "nov", "dec"};
+   struct stat log_stat;
 
    /* initalize epoch */
    epoch=jdate(1,1,1970);                /* used for timestamp adj.     */
@@ -428,6 +430,18 @@ int main(int argc, char *argv[])
    /* open log file */
    if (gz_log)
    {
+       /* stat the file */
+       if ( !(lstat(log_fname, &log_stat)) )
+       {
+         /* check if the file a symlink */
+         if ( S_ISLNK(log_stat.st_mode) )
+         {
+           if (verbose)
+           fprintf(stderr,"%s %s!\n","Error: File is a symlink",log_fname);
+           return;
+         }
+      }
+
       gzlog_fp = gzopen(log_fname,"rb");
       if (gzlog_fp==Z_NULL)
       {

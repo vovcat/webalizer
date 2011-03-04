@@ -38,6 +38,7 @@
 #include <ctype.h>
 #include <sys/utsname.h>
 #include <sys/times.h>
+#include <sys/stat.h>
 
 /* ensure getopt */
 #ifdef HAVE_GETOPT_H
@@ -141,6 +142,19 @@ void put_history()
 {
    int i;
    FILE *hist_fp;
+   struct stat hist_stat;
+
+   /* stat the file */
+   if ( !(lstat(hist_fname, &hist_stat)) )
+   {
+     /* check if the file a symlink */
+     if ( S_ISLNK(hist_stat.st_mode) )
+     {
+       if (verbose)
+       fprintf(stderr,"%s %s!\n","Error: File is a symlink",hist_fname);
+       return;
+     }
+   }
 
    hist_fp = fopen(hist_fname,"w");
 
@@ -186,8 +200,21 @@ int save_state()
 
    FILE *fp;
    int  i;
+   struct stat state_stat;
 
    char buffer[BUFSIZE];
+
+   /* stat the file */
+   if ( !(lstat(state_fname, &state_stat)) )
+   {
+     /* check if the file a symlink */
+     if ( S_ISLNK(state_stat.st_mode) )
+     {
+       if (verbose)
+       fprintf(stderr,"%s %s!\n","Error: File is a symlink",state_fname);
+       return NULL;
+     }
+   }
 
    /* Open data file for write */
    fp=fopen(state_fname,"w");
