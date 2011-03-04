@@ -1993,7 +1993,7 @@ void top_ctry_table()
             while ( (*domain!='.')&&(domain!=hptr->string)) domain--;
             if (domain==hptr->string)
 	       country=NULL;
-            else if (isdigit((int)*++domain))
+            else if (isdigit((unsigned char)*++domain))
             {
 #ifdef USE_GEOIP
                if (use_geoip)
