@@ -42,8 +42,12 @@ webalizer:	webalizer.o webalizer.h hashtab.o hashtab.h  \
 		linklist.o linklist.h preserve.o preserve.h  \
                 dns_resolv.o dns_resolv.h parser.o parser.h  \
                 output.o output.h graphs.o graphs.h lang.h   \
+		gdfontg.o gdfontl.o gdfontmb.o gdfonts.o gdfontt.o \
 		webalizer_lang.h
-	$(CC) ${LDFLAGS} -o webalizer webalizer.o hashtab.o linklist.o preserve.o parser.o output.o dns_resolv.o graphs.o ${LIBS}
+	$(CC) ${LDFLAGS} -o webalizer webalizer.o hashtab.o linklist.o \
+		preserve.o parser.o output.o dns_resolv.o graphs.o \
+		gdfontg.o gdfontl.o gdfontmb.o gdfonts.o gdfontt.o \
+		${LIBS}
 	rm -f webazolver
 	@LN_S@ webalizer webazolver
 
