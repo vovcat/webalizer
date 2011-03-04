@@ -154,6 +154,8 @@ char *h_msg[]= {
          "-X        = Hide individual sites"               ,
          "-D name   = Use DNS Cache file 'name'"           ,
          "-N num    = Number of DNS processes (0=disable)" ,
+         "-w        = Disable GeoIP fearure"               ,
+         "-W name   = Use specific GeoIP database 'name'"  ,
          NULL};
 
 /***********************************************************************/

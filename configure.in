@@ -62,9 +62,19 @@ CFLAGS="-I${withval} ${CFLAGS}")
 AC_ARG_WITH(dblib,--with-dblib=DIR          Alternate location for db library,
 LDFLAGS="-L${withval} ${LDFLAGS}"; HAVE_DB="yes", HAVE_DB="")
 
+AC_ARG_WITH(geoip-inc,--with-geoip-inc=DIR      Alternate location for GeoIP headers,
+EXTRA_GEOIPINC="${withval}")
+
+AC_ARG_WITH(geoip-lib,--with-geoip-lib=DIR      Alternate location for GeoIP library,
+EXTRA_GEOIPLIB="${withval}")
+
 dnl enable-dns forces use of DNS code
 AC_ARG_ENABLE(dns,--enable-dns              Enable DNS lookup code,
 USE_DNS="yes")
+
+dnl enable-geoip forces use of GeoIP library
+AC_ARG_ENABLE(geoip,--enable-geoip            Enable GeoIP country lookup,
+USE_GEOIP="yes")
 
 dnl DNS library check
 if test "$USE_DNS" = "yes"; then
@@ -144,6 +154,32 @@ AC_FIND_PATH(GDLIB,gd.h,"", ${PREFIX}/include ${PREFIX}/include/gd /usr/local/in
 dnl Abort if GD headers not found
 if test "$GDLIB" = ""; then
  AC_MSG_ERROR(gd headers not found... please install gd.)
+fi
+
+dnl Check GeoIP if user wants it
+if test "$USE_GEOIP" = "yes"; then
+ dnl Check for GeoIP headers
+ AC_FIND_PATH(GEOIPINC,GeoIP.h,"", ${PREFIX}/include /usr/local/include /usr/include /include ${prefix}/include ./ ${EXTRA_GEOIPINC})
+ if test "$GEOIPINC" = ""; then
+  AC_MSG_ERROR(GeoIP headers not found... please install GeoIP.)
+ else
+  CFLAGS="-I${GEOIPINC} ${CFLAGS}"
+ fi
+
+ dnl Check for GeoIP library
+ AC_FIND_PATH(GEOIPLIB,libGeoIP.a,"", ${PREFIX}/lib /usr/local/lib /usr/lib /lib ${prefix}/lib ./ ${EXTRA_GEOIPLIB})
+ if test "$GEOIPLIB" = ""; then
+  AC_MSG_ERROR(GeoIP library not found... please install GeoIP.)
+ else
+  LDFLAGS="-L${GEOIPLIB} ${LDFLAGS}"
+ fi
+
+ AC_CHECK_LIB(GeoIP, GeoIP_new, LIBS="-lGeoIP ${LIBS}", LIBGEOIP="no")
+  if test "$LIBGEOIP" = "no"; then
+   AC_MSG_ERROR(GeoIP library not functional... please install GeoIP.)
+  else
+   OPTS="-DUSE_GEOIP ${OPTS}"
+  fi
 fi
 
 dnl additonal platform specific checks

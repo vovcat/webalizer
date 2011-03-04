@@ -59,6 +59,12 @@
 #define CLK_TCK _SC_CLK_TCK
 #endif
 
+/* GeoIP stuff */
+#ifdef USE_GEOIP
+#include <GeoIP.h>
+extern GeoIP *gi;
+#endif	/* USE_GEOIP */
+
 #include "webalizer.h"                        /* main header              */
 #include "lang.h"
 #include "hashtab.h"
@@ -1922,13 +1928,19 @@ void top_ctry_table()
    int ctry_fnd;
    u_int64_t idx;
    HNODEPTR hptr;
-   char *domain;
+   char *domain, *country = NULL;
    u_int64_t pie_data[10];
    char   *pie_legend[10];
    char   pie_title[48];
    char   pie_fname[48];
 
    extern int ctry_graph;  /* include external flag */
+
+#ifdef USE_GEOIP
+   const char *result;
+   char code[3];
+   code[2]='\0';
+#endif	/* USE_GEOIP */
 
    /* scan hash table adding up domain totals */
    for (i=0;i<MAXHASH;i++)
@@ -1940,16 +1952,40 @@ void top_ctry_table()
          {
             domain = hptr->string+strlen(hptr->string)-1;
             while ( (*domain!='.')&&(domain!=hptr->string)) domain--;
-            if ((domain==hptr->string)||(isdigit((int)*++domain)))
+            if (domain==hptr->string)
+	       country=NULL;
+            else if (isdigit((int)*++domain))
             {
-               ctry[0].count+=hptr->count;
-               ctry[0].files+=hptr->files;
-               ctry[0].xfer +=hptr->xfer;
-            }
-            else
-            {
-               ctry_fnd=0;
-               idx=ctry_idx(domain);
+#ifdef USE_GEOIP
+               if (use_geoip)
+	       {
+                  result = GeoIP_country_code_by_addr(gi, hptr->string);
+                  if ((result == NULL)||((result[0]=='-')&&(result[1]=='-')))
+		     country=NULL;
+		  else
+	          {
+	             code[0]=tolower(result[0]);
+	             code[1]=tolower(result[1]);
+
+		     country=code;
+	          }
+	       }
+	       else
+	          country=NULL;
+
+#else
+	       country=NULL;
+#endif	/* USE_GEOIP */
+	    }
+	    else
+	    {
+	       country=domain;
+	    }
+
+            ctry_fnd=0;
+	    if (country!=NULL)
+	    {
+               idx=ctry_idx(country);
                for (j=0;ctry[j].desc;j++)
                {
                   if (idx==ctry[j].idx)
@@ -1961,12 +1997,19 @@ void top_ctry_table()
                      break;
                   }
                }
-               if (!ctry_fnd)
-               {
-                  ctry[0].count+=hptr->count;
-                  ctry[0].files+=hptr->files;
-                  ctry[0].xfer +=hptr->xfer;
-               }
+	    }
+	    if ((!ctry_fnd)||(country==NULL))
+            {
+#ifdef USE_GEOIP
+	       if (use_geoip && debug_mode)
+	          fprintf(stderr, "--> unresolved country for '%s' (GeoIP says %s:%s)\n",
+			  hptr->string,
+			  GeoIP_country_code_by_addr(gi, hptr->string),
+			  GeoIP_country_name_by_addr(gi, hptr->string));
+#endif	/* USE_GEOIP */
+	       ctry[0].count+=hptr->count;
+	       ctry[0].files+=hptr->files;
+	       ctry[0].xfer +=hptr->xfer;
             }
          }
          hptr=hptr->next;

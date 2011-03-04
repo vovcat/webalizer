@@ -123,6 +123,10 @@
 #endif  /* INADDR_NONE */
 #endif
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
 /* Response code structure */
 struct response_code {     char    *desc;         /* response code struct  */
                          u_int64_t    count; };
@@ -190,6 +194,11 @@ extern char    *out_dir     ;                 /* output directory         */
 extern char    *blank_str   ;                 /* blank string             */
 extern char    *dns_cache   ;                 /* DNS cache file name      */
 extern int     dns_children ;                 /* # of DNS children        */
+
+#ifdef USE_GEOIP
+extern int     use_geoip    ;                 /* Use GeoIP library        */
+extern char    *geoip_dbase ;                 /* Use specific GeoIP dbase */
+#endif
 
 extern int     ntop_sites   ;                 /* top n sites to display   */
 extern int     ntop_sitesK  ;                 /* top n sites (by kbytes)  */

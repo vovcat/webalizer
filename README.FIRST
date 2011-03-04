@@ -337,3 +337,23 @@ README file for additional information.
 #
 # for an example if what an extended history looks like.
 ##################
+
+###################  SUMMARY 04_geolizer  ##########################
+
+##################
+# If AND ONLY IF you use one the MaxMind (http://www.maxmind.com/) GeoIP
+# databases, then apply this patch.
+#
+# This patch, on Un*x / Linux / GNU-Linux systems performs the same as the
+# geolizer.patch file in geolizer_2.01-10-patch.20021107.tar.gz
+# line adjusted to deal with the previous 0.basic.patch, 1.64bit.patch,
+# and 2.hist.patch patches.
+#
+# When I apply this patch, I configure and build as follows:
+#
+#      cd webalizer-2.01-10
+#      ./configure --with-gdlib --enable-geoip
+#      make all
+#
+# The important part is to add --enable-geoip to the configure line.
+##################

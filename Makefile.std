@@ -41,6 +41,10 @@ DEFS    = -DETCDIR=\"${ETCDIR}\"
 # Some might need this instead (Solaris?!?)
 #LIBS   = -lgd -lpng -lz -lm -ldb -lnsl -lsocket
 
+# Now, if you want to use GeoIP feature... Uncoment this:
+#DEFS   = -DUSE_GEOIP -DETCDIR=\"${ETCDIR}\"
+#LIBS   = -lgd -lpng -lz -lm -lGeoIP
+
 # If your GD lib was compiled with X/truetype, use this
 # or some variation of it:
 
