@@ -156,7 +156,7 @@ void resolve_dns(struct log_struct *log_rec)
          strncpy (log_rec->hostname,
                   ((struct dnsRecord *)response.data)->hostName,
                   MAXHOST);
-         log_rec->hostname[MAXHOST]=0;
+         log_rec->hostname[MAXHOST-1]=0;
          if (debug_mode)
             fprintf(stderr," found: %s (%ld)\n",
              log_rec->hostname, alignedRecord.timeStamp);

@@ -302,14 +302,16 @@ int write_month_html()
    hist_lday[i]  =  l_day;
 
    /* fill in filenames */
-   sprintf(html_fname,"usage_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(html_fname,sizeof(html_fname),"usage_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
    sprintf(png1_fname,"daily_usage_%04d%02d.png",cur_year,cur_month);
    sprintf(png2_fname,"hourly_usage_%04d%02d.png",cur_year,cur_month);
 
    /* create PNG images for web page */
    if (daily_graph)
    {
-      sprintf(dtitle,"%s %s %d",msg_hmth_du,l_month[cur_month-1],cur_year);
+      snprintf(dtitle,sizeof(dtitle),"%s %s %d",
+               msg_hmth_du,l_month[cur_month-1],cur_year);
       month_graph6 (  png1_fname,          /* filename          */
                       dtitle,              /* graph title       */
                       cur_month,           /* graph month       */
@@ -324,7 +326,8 @@ int write_month_html()
 
    if (hourly_graph)
    {
-      sprintf(htitle,"%s %s %d",msg_hmth_hu,l_month[cur_month-1],cur_year);
+      snprintf(htitle,sizeof(htitle),"%s %s %d",
+               msg_hmth_hu,l_month[cur_month-1],cur_year);
       day_graph3(    png2_fname,
                      htitle,
                      th_hit,
@@ -336,7 +339,7 @@ int write_month_html()
    /* first, open the file */
    if ( (out_fp=open_out_file(html_fname))==NULL ) return 1;
 
-   sprintf(buffer,"%s %d",l_month[cur_month-1],cur_year);
+   snprintf(buffer,sizeof(buffer),"%s %d",l_month[cur_month-1],cur_year);
    write_html_head(buffer, out_fp);
    month_links();
    month_total_table();
@@ -945,12 +948,14 @@ int all_sites_page(u_int64_t h_reg, u_int64_t h_grp)
    int      i=(h_grp)?1:0;
 
    /* generate file name */
-   sprintf(site_fname,"site_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(site_fname,sizeof(site_fname),"site_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(site_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_sites);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_sites);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1150,12 +1155,14 @@ int all_urls_page(u_int64_t u_reg, u_int64_t u_grp)
    int      i=(u_grp)?1:0;
 
    /* generate file name */
-   sprintf(url_fname,"url_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(url_fname,sizeof(url_fname),"url_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(url_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_url);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_url);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1429,12 +1436,14 @@ int all_refs_page(u_int64_t r_reg, u_int64_t r_grp)
    int      i=(r_grp)?1:0;
 
    /* generate file name */
-   sprintf(ref_fname,"ref_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(ref_fname,sizeof(ref_fname),"ref_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(ref_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_ref);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_ref);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1581,12 +1590,14 @@ int all_agents_page(u_int64_t a_reg, u_int64_t a_grp)
    int      i=(a_grp)?1:0;
 
    /* generate file name */
-   sprintf(agent_fname,"agent_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(agent_fname,sizeof(agent_fname),"agent_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(agent_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_agent);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_agent);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1715,12 +1726,14 @@ int all_search_page(u_int64_t tot_num, u_int64_t t_val)
    if (!tot_num) return 0;
 
    /* generate file name */
-   sprintf(search_fname,"search_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(search_fname,sizeof(search_fname),"search_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(search_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_search);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_search);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1858,12 +1871,14 @@ int all_users_page(u_int64_t i_reg, u_int64_t i_grp)
    int      i=(i_grp)?1:0;
 
    /* generate file name */
-   sprintf(user_fname,"user_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(user_fname,sizeof(user_fname),"user_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(user_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_uname);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_uname);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -2050,7 +2065,8 @@ void top_ctry_table()
          pie_data[i]=top_ctrys[i]->count;           /* load the array       */
          pie_legend[i]=top_ctrys[i]->desc;
       }
-      sprintf(pie_title,"%s %s %d",msg_ctry_use,l_month[cur_month-1],cur_year);
+      snprintf(pie_title,sizeof(pie_title),"%s %s %d",
+               msg_ctry_use,l_month[cur_month-1],cur_year);
       sprintf(pie_fname,"ctry_usage_%04d%02d.png",cur_year,cur_month);
 
       pie_chart(pie_fname,pie_title,t_hit,pie_data,pie_legend);  /* do it   */
@@ -2115,7 +2131,7 @@ void dump_all_sites()
    u_int64_t   cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/site_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/site_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2158,7 +2174,7 @@ void dump_all_urls()
    u_int64_t   cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/url_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/url_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2198,7 +2214,7 @@ void dump_all_refs()
    u_int64_t   cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/ref_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/ref_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2237,7 +2253,7 @@ void dump_all_agents()
    u_char   cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/agent_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/agent_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2276,7 +2292,7 @@ void dump_all_users()
    u_int64_t   cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/user_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/user_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2319,7 +2335,7 @@ void dump_all_search()
    u_char   cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/search_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/search_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2366,7 +2382,7 @@ int write_main_index()
 
    if (verbose>1) printf("%s\n",msg_gen_sum);
 
-   sprintf(buffer,"%s %s",msg_main_us,hname);
+   snprintf(buffer,sizeof(buffer),"%s %s",msg_main_us,hname);
 
    for (i=0;i<12;i++)                   /* get last month in history */
    {
@@ -2392,7 +2408,7 @@ int write_main_index()
                    hist_visit);         /* data set 6        */
 
    /* now do html stuff... */
-   sprintf(index_fname,"index.%s",html_ext);
+   snprintf(index_fname,sizeof(index_fname),"index.%s",html_ext);
 
    if ( (out_fp=open_out_file(index_fname)) == NULL)
    {

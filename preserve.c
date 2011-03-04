@@ -230,7 +230,7 @@ int save_state()
 
    /* first, save the easy stuff */
    /* Header record */
-   sprintf(buffer,
+   snprintf(buffer,sizeof(buffer),
      "# Webalizer V%s-%s Incremental Data - %02d/%02d/%04d %02d:%02d:%02d\n",
       version,editlvl,cur_month,cur_day,cur_year,cur_hour,cur_min,cur_sec);
    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
@@ -282,7 +282,7 @@ int save_state()
       uptr=um_htab[i];
       while (uptr!=NULL)
       {
-         sprintf(buffer,"%s\n%d %lld %lld %.0f %lld %lld\n", uptr->string,
+         snprintf(buffer,sizeof(buffer),"%s\n%d %lld %lld %.0f %lld %lld\n", uptr->string,
               uptr->flag, uptr->count, uptr->files, uptr->xfer,
               uptr->entry, uptr->exit);
          if (fputs(buffer,fp)==EOF) return 1;
@@ -299,7 +299,7 @@ int save_state()
       hptr=sm_htab[i];
       while (hptr!=NULL)
       {
-         sprintf(buffer,"%s\n%d %lld %lld %.0f %lld %lld\n%s\n",
+         snprintf(buffer,sizeof(buffer),"%s\n%d %lld %lld %.0f %lld %lld\n%s\n",
               hptr->string,
               hptr->flag,
               hptr->count,
@@ -321,7 +321,7 @@ int save_state()
       hptr=sd_htab[i];
       while (hptr!=NULL)
       {
-         sprintf(buffer,"%s\n%d %lld %lld %.0f %lld %lld\n%s\n",
+         snprintf(buffer,sizeof(buffer),"%s\n%d %lld %lld %.0f %lld %lld\n%s\n",
               hptr->string,
               hptr->flag,
               hptr->count,
@@ -345,7 +345,7 @@ int save_state()
          rptr=rm_htab[i];
          while (rptr!=NULL)
          {
-            sprintf(buffer,"%s\n%d %lld\n", rptr->string,
+            snprintf(buffer,sizeof(buffer),"%s\n%d %lld\n", rptr->string,
                  rptr->flag, rptr->count);
             if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
             rptr=rptr->next;
@@ -363,7 +363,7 @@ int save_state()
          aptr=am_htab[i];
          while (aptr!=NULL)
          {
-            sprintf(buffer,"%s\n%d %lld\n", aptr->string,
+            snprintf(buffer,sizeof(buffer),"%s\n%d %lld\n", aptr->string,
                  aptr->flag, aptr->count);
             if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
             aptr=aptr->next;
@@ -379,7 +379,7 @@ int save_state()
       sptr=sr_htab[i];
       while (sptr!=NULL)
       {
-         sprintf(buffer,"%s\n%lld\n", sptr->string,sptr->count);
+         snprintf(buffer,sizeof(buffer),"%s\n%lld\n", sptr->string,sptr->count);
          if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
          sptr=sptr->next;
       }
@@ -394,7 +394,7 @@ int save_state()
       iptr=im_htab[i];
       while (iptr!=NULL)
       {
-         sprintf(buffer,"%s\n%d %lld %lld %.0f %lld %lld\n",
+         snprintf(buffer,sizeof(buffer),"%s\n%d %lld %lld %.0f %lld %lld\n",
               iptr->string,
               iptr->flag,
               iptr->count,

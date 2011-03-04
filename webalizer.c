@@ -1530,7 +1530,7 @@ void get_config(char *fname)
    char keyword[32];
    char value[132];
    char *cp1, *cp2;
-   int  i,key;
+   int  i,key,count;
    int	num_kwords=sizeof(kwords)/sizeof(char *);
 
    if ( (fp=fopen(fname,"r")) == NULL)
@@ -1546,14 +1546,14 @@ void get_config(char *fname)
       if ( (buffer[0]=='#') || isspace((int)buffer[0]) ) continue;
 
       /* Get keyword */
-      cp1=buffer;cp2=keyword;
-      while ( isalnum((int)*cp1) ) *cp2++ = *cp1++;
+      cp1=buffer;cp2=keyword;count=31;
+      while ( (isalnum((int)*cp1)) && count ) { *cp2++ = *cp1++; count--; }
       *cp2='\0';
 
       /* Get value */
-      cp2=value;
+      cp2=value;count=131;
       while ( (*cp1!='\n')&&(*cp1!='\0')&&(isspace((int)*cp1)) ) cp1++;
-      while ( (*cp1!='\n')&&(*cp1!='\0') ) *cp2++ = *cp1++;
+      while ( (*cp1!='\n')&&(*cp1!='\0')&&count ) { *cp2++ = *cp1++; count--; }
       *cp2--='\0';
       while ( (isspace((int)*cp2)) && (cp2 != value) ) *cp2--='\0';
 
@@ -1895,7 +1895,8 @@ void srch_string(char *ptr)
    if ( (cps=isinglist(search_list,log_rec.refer))==NULL) return;
 
    /* Try to find query variable */
-   srch[0]='?'; strcpy(&srch[1],cps);              /* First, try "?..."      */
+   srch[0]='?'; srch[sizeof(srch)-1] = '\0';
+   strncpy(&srch[1],cps,sizeof(srch)-2);           /* First, try "?..."      */
    if ((cp1=strstr(ptr,srch))==NULL)
    {
       srch[0]='&';                                 /* Next, try "&..."       */

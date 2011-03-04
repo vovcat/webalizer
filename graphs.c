@@ -693,7 +693,7 @@ int pie_chart(char *fname, char *title, u_int64_t t_val,
          gdImageLine(im, CX, CY, gdata.x, gdata.y, black);
          gdImageFill(im, gdata.mx, gdata.my, i+4);
 
-         sprintf(buffer,"%s (%d%%)",legend[i], percent);
+	 snprintf(buffer,sizeof(buffer),"%s (%d%%)",legend[i], percent);
          x=480-(strlen(buffer)*7);
          gdImageString(im,gdFontMediumBold, x+1, y+1, buffer, black);
          gdImageString(im,gdFontMediumBold, x, y, buffer, i+4);
@@ -706,7 +706,7 @@ int pie_chart(char *fname, char *title, u_int64_t t_val,
       gdata=*calc_arc(s_arc,1.0);
 
       gdImageFill(im, gdata.mx, gdata.my, white);
-      sprintf(buffer,"%s (%d%%)",msg_h_other,100-(int)(s_arc*100));
+      snprintf(buffer,sizeof(buffer),"%s (%d%%)",msg_h_other,100-(int)(s_arc*100));
       x=480-(strlen(buffer)*7);
       gdImageString(im,gdFontMediumBold, x+1, y+1, buffer, black);
       gdImageString(im,gdFontMediumBold, x, y, buffer, white);
