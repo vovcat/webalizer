@@ -1,0 +1,662 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 03_history.dpatch by Jose Carlos Medeiros <debian@psabs.com.br>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Extend the summary page for longer than 12 months
+
+###########
+# http://www.isthe.com/chongo/src/webalizer-patch/
+
+##################
+# Apply this patch after you have applied 64bit.patch
+##################
+
+##################
+# By default, webalizer only keeps the last 12 months of data.  And at the
+# start of a month, the oldest month is discarded resulting in only 11+
+# months of data.
+#
+# This code gets around the 12 month limit by maintaining a history of
+# older months in a parallel directory ../history.  The summary file:
+#
+#	../history/summary
+#
+# contains lines, which of which descibes a row in the 'Summary by Month'
+# table.  Each line as the following fields separated by a single space:
+#
+#	field  0: yyyy		    4 digit year (e.g., 2003)
+#	field  1: MM		    2 digit month, with leading 0 (e.g., 08)
+#	field  2: Mon		    3 Char month name (e.g., Aug)
+#	field  3: ../history/usage_yyyyMM.html
+#				    URL of the monthly stats.  In that same
+#				    directory is the ctry_usage_yyyyMM.png,
+#				    daily_usage_yyyyMM.png, and the
+#				    hourly_usage_yyyyMM.png files.
+#	field  4: summary_dhits	    Average daily hits
+#	field  5: summary_dfiles    Average daily files
+#	field  6: summary_dpages    Average daily pages
+#	field  7: summary_dvisits   Average daily visits
+#	field  8: summary_tsites    Monthly total sites
+#	field  9: summary_tkbytes   Monthly total KBytes
+#	field 10: summary_tvisits   Monthly total visits
+#	field 11: summary_tpages    Monthly total pages
+#	field 12: summary_tfiles    Monthly total files
+#	field 13: summary_thits     Monthly total hits
+#
+# Example of a ../history/summary line:
+#
+#	2003 08 Aug ../history/usage_200308.html 13364 3634 10954 567 11138 3623829 17587 339601 112666 414304
+#
+# The ../history/summary file contains lines that prefer to completed webalizer
+# month summaries.  Webalizer will process its 12 monthly as it does before.
+# However with this patch it will look over into the ../history/summary file
+# for even older months to append to the end of the 'Summary by Month' table.
+#
+# The file ../history/prehistory should contain a single line in the same
+# form as ../history/summary except that the field 3 is just 'index.html'.
+# Fields 0, 1 and 2 refer to the oldest month in the ../history/summary file.
+# This is the total of the stats that have been lost / rolled off the
+# end and are no longer available.  If you have no prehistory just use:
+#
+#	2004 07 Jul index.html 0 0 0 0 0 0 0 0 0 0
+#
+# where '2004 07 (Jul)' is the current month.
+#
+# Webalizer will produce a grand total that includes the 12 recent months,
+# all of the history months mentioned in the ../history/summary file and
+# the stats from the ../history/prehistory file.
+#
+# If ../history/summary or ../history/prehistory are not found, Webalizer
+# will ignore them and just output the standard last 12 months.
+#
+# The track_hist tool will generate and update your ../history directory.
+# All you need to do is once a month, run the track_hist
+# script giving it the director(ies) under which webalizer works.
+# So if your webalizer data is found in:
+#
+#	/var/www/html/webalizer/usage/index.html
+#
+# at the 1st of the month, after you run webalizer, run:
+#
+#	track_hist /var/www/html/webalizer
+#
+# NOTE: You should apply the patch-1.64bit.ptch before you apply
+#	this patch.
+#
+# See:
+#
+#	http://www.isthe.com/site/isthe/webalizer/usage/index.html
+#
+# for an example if what an extended history looks like.
+##################
+
+
+@DPATCH@
+Index: webalizer-2.01.10-vc/README.FIRST
+===================================================================
+--- webalizer-2.01.10-vc.orig/README.FIRST	2006-10-27 12:34:32.000000000 +0400
++++ webalizer-2.01.10-vc/README.FIRST	2006-10-27 12:34:33.000000000 +0400
+@@ -257,4 +257,86 @@
+ #
+ #for a list of optional flags.
+
++###################  SUMMARY 03_history  ##########################
++
++##################
++# By default, webalizer only keeps the last 12 months of data.  And at the
++# start of a month, the oldest month is discarded resulting in only 11+
++# months of data.
++#
++# This code gets around the 12 month limit by maintaining a history of
++# older months in a parallel directory ../history.  The summary file:
++#
++#      ../history/summary
++#
++# contains lines, which of which descibes a row in the 'Summary by Month'
++# table.  Each line as the following fields separated by a single space:
++#
++#      field  0: yyyy              4 digit year (e.g., 2003)
++#      field  1: MM                2 digit month, with leading 0 (e.g., 08)
++#      field  2: Mon               3 Char month name (e.g., Aug)
++#      field  3: ../history/usage_yyyyMM.html
++#                                  URL of the monthly stats.  In that same
++#                                  directory is the ctry_usage_yyyyMM.png,
++#                                  daily_usage_yyyyMM.png, and the
++#                                  hourly_usage_yyyyMM.png files.
++#      field  4: summary_dhits     Average daily hits
++#      field  5: summary_dfiles    Average daily files
++#      field  6: summary_dpages    Average daily pages
++#      field  7: summary_dvisits   Average daily visits
++#      field  8: summary_tsites    Monthly total sites
++#      field  9: summary_tkbytes   Monthly total KBytes
++#      field 10: summary_tvisits   Monthly total visits
++#      field 11: summary_tpages    Monthly total pages
++#      field 12: summary_tfiles    Monthly total files
++#      field 13: summary_thits     Monthly total hits
++#
++# Example of a ../history/summary line:
++#
++#      2003 08 Aug ../history/usage_200308.html 13364 3634 10954 567 11138 3623829 17587 339601 112666 414304
++#
++# The ../history/summary file contains lines that prefer to completed webalizer
++# month summaries.  Webalizer will process its 12 monthly as it does before.
++# However with this patch it will look over into the ../history/summary file
++# for even older months to append to the end of the 'Summary by Month' table.
++#
++# The file ../history/prehistory should contain a single line in the same
++# form as ../history/summary except that the field 3 is just 'index.html'.
++# Fields 0, 1 and 2 refer to the oldest month in the ../history/summary file.
++# This is the total of the stats that have been lost / rolled off the
++# end and are no longer available.  If you have no prehistory just use:
++#
++#      2004 07 Jul index.html 0 0 0 0 0 0 0 0 0 0
++#
++# where '2004 07 (Jul)' is the current month.
++#
++# Webalizer will produce a grand total that includes the 12 recent months,
++# all of the history months mentioned in the ../history/summary file and
++# the stats from the ../history/prehistory file.
++#
++# If ../history/summary or ../history/prehistory are not found, Webalizer
++# will ignore them and just output the standard last 12 months.
++#
++# The track_hist tool will generate and update your ../history directory.
++# All you need to do is once a month, run the track_hist
++# script giving it the director(ies) under which webalizer works.
++# So if your webalizer data is found in:
++#
++#      /var/www/html/webalizer/usage/index.html
++#
++# at the 1st of the month, after you run webalizer, run:
++#
++#      track_hist /var/www/html/webalizer
++#
++# NOTE: You should apply the patch-1.64bit.ptch before you apply
++#      this patch.
++#
++# See:
++#
++#      http://www.isthe.com/site/isthe/webalizer/usage/index.html
++#
++# for an example if what an extended history looks like.
++##################
++
++
+
+Index: webalizer-2.01.10-vc/output.c
+===================================================================
+--- webalizer-2.01.10-vc.orig/output.c	2006-10-27 12:34:32.000000000 +0400
++++ webalizer-2.01.10-vc/output.c	2006-10-27 12:34:33.000000000 +0400
+@@ -2310,13 +2310,15 @@
+    int  i,days_in_month;
+    int  lyear=0;
+    int	s_mth=0;
+-   double  gt_hit=0.0;
+-   double  gt_files=0.0;
+-   double  gt_pages=0.0;
+-   double  gt_xfer=0.0;
+-   double  gt_visits=0.0;
++   u_int64_t  gt_hit=0;
++   u_int64_t  gt_files=0;
++   u_int64_t  gt_pages=0;
++   u_int64_t  gt_xfer=0;
++   u_int64_t  gt_visits=0;
+    char    index_fname[256];
+    char    buffer[BUFSIZE];
++   int	earliest_month = 0;	/* earliest month in the 1st 12 month summary */
++   int	earliest_year = 0;	/* earliest month in the 1st 12 year summary */
+
+    if (verbose>1) printf("%s\n",msg_gen_sum);
+
+@@ -2391,6 +2393,8 @@
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",DKGREEN,msg_h_hits);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
++
++   /* output up to the most recent 12 months */
+    for (i=0;i<12;i++)
+    {
+       if (--s_mth < 0) s_mth = 11;
+@@ -2425,25 +2429,196 @@
+       gt_pages += hist_page[s_mth];
+       gt_xfer  += hist_xfer[s_mth];
+       gt_visits+= hist_visit[s_mth];
++      /* remember the oldest month we processed */
++      earliest_month = hist_month[s_mth];
++      earliest_year = hist_year[s_mth];
+    }
+-   fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+-   fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" COLSPAN=6 ALIGN=left>"          \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",GREY,msg_h_totals);
+-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=right>"                       \
+-          "<FONT SIZE=\"-1\">%.0f</FONT></TH>\n",GREY,gt_xfer);
+-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=right>"                       \
+-          "<FONT SIZE=\"-1\">%.0f</FONT></TH>\n",GREY,gt_visits);
+-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=right>"                       \
+-          "<FONT SIZE=\"-1\">%.0f</FONT></TH>\n",GREY,gt_pages);
+-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=right>"                       \
+-          "<FONT SIZE=\"-1\">%.0f</FONT></TH>\n",GREY,gt_files);
+-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=right>"                       \
+-          "<FONT SIZE=\"-1\">%.0f</FONT></TH></TR>\n",GREY,gt_hit);
+-   fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+-   fprintf(out_fp,"</TABLE>\n");
+-   write_html_tail(out_fp);
+-   fclose(out_fp);
+-   return 0;
++
++   /* output HTML for any older months in the summary file */
++   {
++   	FILE *sumfile;		/* open history summary file */
++	char inbuf[BUFSIZ+1];	/* input buffer */
++	int summary_year;	/* year of summary as yyyy */
++	int summary_month;	/* month of summary as 2 digit number */
++	char summary_mname[BUFSIZ+1];	/* month of summary as 3 char name */
++	char summary_path[BUFSIZ+1];	/* usage_yyyymm.html file path */
++	u_int64_t summary_dhits;	/* daily average Hits for this month */
++	u_int64_t summary_dfiles;	/* daily average Files for this month */
++	u_int64_t summary_dpages;	/* daily average Pages for this month */
++	u_int64_t summary_dvisits;	/* daily average Visits for month */
++	u_int64_t summary_tsites;	/* total Sites for this month */
++	u_int64_t summary_tkbytes;	/* total KBytes for this month */
++	u_int64_t summary_tvisits;	/* total Visits for this month */
++	u_int64_t summary_tpages;	/* total Pages for this month */
++	u_int64_t summary_tfiles;	/* total Files for this month */
++	u_int64_t summary_thits;	/* total Hits for this month */
++
++	/* open the summary which is found in the history sub-directory */
++	sumfile = fopen("../history/summary","r");
++	if (sumfile != NULL) {
++
++	    /* process lines in summary file */
++	    while (fgets(inbuf, BUFSIZ, sumfile) != NULL) {
++
++		/* parse the summary line */
++		inbuf[BUFSIZ] = '\0';
++		if (sscanf(inbuf,
++			   "%4d %2d %3s %s "
++			   "%llu %llu %llu %llu %llu "
++			   "%llu %llu %llu %llu %llu\n",
++			   &summary_year, &summary_month, summary_mname,
++			   summary_path, &summary_dhits, &summary_dfiles,
++			   &summary_dpages, &summary_dvisits, &summary_tsites,
++			   &summary_tkbytes, &summary_tvisits, &summary_tpages,
++			   &summary_tfiles, &summary_thits) == 14) {
++
++		    /*
++		     * ignore this month if it is as or more recent than
++		     * the earliest month printed in the 12 month recent
++		     * months as procssed in the previous section of code
++		     */
++		    if (summary_year > earliest_year ||
++		        (summary_year == earliest_year &&
++			 summary_month >= earliest_month)) {
++			continue;
++		    }
++
++		    /* output the HTML for this summary month */
++		    fprintf(out_fp,
++			"<TR><TD NOWRAP><A HREF=\"%s\">"
++			"<FONT SIZE=\"-1\">%s %d</FONT></A></TD>\n",
++			summary_path, summary_mname, summary_year);
++
++		    fprintf(out_fp,
++			"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
++			summary_dhits);
++		    fprintf(out_fp,
++		        "<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_dfiles);
++		    fprintf(out_fp,
++		    	"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_dpages);
++		    fprintf(out_fp,
++		    	"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_dvisits);
++		    fprintf(out_fp,
++		    	"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_tsites);
++		    fprintf(out_fp,
++		    	"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_tkbytes);
++		    fprintf(out_fp,
++		    	"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_tvisits);
++		    fprintf(out_fp,
++		    	"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_tpages);
++		    fprintf(out_fp,
++		    	"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_tfiles);
++		    fprintf(out_fp,
++			"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD></TR>\n",
++			summary_thits);
++		    gt_hit   += summary_thits;
++		    gt_files += summary_tfiles;
++		    gt_pages += summary_tpages;
++		    gt_xfer  += summary_tkbytes;
++		    gt_visits+= summary_tvisits;
++		}
++	   }
++	   fclose(sumfile);
++	}
++    }
++
++   /* output the pre-history file */
++   {
++   	FILE *prehist;		/* open pre-history file */
++	char inbuf[BUFSIZ+1];	/* input buffer */
++	int summary_year;	/* year of summary as yyyy */
++	int summary_month;	/* month of summary as 2 digit number */
++	char summary_mname[BUFSIZ+1];	/* month of summary as 3 char name */
++	char summary_path[BUFSIZ+1];	/* usage_yyyymm.html file path */
++	u_int64_t summary_dhits;	/* daily average Hits for this month */
++	u_int64_t summary_dfiles;	/* daily average Files for this month */
++	u_int64_t summary_dpages;	/* daily average Pages for this month */
++	u_int64_t summary_dvisits;	/* daily average Visits for month */
++	u_int64_t summary_tsites;	/* total Sites for this month */
++	u_int64_t summary_tkbytes;	/* total KBytes for this month */
++	u_int64_t summary_tvisits;	/* total Visits for this month */
++	u_int64_t summary_tpages;	/* total Pages for this month */
++	u_int64_t summary_tfiles;	/* total Files for this month */
++	u_int64_t summary_thits;	/* total Hits for this month */
++
++	/* open the pre-history which is found in the history sub-directory */
++	prehist = fopen("../history/prehistory","r");
++	if (prehist != NULL) {
++
++	    /* there is just 1 line in the pre-history file - process it */
++	    if (fgets(inbuf, BUFSIZ, prehist) != NULL) {
++
++		/* parse the summary line */
++		inbuf[BUFSIZ] = '\0';
++		if (sscanf(inbuf,
++			   "%4d %2d %3s %s "
++			   "%llu %llu %llu %llu %llu "
++			   "%llu %llu %llu %llu %llu\n",
++			   &summary_year, &summary_month, summary_mname,
++			   summary_path, &summary_dhits, &summary_dfiles,
++			   &summary_dpages, &summary_dvisits, &summary_tsites,
++			   &summary_tkbytes, &summary_tvisits, &summary_tpages,
++			   &summary_tfiles, &summary_thits) == 14) {
++
++		    fprintf(out_fp, "<TR><TH HEIGHT=4></TH></TR>\n");
++		    fprintf(out_fp,
++		        "<TR><TD COLSPAN=6 ALIGN=left NOWRAP>"
++			"<FONT SIZE=\"-1\"><B>Before %s %d</B></FONT></TD>\n",
++			summary_mname, summary_year);
++		    fprintf(out_fp,
++		        "<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_tkbytes);
++		    fprintf(out_fp,
++		    	"<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_tvisits);
++		    fprintf(out_fp,
++		        "<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_tpages);
++		    fprintf(out_fp,
++		        "<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n",
++			summary_tfiles);
++		    fprintf(out_fp,
++		        "<TD ALIGN=right><FONT SIZE=\"-1\">%lld</FONT></TD>\n"
++			"</TR>\n",
++			summary_thits);
++
++		    gt_hit   += summary_thits;
++		    gt_files += summary_tfiles;
++		    gt_pages += summary_tpages;
++		    gt_xfer  += summary_tkbytes;
++		    gt_visits+= summary_tvisits;
++		}
++	   }
++	   fclose(prehist);
++	}
++    }
++
++    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
++    fprintf(out_fp,"<TR><TD BGCOLOR=\"%s\" COLSPAN=6 ALIGN=left>"          \
++	  "<FONT SIZE=\"-1\"><B>%s</B></FONT></TD>\n",GREY,msg_h_totals);
++    fprintf(out_fp,"<TD BGCOLOR=\"%s\" ALIGN=right>"                       \
++	  "<FONT SIZE=\"-1\"><B>%lld</B></FONT></TD>\n",GREY,gt_xfer);
++    fprintf(out_fp,"<TD BGCOLOR=\"%s\" ALIGN=right>"                       \
++	  "<FONT SIZE=\"-1\"><B>%lld</B></FONT></TD>\n",GREY,gt_visits);
++    fprintf(out_fp,"<TD BGCOLOR=\"%s\" ALIGN=right>"                       \
++	  "<FONT SIZE=\"-1\"><B>%lld</B></FONT></TD>\n",GREY,gt_pages);
++    fprintf(out_fp,"<TD BGCOLOR=\"%s\" ALIGN=right>"                       \
++	  "<FONT SIZE=\"-1\"><B>%lld</B></FONT></TD>\n",GREY,gt_files);
++    fprintf(out_fp,"<TD BGCOLOR=\"%s\" ALIGN=right>"                       \
++	  "<FONT SIZE=\"-1\"><B>%lld</B></FONT></TD></TR>\n",GREY,gt_hit);
++    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
++    fprintf(out_fp,"</TABLE>\n");
++    write_html_tail(out_fp);
++    fclose(out_fp);
++    return 0;
+ }
+
+ /*********************************************/
+Index: webalizer-2.01.10-vc/track_hist
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ webalizer-2.01.10-vc/track_hist	2006-10-27 12:34:33.000000000 +0400
+@@ -0,0 +1,223 @@
++#!/bin/sh -
++#
++# track_hist - track the webalizer history for all but current month
++#
++# @(#) $Revision: 1.6 $
++# @(#) $Id: track_hist,v 1.6 2004/07/21 05:54:18 chongo Exp $
++# @(#) $Source: /usr/local/src/etc/webalizer/tool/RCS/track_hist,v $
++#
++# Copyright (c) 2003 by Landon Curt Noll.  All Rights Reserved.
++#
++# Permission to use, copy, modify, and distribute this software and
++# its documentation for any purpose and without fee is hereby granted,
++# provided that the above copyright, this permission notice and text
++# this comment, and the disclaimer below appear in all of the following:
++#
++#       supporting documentation
++#       source copies
++#       source works derived from this source
++#       binaries derived from this source or from derived source
++#
++# LANDON CURT NOLL DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE,
++# INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO
++# EVENT SHALL LANDON CURT NOLL BE LIABLE FOR ANY SPECIAL, INDIRECT OR
++# CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF
++# USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
++# OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
++# PERFORMANCE OF THIS SOFTWARE.
++#
++# chongo (Landon Curt Noll, http://www.isthe.com/chongo/index.html) /\oo/\
++#
++# Share and enjoy! :-)
++
++# setup
++#
++USAGE="usage: $0 webalizer_dir ...
++
++        webalizer_dir    where the webalizer usage and history dirs reside"
++
++# parse args
++#
++case $# in
++0) echo "usage: $0 webalizer_dir ...
++
++	webalizer_dir    where the usage and history sub-dirs reside" 1>&2
++	exit 1 ;;
++*) ;;
++esac
++
++# process each set
++#
++for i in $@; do
++
++    # Note the set start
++    #
++    echo "=-= track_hist start for $i =-="
++
++    # firewall for set specific items and determine the web server name
++    #
++    WEBALIZE_DIR="$i"
++    if [ ! -d "$WEBALIZE_DIR" ]; then
++	echo "$0: webalizer usage root: $WEBALIZE_DIR not found"
++	echo "skipping the rest of $i"
++	echo "=-= track_hist end for $i =-="
++	continue
++    fi
++    USAGE_DIR="$WEBALIZE_DIR/usage"
++    if [ ! -d "$USAGE_DIR" ]; then
++	echo "$0: webalizer usage dir: $USAGE_DIR not found"
++	echo "skipping the rest of $i"
++	echo "=-= track_hist end for $i =-="
++	continue
++    fi
++    HIST="$WEBALIZE_DIR/history"
++    if [ ! -d "$HIST" ]; then
++	mkdir -p "$HIST"
++    fi
++    if [ ! -d "$HIST" ]; then
++	echo "$0: webalizer history dir: $HIST cannot be made"
++	echo "skipping the rest of $i"
++	echo "=-= track_hist end for $i =-="
++	continue
++    fi
++
++    # determine current yyyymm (so we can ignore it)
++    #
++    YYYYMM=`date '+%Y%m'`
++
++    # We copy any usage file (other than those that belong to this month)
++    # that is newer or not found in the history directory.
++    #
++    rm -f "$HIST/rebuild_needed"
++    (cd "$USAGE_DIR"; find . -type f -name '*usage_*') | grep -v "$YYYYMM" |
++      while read file; do
++	if [[ "$USAGE_DIR/$file" -nt "$HIST/$file" ]]; then
++	    # safely update history from the new or newer usage file
++	    echo "adding $file to $i/history"
++	    rm -f "$HIST/$file".new
++	    cp -f "$USAGE_DIR/$file" "$HIST/$file".new
++	    mv -f "$HIST/$file".new "$HIST/$file"
++	    chmod 0444 "$HIST/$file"
++	    date > "$HIST/rebuild_needed"
++	fi
++      done
++
++    # build a new summary file if we updated history, or if empty/missing
++    #
++    if [ -f "$HIST/rebuild_needed" -o ! -s "$HIST/summary" ]; then
++
++	# prep new summary
++	#
++	echo "forming summary file `date`"
++	rm -f "$HIST/summary".new
++	:> "$HIST/summary".new
++
++	# form a summary line for each month going in reverse cron order
++	#
++	find "$HIST" -name 'usage_[0-9][0-9][0-9][0-9][0-9][0-9].html' |
++	  sort -r |
++	  while read file; do
++
++	    # determine the Month Year of this usage file
++	    #
++	    year="`echo $file | sed -e 's;.*/usage_\([0-9][0-9][0-9][0-9]\).*;\1;'`"
++	    mnum="`echo $file | sed -e 's;.*/usage_....\([0-9][0-9]\).*;\1;'`"
++	    case "$mnum" in
++	    01) month="Jan" ;;
++	    02) month="Feb" ;;
++	    03) month="Mar" ;;
++	    04) month="Apr" ;;
++	    05) month="May" ;;
++	    06) month="Jun" ;;
++	    07) month="Jul" ;;
++	    08) month="Aug" ;;
++	    09) month="Sep" ;;
++	    10) month="Oct" ;;
++	    11) month="Nov" ;;
++	    12) month="Dec" ;;
++	    *)  month="???" ;;
++	    esac
++
++	    # Determine Monthly totals for this month
++	    #
++	    THITS=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
++	      head -1 |
++	      tail -1 |
++	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
++	    TFILES=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
++	      head -2 |
++	      tail -1 |
++	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
++	    TPAGES=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
++	      head -3 |
++	      tail -1 |
++	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
++	    TVISITS=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
++	      head -4 |
++	      tail -1 |
++	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
++	    TKBYTES=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
++	      head -5 |
++	      tail -1 |
++	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
++	    TSITES=`fgrep '<TD ALIGN=right COLSPAN=2><FONT SIZE="-1">' $file |
++	      head -6 |
++	      tail -1 |
++	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
++
++	    # determine the daily averages for this month
++	    #
++	    DHITS=`fgrep '<TD ALIGN=right WIDTH=65><FONT SIZE="-1">' $file |
++	      head -2 |
++	      tail -1 |
++	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
++	    DFILES=`fgrep '<TD ALIGN=right WIDTH=65><FONT SIZE="-1">' $file |
++	      head -3 |
++	      tail -1 |
++	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
++	    DPAGES=`fgrep '<TD ALIGN=right WIDTH=65><FONT SIZE="-1">' $file |
++	      head -4 |
++	      tail -1 |
++	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
++	    DVISITS=`fgrep '<TD ALIGN=right WIDTH=65><FONT SIZE="-1">' $file |
++	      head -5 |
++	      tail -1 |
++	      sed -e 's/^.*<B>//' -e 's/<\/B>.*//'`
++
++	    # output the summary line for this month
++	    #
++	    # Fields in order are:
++	    #
++	    #	year of summary as yyyy (e.g., 2004)
++	    #	month of summary as 2 digit number (e.g., 01)
++	    #	month of summary as 3 char month name (e.g., Jan)
++	    #	path history usage_yyyymm.html file from usage directory
++	    #	daily average Hits for this month
++	    #	daily average Files for this month
++	    #	daily average Pages for this month
++	    #	daily average Visits for this month
++	    #	total Sites for this month
++	    #	total KBytes for this month
++	    #	total Pages for this month
++	    #	total Files for this month
++	    #	total Hits for this month
++	    #
++	    echo "$year $mnum $month ../history/usage_$year$mnum.html $DHITS $DFILES $DPAGES $DVISITS $TSITES $TKBYTES $TVISITS $TPAGES $TFILES $THITS" >> "$HIST/summary".new
++	  done
++
++	# new summary file built
++	#
++	chmod 0444 "$HIST/summary".new
++	mv -f "$HIST/summary".new "$HIST/summary"
++        rm -f "$HIST/rebuild_needed"
++	echo "summary file formed `date`"
++    fi
++
++    # finished with this set
++    #
++    echo "=-= track_hist end for $i =-="
++done
++
++# All done!!! -- Jessica Noll, Age 2
++#
++exit 0

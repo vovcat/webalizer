@@ -1,0 +1,962 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 06_UserColor.dpatch by Jose Carlos Medeiros <debian@psabs.com.br>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Allow one to customize the colors of the charts
+
+##############
+# 06_UserColor was downloaded from:
+# ftp://ftp.mrunix.net/pub/webalizer/contrib/webalizer-2.01-10-UserColor.diff
+# ftp://ftp.mrunix.net/pub/webalizer/contrib/webalizer-UserColor-HOWTO.txt
+
+@DPATCH@
+Index: webalizer-2.01.10-vc/README.FIRST
+===================================================================
+--- webalizer-2.01.10-vc.orig/README.FIRST	2006-10-27 12:34:36.000000000 +0400
++++ webalizer-2.01.10-vc/README.FIRST	2006-10-27 12:34:37.000000000 +0400
+@@ -367,3 +367,48 @@
+ # with the options you prefer, build it, install it and use it.
+ ##################
+
++###################  SUMMARY 06_UserColor  ##########################
++
++##################
++# The webalizer-2.01-10-UserColor.diff is delivered as is, without any warranty,
++# under the GNU General Public Licence (GPL), copyright 2003 Benoît Rouits.
++#
++# If you encounter any problem, write to <brouits@free.fr>
++# with the word [webalizer] in the subject.
++#
++# The custom bar graph Colors are defined in config file. Declare them
++# in the standard hexadecimal way (as HTML, without the '#')
++# If none are given, you will get the standard webalizer colors.
++#
++# ColorHit ( rrggbb | 00805c )
++# Sets the graph's hit-color to the specified html color (no '#').
++#
++# ColorFile ( rrggbb | 0000ff )
++# Sets the graph's file-color to the specified html color (no '#').
++#
++# ColorSite ( rrggbb | ff8000 )
++# Sets the graph's site-color to the specified html color (no '#').
++#
++# ColorKbyte ( rrggbb | ff0000 )
++# Sets the graph's kilobyte-color to the specified html color (no '#').
++#
++# ColorPage ( rrggbb | 00c0ff )
++# Sets the graph's page-color to the specified html color (no '#').
++#
++# ColorVisit ( rrggbb | ffff00 )
++# Sets the graph's visit-color to the specified html color (no '#').
++#
++# PieColor1 ( rrggbb | 800080 )
++# Sets the pie's first optional color to the specified html color (no '#').
++#
++# PieColor2 ( rrggbb | 80ffc0 )
++# Sets the pie's second optional color to the specified html color (no '#').
++#
++# PieColor3 ( rrggbb | ff00ff )
++# Sets the pie's third optinal color to the specified html color (no '#').
++#
++# PieColor4 ( rrggbb | ffc480 )
++# Sets the pie's fourth optional color to the specified html color (no '#').
++#
++##################
++
+Index: webalizer-2.01.10-vc/graphs.c
+===================================================================
+--- webalizer-2.01.10-vc.orig/graphs.c	2006-10-27 12:34:34.000000000 +0400
++++ webalizer-2.01.10-vc/graphs.c	2006-10-27 12:34:37.000000000 +0400
+@@ -44,12 +44,12 @@
+ #define PI 3.14159265358979323846
+ #endif
+
+-#define COLOR1 green                       /* graph color - hits  */
+-#define COLOR2 blue                        /* files               */
+-#define COLOR3 orange                      /* sites               */
+-#define COLOR4 red                         /* KBytes              */
+-#define COLOR5 cyan                        /* Files               */
+-#define COLOR6 yellow                      /* Visits              */
++#define HITCOLOR   hit_or_green            /* graph color - hits  */
++#define FILECOLOR  file_or_blue            /* files               */
++#define SITECOLOR  site_or_orange          /* sites               */
++#define KBYTECOLOR kbyte_or_red            /* KBytes              */
++#define PAGECOLOR  page_or_cyan            /* Files               */
++#define VISITCOLOR visit_or_yellow         /* Visits              */
+
+ #define CX 156                             /* center x (for pie)  */
+ #define CY 150                             /* center y  (chart)   */
+@@ -76,8 +76,64 @@
+ struct pie_data { int x; int y;            /* line x,y            */
+                   int mx; int my; };       /* midpoint x,y        */
+ /* colors */
+-int		black, white, grey, dkgrey, red,
+-                blue, orange, green, cyan, yellow;
++int		black, white, grey, dkgrey, kbyte_or_red,
++                file_or_blue, site_or_orange, hit_or_green,
++		page_or_cyan, visit_or_yellow, blue;
++
++/****************************************************************/
++/*                                                              */
++/* ASHEX2INT - ASCII HEXA TO INT CONVERTER [ not strtoul() ]    */
++/*                                                              */
++/****************************************************************/
++
++int ashex2int(char* twocharstr){
++/* returns the base-10 integer value from a 2 ascii hex number */
++   int val;
++   switch (twocharstr[1])
++   {
++      case 'a':
++      case 'A': val=10; break;
++      case 'b':
++      case 'B': val=11; break;
++      case 'c':
++      case 'C': val=12; break;
++      case 'd':
++      case 'D': val=13; break;
++      case 'e':
++      case 'E': val=14; break;
++      case 'f':
++      case 'F': val=15; break;
++      default: val=(int)twocharstr[1]-48;
++   }
++   switch (twocharstr[0])
++   {
++      case 'a':
++      case 'A': val+=160; break;
++      case 'b':
++      case 'B': val+=176; break;
++      case 'c':
++      case 'C': val+=192; break;
++      case 'd':
++      case 'D': val+=208; break;
++      case 'e':
++      case 'E': val+=224; break;
++      case 'f':
++      case 'F': val+=240; break;
++      default: val+=(int)(twocharstr[0]-48)*16;
++   }
++   return val;
++}
++
++/* shortcuts to convert ascii hex color for gdImageColorAllocate() */
++
++#define getred(s) (ashex2int((s[0] == '#')?s+1:s))
++/* returns the red base-10 integer value from a html color */
++
++#define getgreen(s) (ashex2int((s[0] == '#')?s+3:s+2))
++/* returns the green base-10 integer value from a html color */
++
++#define getblue(s) (ashex2int((s[0] == '#')?s+5:s+4))
++/* returns the blue base-10 integer value from a html color */
+
+ /*****************************************************************/
+ /*                                                               */
+@@ -149,39 +205,39 @@
+       j = (strlen(msg_h_ixfer)*6);
+       k = (strlen(msg_h_oxfer)*6);
+       gdImageString(im,gdFontSmall,491-i-j-k-24,239,msg_h_xfer,dkgrey);
+-      gdImageString(im,gdFontSmall,490-i-j-k-24,238,msg_h_xfer,COLOR4);
++      gdImageString(im,gdFontSmall,490-i-j-k-24,238,msg_h_xfer,KBYTECOLOR);
+       gdImageString(im,gdFontSmall,491-k-j-21,239,"/",dkgrey);
+       gdImageString(im,gdFontSmall,490-k-j-21,238,"/",black);
+       gdImageString(im,gdFontSmall,491-k-j-12,239,msg_h_ixfer,dkgrey);
+-      gdImageString(im,gdFontSmall,490-k-j-12,238,msg_h_ixfer,COLOR2);
++      gdImageString(im,gdFontSmall,490-k-j-12,238,msg_h_ixfer,FILECOLOR);
+       gdImageString(im,gdFontSmall,491-k-9,239,"/",dkgrey);
+       gdImageString(im,gdFontSmall,490-k-9,238,"/",black);
+       gdImageString(im,gdFontSmall,491-k,239,msg_h_oxfer,dkgrey);
+-      gdImageString(im,gdFontSmall,490-k,238,msg_h_oxfer,COLOR1);
++      gdImageString(im,gdFontSmall,490-k,238,msg_h_oxfer,HITCOLOR);
+
+       /* Sites/Visits Legend */
+       i = (strlen(msg_h_visits)*6);
+       j = (strlen(msg_h_sites)*6);
+       gdImageString(im,gdFontSmall,491-i-j-12,11,msg_h_visits,dkgrey);
+-      gdImageString(im,gdFontSmall,490-i-j-12,10,msg_h_visits,COLOR6);
++      gdImageString(im,gdFontSmall,490-i-j-12,10,msg_h_visits,VISITCOLOR);
+       gdImageString(im,gdFontSmall,491-j-9,11,"/",dkgrey);
+       gdImageString(im,gdFontSmall,490-j-9,10,"/",black);
+       gdImageString(im,gdFontSmall,491-j,11,msg_h_sites,dkgrey);
+-      gdImageString(im,gdFontSmall,490-j,10,msg_h_sites,COLOR3);
++      gdImageString(im,gdFontSmall,490-j,10,msg_h_sites,SITECOLOR);
+
+       /* Hits/Files/Pages Legend */
+       i = (strlen(msg_h_pages)*6);
+       j = (strlen(msg_h_files)*6);
+       gdImageStringUp(im,gdFontSmall,8,231,msg_h_pages,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,7,230,msg_h_pages,COLOR5);
++      gdImageStringUp(im,gdFontSmall,7,230,msg_h_pages,PAGECOLOR);
+       gdImageStringUp(im,gdFontSmall,8,231-i-3,"/",dkgrey);
+       gdImageStringUp(im,gdFontSmall,7,230-i-3,"/",black);
+       gdImageStringUp(im,gdFontSmall,8,231-i-12,msg_h_files,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,7,230-i-12,msg_h_files,COLOR2);
++      gdImageStringUp(im,gdFontSmall,7,230-i-12,msg_h_files,FILECOLOR);
+       gdImageStringUp(im,gdFontSmall,8,231-i-j-15,"/",dkgrey);
+       gdImageStringUp(im,gdFontSmall,7,230-i-j-15,"/",black);
+       gdImageStringUp(im,gdFontSmall,8,231-i-j-24,msg_h_hits,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,7,230-i-j-24,msg_h_hits,COLOR1);
++      gdImageStringUp(im,gdFontSmall,7,230-i-j-24,msg_h_hits,HITCOLOR);
+    }
+
+    /* data1 */
+@@ -194,7 +250,7 @@
+       x1 = 26 + (i*23);
+       x2 = x1 + 13;
+       y1 = 232 - (percent * 203);
+-      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR1);
++      gdImageFilledRectangle(im, x1, y1, x2, 232, HITCOLOR);
+       gdImageRectangle(im, x1, y1, x2, 232, black);
+    }
+
+@@ -208,7 +264,7 @@
+       x1 = 29 + (i*23);
+       x2 = x1 + 13;
+       y1 = 232 - (percent * 203);
+-      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR2);
++      gdImageFilledRectangle(im, x1, y1, x2, 232, FILECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 232, black);
+    }
+
+@@ -222,7 +278,7 @@
+       x1 = 32 + (i*23);
+       x2 = x1 + 13;
+       y1 = 232 - (percent * 203);
+-      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR5);
++      gdImageFilledRectangle(im, x1, y1, x2, 232, PAGECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 232, black);
+    }
+
+@@ -247,7 +303,7 @@
+       x1 = 310 + (i*15);
+       x2 = x1 + 8;
+       y1 = 127 - (percent * 98);
+-      gdImageFilledRectangle(im, x1, y1, x2, 127, COLOR6);
++      gdImageFilledRectangle(im, x1, y1, x2, 127, VISITCOLOR);
+       gdImageRectangle(im, x1, y1, x2, 127, black);
+    }
+
+@@ -261,7 +317,7 @@
+       x1 = 314 + (i*15);
+       x2 = x1 + 7;
+       y1 = 127 - (percent * 98);
+-      gdImageFilledRectangle(im, x1, y1, x2, 127, COLOR3);
++      gdImageFilledRectangle(im, x1, y1, x2, 127, SITECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 127, black);
+    }
+
+@@ -286,7 +342,7 @@
+       x1 = 309 + (i*15);
+       x2 = x1 + 7;
+       y1 = 232 - (percent * 98);
+-      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR4);
++      gdImageFilledRectangle(im, x1, y1, x2, 232, KBYTECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 232, black);
+    }
+
+@@ -300,7 +356,7 @@
+       x1 = 311 + (i*15);
+       x2 = x1 + 7;
+       y1 = 232 - (percent * 98);
+-      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR2);
++      gdImageFilledRectangle(im, x1, y1, x2, 232, FILECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 232, black);
+    }
+
+@@ -314,7 +370,7 @@
+       x1 = 313 + (i*15);
+       x2 = x1 + 7;
+       y1 = 232 - (percent * 98);
+-      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR1);
++      gdImageFilledRectangle(im, x1, y1, x2, 232, HITCOLOR);
+       gdImageRectangle(im, x1, y1, x2, 232, black);
+    }
+
+@@ -385,7 +441,7 @@
+    for (i=0;i<31;i++)
+    {
+       if ((julday % 7 == 6) || (julday % 7 == 0))
+-       gdImageString(im,gdFontSmall,25+(i*15),382,numchar[i+1],COLOR1);
++       gdImageString(im,gdFontSmall,25+(i*15),382,numchar[i+1],HITCOLOR);
+       else
+        gdImageString(im,gdFontSmall,25+(i*15),382,numchar[i+1],black);
+       julday++;
+@@ -409,39 +465,39 @@
+       i=(strlen(msg_h_xfer)*6);
+       j=(strlen(msg_h_ixfer)*6);
+       gdImageStringUp(im,gdFontSmall,494,376,msg_h_xfer,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,375,msg_h_xfer,COLOR4);
++      gdImageStringUp(im,gdFontSmall,493,375,msg_h_xfer,KBYTECOLOR);
+       gdImageStringUp(im,gdFontSmall,494,376-i-3,"/",dkgrey);
+       gdImageStringUp(im,gdFontSmall,493,375-i-3,"/",black);
+       gdImageStringUp(im,gdFontSmall,494,376-i-12,msg_h_ixfer,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,375-i-12,msg_h_ixfer,COLOR2);
++      gdImageStringUp(im,gdFontSmall,493,375-i-12,msg_h_ixfer,FILECOLOR);
+       gdImageStringUp(im,gdFontSmall,494,376-i-j-15,"/",dkgrey);
+       gdImageStringUp(im,gdFontSmall,493,375-i-j-15,"/",black);
+       gdImageStringUp(im,gdFontSmall,494,376-i-j-24,msg_h_oxfer,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,375-i-j-24,msg_h_oxfer,COLOR1);
++      gdImageStringUp(im,gdFontSmall,493,375-i-j-24,msg_h_oxfer,HITCOLOR);
+
+       /* Sites/Visits Legend */
+       i = (strlen(msg_h_sites)*6);
+       gdImageStringUp(im,gdFontSmall,494,256,msg_h_sites,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,255,msg_h_sites,COLOR3);
++      gdImageStringUp(im,gdFontSmall,493,255,msg_h_sites,SITECOLOR);
+       gdImageStringUp(im,gdFontSmall,494,256-i-3,"/",dkgrey);
+       gdImageStringUp(im,gdFontSmall,493,255-i-3,"/",black);
+       gdImageStringUp(im,gdFontSmall,494,256-i-12,msg_h_visits,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,255-i-12,msg_h_visits,COLOR6);
++      gdImageStringUp(im,gdFontSmall,493,255-i-12,msg_h_visits,VISITCOLOR);
+
+       /* Pages/Files/Hits Legend */
+       s = ( i=(strlen(msg_h_pages)*6) )+
+           ( j=(strlen(msg_h_files)*6) )+
+           ( strlen(msg_h_hits)*6 )+ 52;
+       gdImageStringUp(im,gdFontSmall,494,s,msg_h_pages,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,s-1,msg_h_pages,COLOR5);
++      gdImageStringUp(im,gdFontSmall,493,s-1,msg_h_pages,PAGECOLOR);
+       gdImageStringUp(im,gdFontSmall,494,s-i-3,"/",dkgrey);
+       gdImageStringUp(im,gdFontSmall,493,s-i-4,"/",black);
+       gdImageStringUp(im,gdFontSmall,494,s-i-12,msg_h_files,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,s-i-13,msg_h_files,COLOR2);
++      gdImageStringUp(im,gdFontSmall,493,s-i-13,msg_h_files,FILECOLOR);
+       gdImageStringUp(im,gdFontSmall,494,s-i-j-15,"/",dkgrey);
+       gdImageStringUp(im,gdFontSmall,493,s-i-j-16,"/",black);
+       gdImageStringUp(im,gdFontSmall,494,s-i-j-24,msg_h_hits,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,s-i-j-25,msg_h_hits,COLOR1);
++      gdImageStringUp(im,gdFontSmall,493,s-i-j-25,msg_h_hits,HITCOLOR);
+    }
+
+    /* data1 */
+@@ -452,7 +508,7 @@
+       x1 = 25 + (i*15);
+       x2 = x1 + 7;
+       y1 = 176 - (percent * 147);
+-      gdImageFilledRectangle(im, x1, y1, x2, 176, COLOR1);
++      gdImageFilledRectangle(im, x1, y1, x2, 176, HITCOLOR);
+       gdImageRectangle(im, x1, y1, x2, 176, black);
+    }
+
+@@ -464,7 +520,7 @@
+       x1 = 27 + (i*15);
+       x2 = x1 + 7;
+       y1 = 176 - (percent * 147);
+-      gdImageFilledRectangle(im, x1, y1, x2, 176, COLOR2);
++      gdImageFilledRectangle(im, x1, y1, x2, 176, FILECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 176, black);
+    }
+
+@@ -477,7 +533,7 @@
+       x1 = 29 + (i*15);
+       x2 = x1 + 7;
+       y1 = 176 - (percent * 147);
+-      gdImageFilledRectangle(im, x1, y1, x2, 176, COLOR5);
++      gdImageFilledRectangle(im, x1, y1, x2, 176, PAGECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 176, black);
+    }
+
+@@ -501,7 +557,7 @@
+       x1 = 25 + (i*15);
+       x2 = x1 + 8;
+       y1 = 276 - (percent * 92);
+-      gdImageFilledRectangle(im, x1, y1, x2, 276, COLOR6);
++      gdImageFilledRectangle(im, x1, y1, x2, 276, VISITCOLOR);
+       gdImageRectangle(im, x1, y1, x2, 276, black);
+    }
+
+@@ -513,7 +569,7 @@
+       x1 = 29 + (i*15);
+       x2 = x1 + 7;
+       y1 = 276 - (percent * 92);
+-      gdImageFilledRectangle(im, x1, y1, x2, 276, COLOR3);
++      gdImageFilledRectangle(im, x1, y1, x2, 276, SITECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 276, black);
+    }
+
+@@ -536,7 +592,7 @@
+       x1 = 25 + (i*15);
+       x2 = x1 + 7;
+       y1 = 375 - ( percent * 91 );
+-      gdImageFilledRectangle(im, x1, y1, x2, 375, COLOR4);
++      gdImageFilledRectangle(im, x1, y1, x2, 375, KBYTECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 375, black);
+    }
+
+@@ -548,7 +604,7 @@
+       x1 = 27 + (i*15);
+       x2 = x1 + 7;
+       y1 = 375 - ( percent * 91 );
+-      gdImageFilledRectangle(im, x1, y1, x2, 375, COLOR2);
++      gdImageFilledRectangle(im, x1, y1, x2, 375, FILECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 375, black);
+    }
+
+@@ -560,7 +616,7 @@
+       x1 = 29 + (i*15);
+       x2 = x1 + 7;
+       y1 = 375 - ( percent * 91 );
+-      gdImageFilledRectangle(im, x1, y1, x2, 375, COLOR1);
++      gdImageFilledRectangle(im, x1, y1, x2, 375, HITCOLOR);
+       gdImageRectangle(im, x1, y1, x2, 375, black);
+    }
+
+@@ -624,15 +680,15 @@
+           ( j=(strlen(msg_h_files)*6) )+
+           ( strlen(msg_h_hits)*6 )+ 52;
+       gdImageStringUp(im,gdFontSmall,494,s,msg_h_pages,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,s-1,msg_h_pages,COLOR5);
++      gdImageStringUp(im,gdFontSmall,493,s-1,msg_h_pages,PAGECOLOR);
+       gdImageStringUp(im,gdFontSmall,494,s-i-3,"/",dkgrey);
+       gdImageStringUp(im,gdFontSmall,493,s-i-4,"/",black);
+       gdImageStringUp(im,gdFontSmall,494,s-i-12,msg_h_files,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,s-i-13,msg_h_files,COLOR2);
++      gdImageStringUp(im,gdFontSmall,493,s-i-13,msg_h_files,FILECOLOR);
+       gdImageStringUp(im,gdFontSmall,494,s-i-j-15,"/",dkgrey);
+       gdImageStringUp(im,gdFontSmall,493,s-i-j-16,"/",black);
+       gdImageStringUp(im,gdFontSmall,494,s-i-j-24,msg_h_hits,dkgrey);
+-      gdImageStringUp(im,gdFontSmall,493,s-i-j-25,msg_h_hits,COLOR1);
++      gdImageStringUp(im,gdFontSmall,493,s-i-j-25,msg_h_hits,HITCOLOR);
+    }
+
+    /* data1 */
+@@ -643,7 +699,7 @@
+       x1 = 29 + (i*19);
+       x2 = x1 + 10;
+       y1 = 232 - (percent * 203);
+-      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR1);
++      gdImageFilledRectangle(im, x1, y1, x2, 232, HITCOLOR);
+       gdImageRectangle(im, x1, y1, x2, 232, black);
+    }
+
+@@ -655,7 +711,7 @@
+       x1 = 32 + (i*19);
+       x2 = x1 + 10;
+       y1 = 232 - (percent * 203);
+-      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR2);
++      gdImageFilledRectangle(im, x1, y1, x2, 232, FILECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 232, black);
+    }
+
+@@ -667,7 +723,7 @@
+       x1 = 35 + (i*19);
+       x2 = x1 + 10;
+       y1 = 232 - (percent * 203);
+-      gdImageFilledRectangle(im, x1, y1, x2, 232, COLOR5);
++      gdImageFilledRectangle(im, x1, y1, x2, 232, PAGECOLOR);
+       gdImageRectangle(im, x1, y1, x2, 232, black);
+    }
+
+@@ -694,17 +750,22 @@
+ {
+    int i,x,percent,y=47;
+    double s_arc=0.0;
+-   int purple, ltpurple, ltgreen, brown;
++   int purple_or_pie1, ltpurple_or_pie2, ltgreen_or_pie3, brown_or_pie4;
++   int r, g, b;
+    char buffer[128];
+
+    struct pie_data gdata;
+
+    /* init graph and colors */
+    init_graph(title,512,300);
+-   purple  = gdImageColorAllocate(im, 128, 0, 128);
+-   ltgreen = gdImageColorAllocate(im, 128, 255, 192);
+-   ltpurple= gdImageColorAllocate(im, 255, 0, 255);
+-   brown   = gdImageColorAllocate(im, 255, 196, 128);
++   r=getred(pie_color1); g=getgreen(pie_color1); b=getblue(pie_color1);
++   purple_or_pie1  = gdImageColorAllocate(im, r, g, b);
++   r=getred(pie_color2); g=getgreen(pie_color2); b=getblue(pie_color2);
++   ltpurple_or_pie2= gdImageColorAllocate(im, r, g, b);
++   r=getred(pie_color3); g=getgreen(pie_color3); b=getblue(pie_color3);
++   ltgreen_or_pie3 = gdImageColorAllocate(im, r, g, b);
++   r=getred(pie_color4); g=getgreen(pie_color4); b=getblue(pie_color4);
++   brown_or_pie4 = gdImageColorAllocate(im, r, g, b);
+
+    /* do the circle... */
+    gdImageArc(im, CX, CY, XRAD, YRAD, 0, 360, black);
+@@ -797,7 +858,7 @@
+
+ void init_graph(char *title, int xsize, int ysize)
+ {
+-   int i;
++   int i, r, g, b;
+
+    im = gdImageCreate(xsize,ysize);
+
+@@ -806,12 +867,18 @@
+    dkgrey  = gdImageColorAllocate(im, 128, 128, 128);
+    black   = gdImageColorAllocate(im, 0, 0, 0);
+    white   = gdImageColorAllocate(im, 255, 255, 255);
+-   green   = gdImageColorAllocate(im, 0, 128, 92);
+-   orange  = gdImageColorAllocate(im, 255, 128, 0);
+-   blue    = gdImageColorAllocate(im, 0, 0, 255);
+-   red     = gdImageColorAllocate(im, 255, 0, 0);
+-   cyan    = gdImageColorAllocate(im, 0, 192, 255);
+-   yellow  = gdImageColorAllocate(im, 255, 255, 0);
++   r=getred(hit_color); g=getgreen(hit_color); b=getblue(hit_color);
++   hit_or_green = gdImageColorAllocate(im, r, g, b);
++   r=getred(site_color); g=getgreen(site_color); b=getblue(site_color);
++   site_or_orange = gdImageColorAllocate(im, r, g, b);
++   r=getred(file_color); g=getgreen(file_color); b=getblue(file_color);
++   file_or_blue = gdImageColorAllocate(im, r, g, b);
++   r=getred(kbyte_color); g=getgreen(kbyte_color); b=getblue(kbyte_color);
++   kbyte_or_red = gdImageColorAllocate(im, r, g, b);
++   r=getred(page_color); g=getgreen(page_color); b=getblue(page_color);
++   page_or_cyan = gdImageColorAllocate(im, r, g, b);
++   r=getred(visit_color); g=getgreen(visit_color); b=getblue(visit_color);
++   visit_or_yellow = gdImageColorAllocate(im, r, g, b);
+
+    /* make borders */
+
+@@ -828,6 +895,7 @@
+    gdImageRectangle(im, 0, 0, xsize-1, ysize-1, black);
+
+    /* display the graph title */
++   blue=file_or_blue;           /* currently bound to blue or file color */
+    gdImageString(im, gdFontMediumBold, 20, 8, title, blue);
+
+    return;
+Index: webalizer-2.01.10-vc/output.c
+===================================================================
+--- webalizer-2.01.10-vc.orig/output.c	2006-10-27 12:34:36.000000000 +0400
++++ webalizer-2.01.10-vc/output.c	2006-10-27 12:34:37.000000000 +0400
+@@ -135,6 +135,14 @@
+ #define CYAN           "#00E0FF"
+ #define GRPCOLOR       "#D0D0E0"
+
++/* configurable html colors */
++#define HITCOLOR       hit_color
++#define FILECOLOR      file_color
++#define SITECOLOR      site_color
++#define KBYTECOLOR     kbyte_color
++#define PAGECOLOR      page_color
++#define VISITCOLOR     visit_color
++
+ /* sort arrays */
+ UNODEPTR *u_array      = NULL;                /* Sort array for URL's     */
+ HNODEPTR *h_array      = NULL;                /* hostnames (sites)        */
+@@ -202,7 +210,7 @@
+    if (lptr==NULL)
+       fprintf(out_fp,"<BODY BGCOLOR=\"%s\" TEXT=\"%s\" "   \
+               "LINK=\"%s\" VLINK=\"%s\">\n",
+-              LTGREY, BLACK, BLUE, RED);
++              LTGREY, BLACK, BLUE, KBYTECOLOR);
+    else
+    {
+       while (lptr!=NULL)
+@@ -709,15 +717,15 @@
+                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n"                       \
+                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"               \
+                   "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
+-                  GREY,    msg_h_day,
+-                  DKGREEN, msg_h_hits,
+-                  LTBLUE,  msg_h_files,
+-                  CYAN,    msg_h_pages,
+-                  YELLOW,  msg_h_visits,
+-                  ORANGE,  msg_h_sites,
+-                  RED,     msg_h_xfer,
+                   LTBLUE,  msg_h_ixfer,
+-                  GREEN,   msg_h_oxfer);
++                  GREEN,   msg_h_oxfer,
++                  GREY,       msg_h_day,
++                  HITCOLOR,   msg_h_hits,
++                  FILECOLOR,  msg_h_files,
++                  PAGECOLOR,  msg_h_pages,
++                  VISITCOLOR, msg_h_visits,
++                  SITECOLOR,  msg_h_sites,
++                  KBYTECOLOR, msg_h_xfer);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+
+    /* skip beginning blank days in a month */
+@@ -799,38 +807,38 @@
+                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n"        \
+                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=3>"     \
+                   "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
+-                  GREY,    msg_h_hour,
+-                  DKGREEN, msg_h_hits,
+-                  LTBLUE,  msg_h_files,
+-                  CYAN,    msg_h_pages,
+-                  RED,     msg_h_xfer,
+                   LTBLUE,  msg_h_ixfer,
+-                  GREEN,   msg_h_oxfer);
++                  GREEN,   msg_h_oxfer,
++                  GREY,       msg_h_hour,
++                  HITCOLOR,   msg_h_hits,
++                  FILECOLOR,  msg_h_files,
++                  PAGECOLOR,  msg_h_pages,
++                  KBYTECOLOR, msg_h_xfer);
+    fprintf(out_fp,"<TR><TH ALIGN=center BGCOLOR=\"%s\">"           \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
+                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"     \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n",
+-                  DKGREEN, msg_h_avg, DKGREEN, msg_h_total);
++                  HITCOLOR, msg_h_avg, HITCOLOR, msg_h_total);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"               \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
+                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"     \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n",
+-                  LTBLUE, msg_h_avg, LTBLUE, msg_h_total);
++                  FILECOLOR, msg_h_avg, FILECOLOR, msg_h_total);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"               \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
+                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"     \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n",
+-                  CYAN, msg_h_avg, CYAN, msg_h_total);
++                  PAGECOLOR, msg_h_avg, PAGECOLOR, msg_h_total);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"               \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
+                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"     \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n",
+-                  RED, msg_h_avg, RED, msg_h_total);
++                  KBYTECOLOR, msg_h_avg, KBYTECOLOR, msg_h_total);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"               \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
+                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"     \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n",
+-                  LTBLUE, msg_h_avg, LTBLUE, msg_h_total);
++                  FILECOLOR, msg_h_avg, FILECOLOR, msg_h_total);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"               \
+                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
+                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"     \
+@@ -930,19 +938,19 @@
+    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                    \
+           "<FONT SIZE=\"-1\">#</FONT></TH>\n",GREY);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",DKGREEN,msg_h_hits);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",HITCOLOR,msg_h_hits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_files);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_files);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",RED,msg_h_xfer);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",KBYTECOLOR,msg_h_xfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_ixfer);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_ixfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
+           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",GREEN,msg_h_oxfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",YELLOW,msg_h_visits);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                        \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",CYAN,msg_h_hname);
++          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",PAGECOLOR,msg_h_hname);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+
+    pointer=h_array; i=0;
+@@ -1135,19 +1143,19 @@
+                   "<FONT SIZE=\"-1\">#</FONT></TH>\n",GREY);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
+                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
+-                  DKGREEN,msg_h_hits);
++                  HITCOLOR,msg_h_hits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
+                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
+-                  RED,msg_h_xfer);
++                  KBYTECOLOR,msg_h_xfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
+                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
+-                  LTBLUE,msg_h_ixfer);
++                  FILECOLOR,msg_h_ixfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
+                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
+                   GREEN,msg_h_oxfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                      \
+                   "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
+-                  CYAN,msg_h_url);
++                  PAGECOLOR,msg_h_url);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+
+    pointer=u_array; i=0;
+@@ -1364,13 +1372,13 @@
+                   GREY);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
+                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
+-                  DKGREEN,msg_h_hits);
++                  HITCOLOR,msg_h_hits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
+                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
+-                  YELLOW,msg_h_visits);
++                  VISITCOLOR,msg_h_visits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                      \
+                   "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
+-                  CYAN,msg_h_url);
++                  PAGECOLOR,msg_h_url);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+
+    pointer=u_array; i=0;
+@@ -1459,10 +1467,10 @@
+           GREY);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
+-          DKGREEN,msg_h_hits);
++          HITCOLOR,msg_h_hits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                       \
+           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
+-          CYAN,msg_h_ref);
++          PAGECOLOR,msg_h_ref);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+
+    pointer=r_array; i=0;
+@@ -1629,10 +1637,10 @@
+           GREY);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
+           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
+-          DKGREEN,msg_h_hits);
++          HITCOLOR,msg_h_hits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                      \
+           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
+-          CYAN,msg_h_agent);
++          PAGECOLOR,msg_h_agent);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+
+    pointer=a_array; i=0;
+@@ -1774,10 +1782,10 @@
+           GREY);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
+           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
+-          DKGREEN,msg_h_hits);
++          HITCOLOR,msg_h_hits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                      \
+           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
+-          CYAN,msg_h_search);
++          PAGECOLOR,msg_h_search);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+
+    pointer=s_array; i=0;
+@@ -1891,19 +1899,19 @@
+    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                   \
+           "<FONT SIZE=\"-1\">#</FONT></TH>\n",GREY);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",DKGREEN,msg_h_hits);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",HITCOLOR,msg_h_hits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_files);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_files);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",RED,msg_h_xfer);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",KBYTECOLOR,msg_h_xfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_ixfer);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_ixfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",GREEN,msg_h_oxfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",YELLOW,msg_h_visits);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                       \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",CYAN,msg_h_uname);
++          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",PAGECOLOR,msg_h_uname);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+
+    pointer=i_array; i=0;
+@@ -2204,17 +2212,17 @@
+    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                   \
+           "<FONT SIZE=\"-1\">#</FONT></TH>\n",GREY);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",DKGREEN,msg_h_hits);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",HITCOLOR,msg_h_hits);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_files);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_files);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",RED,msg_h_xfer);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",KBYTECOLOR,msg_h_xfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_ixfer);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_ixfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
+           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",GREEN,msg_h_oxfer);
+    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                       \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",CYAN,msg_h_ctry);
++          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",PAGECOLOR,msg_h_ctry);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+    for (i=0;i<ntop_ctrys;i++)
+    {
+@@ -2572,29 +2580,29 @@
+    fprintf(out_fp,"<TH ALIGN=center COLSPAN=8 BGCOLOR=\"%s\">"            \
+           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",GREY,msg_main_mt);
+    fprintf(out_fp,"<TR><TH ALIGN=center BGCOLOR=\"%s\">"                  \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",DKGREEN,msg_h_hits);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",HITCOLOR,msg_h_hits);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_files);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_files);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",CYAN,msg_h_pages);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",PAGECOLOR,msg_h_pages);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",YELLOW,msg_h_visits);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",ORANGE,msg_h_sites);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",SITECOLOR,msg_h_sites);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",RED,msg_h_xfer);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",KBYTECOLOR,msg_h_xfer);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_ixfer);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_ixfer);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",GREEN,msg_h_oxfer);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",YELLOW,msg_h_visits);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",CYAN,msg_h_pages);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",PAGECOLOR,msg_h_pages);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_files);
++          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_files);
+    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
+-          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",DKGREEN,msg_h_hits);
++          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",HITCOLOR,msg_h_hits);
+    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
+
+    /* output up to the most recent 12 months */
+Index: webalizer-2.01.10-vc/sample.conf
+===================================================================
+--- webalizer-2.01.10-vc.orig/sample.conf	2006-10-27 12:34:34.000000000 +0400
++++ webalizer-2.01.10-vc/sample.conf	2006-10-27 12:34:37.000000000 +0400
+@@ -576,4 +576,20 @@
+ #GeoIP		yes
+ #GeoIPDatabase	/usr/share/GeoIP/GeoIP.dat
+
++# The custom  bar graph Colors are defined here. Declare them
++# in the standard hexadecimal way (as HTML, without the '#')
++# If none are given, you will get the standard webalizer colors.
++
++#ColorHit	00805c
++#ColorFile	0000ff
++#ColorSite	ff8000
++#ColorKbyte	ff0000
++#ColorPage	00c0ff
++#ColorVisit	ffff00
++
++#PieColor1	800080
++#PieColor2	80ffc0
++#PieColor3	ff00ff
++#PieColor4	ffc480
++
+ # End of configuration file...  Have a nice day!
+Index: webalizer-2.01.10-vc/webalizer.1
+===================================================================
+--- webalizer-2.01.10-vc.orig/webalizer.1	2001-10-23 10:05:50.000000000 +0400
++++ webalizer-2.01.10-vc/webalizer.1	2006-10-27 12:34:37.000000000 +0400
+@@ -669,6 +669,36 @@
+ Dump the search string data to a tab delimited file.  This data is only
+ available if processing a web log that contains referrer information and
+ had search string information present.
++.TP 8
++.B ColorHit \fP( rrggbb | \fB00805c\fP )
++Sets the graph's hit-color to the specified html color (no '#').
++.TP 8
++.B ColorFile \fP( rrggbb | \fB0000ff\fP )
++Sets the graph's file-color to the specified html color (no '#').
++.TP 8
++.B ColorSite \fP( rrggbb | \fBff8000\fP )
++Sets the graph's site-color to the specified html color (no '#').
++.TP 8
++.B ColorKbyte \fP( rrggbb | \fBff0000\fP )
++Sets the graph's kilobyte-color to the specified html color (no '#').
++.TP 8
++.B ColorPage \fP( rrggbb | \fB00c0ff\fP )
++Sets the graph's page-color to the specified html color (no '#').
++.TP 8
++.B ColorVisit \fP( rrggbb | \fBffff00\fP )
++Sets the graph's visit-color to the specified html color (no '#').
++.TP 8
++.B PieColor1 \fP( rrggbb | \fB800080\fP )
++Sets the pie's first optional color to the specified html color (no '#').
++.TP 8
++.B PieColor2 \fP( rrggbb | \fB80ffc0\fP )
++Sets the pie's second optional color to the specified html color (no '#').
++.TP 8
++.B PieColor3 \fP( rrggbb | \fBff00ff\fP )
++Sets the pie's third optinal color to the specified html color (no '#').
++.TP 8
++.B PieColor4 \fP( rrggbb | \fBffc480\fP )
++Sets the pie's fourth optional color to the specified html color (no '#').
+ .SH FILES
+ .TP 20
+ .I webalizer.conf
+Index: webalizer-2.01.10-vc/webalizer.c
+===================================================================
+--- webalizer-2.01.10-vc.orig/webalizer.c	2006-10-27 12:34:34.000000000 +0400
++++ webalizer-2.01.10-vc/webalizer.c	2006-10-27 12:34:37.000000000 +0400
+@@ -241,6 +241,17 @@
+ char    *f_cp=f_buf+GZ_BUFSIZE;               /* pointer into the buffer  */
+ int     f_end;                                /* count to end of buffer   */
+
++char    hit_color[]   = "#00805c";              /* graph hit color          */
++char    file_color[]  = "#0000ff";              /* graph file color         */
++char    site_color[]  = "#ff8000";              /* graph site color         */
++char    kbyte_color[] = "#ff0000";              /* graph kbyte color        */
++char    page_color[]  = "#00c0ff";              /* graph page color         */
++char    visit_color[] = "#ffff00";              /* graph visit color        */
++char    pie_color1[]  = "#800080";              /* pie additionnal color 1  */
++char    pie_color2[]  = "#80ffc0";              /* pie additionnal color 2  */
++char    pie_color3[]  = "#ff00ff";              /* pie additionnal color 3  */
++char    pie_color4[]  = "#ffc480";              /* pie additionnal color 4  */
++
+ /*********************************************/
+ /* MAIN - start here                         */
+ /*********************************************/
+@@ -1519,6 +1530,16 @@
+                      "GeoIP",             /* Use GeoIP library (0=no)   88  */
+                      "GeoIPDatabase",     /* GeoIP database             89  */
+ #endif	/* USE_GEOIP */
++                      "ColorHit",          /* Hit Color   (def=00805c)   90  */
++                      "ColorFile",         /* File Color  (def=0000ff)   91  */
++                      "ColorSite",         /* Site Color  (def=ff8000)   92  */
++                      "ColorKbyte",        /* Kbyte Color (def=ff0000)   93  */
++                      "ColorPage",         /* Page Color  (def=00c0ff)   94  */
++                      "ColorVisit",        /* Visit Color (def=ffff00)   95  */
++                      "PieColor1",         /* Pie Color 1 (def=800080)   96  */
++                      "PieColor2",         /* Pie Color 2 (def=80ffc0)   97  */
++                      "PieColor3",         /* Pie Color 3 (def=ff00ff)   98  */
++                      "PieColor4"          /* Pie Color 4 (def=ffc480)   99  */
+                    };
+
+    FILE *fp;
+@@ -1666,6 +1687,16 @@
+         case 88: use_geoip=(value[0]=='n')?0:1; break;    /* GeoIP          */
+         case 89: geoip_dbase=save_opt(value); break;      /* GeoIPDatabase  */
+ #endif	/* USE_GEOIP */
++         case 90: strncpy(hit_color+1,value,6);break;
++         case 91: strncpy(file_color+1,value,6);break;
++         case 92: strncpy(site_color+1,value,6);break;
++         case 93: strncpy(kbyte_color+1,value,6);break;
++         case 94: strncpy(page_color+1,value,6);break;
++         case 95: strncpy(visit_color+1,value,6);break;
++         case 96: strncpy(pie_color1 +1,value,6);break;
++         case 97: strncpy(pie_color2 +1,value,6);break;
++         case 98: strncpy(pie_color3 +1,value,6);break;
++         case 99: strncpy(pie_color4 +1,value,6);break;
+       }
+    }
+    fclose(fp);
+Index: webalizer-2.01.10-vc/webalizer.h
+===================================================================
+--- webalizer-2.01.10-vc.orig/webalizer.h	2006-10-27 12:34:34.000000000 +0400
++++ webalizer-2.01.10-vc/webalizer.h	2006-10-27 12:34:37.000000000 +0400
+@@ -271,6 +271,17 @@
+
+ extern CLISTPTR *top_ctrys;                   /* Top countries table      */
+
++extern char    hit_color[];                    /* graph hit color          */
++extern char    file_color[];                   /* graph file color         */
++extern char    site_color[];                   /* graph site color         */
++extern char    kbyte_color[];                  /* graph kbyte color        */
++extern char    page_color[];                   /* graph page color         */
++extern char    visit_color[];                  /* graph visit color        */
++extern char    pie_color1[];                   /* pie additionnal color 1  */
++extern char    pie_color2[];                   /* pie additionnal color 2  */
++extern char    pie_color3[];                   /* pie additionnal color 3  */
++extern char    pie_color4[];                   /* pie additionnal color 4  */
++
+ /* define our externally visable functions */
+
+ extern char   *cur_time();

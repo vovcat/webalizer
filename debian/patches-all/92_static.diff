@@ -1,0 +1,14 @@
+Index: webalizer-2.01.10-vc/Makefile.in
+===================================================================
+--- webalizer-2.01.10-vc.orig/Makefile.in	2006-10-27 13:43:06.000000000 +0400
++++ webalizer-2.01.10-vc/Makefile.in	2006-10-27 13:43:47.000000000 +0400
+@@ -46,7 +46,9 @@
+                 dns_resolv.o dns_resolv.h parser.o parser.h  \
+                 output.o output.h graphs.o graphs.h lang.h   \
+		xcode.o $(LANGS:%=po/%.mo)
+-	$(CC) ${LDFLAGS} -o webalizer webalizer.o hashtab.o linklist.o preserve.o parser.o output.o dns_resolv.o graphs.o xcode.o ${LIBS}
++	$(CC) ${LDFLAGS} -o webalizer webalizer.o hashtab.o linklist.o \
++		preserve.o parser.o output.o dns_resolv.o graphs.o xcode.o \
++		-Wl,-Bstatic ${LIBS} -Wl,-Bdynamic
+	rm -f webazolver
+	@LN_S@ webalizer webazolver

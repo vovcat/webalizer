@@ -1,0 +1,81 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 12_recognize_Opera_browsers.dpatch by Jose Carlos Medeiros <debian@psabs.com.br>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Webalizer now recognizes Opera browsers
+
+################################################
+# Does not detect Opera in `Identify as MSIE 5.0' mode
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=182980
+# From: "Steinar H. Gunderson" <sgunderson@bigfoot.com>
+#
+# In my access.log, I have thousands of lines looking like
+# 80.202.16.52 - - [01/Mar/2003:01:29:58 +0100] "GET /boxbg.jpeg HTTP/1.1" 200 1059 "http://sesse.net/lan-norefs.html" "Mozilla/4.0 (compatible; MSIE 5.0; Windows 2000) Opera 6.05  [nb]"
+#
+# or
+# 195.134.62.22 - - [01/Nov/2002:15:57:31 +0100] "GET /illegalcopying.html HTTP/1.1" 200 6425 "http://sesse.net/internet.html" "Mozilla/4.78 (Windows 2000; U) Opera 6.05  [en]"
+#
+# Yet webalizer, in its "Top User Agents", only returns a few hundred hits
+# for Opera, obviously only matching the cases where Opera is set to "Identify
+# as Opera", like:
+# 213.234.74.53 - - [28/Feb/2003:23:56:53 +0100] "GET /boxbg.jpeg HTTP/1.1" 200 1059 "http://sesse.net/lan-norefs.html" "Opera/7.01 (Windows NT 5.0; U)  [en]"
+#
+#
+# This patch has been tested will all mangle levels, and
+# can properly grok every single Opera record I have in my access.log (that
+# includes Opera on Solaris masking as Mozilla/3.0 ;-) ). Hope it'll be useful. :-)
+
+@DPATCH@
+Index: webalizer-2.01.10-vc/webalizer.c
+===================================================================
+--- webalizer-2.01.10-vc.orig/webalizer.c	2006-10-27 12:34:41.000000000 +0400
++++ webalizer-2.01.10-vc/webalizer.c	2006-10-27 12:34:42.000000000 +0400
+@@ -864,8 +864,22 @@
+		while (*cp1!=';'&&*cp1!='\0') cp1++;
+		/* kludge for Mozilla/3.01 (compatible;) */
+		if (*cp1++==';' && strcmp(cp1,")\"")) { /* success! */
+-		    while (*cp1 == ' ') cp1++; /* eat spaces */
+-		    while (*cp1!='.'&&*cp1!='\0'&&*cp1!=';') *cp2++=*cp1++;
++		    /* Opera can hide as MSIE */
++		    cp3=strstr(str,"Opera");
++		    if (cp3!=NULL) {
++			while (*cp3!='.'&&*cp3!='\0')
++			{
++			    if(*cp3=='/')
++				*cp2++=' ';
++			    else
++				*cp2++=*cp3;
++				cp3++;
++			}
++			cp1=cp3;
++		    } else {
++			while (*cp1 == ' ') cp1++; /* eat spaces */
++			while (*cp1!='.'&&*cp1!='\0'&&*cp1!=';') *cp2++=*cp1++;
++		    }
+		    if (mangle_agent<5)
+		    {
+			while (*cp1!='.'&&*cp1!=';'&&*cp1!='\0') *cp2++=*cp1++;
+@@ -877,7 +891,7 @@
+		    if (mangle_agent<4)
+			if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
+		    if (mangle_agent<3)
+-			while (*cp1!=';'&&*cp1!='\0'&&*cp1!='(') *cp2++=*cp1++;
++			while (*cp1!=';'&&*cp1!='\0'&&*cp1!='('&&*cp1!=' ') *cp2++=*cp1++;
+		    if (mangle_agent<2)
+		    {
+			/* Level 1 - try to get OS */
+@@ -902,7 +916,13 @@
+		if (cp1!=NULL)
+		{
+		    while (*cp1!='/'&&*cp1!=' '&&*cp1!='\0') *cp2++=*cp1++;
+-		    while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
++		    while (*cp1!='.'&&*cp1!='\0') {
++                        if(*cp1=='/')
++                            *cp2++=' ';
++                        else
++                            *cp2++=*cp1;
++                        cp1++;
++ 		    }
+		    if (mangle_agent<5)
+		    {
+			while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;

@@ -1,0 +1,26 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 15_ignore_localhost.dpatch by Jose Carlos Medeiros <debian@psabs.com.br>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Ignore localhost by default in sample.conf file
+
+###########################
+# default webalizer.conf *should* ignore localhost
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=168418
+# From: "Norbert Bottlaender-Prier" <norbert@globenet.org>
+
+@DPATCH@
+Index: webalizer-2.01.10-vc/sample.conf
+===================================================================
+--- webalizer-2.01.10-vc.orig/sample.conf	2006-10-27 14:31:34.000000000 +0400
++++ webalizer-2.01.10-vc/sample.conf	2006-10-27 14:31:34.000000000 +0400
+@@ -473,8 +473,10 @@
+ # a leading or trailing wildcard '*'.  Use at your own risk ;)
+
+ #IgnoreSite	bad.site.net
++IgnoreSite	localhost
+ #IgnoreURL	/test*
+ #IgnoreReferrer	file:/*
++IgnoreReferrer	localhost
+ #IgnoreAgent	RealPlayer
+ #IgnoreUser     root

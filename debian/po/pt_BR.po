@@ -1,0 +1,80 @@
+# Brazilian Portuguese translation for webalizer (debconf).
+# Copyright 2005 Free Software Foundation, Inc.
+# Tiago Bortoletto Vaz <tiagovaz@im.ufba.br>, 2005.
+# Jose Carlos Medeiros <jose@psabs.com.br>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer\n"
+"Report-Msgid-Bugs-To: debian@psabs.com.br\n"
+"POT-Creation-Date: 2006-07-06 16:24-0300\n"
+"PO-Revision-Date: 2004-09-01 00:10-0300\n"
+"Last-Translator: Jose Carlos Medeiros <jose@psabs.com.br>\n"
+"Language-Team: Debian-BR Project <debian-l10n-portuguese@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid "Upgrading from a version < 2.01.6"
+msgstr "Atualização de uma versão < 2.01.6"
+
+#. Type: note
+#. Description
+#: ../templates:1002
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr "ATENÇÃO: Se você esta atualizando uma versão < 2.01.6, leia o "
+"arquivo /usr/share/doc/webalizer/README.FIRST.gz para detalhes sobre a "
+"atualização de seus antigos dados!!"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "Atualização de uma versão < 2.01.10-30"
+
+#. Type: note
+#. Description
+#: ../templates:2002
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory. There was too new features. Please read README.FIST.gz,  README."
+"gz and new examples/sample.conf.gz in /usr/share/doc/webalizer directory."
+msgstr "ATENÇÃO: Esta versão moverá o arquivo webalizer.conf para o diretório "
+"/etc/webalizer. E Também foram implementadas novas opções. Favor ler o arquivo "
+"README.FIST.gz, README.gz e o examples/sample.conf.gz localizados no diretório "
+"/usr/share/doc para maiores informações."
+
+#. Type: string
+#. Description
+#: ../templates:3001
+msgid "Directory to put the output in:"
+msgstr "Diretório onde serão gravados os relatórios:"
+
+#. Type: string
+#. Default
+#: ../templates:4001
+msgid "Usage Statistics for"
+msgstr "Estatísticas de Uso para"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "Title of the reports webalizer will generate:"
+msgstr "Entre com o título dos relatórios que o webalizer irá gerar:"
+
+#. Type: string
+#. Description
+#: ../templates:4003
+msgid "(your system's hostname will be appended to it)"
+msgstr "(o hostname do seu sistema será concatenado a ele)"
+
+#. Type: string
+#. Description
+#: ../templates:5001
+msgid "Webserver's rotated log filename:"
+msgstr "Nome do arquivo de log rotacionado:"

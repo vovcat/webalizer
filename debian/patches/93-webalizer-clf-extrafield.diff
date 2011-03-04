@@ -1,0 +1,169 @@
+Index: webalizer-2.01.10/parser.c
+===================================================================
+--- webalizer-2.01.10.orig/parser.c	2006-10-28 07:04:42.000000000 +0400
++++ webalizer-2.01.10/parser.c	2006-10-28 07:08:11.000000000 +0400
+@@ -342,8 +342,15 @@
+    /* done with CLF record */
+    if (cp1>=eob) return 1;
+
++   /* Extended log format: has canonical site name */
+    while ( (*cp1 != '\0') && (*cp1 != '\n') && (cp1 < eob) ) cp1++;
+    if (cp1 < eob) cp1++;
++
++   if (*cp1 != '"') {
++      while ( (*cp1 != '\0') && (*cp1 != '\n') && (cp1 < eob) ) cp1++;
++      if (cp1 < eob) cp1++;
++   }
++
+    /* get referrer if present */
+    cpx = cp1;
+    cp2 = log_rec.refer;
+Index: webalizer-2.01.10/preserve.c
+===================================================================
+--- webalizer-2.01.10.orig/preserve.c	2006-10-28 07:04:42.000000000 +0400
++++ webalizer-2.01.10/preserve.c	2006-10-28 07:08:11.000000000 +0400
+@@ -446,7 +446,12 @@
+    /* get easy stuff */
+    sprintf(tmp_buf,"# Webalizer V%s    ",version);
+    if ((fgets(buffer,BUFSIZE,fp)) != NULL)                 /* Header record */
+-     {if (strncmp(buffer,tmp_buf,17)) return 99;} /* bad magic? */
++     {
++        if (strncmp(buffer,tmp_buf,17))
++	{
++	    printf("Warning: state file was created by another version of webalizer!\n");
++	};
++    } /* bad magic? */
+    else return 1;   /* error exit */
+
+    /* Get current timestamp */
+Index: webalizer-2.01.10/sample.conf
+===================================================================
+--- webalizer-2.01.10.orig/sample.conf	2006-10-28 07:04:42.000000000 +0400
++++ webalizer-2.01.10/sample.conf	2006-10-28 07:08:11.000000000 +0400
+@@ -107,12 +107,11 @@
+
+ PageType	htm*
+ PageType	cgi
+-#PageType	shtml
+-#PageType	phtml
+-#PageType	php3
+-#PageType	php
+-#PageType	pl
+-#PageType	rb
++PageType	shtm*
++PageType	phtm*
++PageType	php*
++PageType	pl
++PageType	rb
+
+ # UseHTTPS should be used if the analysis is being run on a
+ # secure server, and links to urls should use 'https://' instead
+@@ -352,8 +351,15 @@
+ # 'home' would turn the URL /somedir/homepages/brad/home.html into
+ # just /somedir/ which is probably not what was intended.
+
+-#IndexAlias     home.htm
+-#IndexAlias	homepage.htm
++IndexAlias	home.htm
++IndexAlias	homepage.htm
++IndexAlias	default.htm
++IndexAlias      index.cgi
++IndexAlias      index.php
++IndexAlias      index.htm
++IndexAlias      index.html
++IndexAlias      index.shtm
++IndexAlias      index.shtml
+
+ # The Hide*, Group* and Ignore* and Include* keywords allow you to
+ # change the way Sites, URL's, Referrers, User Agents and Usernames
+@@ -400,6 +406,14 @@
+ HideURL		*.css
+ HideURL		*.CSS
+ HideURL		*.ico
++HideURL		*.jpeg
++HideURL		*.JPEG
++HideURL		*.bmp
++HideURL		*.BMP
++HideURL		*.swf
++HideURL		*.SWF
++HideURL		*.js
++HideURL		*.JS
+
+ # Hiding agents is kind of futile
+ #HideAgent	RealPlayer
+@@ -538,8 +552,8 @@
+ SearchEngine	hotbot.com	MT=
+ SearchEngine	msn.com		MT=
+ SearchEngine	infoseek.com	qt=
+-SearchEngine	webcrawler	searchText=
+-SearchEngine	excite		search=
++SearchEngine	webcrawler.com	searchText=
++SearchEngine	excite.com	search=
+ SearchEngine	netscape.com	search=
+ SearchEngine	mamma.com	query=
+ SearchEngine	alltheweb.com	query=
+@@ -550,7 +564,6 @@
+ SearchEngine	google.ch	q=
+ SearchEngine	google.ca	q=
+ SearchEngine	google.be	q=
+-
+ SearchEngine	yahoo.co.jp	p=
+ SearchEngine	google.co.jp	q=
+ SearchEngine	infoseek.co.jp	qt=
+@@ -565,6 +578,56 @@
+ SearchEngine	jp.aol.com	query=
+ #SearchEngine	.google.	q=
+ #SearchEngine	bulkfeeds.net	q=
++# .ru
++SearchEngine	rambler.ru	words=
++SearchEngine	aport.ru	r=
++SearchEngine	yandex.ru	text=
++SearchEngine	pingwin.ru	searchword=
++SearchEngine	www.ru		Str_Find=
++SearchEngine	punto.ru	text=
++
++GroupReferrer	yahoo.com/	p=
++GroupReferrer	altavista.com/	q=
++GroupReferrer	google.com/	q=
++GroupReferrer	eureka.com/	q=
++GroupReferrer	lycos.com/	query=
++GroupReferrer	hotbot.com/	MT=
++GroupReferrer	msn.com/		MT=
++GroupReferrer	infoseek.com/	qt=
++GroupReferrer	webcrawler.com/	searchText=
++GroupReferrer	excite.com/	search=
++GroupReferrer	netscape.com/	search=
++GroupReferrer	mamma.com/	query=
++GroupReferrer	alltheweb.com/	query=
++GroupReferrer	northernlight.com/  qr=
++GroupReferrer	sensis.com.au/	find=
++GroupReferrer	google.nl/	q=
++GroupReferrer	google.fr/	q=
++GroupReferrer	google.ch/	q=
++GroupReferrer	google.ca/	q=
++GroupReferrer	google.be/	q=
++GroupReferrer	yahoo.co.jp/	p=
++GroupReferrer	google.co.jp/	q=
++GroupReferrer	infoseek.co.jp/	qt=
++GroupReferrer	msn.co.jp/	q=
++# ocn
++GroupReferrer	goo.ne.jp/	MT=
++GroupReferrer	biglobe.ne.jp/	q=
++GroupReferrer	nifty.com/	Text=
++# so-net odn
++GroupReferrer	excite.co.jp/	search=
++GroupReferrer	livedoor.com/	q=
++GroupReferrer	jp.aol.com/	query=
++#GroupReferrer	.google.	q=
++#GroupReferrer	bulkfeeds.net/	q=
++# .ru
++GroupReferrer	rambler.ru/	words=
++GroupReferrer	aport.ru/	r=
++GroupReferrer	yandex.ru/	text=
++GroupReferrer	pingwin.ru/	searchword=
++GroupReferrer	www.ru/		Str_Find=
++GroupReferrer	punto.ru/	text=
++
+
+ # The Dump* keywords allow the dumping of Sites, URL's, Referrers
+ # User Agents, Usernames and Search strings to seperate tab delimited

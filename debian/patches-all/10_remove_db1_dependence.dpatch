@@ -1,0 +1,24 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 10_remove_db1_dependence.dpatch by Jose Carlos Medeiros <debian@psabs.com.br>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Removed db1* dependence.
+
+@DPATCH@
+Index: webalizer-2.01.10-vc/configure.in
+===================================================================
+--- webalizer-2.01.10-vc.orig/configure.in	2006-10-27 12:34:34.000000000 +0400
++++ webalizer-2.01.10-vc/configure.in	2006-10-27 12:34:41.000000000 +0400
+@@ -79,9 +79,9 @@
+ dnl DNS library check
+ if test "$USE_DNS" = "yes"; then
+   if test "$HAVE_DB" = ""; then
+-    AC_CHECK_FUNCS(dbopen)
+-    if test $ac_cv_func_dbopen = no; then
+-      AC_SEARCH_LIBS(dbopen, db db1, OPTS="-DUSE_DNS ${OPTS}"; HAVE_DB="yes")
++    AC_CHECK_FUNCS(__db185_open)
++    if test "$ac_cv_func_dbopen" = "no"; then
++      AC_SEARCH_LIBS(__db185_open, db db1 db3, OPTS="-DUSE_DNS -include /usr/include/db_185.h ${OPTS}"; HAVE_DB="yes")
+       if test "$HAVE_DB" = ""; then
+         AC_MSG_WARN(You must have a V1.85 compatable DB library!)
+         AC_MSG_WARN(DNS lookup code will be disabled...)

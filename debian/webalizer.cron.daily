@@ -1,0 +1,53 @@
+#!/bin/sh
+# /etc/cron.daily/webalizer: Webalizer daily maintenance script
+# This script was originally written by
+# Remco van de Meent <remco@debian.org>
+# and now, all rewrited by Jose Carlos Medeiros <jose@psabs.com.br>
+
+# This script just run webalizer agains all .conf files in /etc/webalizer directory
+
+WEBALIZER=/usr/bin/webalizer
+WEBALIZER_CONFDIR=/etc/webalizer
+
+[ -x ${WEBALIZER} ] || exit 0;
+[ -d ${WEBALIZER_CONFDIR} ] || exit 0;
+
+for i in ${WEBALIZER_CONFDIR}/*.conf; do
+  # run agains a rotated or normal logfile
+  LOGFILE=`awk '$1 ~ /^LogFile$/ {print $2}' $i`;
+
+  # empty ?
+  [ -s "${LOGFILE}" ] || exit 0;
+  # readable ?
+  [ -r "${LOGFILE}" ] || exit 1;
+
+  # there was a output ?
+  OUTDIR=`awk '$1 ~ /^OutputDir$/ {print $2}' $i`;
+  #  exists something ?
+  [ "${OUTDIR}" != "" ] || exit 1;
+  # its a directory ?
+  [ -d ${OUTDIR} ] || exit 1;
+  # its writable ?
+  [ -w ${OUTDIR} ] || exit 1;
+
+  # Run Really quietly, exit with status code if !0
+  ${WEBALIZER} -c ${i} -Q || exit $?;
+  RET=$?;
+
+  # Non rotated log file
+  NLOGFILE=`awk '$1 ~ /^LogFile$/ {gsub(/\.[0-9]+(\.gz)?/,""); print $2}' $i`;
+
+  # check current log, if last log is a rotated logfile
+  if [ "${LOGFILE}" != "${NLOGFILE}" ]; then
+    # empty ?
+    [ -s "${NLOGFILE}" ] || exit 0;
+    # readable ?
+    [ -r "${NLOGFILE}" ] || exit 1;
+
+    ${WEBALIZER} -c ${i} -Q ${NLOGFILE};
+    RET=$?;
+  fi;
+done;
+
+# exit with webalizer's exit code
+exit $RET;
