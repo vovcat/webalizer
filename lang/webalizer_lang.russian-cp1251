@@ -1,0 +1,648 @@
+/* This file is full of -*- C -*- code, so treat it as such.
+
+   webalizer_lang.russian
+
+   Webalizer V2.0x Language Support file for Russian.
+   15-May-1998 by Bradford L. Barrett (brad@mrunix.net)
+   31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
+   23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
+   18-Aug-1998 Translated by Sergey Groznyh <gsm@infosite.ru>
+   08-Mar-1999 Updated HTTP 1.1 response codes by Yves Lafon (ylafon@w3.org)
+   28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
+   22-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
+   10-Mar-2000 New 2.0 strings translated by Andrew A. Vasilyev (andy@demos.su)
+   26-Mar-2008 Updated to current IANA TLDs (brad@mrunix.net)
+   26-May-2008 Modified for level 2.2 support (brad@mrunix.net)
+
+
+   Language files are named using the following convention:
+
+   webalizer_lang.LANGUAGE
+
+   where 'LANGUAGE' is the name of the language the file is
+   translated into (ie: webalizer_lang.russian for russian).
+   Either copy the desired language file to webalizer_lang.h
+   or create a symbolic link, then re-compile.
+
+   If you translate this file into a different language, please
+   send a copy to brad@mrunix.net.
+
+   Note: In order to use the russian character set, the GD graphics
+   library needs to be patched, otherwise you will get garbage.
+   The file gd1.3-patch-koi8-r.gz includes this patch, which you
+   should get and install before compiling the russian version of
+   the Webalizer.  Thanks to Sergey Groznyh for this submission.
+
+*/
+
+/***********************************************************************/
+/* DEFINE LANGUAGE NAME here                                           */
+/***********************************************************************/
+
+char *language  = "Russian";
+char *langcode  = "ru";
+
+/***********************************************************************/
+/*                                                                     */
+/* Informational messages                                              */
+/*                                                                     */
+/* These messages are only displayed while The Webalizer is being run, */
+/* usually to the screen, and are not part of the HTML output.         */
+/*                                                                     */
+/***********************************************************************/
+
+/* these are only used in timing totals */
+/* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
+char *msg_records = "records";
+char *msg_addresses="addresses";
+char *msg_ignored = "ignored";
+char *msg_bad     = "bad";
+char *msg_in      = "in";
+char *msg_seconds = "seconds";
+
+/* progress and setup error messages */
+char *msg_log_err = "Error: Can't open log file";
+char *msg_log_use = "Using logfile";
+char *msg_dir_err = "Error: Can't change directory to";
+char *msg_dir_use = "Creating output in";
+char *msg_cur_dir = "current directory";
+char *msg_hostname= "Hostname for reports is";
+char *msg_ign_hist= "Ignoring previous history...";
+char *msg_no_hist = "History file not found...";
+char *msg_get_hist= "Reading history file...";
+char *msg_put_hist= "Saving history information...";
+char *msg_hist_err= "Error: Unable to write history file";
+char *msg_bad_hist= "Error: Ignoring invalid history record";
+char *msg_bad_conf= "Error: Unable to open configuration file";
+char *msg_bad_key = "Warning: Invalid keyword";
+char *msg_bad_date= "Error: Skipping record (bad date)";
+char *msg_ign_nscp= "Skipping Netscape header record";
+char *msg_bad_rec = "Skipping bad record";
+char *msg_no_vrec = "No valid records found!";
+char *msg_gen_rpt = "Generating report for";
+char *msg_gen_sum = "Generating summary report";
+char *msg_get_data= "Reading previous run data..";
+char *msg_put_data= "Saving current run data...";
+char *msg_no_data = "Previous run data not found...";
+char *msg_bad_data= "Error: Unable to restore run data";
+char *msg_data_err= "Error: Unable to save current run data";
+char *msg_dup_data= "Warning: Possible duplicate data found";
+
+/* DNS Stuff */
+char *msg_dns_nocf= "No cache file specified, aborting...";
+char *msg_dns_nodb= "Error: Unable to open DNS cache file";
+char *msg_dns_nolk= "Error: Unable to lock DNS cache file";
+char *msg_dns_usec= "Using DNS cache file";
+char *msg_dns_rslv= "DNS Lookup";
+char *msg_dns_none= "None to process";
+char *msg_dns_abrt= "DNS support not present, aborting...";
+
+/* Geolocation stuff */
+char *msg_geo_open= "Error opening file";
+char *msg_geo_use = "Using";
+char *msg_geo_nolu= "lookups disabled";
+char *msg_geo_dflt= "default";
+
+/* memory allocation errors */
+char *msg_nomem_ts= "Can't allocate enough memory, Top Sites disabled!";
+char *msg_nomem_tr= "Can't allocate enough memory, Top Referrers disabled!";
+char *msg_nomem_tu= "Can't allocate enough memory, Top URLs disabled!";
+char *msg_nomem_tc= "Can't allocate enough memory, Top Countries disabled!";
+char *msg_nomem_ta= "Can't allocate enough memory, Top User Agents disabled!";
+char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
+char *msg_nomem_ti= "Can't allocate enough memory, Top Usernames disabled!";
+char *msg_nomem_dh= "Error adding host node (daily), skipping";
+char *msg_nomem_mh= "Error adding host node (monthly), skipping";
+char *msg_nomem_u = "Error adding URL node, skipping";
+char *msg_nomem_a = "Error adding User Agent node, skipping";
+char *msg_nomem_r = "Error adding Referrer node, skipping";
+char *msg_nomem_sc= "Error adding Search String Node, skipping";
+char *msg_nomem_i = "Error adding Username node, skipping";
+
+/* log record errors */
+char *msg_big_rec = "Error: Skipping oversized log record";
+char *msg_big_host= "Warning: Truncating oversized hostname";
+char *msg_big_date= "Warning: Truncating oversized date field";
+char *msg_big_req = "Warning: Truncating oversized request field";
+char *msg_big_ref = "Warning: Truncating oversized referrer field";
+char *msg_big_user= "Warning: Truncating oversized username";
+char *msg_big_one = "Warning: String exceeds storage size";
+
+/* misc errors */
+char *msg_no_open = "Error: Unable to open file";
+
+/* Help display... */
+char *h_usage1 = "Usage";
+char *h_usage2 = "[options] [log file]";
+char *h_msg[]= {
+         "-h        = print this help message"             ,
+         "-V        = print version information"           ,
+         "-v        = be verbose"                          ,
+         "-d        = print additional debug info"         ,
+         "-F type   = Log type.  type= (clf | ftp | squid | w3c)",
+         "-f        = Fold sequence errors"                ,
+         "-i        = ignore history file"                 ,
+         "-p        = preserve state (incremental)"        ,
+         "-b        = ignore state (incremental)"          ,
+         "-q        = supress informational messages"      ,
+         "-Q        = supress _ALL_ messages"              ,
+         "-Y        = supress country graph"               ,
+         "-G        = supress hourly graph"                ,
+         "-H        = supress hourly stats"                ,
+         "-L        = supress color coded graph legends"   ,
+         "-l num    = use num background lines on graph"   ,
+         "-m num    = Visit timout value (seconds)"        ,
+         "-T        = print timing information"            ,
+         "-c file   = use configuration file 'file'"       ,
+         "-n name   = hostname to use"                     ,
+         "-o dir    = output directory to use"             ,
+         "-t name   = report title 'name'"                 ,
+         "-a name   = hide user agent 'name'"              ,
+         "-r name   = hide referrer 'name'"                ,
+         "-s name   = hide site 'name'"                    ,
+         "-u name   = hide URL 'name'"                     ,
+         "-x name   = Use filename extension 'name'"       ,
+         "-O name   = Omit page 'name'"                    ,
+         "-P name   = Page type extension 'name'"          ,
+         "-I name   = Index alias 'name'"                  ,
+         "-K num    = num months in summary table"         ,
+         "-k num    = num months in summary graph"         ,
+         "-A num    = Display num top agents"              ,
+         "-C num    = Display num top countries"           ,
+         "-R num    = Display num top referrers"           ,
+         "-S num    = Display num top sites"               ,
+         "-U num    = Display num top URLs"                ,
+         "-e num    = Display num top Entry Pages"         ,
+         "-E num    = Display num top Exit Pages"          ,
+         "-g num    = Group Domains to 'num' levels"       ,
+         "-X        = Hide individual sites"               ,
+         "-z dir    = Use country flags in 'dir'"          ,
+#ifdef USE_DNS
+         "-D name   = Use DNS Cache file 'name'"           ,
+         "-N num    = Number of DNS processes (0=disable)" ,
+         "-j        = Enable native GeoDB lookups"         ,
+         "-J name   = Use GeoDB database 'name'"           ,
+#endif
+#ifdef USE_GEOIP
+         "-w        = Enable GeoIP lookups"                ,
+         "-W name   = Use GeoIP database 'name'"           ,
+#endif
+         NULL};
+
+/***********************************************************************/
+/*                                                                     */
+/* HTML strings                                                        */
+/*                                                                     */
+/* These strings are used as part of the HTML output generated by The  */
+/* Webalizer.                                                          */
+/*                                                                     */
+/***********************************************************************/
+
+/* header strings */
+char *msg_hhdr_sp = "Период статистики";
+char *msg_hhdr_gt = "Дата создания";
+
+/* main index strings */
+char *msg_main_us = "Суммарное использование сервера";
+/* char *msg_main_per= "последние 12 месяцев"; */
+char *msg_main_per= "Ежемесячная статистика";
+char *msg_main_sum= "Ежемесячная статистика";
+char *msg_main_da = "В среднем за день";
+char *msg_main_mt = "Всего за месяц";
+
+/* month HTML page strings */
+char *msg_hmth_du = "Использование по дням на";
+char *msg_hmth_hu = "Использование по часам на";
+
+/* table header strings */
+char *msg_h_by    = "по";
+char *msg_h_avg   = "В среднем";
+char *msg_h_max   = "Max";
+char *msg_h_total = "Всего";
+char *msg_h_totals= "Всего";
+char *msg_h_day   = "День";
+char *msg_h_mth   = "Месяц";
+char *msg_h_hour  = "Час";
+char *msg_h_hits  = "запросов";
+char *msg_h_pages = "страниц";
+char *msg_h_visits= "посещений";
+char *msg_h_files = "файлов";
+char *msg_h_sites = "сайтов";
+char *msg_h_xfer  = "kB ф";
+char *msg_h_ixfer = "kB In";
+char *msg_h_oxfer = "kB Out";
+char *msg_h_hname = "Имя хоста";
+char *msg_h_url   = "URL";
+char *msg_h_agent = "Браузер";
+char *msg_h_ref   = "Ссылающаяся страница";
+char *msg_h_ctry  = "Страна";
+char *msg_h_search= "Строка поиска";
+char *msg_h_uname = "Имя пользователя";
+
+/* links along top of page */
+char *msg_hlnk_ds = "Статистика по дням";
+char *msg_hlnk_hs = "Статистика по часам";
+char *msg_hlnk_u  = "URL";
+char *msg_hlnk_s  = "Сайты";
+char *msg_hlnk_a  = "Браузеры";
+char *msg_hlnk_c  = "Страны";
+char *msg_hlnk_r  = "Ссылающиеся страницы";
+char *msg_hlnk_en = "Начальные страницы";
+char *msg_hlnk_ex = "Последние страницы";
+char *msg_hlnk_sr = "Поиск";
+char *msg_hlnk_i  = "Пользователи";
+
+/* monthly total table */
+char *msg_mtot_ms = "Статистика за месяц на";
+char *msg_mtot_th = "Всего запросов";
+char *msg_mtot_tf = "Всего файлов";
+char *msg_mtot_tx = "Всего kB файлов";
+char *msg_mtot_ix = "Всего kB In";
+char *msg_mtot_ox = "Всего kB Out";
+char *msg_mtot_us = "Всего уникальных сайтов";
+char *msg_mtot_ur = "Всего уникальных ссылающихся страниц";
+char *msg_mtot_ua = "Всего уникальных браузеров";
+char *msg_mtot_uu = "Всего уникальных URL";
+char *msg_mtot_ui = "Всего уникальных имён";
+char *msg_mtot_mhd= "Обращений в день";
+char *msg_mtot_mhh= "Обращений в час";
+char *msg_mtot_mfd= "Файлов в день";
+char *msg_mtot_mpd= "Страниц в день";
+char *msg_mtot_msd= "Sites per Day";
+char *msg_mtot_mvd= "Посещений в день";
+char *msg_mtot_mkd= "Объём в день (Кбайт)";
+char *msg_mtot_ikd= "kB In per day";
+char *msg_mtot_okd= "kB Out per day";
+char *msg_mtot_rc = "Запросы по кодам ответа";
+
+/* daily total table */
+char *msg_dtot_ds = "Статистика по дням на";
+
+/* hourly total table */
+char *msg_htot_hs = "Статистика по часам на";
+
+/* country pie chart */
+char *msg_ctry_use= "Статистика по странам на";
+
+/* top tables */
+/* Formatted as "Top xxx of xxx Total something" */
+char *msg_top_top = "Первые";
+char *msg_top_of  = "из";
+char *msg_top_s   = "сайтов";
+char *msg_top_u   = "URL";
+char *msg_top_r   = "ссылающихся страниц";
+char *msg_top_a   = "браузеров";
+char *msg_top_c   = "стран";
+char *msg_top_en  = "начальных страниц";
+char *msg_top_ex  = "последних страниц";
+char *msg_top_sr  = "строк поиска";
+char *msg_top_i   = "имён пользователей";
+char *msg_v_sites = "Посмотреть все сайты";
+char *msg_v_urls  = "Посмотреть все URL-ы";
+char *msg_v_refs  = "Посмотреть все ссылающиеся страницы";
+char *msg_v_agents= "Посмотреть все браузеры";
+char *msg_v_search= "Посмотреть все строки поиска";
+char *msg_v_users = "Посмотреть все имена пользователей";
+
+/* short month names MUST BE 3 CHARS in size... pad if needed*/
+char *s_month[12]={ "Янв", "Фев", "Мар",
+                    "Апр", "Май", "Июн",
+                    "Июл", "Авг", "Сен",
+                    "Окт", "Ноя", "Дек"};
+
+/* long month names - can be any length */
+char *l_month[12]={ "Январь",   "Февраль", "Март",   "Апрель",
+                    "Май",      "Июнь",    "Июль",   "Август",
+                    "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
+
+/* response code descriptions... order IS important!      */
+struct response_code response[] =
+       { { "Неизвестный код ответа",                    0 },
+         { "Код 100 - Continue",                        0 },
+         { "Код 101 - Switching Protocols",             0 },
+         { "Код 200 - OK",                              0 },
+         { "Код 201 - Created",                         0 },
+         { "Код 202 - Accepted",                        0 },
+         { "Код 203 - Non-Authoritative Information",   0 },
+         { "Код 204 - No Content",                      0 },
+         { "Код 205 - Reset Content",                   0 },
+         { "Код 206 - Partial Content",                 0 },
+         { "Код 300 - Multiple Choices",                0 },
+         { "Код 301 - Moved Permanently",               0 },
+         { "Код 302 - Found",                           0 },
+         { "Код 303 - See Other",                       0 },
+         { "Код 304 - Not Modified",                    0 },
+         { "Код 305 - Use Proxy",                       0 },
+         { "Код 307 - Moved Temporarily",               0 },
+         { "Код 400 - Bad Request",                     0 },
+         { "Код 401 - Unauthorized",                    0 },
+         { "Код 402 - Payment Required",                0 },
+         { "Код 403 - Forbidden",                       0 },
+         { "Код 404 - Not Found",                       0 },
+         { "Код 405 - Method Not Allowed",              0 },
+         { "Код 406 - Not Acceptable",                  0 },
+         { "Код 407 - Proxy Authentication Required",   0 },
+         { "Код 408 - Request Timeout",                 0 },
+         { "Код 409 - Conflict",                        0 },
+         { "Код 410 - Gone",                            0 },
+         { "Код 411 - Length Required",                 0 },
+         { "Код 412 - Precondition Failed",             0 },
+         { "Код 413 - Request Entity Too Large",        0 },
+         { "Код 414 - Request-URI Too Long",            0 },
+         { "Код 415 - Unsupported Media Type",          0 },
+         { "Код 416 - Requested Range Not Satisfiable", 0 },
+         { "Код 417 - Expectation Failed",              0 },
+         { "Код 500 - Internal Server Error",           0 },
+         { "Код 501 - Not Implemented",                 0 },
+         { "Код 502 - Bad Gateway",                     0 },
+         { "Код 503 - Service Unavailable",             0 },
+         { "Код 504 - Gateway Timeout",                 0 },
+         { "Код 505 - HTTP Version Not Supported",      0 } };
+
+char *msg_title   = "Статистика использования сервера";
+char *msg_h_other = "Прочие";
+
+/* Country codes (previously in ctry.h header file) */
+
+struct country_code ctry[] = {
+{ 0,                      "Нераспознанные/неизвестные",       0,0,0 },
+{ IDX_3C('c','o','m'),    "США коммерческие",                 0,0,0 },
+{ IDX_3C('e','d','u'),    "США образовательные",              0,0,0 },
+{ IDX_3C('g','o','v'),    "США правительственные",            0,0,0 },
+{ IDX_3C('i','n','t'),    "Интернациональные (int)",          0,0,0 },
+{ IDX_3C('m','i','l'),    "США военные",                      0,0,0 },
+{ IDX_3C('n','e','t'),    "Сетевые организации",              0,0,0 },
+{ IDX_3C('o','r','g'),    "Некоммерческие организации",       0,0,0 },
+{ IDX_3C('b','i','z'),    "Бизнес (biz)",                     0,0,0 },
+{ IDX_3C('c','a','t'),    "Каталанский (cat)",                0,0,0 },
+{ IDX_3C('p','r','o'),    "Профессионалы (pro)",              0,0,0 },
+{ IDX_3C('t','e','l'),    "Контактная информация (tel)",      0,0,0 },
+{ IDX_4C('a','e','r','o'),"Авиатранспортные компании (aero)", 0,0,0 },
+{ IDX_4C('a','s','i','a'),"Азиатско-Тихоокеанский регион",    0,0,0 },
+{ IDX_4C('c','o','o','p'),"Кооперативы (coop)",               0,0,0 },
+{ IDX_4C('i','n','f','o'),"Информация (info)",                0,0,0 },
+{ IDX_4C('j','o','b','s'),"Работа (jobs)",                    0,0,0 },
+{ IDX_4C('m','o','b','i'),"Мобильные сайты (mobi)",           0,0,0 },
+{ IDX_4C('n','a','m','e'),"Персональные домены (name)"        0,0,0 },
+{ IDX_4C('a','r','p','a'),"Старый Arpanet (arpa)",            0,0,0 },
+{ IDX_4C('n','a','t','o'),"НАТО (nato)",                      0,0,0 },
+{ IDX_6C('m','u','s','e','u','m'), "Музеи (museum)",          0,0,0 },
+{ IDX_6C('t','r','a','v','e','l'), "Путешествия (travel)",    0,0,0 },
+{ IDX_2C('a','c'),        "Острова Вознесения (Британия)",    0,0,0 },
+{ IDX_2C('a','d'),        "Андорра",                          0,0,0 },
+{ IDX_2C('a','e'),        "Объединённые Арабские Эмираты",    0,0,0 },
+{ IDX_2C('a','f'),        "Афганистан",                       0,0,0 },
+{ IDX_2C('a','g'),        "Антигуа и Барбуда",                0,0,0 },
+{ IDX_2C('a','i'),        "Ангуилла",                         0,0,0 },
+{ IDX_2C('a','l'),        "Албания",                          0,0,0 },
+{ IDX_2C('a','m'),        "Армения",                          0,0,0 },
+{ IDX_2C('a','n'),        "Нидерландские Антиллы",            0,0,0 },
+{ IDX_2C('a','o'),        "Ангола",                           0,0,0 },
+{ IDX_2C('a','q'),        "Антарктика",                       0,0,0 },
+{ IDX_2C('a','r'),        "Аргентина",                        0,0,0 },
+{ IDX_2C('a','s'),        "Американское Самоа",               0,0,0 },
+{ IDX_2C('a','t'),        "Австрия",                          0,0,0 },
+{ IDX_2C('a','u'),        "Австралия",                        0,0,0 },
+{ IDX_2C('a','w'),        "Аруба",                            0,0,0 },
+{ IDX_2C('a','x'),        "Аландские острова (Финляндия)",    0,0,0 },
+{ IDX_2C('a','z'),        "Азербайджан",                      0,0,0 },
+{ IDX_2C('b','a'),        "Босния и Герцеговина",             0,0,0 },
+{ IDX_2C('b','b'),        "Барбадос",                         0,0,0 },
+{ IDX_2C('b','d'),        "Бангладеш",                        0,0,0 },
+{ IDX_2C('b','e'),        "Бельгия",                          0,0,0 },
+{ IDX_2C('b','f'),        "Буркина Фасо",                     0,0,0 },
+{ IDX_2C('b','g'),        "Болгария",                         0,0,0 },
+{ IDX_2C('b','h'),        "Бахрейн",                          0,0,0 },
+{ IDX_2C('b','i'),        "Бурунди",                          0,0,0 },
+{ IDX_2C('b','j'),        "Бенин",                            0,0,0 },
+{ IDX_2C('b','l'),        "Сен-Бартелеми (Франция, неисп.)",  0,0,0 },
+{ IDX_2C('b','m'),        "Бермудские острова",               0,0,0 },
+{ IDX_2C('b','n'),        "Бруней Даруссалам",                0,0,0 },
+{ IDX_2C('b','o'),        "Боливия",                          0,0,0 },
+{ IDX_2C('b','r'),        "Бразилия",                         0,0,0 },
+{ IDX_2C('b','s'),        "Багамы",                           0,0,0 },
+{ IDX_2C('b','t'),        "Бутан",                            0,0,0 },
+{ IDX_2C('b','v'),        "Остров Бувет",                     0,0,0 },
+{ IDX_2C('b','w'),        "Ботсвана",                         0,0,0 },
+{ IDX_2C('b','y'),        "Беларусь",                         0,0,0 },
+{ IDX_2C('b','z'),        "Белиз",                            0,0,0 },
+{ IDX_2C('c','a'),        "Канада",                           0,0,0 },
+{ IDX_2C('c','c'),        "Кокосовые Острова",                0,0,0 },
+{ IDX_2C('c','d'),        "Конго",                            0,0,0 },
+{ IDX_2C('c','f'),        "Центральноафриканская республика", 0,0,0 },
+{ IDX_2C('c','g'),        "Конго",                            0,0,0 },
+{ IDX_2C('c','h'),        "Швейцария",                        0,0,0 },
+{ IDX_2C('c','i'),        "Побережье Ивори",                  0,0,0 },
+{ IDX_2C('c','k'),        "Острова Кука",                     0,0,0 },
+{ IDX_2C('c','l'),        "Чили",                             0,0,0 },
+{ IDX_2C('c','m'),        "Камерун",                          0,0,0 },
+{ IDX_2C('c','n'),        "Китай",                            0,0,0 },
+{ IDX_2C('c','o'),        "Колумбия",                         0,0,0 },
+{ IDX_2C('c','r'),        "Коста-Рика",                       0,0,0 },
+{ IDX_2C('c','u'),        "Куба",                             0,0,0 },
+{ IDX_2C('c','v'),        "Капе-Верде",                       0,0,0 },
+{ IDX_2C('c','x'),        "Остров Рождества",                 0,0,0 },
+{ IDX_2C('c','y'),        "Кипр",                             0,0,0 },
+{ IDX_2C('c','z'),        "Республика Чехия",                 0,0,0 },
+{ IDX_2C('d','e'),        "Германия",                         0,0,0 },
+{ IDX_2C('d','j'),        "Джибути",                          0,0,0 },
+{ IDX_2C('d','k'),        "Дания",                            0,0,0 },
+{ IDX_2C('d','m'),        "Доминика",                         0,0,0 },
+{ IDX_2C('d','o'),        "Доминиканская Республика",         0,0,0 },
+{ IDX_2C('d','z'),        "Алжир",                            0,0,0 },
+{ IDX_2C('e','c'),        "Эквадор",                          0,0,0 },
+{ IDX_2C('e','e'),        "Эстония",                          0,0,0 },
+{ IDX_2C('e','g'),        "Египет",                           0,0,0 },
+{ IDX_2C('e','h'),        "Западная Сахара",                  0,0,0 },
+{ IDX_2C('e','r'),        "Эритрея",                          0,0,0 },
+{ IDX_2C('e','s'),        "Испания",                          0,0,0 },
+{ IDX_2C('e','t'),        "Эфиопия",                          0,0,0 },
+{ IDX_2C('e','u'),        "Европейский союз",                 0,0,0 },
+{ IDX_2C('f','i'),        "Финляндия",                        0,0,0 },
+{ IDX_2C('f','j'),        "Фиджи",                            0,0,0 },
+{ IDX_2C('f','k'),        "Фолклендские (Мальвинские) о-ва",  0,0,0 },
+{ IDX_2C('f','m'),        "Микронезия",                       0,0,0 },
+{ IDX_2C('f','o'),        "Фарерские Острова",                0,0,0 },
+{ IDX_2C('f','r'),        "Франция",                          0,0,0 },
+{ IDX_2C('g','a'),        "Габон",                            0,0,0 },
+{ IDX_2C('g','b'),        "Великобритания (UK)",              0,0,0 },
+{ IDX_2C('g','d'),        "Гренада",                          0,0,0 },
+{ IDX_2C('g','e'),        "Грузия",                           0,0,0 },
+{ IDX_2C('g','f'),        "Французская Гвиана",               0,0,0 },
+{ IDX_2C('g','g'),        "Гернси (Британия)",                0,0,0 },
+{ IDX_2C('g','h'),        "Гана",                             0,0,0 },
+{ IDX_2C('g','i'),        "Гибралтар",                        0,0,0 },
+{ IDX_2C('g','l'),        "Гренландия",                       0,0,0 },
+{ IDX_2C('g','m'),        "Гамбия",                           0,0,0 },
+{ IDX_2C('g','n'),        "Гвинея",                           0,0,0 },
+{ IDX_2C('g','p'),        "Гваделупа",                        0,0,0 },
+{ IDX_2C('g','q'),        "Экваториальная Гвинея",            0,0,0 },
+{ IDX_2C('g','r'),        "Греция",                           0,0,0 },
+{ IDX_2C('g','s'),        "Южн. Георгия и Сандвичевы о-ва",   0,0,0 },
+{ IDX_2C('g','t'),        "Гватемала",                        0,0,0 },
+{ IDX_2C('g','u'),        "Гуам",                             0,0,0 },
+{ IDX_2C('g','w'),        "Гвинея-Бисау",                     0,0,0 },
+{ IDX_2C('g','y'),        "Гайана",                           0,0,0 },
+{ IDX_2C('h','k'),        "Гонконг",                          0,0,0 },
+{ IDX_2C('h','m'),        "Острова Херда и Макдональда",      0,0,0 },
+{ IDX_2C('h','n'),        "Гондурас",                         0,0,0 },
+{ IDX_2C('h','r'),        "Хорватия",                         0,0,0 },
+{ IDX_2C('h','t'),        "Гаити",                            0,0,0 },
+{ IDX_2C('h','u'),        "Венгрия",                          0,0,0 },
+{ IDX_2C('i','d'),        "Индонезия",                        0,0,0 },
+{ IDX_2C('i','e'),        "Ирландия",                         0,0,0 },
+{ IDX_2C('i','l'),        "Израиль",                          0,0,0 },
+{ IDX_2C('i','m'),        "Остров Мэн",                       0,0,0 },
+{ IDX_2C('i','n'),        "Индия",                            0,0,0 },
+{ IDX_2C('i','o'),        "Британская терр. в Индийск. океане", 0,0,0 },
+{ IDX_2C('i','q'),        "Ирак",                             0,0,0 },
+{ IDX_2C('i','r'),        "Иран",                             0,0,0 },
+{ IDX_2C('i','s'),        "Исландия",                         0,0,0 },
+{ IDX_2C('i','t'),        "Италия",                           0,0,0 },
+{ IDX_2C('j','e'),        "Джерси (Британия)",                0,0,0 },
+{ IDX_2C('j','m'),        "Ямайка",                           0,0,0 },
+{ IDX_2C('j','o'),        "Иордания",                         0,0,0 },
+{ IDX_2C('j','p'),        "Япония",                           0,0,0 },
+{ IDX_2C('k','e'),        "Кения",                            0,0,0 },
+{ IDX_2C('k','g'),        "Кыргызстан",                       0,0,0 },
+{ IDX_2C('k','h'),        "Камбоджа",                         0,0,0 },
+{ IDX_2C('k','i'),        "Кирибати",                         0,0,0 },
+{ IDX_2C('k','m'),        "Каморские острова",                0,0,0 },
+{ IDX_2C('k','n'),        "Острова святого Китса и Невиса",   0,0,0 },
+{ IDX_2C('k','p'),        "Северная Корея",                   0,0,0 },
+{ IDX_2C('k','r'),        "Южная Корея",                      0,0,0 },
+{ IDX_2C('k','w'),        "Кувейт",                           0,0,0 },
+{ IDX_2C('k','y'),        "Каймановые острова",               0,0,0 },
+{ IDX_2C('k','z'),        "Казахстан",                        0,0,0 },
+{ IDX_2C('l','a'),        "Лаос",                             0,0,0 },
+{ IDX_2C('l','b'),        "Лебанон",                          0,0,0 },
+{ IDX_2C('l','c'),        "Санта Лючия",                      0,0,0 },
+{ IDX_2C('l','i'),        "Лихтенштейн",                      0,0,0 },
+{ IDX_2C('l','k'),        "Шри Ланка",                        0,0,0 },
+{ IDX_2C('l','r'),        "Либерия",                          0,0,0 },
+{ IDX_2C('l','s'),        "Лесото",                           0,0,0 },
+{ IDX_2C('l','t'),        "Литва",                            0,0,0 },
+{ IDX_2C('l','u'),        "Люксембург",                       0,0,0 },
+{ IDX_2C('l','v'),        "Латвия",                           0,0,0 },
+{ IDX_2C('l','y'),        "Ливия",                            0,0,0 },
+{ IDX_2C('m','a'),        "Марокко",                          0,0,0 },
+{ IDX_2C('m','c'),        "Монако",                           0,0,0 },
+{ IDX_2C('m','d'),        "Молдавия",                         0,0,0 },
+{ IDX_2C('m','e'),        "Montenegro",                       0,0,0 },
+{ IDX_2C('m','f'),        "Saint Martin (French part)",       0,0,0 },
+{ IDX_2C('m','g'),        "Мадагаскар",                       0,0,0 },
+{ IDX_2C('m','h'),        "Маршалловы острова",               0,0,0 },
+{ IDX_2C('m','k'),        "Македония",                        0,0,0 },
+{ IDX_2C('m','l'),        "Мали",                             0,0,0 },
+{ IDX_2C('m','m'),        "Майанмар",                         0,0,0 },
+{ IDX_2C('m','n'),        "Монголия",                         0,0,0 },
+{ IDX_2C('m','o'),        "Маккау",                           0,0,0 },
+{ IDX_2C('m','p'),        "Северные Марианские острова",      0,0,0 },
+{ IDX_2C('m','q'),        "Мартиника",                        0,0,0 },
+{ IDX_2C('m','r'),        "Мавритания",                       0,0,0 },
+{ IDX_2C('m','s'),        "Монсеррат",                        0,0,0 },
+{ IDX_2C('m','t'),        "Мальта",                           0,0,0 },
+{ IDX_2C('m','u'),        "Мавритания",                       0,0,0 },
+{ IDX_2C('m','v'),        "Мальдивская республика",           0,0,0 },
+{ IDX_2C('m','w'),        "Малави",                           0,0,0 },
+{ IDX_2C('m','x'),        "Мексика",                          0,0,0 },
+{ IDX_2C('m','y'),        "Малайзия",                         0,0,0 },
+{ IDX_2C('m','z'),        "Мозамбик",                         0,0,0 },
+{ IDX_2C('n','a'),        "Намибия",                          0,0,0 },
+{ IDX_2C('n','c'),        "Новая Каледония",                  0,0,0 },
+{ IDX_2C('n','e'),        "Нигер",                            0,0,0 },
+{ IDX_2C('n','f'),        "Остров Норфолк",                   0,0,0 },
+{ IDX_2C('n','g'),        "Нигерия",                          0,0,0 },
+{ IDX_2C('n','i'),        "Никарагуа",                        0,0,0 },
+{ IDX_2C('n','l'),        "Нидерланды",                       0,0,0 },
+{ IDX_2C('n','o'),        "Норвегия",                         0,0,0 },
+{ IDX_2C('n','p'),        "Непал",                            0,0,0 },
+{ IDX_2C('n','r'),        "Науру",                            0,0,0 },
+{ IDX_2C('n','u'),        "Ниуэ",                             0,0,0 },
+{ IDX_2C('n','z'),        "Новая Зеландия",                   0,0,0 },
+{ IDX_2C('o','m'),        "Оман",                             0,0,0 },
+{ IDX_2C('p','a'),        "Панама",                           0,0,0 },
+{ IDX_2C('p','e'),        "Перу",                             0,0,0 },
+{ IDX_2C('p','f'),        "Французская Полинезия",            0,0,0 },
+{ IDX_2C('p','g'),        "Папуа Новая Гвинея",               0,0,0 },
+{ IDX_2C('p','h'),        "Филиппины",                        0,0,0 },
+{ IDX_2C('p','k'),        "Пакистан",                         0,0,0 },
+{ IDX_2C('p','l'),        "Польша",                           0,0,0 },
+{ IDX_2C('p','m'),        "Остров святого Пьера и Мигеля",    0,0,0 },
+{ IDX_2C('p','n'),        "Питккерн",                         0,0,0 },
+{ IDX_2C('p','r'),        "Пуэрто Рико",                      0,0,0 },
+{ IDX_2C('p','s'),        "Палестинские территории",          0,0,0 },
+{ IDX_2C('p','t'),        "Португалия",                       0,0,0 },
+{ IDX_2C('p','w'),        "Палау",                            0,0,0 },
+{ IDX_2C('p','y'),        "Парагвай",                         0,0,0 },
+{ IDX_2C('q','a'),        "Кватар",                           0,0,0 },
+{ IDX_2C('r','e'),        "Остров Реюньон",                   0,0,0 },
+{ IDX_2C('r','o'),        "Румыния",                          0,0,0 },
+{ IDX_2C('r','s'),        "Сербия",                           0,0,0 },
+{ IDX_2C('r','u'),        "Российская Федерация",             0,0,0 },
+{ IDX_2C('r','w'),        "Руана",                            0,0,0 },
+{ IDX_2C('s','a'),        "Саудовская Аравия",                0,0,0 },
+{ IDX_2C('s','b'),        "Соломоновы острова",               0,0,0 },
+{ IDX_2C('s','c'),        "Сейшельские острова",              0,0,0 },
+{ IDX_2C('s','d'),        "Судан",                            0,0,0 },
+{ IDX_2C('s','e'),        "Швеция",                           0,0,0 },
+{ IDX_2C('s','g'),        "Сингапур",                         0,0,0 },
+{ IDX_2C('s','h'),        "Остров святой Елены",              0,0,0 },
+{ IDX_2C('s','i'),        "Словения",                         0,0,0 },
+{ IDX_2C('s','j'),        "Острова Свалбард и Ян-Майен",      0,0,0 },
+{ IDX_2C('s','k'),        "Республика Словакия",              0,0,0 },
+{ IDX_2C('s','l'),        "Сьерра Леоне",                     0,0,0 },
+{ IDX_2C('s','m'),        "Сан Марино",                       0,0,0 },
+{ IDX_2C('s','n'),        "Сенегал",                          0,0,0 },
+{ IDX_2C('s','o'),        "Сомали",                           0,0,0 },
+{ IDX_2C('s','r'),        "Суринам",                          0,0,0 },
+{ IDX_2C('s','t'),        "Сао Том и Принциповы острова",     0,0,0 },
+{ IDX_2C('s','u'),        "Бывший СССР (SU)",                 0,0,0 },
+{ IDX_2C('s','v'),        "Сальвадор",                        0,0,0 },
+{ IDX_2C('s','y'),        "Сирия",                            0,0,0 },
+{ IDX_2C('s','z'),        "Свазиланд",                        0,0,0 },
+{ IDX_2C('t','c'),        "Острова Тюркс и Кайкос",           0,0,0 },
+{ IDX_2C('t','d'),        "Республика Чад",                   0,0,0 },
+{ IDX_2C('t','f'),        "Южные французские территории",     0,0,0 },
+{ IDX_2C('t','g'),        "Того",                             0,0,0 },
+{ IDX_2C('t','h'),        "Таиланд",                          0,0,0 },
+{ IDX_2C('t','j'),        "Таджикистан",                      0,0,0 },
+{ IDX_2C('t','k'),        "Острова Токелау",                  0,0,0 },
+{ IDX_2C('t','l'),        "Восточный Тимор",                  0,0,0 },
+{ IDX_2C('t','m'),        "Туркменистан",                     0,0,0 },
+{ IDX_2C('t','n'),        "Тунис",                            0,0,0 },
+{ IDX_2C('t','o'),        "Острова Тонга",                    0,0,0 },
+{ IDX_2C('t','p'),        "Португальский Тимор (устаревший)", 0,0,0 },
+{ IDX_2C('t','r'),        "Турция",                           0,0,0 },
+{ IDX_2C('t','t'),        "Тринидад и Тобаго",                0,0,0 },
+{ IDX_2C('t','v'),        "Тувалау",                          0,0,0 },
+{ IDX_2C('t','w'),        "Тайвань",                          0,0,0 },
+{ IDX_2C('t','z'),        "Танзания",                         0,0,0 },
+{ IDX_2C('u','a'),        "Украина",                          0,0,0 },
+{ IDX_2C('u','g'),        "Уганда",                           0,0,0 },
+{ IDX_2C('u','k'),        "Объединённое Королевство",         0,0,0 },
+{ IDX_2C('u','m'),        "Малые внешние острова (США)",      0,0,0 },
+{ IDX_2C('u','s'),        "Соединённые Штаты",                0,0,0 },
+{ IDX_2C('u','y'),        "Уругвай",                          0,0,0 },
+{ IDX_2C('u','z'),        "Узбекистан",                       0,0,0 },
+{ IDX_2C('v','a'),        "Ватикан",                          0,0,0 },
+{ IDX_2C('v','c'),        "О-ва св. Винсента и Гренадины",    0,0,0 },
+{ IDX_2C('v','e'),        "Венесуэла",                        0,0,0 },
+{ IDX_2C('v','g'),        "Виргинские острова (Британия)",    0,0,0 },
+{ IDX_2C('v','i'),        "Виргинские острова (США)",         0,0,0 },
+{ IDX_2C('v','n'),        "Вьетнам",                          0,0,0 },
+{ IDX_2C('v','u'),        "Вануату",                          0,0,0 },
+{ IDX_2C('w','f'),        "Острова Вэллис и Футуна",          0,0,0 },
+{ IDX_2C('w','s'),        "Самоа",                            0,0,0 },
+{ IDX_2C('y','e'),        "Йемен",                            0,0,0 },
+{ IDX_2C('y','t'),        "Остров Майотта",                   0,0,0 },
+{ IDX_2C('y','u'),        "Югославия",                        0,0,0 },
+{ IDX_2C('z','a'),        "Южная Африка",                     0,0,0 },
+{ IDX_2C('z','m'),        "Замбия",                           0,0,0 },
+{ IDX_2C('z','w'),        "Зимбабве",                         0,0,0 },
+{ IDX_2C('a','1'),        "Анонимные прокси",                 0,0,0 },
+{ IDX_2C('a','2'),        "Спутниковые провайдеры",           0,0,0 },
+{ IDX_2C('o','1'),        "Другое",                           0,0,0 },
+{ IDX_2C('a','p'),        "Азиатско-Тихоокеанский регион",    0,0,0 },
+{ IDX_3C('l','a','n'),    "Локальная сеть (lan)",             0,0,0 },
+{ 0,                      NULL,                               0,0,0 }};
