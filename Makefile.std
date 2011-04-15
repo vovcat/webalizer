@@ -1,12 +1,12 @@
 #
 # Makefile for webalizer - a web server logfile analysis thingie
 #
-# (c)1997-2000 by Bradford L. Barrett (brad@mrunix.net)
+# (c)1997-2011 by Bradford L. Barrett
 # Distributed under the GNU GPL. See "README" and "Copyright"
 # files supplied with this distribution for more information.
 #
-# This works on a Slackware 3.6 system, and should work out
-# of the box on other GCC based systems.  Tweek the values
+# This works on my Linux and Solaris systems, and should work
+# out of the box on other GCC based systems.  Tweek the values
 # below for your environment if needed before running make.
 #
 
@@ -16,39 +16,65 @@
 #ETCDIR = /etc
 #CC     = cc
 #CFLAGS = -b elf
-#LIBS   = -lgd -lm -lpng -lz
 #LDFLAGS= -L../usr/local/lib
+#LIBS   = -lgd -lm -lpng -lz
+#DEFS    = -DETCDIR=\"${ETCDIR}\" -DHAVE_MATH_H
 
-# These work on my Linux system
-BINDIR = ${exec_prefix}/bin
-MANDIR = ${prefix}/man/man1
+# These will build The Webalizer with DNS support
+# on my Linux system.  GD is statically built and
+# is located in the ../gd directory.  This system
+# also has a stock install of the berkeley db lib
+# (libdb in /usr/lib and db.h in /usr/include).
+
+BINDIR = /usr/local/bin
+MANDIR = /usr/local/man/man1
 ETCDIR = /etc
 CC     = gcc
-CFLAGS = -Wall -O2
-LIBS   = -lgd -lpng -lz -lm
-LDFLAGS= -L/usr/local/lib
+CFLAGS = -Wall -O2 -I../gd
+LDFLAGS= -L/usr/local/lib -L../gd
+LIBS   = -lgd -lpng -lz -lm -ldb
+DEFS   = -DETCDIR=\"${ETCDIR}\" -DHAVE_MATH_H -DUSE_DNS
 
-# where are the GD header files?
-GDLIB=/usr/local/include
-
-# If you want the DNS resolve code, uncomment these
-# and comment out the LIBS defined above...  DNS code
-# is enabled with the -DUSE_DNS switch.
-
-DEFS    = -DETCDIR=\"${ETCDIR}\"
-#DEFS   = -DHAVE_GETOPT_H=1 -DHAVE_MATH_H=1 -DUSE_DNS
-#LIBS   = -lgd -lpng -lz -lm -ldb
 # Some might need this instead (Solaris?!?)
-#LIBS   = -lgd -lpng -lz -lm -ldb -lnsl -lsocket
+#LIBS   = -lgd -lpng -lz -lm -ldb -lnsl -lsocket -lrt
 
-# If your GD lib was compiled with X/truetype, use this
-# or some variation of it:
+# if you want to use a different default directory for the
+# GeoDB database, add this to DEFS: -DGEODB_LOC=\"/usr/share/GeoDB\"
 
-#LIBS   = -lgd -lpng -lz -lm -lX11 -lXpm -lttf
+# if you have header files in a non-standard place, you
+# should specify them on the CFLAGS line, like:
+
+#CFLAGS = -Wall -O2 -I../gd -I/src/bzip2
+
+# similar with library locations. add non-standard paths
+# using the LDFLAGS variable, like this:
+
+#LDFLAGS = -L/usr/local/lib -L/src/bzip2
+
+# If your GD lib was compiled with X/truetype, you may need
+# to use this or some variation of it:
+
+#LIBS   = -lgd -lpng -lz -lm -ldb -lX11 -lXpm -lttf
+
+# If you want bzip2 support, you need to define USE_BZIP
+# and add the bz2 library like below:
+
+#LIBS   = -lgd -lpng -lz -lm -lbz2
+#DEFS   = -DETCDIR=\"${ETCDIR}\" -DHAVE_MATH_H -DUSE_BZIP
+
+# GeoIP support?  You need USE_GEOIP and -lGeoIP
+
+#LIBS   = -lgd -lpng -lz -lm -lGeoIP
+#DEFS   = -DETCDIR=\"${ETCDIR}\" -DHAVE_MATH_H -DUSE_GEOIP
+
+# want it all?!? Give this a whirl:
+
+#LIBS   = -lgd -lpng -lz -lm -lGeoIP -lbz2 -ldb
+#DEFS   = -DETCDIR=\"${ETCDIR}\" -DHAVE_MATH_H -DUSE_GEOIP -DUSE_DNS -DUSE_BZIP
 
 # Shouldn't have to touch below here!
 
-all: webalizer
+all: webalizer wcmgr
 
 webalizer:	webalizer.o webalizer.h hashtab.o hashtab.h  \
 		linklist.o linklist.h preserve.o preserve.h  \
@@ -56,6 +82,10 @@ webalizer:	webalizer.o webalizer.h hashtab.o hashtab.h  \
                 output.o output.h graphs.o graphs.h lang.h   \
 		webalizer_lang.h
 	$(CC) ${LDFLAGS} -o webalizer webalizer.o hashtab.o linklist.o preserve.o parser.o output.o dns_resolv.o graphs.o ${LIBS}
+	rm -f webazolver
+	ln -s webalizer webazolver
+        rm -f webazolver.1
+        ln -s webalizer.1 webazolver.1
 
 webalizer.o:	webalizer.c webalizer.h parser.h output.h preserve.h \
 		graphs.h dns_resolv.h webalizer_lang.h
@@ -82,7 +112,13 @@ dns_resolv.o:	dns_resolv.c dns_resolv.h lang.h webalizer.h
 	$(CC) ${CFLAGS} ${DEFS} -c dns_resolv.c
 
 graphs.o:	graphs.c graphs.h webalizer.h lang.h
-	$(CC) ${CFLAGS} ${DEFS} -I${GDLIB} -c graphs.c
+	$(CC) ${CFLAGS} ${DEFS} -c graphs.c
+
+wcmgr:	wcmgr.o
+	$(CC) ${LDFLAGS} -o wcmgr wcmgr.o ${LIBS}
+
+wcmgr.o:	wcmgr.c webalizer.h
+	$(CC) ${CFLAGS} ${DEFS} -c wcmgr.c
 
 clean:
 	rm -f webalizer *.o usage*.png daily*.png hourly*.png ctry*.png
@@ -96,9 +132,9 @@ distclean: clean
 install: all
 	cp webalizer.1 ${MANDIR}/webalizer.1
 	cp webalizer   ${BINDIR}/webalizer
-	cp sample.conf /etc/webalizer.conf.sample
+	cp sample.conf ${ETCDIR}/webalizer.conf.sample
 
 uninstall:
 	rm -f ${MANDIR}/webalizer.1
 	rm -f ${BINDIR}/webalizer
-	rm -f /etc/webalizer.conf.sample
+	rm -f ${BINDIR}/webalizer.conf.sample

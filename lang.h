@@ -2,6 +2,7 @@
 #define _LANG_H
 
 extern char *language    ;
+extern char *langcode    ;
 
 extern char *msg_records ;
 extern char *msg_addresses;
@@ -43,6 +44,12 @@ extern char *msg_dns_nolk;
 extern char *msg_dns_usec;
 extern char *msg_dns_rslf;
 extern char *msg_dns_none;
+extern char *msg_dns_abrt;
+
+extern char *msg_geo_open;
+extern char *msg_geo_use ;
+extern char *msg_geo_nolu;
+extern char *msg_geo_dflt;
 
 extern char *msg_nomem_ts;
 extern char *msg_nomem_tr;
@@ -134,6 +141,7 @@ extern char *msg_mtot_mhd;
 extern char *msg_mtot_mhh;
 extern char *msg_mtot_mfd;
 extern char *msg_mtot_mpd;
+extern char *msg_mtot_msd;
 extern char *msg_mtot_mvd;
 extern char *msg_mtot_mkd;
 extern char *msg_mtot_rc ;

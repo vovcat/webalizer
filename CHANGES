@@ -1,5 +1,163 @@
 --------------------------------------------------------------------
-2.01-xx changes from 1.30-04   (brad@mrunix.net)
+2.23-xx changes from 2.21-xx
+--------------------------------------------------------------------
+
+Fixes:
+ o Fix sporadic eol problem with some IIS/W3C logs
+
+ o Fix compiler directive syntax error (broke some 64 bit systems)
+
+Changes/Additions:
+ o Modest speed improvements in hash table code
+
+--------------------------------------------------------------------
+2.21-xx changes from 2.20-xx
+--------------------------------------------------------------------
+
+Fixes:
+ o Added missing memory deallocation call in DNS lookup code.
+
+ o Minor fixes to configure script
+
+Changes/Additions:
+ o Added "YearTotals" config option for main index page totals
+
+ o Rename local stricmp() function to ouricmp() to prevent name
+   confilict on systems that happen to provide it already.
+
+--------------------------------------------------------------------
+2.20-xx changes from 2.01-xx
+--------------------------------------------------------------------
+
+Fixes:
+ o Fixed problem with timing totals.
+
+ o Fixed referrer linking to avoid possible xss injection.
+
+ o Fixed month change detection error that caused incorrect report
+   dates when logs had a 'gap' longer than a year.
+
+ o Fixed buffer overrun possibility in parsing code and user agent
+   mangle logic.
+
+ o Added symbolic link checks for file I/O to prevent possible
+   privilege escalation exploits.  Disallows reading from or writing
+   to any file that is a symlink.  Thanks to Julien Danjou.
+
+ o Added code to preserve the history and incremental data files in
+   the event of a crash before writing to them completely.  Thanks
+   to Robert Millan for the idea and initial code.
+
+Changes/Additions:
+ o Added native geolocation services, which fully supports both IPv4
+   and IPv6 lookups.  Adds the configuration keywords 'GeoDB' and
+   'GeoDBDatabase' along with the '-j' and '-J' command line options.
+
+ o Added 'wcmgr', "The Webalizer (DNS) Cache file Manager" to the
+   distribution to provide cache file maintenance.  See the supplied
+   man page for a description and usage information.
+
+ o Changed history code and main index page to allow for more than
+   12 months of reports to be displayed.  Added the config keywords
+   'IndexMonths' (-K command line option), 'GraphMonths' (-k command
+   line option) and 'YearHeaders' to control how index is displayed.
+
+ o Changed Berkeley DB code to use current 4.x APIs.
+
+ o Added support for bzip2 compressed log files (.bz2) as a compile
+   time option (--enable-bz2).  If enabled, bzipped files will be
+   decompressed automatically during processing.
+
+ o Added support for W3C formatted logs.  Based on code submitted
+   by Klaus Reimer.
+
+ o Added GeoIP support as compile time option (--enable-geoip). Adds
+   'GeoIP' and 'GeoIPDatabase' config keywords, '-w' and '-W'
+   command line options. (http://www.maxmind.com/)
+
+ o Added IPv6 support.  Based on initial code by Jose Carlos Meneiros
+   and modified to support Solaris and other problematic platforms.
+
+ o Added 'CacheIPs' config option to allow saving unresolved addresses
+   in the DNS cache.
+
+ o Added 'CacheTTL' config option which allows the DNS cache time to
+   live (TTL) value to be specified at run-time.
+
+ o Added 'SearchCaseI' config option to specify if search strings
+   should be treated as case insensitive or not.  The default value,
+   'yes', causes search strings to be treated as case insensitive.
+
+ o Added 'HTAccess' config option.  Allows writing a default .htaccess
+   file to the output directory.
+
+ o Added ability to display flags in the top country table.  Adds the
+   config keywords 'CountryFlags' and 'FlagDir', and -z command line
+   option.
+
+ o Added 'StripCGI' config option to configure how CGI variables on
+   the end of URLs are treated (can now be stripped or left in place).
+
+ o Added 'DefaultIndex' config option to enable/disable the use of
+   "index." as a default index name to be stripped from the end of URLs.
+
+ o Added 'TrimSquidURL' config option to allow squid log URLs to be
+   reduced in granularity by a user definable amount.  Thanks to code
+   submitted by Stuart Gall.
+
+ o Added 'OmitPage' config option (and the '-O' command line switch)
+   to prevent specified URLs from being counted as pages even if they
+   otherwise would be.  Thanks to code submitted by Adam Morton.
+
+ o Added 'IgnoreState' config option (and the -b command line switch)
+   to allow ignoring any existing incremental data file (similar to
+   the IgnoreHist/-i option).
+
+ o Changed logic to always generate summary report (index.html),
+   even if no records were processed.
+
+ o Added color support to allow changing graph colors.  Based on the
+   Webalizer-usecolor code submitted by Benoit Rouits.  Adds 11 new
+   config options, see the README file for complete descriptions.
+
+ o Added language 'lang=' specification in generated HTML files.
+
+ o Added 'LinkReferrer' config option to allow/disallow links in the
+   top referrers table.
+
+ o Added 'PagePrefix' config option to allow URL prefix matches to
+   be counted as pages, regardless of file extension or type.  Thanks
+   to code submitted by Remco Van de Meent.
+
+ o Enabled large file support (LFS) to support logs greater than 2Gb
+   in size on systems that support LFS.  Also increased the size of
+   most internal counters to handle larger sites.
+
+ o Minor changes to generated HTML output
+
+ o Updated language files country codes for current IANA TLDs
+
+ o Changed the meaning of the -v command line switch.  It now
+   causes verbose information to be displayed at run-time
+   (Informational and Debug messages).
+
+ o Changed Group* config options to allow a quoted string for
+   the match string.  This allows spaces to be embedded in the
+   string.
+
+ o Changed log record parsing logic to allow spaces in URLs.
+
+ o Made configuration keywords, boolean configuration values
+   (yes/no), and log file types case insensitive.  Also fixed
+   defaults for invalid values to reflect documented defaults.
+
+ o Changed configure script to use --sysconfdir to specify the
+   location of the default webalizer.conf configuration file.
+   Also added support for DESTDIR during install to aid binary
+   package builds.
+
+--------------------------------------------------------------------
+2.01-xx changes from 1.30-04
 --------------------------------------------------------------------
 
 Fixes:
@@ -65,7 +223,7 @@ Changes/Additions:
    Based in part on code submitted by Henning P. Schmiedehausen
    (hps@tanstaafl.de).
 
- o Added ability to dump Sites, URL's, Referrers, User Agents,
+ o Added ability to dump Sites, URLs, Referrers, User Agents,
    Usernames and Search Strings to tab delimited files, suitable
    for import into most database and spreadsheet programs.  The
    location of this file may be specified using the "DumpPath"
@@ -84,7 +242,7 @@ Changes/Additions:
    and 'TopUsers' have been added to the configuration file code.
    This change also modified the format of the incremental data file.
 
- o Added the ability to display ALL sites, URL's, Referrers,
+ o Added the ability to display ALL sites, URLs, Referrers,
    User Agents and Search Strings on a seperate HTML page from
    the normal statistics page.  This adds the configuration
    keywords 'AllSites', 'AllURLs', 'AllReferrers', 'AllAgents'
@@ -146,7 +304,7 @@ Changes/Additions:
    under certain circumstances.  The memory savings is significant
    and will be greatly noticed with large sites.  Because of these
    changes, the formatting of the incremental data file had to be
-   changed, therefore it is incompatable with previous versions.
+   changed, therefore it is incompatible with previous versions.
 
  o Major code reorganization and cleanup.  This was to facilitate
    future developent and make things more managable.
@@ -154,7 +312,7 @@ Changes/Additions:
  o Usual documentation updates for new features/functions.
 
 --------------------------------------------------------------------
-1.30-xx changes from 1.22-06   (brad@mrunix.net)
+1.30-xx changes from 1.22-06
 --------------------------------------------------------------------
 
 Fixes:
@@ -210,7 +368,7 @@ Changes/Additions:
    the analysis anyway, as if the were the same date/time as the
    last good record.  Apache users can safely ignore :)
 
- o Added additonal 'Top' tables for SITES and URL's, sorted by
+ o Added additonal 'Top' tables for SITES and URLs, sorted by
    KBytes instead of hits.  Two new configuration file keywords,
    TopKSites and TopKURLs, can be used to specify the number of
    entries for each (zero to disable).  Default for both is 10.
@@ -236,7 +394,7 @@ Changes/Additions:
  o Language files and documentation updated for new functions.
 
 --------------------------------------------------------------------
-1.22-xx changes from 1.20-11   (brad@mrunix.net)
+1.22-xx changes from 1.20-11
 --------------------------------------------------------------------
 
 Fixes:
@@ -250,7 +408,7 @@ Fixes:
    having where random tables were getting munged.
 
  o Fixed record parse code to better detect and strip query portion
-   from URL's and Referrer strings.
+   from URLs and Referrer strings.
 
  o Fixed segfault condition when more than MAX_CTRY entries were
    specified for the "Top Countries" table.
@@ -281,8 +439,8 @@ Changes/Additions:
    specification of the history and incremental data filenames.
 
  o Added UseHTTPS keyword, which allows using 'https://' instead
-   of 'http://' for links to URLS in the 'Top URL's' table.  Also
-   added check for URL's that already have the protocol specified
+   of 'http://' for links to URLS in the 'Top URLs' table.  Also
+   added check for URLs that already have the protocol specified
    (such as on virtual web and proxy servers), and to use unmodified
    if found (will only force to lowercase for matching).
 
@@ -299,7 +457,7 @@ Changes/Additions:
  o Updated documentation for new functions/features.
 
 --------------------------------------------------------------------
-1.20-xx changes from 1.12-10   (brad@mrunix.net)
+1.20-xx changes from 1.12-10
 --------------------------------------------------------------------
 
 Fixes:
@@ -324,7 +482,7 @@ Changes/Additions:
    "Incremental" configuration file keyword).
 
 --------------------------------------------------------------------
-1.1x-xx changes from 1.00-05   (brad@mrunix.net)
+1.1x-xx changes from 1.00-05
 --------------------------------------------------------------------
 
 Fixes:
@@ -366,7 +524,7 @@ Changes/Additions:
  o Usual README and CHANGES documentation updates.
 
 --------------------------------------------------------------------
-1.00-xx changes from 0.99-06   (brad@mrunix.net)
+1.00-xx changes from 0.99-06
 --------------------------------------------------------------------
 
 Fixes:
@@ -380,7 +538,7 @@ Changes/Additions:
  o Added GMTTime (-g) option to force display of timestamps in
    GMT (UTC) time instead of local timezone.
 
- o Added GroupURL (-L) option for grouping of URL's as if they
+ o Added GroupURL (-L) option for grouping of URLs as if they
    were a single object.  See README for details.
 
  o Language support in the form of a language specific header
@@ -389,7 +547,7 @@ Changes/Additions:
    languages will be distributed as I receive them.
 
 --------------------------------------------------------------------
-0.99-xx changes from 0.98-16   (brad@mrunix.net)
+0.99-xx changes from 0.98-16
 --------------------------------------------------------------------
 
 0.99 is mostly a bug-fix release, with a few added extra goodies.

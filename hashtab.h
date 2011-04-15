@@ -18,50 +18,51 @@ typedef struct dnode *DNODEPTR;            /* DNS hash table node struct   */
 
 #ifdef USE_DNS
 struct dnode {  char *string;              /* DNS node hash table struct   */
-              struct in_addr  addr;
+              struct sockaddr_storage  addr;
+                 int addrlen;
               struct dnode    *llist;
               struct dnode    *next; };
 #endif
 
 struct hnode {  char *string;              /* host hash table structure    */
                  int flag;
-              u_long count;
-              u_long files;
-              u_long visit;                /* visit information            */
-              u_long tstamp;
+           u_int64_t count;
+           u_int64_t files;
+           u_int64_t visit;                /* visit information            */
+           u_int64_t tstamp;
                 char *lasturl;
               double xfer;
               struct hnode *next; };
 
 struct unode {  char *string;              /* url hash table structure     */
                  int flag;                 /* Object type (REG, HIDE, GRP) */
-              u_long count;                /* requests counter             */
-              u_long files;                /* files counter                */
-              u_long entry;                /* entry page counter           */
-              u_long exit;                 /* exit page counter            */
+           u_int64_t count;                /* requests counter             */
+           u_int64_t files;                /* files counter                */
+           u_int64_t entry;                /* entry page counter           */
+           u_int64_t exit;                 /* exit page counter            */
               double xfer;                 /* xfer size in bytes           */
               struct unode *next; };       /* pointer to next node         */
 
 struct rnode {  char *string;              /* referrer hash table struct   */
                  int flag;
-              u_long count;
+           u_int64_t count;
               struct rnode *next; };
 
 struct anode {  char *string;
                  int flag;
-              u_long count;
+           u_int64_t count;
               struct anode *next; };
 
 struct snode {  char *string;                 /* search string struct      */
-              u_long count;
+           u_int64_t count;
               struct snode *next; };
 
 struct inode {  char *string;                 /* host hash table struct    */
                  int flag;
-              u_long count;
-              u_long files;
-              u_long visit;
-              u_long tstamp;
+           u_int64_t count;
+           u_int64_t files;
+           u_int64_t visit;
+           u_int64_t tstamp;
               double xfer;
               struct inode *next; };
 
@@ -76,18 +77,18 @@ extern INODEPTR im_htab[MAXHASH];             /* ident table (username)    */
 extern DNODEPTR host_table[MAXHASH];          /* DNS resolver table        */
 #endif
 
-extern int    put_hnode(char *, int, u_long, u_long, double, u_long *,
-                        u_long, u_long, char *, HNODEPTR *);
-extern int    put_unode(char *, int, u_long, double, u_long *,
-                        u_long, u_long, UNODEPTR *);
-extern int    put_inode(char *, int, u_long, u_long, double, u_long *,
-                        u_long, u_long, INODEPTR *);
-extern int    put_rnode(char *, int, u_long, u_long *, RNODEPTR *);
-extern int    put_anode(char *, int, u_long, u_long *, ANODEPTR *);
-extern int    put_snode(char *, u_long, SNODEPTR *);
+extern int    put_hnode(char *, int, u_int64_t, u_int64_t, double,
+                        u_int64_t *, u_int64_t, u_int64_t, char *, HNODEPTR *);
+extern int    put_unode(char *, int, u_int64_t, double, u_int64_t *,
+                        u_int64_t, u_int64_t, UNODEPTR *);
+extern int    put_inode(char *, int, u_int64_t, u_int64_t, double,
+                        u_int64_t *, u_int64_t, u_int64_t, INODEPTR *);
+extern int    put_rnode(char *, int, u_int64_t, u_int64_t *, RNODEPTR *);
+extern int    put_anode(char *, int, u_int64_t, u_int64_t *, ANODEPTR *);
+extern int    put_snode(char *, u_int64_t, SNODEPTR *);
 
 #ifdef USE_DNS
-extern int    put_dnode(char *, struct in_addr *, DNODEPTR *);
+extern int    put_dnode(char *, void *, int, DNODEPTR *);
 extern void   del_dlist(DNODEPTR *);
 #endif
 
@@ -99,8 +100,8 @@ extern void   del_alist(ANODEPTR *);          /* delete host htab          */
 extern void   del_slist(SNODEPTR *);          /* delete host htab          */
 extern void   del_ilist(INODEPTR *);          /* delete host htab          */
 
-extern void   month_update_exit(u_long);
-extern u_long tot_visit(HNODEPTR *);
-extern char   *find_url(char *);
+extern void      month_update_exit(u_int64_t);
+extern u_int64_t tot_visit(HNODEPTR *);
+extern char     *find_url(char *);
 
 #endif  /* _HASHTAB_H */

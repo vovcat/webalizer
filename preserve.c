@@ -1,7 +1,7 @@
 /*
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2001  Bradford L. Barrett (brad@mrunix.net)
+    Copyright (C) 1997-2011  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,11 +19,6 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-    This software uses the gd graphics library, which is copyright by
-    Quest Protein Database Center, Cold Spring Harbor Labs.  Please
-    see the documentation supplied with the library for additional
-    information and license terms, or visit www.boutell.com/gd/ for the
-    most recent version of the library and supporting documentation.
 */
 
 /*********************************************/
@@ -36,27 +31,23 @@
 #include <string.h>
 #include <unistd.h>                           /* normal stuff             */
 #include <ctype.h>
+#include <errno.h>
+#include <sys/stat.h>
 #include <sys/utsname.h>
-#include <sys/times.h>
-
-/* ensure getopt */
-#ifdef HAVE_GETOPT_H
-#include <getopt.h>
-#endif
 
 /* ensure sys/types */
 #ifndef _SYS_TYPES_H
 #include <sys/types.h>
 #endif
 
+/* need socket header? */
+#ifdef HAVE_SYS_SOCKET_H
+#include <sys/socket.h>
+#endif
+
 /* some systems need this */
 #ifdef HAVE_MATH_H
 #include <math.h>
-#endif
-
-/* SunOS 4.x Fix */
-#ifndef CLK_TCK
-#define CLK_TCK _SC_CLK_TCK
 #endif
 
 #include "webalizer.h"                        /* main header              */
@@ -65,16 +56,7 @@
 #include "parser.h"
 #include "preserve.h"
 
-/* local variables */
-int     hist_month[12], hist_year[12];        /* arrays for monthly total */
-u_long  hist_hit[12];                         /* calculations: used to    */
-u_long  hist_files[12];                       /* produce index.html       */
-u_long  hist_site[12];                        /* these are read and saved */
-double  hist_xfer[12];                        /* in the history file      */
-u_long  hist_page[12];
-u_long  hist_visit[12];
-
-int     hist_fday[12], hist_lday[12];         /* first/last day arrays    */
+struct hist_rec hist[HISTSIZE];              /* history structure array   */
 
 /*********************************************/
 /* GET_HISTORY - load in history file        */
@@ -82,50 +64,74 @@ int     hist_fday[12], hist_lday[12];         /* first/last day arrays    */
 
 void get_history()
 {
-   int i,numfields;
-   FILE *hist_fp;
-   char buffer[BUFSIZE];
+   int   i,n,numfields;
+   int   in_m,in_y;
+   int   mth, yr;
+   FILE  *hist_fp;
+   char  buffer[BUFSIZE];
 
-   /* first initalize internal array */
-   for (i=0;i<12;i++)
-   {
-      hist_month[i]=hist_year[i]=hist_fday[i]=hist_lday[i]=0;
-      hist_hit[i]=hist_files[i]=hist_site[i]=hist_page[i]=hist_visit[i]=0;
-      hist_xfer[i]=0.0;
-   }
-
+   /* try to open history file */
    hist_fp=fopen(hist_fname,"r");
 
    if (hist_fp)
    {
       if (verbose>1) printf("%s %s\n",msg_get_hist,hist_fname);
-      while ((fgets(buffer,BUFSIZE,hist_fp)) != NULL)
+      while ( fgets(buffer,BUFSIZE,hist_fp) != NULL )
       {
-         i = atoi(buffer) -1;
-         if (i>11)
+         if (buffer[0]=='#') { continue; } /* skip comments */
+
+         /* get record month/year */
+         sscanf(buffer,"%d %d",&in_m,&in_y);
+
+         /* check if valid numbers */
+         if ( (in_m<1 || in_m>12 || in_y<1970) )
          {
-            if (verbose)
-               fprintf(stderr,"%s (mth=%d)\n",msg_bad_hist,i+1);
+            if (verbose) fprintf(stderr,"%s (mth=%d)\n",msg_bad_hist,in_m);
             continue;
          }
 
-         /* month# year# requests files sites xfer firstday lastday */
-         numfields = sscanf(buffer,"%d %d %lu %lu %lu %lf %d %d %lu %lu",
-                       &hist_month[i],
-                       &hist_year[i],
-                       &hist_hit[i],
-                       &hist_files[i],
-                       &hist_site[i],
-                       &hist_xfer[i],
-                       &hist_fday[i],
-                       &hist_lday[i],
-                       &hist_page[i],
-                       &hist_visit[i]);
+         /* populate if first time through */
+         if (hist[HISTSIZE-1].year==0) populate_history(in_m, in_y);
 
-         if (numfields==8)     /* kludge for reading 1.20.xx history files */
+         for (i=HISTSIZE-1;i>=0;i--)
          {
-            hist_page[i] = 0;
-            hist_visit[i] = 0;
+            if (in_m==hist[i].month && in_y==hist[i].year) break;
+            else
+            {
+               if ( (in_m>hist[i].month&&in_y==hist[i].year) ||
+                    (in_y>hist[i].year) )
+               {
+                  if (i>0)
+                  {
+                     n=(mth_idx(in_m,in_y)-mth_idx(hist[i].month,hist[i].year));
+                     while (n)
+                     {
+                        yr = hist[i].year;
+                        mth= hist[i].month+1;
+                        if (mth>12) { mth=1; yr++; }
+                        memcpy(&hist[0], &hist[1], sizeof(hist[0])*i);
+                        memset(&hist[i], 0, sizeof(struct hist_rec));
+                        hist[i].year=yr; hist[i].month=mth; n--;
+                    }
+                  }
+                  break;
+               }
+            }
+         }
+         if (i>=0)
+         {
+         /* month# year# requests files sites xfer firstday lastday */
+         numfields = sscanf(buffer,"%d %d %llu %llu %llu %lf %d %d %llu %llu",
+                       &hist[i].month,
+                       &hist[i].year,
+                       &hist[i].hit,
+                       &hist[i].files,
+                       &hist[i].site,
+                       &hist[i].xfer,
+                       &hist[i].fday,
+                       &hist[i].lday,
+                       &hist[i].page,
+                       &hist[i].visit);
          }
       }
       fclose(hist_fp);
@@ -139,36 +145,160 @@ void get_history()
 
 void put_history()
 {
-   int i;
-   FILE *hist_fp;
+   int     i;
+   FILE    *hist_fp;
+   char    new_fname[MAXKVAL+4];
+   char    old_fname[MAXKVAL+4];
+   struct  stat hist_stat;
+   time_t  now;
+   char    timestamp[48];
 
-   hist_fp = fopen(hist_fname,"w");
+   /* generate 'new' filename */
+   sprintf(new_fname, "%s.new", hist_fname);
 
+   /* stat the file */
+   if ( !(lstat(new_fname, &hist_stat)) )
+   {
+      /* check if the file a symlink */
+      if ( S_ISLNK(hist_stat.st_mode) )
+      {
+         if (verbose)
+         fprintf(stderr,"%s %s (symlink)\n",msg_no_open,new_fname);
+         return;
+      }
+   }
+
+   /* Generate our timestamp */
+   now=time(NULL);
+   strftime(timestamp,sizeof(timestamp),"%d/%b/%Y %H:%M:%S",localtime(&now));
+
+   /* Open file for writing */
+   hist_fp = fopen(new_fname,"w");
    if (hist_fp)
    {
       if (verbose>1) printf("%s\n",msg_put_hist);
-      for (i=0;i<12;i++)
+
+      /* write header */
+      fprintf(hist_fp,"# Webalizer V%s-%s History Data - %s (%d month)\n",
+              version, editlvl, timestamp, HISTSIZE);
+
+      for (i=HISTSIZE-1;i>=0;i--)
       {
-         if ((hist_month[i] != 0) && (hist_hit[i] != 0))
-         {
-            fprintf(hist_fp,"%d %d %lu %lu %lu %.0f %d %d %lu %lu\n",
-                            hist_month[i],
-                            hist_year[i],
-                            hist_hit[i],
-                            hist_files[i],
-                            hist_site[i],
-                            hist_xfer[i],
-                            hist_fday[i],
-                            hist_lday[i],
-                            hist_page[i],
-                            hist_visit[i]);
-         }
+         fprintf(hist_fp,"%d %d %llu %llu %llu %.0f %d %d %llu %llu\n",
+                         hist[i].month,
+                         hist[i].year,
+                         hist[i].hit,
+                         hist[i].files,
+                         hist[i].site,
+                         hist[i].xfer,
+                         hist[i].fday,
+                         hist[i].lday,
+                         hist[i].page,
+                         hist[i].visit);
       }
+      /* Done, close file */
       fclose(hist_fp);
+
+      /* if time-warp error detected, save old */
+      if (hist_gap)
+      {
+         sprintf(old_fname, "%s.sav", hist_fname);
+         if ((rename(hist_fname,old_fname)==-1)&&(errno!=ENOENT)&&verbose)
+            fprintf(stderr,"Failed renaming %s to %s: %s\n",
+               hist_fname,old_fname,strerror(errno));
+      }
+
+      /* now rename the 'new' file to real name */
+      if ((rename(new_fname,hist_fname) == -1) && verbose)
+         fprintf(stderr,"Failed renaming %s to %s\n",new_fname,hist_fname);
    }
    else
       if (verbose)
-      fprintf(stderr,"%s %s\n",msg_hist_err,hist_fname);
+      fprintf(stderr,"%s %s\n",msg_hist_err,new_fname);
+}
+
+/*********************************************/
+/* POPULATE_HISTORY - populate with dates    */
+/*********************************************/
+
+void populate_history(int month, int year)
+{
+   int   i;
+   int   mth=month;
+   int   yr =year;
+
+   if (hist[HISTSIZE-1].year==0)
+   {
+      for (i=HISTSIZE-1;i>=0;i--)
+      {
+         hist[i].year=yr; hist[i].month=mth--;
+         if (mth==0) { yr--; mth=12; }
+      }
+   }
+}
+
+/*********************************************/
+/* UPDATE_HISTORY - update with cur totals   */
+/*********************************************/
+
+void update_history()
+{
+   int   i,n;
+   int   mth,yr;
+
+   /* populate if first time through */
+   if (hist[HISTSIZE-1].year==0) populate_history(cur_month,cur_year);
+
+   /* we need to figure out where to put in history */
+   for (i=HISTSIZE-1;i>=0;i--)
+   {
+      if (cur_month==hist[i].month && cur_year==hist[i].year) break;
+      else
+      {
+         if ((cur_month>hist[i].month&&cur_year==hist[i].year) ||
+             (cur_year>hist[i].year))
+         {
+            if (i>0)
+            {
+               n=(mth_idx(cur_month,cur_year) -
+                  mth_idx(hist[i].month,hist[i].year));
+
+               if (n>2)
+               {
+                  if (verbose)
+                     fprintf(stderr,"Warning! %d month gap detected! "   \
+                             "(%d/%d to %d/%d)\n", n, hist[i].month,
+                             hist[i].year, cur_month, cur_year);
+                  if (n>11) hist_gap=1;  /* year or more? */
+               }
+
+               while (n)
+               {
+                  yr = hist[i].year;
+                  mth= hist[i].month+1;
+                  if (mth>12) { mth=1; yr++; }
+                  memcpy(&hist[0],&hist[1],sizeof(hist[0])*i);
+                  memset(&hist[i], 0, sizeof(struct hist_rec));
+                  hist[i].year=yr; hist[i].month=mth; n--;
+               }
+            }
+            break;
+         }
+      }
+   }
+   if (i>=0)
+   {
+      hist[i].month = cur_month;
+      hist[i].year  = cur_year;
+      hist[i].hit   = t_hit;
+      hist[i].files = t_file;
+      hist[i].page  = t_page;
+      hist[i].visit = t_visit;
+      hist[i].site  = t_site;
+      hist[i].xfer  = t_xfer/1024;
+      hist[i].fday  = f_day;
+      hist[i].lday  = l_day;
+   }
 }
 
 /*********************************************/
@@ -186,11 +316,28 @@ int save_state()
 
    FILE *fp;
    int  i;
+   struct stat state_stat;
 
    char buffer[BUFSIZE];
+   char new_fname[MAXKVAL+4];
 
-   /* Open data file for write */
-   fp=fopen(state_fname,"w");
+   /* generate 'new' filename */
+   sprintf(new_fname, "%s.new", state_fname);
+
+   /* stat the file */
+   if ( !(lstat(new_fname, &state_stat)) )
+   {
+      /* check if the file a symlink */
+      if ( S_ISLNK(state_stat.st_mode) )
+      {
+         if (verbose)
+         fprintf(stderr,"%s %s (symlink)\n",msg_no_open,new_fname);
+         return(EBADF);
+      }
+   }
+
+   /* Open file for writing */
+   fp=fopen(new_fname,"w");
    if (fp==NULL) return 1;
 
    /* Saving current run data... */
@@ -203,7 +350,7 @@ int save_state()
 
    /* first, save the easy stuff */
    /* Header record */
-   sprintf(buffer,
+   snprintf(buffer,sizeof(buffer),
      "# Webalizer V%s-%s Incremental Data - %02d/%02d/%04d %02d:%02d:%02d\n",
       version,editlvl,cur_month,cur_day,cur_year,cur_hour,cur_min,cur_sec);
    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
@@ -214,20 +361,20 @@ int save_state()
    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
 
    /* Monthly totals for sites, urls, etc... */
-   sprintf(buffer,"%lu %lu %lu %lu %lu %lu %.0f %lu %lu %lu\n",
+   sprintf(buffer,"%llu %llu %llu %llu %llu %llu %.0f %llu %llu %llu\n",
         t_hit, t_file, t_site, t_url,
         t_ref, t_agent, t_xfer, t_page, t_visit, t_user);
    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
 
    /* Daily totals for sites, urls, etc... */
-   sprintf(buffer,"%lu %lu %lu %d %d\n",
+   sprintf(buffer,"%llu %llu %llu %d %d\n",
         dt_site, ht_hit, mh_hit, f_day, l_day);
    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
 
    /* Monthly (by day) total array */
    for (i=0;i<31;i++)
    {
-      sprintf(buffer,"%lu %lu %.0f %lu %lu %lu\n",
+      sprintf(buffer,"%llu %llu %.0f %llu %llu %llu\n",
         tm_hit[i],tm_file[i],tm_xfer[i],tm_site[i],tm_page[i],tm_visit[i]);
       if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
    }
@@ -235,7 +382,7 @@ int save_state()
    /* Daily (by hour) total array */
    for (i=0;i<24;i++)
    {
-      sprintf(buffer,"%lu %lu %.0f %lu\n",
+      sprintf(buffer,"%llu %llu %.0f %llu\n",
         th_hit[i],th_file[i],th_xfer[i],th_page[i]);
       if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
    }
@@ -243,7 +390,7 @@ int save_state()
    /* Response codes */
    for (i=0;i<TOTAL_RC;i++)
    {
-      sprintf(buffer,"%lu\n",response[i].count);
+      sprintf(buffer,"%llu\n",response[i].count);
       if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
    }
 
@@ -255,9 +402,9 @@ int save_state()
       uptr=um_htab[i];
       while (uptr!=NULL)
       {
-         sprintf(buffer,"%s\n%d %lu %lu %.0f %lu %lu\n", uptr->string,
-              uptr->flag, uptr->count, uptr->files, uptr->xfer,
-              uptr->entry, uptr->exit);
+         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu\n",
+                  uptr->string, uptr->flag, uptr->count, uptr->files,
+                  uptr->xfer, uptr->entry, uptr->exit);
          if (fputs(buffer,fp)==EOF) return 1;
          uptr=uptr->next;
       }
@@ -272,15 +419,10 @@ int save_state()
       hptr=sm_htab[i];
       while (hptr!=NULL)
       {
-         sprintf(buffer,"%s\n%d %lu %lu %.0f %lu %lu\n%s\n",
-              hptr->string,
-              hptr->flag,
-              hptr->count,
-              hptr->files,
-              hptr->xfer,
-              hptr->visit,
-              hptr->tstamp,
-              (hptr->lasturl==blank_str)?"-":hptr->lasturl);
+         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu\n%s\n",
+                  hptr->string, hptr->flag, hptr->count, hptr->files,
+                  hptr->xfer, hptr->visit, hptr->tstamp,
+                  (hptr->lasturl==blank_str)?"-":hptr->lasturl);
          if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
          hptr=hptr->next;
       }
@@ -294,15 +436,10 @@ int save_state()
       hptr=sd_htab[i];
       while (hptr!=NULL)
       {
-         sprintf(buffer,"%s\n%d %lu %lu %.0f %lu %lu\n%s\n",
-              hptr->string,
-              hptr->flag,
-              hptr->count,
-              hptr->files,
-              hptr->xfer,
-              hptr->visit,
-              hptr->tstamp,
-              (hptr->lasturl==blank_str)?"-":hptr->lasturl);
+         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu\n%s\n",
+                  hptr->string, hptr->flag, hptr->count, hptr->files,
+                  hptr->xfer, hptr->visit, hptr->tstamp,
+                  (hptr->lasturl==blank_str)?"-":hptr->lasturl);
          if (fputs(buffer,fp)==EOF) return 1;
          hptr=hptr->next;
       }
@@ -318,8 +455,8 @@ int save_state()
          rptr=rm_htab[i];
          while (rptr!=NULL)
          {
-            sprintf(buffer,"%s\n%d %lu\n", rptr->string,
-                 rptr->flag, rptr->count);
+            snprintf(buffer,sizeof(buffer),"%s\n%d %llu\n",
+                     rptr->string, rptr->flag, rptr->count);
             if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
             rptr=rptr->next;
          }
@@ -336,8 +473,8 @@ int save_state()
          aptr=am_htab[i];
          while (aptr!=NULL)
          {
-            sprintf(buffer,"%s\n%d %lu\n", aptr->string,
-                 aptr->flag, aptr->count);
+            snprintf(buffer,sizeof(buffer),"%s\n%d %llu\n",
+                     aptr->string, aptr->flag, aptr->count);
             if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
             aptr=aptr->next;
          }
@@ -352,7 +489,8 @@ int save_state()
       sptr=sr_htab[i];
       while (sptr!=NULL)
       {
-         sprintf(buffer,"%s\n%lu\n", sptr->string,sptr->count);
+         snprintf(buffer,sizeof(buffer),"%s\n%llu\n",
+                  sptr->string,sptr->count);
          if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
          sptr=sptr->next;
       }
@@ -367,21 +505,24 @@ int save_state()
       iptr=im_htab[i];
       while (iptr!=NULL)
       {
-         sprintf(buffer,"%s\n%d %lu %lu %.0f %lu %lu\n",
-              iptr->string,
-              iptr->flag,
-              iptr->count,
-              iptr->files,
-              iptr->xfer,
-              iptr->visit,
-              iptr->tstamp);
+         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu\n",
+                  iptr->string, iptr->flag, iptr->count, iptr->files,
+              iptr->xfer, iptr->visit, iptr->tstamp);
          if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
          iptr=iptr->next;
       }
    }
    if (fputs("# End Of Table - usernames\n",fp)==EOF) return 1;
 
-   fclose(fp);          /* close data file...                            */
+   /* Done, close file */
+   fclose(fp);
+
+   /* now rename the 'new' file to real name */
+   if ((rename(new_fname,state_fname) == -1) && verbose)
+   {
+      fprintf(stderr,"Failed renaming %s to %s\n",new_fname,state_fname);
+      return 1;         /* Failed, return with error code                */
+   }
    return 0;            /* successful, return with good return code      */
 }
 
@@ -400,11 +541,15 @@ int restore_state()
    struct snode t_snode;
    struct inode t_inode;
 
-   char   buffer[BUFSIZE];
-   char   tmp_buf[BUFSIZE];
+   char         buffer[BUFSIZE];
+   char         tmp_buf[BUFSIZE];
 
-   u_long ul_bogus=0;
+   u_int64_t    ul_bogus=0;
 
+   /* if ignoring, just return */
+   if (ignore_state) return 0;
+
+   /* try to open state file */
    fp=fopen(state_fname,"r");
    if (fp==NULL)
    {
@@ -419,7 +564,14 @@ int restore_state()
    /* get easy stuff */
    sprintf(tmp_buf,"# Webalizer V%s    ",version);
    if ((fgets(buffer,BUFSIZE,fp)) != NULL)                 /* Header record */
-     {if (strncmp(buffer,tmp_buf,17)) return 99;} /* bad magic? */
+   {
+      if (strncmp(buffer,tmp_buf,16))
+      {
+         /* Kludge to allow 2.01 files also */
+         sprintf(tmp_buf,"# Webalizer V2.01-1");
+         if (strncmp(buffer,tmp_buf,19)) return 99; /* bad magic? */
+      }
+   }
    else return 1;   /* error exit */
 
    /* Get current timestamp */
@@ -437,7 +589,7 @@ int restore_state()
    /* Get monthly totals */
    if ((fgets(buffer,BUFSIZE,fp)) != NULL)
    {
-      sscanf(buffer,"%lu %lu %lu %lu %lu %lu %lf %lu %lu %lu",
+      sscanf(buffer,"%llu %llu %llu %llu %llu %llu %lf %llu %llu %llu",
        &t_hit, &t_file, &t_site, &t_url,
        &t_ref, &t_agent, &t_xfer, &t_page, &t_visit, &t_user);
    } else return 3;  /* error exit */
@@ -445,7 +597,7 @@ int restore_state()
    /* Get daily totals */
    if ((fgets(buffer,BUFSIZE,fp)) != NULL)
    {
-      sscanf(buffer,"%lu %lu %lu %d %d",
+      sscanf(buffer,"%llu %llu %llu %d %d",
        &dt_site, &ht_hit, &mh_hit, &f_day, &l_day);
    } else return 4;  /* error exit */
 
@@ -454,7 +606,7 @@ int restore_state()
    {
       if ((fgets(buffer,BUFSIZE,fp)) != NULL)
       {
-         sscanf(buffer,"%lu %lu %lf %lu %lu %lu",
+         sscanf(buffer,"%llu %llu %lf %llu %llu %llu",
           &tm_hit[i],&tm_file[i],&tm_xfer[i],&tm_site[i],&tm_page[i],
           &tm_visit[i]);
       } else return 5;  /* error exit */
@@ -465,7 +617,7 @@ int restore_state()
    {
       if ((fgets(buffer,BUFSIZE,fp)) != NULL)
       {
-         sscanf(buffer,"%lu %lu %lf %lu",
+         sscanf(buffer,"%llu %llu %lf %llu",
           &th_hit[i],&th_file[i],&th_xfer[i],&th_page[i]);
       } else return 6;  /* error exit */
    }
@@ -474,7 +626,7 @@ int restore_state()
    for (i=0;i<TOTAL_RC;i++)
    {
       if ((fgets(buffer,BUFSIZE,fp)) != NULL)
-         sscanf(buffer,"%lu",&response[i].count);
+         sscanf(buffer,"%llu",&response[i].count);
       else return 7;  /* error exit */
    }
 
@@ -497,10 +649,10 @@ int restore_state()
       tmp_buf[strlen(tmp_buf)-1]=0;
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 10;  /* error exit */
-      if (!isdigit((int)buffer[0])) return 10;  /* error exit */
+      if (!isdigit((unsigned char)buffer[0])) return 10;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %lu %lu %lf %lu %lu",
+      sscanf(buffer,"%d %llu %llu %lf %llu %llu",
          &t_unode.flag,&t_unode.count,
          &t_unode.files, &t_unode.xfer,
          &t_unode.entry, &t_unode.exit);
@@ -528,10 +680,10 @@ int restore_state()
       tmp_buf[strlen(buffer)-1]=0;
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 8;  /* error exit */
-      if (!isdigit((int)buffer[0])) return 8;  /* error exit */
+      if (!isdigit((unsigned char)buffer[0])) return 8;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %lu %lu %lf %lu %lu",
+      sscanf(buffer,"%d %llu %llu %lf %llu %llu",
          &t_hnode.flag,&t_hnode.count,
          &t_hnode.files, &t_hnode.xfer,
          &t_hnode.visit, &t_hnode.tstamp);
@@ -568,10 +720,10 @@ int restore_state()
       tmp_buf[strlen(buffer)-1]=0;
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 9;  /* error exit */
-      if (!isdigit((int)buffer[0])) return 9;  /* error exit */
+      if (!isdigit((unsigned char)buffer[0])) return 9;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %lu %lu %lf %lu %lu",
+      sscanf(buffer,"%d %llu %llu %lf %llu %llu",
           &t_hnode.flag,&t_hnode.count,
           &t_hnode.files, &t_hnode.xfer,
           &t_hnode.visit, &t_hnode.tstamp);
@@ -607,10 +759,10 @@ int restore_state()
       tmp_buf[strlen(buffer)-1]=0;
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 11;  /* error exit */
-      if (!isdigit((int)buffer[0])) return 11;  /* error exit */
+      if (!isdigit((unsigned char)buffer[0])) return 11;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %lu",&t_rnode.flag,&t_rnode.count);
+      sscanf(buffer,"%d %llu",&t_rnode.flag,&t_rnode.count);
 
       /* insert node */
       if (put_rnode(tmp_buf,t_rnode.flag,
@@ -632,10 +784,10 @@ int restore_state()
       tmp_buf[strlen(buffer)-1]=0;
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 12;  /* error exit */
-      if (!isdigit((int)buffer[0])) return 12;  /* error exit */
+      if (!isdigit((unsigned char)buffer[0])) return 12;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %lu",&t_anode.flag,&t_anode.count);
+      sscanf(buffer,"%d %llu",&t_anode.flag,&t_anode.count);
 
       /* insert node */
       if (put_anode(tmp_buf,t_anode.flag,t_anode.count,
@@ -657,10 +809,10 @@ int restore_state()
       tmp_buf[strlen(buffer)-1]=0;
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 13;  /* error exit */
-      if (!isdigit((int)buffer[0])) return 13;  /* error exit */
+      if (!isdigit((unsigned char)buffer[0])) return 13;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%lu",&t_snode.count);
+      sscanf(buffer,"%llu",&t_snode.count);
 
       /* insert node */
       if (put_snode(tmp_buf,t_snode.count,sr_htab))
@@ -682,10 +834,10 @@ int restore_state()
       tmp_buf[strlen(buffer)-1]=0;
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 14;  /* error exit */
-      if (!isdigit((int)buffer[0])) return 14;  /* error exit */
+      if (!isdigit((unsigned char)buffer[0])) return 14;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %lu %lu %lf %lu %lu",
+      sscanf(buffer,"%d %llu %llu %lf %llu %llu",
          &t_inode.flag,&t_inode.count,
          &t_inode.files, &t_inode.xfer,
          &t_inode.visit, &t_inode.tstamp);

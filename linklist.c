@@ -1,7 +1,7 @@
 /*
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2001  Bradford L. Barrett (brad@mrunix.net)
+    Copyright (C) 1997-2011  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,11 +19,6 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-    This software uses the gd graphics library, which is copyright by
-    Quest Protein Database Center, Cold Spring Harbor Labs.  Please
-    see the documentation supplied with the library for additional
-    information and license terms, or visit www.boutell.com/gd/ for the
-    most recent version of the library and supporting documentation.
 */
 
 /*********************************************/
@@ -37,26 +32,20 @@
 #include <unistd.h>                           /* normal stuff             */
 #include <ctype.h>
 #include <sys/utsname.h>
-#include <sys/times.h>
-
-/* ensure getopt */
-#ifdef HAVE_GETOPT_H
-#include <getopt.h>
-#endif
 
 /* ensure sys/types */
 #ifndef _SYS_TYPES_H
 #include <sys/types.h>
 #endif
 
+/* need socket header? */
+#ifdef HAVE_SYS_SOCKET_H
+#include <sys/socket.h>
+#endif
+
 /* some systems need this */
 #ifdef HAVE_MATH_H
 #include <math.h>
-#endif
-
-/* SunOS 4.x Fix */
-#ifndef CLK_TCK
-#define CLK_TCK _SC_CLK_TCK
 #endif
 
 #include "webalizer.h"                         /* main header              */
@@ -102,6 +91,8 @@ NLISTPTR html_post     = NULL;                /* middle HTML code         */
 NLISTPTR html_tail     = NULL;                /* tail HTML code           */
 NLISTPTR html_end      = NULL;                /* after everything else    */
 NLISTPTR page_type     = NULL;                /* page view types          */
+NLISTPTR omit_page     = NULL;                /* pages not counted        */
+NLISTPTR page_prefix   = NULL;                /* page view prefixes       */
 GLISTPTR search_list   = NULL;                /* Search engine list       */
 
 /*********************************************/
@@ -190,19 +181,25 @@ GLISTPTR new_glist(char *str, char *name)
 int add_glist(char *str, GLISTPTR *list)
 {
    GLISTPTR newptr,cptr,pptr;
-   char temp_buf[80];
+   char temp_buf[MAXKVAL];
    char *name=temp_buf;
+   char sep=0;
 
    /* make local copy of string */
-   strncpy(temp_buf,str,79);
-   temp_buf[79]=0;
+   if (*str=='"' || *str=='\'') sep=*str++;             /* Quote character?  */
+   strncpy(temp_buf,str,MAXKVAL-1);
+   temp_buf[MAXKVAL-1]=0;
 
-   while (!isspace((int)*name)&&*name!=0) name++;
+   if (!sep)                                            /* Space seperated   */
+      while (!isspace((unsigned char)*name) && *name!=0) name++;
+   else
+      while (*name!=sep && *name!=0) name++;            /* Quote seperated   */
+
    if (*name==0) name=temp_buf;
    else
    {
       *name++=0;
-      while (isspace((int)*name)&&*name!=0) name++;
+      while (isspace((unsigned char)*name)&&*name!=0) name++;
       if (*name==0) name=temp_buf;
    }
 

@@ -1,7 +1,7 @@
 /*
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2001  Bradford L. Barrett (brad@mrunix.net)
+    Copyright (C) 1997-2011  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,11 +19,6 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-    This software uses the gd graphics library, which is copyright by
-    Quest Protein Database Center, Cold Spring Harbor Labs.  Please
-    see the documentation supplied with the library for additional
-    information and license terms, or visit www.boutell.com/gd/ for the
-    most recent version of the library and supporting documentation.
 */
 
 /*********************************************/
@@ -36,12 +31,11 @@
 #include <string.h>
 #include <unistd.h>                           /* normal stuff             */
 #include <ctype.h>
+#include <errno.h>
+#include <sys/stat.h>
 #include <sys/utsname.h>
-#include <sys/times.h>
-
-/* ensure getopt */
-#ifdef HAVE_GETOPT_H
-#include <getopt.h>
+#ifdef USE_DNS
+#include <db.h>
 #endif
 
 /* ensure sys/types */
@@ -49,14 +43,18 @@
 #include <sys/types.h>
 #endif
 
+/* need socket header? */
+#ifdef HAVE_SYS_SOCKET_H
+#include <sys/socket.h>
+#endif
+
 /* some systems need this */
 #ifdef HAVE_MATH_H
 #include <math.h>
 #endif
 
-/* SunOS 4.x Fix */
-#ifndef CLK_TCK
-#define CLK_TCK _SC_CLK_TCK
+#ifdef USE_GEOIP
+#include <GeoIP.h>
 #endif
 
 #include "webalizer.h"                        /* main header              */
@@ -75,19 +73,19 @@ void    month_total_table();                        /* monthly total table */
 void    daily_total_table();                        /* daily total table   */
 void    hourly_total_table();                       /* hourly total table  */
 void    top_sites_table(int);                       /* top n sites table   */
-void    top_urls_table(int);                        /* top n URL's table   */
+void    top_urls_table(int);                        /* top n URLs table    */
 void    top_entry_table(int);                       /* top n entry/exits   */
 void    top_refs_table();                           /* top n referrers ""  */
 void    top_agents_table();                         /* top n u-agents  ""  */
 void    top_ctry_table();                           /* top n countries ""  */
 void    top_search_table();                         /* top n search strs   */
 void    top_users_table();                          /* top n ident table   */
-u_long  load_url_array(  UNODEPTR *);               /* load URL array      */
-u_long  load_site_array( HNODEPTR *);               /* load Site array     */
-u_long  load_ref_array(  RNODEPTR *);               /* load Refs array     */
-u_long  load_agent_array(ANODEPTR *);               /* load Agents array   */
-u_long  load_srch_array( SNODEPTR *);               /* load srch str array */
-u_long  load_ident_array(INODEPTR *);               /* load ident array    */
+u_int64_t load_url_array(  UNODEPTR *);             /* load URL array      */
+u_int64_t load_site_array( HNODEPTR *);             /* load Site array     */
+u_int64_t load_ref_array(  RNODEPTR *);             /* load Refs array     */
+u_int64_t load_agent_array(ANODEPTR *);             /* load Agents array   */
+u_int64_t load_srch_array( SNODEPTR *);             /* load srch str array */
+u_int64_t load_ident_array(INODEPTR *);             /* load ident array    */
 int	qs_url_cmph( const void*, const void*);     /* compare by hits     */
 int	qs_url_cmpk( const void*, const void*);     /* compare by kbytes   */
 int	qs_url_cmpn( const void*, const void*);     /* compare by entrys   */
@@ -100,12 +98,12 @@ int     qs_srch_cmph(const void*, const void*);     /* compare by hits     */
 int     qs_ident_cmph(const void*, const void*);    /* compare by hits     */
 int     qs_ident_cmpk(const void*, const void*);    /* compare by kbytes   */
 
-int     all_sites_page(u_long, u_long);             /* output site page    */
-int     all_urls_page(u_long, u_long);              /* output urls page    */
-int     all_refs_page(u_long, u_long);              /* output refs page    */
-int     all_agents_page(u_long, u_long);            /* output agents page  */
-int     all_search_page(u_long, u_long);            /* output search page  */
-int     all_users_page(u_long, u_long);             /* output ident page   */
+int     all_sites_page(u_int64_t, u_int64_t);       /* output site page    */
+int     all_urls_page(u_int64_t, u_int64_t);        /* output urls page    */
+int     all_refs_page(u_int64_t, u_int64_t);        /* output refs page    */
+int     all_agents_page(u_int64_t, u_int64_t);      /* output agents page  */
+int     all_search_page(u_int64_t, u_int64_t);      /* output search page  */
+int     all_users_page(u_int64_t, u_int64_t);       /* output ident page   */
 void    dump_all_sites();                           /* dump sites tab file */
 void    dump_all_urls();                            /* dump urls tab file  */
 void    dump_all_refs();                            /* dump refs tab file  */
@@ -129,14 +127,23 @@ void    dump_all_search();                          /* dump search file    */
 #define CYAN           "#00E0FF"
 #define GRPCOLOR       "#D0D0E0"
 
+/* configurable html colors */
+#define HITCOLOR       hit_color
+#define FILECOLOR      file_color
+#define SITECOLOR      site_color
+#define KBYTECOLOR     kbyte_color
+#define PAGECOLOR      page_color
+#define VISITCOLOR     visit_color
+#define MISCCOLOR      misc_color
+
 /* sort arrays */
-UNODEPTR *u_array      = NULL;                /* Sort array for URL's     */
+UNODEPTR *u_array      = NULL;                /* Sort array for URLs      */
 HNODEPTR *h_array      = NULL;                /* hostnames (sites)        */
 RNODEPTR *r_array      = NULL;                /* referrers                */
 ANODEPTR *a_array      = NULL;                /* user agents              */
 SNODEPTR *s_array      = NULL;                /* search strings           */
 INODEPTR *i_array      = NULL;                /* ident strings (username) */
-u_long   a_ctr         = 0;                   /* counter for sort array   */
+u_int64_t a_ctr        = 0;                   /* counter for sort array   */
 
 FILE     *out_fp;
 
@@ -168,12 +175,11 @@ void write_html_head(char *period, FILE *out_fp)
    fprintf(out_fp,"<!-- Generated by The Webalizer  Ver. %s-%s -->\n",
       version,editlvl);
    fprintf(out_fp,"<!--                                          -->\n");
-   fprintf(out_fp,"<!-- Copyright 1997-2000 Bradford L. Barrett  -->\n");
-   fprintf(out_fp,"<!-- (brad@mrunix.net  http://www.mrunix.net) -->\n");
+   fprintf(out_fp,"<!-- Copyright 1997-2011  Bradford L. Barrett -->\n");
    fprintf(out_fp,"<!--                                          -->\n");
    fprintf(out_fp,"<!-- Distributed under the GNU GPL  Version 2 -->\n");
    fprintf(out_fp,"<!--        Full text may be found at:        -->\n");
-   fprintf(out_fp,"<!--     http://www.mrunix.net/webalizer/     -->\n");
+   fprintf(out_fp,"<!--         http://www.webalizer.org         -->\n");
    fprintf(out_fp,"<!--                                          -->\n");
    fprintf(out_fp,"<!--  Give the power back to the programmers  -->\n");
    fprintf(out_fp,"<!--   Support the Free Software Foundation   -->\n");
@@ -181,9 +187,9 @@ void write_html_head(char *period, FILE *out_fp)
    fprintf(out_fp,"<!--                                          -->\n");
    fprintf(out_fp,"<!-- *** Generated: %s *** -->\n\n",cur_time());
 
-   fprintf(out_fp,"<HTML>\n<HEAD>\n");
+   fprintf(out_fp,"<HTML lang=\"%s\">\n<HEAD>\n",langcode);
    fprintf(out_fp," <TITLE>%s %s - %s</TITLE>\n",
-                  msg_title, hname, period);
+                  msg_title, hname, (period)?period:msg_main_per);
    lptr=html_head;
    while (lptr!=NULL)
    {
@@ -206,7 +212,10 @@ void write_html_head(char *period, FILE *out_fp)
       }
    }
    fprintf(out_fp,"<H2>%s %s</H2>\n",msg_title, hname);
-   fprintf(out_fp,"<SMALL><STRONG>\n%s: %s<BR>\n",msg_hhdr_sp,period);
+   if (period)
+      fprintf(out_fp,"<SMALL><STRONG>\n%s: %s<BR>\n",msg_hhdr_sp,period);
+   else
+      fprintf(out_fp,"<SMALL><STRONG>\n%s<BR>\n",msg_main_per);
    fprintf(out_fp,"%s %s<BR>\n</STRONG></SMALL>\n",msg_hhdr_gt,cur_time());
    lptr=html_post;
    while (lptr!=NULL)
@@ -232,7 +241,7 @@ void write_html_tail(FILE *out_fp)
    fprintf(out_fp,"<TR>\n");
    fprintf(out_fp,"<TD ALIGN=left VALIGN=top>\n");
    fprintf(out_fp,"<SMALL>Generated by\n");
-   fprintf(out_fp,"<A HREF=\"http://www.mrunix.net/webalizer/\">");
+   fprintf(out_fp,"<A HREF=\"http://www.webalizer.org/\">");
    fprintf(out_fp,"<STRONG>Webalizer Version %s</STRONG></A>\n",version);
    fprintf(out_fp,"</SMALL>\n</TD>\n");
    lptr=html_tail;
@@ -269,7 +278,6 @@ void write_html_tail(FILE *out_fp)
 
 int write_month_html()
 {
-   int i;
    char html_fname[256];           /* filename storage areas...       */
    char png1_fname[32];
    char png2_fname[32];
@@ -281,28 +289,17 @@ int write_month_html()
    if (verbose>1)
       printf("%s %s %d\n",msg_gen_rpt, l_month[cur_month-1], cur_year);
 
-   /* update history */
-   i=cur_month-1;
-   hist_month[i] =  cur_month;
-   hist_year[i]  =  cur_year;
-   hist_hit[i]   =  t_hit;
-   hist_files[i] =  t_file;
-   hist_page[i]  =  t_page;
-   hist_visit[i] =  t_visit;
-   hist_site[i]  =  t_site;
-   hist_xfer[i]  =  t_xfer/1024;
-   hist_fday[i]  =  f_day;
-   hist_lday[i]  =  l_day;
-
    /* fill in filenames */
-   sprintf(html_fname,"usage_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(html_fname,sizeof(html_fname),"usage_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
    sprintf(png1_fname,"daily_usage_%04d%02d.png",cur_year,cur_month);
    sprintf(png2_fname,"hourly_usage_%04d%02d.png",cur_year,cur_month);
 
    /* create PNG images for web page */
    if (daily_graph)
    {
-      sprintf(dtitle,"%s %s %d",msg_hmth_du,l_month[cur_month-1],cur_year);
+      snprintf(dtitle,sizeof(dtitle),"%s %s %d",
+               msg_hmth_du,l_month[cur_month-1],cur_year);
       month_graph6 (  png1_fname,          /* filename          */
                       dtitle,              /* graph title       */
                       cur_month,           /* graph month       */
@@ -317,7 +314,8 @@ int write_month_html()
 
    if (hourly_graph)
    {
-      sprintf(htitle,"%s %s %d",msg_hmth_hu,l_month[cur_month-1],cur_year);
+      snprintf(htitle,sizeof(htitle),"%s %s %d",
+               msg_hmth_hu,l_month[cur_month-1],cur_year);
       day_graph3(    png2_fname,
                      htitle,
                      th_hit,
@@ -329,7 +327,7 @@ int write_month_html()
    /* first, open the file */
    if ( (out_fp=open_out_file(html_fname))==NULL ) return 1;
 
-   sprintf(buffer,"%s %d",l_month[cur_month-1],cur_year);
+   snprintf(buffer,sizeof(buffer),"%s %d",l_month[cur_month-1],cur_year);
    write_html_head(buffer, out_fp);
    month_links();
    month_total_table();
@@ -358,10 +356,10 @@ int write_month_html()
      if (ntop_urls || dump_urls)
      {
        qsort(u_array,a_ctr,sizeof(UNODEPTR),qs_url_cmph);
-       if (ntop_urls) top_urls_table(0);   /* Top URL's (by hits)           */
-       if (dump_urls) dump_all_urls();     /* Dump URLS tab file            */
+       if (ntop_urls) top_urls_table(0);   /* Top URLs (by hits)            */
+       if (dump_urls) dump_all_urls();     /* Dump URLs tab file            */
      }
-     if (ntop_urlsK)                       /* Top URL's (by kbytes)         */
+     if (ntop_urlsK)                       /* Top URLs (by kbytes)          */
       {qsort(u_array,a_ctr,sizeof(UNODEPTR),qs_url_cmpk); top_urls_table(1); }
      if (ntop_entry)                       /* Top Entry Pages               */
       {qsort(u_array,a_ctr,sizeof(UNODEPTR),qs_url_cmpn); top_entry_table(0);}
@@ -490,7 +488,7 @@ void month_links()
       fprintf(out_fp,"<A HREF=\"#TOPSITES\">[%s]</A>\n",msg_hlnk_s);
    if (ntop_refs && t_ref)
       fprintf(out_fp,"<A HREF=\"#TOPREFS\">[%s]</A>\n",msg_hlnk_r);
-   if (ntop_search && t_ref)
+   if (ntop_search)
       fprintf(out_fp,"<A HREF=\"#TOPSEARCH\">[%s]</A>\n",msg_hlnk_sr);
    if (ntop_users && t_user)
       fprintf(out_fp,"<A HREF=\"#TOPUSERS\">[%s]</A>\n",msg_hlnk_i);
@@ -508,7 +506,7 @@ void month_links()
 void month_total_table()
 {
    int i,days_in_month;
-   u_long max_files=0,max_hits=0,max_visits=0,max_pages=0;
+   u_int64_t max_files=0,max_hits=0,max_visits=0,max_pages=0,max_sites=0;
    double max_xfer=0.0;
 
    days_in_month=(l_day-f_day)+1;
@@ -518,6 +516,7 @@ void month_total_table()
       if (tm_file[i]>max_files)   max_files = tm_file[i];
       if (tm_page[i]>max_pages)   max_pages = tm_page[i];
       if (tm_visit[i]>max_visits) max_visits= tm_visit[i];
+      if (tm_site[i]>max_sites)   max_sites = tm_site[i];
       if (tm_xfer[i]>max_xfer)    max_xfer  = tm_xfer[i];
    }
 
@@ -528,19 +527,19 @@ void month_total_table()
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    /* Total Hits */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%lu</B>"               \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
       "</FONT></TD></TR>\n",msg_mtot_th,t_hit);
    /* Total Files */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%lu</B>"               \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
       "</FONT></TD></TR>\n",msg_mtot_tf,t_file);
    /* Total Pages */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s %s</FONT></TD>\n"  \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%lu</B>"               \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
       "</FONT></TD></TR>\n",msg_h_total, msg_h_pages, t_page);
    /* Total Visits */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s %s</FONT></TD>\n"  \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%lu</B>"               \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
       "</FONT></TD></TR>\n",msg_h_total, msg_h_visits, t_visit);
    /* Total XFer */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"     \
@@ -551,30 +550,30 @@ void month_total_table()
    /* Unique Sites */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"                     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%lu</B>"               \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
       "</FONT></TD></TR>\n",msg_mtot_us,t_site);
-   /* Unique URL's */
+   /* Unique URLs */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"                     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%lu</B>"               \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
       "</FONT></TD></TR>\n",msg_mtot_uu,t_url);
    /* Unique Referrers */
    if (t_ref != 0)
    fprintf(out_fp,"<TR>"                                                     \
       "<TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"                     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%lu</B>"               \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
       "</FONT></TD></TR>\n",msg_mtot_ur,t_ref);
    /* Unique Usernames */
    if (t_user != 0)
    fprintf(out_fp,"<TR>"                                                     \
       "<TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"                     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%lu</B>"               \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
       "</FONT></TD></TR>\n",msg_mtot_ui,t_user);
    /* Unique Agents */
    if (t_agent != 0)
    fprintf(out_fp,"<TR>"                                                     \
       "<TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"                     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%lu</B>"               \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
       "</FONT></TD></TR>\n",msg_mtot_ua,t_agent);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    /**********************************************/
@@ -590,32 +589,38 @@ void month_total_table()
    /* Max/Avg Hits per Hour */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%lu</B>"                    \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
       "</FONT></TD></TR>\n",msg_mtot_mhh, t_hit/(24*days_in_month),mh_hit);
    /* Max/Avg Hits per Day */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%lu</B>"                    \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
       "</FONT></TD></TR>\n",msg_mtot_mhd, t_hit/days_in_month, max_hits);
    /* Max/Avg Files per Day */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%lu</B>"                    \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
       "</FONT></TD></TR>\n",msg_mtot_mfd, t_file/days_in_month,max_files);
    /* Max/Avg Pages per Day */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%lu</B>"                    \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
       "</FONT></TD></TR>\n",msg_mtot_mpd, t_page/days_in_month,max_pages);
+   /* Max/Avg Sites per Day */
+   fprintf(out_fp,"<TR>"                                                     \
+      "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
+      "</FONT></TD></TR>\n",msg_mtot_msd, t_site/days_in_month,max_sites);
    /* Max/Avg Visits per Day */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%lu</B>"                    \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
       "</FONT></TD></TR>\n",msg_mtot_mvd, t_visit/days_in_month,max_visits);
    /* Max/Avg KBytes per Day */
    fprintf(out_fp,"<TR>"                                                     \
@@ -634,9 +639,9 @@ void month_total_table()
    {
       if (response[i].count != 0)
          fprintf(out_fp,"<TR><TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"         \
-            "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%lu</B>"         \
-            "</FONT></TD></TR>\n",
-            response[i].desc, response[i].count);
+            "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"       \
+            "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD></TR>\n",
+            response[i].desc,PCENT(response[i].count,t_hit),response[i].count);
    }
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    /**********************************************/
@@ -651,7 +656,7 @@ void month_total_table()
 
 void daily_total_table()
 {
-   int i;
+   int i,j;
 
    /* Daily stats */
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
@@ -675,41 +680,44 @@ void daily_total_table()
                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n"                       \
                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"               \
                   "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
-                  GREY,    msg_h_day,
-                  DKGREEN, msg_h_hits,
-                  LTBLUE,  msg_h_files,
-                  CYAN,    msg_h_pages,
-                  YELLOW,  msg_h_visits,
-                  ORANGE,  msg_h_sites,
-                  RED,     msg_h_xfer);
+                  GREY,       msg_h_day,
+                  HITCOLOR,   msg_h_hits,
+                  FILECOLOR,  msg_h_files,
+                  PAGECOLOR,  msg_h_pages,
+                  VISITCOLOR, msg_h_visits,
+                  SITECOLOR,  msg_h_sites,
+                  KBYTECOLOR, msg_h_xfer);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
    /* skip beginning blank days in a month */
-   for (i=0;i<hist_lday[cur_month-1];i++) if (tm_hit[i]!=0) break;
-   if (i==hist_lday[cur_month-1]) i=0;
+   for (i=0;i<l_day;i++) if (tm_hit[i]!=0) break;
+   if (i==l_day) i=0;
 
-   for (;i<hist_lday[cur_month-1];i++)
+   for (;i<l_day;i++)
    {
-      fprintf(out_fp,"<TR><TD ALIGN=center>"                                 \
-              "<FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n", i+1);
+      j = jdate(i+1,cur_month,cur_year);
+      if ( (j%7==6) || (j%7==0) )
+           fprintf(out_fp,"<TR BGCOLOR=\"%s\"><TD ALIGN=center>",GRPCOLOR);
+      else fprintf(out_fp,"<TR><TD ALIGN=center>");
+      fprintf(out_fp,"<FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n", i+1);
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
-              "<FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"                   \
+              "<FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"                  \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
               tm_hit[i],PCENT(tm_hit[i],t_hit));
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
-              "<FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"                   \
+              "<FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"                  \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
               tm_file[i],PCENT(tm_file[i],t_file));
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
-              "<FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"                   \
+              "<FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"                  \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
               tm_page[i],PCENT(tm_page[i],t_page));
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
-              "<FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"                   \
+              "<FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"                  \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
               tm_visit[i],PCENT(tm_visit[i],t_visit));
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
-              "<FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"                   \
+              "<FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"                  \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
               tm_site[i],PCENT(tm_site[i],t_site));
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
@@ -728,9 +736,9 @@ void daily_total_table()
 
 void hourly_total_table()
 {
-   int i,days_in_month;
-   u_long avg_file=0;
-   double avg_xfer=0.0;
+   int       i,days_in_month;
+   u_int64_t avg_file=0;
+   double    avg_xfer=0.0;
 
    days_in_month=(l_day-f_day)+1;
 
@@ -751,31 +759,31 @@ void hourly_total_table()
                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n"             \
                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=3>"     \
                   "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
-                  GREY,    msg_h_hour,
-                  DKGREEN, msg_h_hits,
-                  LTBLUE,  msg_h_files,
-                  CYAN,    msg_h_pages,
-                  RED,     msg_h_xfer);
+                  GREY,       msg_h_hour,
+                  HITCOLOR,   msg_h_hits,
+                  FILECOLOR,  msg_h_files,
+                  PAGECOLOR,  msg_h_pages,
+                  KBYTECOLOR, msg_h_xfer);
    fprintf(out_fp,"<TR><TH ALIGN=center BGCOLOR=\"%s\">"           \
                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"     \
                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n",
-                  DKGREEN, msg_h_avg, DKGREEN, msg_h_total);
+                  HITCOLOR, msg_h_avg, HITCOLOR, msg_h_total);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"               \
                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"     \
                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n",
-                  LTBLUE, msg_h_avg, LTBLUE, msg_h_total);
+                  FILECOLOR, msg_h_avg, FILECOLOR, msg_h_total);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"               \
                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"     \
                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n",
-                  CYAN, msg_h_avg, CYAN, msg_h_total);
+                  PAGECOLOR, msg_h_avg, PAGECOLOR, msg_h_total);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"               \
                   "<FONT SIZE=\"-2\">%s</FONT></TH>\n"             \
                   "<TH ALIGN=center BGCOLOR=\"%s\" COLSPAN=2>"     \
                   "<FONT SIZE=\"-2\">%s</FONT></TH></TR>\n",
-                  RED, msg_h_avg, RED, msg_h_total);
+                  KBYTECOLOR, msg_h_avg, KBYTECOLOR, msg_h_total);
 
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    for (i=0;i<24;i++)
@@ -783,20 +791,20 @@ void hourly_total_table()
       fprintf(out_fp,"<TR><TD ALIGN=center>"                          \
          "<FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n",i);
       fprintf(out_fp,
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
          "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
          th_hit[i]/days_in_month,th_hit[i],
          PCENT(th_hit[i],t_hit));
       fprintf(out_fp,
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
          "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
          th_file[i]/days_in_month,th_file[i],
          PCENT(th_file[i],t_file));
       fprintf(out_fp,
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
          "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
          th_page[i]/days_in_month,th_page[i],
          PCENT(th_page[i],t_page));
@@ -819,9 +827,9 @@ void hourly_total_table()
 
 void top_sites_table(int flag)
 {
-   u_long cnt=0, h_reg=0, h_grp=0, h_hid=0, tot_num;
-   int i;
-   HNODEPTR hptr, *pointer;
+   u_int64_t cnt=0, h_reg=0, h_grp=0, h_hid=0, tot_num;
+   int       i;
+   HNODEPTR  hptr, *pointer;
 
    cnt=a_ctr; pointer=h_array;
    while(cnt--)
@@ -846,25 +854,25 @@ void top_sites_table(int flag)
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    if (flag) fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=10>" \
-           "%s %lu %s %lu %s %s %s</TH></TR>\n",
+           "%s %llu %s %llu %s %s %s</TH></TR>\n",
            GREY, msg_top_top,tot_num,msg_top_of,
            t_site,msg_top_s,msg_h_by,msg_h_xfer);
    else      fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=10>" \
-           "%s %lu %s %lu %s</TH></TR>\n",
+           "%s %llu %s %llu %s</TH></TR>\n",
            GREY,msg_top_top, tot_num, msg_top_of, t_site, msg_top_s);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                    \
           "<FONT SIZE=\"-1\">#</FONT></TH>\n",GREY);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",DKGREEN,msg_h_hits);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",HITCOLOR,msg_h_hits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_files);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_files);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",RED,msg_h_xfer);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",KBYTECOLOR,msg_h_xfer);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"              \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",YELLOW,msg_h_visits);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                        \
-          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",CYAN,msg_h_hname);
+          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",MISCCOLOR,msg_h_hname);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
    pointer=h_array; i=0;
@@ -880,13 +888,13 @@ void top_sites_table(int flag)
 
          fprintf(out_fp,
               "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n"  \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
               "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%.0f</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
               "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
               i+1,hptr->count,
@@ -930,7 +938,7 @@ void top_sites_table(int flag)
 /* ALL_SITES_PAGE - HTML page of all sites   */
 /*********************************************/
 
-int all_sites_page(u_long h_reg, u_long h_grp)
+int all_sites_page(u_int64_t h_reg, u_int64_t h_grp)
 {
    HNODEPTR hptr, *pointer;
    char     site_fname[256], buffer[256];
@@ -938,12 +946,14 @@ int all_sites_page(u_long h_reg, u_long h_grp)
    int      i=(h_grp)?1:0;
 
    /* generate file name */
-   sprintf(site_fname,"site_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(site_fname,sizeof(site_fname),"site_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(site_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_sites);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_sites);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -961,7 +971,8 @@ int all_sites_page(u_long h_reg, u_long h_grp)
       if (hptr->flag == OBJ_GRP)
       {
          fprintf(out_fp,
-         "%-8lu %6.02f%%  %8lu %6.02f%%  %8.0f %6.02f%%  %8lu %6.02f%%  %s\n",
+            "%-8llu %6.02f%%  %8llu %6.02f%%  %8.0f %6.02f%%  "            \
+            "%8llu %6.02f%%  %s\n",
             hptr->count,
             (t_hit==0)?0:((float)hptr->count/t_hit)*100.0,hptr->files,
             (t_file==0)?0:((float)hptr->files/t_file)*100.0,hptr->xfer/1024,
@@ -982,7 +993,8 @@ int all_sites_page(u_long h_reg, u_long h_grp)
       if (hptr->flag == OBJ_REG)
       {
          fprintf(out_fp,
-         "%-8lu %6.02f%%  %8lu %6.02f%%  %8.0f %6.02f%%  %8lu %6.02f%%  %s\n",
+            "%-8llu %6.02f%%  %8llu %6.02f%%  %8.0f %6.02f%%  "            \
+            "%8llu %6.02f%%  %s\n",
             hptr->count,
             (t_hit==0)?0:((float)hptr->count/t_hit)*100.0,hptr->files,
             (t_file==0)?0:((float)hptr->files/t_file)*100.0,hptr->xfer/1024,
@@ -1005,9 +1017,9 @@ int all_sites_page(u_long h_reg, u_long h_grp)
 
 void top_urls_table(int flag)
 {
-   u_long cnt=0,u_reg=0,u_grp=0,u_hid=0, tot_num;
-   int i;
-   UNODEPTR uptr, *pointer;
+   u_int64_t cnt=0,u_reg=0,u_grp=0,u_hid=0, tot_num;
+   int       i;
+   UNODEPTR  uptr, *pointer;
 
    cnt=a_ctr; pointer=u_array;
    while (cnt--)
@@ -1031,24 +1043,24 @@ void top_urls_table(int flag)
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    if (flag) fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=6>"  \
-           "%s %lu %s %lu %s %s %s</TH></TR>\n",
+           "%s %llu %s %llu %s %s %s</TH></TR>\n",
            GREY,msg_top_top,tot_num,msg_top_of,
            t_url,msg_top_u,msg_h_by,msg_h_xfer);
    else fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=6>"   \
-           "%s %lu %s %lu %s</TH></TR>\n",
+           "%s %llu %s %llu %s</TH></TR>\n",
            GREY,msg_top_top,tot_num,msg_top_of,t_url,msg_top_u);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                  \
                   "<FONT SIZE=\"-1\">#</FONT></TH>\n",GREY);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
-                  DKGREEN,msg_h_hits);
+                  HITCOLOR,msg_h_hits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
-                  RED,msg_h_xfer);
+                  KBYTECOLOR,msg_h_xfer);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                      \
                   "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
-                  CYAN,msg_h_url);
+                  MISCCOLOR,msg_h_url);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
    pointer=u_array; i=0;
@@ -1064,7 +1076,7 @@ void top_urls_table(int flag)
 
          fprintf(out_fp,
             "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
-            "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
+            "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
             "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%.0f</B></FONT></TD>\n"\
             "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
@@ -1135,7 +1147,7 @@ void top_urls_table(int flag)
 /* ALL_URLS_PAGE - HTML page of all urls     */
 /*********************************************/
 
-int all_urls_page(u_long u_reg, u_long u_grp)
+int all_urls_page(u_int64_t u_reg, u_int64_t u_grp)
 {
    UNODEPTR uptr, *pointer;
    char     url_fname[256], buffer[256];
@@ -1143,12 +1155,14 @@ int all_urls_page(u_long u_reg, u_long u_grp)
    int      i=(u_grp)?1:0;
 
    /* generate file name */
-   sprintf(url_fname,"url_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(url_fname,sizeof(url_fname),"url_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(url_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_url);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_url);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1165,7 +1179,7 @@ int all_urls_page(u_long u_reg, u_long u_grp)
       uptr=*pointer++;
       if (uptr->flag == OBJ_GRP)
       {
-         fprintf(out_fp,"%-8lu %6.02f%%  %8.0f %6.02f%%  %s\n",
+         fprintf(out_fp,"%-8llu %6.02f%%  %8.0f %6.02f%%  %s\n",
             uptr->count,
             (t_hit==0)?0:((float)uptr->count/t_hit)*100.0,
             uptr->xfer/1024,
@@ -1184,7 +1198,7 @@ int all_urls_page(u_long u_reg, u_long u_grp)
       uptr=*pointer++;
       if (uptr->flag == OBJ_REG)
       {
-         fprintf(out_fp,"%-8lu %6.02f%%  %8.0f %6.02f%%  %s\n",
+         fprintf(out_fp,"%-8llu %6.02f%%  %8.0f %6.02f%%  %s\n",
             uptr->count,
             (t_hit==0)?0:((float)uptr->count/t_hit)*100.0,
             uptr->xfer/1024,
@@ -1206,20 +1220,20 @@ int all_urls_page(u_long u_reg, u_long u_grp)
 
 void top_entry_table(int flag)
 {
-   u_long cnt=0, u_entry=0, u_exit=0, tot_num;
-   u_long t_entry=0, t_exit=0;
-   int i;
-   UNODEPTR uptr, *pointer;
+   u_int64_t cnt=0, u_entry=0, u_exit=0, tot_num;
+   u_int64_t t_entry=0, t_exit=0;
+   int       i;
+   UNODEPTR  uptr, *pointer;
 
    cnt=a_ctr; pointer=u_array;
    while (cnt--)
    {
       if ( (int)((UNODEPTR)(*pointer)->flag) == OBJ_REG )
       {
-         if ( (u_long)((UNODEPTR)(*pointer)->entry) )
-            {  u_entry++; t_entry+=(u_long)((UNODEPTR)(*pointer)->entry); }
-         if ( (u_long)((UNODEPTR)(*pointer)->exit)  )
-            { u_exit++;   t_exit +=(u_long)((UNODEPTR)(*pointer)->exit);  }
+         if ( (u_int64_t)(((UNODEPTR)(*pointer))->entry) )
+            {  u_entry++; t_entry+=(u_int64_t)(((UNODEPTR)(*pointer))->entry); }
+         if ( (u_int64_t)(((UNODEPTR)(*pointer))->exit)  )
+            { u_exit++;   t_exit +=(u_int64_t)(((UNODEPTR)(*pointer))->exit);  }
       }
       pointer++;
    }
@@ -1238,7 +1252,7 @@ void top_entry_table(int flag)
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=6>"        \
-           "%s %lu %s %lu %s</TH></TR>\n",
+           "%s %llu %s %llu %s</TH></TR>\n",
            GREY,msg_top_top,tot_num,msg_top_of,
            (flag)?u_exit:u_entry,(flag)?msg_top_ex:msg_top_en);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
@@ -1247,13 +1261,13 @@ void top_entry_table(int flag)
                   GREY);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
-                  DKGREEN,msg_h_hits);
+                  HITCOLOR,msg_h_hits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
-                  YELLOW,msg_h_visits);
+                  VISITCOLOR,msg_h_visits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                      \
                   "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
-                  CYAN,msg_h_url);
+                  MISCCOLOR,msg_h_url);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
    pointer=u_array; i=0;
@@ -1265,9 +1279,9 @@ void top_entry_table(int flag)
          fprintf(out_fp,"<TR>\n");
          fprintf(out_fp,
              "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
-             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
+             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
              "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
-             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
+             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
              "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
              "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
              i+1,uptr->count,
@@ -1308,9 +1322,9 @@ void top_entry_table(int flag)
 
 void top_refs_table()
 {
-   u_long cnt=0, r_reg=0, r_grp=0, r_hid=0, tot_num;
-   int i;
-   RNODEPTR rptr, *pointer;
+   u_int64_t cnt=0, r_reg=0, r_grp=0, r_hid=0, tot_num;
+   int       i;
+   RNODEPTR  rptr, *pointer;
 
    if (t_ref==0) return;        /* return if none to process */
 
@@ -1334,7 +1348,7 @@ void top_refs_table()
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=4>"         \
-           "%s %lu %s %lu %s</TH></TR>\n",
+           "%s %llu %s %llu %s</TH></TR>\n",
            GREY, msg_top_top, tot_num, msg_top_of, t_ref, msg_top_r);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                   \
@@ -1342,10 +1356,10 @@ void top_refs_table()
           GREY);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
-          DKGREEN,msg_h_hits);
+          HITCOLOR,msg_h_hits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                       \
           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
-          CYAN,msg_h_ref);
+          MISCCOLOR,msg_h_ref);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
    pointer=r_array; i=0;
@@ -1361,7 +1375,7 @@ void top_refs_table()
 
          fprintf(out_fp,
              "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n"  \
-             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
+             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
              "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
              "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
              i+1,rptr->count,
@@ -1375,11 +1389,12 @@ void top_refs_table()
          }
          else
          {
-            if (rptr->string[0] != '-')
-            fprintf(out_fp,"<A HREF=\"%s\">%s</A>",
-                rptr->string, rptr->string);
+            /* only link if enabled and has a service prefix */
+            if ( (strstr(rptr->string,"://")!=NULL) && link_referrer )
+               fprintf(out_fp,"<A HREF=\"%s\" rel=\"nofollow\">%s</A>",
+                       rptr->string, rptr->string);
             else
-            fprintf(out_fp,"%s", rptr->string);
+               fprintf(out_fp,"%s", rptr->string);
          }
          fprintf(out_fp,"</FONT></TD></TR>\n");
          tot_num--;
@@ -1406,7 +1421,7 @@ void top_refs_table()
 /* ALL_REFS_PAGE - HTML page of all refs     */
 /*********************************************/
 
-int all_refs_page(u_long r_reg, u_long r_grp)
+int all_refs_page(u_int64_t r_reg, u_int64_t r_grp)
 {
    RNODEPTR rptr, *pointer;
    char     ref_fname[256], buffer[256];
@@ -1414,12 +1429,14 @@ int all_refs_page(u_long r_reg, u_long r_grp)
    int      i=(r_grp)?1:0;
 
    /* generate file name */
-   sprintf(ref_fname,"ref_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(ref_fname,sizeof(ref_fname),"ref_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(ref_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_ref);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_ref);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1434,7 +1451,7 @@ int all_refs_page(u_long r_reg, u_long r_grp)
       rptr=*pointer++;
       if (rptr->flag == OBJ_GRP)
       {
-         fprintf(out_fp,"%-8lu %6.02f%%  %s\n",
+         fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
             rptr->count,
             (t_hit==0)?0:((float)rptr->count/t_hit)*100.0,
             rptr->string);
@@ -1450,7 +1467,7 @@ int all_refs_page(u_long r_reg, u_long r_grp)
       rptr=*pointer++;
       if (rptr->flag == OBJ_REG)
       {
-         fprintf(out_fp,"%-8lu %6.02f%%  %s\n",
+         fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
             rptr->count,
             (t_hit==0)?0:((float)rptr->count/t_hit)*100.0,
             rptr->string);
@@ -1470,9 +1487,9 @@ int all_refs_page(u_long r_reg, u_long r_grp)
 
 void top_agents_table()
 {
-   u_long cnt, a_reg=0, a_grp=0, a_hid=0, tot_num;
-   int i;
-   ANODEPTR aptr, *pointer;
+   u_int64_t cnt, a_reg=0, a_grp=0, a_hid=0, tot_num;
+   int       i;
+   ANODEPTR  aptr, *pointer;
 
    if (t_agent == 0) return;    /* don't bother if we don't have any */
 
@@ -1496,7 +1513,7 @@ void top_agents_table()
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=4>"        \
-          "%s %lu %s %lu %s</TH></TR>\n",
+          "%s %llu %s %llu %s</TH></TR>\n",
           GREY, msg_top_top, tot_num, msg_top_of, t_agent, msg_top_a);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                  \
@@ -1504,10 +1521,10 @@ void top_agents_table()
           GREY);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
-          DKGREEN,msg_h_hits);
+          HITCOLOR,msg_h_hits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                      \
           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
-          CYAN,msg_h_agent);
+          MISCCOLOR,msg_h_agent);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
    pointer=a_array; i=0;
@@ -1523,7 +1540,7 @@ void top_agents_table()
 
          fprintf(out_fp,
              "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
-             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
+             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
              "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
              "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
              i+1,aptr->count,
@@ -1558,7 +1575,7 @@ void top_agents_table()
 /* ALL_AGENTS_PAGE - HTML user agent page    */
 /*********************************************/
 
-int all_agents_page(u_long a_reg, u_long a_grp)
+int all_agents_page(u_int64_t a_reg, u_int64_t a_grp)
 {
    ANODEPTR aptr, *pointer;
    char     agent_fname[256], buffer[256];
@@ -1566,12 +1583,14 @@ int all_agents_page(u_long a_reg, u_long a_grp)
    int      i=(a_grp)?1:0;
 
    /* generate file name */
-   sprintf(agent_fname,"agent_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(agent_fname,sizeof(agent_fname),"agent_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(agent_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_agent);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_agent);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1586,7 +1605,7 @@ int all_agents_page(u_long a_reg, u_long a_grp)
       aptr=*pointer++;
       if (aptr->flag == OBJ_GRP)
       {
-         fprintf(out_fp,"%-8lu %6.02f%%  %s\n",
+         fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
              aptr->count,
              (t_hit==0)?0:((float)aptr->count/t_hit)*100.0,
              aptr->string);
@@ -1602,7 +1621,7 @@ int all_agents_page(u_long a_reg, u_long a_grp)
       aptr=*pointer++;
       if (aptr->flag == OBJ_REG)
       {
-         fprintf(out_fp,"%-8lu %6.02f%%  %s\n",
+         fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
              aptr->count,
              (t_hit==0)?0:((float)aptr->count/t_hit)*100.0,
              aptr->string);
@@ -1622,16 +1641,16 @@ int all_agents_page(u_long a_reg, u_long a_grp)
 
 void top_search_table()
 {
-   u_long   cnt,t_val=0, tot_num;
-   int      i;
-   SNODEPTR sptr, *pointer;
+   u_int64_t cnt,t_val=0, tot_num;
+   int       i;
+   SNODEPTR  sptr, *pointer;
 
-   if ( (t_ref==0)||(a_ctr==0)) return;   /* don't bother if none to do    */
+   if (a_ctr==0) return;                  /* don't bother if none to do    */
 
    cnt=tot_num=a_ctr; pointer=s_array;
    while(cnt--)
    {
-      t_val+=(u_long)((SNODEPTR)(*pointer)->count);
+      t_val+=(u_int64_t)(((SNODEPTR)(*pointer))->count);
       pointer++;
    }
 
@@ -1641,7 +1660,7 @@ void top_search_table()
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=4>"        \
-          "%s %lu %s %lu %s</TH></TR>\n",
+          "%s %llu %s %llu %s</TH></TR>\n",
           GREY, msg_top_top, tot_num, msg_top_of, a_ctr, msg_top_sr);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                  \
@@ -1649,10 +1668,10 @@ void top_search_table()
           GREY);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
           "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
-          DKGREEN,msg_h_hits);
+          HITCOLOR,msg_h_hits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                      \
           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
-          CYAN,msg_h_search);
+          MISCCOLOR,msg_h_search);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
    pointer=s_array; i=0;
@@ -1662,7 +1681,7 @@ void top_search_table()
       fprintf(out_fp,
          "<TR>\n"                                                     \
          "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
          "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
          "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
          i+1,sptr->count,
@@ -1691,7 +1710,7 @@ void top_search_table()
 /* ALL_SEARCH_PAGE - HTML for search strings */
 /*********************************************/
 
-int all_search_page(u_long tot_num, u_long t_val)
+int all_search_page(u_int64_t tot_num, u_int64_t t_val)
 {
    SNODEPTR sptr, *pointer;
    char     search_fname[256], buffer[256];
@@ -1700,12 +1719,14 @@ int all_search_page(u_long tot_num, u_long t_val)
    if (!tot_num) return 0;
 
    /* generate file name */
-   sprintf(search_fname,"search_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(search_fname,sizeof(search_fname),"search_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(search_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_search);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_search);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1717,7 +1738,7 @@ int all_search_page(u_long tot_num, u_long t_val)
    while(tot_num)
    {
       sptr=*pointer++;
-      fprintf(out_fp,"%-8lu %6.02f%%  %s\n",
+      fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
          sptr->count,
          (t_val==0)?0:((float)sptr->count/t_val)*100.0,
          sptr->string);
@@ -1735,9 +1756,9 @@ int all_search_page(u_long tot_num, u_long t_val)
 
 void top_users_table()
 {
-   u_long cnt=0, i_reg=0, i_grp=0, i_hid=0, tot_num;
-   int i;
-   INODEPTR iptr, *pointer;
+   u_int64_t cnt=0, i_reg=0, i_grp=0, i_hid=0, tot_num;
+   int       i;
+   INODEPTR  iptr, *pointer;
 
    cnt=a_ctr; pointer=i_array;
    while(cnt--)
@@ -1760,21 +1781,21 @@ void top_users_table()
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=10>" \
-           "%s %lu %s %lu %s</TH></TR>\n",
+           "%s %llu %s %llu %s</TH></TR>\n",
            GREY,msg_top_top, tot_num, msg_top_of, t_user, msg_top_i);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                   \
           "<FONT SIZE=\"-1\">#</FONT></TH>\n",GREY);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",DKGREEN,msg_h_hits);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",HITCOLOR,msg_h_hits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_files);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_files);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",RED,msg_h_xfer);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",KBYTECOLOR,msg_h_xfer);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",YELLOW,msg_h_visits);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                       \
-          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",CYAN,msg_h_uname);
+          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",MISCCOLOR,msg_h_uname);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
    pointer=i_array; i=0;
@@ -1790,13 +1811,13 @@ void top_users_table()
 
          fprintf(out_fp,
               "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n"  \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
               "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%.0f</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n"  \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
               "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
               i+1,iptr->count,
@@ -1835,7 +1856,7 @@ void top_users_table()
 /* ALL_USERS_PAGE - HTML of all usernames    */
 /*********************************************/
 
-int all_users_page(u_long i_reg, u_long i_grp)
+int all_users_page(u_int64_t i_reg, u_int64_t i_grp)
 {
    INODEPTR iptr, *pointer;
    char     user_fname[256], buffer[256];
@@ -1843,12 +1864,14 @@ int all_users_page(u_long i_reg, u_long i_grp)
    int      i=(i_grp)?1:0;
 
    /* generate file name */
-   sprintf(user_fname,"user_%04d%02d.%s",cur_year,cur_month,html_ext);
+   snprintf(user_fname,sizeof(user_fname),"user_%04d%02d.%s",
+            cur_year,cur_month,html_ext);
 
    /* open file */
    if ( (out_fp=open_out_file(user_fname))==NULL ) return 0;
 
-   sprintf(buffer,"%s %d - %s",l_month[cur_month-1],cur_year,msg_h_uname);
+   snprintf(buffer,sizeof(buffer),"%s %d - %s",
+            l_month[cur_month-1],cur_year,msg_h_uname);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1866,7 +1889,7 @@ int all_users_page(u_long i_reg, u_long i_grp)
       if (iptr->flag == OBJ_GRP)
       {
          fprintf(out_fp,
-         "%-8lu %6.02f%%  %8lu %6.02f%%  %8.0f %6.02f%%  %8lu %6.02f%%  %s\n",
+      "%-8llu %6.02f%%  %8llu %6.02f%%  %8.0f %6.02f%%  %8llu %6.02f%%  %s\n",
             iptr->count,
             (t_hit==0)?0:((float)iptr->count/t_hit)*100.0,iptr->files,
             (t_file==0)?0:((float)iptr->files/t_file)*100.0,iptr->xfer/1024,
@@ -1887,7 +1910,7 @@ int all_users_page(u_long i_reg, u_long i_grp)
       if (iptr->flag == OBJ_REG)
       {
          fprintf(out_fp,
-         "%-8lu %6.02f%%  %8lu %6.02f%%  %8.0f %6.02f%%  %8lu %6.02f%%  %s\n",
+      "%-8llu %6.02f%%  %8llu %6.02f%%  %8.0f %6.02f%%  %8llu %6.02f%%  %s\n",
             iptr->count,
             (t_hit==0)?0:((float)iptr->count/t_hit)*100.0,iptr->files,
             (t_file==0)?0:((float)iptr->files/t_file)*100.0,iptr->xfer/1024,
@@ -1910,17 +1933,25 @@ int all_users_page(u_long i_reg, u_long i_grp)
 
 void top_ctry_table()
 {
-   int i,j,x,tot_num=0,tot_ctry=0;
-   int ctry_fnd;
-   u_long idx;
-   HNODEPTR hptr;
-   char *domain;
-   u_long pie_data[10];
-   char   *pie_legend[10];
-   char   pie_title[48];
-   char   pie_fname[48];
+   int       i,j,x,tot_num=0,tot_ctry=0;
+   int       ctry_fnd=0;
+   u_int64_t idx;
+   HNODEPTR  hptr;
+   char      *domain;
+   u_int64_t pie_data[10];
+   char      *pie_legend[10];
+   char      pie_title[48];
+   char      pie_fname[48];
+   char      flag_buf[256];
 
    extern int ctry_graph;  /* include external flag */
+
+#ifdef USE_GEOIP
+   extern int    geoip;
+   extern GeoIP  *geo_fp;
+   const  char   *geo_rc=NULL;
+#endif
+   char          geo_ctry[3]="--";
 
    /* scan hash table adding up domain totals */
    for (i=0;i<MAXHASH;i++)
@@ -1930,18 +1961,54 @@ void top_ctry_table()
       {
          if (hptr->flag != OBJ_GRP)   /* ignore group totals */
          {
-            domain = hptr->string+strlen(hptr->string)-1;
-            while ( (*domain!='.')&&(domain!=hptr->string)) domain--;
-            if ((domain==hptr->string)||(isdigit((int)*++domain)))
+            if (isipaddr(hptr->string)>0)
             {
-               ctry[0].count+=hptr->count;
-               ctry[0].files+=hptr->files;
-               ctry[0].xfer +=hptr->xfer;
+               idx=0;                 /* unresolved/unknown  */
+#ifdef USE_DNS
+               if (geodb)
+               {
+                  /* Lookup IP address here, turn into idx   */
+                  geodb_get_cc(geo_db, hptr->string, geo_ctry);
+                  if (geo_ctry[0]=='-')
+                  {
+                     if (debug_mode)
+                        fprintf(stderr,"GeoDB: %s unknown!\n",hptr->string);
+                  }
+                  else idx=ctry_idx(geo_ctry);
+               }
+#endif
+#ifdef USE_GEOIP
+               if (geoip)
+               {
+                  /* Lookup IP address here,  turn into idx  */
+                  geo_rc=GeoIP_country_code_by_addr(geo_fp, hptr->string);
+                  if (geo_rc==NULL||geo_rc[0]=='\0'||geo_rc[0]=='-')
+                  {
+                     if (debug_mode)
+                        fprintf(stderr,"GeoIP: %s unknown (returns '%s')\n",
+                                hptr->string,(geo_rc==NULL)?"null":geo_rc);
+                  }
+                  else
+                  {
+                     /* index returned geo_ctry */
+                     geo_ctry[0]=tolower(geo_rc[0]);
+                     geo_ctry[1]=tolower(geo_rc[1]);
+                     idx=ctry_idx(geo_ctry);
+                  }
+               }
+#endif /* USE_GEOIP */
             }
             else
             {
+               /* resolved hostname.. try to get TLD */
+               domain = hptr->string+strlen(hptr->string)-1;
+               while ( (*domain!='.')&&(domain!=hptr->string)) domain--;
+               if (domain++==hptr->string) idx=0;
+               else idx=ctry_idx(domain);
+            }
+            if (idx!=0)
+            {
                ctry_fnd=0;
-               idx=ctry_idx(domain);
                for (j=0;ctry[j].desc;j++)
                {
                   if (idx==ctry[j].idx)
@@ -1953,12 +2020,12 @@ void top_ctry_table()
                      break;
                   }
                }
-               if (!ctry_fnd)
-               {
-                  ctry[0].count+=hptr->count;
-                  ctry[0].files+=hptr->files;
-                  ctry[0].xfer +=hptr->xfer;
-               }
+            }
+            if (!ctry_fnd || idx==0)
+            {
+               ctry[0].count+=hptr->count;
+               ctry[0].files+=hptr->files;
+               ctry[0].xfer +=hptr->xfer;
             }
          }
          hptr=hptr->next;
@@ -1998,7 +2065,8 @@ void top_ctry_table()
          pie_data[i]=top_ctrys[i]->count;           /* load the array       */
          pie_legend[i]=top_ctrys[i]->desc;
       }
-      sprintf(pie_title,"%s %s %d",msg_ctry_use,l_month[cur_month-1],cur_year);
+      snprintf(pie_title,sizeof(pie_title),"%s %s %d",
+               msg_ctry_use,l_month[cur_month-1],cur_year);
       sprintf(pie_fname,"ctry_usage_%04d%02d.png",cur_year,cur_month);
 
       pie_chart(pie_fname,pie_title,t_hit,pie_data,pie_legend);  /* do it   */
@@ -2009,6 +2077,7 @@ void top_ctry_table()
    }
 
    /* Now do the table */
+
    for (i=0;i<ntop_ctrys;i++) if (top_ctrys[i]->count!=0) tot_num++;
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
@@ -2019,33 +2088,47 @@ void top_ctry_table()
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                   \
           "<FONT SIZE=\"-1\">#</FONT></TH>\n",GREY);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",DKGREEN,msg_h_hits);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",HITCOLOR,msg_h_hits);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_files);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_files);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"             \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",RED,msg_h_xfer);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",KBYTECOLOR,msg_h_xfer);
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                       \
-          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",CYAN,msg_h_ctry);
+          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",MISCCOLOR,msg_h_ctry);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    for (i=0;i<ntop_ctrys;i++)
    {
+      flag_buf[0]=0;
+      if (use_flags)
+      {
+         domain=un_idx((idx=top_ctrys[i]->idx));
+         if (strlen(domain)<3 && idx!=0) /* only to ccTLDs */
+         {
+            if ( domain[0]!='a'||domain[1]!='p' )  /* all but 'ap' */
+            snprintf(flag_buf,sizeof(flag_buf),
+            "<IMG SRC=\"%s/%s.png\" ALT=\"%s\" WIDTH=18 HEIGHT=12> ",
+            flag_dir,domain,top_ctrys[i]->desc);
+         }
+      }
+
       if (top_ctrys[i]->count!=0)
       fprintf(out_fp,"<TR>"                                                \
               "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%lu</B></FONT></TD>\n" \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%.0f</B></FONT></TD>\n" \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%.0f</B></FONT></TD>\n"\
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
-              "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">%s</FONT></TD></TR>\n",
+              "<TD ALIGN=left NOWRAP>%s<FONT SIZE=\"-1\">%s</FONT>"        \
+              "</TD></TR>\n",
               i+1,top_ctrys[i]->count,
               (t_hit==0)?0:((float)top_ctrys[i]->count/t_hit)*100.0,
               top_ctrys[i]->files,
               (t_file==0)?0:((float)top_ctrys[i]->files/t_file)*100.0,
               top_ctrys[i]->xfer/1024,
               (t_xfer==0)?0:((float)top_ctrys[i]->xfer/t_xfer)*100.0,
-              top_ctrys[i]->desc);
+              flag_buf,top_ctrys[i]->desc);
    }
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"</TABLE>\n<P>\n");
@@ -2057,13 +2140,13 @@ void top_ctry_table()
 
 void dump_all_sites()
 {
-   HNODEPTR hptr, *pointer;
-   FILE     *out_fp;
-   char     filename[256];
-   u_long   cnt=a_ctr;
+   HNODEPTR  hptr, *pointer;
+   FILE      *out_fp;
+   char      filename[256];
+   u_int64_t cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/site_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/site_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2084,7 +2167,7 @@ void dump_all_sites()
       if (hptr->flag != OBJ_GRP)
       {
          fprintf(out_fp,
-         "%lu\t%lu\t%.0f\t%lu\t%s\n",
+         "%llu\t%llu\t%.0f\t%llu\t%s\n",
             hptr->count,hptr->files,hptr->xfer/1024,
             hptr->visit,hptr->string);
       }
@@ -2100,13 +2183,13 @@ void dump_all_sites()
 
 void dump_all_urls()
 {
-   UNODEPTR uptr, *pointer;
-   FILE     *out_fp;
-   char     filename[256];
-   u_long   cnt=a_ctr;
+   UNODEPTR  uptr, *pointer;
+   FILE      *out_fp;
+   char      filename[256];
+   u_int64_t cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/url_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/url_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2125,7 +2208,7 @@ void dump_all_urls()
       uptr=*pointer++;
       if (uptr->flag != OBJ_GRP)
       {
-         fprintf(out_fp,"%lu\t%.0f\t%s\n",
+         fprintf(out_fp,"%llu\t%.0f\t%s\n",
             uptr->count,uptr->xfer/1024,uptr->string);
       }
       cnt--;
@@ -2140,13 +2223,13 @@ void dump_all_urls()
 
 void dump_all_refs()
 {
-   RNODEPTR rptr, *pointer;
-   FILE     *out_fp;
-   char     filename[256];
-   u_long   cnt=a_ctr;
+   RNODEPTR  rptr, *pointer;
+   FILE      *out_fp;
+   char      filename[256];
+   u_int64_t cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/ref_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/ref_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2165,7 +2248,7 @@ void dump_all_refs()
       rptr=*pointer++;
       if (rptr->flag != OBJ_GRP)
       {
-         fprintf(out_fp,"%lu\t%s\n",rptr->count, rptr->string);
+         fprintf(out_fp,"%llu\t%s\n",rptr->count, rptr->string);
       }
       cnt--;
    }
@@ -2179,13 +2262,13 @@ void dump_all_refs()
 
 void dump_all_agents()
 {
-   ANODEPTR aptr, *pointer;
-   FILE     *out_fp;
-   char     filename[256];
-   u_char   cnt=a_ctr;
+   ANODEPTR  aptr, *pointer;
+   FILE      *out_fp;
+   char      filename[256];
+   u_int64_t cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/agent_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/agent_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2204,7 +2287,7 @@ void dump_all_agents()
       aptr=*pointer++;
       if (aptr->flag != OBJ_GRP)
       {
-         fprintf(out_fp,"%lu\t%s\n",aptr->count,aptr->string);
+         fprintf(out_fp,"%llu\t%s\n",aptr->count,aptr->string);
       }
       cnt--;
    }
@@ -2218,13 +2301,13 @@ void dump_all_agents()
 
 void dump_all_users()
 {
-   INODEPTR iptr, *pointer;
-   FILE     *out_fp;
-   char     filename[256];
-   u_long   cnt=a_ctr;
+   INODEPTR  iptr, *pointer;
+   FILE      *out_fp;
+   char      filename[256];
+   u_int64_t cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/user_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/user_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2245,7 +2328,7 @@ void dump_all_users()
       if (iptr->flag != OBJ_GRP)
       {
          fprintf(out_fp,
-         "%lu\t%lu\t%.0f\t%lu\t%s\n",
+         "%llu\t%llu\t%.0f\t%llu\t%s\n",
             iptr->count,iptr->files,iptr->xfer/1024,
             iptr->visit,iptr->string);
       }
@@ -2261,13 +2344,13 @@ void dump_all_users()
 
 void dump_all_search()
 {
-   SNODEPTR sptr, *pointer;
-   FILE     *out_fp;
-   char     filename[256];
-   u_char   cnt=a_ctr;
+   SNODEPTR  sptr, *pointer;
+   FILE      *out_fp;
+   char      filename[256];
+   u_int64_t cnt=a_ctr;
 
    /* generate file name */
-   sprintf(filename,"%s/search_%04d%02d.%s",
+   snprintf(filename,sizeof(filename),"%s/search_%04d%02d.%s",
       (dump_path)?dump_path:".",cur_year,cur_month,dump_ext);
 
    /* open file */
@@ -2284,7 +2367,7 @@ void dump_all_search()
    while(cnt)
    {
       sptr=*pointer++;
-      fprintf(out_fp,"%lu\t%s\n",sptr->count,sptr->string);
+      fprintf(out_fp,"%llu\t%s\n",sptr->count,sptr->string);
       cnt--;
    }
    fclose(out_fp);
@@ -2299,54 +2382,53 @@ int write_main_index()
 {
    /* create main index file */
 
-   int  i,days_in_month;
-   int  lyear=0;
-   int	s_mth=0;
+   int     i,j,days_in_month;
+   int     s_year=hist[HISTSIZE-1].year;
+   char    index_fname[256];
+   char    buffer[BUFSIZE];
+   u_int64_t m_hit=0;
+   u_int64_t m_files=0;
+   u_int64_t m_pages=0;
+   u_int64_t m_visits=0;
+   double    m_xfer=0.0;
    double  gt_hit=0.0;
    double  gt_files=0.0;
    double  gt_pages=0.0;
    double  gt_xfer=0.0;
    double  gt_visits=0.0;
-   char    index_fname[256];
-   char    buffer[BUFSIZE];
 
    if (verbose>1) printf("%s\n",msg_gen_sum);
 
-   sprintf(buffer,"%s %s",msg_main_us,hname);
+   snprintf(buffer,sizeof(buffer),"%s %s",msg_main_us,hname);
+   year_graph6x("usage.png", buffer, hist);
 
-   for (i=0;i<12;i++)                   /* get last month in history */
+   /* now do html stuff... */
+   snprintf(index_fname,sizeof(index_fname),"index.%s",html_ext);
+
+   /* .htaccess file needed? */
+   if (htaccess)
    {
-      if (hist_year[i]>lyear)
-       { lyear=hist_year[i]; s_mth=hist_month[i]; }
-      if (hist_year[i]==lyear)
+      if ((out_fp=fopen(".htaccess","wx")) != NULL)
       {
-         if (hist_month[i]>=s_mth)
-            s_mth=hist_month[i];
+         fprintf(out_fp,"DirectoryIndex %s\n",index_fname);
+         fclose(out_fp);
+      }
+      else
+      {
+         if (errno!=EEXIST && verbose)
+            fprintf(stderr,"Error: Failed to create .htaccess file: %s\n",
+                    strerror(errno));
       }
    }
 
-   i=(s_mth==12)?1:s_mth+1;
-
-   year_graph6x(   "usage.png",         /* filename          */
-                   buffer,              /* graph title       */
-                   i,                   /* last month        */
-                   hist_hit,            /* data set 1        */
-                   hist_files,          /* data set 2        */
-                   hist_site,           /* data set 3        */
-                   hist_xfer,           /* data set 4        */
-                   hist_page,           /* data set 5        */
-                   hist_visit);         /* data set 6        */
-
-   /* now do html stuff... */
-   sprintf(index_fname,"index.%s",html_ext);
-
-   if ( (out_fp=fopen(index_fname,"w")) == NULL)
+   if ( (out_fp=open_out_file(index_fname)) == NULL)
    {
       if (verbose)
       fprintf(stderr,"%s %s!\n",msg_no_open,index_fname);
       return 1;
    }
-   write_html_head(msg_main_per, out_fp);
+   write_html_head(NULL, out_fp);
+
    /* year graph */
    fprintf(out_fp,"<IMG SRC=\"usage.png\" ALT=\"%s\" "    \
                   "HEIGHT=256 WIDTH=512><P>\n",buffer);
@@ -2363,60 +2445,123 @@ int write_main_index()
    fprintf(out_fp,"<TH ALIGN=center COLSPAN=6 BGCOLOR=\"%s\">"            \
           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",GREY,msg_main_mt);
    fprintf(out_fp,"<TR><TH ALIGN=center BGCOLOR=\"%s\">"                  \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",DKGREEN,msg_h_hits);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",HITCOLOR,msg_h_hits);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_files);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_files);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",CYAN,msg_h_pages);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",PAGECOLOR,msg_h_pages);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",YELLOW,msg_h_visits);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",ORANGE,msg_h_sites);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",SITECOLOR,msg_h_sites);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",RED,msg_h_xfer);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",KBYTECOLOR,msg_h_xfer);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",YELLOW,msg_h_visits);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",VISITCOLOR,msg_h_visits);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",CYAN,msg_h_pages);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",PAGECOLOR,msg_h_pages);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
-          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",LTBLUE,msg_h_files);
+          "<FONT SIZE=\"-1\">%s</FONT></TH>\n",FILECOLOR,msg_h_files);
    fprintf(out_fp,"<TH ALIGN=center BGCOLOR=\"%s\">"                      \
-          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",DKGREEN,msg_h_hits);
+          "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",HITCOLOR,msg_h_hits);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
-   for (i=0;i<12;i++)
+   for (i=HISTSIZE-1;i>=HISTSIZE-index_mths;i--)
    {
-      if (--s_mth < 0) s_mth = 11;
-      if ((hist_month[s_mth]==0) && (hist_files[s_mth]==0)) continue;
-      days_in_month=(hist_lday[s_mth]-hist_fday[s_mth])+1;
-      fprintf(out_fp,"<TR><TD NOWRAP><A HREF=\"usage_%04d%02d.%s\">"      \
-                     "<FONT SIZE=\"-1\">%s %d</FONT></A></TD>\n",
-                      hist_year[s_mth], hist_month[s_mth], html_ext,
-                      s_month[hist_month[s_mth]-1], hist_year[s_mth]);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%lu</FONT></TD>\n",
-                      hist_hit[s_mth]/days_in_month);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%lu</FONT></TD>\n",
-                      hist_files[s_mth]/days_in_month);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%lu</FONT></TD>\n",
-                      hist_page[s_mth]/days_in_month);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%lu</FONT></TD>\n",
-                      hist_visit[s_mth]/days_in_month);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%lu</FONT></TD>\n",
-                      hist_site[s_mth]);
+      if (hist[i].hit==0)
+      {
+         days_in_month=1;
+         for (j=i;j>=0;j--) if (hist[j].hit!=0) break;
+         if (j<0) break;
+      }
+      else days_in_month=(hist[i].lday-hist[i].fday)+1;
+
+      /* Check for year change */
+      if (s_year!=hist[i].year)
+      {
+         /* Year Totals */
+         if (index_mths>16 && year_totals)
+         {
+            fprintf(out_fp,"<TR><TH COLSPAN=6 BGCOLOR=\"%s\" "         \
+                "ALIGN=left><FONT SIZE=\"-1\"><STRONG>%04d</TH>\n",
+                GRPCOLOR,s_year);
+            fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
+                  "<FONT SIZE=\"-1\">%.0f</TH>", GRPCOLOR, m_xfer);
+            fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
+                  "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_visits);
+            fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
+                  "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_pages);
+            fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
+                  "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_files);
+            fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
+                  "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_hit);
+            m_xfer=0; m_visits=0; m_pages=0; m_files=0; m_hit=0;
+         }
+
+         /* Year Header */
+         s_year=hist[i].year;
+         if (index_mths>16 && year_hdrs)
+            fprintf(out_fp,"<TR><TH COLSPAN=11 BGCOLOR=\"%s\" "           \
+               "ALIGN=center>%04d</TH></TR>\n", GREY, s_year);
+      }
+
+      fprintf(out_fp,"<TR><TD NOWRAP>");
+      if (hist[i].hit!=0)
+         fprintf(out_fp,"<A HREF=\"usage_%04d%02d.%s\">"                  \
+                        "<FONT SIZE=\"-1\">%s %d</FONT></A></TD>\n",
+                         hist[i].year, hist[i].month, html_ext,
+                         s_month[hist[i].month-1], hist[i].year);
+      else
+         fprintf(out_fp,"<FONT SIZE=\"-1\">%s %d</FONT></A></TD>\n",      \
+                         s_month[hist[i].month-1], hist[i].year);
+
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+                      hist[i].hit/days_in_month);
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+                      hist[i].files/days_in_month);
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+                      hist[i].page/days_in_month);
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+                      hist[i].visit/days_in_month);
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+                      hist[i].site);
       fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%.0f</FONT></TD>\n",
-                      hist_xfer[s_mth]);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%lu</FONT></TD>\n",
-                      hist_visit[s_mth]);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%lu</FONT></TD>\n",
-                      hist_page[s_mth]);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%lu</FONT></TD>\n",
-                      hist_files[s_mth]);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%lu</FONT></TD></TR>\n",
-                      hist_hit[s_mth]);
-      gt_hit   += hist_hit[s_mth];
-      gt_files += hist_files[s_mth];
-      gt_pages += hist_page[s_mth];
-      gt_xfer  += hist_xfer[s_mth];
-      gt_visits+= hist_visit[s_mth];
+                      hist[i].xfer);
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+                      hist[i].visit);
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+                      hist[i].page);
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+                      hist[i].files);
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>",
+                      hist[i].hit);
+      fprintf(out_fp,"</TR>\n");
+      gt_hit   += hist[i].hit;
+      gt_files += hist[i].files;
+      gt_pages += hist[i].page;
+      gt_xfer  += hist[i].xfer;
+      gt_visits+= hist[i].visit;
+       m_hit   += hist[i].hit;
+       m_files += hist[i].files;
+       m_pages += hist[i].page;
+       m_visits+= hist[i].visit;
+       m_xfer  += hist[i].xfer;
+   }
+
+   if (index_mths>16 && year_totals)
+   {
+      fprintf(out_fp,"<TR><TH COLSPAN=6 BGCOLOR=\"%s\" "         \
+                     "ALIGN=left><FONT SIZE=\"-1\"><STRONG>%04d</TH>\n",
+                     GRPCOLOR,s_year);
+      fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
+                     "<FONT SIZE=\"-1\">%.0f</TH>", GRPCOLOR, m_xfer);
+      fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
+                     "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_visits);
+      fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
+                     "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_pages);
+      fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
+                     "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_files);
+      fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
+                     "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_hit);
    }
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" COLSPAN=6 ALIGN=left>"          \
@@ -2444,7 +2589,7 @@ int write_main_index()
 
 int qs_site_cmph(const void *cp1, const void *cp2)
 {
-   u_long  t1, t2;
+   u_int64_t t1, t2;
    t1=(*(HNODEPTR *)cp1)->count;
    t2=(*(HNODEPTR *)cp2)->count;
    if (t1!=t2) return (t2<t1)?-1:1;
@@ -2474,7 +2619,7 @@ int qs_site_cmpk(const void *cp1, const void *cp2)
 
 int qs_url_cmph(const void *cp1, const void *cp2)
 {
-   u_long  t1, t2;
+   u_int64_t t1, t2;
    t1=(*(UNODEPTR *)cp1)->count;
    t2=(*(UNODEPTR *)cp2)->count;
    if (t1!=t2) return (t2<t1)?-1:1;
@@ -2534,7 +2679,7 @@ int qs_url_cmpx(const void *cp1, const void *cp2)
 
 int qs_ref_cmph(const void *cp1, const void *cp2)
 {
-   u_long  t1, t2;
+   u_int64_t t1, t2;
    t1=(*(RNODEPTR *)cp1)->count;
    t2=(*(RNODEPTR *)cp2)->count;
    if (t1!=t2) return (t2<t1)?-1:1;
@@ -2549,7 +2694,7 @@ int qs_ref_cmph(const void *cp1, const void *cp2)
 
 int qs_agnt_cmph(const void *cp1, const void *cp2)
 {
-   u_long  t1, t2;
+   u_int64_t t1, t2;
    t1=(*(ANODEPTR *)cp1)->count;
    t2=(*(ANODEPTR *)cp2)->count;
    if (t1!=t2) return (t2<t1)?-1:1;
@@ -2564,7 +2709,7 @@ int qs_agnt_cmph(const void *cp1, const void *cp2)
 
 int qs_srch_cmph(const void *cp1, const void *cp2)
 {
-   u_long  t1, t2;
+   u_int64_t t1, t2;
    t1=(*(SNODEPTR *)cp1)->count;
    t2=(*(SNODEPTR *)cp2)->count;
    if (t1!=t2) return (t2<t1)?-1:1;
@@ -2579,7 +2724,7 @@ int qs_srch_cmph(const void *cp1, const void *cp2)
 
 int qs_ident_cmph(const void *cp1, const void *cp2)
 {
-   u_long  t1, t2;
+   u_int64_t t1, t2;
    t1=(*(INODEPTR *)cp1)->count;
    t2=(*(INODEPTR *)cp2)->count;
    if (t1!=t2) return (t2<t1)?-1:1;
@@ -2592,11 +2737,11 @@ int qs_ident_cmph(const void *cp1, const void *cp2)
 /* LOAD_SITE_ARRAY - load up the sort array  */
 /*********************************************/
 
-u_long load_site_array(HNODEPTR *pointer)
+u_int64_t load_site_array(HNODEPTR *pointer)
 {
-   HNODEPTR hptr;
-   int      i;
-   u_long   ctr = 0;
+   HNODEPTR  hptr;
+   int       i;
+   u_int64_t ctr = 0;
 
    /* load the array */
    for (i=0;i<MAXHASH;i++)
@@ -2616,11 +2761,11 @@ u_long load_site_array(HNODEPTR *pointer)
 /* LOAD_URL_ARRAY - load up the sort array   */
 /*********************************************/
 
-u_long load_url_array(UNODEPTR *pointer)
+u_int64_t load_url_array(UNODEPTR *pointer)
 {
-   UNODEPTR uptr;
-   int      i;
-   u_long   ctr = 0;
+   UNODEPTR  uptr;
+   int       i;
+   u_int64_t ctr = 0;
 
    /* load the array */
    for (i=0;i<MAXHASH;i++)
@@ -2640,11 +2785,11 @@ u_long load_url_array(UNODEPTR *pointer)
 /* LOAD_REF_ARRAY - load up the sort array   */
 /*********************************************/
 
-u_long load_ref_array(RNODEPTR *pointer)
+u_int64_t load_ref_array(RNODEPTR *pointer)
 {
-   RNODEPTR rptr;
-   int      i;
-   u_long   ctr = 0;
+   RNODEPTR  rptr;
+   int       i;
+   u_int64_t ctr = 0;
 
    /* load the array */
    for (i=0;i<MAXHASH;i++)
@@ -2664,11 +2809,11 @@ u_long load_ref_array(RNODEPTR *pointer)
 /* LOAD_AGENT_ARRAY - load up the sort array */
 /*********************************************/
 
-u_long load_agent_array(ANODEPTR *pointer)
+u_int64_t load_agent_array(ANODEPTR *pointer)
 {
-   ANODEPTR aptr;
-   int      i;
-   u_long   ctr = 0;
+   ANODEPTR  aptr;
+   int       i;
+   u_int64_t ctr = 0;
 
    /* load the array */
    for (i=0;i<MAXHASH;i++)
@@ -2688,11 +2833,11 @@ u_long load_agent_array(ANODEPTR *pointer)
 /* LOAD_SRCH_ARRAY - load up the sort array  */
 /*********************************************/
 
-u_long load_srch_array(SNODEPTR *pointer)
+u_int64_t load_srch_array(SNODEPTR *pointer)
 {
-   SNODEPTR sptr;
-   int      i;
-   u_long   ctr = 0;
+   SNODEPTR  sptr;
+   int       i;
+   u_int64_t ctr = 0;
 
    /* load the array */
    for (i=0;i<MAXHASH;i++)
@@ -2712,11 +2857,11 @@ u_long load_srch_array(SNODEPTR *pointer)
 /* LOAD_IDENT_ARRAY - load up the sort array */
 /*********************************************/
 
-u_long load_ident_array(INODEPTR *pointer)
+u_int64_t load_ident_array(INODEPTR *pointer)
 {
-   INODEPTR iptr;
-   int      i;
-   u_long   ctr = 0;
+   INODEPTR  iptr;
+   int       i;
+   u_int64_t ctr = 0;
 
    /* load the array */
    for (i=0;i<MAXHASH;i++)
@@ -2738,7 +2883,20 @@ u_long load_ident_array(INODEPTR *pointer)
 
 FILE *open_out_file(char *filename)
 {
+   struct stat out_stat;
    FILE *out_fp;
+
+   /* stat the file */
+   if ( !(lstat(filename, &out_stat)) )
+   {
+      /* check if the file a symlink */
+      if ( S_ISLNK(out_stat.st_mode) )
+      {
+         if (verbose)
+         fprintf(stderr,"%s %s (symlink)\n",msg_no_open,filename);
+         return NULL;
+      }
+   }
 
    /* open the file... */
    if ( (out_fp=fopen(filename,"w")) == NULL)

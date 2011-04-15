@@ -1,9 +1,14 @@
 /*
-   webalizer_lang.serbian
+   webalizer_lang.thai
 
-   Webalizer V2.0x Language Support file for Serbian.
-   12-Jun-1999 Original translation by Goran Opacic and Sanja Markovic
-   13-Oct-2000 updated for v2.0 by Boris Drajer <bdrajer@inet.co.yu>
+   Webalizer V2.0x Language Support file for Thai.
+   15-May-1998 by Bradford L. Barrett (brad@mrunix.net)
+   31-May-1998 Modified for level 1.1 support (brad@mrunix.net)
+   23-Jul-1998 Modified for level 1.2 support (brad@mrunix.net)
+   08-Mar-1999 Updated HTTP 1.1 response codes by Yves Lafon (ylafon@w3.org)
+   28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
+   16-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
+   06-Jun-2002 Thai translation by Mr.Piriya Jannoppakarn (piriya@pantip.com)
    26-Mar-2008 Updated to current IANA TLDs (brad@mrunix.net)
    26-May-2008 Modified for level 2.2 support (brad@mrunix.net)
 
@@ -26,8 +31,8 @@
 /* DEFINE LANGUAGE NAME here                                           */
 /***********************************************************************/
 
-char *language  = "Serbian";
-char *langcode  = "sr";
+char *language  = "Thai";
+char *langcode  = "th";
 
 /***********************************************************************/
 /*                                                                     */
@@ -40,40 +45,40 @@ char *langcode  = "sr";
 
 /* these are only used in timing totals */
 /* Format:   XXX records (XXX ignored, XXX bad) in X.XX seconds        */
-char *msg_records = "records";
-char *msg_addresses="addresses";
-char *msg_ignored = "ignored";
-char *msg_bad     = "bad";
-char *msg_in      = "in";
-char *msg_seconds = "seconds";
+char *msg_records = "ระเบียน";
+char *msg_addresses="แอดเดรส";
+char *msg_ignored = "ยกเว้น";
+char *msg_bad     = "เสีย";
+char *msg_in      = "ใน";
+char *msg_seconds = "วินาที";
 
 /* progress and setup error messages */
-char *msg_log_err = "Error: Can't open log file";
-char *msg_log_use = "Using logfile";
-char *msg_dir_err = "Error: Can't change directory to";
-char *msg_dir_use = "Creating output in";
-char *msg_cur_dir = "current directory";
-char *msg_hostname= "Hostname for reports is";
-char *msg_ign_hist= "Ignoring previous history...";
-char *msg_no_hist = "History file not found...";
-char *msg_get_hist= "Reading history file...";
-char *msg_put_hist= "Saving history information...";
-char *msg_hist_err= "Error: Unable to write history file";
-char *msg_bad_hist= "Error: Ignoring invalid history record";
-char *msg_bad_conf= "Error: Unable to open configuration file";
-char *msg_bad_key = "Warning: Invalid keyword";
-char *msg_bad_date= "Error: Skipping record (bad date)";
-char *msg_ign_nscp= "Skipping Netscape header record";
-char *msg_bad_rec = "Skipping bad record";
-char *msg_no_vrec = "No valid records found!";
-char *msg_gen_rpt = "Generating report for";
-char *msg_gen_sum = "Generating summary report";
-char *msg_get_data= "Reading previous run data..";
-char *msg_put_data= "Saving current run data...";
-char *msg_no_data = "Previous run data not found...";
-char *msg_bad_data= "Error: Unable to restore run data";
-char *msg_data_err= "Error: Unable to save current run data";
-char *msg_dup_data= "Warning: Possible duplicate data found";
+char *msg_log_err = "ข้อผิดพลาด: ไม่สามารถเปิดไฟล์ได้";
+char *msg_log_use = "ใช้ไฟล์";
+char *msg_dir_err = "ข้อผิดพลาด: ไม่สามารถเปลี่ยนไดเรคทอรีได้";
+char *msg_dir_use = "สร้างผลลัพธ์ใน";
+char *msg_cur_dir = "ไดเรคทอรีปัจจุบัน";
+char *msg_hostname= "รายงานสำหรับโฮส";
+char *msg_ign_hist= "ไม่ใช่ข้อมูลก่อนหน้า...";
+char *msg_no_hist = "ไม่พบข้อมูลก่อนหน้า...";
+char *msg_get_hist= "กำลังอ่านข้อมูลก่อนหน้า...";
+char *msg_put_hist= "กำลังบันทึกข้อมูลก่อนหน้า...";
+char *msg_hist_err= "ข้อผิดพลาด: ไม่สามารถบันทึกข้อมูลก่อนหน้าได้";
+char *msg_bad_hist= "ข้อผิดพลาด: ยกเว้นข้อมูลก่อนหน้าที่เก็บไม่ถูกต้อง";
+char *msg_bad_conf= "ข้อผิดพลาด: Unable to open configuration file";
+char *msg_bad_key = "คำเตือน: คีย์เวิร์ดไม่ถูกต้อง";
+char *msg_bad_date= "ข้อผิดพลาด: ข้ามระเบียน (วันที่ไม่ถูกต้อง)";
+char *msg_ign_nscp= "ข้ามระเบียนที่เก็บข้อมูลส่วนหัวของ Netscape";
+char *msg_bad_rec = "ข้ามระเบียนที่ไม่ถูกต้อง";
+char *msg_no_vrec = "ไม่พบระเบียนที่ถูกต้อง!";
+char *msg_gen_rpt = "กำลังสร้างรายงานสำหรับ";
+char *msg_gen_sum = "กำลังสรุปรายงานสำหรับ";
+char *msg_get_data= "กำลังอ่านข้อมูลที่เรียกใช้ก่อนหน้า..";
+char *msg_put_data= "กำลังบันทึกข้อมูลที่ใช้งาน...";
+char *msg_no_data = "ไม่พบข้อมูลที่เรียกใช้ก่อนหน้า...";
+char *msg_bad_data= "ข้อผิดพลาด: ไม่สามารถเรียกคืนข้อมูลที่เรียกใช้ก่อนหน้า";
+char *msg_data_err= "ข้อผิดพลาด: ไม่สามารถบันทึกข้อมูลที่เรียกใช้อยู่ได้";
+char *msg_dup_data= "คำเตือน: เกิดข้อมูลซ้ำซ้อน";
 
 /* DNS Stuff */
 char *msg_dns_nocf= "No cache file specified, aborting...";
@@ -91,13 +96,13 @@ char *msg_geo_nolu= "lookups disabled";
 char *msg_geo_dflt= "default";
 
 /* memory allocation errors */
-char *msg_nomem_ts= "Can't allocate enough memory, Top Sites disabled!";
-char *msg_nomem_tr= "Can't allocate enough memory, Top Referrers disabled!";
-char *msg_nomem_tu= "Can't allocate enough memory, Top URLs disabled!";
-char *msg_nomem_tc= "Can't allocate enough memory, Top Countries disabled!";
-char *msg_nomem_ta= "Can't allocate enough memory, Top User Agents disabled!";
-char *msg_nomem_tsr="Can't allocate enough memory, Top Search Strings disabled!";
-char *msg_nomem_ti= "Can't allocate enough memory, Top Usernames disabled!";
+char *msg_nomem_ts= "หน่วยความจำไม่เพียงพอ, ไม่สามารถสร้าง Top Sites ได้!";
+char *msg_nomem_tr= "หน่วยความจำไม่เพียงพอ, ไม่สามารถสร้าง Top Referrers ได้!";
+char *msg_nomem_tu= "หน่วยความจำไม่เพียงพอ, ไม่สามารถสร้าง Top URLs ได้!";
+char *msg_nomem_tc= "หน่วยความจำไม่เพียงพอ, ไม่สามารถสร้าง Top Countries ได้!";
+char *msg_nomem_ta= "หน่วยความจำไม่เพียงพอ, ไม่สามารถสร้าง Top User Agents ได้!";
+char *msg_nomem_tsr="หน่วยความจำไม่เพียงพอ, ไม่สามารถสร้าง Top Search Strings ได้!";
+char *msg_nomem_ti= "หน่วยความจำไม่เพียงพอ, ไม่สามารถสร้าง Top Usernames ได้!";
 char *msg_nomem_dh= "Error adding host node (daily), skipping";
 char *msg_nomem_mh= "Error adding host node (monthly), skipping";
 char *msg_nomem_u = "Error adding URL node, skipping";
@@ -186,115 +191,115 @@ char *h_msg[]= {
 /***********************************************************************/
 
 /* header strings */
-char *msg_hhdr_sp = "Period sumiranja";
-char *msg_hhdr_gt = "Generisano";
+char *msg_hhdr_sp = "รายงานช่วง";
+char *msg_hhdr_gt = "สร้างเมื่อ";
 
 /* main index strings */
-char *msg_main_us = "Pregled pristupa za";
-/* char *msg_main_per= "Poslednjih 12 meseci"; */
-char *msg_main_per= "Pregled po mesecima";
-char *msg_main_sum= "Pregled po mesecima";
-char *msg_main_da = "Dnevni prosek";
-char *msg_main_mt = "Mesecni zbirovi";
+char *msg_main_us = "Usage summary for";
+/* char *msg_main_per= "12 เดือนที่ผ่านมา"; */
+char *msg_main_per= "สรุปรายเดือน";
+char *msg_main_sum= "สรุปรายเดือน";
+char *msg_main_da = "เฉลี่ยต่อวัน";
+char *msg_main_mt = "รวมทั้งเดือน";
 
 /* month HTML page strings */
-char *msg_hmth_du = "Pristupi po danu za";
-char *msg_hmth_hu = "Pristupi po satu za";
+char *msg_hmth_du = "Daily usage for";
+char *msg_hmth_hu = "Hourly usage for";
 
 /* table header strings */
-char *msg_h_by    = "po";
-char *msg_h_avg   = "prosek";
-char *msg_h_max   = "Max";
-char *msg_h_total = "Ukupno";
-char *msg_h_totals= "Ukupno za sve";
-char *msg_h_day   = "Dan";
-char *msg_h_mth   = "Mesec";
-char *msg_h_hour  = "Sat";
-char *msg_h_hits  = "Pristupa";
-char *msg_h_pages = "Strana";
-char *msg_h_visits= "Poseta";
-char *msg_h_files = "Fajlova";
-char *msg_h_sites = "Racunara";
-char *msg_h_xfer  = "KB";
-char *msg_h_hname = "Racunar";
+char *msg_h_by    = "เรียงตาม";
+char *msg_h_avg   = "เฉลี่ย";
+char *msg_h_max   = "สูงสุด";
+char *msg_h_total = "รวม";
+char *msg_h_totals= "รวมทั้งหมด";
+char *msg_h_day   = "วัน";
+char *msg_h_mth   = "เดือน";
+char *msg_h_hour  = "ชั่วโมง";
+char *msg_h_hits  = "Hits";
+char *msg_h_pages = "Pages";
+char *msg_h_visits= "Visits";
+char *msg_h_files = "Files";
+char *msg_h_sites = "Sites";
+char *msg_h_xfer  = "KBytes";
+char *msg_h_hname = "Hostname";
 char *msg_h_url   = "URL";
-char *msg_h_agent = "Korisnicki program";
-char *msg_h_ref   = "Referer";
-char *msg_h_ctry  = "Zemlja";
-char *msg_h_search= "Tekst pretrazivanja";
-char *msg_h_uname = "Korisnik";
+char *msg_h_agent = "User Agent";
+char *msg_h_ref   = "Referrer";
+char *msg_h_ctry  = "ประเทศ";
+char *msg_h_search= "Search String";
+char *msg_h_uname = "Username";
 
 /* links along top of page */
-char *msg_hlnk_ds = "Dnevna statistika";
-char *msg_hlnk_hs = "Statistika po satu";
-char *msg_hlnk_u  = "URL-ovi";
-char *msg_hlnk_s  = "Racunari";
-char *msg_hlnk_a  = "Browseri";
-char *msg_hlnk_c  = "Zemlje";
-char *msg_hlnk_r  = "Referisanja";
-char *msg_hlnk_en = "Ulaz";
-char *msg_hlnk_ex = "Izlaz";
-char *msg_hlnk_sr = "Pretraga";
-char *msg_hlnk_i  = "Korisnici";
+char *msg_hlnk_ds = "สถิติรายวัน";
+char *msg_hlnk_hs = "สถิติรายชั่วโมง";
+char *msg_hlnk_u  = "URL";
+char *msg_hlnk_s  = "Site";
+char *msg_hlnk_a  = "Agent";
+char *msg_hlnk_c  = "ประเทศ";
+char *msg_hlnk_r  = "Referrer";
+char *msg_hlnk_en = "Entry";
+char *msg_hlnk_ex = "Exit";
+char *msg_hlnk_sr = "ค้นหา";
+char *msg_hlnk_i  = "ผู้ใช้";
 
 /* monthly total table */
-char *msg_mtot_ms = "Mesecna statistika za";
-char *msg_mtot_th = "Ukupno pristupa";
-char *msg_mtot_tf = "Ukupno fajlova";
-char *msg_mtot_tx = "Ukupno KBajta";
-char *msg_mtot_us = "Ukupno razlicitih racunara";
-char *msg_mtot_ur = "Ukupno razlicitih referisanja";
-char *msg_mtot_ua = "Ukupno razlicitih browsera";
-char *msg_mtot_uu = "Ukupno razlicitih URL-ova";
-char *msg_mtot_ui = "Ukupno razlicitih korisnickih imena";
-char *msg_mtot_mhd= "Pristupa na dan";
-char *msg_mtot_mhh= "Pristupa na sat";
-char *msg_mtot_mfd= "Fajlova na dan";
-char *msg_mtot_mpd= "Fajlova na sat";
-char *msg_mtot_msd= "Racunara na dan";
-char *msg_mtot_mvd= "Poseta na dan";
-char *msg_mtot_mkd= "KBajta na dan";
-char *msg_mtot_rc = "Pristupa po kodu";
+char *msg_mtot_ms = "สถิติรายเดือนสำหรับ";
+char *msg_mtot_th = "hit ทั้งหมด";
+char *msg_mtot_tf = "ไฟล์ทั้งหมด";
+char *msg_mtot_tx = "กิโลไบต์ทั้งหมด";
+char *msg_mtot_us = "unique site ทั้งหมด";
+char *msg_mtot_ur = "unique referrer ทั้งหมด";
+char *msg_mtot_ua = "unique user agent ทั้งหมด";
+char *msg_mtot_uu = "unique URL ทั้งหมด";
+char *msg_mtot_ui = "ผู้ใช้ทั้งหมด";
+char *msg_mtot_mhd= "hit ต่อวัน";
+char *msg_mtot_mhh= "hit ต่อชั่วโมง";
+char *msg_mtot_mfd= "ไฟล์ต่อวัน";
+char *msg_mtot_mpd= "page ต่อวัน";
+char *msg_mtot_msd= "site ต่อวัน";
+char *msg_mtot_mvd= "visit ต่อวัน";
+char *msg_mtot_mkd= "กิโบไบต์ต่อวัน";
+char *msg_mtot_rc = "hit ต่อ response Code";
 
 /* daily total table */
-char *msg_dtot_ds = "Dnevna statistika za";
+char *msg_dtot_ds = "สถิติรายวันสำหรับ";
 
 /* hourly total table */
-char *msg_htot_hs = "Statistika po satu za";
+char *msg_htot_hs = "สถิติรายชั่วโมงสำหรับ";
 
 /* country pie chart */
-char *msg_ctry_use= "Pristup po zemljama za";
+char *msg_ctry_use= "Usage by Country for";
 
 /* top tables */
 /* Formatted as "Top xxx of xxx Total something" */
-char *msg_top_top = "Prvih";
-char *msg_top_of  = "od";
-char *msg_top_s   = "racunara";
-char *msg_top_u   = "URL-ova";
-char *msg_top_r   = "referisanja";
-char *msg_top_a   = "korisnickih programa";
-char *msg_top_c   = "zemalja";
-char *msg_top_en  = "ulaznih strana";
-char *msg_top_ex  = "izlaznih strana";
-char *msg_top_sr  = "tekstova pretrazivanja";
-char *msg_top_i   = "korisnickih imena";
-char *msg_v_sites = "Pregled svih racunara";
-char *msg_v_urls  = "Pregled svih URL-ova";
-char *msg_v_refs  = "Pregled svih referisanja";
-char *msg_v_agents= "Pregled svih korisnickih programa";
-char *msg_v_search= "Pregled svih tekstova pretrazivanja";
-char *msg_v_users = "Pregled svih korisnickih imena";
+char *msg_top_top = "";
+char *msg_top_of  = "อันดับแรกจาก";
+char *msg_top_s   = "Site ทั้งหมด";
+char *msg_top_u   = "URL ทั้งหมด";
+char *msg_top_r   = "Referrer ทั้งหมด";
+char *msg_top_a   = "User Agent ทั้งหมด";
+char *msg_top_c   = "ประเทศทั้งหมด";
+char *msg_top_en  = "Entry Page ทั้งหมด";
+char *msg_top_ex  = "Exit Page ทั้งหมด";
+char *msg_top_sr  = "Search String ทั้งหมด";
+char *msg_top_i   = "ผู้ใช้ทั้งหมด";
+char *msg_v_sites = "แสดงไซต์ (site) ทั้งหมด";
+char *msg_v_urls  = "แสดง URL ทั้งหมด";
+char *msg_v_refs  = "แสดง Referrer ทั้งหมด";
+char *msg_v_agents= "แสดง User Agent ทั้งหมด";
+char *msg_v_search= "แสดง Search Strings ทั้งหมด";
+char *msg_v_users = "แสดงผู้ใช้ทั้งหมด";
 
 /* short month names MUST BE 3 CHARS in size... pad if needed*/
 char *s_month[12]={ "Jan", "Feb", "Mar",
-                    "Apr", "Maj", "Jun",
-                    "Jul", "Avg", "Sep",
-                    "Okt", "Nov", "Dec"};
+                    "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep",
+                    "Oct", "Nov", "Dec"};
 
 /* long month names - can be any length */
-char *l_month[12]={ "Januar",  "Februar", "Mart",   "April",
-                    "Maj",      "Jun",     "Jul",    "Avgust",
-                    "Septembar","Oktobar",  "Novembar","Decembar"};
+char *l_month[12]={ "January",  "February", "March",   "April",
+                    "May",      "June",     "July",    "August",
+                    "September","October",  "November","December"};
 
 /* response code descriptions... order IS important!      */
 struct response_code response[] =
@@ -340,20 +345,20 @@ struct response_code response[] =
          { "Code 504 - Gateway Timeout",                 0 },
          { "Code 505 - HTTP Version Not Supported",      0 } };
 
-char *msg_title   = "Statistika pristupa za";
-char *msg_h_other = "Ostalo";
+char *msg_title   = "สถิติการใช้งานสำหรับ";
+char *msg_h_other = "อื่น ๆ";
 
 /* Country codes (previously in ctry.h header file) */
 
 struct  country_code ctry[] = {
-{ 0,                      "Nedefinisano/Nepoznato",           0,0,0 },
-{ IDX_3C('c','o','m'),    "Komercijalni (com)",               0,0,0 },
-{ IDX_3C('e','d','u'),    "Obrazovni (edu)",                  0,0,0 },
-{ IDX_3C('g','o','v'),    "SAD vlada (gov)",                  0,0,0 },
-{ IDX_3C('i','n','t'),    "Internacionalni (int)",            0,0,0 },
-{ IDX_3C('m','i','l'),    "SAD vojni (mil)",                  0,0,0 },
-{ IDX_3C('n','e','t'),    "Mrezni domeni (net)",              0,0,0 },
-{ IDX_3C('o','r','g'),    "Organizacije (org)",               0,0,0 },
+{ 0,                      "Unresolved/Unknown",               0,0,0 },
+{ IDX_3C('c','o','m'),    "Commercial (com)",                 0,0,0 },
+{ IDX_3C('e','d','u'),    "Educational (edu)",                0,0,0 },
+{ IDX_3C('g','o','v'),    "US Government (gov)",              0,0,0 },
+{ IDX_3C('i','n','t'),    "International (int)",              0,0,0 },
+{ IDX_3C('m','i','l'),    "US Military (mil)",                0,0,0 },
+{ IDX_3C('n','e','t'),    "Network (net)",                    0,0,0 },
+{ IDX_3C('o','r','g'),    "Non-Profit (org)",                 0,0,0 },
 { IDX_3C('b','i','z'),    "Generic Business (biz)",           0,0,0 },
 { IDX_3C('c','a','t'),    "Catalan Community (cat)",          0,0,0 },
 { IDX_3C('p','r','o'),    "Professional (pro)",               0,0,0 },
@@ -365,8 +370,8 @@ struct  country_code ctry[] = {
 { IDX_4C('j','o','b','s'),"Human Resources (jobs)",           0,0,0 },
 { IDX_4C('m','o','b','i'),"Generic Mobile TLD (mobi)",        0,0,0 },
 { IDX_4C('n','a','m','e'),"Individual (name)",                0,0,0 },
-{ IDX_4C('a','r','p','a'),"Stari Arpanet (arpa)",             0,0,0 },
-{ IDX_4C('n','a','t','o'),"Nato (nato)",                      0,0,0 },
+{ IDX_4C('a','r','p','a'),"Address Routing (arpa)",           0,0,0 },
+{ IDX_4C('n','a','t','o'),"Nato field (nato)",                0,0,0 },
 { IDX_6C('m','u','s','e','u','m'), "Museums (museum)",        0,0,0 },
 { IDX_6C('t','r','a','v','e','l'), "Travel Ind. (travel)",    0,0,0 },
 { IDX_2C('a','c'),        "Ascension Island",                 0,0,0 },

@@ -4,6 +4,8 @@
    Webalizer V2.0x Language Support file for Greek
    19-Aug-1999 Translated in Greek by Christos Cheretakis (xalkina@otenet.gr)
    22-Feb-2000 Modified for level 2.0x support (brad@mrunix.net)
+   26-Mar-2008 Updated to current IANA TLDs (brad@mrunix.net)
+   26-May-2008 Modified for level 2.2 support (brad@mrunix.net)
 
 
    Language files are named using the following convention:
@@ -25,6 +27,7 @@
 /***********************************************************************/
 
 char *language  = "Greek";
+char *langcode  = "el";
 
 /***********************************************************************/
 /*                                                                     */
@@ -79,6 +82,13 @@ char *msg_dns_nolk= "Error: Unable to lock DNS cache file";
 char *msg_dns_usec= "Using DNS cache file";
 char *msg_dns_rslv= "DNS Lookup";
 char *msg_dns_none= "None to process";
+char *msg_dns_abrt= "DNS support not present, aborting...";
+
+/* Geolocation stuff */
+char *msg_geo_open= "Error opening file";
+char *msg_geo_use = "Using";
+char *msg_geo_nolu= "lookups disabled";
+char *msg_geo_dflt= "default";
 
 /* memory allocation errors */
 char *msg_nomem_ts= "Can't allocate enough memory, Top Sites disabled!";
@@ -113,12 +123,14 @@ char *h_usage1 = "Usage";
 char *h_usage2 = "[options] [log file]";
 char *h_msg[]= {
          "-h        = print this help message"             ,
-         "-v -V     = print version information"           ,
+         "-V        = print version information"           ,
+         "-v        = be verbose"                          ,
          "-d        = print additional debug info"         ,
-         "-F        = Use FTP log format"                  ,
+         "-F        = Log type.  type= (clf | ftp | squid | w3c)",
          "-f        = Fold sequence errors"                ,
          "-i        = ignore history file"                 ,
          "-p        = preserve state (incremental)"        ,
+         "-b        = ignore state (incremental)"          ,
          "-q        = supress informational messages"      ,
          "-Q        = supress _ALL_ messages"              ,
          "-Y        = supress country graph"               ,
@@ -137,8 +149,11 @@ char *h_msg[]= {
          "-s name   = hide site 'name'"                    ,
          "-u name   = hide URL 'name'"                     ,
          "-x name   = Use filename extension 'name'"       ,
+         "-O name   = Omit page 'name'"                    ,
          "-P name   = Page type extension 'name'"          ,
          "-I name   = Index alias 'name'"                  ,
+         "-K num    = num months in summary table"         ,
+         "-k num    = num months in summary graph"         ,
          "-A num    = Display num top agents"              ,
          "-C num    = Display num top countries"           ,
          "-R num    = Display num top referrers"           ,
@@ -148,8 +163,17 @@ char *h_msg[]= {
          "-E num    = Display num top Exit Pages"          ,
          "-g num    = Group Domains to 'num' levels"       ,
          "-X        = Hide individual sites"               ,
+         "-z dir    = Use country flags in 'dir'"          ,
+#ifdef USE_DNS
          "-D name   = Use DNS Cache file 'name'"           ,
          "-N num    = Number of DNS processes (0=disable)" ,
+         "-j        = Enable native GeoDB lookups"         ,
+         "-J name   = Use GeoDB database 'name'"           ,
+#endif
+#ifdef USE_GEOIP
+         "-w        = Enable GeoIP lookups"                ,
+         "-W name   = Use GeoIP database 'name'"           ,
+#endif
          NULL};
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
@@ -169,7 +193,8 @@ char *msg_hhdr_gt = "Ημερομηνία παραγωγής";
 
 /* main index strings */
 char *msg_main_us = "Στατιστικά για το σύστημα";
-char *msg_main_per= "οι τελευταίοι 12 μήνες";
+/* char *msg_main_per= "οι τελευταίοι 12 μήνες"; */
+char *msg_main_per= "Συγκεντρωτικά στοιχεία ανά μήνα";
 char *msg_main_sum= "Συγκεντρωτικά στοιχεία ανά μήνα";
 char *msg_main_da = "Μέσοι όροι ανά ημέρα";
 char *msg_main_mt = "Μηνιαία σύνολα";
@@ -228,6 +253,7 @@ char *msg_mtot_mhd= "Hits ανά ημέρα";
 char *msg_mtot_mhh= "Hits ανά ώρα";
 char *msg_mtot_mfd= "Αρχεία ανά ημέρα";
 char *msg_mtot_mpd= "Σελίδες ανά ημέρα";
+char *msg_mtot_msd= "Sites per Day";
 char *msg_mtot_mvd= "Επισκέψεις ανά ημέρα";
 char *msg_mtot_mkd= "KBytes ανά ημέρα";
 char *msg_mtot_rc = "Hits από το αποτέλεσμα";
@@ -330,8 +356,22 @@ struct  country_code ctry[] = {
 { IDX_3C('m','i','l'),    "Στρατιωτικό Σύστημα (Η.Π.Α.)",     0,0,0 },
 { IDX_3C('n','e','t'),    "Δικτυακός Οργανισμός",             0,0,0 },
 { IDX_3C('o','r','g'),    "¶λλος Οργανισμός",                 0,0,0 },
+{ IDX_3C('b','i','z'),    "Generic Business (biz)",           0,0,0 },
+{ IDX_3C('c','a','t'),    "Catalan Community (cat)",          0,0,0 },
+{ IDX_3C('p','r','o'),    "Professional (pro)",               0,0,0 },
+{ IDX_3C('t','e','l'),    "Ind. Contact Data (tel)",          0,0,0 },
+{ IDX_4C('a','e','r','o'),"Air Transport Industry (aero)",    0,0,0 },
+{ IDX_4C('a','s','i','a'),"Asia Pacific Community (asia)",    0,0,0 },
+{ IDX_4C('c','o','o','p'),"Cooperative Association (coop)",   0,0,0 },
+{ IDX_4C('i','n','f','o'),"Generic TLD (info)",               0,0,0 },
+{ IDX_4C('j','o','b','s'),"Human Resources (jobs)",           0,0,0 },
+{ IDX_4C('m','o','b','i'),"Generic Mobile TLD (mobi)",        0,0,0 },
+{ IDX_4C('n','a','m','e'),"Individual (name)",                0,0,0 },
 { IDX_4C('a','r','p','a'),"Παλιές διευθύνσεις (arpa)",        0,0,0 },
 { IDX_4C('n','a','t','o'),"Ν.Α.Τ.Ο.",                         0,0,0 },
+{ IDX_6C('m','u','s','e','u','m'), "Museums (museum)",        0,0,0 },
+{ IDX_6C('t','r','a','v','e','l'), "Travel Ind. (travel)",    0,0,0 },
+{ IDX_2C('a','c'),        "Ascension Island",                 0,0,0 },
 { IDX_2C('a','d'),        "Ανδόρα",                           0,0,0 },
 { IDX_2C('a','e'),        "Ημωνένα Αραβικά Εμιράτα",          0,0,0 },
 { IDX_2C('a','f'),        "Αφγανιστάν",                       0,0,0 },
@@ -347,6 +387,7 @@ struct  country_code ctry[] = {
 { IDX_2C('a','t'),        "Αυστρία",                          0,0,0 },
 { IDX_2C('a','u'),        "Αυστραλία",                        0,0,0 },
 { IDX_2C('a','w'),        "Αρούμπα",                          0,0,0 },
+{ IDX_2C('a','x'),        "Aland Islands",                    0,0,0 },
 { IDX_2C('a','z'),        "Αζερμπαϊτζάν",                     0,0,0 },
 { IDX_2C('b','a'),        "Βοσνία και Ερζεγοβίνη",            0,0,0 },
 { IDX_2C('b','b'),        "Μπαρμπαντός",                      0,0,0 },
@@ -357,6 +398,7 @@ struct  country_code ctry[] = {
 { IDX_2C('b','h'),        "Μπαχρέιν",                         0,0,0 },
 { IDX_2C('b','i'),        "Μπουρούντι",                       0,0,0 },
 { IDX_2C('b','j'),        "Μπενίν",                           0,0,0 },
+{ IDX_2C('b','l'),        "Saint Barthelemy",                 0,0,0 },
 { IDX_2C('b','m'),        "Βερμούδες",                        0,0,0 },
 { IDX_2C('b','n'),        "Μπρουνέι Νταρούσαλαμ",             0,0,0 },
 { IDX_2C('b','o'),        "Βολιβία",                          0,0,0 },
@@ -369,6 +411,7 @@ struct  country_code ctry[] = {
 { IDX_2C('b','z'),        "Μπελίζ",                           0,0,0 },
 { IDX_2C('c','a'),        "Καναδάς",                          0,0,0 },
 { IDX_2C('c','c'),        "Νησιά Κόκος",                      0,0,0 },
+{ IDX_2C('c','d'),        "Congo, Democratic Republic",       0,0,0 },
 { IDX_2C('c','f'),        "Κεντρική Αφρικανική Δημοκρατία",   0,0,0 },
 { IDX_2C('c','g'),        "Κογκό",                            0,0,0 },
 { IDX_2C('c','h'),        "Ελβετία",                          0,0,0 },
@@ -379,7 +422,6 @@ struct  country_code ctry[] = {
 { IDX_2C('c','n'),        "Κίνα",                             0,0,0 },
 { IDX_2C('c','o'),        "Κολομβία",                         0,0,0 },
 { IDX_2C('c','r'),        "Κόστα Ρίκα",                       0,0,0 },
-{ IDX_2C('c','s'),        "Τσεχοσλοβακία (πρώην)",            0,0,0 },
 { IDX_2C('c','u'),        "Κούβα",                            0,0,0 },
 { IDX_2C('c','v'),        "Πράσινο Ακρωτήριο",                0,0,0 },
 { IDX_2C('c','x'),        "Νησιά των Χριστουγέννων",          0,0,0 },
@@ -398,18 +440,19 @@ struct  country_code ctry[] = {
 { IDX_2C('e','r'),        "Ερυθραία",                         0,0,0 },
 { IDX_2C('e','s'),        "Ισπανία",                          0,0,0 },
 { IDX_2C('e','t'),        "Αιθιοπία",                         0,0,0 },
+{ IDX_2C('e','u'),        "European Union",                   0,0,0 },
 { IDX_2C('f','i'),        "Φιλανδία",                         0,0,0 },
 { IDX_2C('f','j'),        "Φίτζι",                            0,0,0 },
 { IDX_2C('f','k'),        "Νησιά Φόκλαντ",                    0,0,0 },
 { IDX_2C('f','m'),        "Μικρονησία",                       0,0,0 },
 { IDX_2C('f','o'),        "Νησιά Φαρόε",                      0,0,0 },
 { IDX_2C('f','r'),        "Γαλλία",                           0,0,0 },
-{ IDX_2C('f','x'),        "Γαλλία",                           0,0,0 },
 { IDX_2C('g','a'),        "Γκαμπόν",                          0,0,0 },
 { IDX_2C('g','b'),        "Μεγάλη Βρετανία",                  0,0,0 },
 { IDX_2C('g','d'),        "Γρενάδα",                          0,0,0 },
 { IDX_2C('g','e'),        "Γεωργία",                          0,0,0 },
 { IDX_2C('g','f'),        "Γαλλική Γουιάνα",                  0,0,0 },
+{ IDX_2C('g','g'),        "Guernsey",                         0,0,0 },
 { IDX_2C('g','h'),        "Γκάνα",                            0,0,0 },
 { IDX_2C('g','i'),        "Γιβραλτάρ",                        0,0,0 },
 { IDX_2C('g','l'),        "Γριλανδία",                        0,0,0 },
@@ -432,12 +475,14 @@ struct  country_code ctry[] = {
 { IDX_2C('i','d'),        "Ινδονησία",                        0,0,0 },
 { IDX_2C('i','e'),        "Ιρλανδία",                         0,0,0 },
 { IDX_2C('i','l'),        "Ισραήλ",                           0,0,0 },
+{ IDX_2C('i','m'),        "Isle of Man",                      0,0,0 },
 { IDX_2C('i','n'),        "Ινδία",                            0,0,0 },
 { IDX_2C('i','o'),        "Βρετανικές Κτήσεις Ινδικού",       0,0,0 },
 { IDX_2C('i','q'),        "Ιράκ",                             0,0,0 },
 { IDX_2C('i','r'),        "Ιράν",                             0,0,0 },
 { IDX_2C('i','s'),        "Ισλανδία",                         0,0,0 },
 { IDX_2C('i','t'),        "Ιταλία",                           0,0,0 },
+{ IDX_2C('j','e'),        "Jersey",                           0,0,0 },
 { IDX_2C('j','m'),        "Τζαμάικα",                         0,0,0 },
 { IDX_2C('j','o'),        "Ιορδανία",                         0,0,0 },
 { IDX_2C('j','p'),        "Ιαπωνία",                          0,0,0 },
@@ -466,6 +511,8 @@ struct  country_code ctry[] = {
 { IDX_2C('m','a'),        "Μαρόκο",                           0,0,0 },
 { IDX_2C('m','c'),        "Μονακό",                           0,0,0 },
 { IDX_2C('m','d'),        "Μόλντοβα",                         0,0,0 },
+{ IDX_2C('m','e'),        "Montenegro",                       0,0,0 },
+{ IDX_2C('m','f'),        "Saint Martin (French part)",       0,0,0 },
 { IDX_2C('m','g'),        "Μαδαγασκάρη",                      0,0,0 },
 { IDX_2C('m','h'),        "Νησιά Μάρσαλ",                     0,0,0 },
 { IDX_2C('m','k'),        "Σκόπια",                           0,0,0 },
@@ -494,7 +541,6 @@ struct  country_code ctry[] = {
 { IDX_2C('n','o'),        "Νορβηγία",                         0,0,0 },
 { IDX_2C('n','p'),        "Νεπάλ",                            0,0,0 },
 { IDX_2C('n','r'),        "Ναούρου",                          0,0,0 },
-{ IDX_2C('n','t'),        "Ουδέτερη Ζώνη",                    0,0,0 },
 { IDX_2C('n','u'),        "Νιούε",                            0,0,0 },
 { IDX_2C('n','z'),        "Νέα Ζηλανδία",                     0,0,0 },
 { IDX_2C('o','m'),        "Ομάν",                             0,0,0 },
@@ -508,16 +554,18 @@ struct  country_code ctry[] = {
 { IDX_2C('p','m'),        "Σαίντ Πιέρ",                       0,0,0 },
 { IDX_2C('p','n'),        "Πίτκαιρν",                         0,0,0 },
 { IDX_2C('p','r'),        "Πόρτο Ρίκο",                       0,0,0 },
+{ IDX_2C('p','s'),        "Palestinian Territory, Occupied",  0,0,0 },
 { IDX_2C('p','t'),        "Πορτογαλία",                       0,0,0 },
 { IDX_2C('p','w'),        "Παλάου",                           0,0,0 },
 { IDX_2C('p','y'),        "Παραγουάη",                        0,0,0 },
 { IDX_2C('q','a'),        "Κατάρ",                            0,0,0 },
 { IDX_2C('r','e'),        "Επανένωση",                        0,0,0 },
 { IDX_2C('r','o'),        "Ρουμανία",                         0,0,0 },
+{ IDX_2C('r','s'),        "Serbia",                           0,0,0 },
 { IDX_2C('r','u'),        "Ρωσία",                            0,0,0 },
 { IDX_2C('r','w'),        "Ρουάντα",                          0,0,0 },
 { IDX_2C('s','a'),        "Σαουδική Αραβία",                  0,0,0 },
-{ IDX_2C('s','B'),        "Νησιά Σολομώντα",                  0,0,0 },
+{ IDX_2C('s','b'),        "Νησιά Σολομώντα",                  0,0,0 },
 { IDX_2C('s','c'),        "Σεϋχέλες",                         0,0,0 },
 { IDX_2C('s','d'),        "Σουδάν",                           0,0,0 },
 { IDX_2C('s','e'),        "Σουηδία",                          0,0,0 },
@@ -543,6 +591,7 @@ struct  country_code ctry[] = {
 { IDX_2C('t','h'),        "Ταϊλάνδη",                         0,0,0 },
 { IDX_2C('t','j'),        "Τατζικιστάν",                      0,0,0 },
 { IDX_2C('t','k'),        "Τοκελάου",                         0,0,0 },
+{ IDX_2C('t','l'),        "Timor-Leste",                      0,0,0 },
 { IDX_2C('t','m'),        "Τουρκμενιστάν",                    0,0,0 },
 { IDX_2C('t','n'),        "Τυνησία",                          0,0,0 },
 { IDX_2C('t','o'),        "Τόγκα",                            0,0,0 },
@@ -573,6 +622,10 @@ struct  country_code ctry[] = {
 { IDX_2C('y','u'),        "Γιουγκοσλαβία",                    0,0,0 },
 { IDX_2C('z','a'),        "Νότια Αφρική",                     0,0,0 },
 { IDX_2C('z','m'),        "Ζάμπια",                           0,0,0 },
-{ IDX_2C('z','r'),        "Ζαϊρ",                             0,0,0 },
 { IDX_2C('z','w'),        "Ζιμπάμπουε",                       0,0,0 },
-{ 0,                      NULL,                               0,0,0}};
+{ IDX_2C('a','1'),        "Anonymous Proxy",                  0,0,0 },
+{ IDX_2C('a','2'),        "Satellite Provider",               0,0,0 },
+{ IDX_2C('o','1'),        "Other",                            0,0,0 },
+{ IDX_2C('a','p'),        "Asia/Pacific Region",              0,0,0 },
+{ IDX_3C('l','a','n'),    "Local Network (lan)",              0,0,0 },
+{ 0,                      NULL,                               0,0,0 }};

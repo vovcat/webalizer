@@ -9,6 +9,8 @@
    28-Jun-1999 Modified for level 1.3 support (brad@mrunix.net)
    16-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
    30-Oct-2000 Malay translation by Nazri Hussain (nazrih@mimos.my)
+   26-Mar-2008 Updated to current IANA TLDs (brad@mrunix.net)
+   26-May-2008 Modified for level 2.2 support (brad@mrunix.net)
 
 
    Language files are named using the following convention:
@@ -30,6 +32,7 @@
 /***********************************************************************/
 
 char *language  = "Malay";
+char *langcode  = "ms";
 
 /***********************************************************************/
 /*                                                                     */
@@ -84,6 +87,13 @@ char *msg_dns_nolk= "Ralat: Saya tidak dapat mengunci fail cache DNS";
 char *msg_dns_usec= "Fail cache DNS sedang digunakan";
 char *msg_dns_rslv= "Carian DNS";
 char *msg_dns_none= "Tiada apa untuk diproses";
+char *msg_dns_abrt= "DNS support not present, aborting...";
+
+/* Geolocation stuff */
+char *msg_geo_open= "Error opening file";
+char *msg_geo_use = "Using";
+char *msg_geo_nolu= "lookups disabled";
+char *msg_geo_dflt= "default";
 
 /* memory allocation errors */
 char *msg_nomem_ts= "Tidak dapat memperuntukkan ingatan, Halaman Terbaik diabaikan!";
@@ -118,12 +128,14 @@ char *h_usage1 = "Penggunaan";
 char *h_usage2 = "[pilihan] [fail log]";
 char *h_msg[]= {
          "-h        = cetak mesej pertolongan ini"             ,
-         "-v -V     = cetak maklumat versi"           ,
+         "-V        = cetak maklumat versi"           ,
+         "-v        = be verbose"                          ,
          "-d        = cetak maklumat tambahan berkenaan dengan debug"         ,
-         "-F type   = jenis Log.  jenis= (clf | ftp | squid)",
+         "-F type   = jenis Log.  jenis= (clf | ftp | squid | w3c)",
          "-f        = Alas turutan ralat"                ,
          "-i        = abaikan fail terdahulu"                 ,
          "-p        = kekalkan keadaan (secara menaik)"        ,
+         "-b        = ignore state (incremental)"          ,
          "-q        = abaikan maklumat mesej"      ,
          "-Q        = abaikan _SEMUA_ mesej"              ,
          "-Y        = abaikan graf negara"               ,
@@ -142,8 +154,11 @@ char *h_msg[]= {
          "-s name   = sorokkan nama halaman"                    ,
          "-u name   = sorokkan nama URL"                     ,
          "-x name   = gunakan pengakhir ini bagi nama fail"       ,
+         "-O name   = Omit page 'name'"                    ,
          "-P name   = Jenis pengakhir bagi nama fail ini"          ,
          "-I name   = Nama lain bagi fail Index"                  ,
+         "-K num    = num months in summary table"         ,
+         "-k num    = num months in summary graph"         ,
          "-A num    = Paparkan bilangan agen terbaik"              ,
          "-C num    = Paparkan bilangan negara terbaik"           ,
          "-R num    = Paparkan bilangan perujuk terbaik"           ,
@@ -153,8 +168,17 @@ char *h_msg[]= {
          "-E num    = Paparkan bilangan Hamalan Keluar yang terbaik"          ,
          "-g num    = Kumpulkan tahap Domain kepada"       ,
          "-X        = Sorokkan halaman individu ini"               ,
-         "-D name   = Gunakan fail cache DNS ini"           ,
-         "-N num    = Nombor proses bagi DNS (0=abaikan)" ,
+         "-z dir    = Use country flags in 'dir'"          ,
+#ifdef USE_DNS
+         "-D name   = Gunakan fail cache DNS ini"          ,
+         "-N num    = Nombor proses bagi DNS (0=abaikan)"  ,
+         "-j        = Enable native GeoDB lookups"         ,
+         "-J name   = Use GeoDB database 'name'"           ,
+#endif
+#ifdef USE_GEOIP
+         "-w        = Enable GeoIP lookups"                ,
+         "-W name   = Use GeoIP database 'name'"           ,
+#endif
          NULL};
 
 /***********************************************************************/
@@ -172,7 +196,8 @@ char *msg_hhdr_gt = "Dijanakan";
 
 /* main index strings */
 char *msg_main_us = "Ringkasan Penggunaan untuk";
-char *msg_main_per= "12 bulan yang lepas";
+/* char *msg_main_per= "12 bulan yang lepas"; */
+char *msg_main_per= "Ringkasan Bulanan";
 char *msg_main_sum= "Ringkasan Bulanan";
 char *msg_main_da = "Purata harian";
 char *msg_main_mt = "Jumlah Bulanan";
@@ -231,6 +256,7 @@ char *msg_mtot_mhd= "Purata Capaian Sehari";
 char *msg_mtot_mhh= "Purata Capaian Sejam";
 char *msg_mtot_mfd= "Purata Fail Sehari";
 char *msg_mtot_mpd= "Purata Halaman Sehari";
+char *msg_mtot_msd= "Sites per Day";
 char *msg_mtot_mvd= "Purata Lawatan Sehari";
 char *msg_mtot_mkd= "Purata KBait Sehari";
 char *msg_mtot_rc = "Purata Capaian mengikut Kod Respon";
@@ -326,15 +352,29 @@ char *msg_h_other = "Lain-lain";
 
 struct  country_code ctry[] = {
 { 0,                      "Tidak Diketahui",                  0,0,0 },
-{ IDX_3C('c','o','m'),    "Komersil US",                      0,0,0 },
-{ IDX_3C('e','d','u'),    "Pendidikan US",                    0,0,0 },
-{ IDX_3C('g','o','v'),    "Kerajaan US",                      0,0,0 },
+{ IDX_3C('c','o','m'),    "Komersil (com)",                   0,0,0 },
+{ IDX_3C('e','d','u'),    "Pendidikan (edu)",                 0,0,0 },
+{ IDX_3C('g','o','v'),    "Kerajaan US (gov)",                0,0,0 },
 { IDX_3C('i','n','t'),    "Antarabangsa (int)",               0,0,0 },
-{ IDX_3C('m','i','l'),    "Ketenteraan US",                   0,0,0 },
-{ IDX_3C('n','e','t'),    "Rangkaian",                        0,0,0 },
-{ IDX_3C('o','r','g'),    "Organisasi Tidak Komersil",        0,0,0 },
+{ IDX_3C('m','i','l'),    "Ketenteraan US (mil)",             0,0,0 },
+{ IDX_3C('n','e','t'),    "Rangkaian (net)",                  0,0,0 },
+{ IDX_3C('o','r','g'),    "Organisasi Tidak Komersil (org)",  0,0,0 },
+{ IDX_3C('b','i','z'),    "Generic Business (biz)",           0,0,0 },
+{ IDX_3C('c','a','t'),    "Catalan Community (cat)",          0,0,0 },
+{ IDX_3C('p','r','o'),    "Professional (pro)",               0,0,0 },
+{ IDX_3C('t','e','l'),    "Ind. Contact Data (tel)",          0,0,0 },
+{ IDX_4C('a','e','r','o'),"Air Transport Industry (aero)",    0,0,0 },
+{ IDX_4C('a','s','i','a'),"Asia Pacific Community (asia)",    0,0,0 },
+{ IDX_4C('c','o','o','p'),"Cooperative Association (coop)",   0,0,0 },
+{ IDX_4C('i','n','f','o'),"Generic TLD (info)",               0,0,0 },
+{ IDX_4C('j','o','b','s'),"Human Resources (jobs)",           0,0,0 },
+{ IDX_4C('m','o','b','i'),"Generic Mobile TLD (mobi)",        0,0,0 },
+{ IDX_4C('n','a','m','e'),"Individual (name)",                0,0,0 },
 { IDX_4C('a','r','p','a'),"Gaya Lama Arpanet (arpa)",         0,0,0 },
 { IDX_4C('n','a','t','o'),"Nato field (nato)",                0,0,0 },
+{ IDX_6C('m','u','s','e','u','m'), "Museums (museum)",        0,0,0 },
+{ IDX_6C('t','r','a','v','e','l'), "Travel Ind. (travel)",    0,0,0 },
+{ IDX_2C('a','c'),        "Ascension Island",                 0,0,0 },
 { IDX_2C('a','d'),        "Andorra",                          0,0,0 },
 { IDX_2C('a','e'),        "United Arab Emirates",             0,0,0 },
 { IDX_2C('a','f'),        "Afghanistan",                      0,0,0 },
@@ -350,6 +390,7 @@ struct  country_code ctry[] = {
 { IDX_2C('a','t'),        "Austria",                          0,0,0 },
 { IDX_2C('a','u'),        "Australia",                        0,0,0 },
 { IDX_2C('a','w'),        "Aruba",                            0,0,0 },
+{ IDX_2C('a','x'),        "Aland Islands",                    0,0,0 },
 { IDX_2C('a','z'),        "Azerbaijan",                       0,0,0 },
 { IDX_2C('b','a'),        "Bosnia and Herzegovina",           0,0,0 },
 { IDX_2C('b','b'),        "Barbados",                         0,0,0 },
@@ -360,6 +401,7 @@ struct  country_code ctry[] = {
 { IDX_2C('b','h'),        "Bahrain",                          0,0,0 },
 { IDX_2C('b','i'),        "Burundi",                          0,0,0 },
 { IDX_2C('b','j'),        "Benin",                            0,0,0 },
+{ IDX_2C('b','l'),        "Saint Barthelemy",                 0,0,0 },
 { IDX_2C('b','m'),        "Bermuda",                          0,0,0 },
 { IDX_2C('b','n'),        "Brunei Darussalam",                0,0,0 },
 { IDX_2C('b','o'),        "Bolivia",                          0,0,0 },
@@ -372,6 +414,7 @@ struct  country_code ctry[] = {
 { IDX_2C('b','z'),        "Belize",                           0,0,0 },
 { IDX_2C('c','a'),        "Canada",                           0,0,0 },
 { IDX_2C('c','c'),        "Pulau Cocos (Keeling)",            0,0,0 },
+{ IDX_2C('c','d'),        "Congo, Democratic Republic",       0,0,0 },
 { IDX_2C('c','f'),        "Republik Tengah Afrika",           0,0,0 },
 { IDX_2C('c','g'),        "Congo",                            0,0,0 },
 { IDX_2C('c','h'),        "Switzerland",                      0,0,0 },
@@ -382,7 +425,6 @@ struct  country_code ctry[] = {
 { IDX_2C('c','n'),        "China",                            0,0,0 },
 { IDX_2C('c','o'),        "Colombia",                         0,0,0 },
 { IDX_2C('c','r'),        "Costa Rica",                       0,0,0 },
-{ IDX_2C('c','s'),        "Czechoslovakia (bekas)",           0,0,0 },
 { IDX_2C('c','u'),        "Cuba",                             0,0,0 },
 { IDX_2C('c','v'),        "Cape Verde",                       0,0,0 },
 { IDX_2C('c','x'),        "Christmas Island",                 0,0,0 },
@@ -401,18 +443,19 @@ struct  country_code ctry[] = {
 { IDX_2C('e','r'),        "Eritrea",                          0,0,0 },
 { IDX_2C('e','s'),        "Spain",                            0,0,0 },
 { IDX_2C('e','t'),        "Ethiopia",                         0,0,0 },
+{ IDX_2C('e','u'),        "European Union",                   0,0,0 },
 { IDX_2C('f','i'),        "Finland",                          0,0,0 },
 { IDX_2C('f','j'),        "Fiji",                             0,0,0 },
 { IDX_2C('f','k'),        "Falkland Islands (Malvinas)",      0,0,0 },
 { IDX_2C('f','m'),        "Micronesia",                       0,0,0 },
 { IDX_2C('f','o'),        "Faroe Islands",                    0,0,0 },
 { IDX_2C('f','r'),        "France",                           0,0,0 },
-{ IDX_2C('f','x'),        "France, Metropolitan",             0,0,0 },
 { IDX_2C('g','a'),        "Gabon",                            0,0,0 },
 { IDX_2C('g','b'),        "Great Britain (UK)",               0,0,0 },
 { IDX_2C('g','d'),        "Grenada",                          0,0,0 },
 { IDX_2C('g','e'),        "Georgia",                          0,0,0 },
 { IDX_2C('g','f'),        "French Guiana",                    0,0,0 },
+{ IDX_2C('g','g'),        "Guernsey",                         0,0,0 },
 { IDX_2C('g','h'),        "Ghana",                            0,0,0 },
 { IDX_2C('g','i'),        "Gibraltar",                        0,0,0 },
 { IDX_2C('g','l'),        "Greenland",                        0,0,0 },
@@ -429,18 +472,20 @@ struct  country_code ctry[] = {
 { IDX_2C('h','k'),        "Hong Kong",                        0,0,0 },
 { IDX_2C('h','m'),        "Heard and McDonald Islands",       0,0,0 },
 { IDX_2C('h','n'),        "Honduras",                         0,0,0 },
-{ IDX_2C('h','r'),        "Croatia (Hrvatska)",               0,0,0 },
+{ IDX_2C('h','r'),        "Croatia",                          0,0,0 },
 { IDX_2C('h','t'),        "Haiti",                            0,0,0 },
 { IDX_2C('h','u'),        "Hungary",                          0,0,0 },
 { IDX_2C('i','d'),        "Indonesia",                        0,0,0 },
 { IDX_2C('i','e'),        "Ireland",                          0,0,0 },
 { IDX_2C('i','l'),        "Israel",                           0,0,0 },
+{ IDX_2C('i','m'),        "Isle of Man",                      0,0,0 },
 { IDX_2C('i','n'),        "India",                            0,0,0 },
 { IDX_2C('i','o'),        "British Indian Ocean Territory",   0,0,0 },
 { IDX_2C('i','q'),        "Iraq",                             0,0,0 },
 { IDX_2C('i','r'),        "Iran",                             0,0,0 },
 { IDX_2C('i','s'),        "Iceland",                          0,0,0 },
 { IDX_2C('i','t'),        "Italy",                            0,0,0 },
+{ IDX_2C('j','e'),        "Jersey",                           0,0,0 },
 { IDX_2C('j','m'),        "Jamaica",                          0,0,0 },
 { IDX_2C('j','o'),        "Jordan",                           0,0,0 },
 { IDX_2C('j','p'),        "Japan",                            0,0,0 },
@@ -450,8 +495,8 @@ struct  country_code ctry[] = {
 { IDX_2C('k','i'),        "Kiribati",                         0,0,0 },
 { IDX_2C('k','m'),        "Comoros",                          0,0,0 },
 { IDX_2C('k','n'),        "Saint Kitts and Nevis",            0,0,0 },
-{ IDX_2C('k','p'),        "Korea (North)",                    0,0,0 },
-{ IDX_2C('k','r'),        "Korea (South)",                    0,0,0 },
+{ IDX_2C('k','p'),        "Korea, Democratic Republic of",    0,0,0 },
+{ IDX_2C('k','r'),        "Korea, Republic of",               0,0,0 },
 { IDX_2C('k','w'),        "Kuwait",                           0,0,0 },
 { IDX_2C('k','y'),        "Cayman Islands",                   0,0,0 },
 { IDX_2C('k','z'),        "Kazakhstan",                       0,0,0 },
@@ -469,6 +514,8 @@ struct  country_code ctry[] = {
 { IDX_2C('m','a'),        "Morocco",                          0,0,0 },
 { IDX_2C('m','c'),        "Monaco",                           0,0,0 },
 { IDX_2C('m','d'),        "Moldova",                          0,0,0 },
+{ IDX_2C('m','e'),        "Montenegro",                       0,0,0 },
+{ IDX_2C('m','f'),        "Saint Martin (French part)",       0,0,0 },
 { IDX_2C('m','g'),        "Madagascar",                       0,0,0 },
 { IDX_2C('m','h'),        "Marshall Islands",                 0,0,0 },
 { IDX_2C('m','k'),        "Macedonia",                        0,0,0 },
@@ -497,9 +544,8 @@ struct  country_code ctry[] = {
 { IDX_2C('n','o'),        "Norway",                           0,0,0 },
 { IDX_2C('n','p'),        "Nepal",                            0,0,0 },
 { IDX_2C('n','r'),        "Nauru",                            0,0,0 },
-{ IDX_2C('n','t'),        "Neutral Zone",                     0,0,0 },
 { IDX_2C('n','u'),        "Niue",                             0,0,0 },
-{ IDX_2C('n','z'),        "New Zealand (Aotearoa)",           0,0,0 },
+{ IDX_2C('n','z'),        "New Zealand",                      0,0,0 },
 { IDX_2C('o','m'),        "Oman",                             0,0,0 },
 { IDX_2C('p','a'),        "Panama",                           0,0,0 },
 { IDX_2C('p','e'),        "Peru",                             0,0,0 },
@@ -511,16 +557,18 @@ struct  country_code ctry[] = {
 { IDX_2C('p','m'),        "St. Pierre and Miquelon",          0,0,0 },
 { IDX_2C('p','n'),        "Pitcairn",                         0,0,0 },
 { IDX_2C('p','r'),        "Puerto Rico",                      0,0,0 },
+{ IDX_2C('p','s'),        "Palestinian Territory, Occupied",  0,0,0 },
 { IDX_2C('p','t'),        "Portugal",                         0,0,0 },
 { IDX_2C('p','w'),        "Palau",                            0,0,0 },
 { IDX_2C('p','y'),        "Paraguay",                         0,0,0 },
 { IDX_2C('q','a'),        "Qatar",                            0,0,0 },
 { IDX_2C('r','e'),        "Reunion",                          0,0,0 },
 { IDX_2C('r','o'),        "Romania",                          0,0,0 },
+{ IDX_2C('r','s'),        "Serbia",                           0,0,0 },
 { IDX_2C('r','u'),        "Russian Federation",               0,0,0 },
 { IDX_2C('r','w'),        "Rwanda",                           0,0,0 },
 { IDX_2C('s','a'),        "Saudi Arabia",                     0,0,0 },
-{ IDX_2C('s','B'),        "Solomon Islands",                  0,0,0 },
+{ IDX_2C('s','b'),        "Solomon Islands",                  0,0,0 },
 { IDX_2C('s','c'),        "Seychelles",                       0,0,0 },
 { IDX_2C('s','d'),        "Sudan",                            0,0,0 },
 { IDX_2C('s','e'),        "Sweden",                           0,0,0 },
@@ -528,16 +576,16 @@ struct  country_code ctry[] = {
 { IDX_2C('s','h'),        "St. Helena",                       0,0,0 },
 { IDX_2C('s','i'),        "Slovenia",                         0,0,0 },
 { IDX_2C('s','j'),        "Svalbard and Jan Mayen Islands",   0,0,0 },
-{ IDX_2C('s','k'),        "Slovak Republic",                  0,0,0 },
+{ IDX_2C('s','k'),        "Slovakia",                         0,0,0 },
 { IDX_2C('s','l'),        "Sierra Leone",                     0,0,0 },
 { IDX_2C('s','m'),        "San Marino",                       0,0,0 },
 { IDX_2C('s','n'),        "Senegal",                          0,0,0 },
 { IDX_2C('s','o'),        "Somalia",                          0,0,0 },
 { IDX_2C('s','r'),        "Suriname",                         0,0,0 },
 { IDX_2C('s','t'),        "Sao Tome and Principe",            0,0,0 },
-{ IDX_2C('s','u'),        "USSR (former)",                    0,0,0 },
+{ IDX_2C('s','u'),        "Soviet Union",                     0,0,0 },
 { IDX_2C('s','v'),        "El Salvador",                      0,0,0 },
-{ IDX_2C('s','y'),        "Syria",                            0,0,0 },
+{ IDX_2C('s','y'),        "Syrian Arab Republic",             0,0,0 },
 { IDX_2C('s','z'),        "Swaziland",                        0,0,0 },
 { IDX_2C('t','c'),        "Turks and Caicos Islands",         0,0,0 },
 { IDX_2C('t','d'),        "Chad",                             0,0,0 },
@@ -546,10 +594,11 @@ struct  country_code ctry[] = {
 { IDX_2C('t','h'),        "Thailand",                         0,0,0 },
 { IDX_2C('t','j'),        "Tajikistan",                       0,0,0 },
 { IDX_2C('t','k'),        "Tokelau",                          0,0,0 },
+{ IDX_2C('t','l'),        "Timor-Leste",                      0,0,0 },
 { IDX_2C('t','m'),        "Turkmenistan",                     0,0,0 },
 { IDX_2C('t','n'),        "Tunisia",                          0,0,0 },
 { IDX_2C('t','o'),        "Tonga",                            0,0,0 },
-{ IDX_2C('t','p'),        "East Timor",                       0,0,0 },
+{ IDX_2C('t','p'),        "Portuguese Timor",                 0,0,0 },
 { IDX_2C('t','r'),        "Turkey",                           0,0,0 },
 { IDX_2C('t','t'),        "Trinidad and Tobago",              0,0,0 },
 { IDX_2C('t','v'),        "Tuvalu",                           0,0,0 },
@@ -576,6 +625,10 @@ struct  country_code ctry[] = {
 { IDX_2C('y','u'),        "Yugoslavia",                       0,0,0 },
 { IDX_2C('z','a'),        "South Africa",                     0,0,0 },
 { IDX_2C('z','m'),        "Zambia",                           0,0,0 },
-{ IDX_2C('z','r'),        "Zaire",                            0,0,0 },
 { IDX_2C('z','w'),        "Zimbabwe",                         0,0,0 },
+{ IDX_2C('a','1'),        "Anonymous Proxy",                  0,0,0 },
+{ IDX_2C('a','2'),        "Satellite Provider",               0,0,0 },
+{ IDX_2C('o','1'),        "Other",                            0,0,0 },
+{ IDX_2C('a','p'),        "Asia/Pacific Region",              0,0,0 },
+{ IDX_3C('l','a','n'),    "Local Network (lan)",              0,0,0 },
 { 0              ,        NULL,                               0,0,0 }};

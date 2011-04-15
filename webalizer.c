@@ -1,7 +1,7 @@
 /*
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2001  Bradford L. Barrett (brad@mrunix.net)
+    Copyright (C) 1997-2011  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,26 +19,30 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-    This software uses the gd graphics library, which is copyright by
-    Quest Protein Database Center, Cold Spring Harbor Labs.  Please
-    see the documentation supplied with the library for additional
-    information and license terms, or visit www.boutell.com/gd/ for the
-    most recent version of the library and supporting documentation.
 */
 
 /*********************************************/
 /* STANDARD INCLUDES                         */
 /*********************************************/
 
+/* Fix broken Zlib 64 bitness */
+#if _FILE_OFFSET_BITS == 64
+#ifndef _LARGEFILE64_SOURCE
+#define _LARGEFILE64_SOURCE 1
+#endif
+#endif
+
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include <unistd.h>                           /* normal stuff             */
+#include <locale.h>
 #include <ctype.h>
 #include <sys/utsname.h>
-#include <sys/times.h>
 #include <zlib.h>
+#include <sys/stat.h>
 
 /* ensure getopt */
 #ifdef HAVE_GETOPT_H
@@ -50,26 +54,31 @@
 #include <sys/types.h>
 #endif
 
+/* Need socket header? */
+#ifdef HAVE_SYS_SOCKET_H
+#include <sys/socket.h>
+#endif
+
 /* some systems need this */
 #ifdef HAVE_MATH_H
 #include <math.h>
 #endif
 
-/* SunOS 4.x Fix */
-#ifndef CLK_TCK
-#define CLK_TCK _SC_CLK_TCK
-#endif
-
 #ifdef USE_DNS
+#include <netdb.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
-#ifdef HAVE_DB_185_H
-#include <db_185.h>
-#else
 #include <db.h>
-#endif  /* HAVE_DB_185_H */
 #endif  /* USE_DNS */
+
+#ifdef USE_GEOIP
+#include <GeoIP.h>
+#endif
+
+#ifdef USE_BZIP
+#include <bzlib.h>
+int bz2_rewind(void **, char *, char *);
+#endif
 
 #include "webalizer.h"                         /* main header              */
 #include "output.h"
@@ -85,31 +94,36 @@
 /* internal function prototypes */
 
 void    clear_month();                              /* clear monthly stuff */
-char    *unescape(char *);                          /* unescape URL's      */
-char    from_hex(char);                             /* convert hex to dec  */
+char    *unescape(char *);                          /* unescape URLs       */
 void    print_opts(char *);                         /* print options       */
 void    print_version();                            /* duhh...             */
-int     isurlchar(unsigned char);                   /* valid URL char fnc. */
+int     isurlchar(unsigned char, int);              /* valid URL char fnc. */
 void    get_config(char *);                         /* Read a config file  */
 static  char *save_opt(char *);                     /* save conf option    */
 void    srch_string(char *);                        /* srch str analysis   */
 char	*get_domain(char *);                        /* return domain name  */
-char    *our_gzgets(gzFile, char *, int);           /* our gzgets          */
+void    agent_mangle(char *);                       /* reformat user agent */
+char    *our_gzgets(void *, char *, int);           /* our gzgets          */
+int     ouricmp(char *, char *);                    /* case ins. compare   */
+int     isipaddr(char *);                           /* is IP address test  */
 
 /*********************************************/
 /* GLOBAL VARIABLES                          */
 /*********************************************/
 
-char    *version     = "2.01";                /* program version          */
-char    *editlvl     = "10";                  /* edit level               */
-char    *moddate     = "16-Apr-2002";         /* modification date        */
-char    *copyright   = "Copyright 1997-2001 by Bradford L. Barrett";
+char    *version     = "2.23";                /* program version          */
+char    *editlvl     = "05";                  /* edit level               */
+char    *moddate     = "14-Apr-2011";         /* modification date        */
+char    *copyright   = "Copyright 1997-2011 by Bradford L. Barrett";
 
 int     verbose      = 2;                     /* 2=verbose,1=err, 0=none  */
 int     debug_mode   = 0;                     /* debug mode flag          */
 int     time_me      = 0;                     /* timing display flag      */
 int     local_time   = 1;                     /* 1=localtime 0=GMT (UTC)  */
+int     hist_gap     = 0;                     /* 1=error w/hist, save bkp */
 int     ignore_hist  = 0;                     /* history flag (1=skip)    */
+int     ignore_state = 0;                     /* state flag (1=skip)      */
+int     default_index= 1;                     /* default index. (1=yes)   */
 int     hourly_graph = 1;                     /* hourly graph display     */
 int     hourly_stats = 1;                     /* hourly stats table       */
 int     daily_graph  = 1;                     /* daily graph display      */
@@ -119,25 +133,47 @@ int     shade_groups = 1;                     /* Group shading 0=no 1=yes */
 int     hlite_groups = 1;                     /* Group hlite 0=no 1=yes   */
 int     mangle_agent = 0;                     /* mangle user agents       */
 int     incremental  = 0;                     /* incremental mode 1=yes   */
-int     use_https    = 0;                     /* use 'https://' on URL's  */
+int     use_https    = 0;                     /* use 'https://' on URLs   */
+int     htaccess     = 0;                     /* create .htaccess? (0=no) */
+int     stripcgi     = 1;                     /* strip url cgi (0=no)     */
+int     normalize    = 1;                     /* normalize CLF URL (0=no) */
+int     trimsquid    = 0;                     /* trim squid urls (0=no)   */
+int     searchcasei  = 1;                     /* case insensitive search  */
 int     visit_timeout= 1800;                  /* visit timeout (seconds)  */
 int     graph_legend = 1;                     /* graph legend (1=yes)     */
 int     graph_lines  = 2;                     /* graph lines (0=none)     */
 int     fold_seq_err = 0;                     /* fold seq err (0=no)      */
-int     log_type     = LOG_CLF;               /* (0=clf, 1=ftp, 2=squid)  */
+int     log_type     = LOG_CLF;               /* log type (default=CLF)   */
 int     group_domains= 0;                     /* Group domains 0=none     */
 int     hide_sites   = 0;                     /* Hide ind. sites (0=no)   */
+int     link_referrer= 0;                     /* Link referrers (0=no)    */
 char    *hname       = NULL;                  /* hostname for reports     */
 char    *state_fname = "webalizer.current";   /* run state file name      */
 char    *hist_fname  = "webalizer.hist";      /* name of history file     */
-char    *html_ext    = "html";                /* HTML file prefix         */
-char    *dump_ext    = "tab";                 /* Dump file prefix         */
+char    *html_ext    = "html";                /* HTML file suffix         */
+char    *dump_ext    = "tab";                 /* Dump file suffix         */
 char    *conf_fname  = NULL;                  /* name of config file      */
 char    *log_fname   = NULL;                  /* log file pointer         */
 char    *out_dir     = NULL;                  /* output directory         */
 char    *blank_str   = "";                    /* blank string             */
+char    *geodb_fname = NULL;                  /* GeoDB database filename  */
 char    *dns_cache   = NULL;                  /* DNS cache file name      */
 int     dns_children = 0;                     /* DNS children (0=don't do)*/
+int     cache_ips    = 0;                     /* CacheIPs in DB (0=no)    */
+int     cache_ttl    = 7;                     /* DNS Cache TTL (days)     */
+int     geodb        = 0;                     /* Use GeoDB (0=no)         */
+int     graph_mths   = 12;                    /* # months in index graph  */
+int     index_mths   = 12;                    /* # months in index table  */
+int     year_hdrs    = 1;                     /* index year seperators    */
+int     year_totals  = 1;                     /* index year subtotals     */
+int     use_flags    = 0;                     /* Show flags in ctry table */
+char    *flag_dir    = "flags";               /* location of flag icons   */
+
+#ifdef USE_GEOIP
+int     geoip        = 0;                     /* Use GeoIP (0=no)         */
+char    *geoip_db    = NULL;                  /* GeoIP database filename  */
+GeoIP   *geo_fp      = NULL;                  /* GeoIP database handle    */
+#endif
 
 int     ntop_sites   = 30;                    /* top n sites to display   */
 int     ntop_sitesK  = 10;                    /* top n sites (by kbytes)  */
@@ -152,14 +188,14 @@ int     ntop_search  = 20;                    /* top n search strings     */
 int     ntop_users   = 20;                    /* top n users to display   */
 
 int     all_sites    = 0;                     /* List All sites (0=no)    */
-int     all_urls     = 0;                     /* List All URL's (0=no)    */
+int     all_urls     = 0;                     /* List All URLs  (0=no)    */
 int     all_refs     = 0;                     /* List All Referrers       */
 int     all_agents   = 0;                     /* List All User Agents     */
 int     all_search   = 0;                     /* List All Search Strings  */
 int     all_users    = 0;                     /* List All Usernames       */
 
 int     dump_sites   = 0;                     /* Dump tab delimited sites */
-int     dump_urls    = 0;                     /* URL's                    */
+int     dump_urls    = 0;                     /* URLs                     */
 int     dump_refs    = 0;                     /* Referrers                */
 int     dump_agents  = 0;                     /* User Agents              */
 int     dump_users   = 0;                     /* Usernames                */
@@ -167,62 +203,70 @@ int     dump_search  = 0;                     /* Search strings           */
 int     dump_header  = 0;                     /* Dump header as first rec */
 char    *dump_path   = NULL;                  /* Path for dump files      */
 
-int     cur_year=0, cur_month=0,              /* year/month/day/hour      */
-        cur_day=0, cur_hour=0,                /* tracking variables       */
-        cur_min=0, cur_sec=0;
+int        cur_year=0, cur_month=0,           /* year/month/day/hour      */
+           cur_day=0, cur_hour=0,             /* tracking variables       */
+           cur_min=0, cur_sec=0;
 
-u_long  cur_tstamp=0;                         /* Timestamp...             */
-u_long  rec_tstamp=0;
-u_long  req_tstamp=0;
-u_long  epoch;                                /* used for timestamp adj.  */
+u_int64_t  cur_tstamp=0;                      /* Timestamp...             */
+u_int64_t  rec_tstamp=0;
+u_int64_t  req_tstamp=0;
+u_int64_t  epoch;                             /* used for timestamp adj.  */
 
-int     check_dup=0;                          /* check for dup flag       */
-int     gz_log=0;                             /* gziped log? (0=no)       */
+int        check_dup=0;                       /* check for dup flag       */
+int        gz_log=COMP_NONE;                  /* gziped log? (0=no)       */
 
-double  t_xfer=0.0;                           /* monthly total xfer value */
-u_long  t_hit=0,t_file=0,t_site=0,            /* monthly total vars       */
-        t_url=0,t_ref=0,t_agent=0,
-        t_page=0, t_visit=0, t_user=0;
+double     t_xfer=0.0;                        /* monthly total xfer value */
+u_int64_t  t_hit=0,t_file=0,t_site=0,         /* monthly total vars       */
+           t_url=0,t_ref=0,t_agent=0,
+           t_page=0, t_visit=0, t_user=0;
 
-double  tm_xfer[31];                          /* daily transfer totals    */
+double     tm_xfer[31];                       /* daily transfer totals    */
 
-u_long  tm_hit[31], tm_file[31],              /* daily total arrays       */
-        tm_site[31], tm_page[31],
-        tm_visit[31];
+u_int64_t  tm_hit[31], tm_file[31],           /* daily total arrays       */
+           tm_site[31], tm_page[31],
+           tm_visit[31];
 
-u_long  dt_site;                              /* daily 'sites' total      */
+u_int64_t  dt_site;                           /* daily 'sites' total      */
 
-u_long  ht_hit=0, mh_hit=0;                   /* hourly hits totals       */
+u_int64_t  ht_hit=0, mh_hit=0;                /* hourly hits totals       */
 
-u_long  th_hit[24], th_file[24],              /* hourly total arrays      */
-        th_page[24];
+u_int64_t  th_hit[24], th_file[24],           /* hourly total arrays      */
+           th_page[24];
 
-double  th_xfer[24];
+double     th_xfer[24];
 
-int     f_day,l_day;                          /* first/last day vars      */
+int        f_day,l_day;                       /* first/last day vars      */
 
-struct  utsname system_info;                  /* system info structure    */
+struct     utsname system_info;               /* system info structure    */
 
-u_long  ul_bogus =0;                          /* Dummy counter for groups */
+u_int64_t  ul_bogus =0;                       /* Dummy counter for groups */
 
-struct  log_struct log_rec;                   /* expanded log storage     */
+struct     log_struct log_rec;                /* expanded log storage     */
 
-time_t  now;                                  /* used by cur_time funct   */
-struct  tm *tp;                               /* to generate timestamp    */
-char    timestamp[32];                        /* for the reports          */
+void       *zlog_fp;                          /* compressed logfile ptr   */
+FILE       *log_fp;                           /* regular logfile pointer  */
 
-gzFile  gzlog_fp;                             /* gzip logfile pointer     */
-FILE    *log_fp;                              /* regular logfile pointer  */
+char       buffer[BUFSIZE];                   /* log file record buffer   */
+char       tmp_buf[BUFSIZE];                  /* used to temp save above  */
 
-char    buffer[BUFSIZE];                      /* log file record buffer   */
-char    tmp_buf[BUFSIZE];                     /* used to temp save above  */
+CLISTPTR   *top_ctrys    = NULL;              /* Top countries table      */
 
-CLISTPTR *top_ctrys    = NULL;                /* Top countries table      */
+#define    GZ_BUFSIZE 16384                   /* our_getfs buffer size    */
+char       f_buf[GZ_BUFSIZE];                 /* our_getfs buffer         */
+char       *f_cp=f_buf+GZ_BUFSIZE;            /* pointer into the buffer  */
+int        f_end=0;                           /* count to end of buffer   */
 
-#define GZ_BUFSIZE 16384                      /* our_getfs buffer size    */
-char    f_buf[GZ_BUFSIZE];                    /* our_getfs buffer         */
-char    *f_cp=f_buf+GZ_BUFSIZE;               /* pointer into the buffer  */
-int     f_end;                                /* count to end of buffer   */
+char    hit_color[]   = "#00805c";            /* graph hit color          */
+char    file_color[]  = "#0040ff";            /* graph file color         */
+char    site_color[]  = "#ff8000";            /* graph site color         */
+char    kbyte_color[] = "#ff0000";            /* graph kbyte color        */
+char    page_color[]  = "#00e0ff";            /* graph page color         */
+char    visit_color[] = "#ffff00";            /* graph visit color        */
+char    misc_color[]  = "#00e0ff";            /* graph misc color         */
+char    pie_color1[]  = "#800080";            /* pie additionnal color 1  */
+char    pie_color2[]  = "#80ffc0";            /* pie additionnal color 2  */
+char    pie_color3[]  = "#ff00ff";            /* pie additionnal color 3  */
+char    pie_color4[]  = "#ffc080";            /* pie additionnal color 4  */
 
 /*********************************************/
 /* MAIN - start here                         */
@@ -231,7 +275,9 @@ int     f_end;                                /* count to end of buffer   */
 int main(int argc, char *argv[])
 {
    int      i;                           /* generic counter             */
-   char     *cp1, *cp2, *cp3, *str;      /* generic char pointers       */
+   char     *cp1, *cp2, *cp3;            /* generic char pointers       */
+   char     host_buf[MAXHOST+1];         /* used to save hostname       */
+
    NLISTPTR lptr;                        /* generic list pointer        */
 
    extern char *optarg;                  /* used for command line       */
@@ -240,14 +286,13 @@ int main(int argc, char *argv[])
 
    time_t start_time, end_time;          /* program timers              */
    float  temp_time;                     /* temporary time storage      */
-   struct tms     mytms;                 /* bogus tms structure         */
 
    int    rec_year,rec_month=1,rec_day,rec_hour,rec_min,rec_sec;
 
-   int    good_rec    =0;                /* 1 if we had a good record   */
-   u_long total_rec   =0;                /* Total Records Processed     */
-   u_long total_ignore=0;                /* Total Records Ignored       */
-   u_long total_bad   =0;                /* Total Bad Records           */
+   int       good_rec    =0;             /* 1 if we had a good record   */
+   u_int64_t total_rec   =0;             /* Total Records Processed     */
+   u_int64_t total_ignore=0;             /* Total Records Ignored       */
+   u_int64_t total_bad   =0;             /* Total Bad Records           */
 
    int    max_ctry;                      /* max countries defined       */
 
@@ -257,11 +302,14 @@ int main(int argc, char *argv[])
                          "jul", "aug", "sep",
                          "oct", "nov", "dec"};
 
+   /* stat struct for files */
+   struct stat log_stat;
+
+   /* Assume that LC_CTYPE is what the user wants for non-ASCII chars   */
+   setlocale(LC_CTYPE,"");
+
    /* initalize epoch */
    epoch=jdate(1,1,1970);                /* used for timestamp adj.     */
-
-   /* add default index. alias */
-   add_nlist("index.",&index_alias);
 
    sprintf(tmp_buf,"%s/webalizer.conf",ETCDIR);
    /* check for default config file */
@@ -272,12 +320,13 @@ int main(int argc, char *argv[])
 
    /* get command line options */
    opterr = 0;     /* disable parser errors */
-   while ((i=getopt(argc,argv,"a:A:c:C:dD:e:E:fF:g:GhHiI:l:Lm:M:n:N:o:pP:qQr:R:s:S:t:Tu:U:vVx:XY"))!=EOF)
+   while ((i=getopt(argc,argv,"a:A:bc:C:dD:e:E:fF:g:GhHiI:jJ:k:K:l:Lm:M:n:N:o:O:pP:qQr:R:s:S:t:Tu:U:vVwW:x:XYz:Z"))!=EOF)
    {
       switch (i)
       {
         case 'a': add_nlist(optarg,&hidden_agents); break; /* Hide agents   */
         case 'A': ntop_agents=atoi(optarg);  break;  /* Top agents          */
+        case 'b': ignore_state=1;            break;  /* Ignore state file   */
         case 'c': get_config(optarg);        break;  /* Config file         */
         case 'C': ntop_ctrys=atoi(optarg);   break;  /* Top countries       */
         case 'd': debug_mode=1;              break;  /* Debug               */
@@ -285,15 +334,20 @@ int main(int argc, char *argv[])
         case 'e': ntop_entry=atoi(optarg);   break;  /* Top entry pages     */
         case 'E': ntop_exit=atoi(optarg);    break;  /* Top exit pages      */
         case 'f': fold_seq_err=1;            break;  /* Fold sequence errs  */
-        case 'F': log_type=(optarg[0]=='f')?
-                   LOG_FTP:(optarg[0]=='s')?
-                   LOG_SQUID:LOG_CLF;        break;  /* define log type     */
+        case 'F': log_type=(tolower(optarg[0])=='f')?
+                   LOG_FTP:(tolower(optarg[0])=='s')?
+                   LOG_SQUID:(tolower(optarg[0])=='w')?
+                   LOG_W3C:LOG_CLF;          break;  /* define log type     */
 	case 'g': group_domains=atoi(optarg); break; /* GroupDomains (0=no) */
         case 'G': hourly_graph=0;            break;  /* no hourly graph     */
         case 'h': print_opts(argv[0]);       break;  /* help                */
         case 'H': hourly_stats=0;            break;  /* no hourly stats     */
         case 'i': ignore_hist=1;             break;  /* Ignore history      */
         case 'I': add_nlist(optarg,&index_alias); break; /* Index alias     */
+        case 'j': geodb=1;                   break;  /* Enable GeoDB        */
+        case 'J': geodb_fname=optarg;        break;  /* GeoDB db filename   */
+        case 'k': graph_mths=atoi(optarg);   break;  /* # months idx graph  */
+        case 'K': index_mths=atoi(optarg);   break;  /* # months idx table  */
         case 'l': graph_lines=atoi(optarg);  break;  /* Graph Lines         */
         case 'L': graph_legend=0;            break;  /* Graph Legends       */
         case 'm': visit_timeout=atoi(optarg); break; /* Visit Timeout       */
@@ -301,6 +355,7 @@ int main(int argc, char *argv[])
         case 'n': hname=optarg;              break;  /* Hostname            */
         case 'N': dns_children=atoi(optarg); break;  /* # of DNS children   */
         case 'o': out_dir=optarg;            break;  /* Output directory    */
+        case 'O': add_nlist(optarg,&omit_page); break; /* pages not counted */
         case 'p': incremental=1;             break;  /* Incremental run     */
         case 'P': add_nlist(optarg,&page_type); break; /* page view types   */
         case 'q': verbose=1;                 break;  /* Quiet (verbose=1)   */
@@ -313,11 +368,17 @@ int main(int argc, char *argv[])
         case 'T': time_me=1;                 break;  /* TimeMe              */
         case 'u': add_nlist(optarg,&hidden_urls);   break; /* hide URL      */
         case 'U': ntop_urls=atoi(optarg);    break;  /* Top urls            */
-        case 'v':
+        case 'v': verbose=2; debug_mode=1;   break;  /* Verbose             */
         case 'V': print_version();           break;  /* Version             */
+#ifdef USE_GEOIP
+        case 'w': geoip=1;                   break;  /* Enable GeoIP        */
+        case 'W': geoip_db=optarg;           break;  /* GeoIP database name */
+#endif
         case 'x': html_ext=optarg;           break;  /* HTML file extension */
         case 'X': hide_sites=1;              break;  /* Hide ind. sites     */
         case 'Y': ctry_graph=0;              break;  /* Supress ctry graph  */
+        case 'Z': normalize=0;               break;  /* Dont normalize URLs */
+        case 'z': use_flags=1; flag_dir=optarg; break; /* Ctry flag dir     */
       }
    }
 
@@ -325,14 +386,25 @@ int main(int argc, char *argv[])
    if ( log_fname && (log_fname[0]=='-')) log_fname=NULL; /* force STDIN?   */
 
    /* check for gzipped file - .gz */
-   if (log_fname) if (!strcmp((log_fname+strlen(log_fname)-3),".gz")) gz_log=1;
+   if (log_fname) if (!strcmp((log_fname+strlen(log_fname)-3),".gz"))
+      gz_log=COMP_GZIP;
+
+#ifdef USE_BZIP
+   /* check for bzip file - .bz2 */
+   if (log_fname) if (!strcmp((log_fname+strlen(log_fname)-4),".bz2"))
+      gz_log=COMP_BZIP;
+#endif
 
    /* setup our internal variables */
-   init_counters();                      /* initalize main counters         */
+   init_counters();                      /* initalize (zero) main counters  */
+   memset(hist, 0, sizeof(hist));        /* initalize (zero) history array  */
+
+   /* add default index. alias if needed */
+   if (default_index) add_nlist("index.",&index_alias);
 
    if (page_type==NULL)                  /* check if page types present     */
    {
-      if ((log_type == LOG_CLF) || (log_type == LOG_SQUID))
+      if ((log_type==LOG_CLF)||(log_type==LOG_SQUID)||(log_type==LOG_W3C))
       {
          add_nlist("htm*"  ,&page_type); /* if no page types specified, we  */
          add_nlist("cgi"   ,&page_type); /* use the default ones here...    */
@@ -344,6 +416,10 @@ int main(int argc, char *argv[])
    for (max_ctry=0;ctry[max_ctry].desc;max_ctry++);
    if (ntop_ctrys > max_ctry) ntop_ctrys = max_ctry;   /* force upper limit */
    if (graph_lines> 20)       graph_lines= 20;         /* keep graphs sane! */
+   if (graph_mths<12)         graph_mths=12;
+   if (graph_mths>GRAPHMAX)   graph_mths=GRAPHMAX;
+   if (index_mths<12)         index_mths=12;
+   if (index_mths>HISTSIZE)   index_mths=HISTSIZE;
 
    if (log_type == LOG_FTP)
    {
@@ -356,19 +432,21 @@ int main(int argc, char *argv[])
       if (search_list==NULL)
       {
          /* If no search engines defined, define some :) */
+         add_glist(".google.       q="      ,&search_list);
          add_glist("yahoo.com      p="      ,&search_list);
          add_glist("altavista.com  q="      ,&search_list);
-         add_glist("google.com     q="      ,&search_list);
+         add_glist("aolsearch.     query="  ,&search_list);
+         add_glist("ask.co         q="      ,&search_list);
          add_glist("eureka.com     q="      ,&search_list);
          add_glist("lycos.com      query="  ,&search_list);
          add_glist("hotbot.com     MT="     ,&search_list);
-         add_glist("msn.com        MT="     ,&search_list);
+         add_glist("msn.com        q="      ,&search_list);
          add_glist("infoseek.com   qt="     ,&search_list);
          add_glist("webcrawler searchText=" ,&search_list);
          add_glist("excite         search=" ,&search_list);
-         add_glist("netscape.com   search=" ,&search_list);
+         add_glist("netscape.com   query="  ,&search_list);
          add_glist("mamma.com      query="  ,&search_list);
-         add_glist("alltheweb.com  query="  ,&search_list);
+         add_glist("alltheweb.com  q="      ,&search_list);
          add_glist("northernlight.com qr="  ,&search_list);
       }
    }
@@ -391,34 +469,55 @@ int main(int argc, char *argv[])
    if (verbose>1)
    {
       uname(&system_info);
-      printf("Webalizer V%s-%s (%s %s) %s\n",
-              version,editlvl,system_info.sysname,
-              system_info.release,language);
+      printf("Webalizer V%s-%s (%s %s %s) %s\n", version,editlvl,
+              system_info.sysname, system_info.release,
+              system_info.machine,language);
    }
 
 #ifndef USE_DNS
    if (strstr(argv[0],"webazolver")!=0)
-   {
-      printf("DNS support not present, aborting...\n");
-      exit(1);
-   }
+      /* DNS support not present, aborting... */
+      { printf("%s\n",msg_dns_abrt); exit(1); }
+#else
+   /* Force sane values for cache TTL */
+   if (cache_ttl<1)   cache_ttl=1;
+   if (cache_ttl>100) cache_ttl=100;
 #endif  /* USE_DNS */
 
    /* open log file */
-   if (gz_log)
+   if (log_fname)
    {
-      gzlog_fp = gzopen(log_fname,"rb");
-      if (gzlog_fp==Z_NULL)
+      /* stat the file */
+      if ( !(lstat(log_fname, &log_stat)) )
       {
-         /* Error: Can't open log file ... */
-         fprintf(stderr, "%s %s\n",msg_log_err,log_fname);
-         exit(1);
+         /* check if the file a symlink */
+         if ( S_ISLNK(log_stat.st_mode) )
+         {
+            if (verbose)
+            fprintf(stderr,"%s %s (symlink)\n",msg_log_err,log_fname);
+            exit(EBADF);
+         }
       }
-   }
-   else
-   {
-      if (log_fname)
+
+      if (gz_log)
       {
+         /* open compressed file */
+#ifdef USE_BZIP
+         if (gz_log==COMP_BZIP)
+            zlog_fp = BZ2_bzopen(log_fname,"rb");
+         else
+#endif
+         zlog_fp = gzopen(log_fname, "rb");
+         if (zlog_fp==Z_NULL)
+         {
+            /* Error: Can't open log file ... */
+            fprintf(stderr, "%s %s (%d)\n",msg_log_err,log_fname,ENOENT);
+            exit(ENOENT);
+         }
+      }
+      else
+      {
+         /* open regular file */
          log_fp = fopen(log_fname,"r");
          if (log_fp==NULL)
          {
@@ -433,13 +532,17 @@ int main(int argc, char *argv[])
    if (verbose>1)
    {
       printf("%s %s (",msg_log_use,log_fname?log_fname:"STDIN");
-      if (gz_log) printf("gzip-");
+      if (gz_log==COMP_GZIP) printf("gzip-");
+#ifdef USE_BZIP
+      if (gz_log==COMP_BZIP) printf("bzip-");
+#endif
       switch (log_type)
       {
          /* display log file type hint */
          case LOG_CLF:   printf("clf)\n");   break;
          case LOG_FTP:   printf("ftp)\n");   break;
          case LOG_SQUID: printf("squid)\n"); break;
+         case LOG_W3C:   printf("w3c)\n");   break;
       }
    }
 
@@ -472,8 +575,12 @@ int main(int argc, char *argv[])
       /* DNS Lookup (#children): */
       if (verbose>1) printf("%s (%d): ",msg_dns_rslv,dns_children);
       fflush(stdout);
-      (gz_log)?dns_resolver(gzlog_fp):dns_resolver(log_fp);
-      (gz_log)?gzrewind(gzlog_fp):(log_fname)?rewind(log_fp):exit(0);
+      (gz_log)?dns_resolver(zlog_fp):dns_resolver(log_fp);
+#ifdef USE_BZIP
+      (gz_log==COMP_BZIP)?bz2_rewind(&zlog_fp, log_fname, "rb"):
+#endif
+      (gz_log==COMP_GZIP)?gzrewind(zlog_fp):
+      (log_fname)?rewind(log_fp):exit(0);
    }
 
    if (strstr(argv[0],"webazolver")!=0) exit(0);   /* webazolver exits here */
@@ -487,7 +594,47 @@ int main(int argc, char *argv[])
          if (verbose>1) printf("%s %s\n",msg_dns_usec,dns_cache);
       }
    }
+
+   /* Open GeoDB? */
+   if (geodb)
+   {
+      geo_db=geodb_open(geodb_fname);
+      if (geo_db==NULL)
+      {
+         if (verbose) printf("%s: %s\n",msg_geo_open,
+            (geodb_fname)?geodb_fname:msg_geo_dflt);
+         if (verbose) printf("GeoDB %s\n",msg_geo_nolu);
+         geodb=0;
+      }
+      else if (verbose>1) printf("%s %s\n",
+         msg_geo_use,geodb_ver(geo_db,buffer));
+#ifdef USE_GEOIP
+      if (geoip) geoip=0;   /* Disable GeoIP if using GeoDB */
+#endif
+   }
 #endif  /* USE_DNS */
+
+#ifdef USE_GEOIP
+   /* open GeoIP database */
+   if (geoip)
+   {
+      if (geoip_db!=NULL)
+         geo_fp=GeoIP_open(geoip_db, GEOIP_MEMORY_CACHE);
+      else
+         geo_fp=GeoIP_new(GEOIP_MEMORY_CACHE);
+
+      /* Did we open one? */
+      if (geo_fp==NULL)
+      {
+         /* couldn't open.. warn user */
+         if (verbose) printf("GeoIP %s\n",msg_geo_nolu);
+         geoip=0;
+      }
+      else if (verbose>1) printf("%s %s (%s)\n",msg_geo_use,
+         GeoIPDBDescription[(int)geo_fp->databaseType],
+         (geoip_db==NULL)?msg_geo_dflt:geo_fp->file_path);
+   }
+#endif /* USE_GEOIP */
 
    /* Creating output in ... */
    if (verbose>1)
@@ -501,10 +648,10 @@ int main(int argc, char *argv[])
    }
 
    /* Hostname for reports is ... */
-   if (verbose>1) printf("%s '%s'\n",msg_hostname,hname);
+   if (strlen(hname)) if (verbose>1) printf("%s '%s'\n",msg_hostname,hname);
 
    /* get past history */
-   if (ignore_hist) {if (verbose>1) printf("%s\n",msg_ign_hist); }
+   if (ignore_hist) { if (verbose>1) printf("%s\n",msg_ign_hist); }
    else get_history();
 
    if (incremental)                      /* incremental processing?         */
@@ -524,13 +671,14 @@ int main(int argc, char *argv[])
     /* Can't get memory, Top Countries disabled! */
     {if (verbose) fprintf(stderr,"%s\n",msg_nomem_tc); ntop_ctrys=0;}}
 
-   start_time = times(&mytms);
+   /* get processing start time */
+   start_time = time(NULL);
 
    /*********************************************/
    /* MAIN PROCESS LOOP - read through log file */
    /*********************************************/
 
-   while ( (gz_log)?(our_gzgets(gzlog_fp,buffer,BUFSIZE) != Z_NULL):
+   while ( (gz_log)?(our_gzgets(zlog_fp,buffer,BUFSIZE) != Z_NULL):
            (fgets(buffer,BUFSIZE,log_fname?log_fp:stdin) != NULL))
    {
       total_rec++;
@@ -546,7 +694,7 @@ int main(int argc, char *argv[])
          total_bad++;                     /* bump bad record counter      */
 
          /* get the rest of the record */
-         while ( (gz_log)?(our_gzgets(gzlog_fp,buffer,BUFSIZE)!=Z_NULL):
+         while ( (gz_log)?(our_gzgets(zlog_fp,buffer,BUFSIZE)!=Z_NULL):
                  (fgets(buffer,BUFSIZE,log_fname?log_fp:stdin)!=NULL))
          {
             if (strlen(buffer) < BUFSIZE-1)
@@ -571,6 +719,10 @@ int main(int argc, char *argv[])
          for (i=4;i<7;i++)
             log_rec.datetime[i]=tolower(log_rec.datetime[i]);
 
+         /* lowercase sitename/IPv6 addresses */
+         cp1=log_rec.hostname;
+         while (*cp1++!='\0') *cp1=tolower(*cp1);
+
          /* get year/month/day/hour/min/sec values    */
          for (i=0;i<12;i++)
          {
@@ -588,12 +740,12 @@ int main(int argc, char *argv[])
          if (rec_hour>23) rec_hour=0;
 
          /* minimal sanity check on date */
-         if ((i>=12)||(rec_min>59)||(rec_sec>59)||(rec_year<1990))
+         if ((i>=12)||(rec_min>59)||(rec_sec>60)||(rec_year<1990))
          {
             total_bad++;                /* if a bad date, bump counter      */
             if (verbose)
             {
-               fprintf(stderr,"%s: %s [%lu]",
+               fprintf(stderr,"%s: %s [%llu]",
                  msg_bad_date,log_rec.datetime,total_rec);
                if (debug_mode) fprintf(stderr,":\n%s\n",tmp_buf);
                else fprintf(stderr,"\n");
@@ -628,7 +780,7 @@ int main(int argc, char *argv[])
                /* if it isn't.. disable any more checks this run            */
                check_dup=0;
                /* now check if it's a new month                             */
-               if (cur_month != rec_month)
+               if ( (cur_month != rec_month) || (cur_year != rec_year) )
                {
                   clear_month();
                   cur_sec   = rec_sec;          /* set current counters     */
@@ -665,10 +817,13 @@ int main(int argc, char *argv[])
          /* DO SOME PRE-PROCESS FORMATTING            */
          /*********************************************/
 
+         /* un-escape URL */
+         unescape(log_rec.url);
+
          /* fix URL field */
          cp1 = cp2 = log_rec.url;
          /* handle null '-' case here... */
-         if (*++cp1 == '-') { *cp2++ = '-'; *cp2 = '\0'; }
+         if (*++cp1 == '-') strcpy(log_rec.url,"/INVALID-URL");
          else
          {
             /* strip actual URL out of request */
@@ -678,34 +833,69 @@ int main(int argc, char *argv[])
                /* scan to begin of actual URL field */
                while ((*cp1 == ' ') && (*cp1 != '\0')) cp1++;
                /* remove duplicate / if needed */
-               if (( *cp1=='/') && (*(cp1+1)=='/')) cp1++;
-               while ((*cp1 != ' ')&&(*cp1 != '"')&&(*cp1 != '\0'))
-                  *cp2++ = *cp1++;
-               *cp2 = '\0';
-            }
-         }
-
-         /* un-escape URL */
-         unescape(log_rec.url);
-
-         /* check for service (ie: http://) and lowercase if found */
-         if ( (cp2=strstr(log_rec.url,"://")) != NULL)
-         {
-            cp1=log_rec.url;
-            while (cp1!=cp2)
-            {
-               if ( (*cp1>='A') && (*cp1<='Z')) *cp1 += 'a'-'A';
-               cp1++;
+               while (( *cp1=='/') && (*(cp1+1)=='/')) cp1++;
+               while (( *cp1!='\0')&&(*cp1!='"')) *cp2++=*cp1++;
+               *cp2='\0';
             }
          }
 
          /* strip query portion of cgi scripts */
          cp1 = log_rec.url;
          while (*cp1 != '\0')
-           if (!isurlchar(*cp1)) { *cp1 = '\0'; break; }
+           if (!isurlchar(*cp1, stripcgi)) { *cp1 = '\0'; break; }
            else cp1++;
          if (log_rec.url[0]=='\0')
            { log_rec.url[0]='/'; log_rec.url[1]='\0'; }
+
+         /* Normalize URL */
+         if (log_type==LOG_CLF && log_rec.resp_code!=RC_NOTFOUND && normalize)
+         {
+            if ( ((cp2=strstr(log_rec.url,"://"))!=NULL)&&(cp2<log_rec.url+6) )
+            {
+               cp1=cp2+3;
+               /* see if a '/' is present after it  */
+               if ( (cp2=strchr(cp1,(int)'/'))==NULL) cp1--;
+               else cp1=cp2;
+               /* Ok, now shift url string          */
+               cp2=log_rec.url; while (*cp1!='\0') *cp2++=*cp1++; *cp2='\0';
+            }
+            /* extra sanity checks on URL string */
+            while ((cp2=strstr(log_rec.url,"/./")))
+               { cp1=cp2+2; while (*cp1!='\0') *cp2++=*cp1++; *cp2='\0'; }
+            if (log_rec.url[0]!='/')
+            {
+               if ( log_rec.resp_code==RC_OK             ||
+                    log_rec.resp_code==RC_PARTIALCONTENT ||
+                    log_rec.resp_code==RC_NOMOD)
+               {
+                  if (debug_mode)
+                     fprintf(stderr,"Converted URL '%s' to '/'\n",log_rec.url);
+                  log_rec.url[0]='/';
+                  log_rec.url[1]='\0';
+               }
+               else
+               {
+                  if (debug_mode)
+                     fprintf(stderr,"Invalid URL: '%s'\n",log_rec.url);
+                  strcpy(log_rec.url,"/INVALID-URL");
+               }
+            }
+            while ( log_rec.url[ (i=strlen(log_rec.url)-1) ] == '?' )
+               log_rec.url[i]='\0';   /* drop trailing ?s if any */
+         }
+         else
+         {
+            /* check for service (ie: http://) and lowercase if found */
+            if (((cp2=strstr(log_rec.url,"://"))!= NULL)&&(cp2<log_rec.url+6))
+            {
+               cp1=log_rec.url;
+               while (cp1!=cp2)
+               {
+                  if ( (*cp1>='A') && (*cp1<='Z')) *cp1 += 'a'-'A';
+                  cp1++;
+               }
+            }
+         }
 
          /* strip off index.html (or any aliases) */
          lptr=index_alias;
@@ -713,11 +903,11 @@ int main(int argc, char *argv[])
          {
             if ((cp1=strstr(log_rec.url,lptr->string))!=NULL)
             {
-               if ((cp1==log_rec.url)||(*(cp1-1)=='/'))
+               if (*(cp1-1)=='/')
                {
-                  *cp1='\0';
-                  if (log_rec.url[0]=='\0')
-                   { log_rec.url[0]='/'; log_rec.url[1]='\0'; }
+                  if ( !stripcgi && (cp2=strchr(cp1,'?'))!=NULL )
+                  { while(*cp2) *cp1++=*cp2++; *cp1='\0'; }
+                  else *cp1='\0';
                   break;
                }
             }
@@ -735,22 +925,23 @@ int main(int argc, char *argv[])
             while ( *cp1 != '\0' )
             {
                cp3=cp2;
-               if ((*cp1<32&&*cp1>0) || *cp1==127 || *cp1=='<') *cp1=0;
+               if (((unsigned char)*cp1<32&&(unsigned char)*cp1>0) ||
+                    *cp1==127 || (unsigned char)*cp1=='<') *cp1=0;
                else *cp2++=*cp1++;
             }
             *cp3 = '\0';
          }
 
-         /* strip query portion of cgi referrals */
+         /* get query portion of cgi referrals */
          cp1 = log_rec.refer;
          if (*cp1 != '\0')
          {
             while (*cp1 != '\0')
             {
-               if (!isurlchar(*cp1))
+               if (!isurlchar(*cp1, 1))
                {
                   /* Save query portion in log.rec.srchstr */
-                  strncpy(log_rec.srchstr,cp1,MAXSRCH);
+                  strncpy(log_rec.srchstr,(char *)cp1,MAXSRCH);
                   *cp1++='\0';
                   break;
                }
@@ -780,120 +971,12 @@ int main(int argc, char *argv[])
          }
 
          /* Do we need to mangle? */
-         if (mangle_agent)
-         {
-            str=cp2=log_rec.agent;
-	    cp1=strstr(str,"ompatible"); /* check known fakers */
-	    if (cp1!=NULL) {
-		while (*cp1!=';'&&*cp1!='\0') cp1++;
-		/* kludge for Mozilla/3.01 (compatible;) */
-		if (*cp1++==';' && strcmp(cp1,")\"")) { /* success! */
-		    while (*cp1 == ' ') cp1++; /* eat spaces */
-		    while (*cp1!='.'&&*cp1!='\0'&&*cp1!=';') *cp2++=*cp1++;
-		    if (mangle_agent<5)
-		    {
-			while (*cp1!='.'&&*cp1!=';'&&*cp1!='\0') *cp2++=*cp1++;
-			if (*cp1!=';'&&*cp1!='\0') {
-			    *cp2++=*cp1++;
-			    *cp2++=*cp1++;
-			}
-		    }
-		    if (mangle_agent<4)
-			if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
-		    if (mangle_agent<3)
-			while (*cp1!=';'&&*cp1!='\0'&&*cp1!='(') *cp2++=*cp1++;
-		    if (mangle_agent<2)
-		    {
-			/* Level 1 - try to get OS */
-			cp1=strstr(str,")");
-			if (cp1!=NULL)
-			{
-			    *cp2++=' ';
-			    *cp2++='(';
-			    while (*cp1!=';'&&*cp1!='('&&cp1!=str) cp1--;
-			    if (cp1!=str&&*cp1!='\0') cp1++;
-			    while (*cp1==' '&&*cp1!='\0') cp1++;
-			    while (*cp1!=')'&&*cp1!='\0') *cp2++=*cp1++;
-			    *cp2++=')';
-			}
-		    }
-		    *cp2='\0';
-		} else { /* nothing after "compatible", should we mangle? */
-		    /* not for now */
-		}
-	    } else {
-		cp1=strstr(str,"Opera");  /* Opera flavor         */
-		if (cp1!=NULL)
-		{
-		    while (*cp1!='/'&&*cp1!=' '&&*cp1!='\0') *cp2++=*cp1++;
-		    while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
-		    if (mangle_agent<5)
-		    {
-			while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
-			*cp2++=*cp1++;
-			*cp2++=*cp1++;
-		    }
-		    if (mangle_agent<4)
-			if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
-		    if (mangle_agent<3)
-			while (*cp1!=' '&&*cp1!='\0'&&*cp1!='(')
-			    *cp2++=*cp1++;
-		    if (mangle_agent<2)
-		    {
-			cp1=strstr(str,"(");
-			if (cp1!=NULL)
-			{
-			    cp1++;
-			    *cp2++=' ';
-			    *cp2++='(';
-			    while (*cp1!=';'&&*cp1!=')'&&*cp1!='\0')
-				*cp2++=*cp1++;
-			    *cp2++=')';
-			}
-		    }
-		    *cp2='\0';
-		} else {
-		    cp1=strstr(str,"Mozilla");  /* Netscape flavor      */
-		    if (cp1!=NULL)
-		    {
-			while (*cp1!='/'&&*cp1!=' '&&*cp1!='\0') *cp2++=*cp1++;
-			if (*cp1==' ') *cp1='/';
-			while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
-			if (mangle_agent<5)
-			{
-			    while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
-			    *cp2++=*cp1++;
-			    *cp2++=*cp1++;
-			}
-			if (mangle_agent<4)
-			    if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
-			if (mangle_agent<3)
-			    while (*cp1!=' '&&*cp1!='\0'&&*cp1!='(')
-				*cp2++=*cp1++;
-			if (mangle_agent<2)
-			{
-			    /* Level 1 - Try to get OS */
-			    cp1=strstr(str,"(");
-			    if (cp1!=NULL)
-			    {
-				cp1++;
-				*cp2++=' ';
-				*cp2++='(';
-				while (*cp1!=';'&&*cp1!=')'&&*cp1!='\0')
-				    *cp2++=*cp1++;
-				*cp2++=')';
-			    }
-			}
-			*cp2='\0';
-		    }
-		}
-	    }
-	 }
+         if (mangle_agent) agent_mangle(log_rec.agent);
 
          /* if necessary, shrink referrer to fit storage */
          if (strlen(log_rec.refer)>=MAXREFH)
          {
-            if (verbose) fprintf(stderr,"%s [%lu]\n",
+            if (verbose) fprintf(stderr,"%s [%llu]\n",
                 msg_big_ref,total_rec);
             log_rec.refer[MAXREFH-1]='\0';
          }
@@ -901,7 +984,7 @@ int main(int argc, char *argv[])
          /* if necessary, shrink URL to fit storage */
          if (strlen(log_rec.url)>=MAXURLH)
          {
-            if (verbose) fprintf(stderr,"%s [%lu]\n",
+            if (verbose) fprintf(stderr,"%s [%llu]\n",
                 msg_big_req,total_rec);
             log_rec.url[MAXURLH-1]='\0';
          }
@@ -911,13 +994,15 @@ int main(int argc, char *argv[])
          cp3 = cp2 = cp1++;
          if ( (*cp2 != '\0') && ((*cp2 == '"')||(*cp2 == '(')) )
          {
-            while (*cp1 |= '\0') { cp3 = cp2; *cp2++ = *cp1++; }
+            while (*cp1 != '\0') { cp3 = cp2; *cp2++ = *cp1++; }
             *cp3 = '\0';
          }
          cp1 = log_rec.agent;    /* CHANGE !!! */
          while (*cp1 != 0)       /* get rid of more common _bad_ chars ;)   */
          {
-            if ( (*cp1 < 32) || (*cp1==127) || (*cp1=='<') || (*cp1=='>') )
+            if ( ((unsigned char)*cp1 < 32) ||
+                 ((unsigned char)*cp1==127) ||
+                 (*cp1=='<') || (*cp1=='>') )
                { *cp1='\0'; break; }
             else cp1++;
          }
@@ -928,7 +1013,7 @@ int main(int argc, char *argv[])
          else
          {
             cp3=log_rec.ident;
-            while (*cp3>=32 && *cp3!='"') cp3++;
+            while ((unsigned char)*cp3>=32 && *cp3!='"') cp3++;
             *cp3='\0';
          }
          /* unescape user name */
@@ -975,11 +1060,12 @@ int main(int argc, char *argv[])
          }
 
          /* check for month change */
-         if (cur_month != rec_month)
+         if ( (cur_month != rec_month) || (cur_year != rec_year) )
          {
             /* if yes, do monthly stuff */
             t_visit=tot_visit(sm_htab);
             month_update_exit(req_tstamp);    /* process exit pages      */
+            update_history();
             write_month_html();               /* generate HTML for month */
             clear_month();
             cur_month = rec_month;            /* update our flags        */
@@ -987,22 +1073,54 @@ int main(int argc, char *argv[])
             f_day=l_day=rec_day;
          }
 
+         /* save hostname for later */
+         strncpy(host_buf, log_rec.hostname, sizeof(log_rec.hostname));
+
 #ifdef USE_DNS
          /* Resolve IP address if needed */
          if (dns_db)
          {
-            if (inet_addr(log_rec.hostname) != INADDR_NONE)
-            resolve_dns(&log_rec);
+            struct addrinfo hints, *ares;
+            memset(&hints, 0, sizeof(hints));
+            hints.ai_family = AF_UNSPEC;
+            hints.ai_socktype = SOCK_STREAM;
+            hints.ai_flags = AI_NUMERICHOST;
+            if (0 == getaddrinfo(log_rec.hostname, "0", &hints, &ares))
+            {
+               freeaddrinfo(ares);
+               resolve_dns(&log_rec);
+            }
          }
 #endif
+         /* lowercase hostname and validity check */
+         cp1 = log_rec.hostname; i=0;
 
-         /* lowercase hostname */
-         cp1 = log_rec.hostname;
-         while (*cp1 != '\0')
+         if ( (!isalnum((unsigned char)*cp1)) && (*cp1!=':') )
+            strncpy(log_rec.hostname, "Invalid", 8);
+         else
          {
-            if ( (*cp1>='A') && (*cp1<='Z') ) *cp1 += 'a'-'A';
-            if ( (isalnum((int)*cp1))||(*cp1=='.')||(*cp1=='-') ) cp1++;
-            else *cp1='\0';
+            while (*cp1 != '\0')  /* loop through string */
+            {
+               if ( (*cp1>='A') && (*cp1<='Z') )
+                  { *cp1++ += 'a'-'A'; continue; }
+               if ( *cp1=='.' ) i++;
+               if ( (isalnum((unsigned char)*cp1)) ||
+                    (*cp1=='.')||(*cp1=='-')       ||
+                    (*cp1==':')||((*cp1=='_')&&(i==0)) ) cp1++;
+               else
+               {
+                  /* Invalid hostname found! */
+                  if (strcmp(log_rec.hostname, host_buf))
+                     strcpy(log_rec.hostname, host_buf);
+                  else strncpy(log_rec.hostname,"Invalid",8);
+                  break;
+               }
+            }
+            if (*cp1 == '\0')   /* did we make it to the end? */
+            {
+               if (!isalnum((unsigned char)*(cp1-1)))
+                  strncpy(log_rec.hostname,"Invalid",8);
+            }
          }
 
          /* Catch blank hostnames here */
@@ -1083,8 +1201,8 @@ int main(int argc, char *argv[])
              (log_rec.resp_code==RC_PARTIALCONTENT))
          {
             /* URL hash table */
-            if (put_unode(log_rec.url,OBJ_REG,(u_long)1,
-                log_rec.xfer_size,&t_url,(u_long)0,(u_long)0,um_htab))
+            if (put_unode(log_rec.url,OBJ_REG,(u_int64_t)1,
+                log_rec.xfer_size,&t_url,(u_int64_t)0,(u_int64_t)0,um_htab))
             {
                if (verbose)
                /* Error adding URL node, skipping ... */
@@ -1093,7 +1211,7 @@ int main(int argc, char *argv[])
 
             /* ident (username) hash table */
             if (put_inode(log_rec.ident,OBJ_REG,
-                1,(u_long)i,log_rec.xfer_size,&t_user,
+                1,(u_int64_t)i,log_rec.xfer_size,&t_user,
                 0,rec_tstamp,im_htab))
             {
                if (verbose)
@@ -1106,7 +1224,7 @@ int main(int argc, char *argv[])
          if (ntop_refs)
          {
             if (log_rec.refer[0]!='\0')
-             if (put_rnode(log_rec.refer,OBJ_REG,(u_long)1,&t_ref,rm_htab))
+             if (put_rnode(log_rec.refer,OBJ_REG,(u_int64_t)1,&t_ref,rm_htab))
              {
               if (verbose)
               fprintf(stderr,"%s %s\n", msg_nomem_r, log_rec.refer);
@@ -1115,7 +1233,7 @@ int main(int argc, char *argv[])
 
          /* hostname (site) hash table - daily */
          if (put_hnode(log_rec.hostname,OBJ_REG,
-             1,(u_long)i,log_rec.xfer_size,&dt_site,
+             1,(u_int64_t)i,log_rec.xfer_size,&dt_site,
              0,rec_tstamp,"",sd_htab))
          {
             if (verbose)
@@ -1125,7 +1243,7 @@ int main(int argc, char *argv[])
 
          /* hostname (site) hash table - monthly */
          if (put_hnode(log_rec.hostname,OBJ_REG,
-             1,(u_long)i,log_rec.xfer_size,&t_site,
+             1,(u_int64_t)i,log_rec.xfer_size,&t_site,
              0,rec_tstamp,"",sm_htab))
          {
             if (verbose)
@@ -1137,7 +1255,7 @@ int main(int argc, char *argv[])
          if (ntop_agents)
          {
             if (log_rec.agent[0]!='\0')
-             if (put_anode(log_rec.agent,OBJ_REG,(u_long)1,&t_agent,am_htab))
+             if (put_anode(log_rec.agent,OBJ_REG,(u_int64_t)1,&t_agent,am_htab))
              {
               if (verbose)
               fprintf(stderr,"%s %s\n", msg_nomem_a, log_rec.agent);
@@ -1178,8 +1296,8 @@ int main(int argc, char *argv[])
          /* URL Grouping */
          if ( (cp1=isinglist(group_urls,log_rec.url))!=NULL)
          {
-            if (put_unode(cp1,OBJ_GRP,(u_long)1,log_rec.xfer_size,
-                &ul_bogus,(u_long)0,(u_long)0,um_htab))
+            if (put_unode(cp1,OBJ_GRP,(u_int64_t)1,log_rec.xfer_size,
+                &ul_bogus,(u_int64_t)0,(u_int64_t)0,um_htab))
             {
                if (verbose)
                /* Error adding URL node, skipping ... */
@@ -1190,7 +1308,8 @@ int main(int argc, char *argv[])
          /* Site Grouping */
          if ( (cp1=isinglist(group_sites,log_rec.hostname))!=NULL)
          {
-            if (put_hnode(cp1,OBJ_GRP,1,(u_long)(log_rec.resp_code==RC_OK)?1:0,
+            if (put_hnode(cp1,OBJ_GRP,1,
+                          (u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
                           log_rec.xfer_size,&ul_bogus,
                           0,rec_tstamp,"",sm_htab))
             {
@@ -1208,7 +1327,7 @@ int main(int argc, char *argv[])
                if (cp1 != NULL)
                {
                   if (put_hnode(cp1,OBJ_GRP,1,
-                      (u_long)(log_rec.resp_code==RC_OK)?1:0,
+                      (u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
                       log_rec.xfer_size,&ul_bogus,
                       0,rec_tstamp,"",sm_htab))
                   {
@@ -1223,7 +1342,7 @@ int main(int argc, char *argv[])
          /* Referrer Grouping */
          if ( (cp1=isinglist(group_refs,log_rec.refer))!=NULL)
          {
-            if (put_rnode(cp1,OBJ_GRP,(u_long)1,&ul_bogus,rm_htab))
+            if (put_rnode(cp1,OBJ_GRP,(u_int64_t)1,&ul_bogus,rm_htab))
             {
                if (verbose)
                /* Error adding Referrer node, skipping ... */
@@ -1234,7 +1353,7 @@ int main(int argc, char *argv[])
          /* User Agent Grouping */
          if ( (cp1=isinglist(group_agents,log_rec.agent))!=NULL)
          {
-            if (put_anode(cp1,OBJ_GRP,(u_long)1,&ul_bogus,am_htab))
+            if (put_anode(cp1,OBJ_GRP,(u_int64_t)1,&ul_bogus,am_htab))
             {
                if (verbose)
                /* Error adding User Agent node, skipping ... */
@@ -1245,7 +1364,8 @@ int main(int argc, char *argv[])
          /* Ident (username) Grouping */
          if ( (cp1=isinglist(group_users,log_rec.ident))!=NULL)
          {
-            if (put_inode(cp1,OBJ_GRP,1,(u_long)(log_rec.resp_code==RC_OK)?1:0,
+            if (put_inode(cp1,OBJ_GRP,1,
+                          (u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
                           log_rec.xfer_size,&ul_bogus,
                           0,rec_tstamp,im_htab))
             {
@@ -1272,13 +1392,21 @@ int main(int argc, char *argv[])
          }
          else
          {
-            /* really bad record... */
-            total_bad++;
-            if (verbose)
+            /* Check if it's a W3C header or IIS Null-Character line */
+            if ((buffer[0]=='\0') || (buffer[0]=='#'))
             {
-               fprintf(stderr,"%s (%lu)",msg_bad_rec,total_rec);
-               if (debug_mode) fprintf(stderr,":\n%s\n",tmp_buf);
-               else fprintf(stderr,"\n");
+               total_ignore++;
+            }
+            else
+            {
+               /* really bad record... */
+               total_bad++;
+               if (verbose)
+               {
+                  fprintf(stderr,"%s (%llu)",msg_bad_rec,total_rec);
+                  if (debug_mode) fprintf(stderr,":\n%s\n",tmp_buf);
+                  else fprintf(stderr,"\n");
+               }
             }
          }
       }
@@ -1289,7 +1417,11 @@ int main(int argc, char *argv[])
    /*********************************************/
 
    /* close log file if needed */
-   if (gz_log) gzclose(gzlog_fp);
+#ifdef USE_BZIP
+   if (gz_log) (gz_log==COMP_BZIP)?BZ2_bzclose(zlog_fp):gzclose(zlog_fp);
+#else
+   if (gz_log) gzclose(zlog_fp);
+#endif
    else if (log_fname) fclose(log_fp);
 
    if (good_rec)                             /* were any good records?   */
@@ -1311,26 +1443,31 @@ int main(int argc, char *argv[])
             }
          }
          month_update_exit(rec_tstamp);      /* calculate exit pages     */
+         update_history();
          write_month_html();                 /* write monthly HTML file  */
-         write_main_index();                 /* write main HTML file     */
          put_history();                      /* write history            */
       }
+      if (hist[0].month!=0) write_main_index(); /* write main HTML file  */
 
-      end_time = times(&mytms);              /* display timing totals?   */
+      /* get processing end time */
+      end_time = time(NULL);
+
+      /* display end of processing statistics */
       if (time_me || (verbose>1))
       {
-         printf("%lu %s ",total_rec, msg_records);
+         printf("%llu %s ",total_rec, msg_records);
          if (total_ignore)
          {
-            printf("(%lu %s",total_ignore,msg_ignored);
-            if (total_bad) printf(", %lu %s) ",total_bad,msg_bad);
+            printf("(%llu %s",total_ignore,msg_ignored);
+            if (total_bad) printf(", %llu %s) ",total_bad,msg_bad);
                else        printf(") ");
          }
-         else if (total_bad) printf("(%lu %s) ",total_bad,msg_bad);
+         else if (total_bad) printf("(%llu %s) ",total_bad,msg_bad);
 
-         /* get processing time (end-start) */
-         temp_time = (float)(end_time-start_time)/CLK_TCK;
-         printf("%s %.2f %s", msg_in, temp_time, msg_seconds);
+         /* totoal processing time in seconds */
+         temp_time = difftime(end_time, start_time);
+         if (temp_time==0) temp_time=1;
+         printf("%s %.0f %s", msg_in, temp_time, msg_seconds);
 
          /* calculate records per second */
          if (temp_time)
@@ -1342,7 +1479,15 @@ int main(int argc, char *argv[])
       }
 
 #ifdef USE_DNS
+      /* Close DNS cache file */
       if (dns_db) close_cache();
+      /* Close GeoDB database */
+      if (geo_db) geodb_close(geo_db);
+#endif
+
+#ifdef USE_GEOIP
+      /* Close GeoIP database */
+      if (geo_fp) GeoIP_delete(geo_fp);
 #endif
 
       /* Whew, all done! Exit with completion status (0) */
@@ -1352,6 +1497,7 @@ int main(int argc, char *argv[])
    {
       /* No valid records found... exit with error (1) */
       if (verbose) printf("%s\n",msg_no_vrec);
+      if (hist[0].month!=0) write_main_index(); /* write main HTML file     */
       exit(1);
    }
 }
@@ -1374,12 +1520,12 @@ void get_config(char *fname)
                      "HourlyGraph",       /* Hourly stats graph          9  */
                      "HourlyStats",       /* Hourly stats table         10  */
                      "TopSites",          /* Top sites                  11  */
-                     "TopURLs",           /* Top URL's                  12  */
+                     "TopURLs",           /* Top URLs                   12  */
                      "TopReferrers",      /* Top Referrers              13  */
                      "TopAgents",         /* Top User Agents            14  */
                      "TopCountries",      /* Top Countries              15  */
                      "HideSite",          /* Sites to hide              16  */
-                     "HideURL",           /* URL's to hide              17  */
+                     "HideURL",           /* URLs to hide               17  */
                      "HideReferrer",      /* Referrers to hide          18  */
                      "HideAgent",         /* User Agents to hide        19  */
                      "IndexAlias",        /* Aliases for index.html     20  */
@@ -1393,7 +1539,7 @@ void get_config(char *fname)
                      "IgnoreAgent",       /* User Agents to ignore      28  */
                      "ReallyQuiet",       /* Dont display ANY messages  29  */
                      "GMTTime",           /* Local or UTC time?         30  */
-                     "GroupURL",          /* Group URL's                31  */
+                     "GroupURL",          /* Group URLs                 31  */
                      "GroupSite",         /* Group Sites                32  */
                      "GroupReferrer",     /* Group Referrers            33  */
                      "GroupAgent",        /* Group Agents               34  */
@@ -1406,9 +1552,9 @@ void get_config(char *fname)
                      "HTMLPre",           /* HTML code at beginning     41  */
                      "HTMLBody",          /* HTML body code             42  */
                      "HTMLEnd",           /* HTML code at end           43  */
-                     "UseHTTPS",          /* Use https:// on URL's      44  */
+                     "UseHTTPS",          /* Use https:// on URLs       44  */
                      "IncludeSite",       /* Sites to always include    45  */
-                     "IncludeURL",        /* URL's to always include    46  */
+                     "IncludeURL",        /* URLs to always include     46  */
                      "IncludeReferrer",   /* Referrers to include       47  */
                      "IncludeAgent",      /* User Agents to include     48  */
                      "PageType",          /* Page Type (pageview)       49  */
@@ -1418,7 +1564,7 @@ void get_config(char *fname)
                      "FoldSeqErr",        /* Fold sequence errors       53  */
                      "CountryGraph",      /* Display ctry graph (0=no)  54  */
                      "TopKSites",         /* Top sites (by KBytes)      55  */
-                     "TopKURLs",          /* Top URL's (by KBytes)      56  */
+                     "TopKURLs",          /* Top URLs  (by KBytes)      56  */
                      "TopEntry",          /* Top Entry Pages            57  */
                      "TopExit",           /* Top Exit Pages             58  */
                      "TopSearch",         /* Top Search Strings         59  */
@@ -1449,16 +1595,49 @@ void get_config(char *fname)
                      "DNSCache",          /* DNS Cache file name        84  */
                      "DNSChildren",       /* DNS Children (0=no DNS)    85  */
                      "DailyGraph",        /* Daily Graph (0=no)         86  */
-                     "DailyStats"         /* Daily Stats (0=no)         87  */
+                     "DailyStats",        /* Daily Stats (0=no)         87  */
+                     "LinkReferrer",      /* Link referrer (0=no)       88  */
+                     "PagePrefix",        /* PagePrefix - treat as page 89  */
+                     "ColorHit",          /* Hit Color   (def=00805c)   90  */
+                     "ColorFile",         /* File Color  (def=0040ff)   91  */
+                     "ColorSite",         /* Site Color  (def=ff8000)   92  */
+                     "ColorKbyte",        /* Kbyte Color (def=ff0000)   93  */
+                     "ColorPage",         /* Page Color  (def=00e0ff)   94  */
+                     "ColorVisit",        /* Visit Color (def=ffff00)   95  */
+                     "ColorMisc",         /* Misc Color  (def=00e0ff)   96  */
+                     "PieColor1",         /* Pie Color 1 (def=800080)   97  */
+                     "PieColor2",         /* Pie Color 2 (def=80ffc0)   98  */
+                     "PieColor3",         /* Pie Color 3 (def=ff00ff)   99  */
+                     "PieColor4",         /* Pie Color 4 (def=ffc080)   100 */
+                     "CacheIPs",          /* Cache IPs in DNS DB (0=no) 101 */
+                     "CacheTTL",          /* DNS Cache entry TTL (days) 102 */
+                     "GeoDB",             /* GeoDB lookups (0=no)       103 */
+                     "GeoDBDatabase",     /* GeoDB database filename    104 */
+                     "StripCGI",          /* Strip CGI in URLS (0=no)   105 */
+                     "TrimSquidURL",      /* Trim squid URLs (0=none)   106 */
+                     "OmitPage",          /* URLs not counted as pages  107 */
+                     "HTAccess",          /* Write .httaccess files?    108 */
+                     "IgnoreState",       /* Ignore state file (0=no)   109 */
+                     "DefaultIndex",      /* Default index.* (1=yes)    110 */
+                     "GeoIP",             /* Use GeoIP? (1=yes)         111 */
+                     "GeoIPDatabase",     /* Database to use for GeoIP  112 */
+                     "NormalizeURL",      /* Normalize CLF URLs (1=yes) 113 */
+                     "IndexMonths",       /* # months for main page     114 */
+                     "GraphMonths",       /* # months for yearly graph  115 */
+                     "YearHeaders",       /* use year headers? (1=yes)  116 */
+                     "YearTotals",        /* show year subtotals (0=no) 117 */
+                     "CountryFlags",      /* show country flags? (0-no) 118 */
+                     "FlagDir",           /* directory w/flag images    119 */
+                     "SearchCaseI"        /* srch str case insensitive  120 */
                    };
 
    FILE *fp;
 
    char buffer[BUFSIZE];
-   char keyword[32];
-   char value[132];
+   char keyword[MAXKWORD];
+   char value[MAXKVAL];
    char *cp1, *cp2;
-   int  i,key;
+   int  i,key,count;
    int	num_kwords=sizeof(kwords)/sizeof(char *);
 
    if ( (fp=fopen(fname,"r")) == NULL)
@@ -1471,26 +1650,27 @@ void get_config(char *fname)
    while ( (fgets(buffer,BUFSIZE,fp)) != NULL)
    {
       /* skip comments and blank lines */
-      if ( (buffer[0]=='#') || isspace((int)buffer[0]) ) continue;
+      if ( (buffer[0]=='#') || isspace((unsigned char)buffer[0]) ) continue;
 
       /* Get keyword */
-      cp1=buffer;cp2=keyword;
-      while ( isalnum((int)*cp1) ) *cp2++ = *cp1++;
+      cp1=buffer;cp2=keyword;count=MAXKWORD-1;
+      while ( (isalnum((unsigned char)*cp1)) && count )
+         { *cp2++ = *cp1++; count--; }
       *cp2='\0';
 
       /* Get value */
-      cp2=value;
-      while ( (*cp1!='\n')&&(*cp1!='\0')&&(isspace((int)*cp1)) ) cp1++;
-      while ( (*cp1!='\n')&&(*cp1!='\0') ) *cp2++ = *cp1++;
+      cp2=value; count=MAXKVAL-1;
+      while ((*cp1!='\n')&&(*cp1!='\0')&&(isspace((unsigned char)*cp1))) cp1++;
+      while ((*cp1!='\n')&&(*cp1!='\0')&&count ) { *cp2++ = *cp1++; count--; }
       *cp2--='\0';
-      while ( (isspace((int)*cp2)) && (cp2 != value) ) *cp2--='\0';
+      while ((isspace((unsigned char)*cp2)) && (cp2 != value) ) *cp2--='\0';
 
       /* check if blank keyword/value */
       if ( (keyword[0]=='\0') || (value[0]=='\0') ) continue;
 
       key=0;
       for (i=0;i<num_kwords;i++)
-         if (!strcmp(keyword,kwords[i])) { key=i; break; }
+         if (!ouricmp(keyword,kwords[i])) { key=i; break; }
 
       if (key==0) { printf("%s '%s' (%s)\n",       /* Invalid keyword       */
                     msg_bad_key,keyword,fname);
@@ -1503,12 +1683,18 @@ void get_config(char *fname)
         case 2:  log_fname=save_opt(value);        break; /* LogFile        */
         case 3:  msg_title=save_opt(value);        break; /* ReportTitle    */
         case 4:  hname=save_opt(value);            break; /* HostName       */
-        case 5:  ignore_hist=(value[0]=='n')?0:1;  break; /* IgnoreHist     */
-        case 6:  verbose=(value[0]=='n')?2:1;      break; /* Quiet          */
-        case 7:  time_me=(value[0]=='n')?0:1;      break; /* TimeMe         */
-        case 8:  debug_mode=(value[0]=='n')?0:1;   break; /* Debug          */
-        case 9:  hourly_graph=(value[0]=='n')?0:1; break; /* HourlyGraph    */
-        case 10: hourly_stats=(value[0]=='n')?0:1; break; /* HourlyStats    */
+        case 5:  ignore_hist=
+                    (tolower(value[0])=='y')?1:0;  break; /* IgnoreHist     */
+        case 6:  verbose=
+                    (tolower(value[0])=='y')?1:2;  break; /* Quiet          */
+        case 7:  time_me=
+                    (tolower(value[0])=='n')?0:1;  break; /* TimeMe         */
+        case 8:  debug_mode=
+                    (tolower(value[0])=='y')?1:0;  break; /* Debug          */
+        case 9:  hourly_graph=
+                    (tolower(value[0])=='n')?0:1;  break; /* HourlyGraph    */
+        case 10: hourly_stats=
+                    (tolower(value[0])=='n')?0:1;  break; /* HourlyStats    */
         case 11: ntop_sites = atoi(value);         break; /* TopSites       */
         case 12: ntop_urls = atoi(value);          break; /* TopURLs        */
         case 13: ntop_refs = atoi(value);          break; /* TopRefs        */
@@ -1527,49 +1713,66 @@ void get_config(char *fname)
         case 26: add_nlist(value,&ignored_urls);   break; /* IgnoreURL      */
         case 27: add_nlist(value,&ignored_refs);   break; /* IgnoreReferrer */
         case 28: add_nlist(value,&ignored_agents); break; /* IgnoreAgent    */
-        case 29: if (value[0]=='y') verbose=0;     break; /* ReallyQuiet    */
-        case 30: local_time=(value[0]=='y')?0:1;   break; /* GMTTime        */
+        case 29: if (tolower(value[0])=='y')
+                    verbose=0;                     break; /* ReallyQuiet    */
+        case 30: local_time=
+                    (tolower(value[0])=='y')?0:1;  break; /* GMTTime        */
         case 31: add_glist(value,&group_urls);     break; /* GroupURL       */
         case 32: add_glist(value,&group_sites);    break; /* GroupSite      */
         case 33: add_glist(value,&group_refs);     break; /* GroupReferrer  */
         case 34: add_glist(value,&group_agents);   break; /* GroupAgent     */
-        case 35: shade_groups=(value[0]=='y')?1:0; break; /* GroupShading   */
-        case 36: hlite_groups=(value[0]=='y')?1:0; break; /* GroupHighlight */
-        case 37: incremental=(value[0]=='y')?1:0;  break; /* Incremental    */
+        case 35: shade_groups=
+                    (tolower(value[0])=='n')?0:1;  break; /* GroupShading   */
+        case 36: hlite_groups=
+                    (tolower(value[0])=='n')?0:1;  break; /* GroupHighlight */
+        case 37: incremental=
+                    (tolower(value[0])=='y')?1:0;  break; /* Incremental    */
         case 38: state_fname=save_opt(value);      break; /* State FName    */
         case 39: hist_fname=save_opt(value);       break; /* History FName  */
         case 40: html_ext=save_opt(value);         break; /* HTML extension */
         case 41: add_nlist(value,&html_pre);       break; /* HTML Pre code  */
         case 42: add_nlist(value,&html_body);      break; /* HTML Body code */
         case 43: add_nlist(value,&html_end);       break; /* HTML End code  */
-        case 44: use_https=(value[0]=='y')?1:0;    break; /* Use https://   */
+        case 44: use_https=
+                    (tolower(value[0])=='y')?1:0;  break; /* Use https://   */
         case 45: add_nlist(value,&include_sites);  break; /* IncludeSite    */
         case 46: add_nlist(value,&include_urls);   break; /* IncludeURL     */
         case 47: add_nlist(value,&include_refs);   break; /* IncludeReferrer*/
         case 48: add_nlist(value,&include_agents); break; /* IncludeAgent   */
         case 49: add_nlist(value,&page_type);      break; /* PageType       */
         case 50: visit_timeout=atoi(value);        break; /* VisitTimeout   */
-        case 51: graph_legend=(value[0]=='y')?1:0; break; /* GraphLegend    */
+        case 51: graph_legend=
+                    (tolower(value[0])=='n')?0:1;  break; /* GraphLegend    */
         case 52: graph_lines = atoi(value);        break; /* GraphLines     */
-        case 53: fold_seq_err=(value[0]=='y')?1:0; break; /* FoldSeqErr     */
-        case 54: ctry_graph=(value[0]=='y')?1:0;   break; /* CountryGraph   */
+        case 53: fold_seq_err=
+                    (tolower(value[0])=='y')?1:0;  break; /* FoldSeqErr     */
+        case 54: ctry_graph=
+                    (tolower(value[0])=='n')?0:1;  break; /* CountryGraph   */
         case 55: ntop_sitesK = atoi(value);        break; /* TopKSites (KB) */
         case 56: ntop_urlsK  = atoi(value);        break; /* TopKUrls (KB)  */
         case 57: ntop_entry  = atoi(value);        break; /* Top Entry pgs  */
         case 58: ntop_exit   = atoi(value);        break; /* Top Exit pages */
         case 59: ntop_search = atoi(value);        break; /* Top Search pgs */
-        case 60: log_type=(value[0]=='f')?
-                 LOG_FTP:((value[0]=='s')?
-                 LOG_SQUID:LOG_CLF);               break; /* LogType        */
+        case 60: log_type=(tolower(value[0])=='f')?
+                 LOG_FTP:((tolower(value[0])=='s')?
+                 LOG_SQUID:((tolower(value[0])=='w')?
+                 LOG_W3C:LOG_CLF));                break; /* LogType        */
         case 61: add_glist(value,&search_list);    break; /* SearchEngine   */
         case 62: group_domains=atoi(value);        break; /* GroupDomains   */
-        case 63: hide_sites=(value[0]=='y')?1:0;   break; /* HideAllSites   */
-        case 64: all_sites=(value[0]=='y')?1:0;    break; /* All Sites?     */
-        case 65: all_urls=(value[0]=='y')?1:0;     break; /* All URL's?     */
-        case 66: all_refs=(value[0]=='y')?1:0;     break; /* All Refs       */
-        case 67: all_agents=(value[0]=='y')?1:0;   break; /* All Agents?    */
-        case 68: all_search=(value[0]=='y')?1:0;   break; /* All Srch str   */
-        case 69: all_users=(value[0]=='y')?1:0;    break; /* All Users?     */
+        case 63: hide_sites=
+                    (tolower(value[0])=='y')?1:0;  break; /* HideAllSites   */
+        case 64: all_sites=
+                    (tolower(value[0])=='y')?1:0;  break; /* All Sites?     */
+        case 65: all_urls=
+                    (tolower(value[0])=='y')?1:0;  break; /* All URLs?      */
+        case 66: all_refs=
+                    (tolower(value[0])=='y')?1:0;  break; /* All Refs       */
+        case 67: all_agents=
+                    (tolower(value[0])=='y')?1:0;  break; /* All Agents?    */
+        case 68: all_search=
+                    (tolower(value[0])=='y')?1:0;  break; /* All Srch str   */
+        case 69: all_users=
+                    (tolower(value[0])=='y')?1:0;  break; /* All Users?     */
         case 70: ntop_users=atoi(value);           break; /* TopUsers       */
         case 71: add_nlist(value,&hidden_users);   break; /* HideUser       */
         case 72: add_nlist(value,&ignored_users);  break; /* IgnoreUser     */
@@ -1577,13 +1780,20 @@ void get_config(char *fname)
         case 74: add_glist(value,&group_users);    break; /* GroupUser      */
         case 75: dump_path=save_opt(value);        break; /* DumpPath       */
         case 76: dump_ext=save_opt(value);         break; /* Dumpfile ext   */
-        case 77: dump_header=(value[0]=='y')?1:0;  break; /* DumpHeader?    */
-        case 78: dump_sites=(value[0]=='y')?1:0;   break; /* DumpSites?     */
-        case 79: dump_urls=(value[0]=='y')?1:0;    break; /* DumpURLs?      */
-        case 80: dump_refs=(value[0]=='y')?1:0;    break; /* DumpReferrers? */
-        case 81: dump_agents=(value[0]=='y')?1:0;  break; /* DumpAgents?    */
-        case 82: dump_users=(value[0]=='y')?1:0;   break; /* DumpUsers?     */
-        case 83: dump_search=(value[0]=='y')?1:0;  break; /* DumpSrchStrs?  */
+        case 77: dump_header=
+                    (tolower(value[0])=='y')?1:0;  break; /* DumpHeader?    */
+        case 78: dump_sites=
+                    (tolower(value[0])=='y')?1:0;  break; /* DumpSites?     */
+        case 79: dump_urls=
+                    (tolower(value[0])=='y')?1:0;  break; /* DumpURLs?      */
+        case 80: dump_refs=
+                    (tolower(value[0])=='y')?1:0;  break; /* DumpReferrers? */
+        case 81: dump_agents=
+                    (tolower(value[0])=='y')?1:0;  break; /* DumpAgents?    */
+        case 82: dump_users=
+                    (tolower(value[0])=='y')?1:0;  break; /* DumpUsers?     */
+        case 83: dump_search=
+                    (tolower(value[0])=='y')?1:0;  break; /* DumpSrchStrs?  */
 #ifdef USE_DNS
         case 84: dns_cache=save_opt(value);        break; /* DNSCache fname */
         case 85: dns_children=atoi(value);         break; /* DNSChildren    */
@@ -1591,8 +1801,68 @@ void get_config(char *fname)
         case 84: /* Disable DNSCache and DNSChildren if DNS is not enabled  */
         case 85: printf("%s '%s' (%s)\n",msg_bad_key,keyword,fname); break;
 #endif  /* USE_DNS */
-        case 86: daily_graph=(value[0]=='n')?0:1; break;  /* HourlyGraph    */
-        case 87: daily_stats=(value[0]=='n')?0:1; break;  /* HourlyStats    */
+        case 86: daily_graph=
+                    (tolower(value[0])=='n')?0:1;  break; /* HourlyGraph    */
+        case 87: daily_stats=
+                    (tolower(value[0])=='n')?0:1;  break; /* HourlyStats    */
+        case 88: link_referrer=
+                    (tolower(value[0])=='y')?1:0;  break; /* LinkReferrer   */
+        case 89: add_nlist(value,&page_prefix);    break; /* PagePrefix     */
+        case 90: strncpy(hit_color+1,  value, 6);  break; /* ColorHit       */
+        case 91: strncpy(file_color+1, value, 6);  break; /* ColorFile      */
+        case 92: strncpy(site_color+1, value, 6);  break; /* ColorSite      */
+        case 93: strncpy(kbyte_color+1,value, 6);  break; /* ColorKbyte     */
+        case 94: strncpy(page_color+1, value, 6);  break; /* ColorPage      */
+        case 95: strncpy(visit_color+1,value, 6);  break; /* ColorVisit     */
+        case 96: strncpy(misc_color+1, value, 6);  break; /* ColorMisc      */
+        case 97: strncpy(pie_color1+1, value, 6);  break; /* PieColor1      */
+        case 98: strncpy(pie_color2+1, value, 6);  break; /* PieColor2      */
+        case 99: strncpy(pie_color3+1, value, 6);  break; /* PieColor3      */
+        case 100:strncpy(pie_color4+1, value, 6);  break; /* PieColor4      */
+#ifdef USE_DNS
+        case 101: cache_ips=
+                    (tolower(value[0])=='y')?1:0;  break; /* CacheIPs       */
+        case 102: cache_ttl=atoi(value);           break; /* CacheTTL days  */
+        case 103: geodb=
+                    (tolower(value[0])=='y')?1:0;  break; /* GeoDB          */
+        case 104: geodb_fname=save_opt(value);     break; /* GeoDBDatabase  */
+#else
+        case 101: /* Disable CacheIPs/CacheTTL/GeoDB/GeoDBDatabase if none  */
+        case 102:
+        case 103:
+        case 104: printf("%s '%s' (%s)\n",msg_bad_key,keyword,fname); break;
+#endif  /* USE_DNS */
+        case 105: stripcgi=
+                    (tolower(value[0])=='n')?0:1;  break; /* StripCGI       */
+        case 106: trimsquid=atoi(value);           break; /* TrimSquidURL   */
+        case 107: add_nlist(value,&omit_page);     break; /* OmitPage       */
+        case 108: htaccess=
+                    (tolower(value[0])=='y')?1:0;  break; /* HTAccess       */
+        case 109: ignore_state=
+                    (tolower(value[0])=='y')?1:0;  break; /* IgnoreState    */
+        case 110: default_index=
+                    (tolower(value[0])=='n')?0:1;  break; /* DefaultIndex   */
+#ifdef USE_GEOIP
+        case 111: geoip=
+                    (tolower(value[0])=='y')?1:0;  break; /* GeoIP          */
+        case 112: geoip_db=save_opt(value);        break; /* GeoIPDatabase  */
+#else
+        case 111: /* Disable GeoIP and GeoIPDatabase if not enabled         */
+        case 112: printf("%s '%s' (%s)\n",msg_bad_key,keyword,fname); break;
+#endif
+        case 113: normalize=
+                    (tolower(value[0])=='n')?0:1;  break; /* NormalizeURL   */
+        case 114: index_mths=atoi(value);          break; /* IndexMonths    */
+        case 115: graph_mths=atoi(value);          break; /* GraphMonths    */
+        case 116: year_hdrs=
+                    (tolower(value[0])=='n')?0:1;  break; /* YearHeaders    */
+        case 117: year_totals=
+                    (tolower(value[0])=='n')?0:1;  break; /* YearTotals     */
+        case 118: use_flags=
+                    (tolower(value[0])=='y')?1:0;  break; /* CountryFlags   */
+        case 119: use_flags=1; flag_dir=save_opt(value); break; /* FlagDir  */
+        case 120: searchcasei=
+                    (tolower(value[0])=='n')?0:1;  break; /* SearchCaseI    */
       }
    }
    fclose(fp);
@@ -1674,23 +1944,38 @@ void print_opts(char *pname)
 
 void print_version()
 {
- uname(&system_info);
- printf("Webalizer V%s-%s (%s %s) %s\n%s\n",
-    version,editlvl,
-    system_info.sysname,system_info.release,
-    language,copyright);
- if (debug_mode)
- {
-    printf("Mod date: %s  Options: ",moddate);
+   char buf[128]="";
+   uname(&system_info);
+
+   printf("Webalizer V%s-%s (%s %s %s) %s\n%s\n",
+      version,editlvl,
+      system_info.sysname,system_info.release,system_info.machine,
+      language,copyright);
+
 #ifdef USE_DNS
-    printf("DNS ");
-#else
-    printf("none");
+   strncpy(&buf[strlen(buf)],"DNS/GeoDB ",11);
 #endif
-    printf("\nDefault config dir: %s\n\n",ETCDIR);
- }
- else printf("\n");
- exit(1);
+#ifdef USE_BZIP
+   strncpy(&buf[strlen(buf)],"BZip2 ",7);
+#endif
+#ifdef USE_GEOIP
+   strncpy(&buf[strlen(buf)],"GeoIP ",7);
+#endif
+
+   if (debug_mode)
+   {
+      printf("Mod date: %s  Options: ",moddate);
+      if (buf[0]!=0) printf("%s",buf);
+      else           printf("none");
+      printf("\n");
+#if USE_DNS
+      printf("Default GeoDB dir : %s\n",GEODB_LOC);
+#endif
+      printf("Default config dir: %s\n",ETCDIR);
+      printf("\n");
+   }
+   else printf("\n");
+   exit(1);
 }
 
 /*********************************************/
@@ -1699,6 +1984,9 @@ void print_version()
 
 char *cur_time()
 {
+   time_t     now;
+   static     char timestamp[48];
+
    /* get system time */
    now = time(NULL);
    /* convert to timestamp string */
@@ -1718,36 +2006,70 @@ char *cur_time()
 
 int ispage(char *str)
 {
+   NLISTPTR t;
    char *cp1, *cp2;
+
+   if (isinlist(omit_page,str)!=NULL) return 0;
 
    cp1=cp2=str;
    while (*cp1!='\0') { if (*cp1=='.') cp2=cp1; cp1++; }
    if ((cp2++==str)||(*(--cp1)=='/')) return 1;
-   else return (isinlist(page_type,cp2)!=NULL);
+   t=page_prefix;
+   while(t!=NULL)
+   {
+      /* Check if a PagePrefix matches */
+      if(strncmp(str,t->string,strlen(t->string))==0) return 1;
+      t=t->next;
+   }
+   return (isinlist(page_type,cp2)!=NULL);
 }
 
 /*********************************************/
 /* ISURLCHAR - checks for valid URL chars    */
 /*********************************************/
 
-int isurlchar(unsigned char ch)
+int isurlchar(unsigned char ch, int flag)
 {
-   if (isalnum((int)ch)) return 1;           /* allow letters, numbers...    */
-   if (ch > 127) return 1;                   /* allow extended chars...      */
-   return (strchr(":/\\.,' *-+_@~()[]",ch)!=NULL); /* and a few special ones */
+   if (isalnum(ch)) return 1;                /* allow letters, numbers...    */
+   if (ch > 127)    return 1;                /* allow extended chars...      */
+   if (flag)                                 /* and filter some others       */
+      return (strchr(":/\\.,' *!-+_@~()[]!",ch)!=NULL);    /* strip cgi vars */
+   else
+      return (strchr(":/\\.,' *!-+_@~()[]!;?&=",ch)!=NULL); /* keep cgi vars */
 }
 
 /*********************************************/
-/* CTRY_IDX - create unique # from domain    */
+/* CTRY_IDX - create unique # from TLD       */
 /*********************************************/
 
-u_long ctry_idx(char *str)
+u_int64_t ctry_idx(char *str)
 {
-   int i=strlen(str),j=0;
-   u_long idx=0;
-   char *cp1=str+i;
-   for (;i>0;i--) { idx+=((*--cp1-'a'+1)<<j); j+=5; }
+   int       i=strlen(str),j=0;
+   u_int64_t idx=0;
+   char      *cp=str+i;
+
+   for (;i>0;i--) { idx+=((*--cp-'a'+1)<<j); j+=(j==0)?7:5; }
    return idx;
+}
+
+/*********************************************/
+/* UN_IDX - get TLD from index #             */
+/*********************************************/
+
+char *un_idx(u_int64_t idx)
+{
+   int    i,j;
+   char   *cp;
+   static char buf[8];
+
+   memset(buf, 0, sizeof(buf));
+   if (idx<=0) return buf;
+   if ((j=(idx&0x7f))>32) /* only for a1, a2 and o1 */
+      { buf[0]=(idx>>7)+'a'; buf[1]=j-32; return buf; }
+
+   for (i=5;i>=0;i--)
+      buf[i]=(i==5)?(idx&0x7f)+'a'-1:(j=(idx>>(((5-i)*5)+2))&0x1f)?j+'a'-1:' ';
+   cp=buf; while (*cp==' ') { for (i=0;i<6;i++) buf[i]=buf[i+1]; } return buf;
 }
 
 /*********************************************/
@@ -1768,8 +2090,8 @@ char from_hex(char c)                           /* convert hex to dec      */
 
 char *unescape(char *str)
 {
-   unsigned char *cp1=str;                      /* force unsigned so we    */
-   unsigned char *cp2=str;                      /* can do > 127            */
+   unsigned char *cp1=(unsigned char *)str;     /* force unsigned so we    */
+   unsigned char *cp2=cp1;                      /* can do > 127            */
 
    if (!str) return NULL;                       /* make sure strings valid */
 
@@ -1780,10 +2102,10 @@ char *unescape(char *str)
          cp1++;
          if (isxdigit(*cp1))                    /* ensure a hex digit      */
          {
-            if (*cp1) *cp2=from_hex(*cp1++)*16; /* convert hex to an ascii */
+            if (*cp1) *cp2=from_hex(*cp1++)*16; /* convert hex to an ASCII */
             if (*cp1) *cp2+=from_hex(*cp1);     /* (hopefully) character   */
             if ((*cp2<32)||(*cp2==127)) *cp2='_'; /* make '_' if its bad   */
-            if (*cp1) cp2++; cp1++;
+            if (*cp1) { cp2++; cp1++; }
          }
          else *cp2++='%';
       }
@@ -1791,6 +2113,18 @@ char *unescape(char *str)
    }
    *cp2=*cp1;                                   /* don't forget terminator */
    return str;                                  /* return the string       */
+}
+
+/*********************************************/
+/* OURICMP - Case insensitive string compare */
+/*********************************************/
+
+int ouricmp(char *str1, char *str2)
+{
+   while((*str1!=0) &&
+    (tolower((unsigned char)*str1)==tolower((unsigned char)*str2)))
+    { str1++;str2++; }
+   if (*str1==0) return 0; else return 1;
 }
 
 /*********************************************/
@@ -1806,16 +2140,18 @@ void srch_string(char *ptr)
    int  sp_flg=0;
 
    /* Check if search engine referrer or return  */
-   if ( (cps=isinglist(search_list,log_rec.refer))==NULL) return;
+   if ( (cps=(unsigned char *)isinglist(search_list,log_rec.refer))==NULL)
+      return;
 
    /* Try to find query variable */
-   srch[0]='?'; strcpy(&srch[1],cps);              /* First, try "?..."      */
-   if ((cp1=strstr(ptr,srch))==NULL)
+   srch[0]='?'; srch[sizeof(srch)-1] = '\0';
+   strncpy(&srch[1],(char *)cps,sizeof(srch)-2);   /* First, try "?..."      */
+   if ((cp1=(unsigned char *)strstr(ptr,srch))==NULL)
    {
       srch[0]='&';                                 /* Next, try "&..."       */
-      if ((cp1=strstr(ptr,srch))==NULL) return;    /* If not found, split... */
+      if ((cp1=(unsigned char *)strstr(ptr,srch))==NULL) return;
    }
-   cp2=tmpbuf;
+   cp2=(unsigned char *)tmpbuf;
    while (*cp1!='=' && *cp1!=0) cp1++; if (*cp1!=0) cp1++;
    while (*cp1!='&' && *cp1!=0)
    {
@@ -1826,24 +2162,25 @@ void srch_string(char *ptr)
          if (*cp1=='+') *cp1=' ';                      /* change + to space  */
          if (sp_flg && *cp1==' ') { cp1++; continue; } /* compress spaces    */
          if (*cp1==' ') sp_flg=1; else sp_flg=0;       /* (flag spaces here) */
-         *cp2++=tolower(*cp1);                         /* normal character   */
-         cp1++;
+         if (searchcasei)
+            *cp2++=tolower(*cp1++);                    /* normal character   */
+         else *cp2++=*cp1++;
       }
    }
-   *cp2=0; cp2=tmpbuf;
+   *cp2=0; cp2=(unsigned char *)tmpbuf;
    if (tmpbuf[0]=='?') tmpbuf[0]=' ';                  /* format fix ?       */
-   while( *cp2!=0 && isspace(*cp2) ) cp2++;            /* skip leading sps.  */
+   while( *cp2!=0 && isspace((unsigned char)*cp2) ) cp2++;     /* skip sps.  */
    if (*cp2==0) return;
 
    /* any trailing spaces? */
-   cp1=cp2+strlen(cp2)-1;
-   while (cp1!=cp2) if (isspace(*cp1)) *cp1--='\0'; else break;
+   cp1=cp2+strlen((char *)cp2)-1;
+   while (cp1!=cp2) if (isspace((unsigned char)*cp1)) *cp1--='\0'; else break;
 
    /* strip invalid chars */
    cp1=cp2;
    while (*cp1!=0) { if ((*cp1<32)||(*cp1==127)) *cp1='_'; cp1++; }
 
-   if (put_snode(cp2,(u_long)1,sr_htab))
+   if (put_snode((char *)cp2,(u_int64_t)1,sr_htab))
    {
       if (verbose)
       /* Error adding search string node, skipping .... */
@@ -1861,8 +2198,8 @@ char *get_domain(char *str)
    char *cp;
    int  i=group_domains+1;
 
+   if (isipaddr(str)) return NULL;
    cp = str+strlen(str)-1;
-   if (isdigit((int)*cp)) return NULL;   /* ignore IP addresses */
 
    while (cp!=str)
    {
@@ -1874,17 +2211,161 @@ char *get_domain(char *str)
 }
 
 /*********************************************/
+/* AGENT_MANGLE - Re-format user agent       */
+/*********************************************/
+
+void agent_mangle(char *str)
+{
+   char *cp1, *cp2, *cp3;
+
+   str=cp2=log_rec.agent;
+   cp1=strstr(str,"ompatible"); /* check known fakers */
+   if (cp1!=NULL)
+   {
+      while (*cp1!=';'&&*cp1!='\0') cp1++;
+      /* kludge for Mozilla/3.01 (compatible;) */
+      if (*cp1++==';' && strcmp(cp1,")\""))  /* success! */
+      {
+         /* Opera can hide as MSIE */
+         cp3=strstr(str,"Opera");
+         if (cp3!=NULL)
+         {
+            while (*cp3!='.'&&*cp3!='\0')
+            {
+               if(*cp3=='/') *cp2++=' ';
+               else *cp2++=*cp3;
+               cp3++;
+            }
+            cp1=cp3;
+         }
+         else
+         {
+            while (*cp1 == ' ') cp1++; /* eat spaces */
+            while (*cp1!='.'&&*cp1!='\0'&&*cp1!=';') *cp2++=*cp1++;
+         }
+         if (mangle_agent<5)
+         {
+            while (*cp1!='.'&&*cp1!=';'&&*cp1!='\0') *cp2++=*cp1++;
+            if (*cp1!=';'&&*cp1!='\0') { *cp2++=*cp1++; *cp2++=*cp1++; }
+         }
+         if (mangle_agent<4)
+            if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
+         if (mangle_agent<3)
+            while (*cp1!=';'&&*cp1!='\0'&&*cp1!='('&&*cp1!=' ') *cp2++=*cp1++;
+         if (mangle_agent<2)
+         {
+            /* Level 1 - try to get OS */
+            cp1=strstr(cp1,")");
+            if (cp1!=NULL)
+            {
+               *cp2++=' ';
+               *cp2++='(';
+               while (*cp1!=';'&&*cp1!='('&&cp1!=str) cp1--;
+               if (cp1!=str&&*cp1!='\0') cp1++;
+               while (*cp1==' '&&*cp1!='\0') cp1++;
+               while (*cp1!=')'&&*cp1!='\0') *cp2++=*cp1++;
+               *cp2++=')';
+            }
+         }
+         *cp2='\0';
+      }
+      else
+      {
+         /* nothing after "compatible", should we mangle? */
+         /* not for now */
+      }
+   }
+   else
+   {
+      cp1=strstr(str,"Opera");  /* Opera flavor         */
+      if (cp1!=NULL)
+      {
+         while (*cp1!='/'&&*cp1!=' '&&*cp1!='\0') *cp2++=*cp1++;
+         while (*cp1!='.'&&*cp1!='\0')
+         {
+            if(*cp1=='/') *cp2++=' ';
+            else *cp2++=*cp1;
+            cp1++;
+         }
+         if (mangle_agent<5)
+         {
+            while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
+            *cp2++=*cp1++;
+            *cp2++=*cp1++;
+         }
+         if (mangle_agent<4)
+            if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
+         if (mangle_agent<3)
+            while (*cp1!=' '&&*cp1!='\0'&&*cp1!='(') *cp2++=*cp1++;
+         if (mangle_agent<2)
+         {
+            cp1=strstr(cp1,"(");
+            if (cp1!=NULL)
+            {
+               cp1++;
+               *cp2++=' ';
+               *cp2++='(';
+               while (*cp1!=';'&&*cp1!=')'&&*cp1!='\0') *cp2++=*cp1++;
+               *cp2++=')';
+            }
+         }
+         *cp2='\0';
+      }
+      else
+      {
+         cp1=strstr(str,"Mozilla");  /* Netscape flavor      */
+         if (cp1!=NULL)
+         {
+            while (*cp1!='/'&&*cp1!=' '&&*cp1!='\0') *cp2++=*cp1++;
+            if (*cp1==' ') *cp1='/';
+            while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
+            if (mangle_agent<5)
+            {
+               while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
+               *cp2++=*cp1++;
+               *cp2++=*cp1++;
+            }
+            if (mangle_agent<4)
+               if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
+            if (mangle_agent<3)
+               while (*cp1!=' '&&*cp1!='\0'&&*cp1!='(') *cp2++=*cp1++;
+            if (mangle_agent<2)
+            {
+               /* Level 1 - Try to get OS */
+               cp1=strstr(cp1,"(");
+               if (cp1!=NULL)
+               {
+                  cp1++;
+                  *cp2++=' ';
+                  *cp2++='(';
+                  while (*cp1!=';'&&*cp1!=')'&&*cp1!='\0') *cp2++=*cp1++;
+                  *cp2++=')';
+               }
+            }
+            *cp2='\0';
+         }
+      }
+   }
+}
+
+/*********************************************/
 /* OUR_GZGETS - enhanced gzgets for log only */
 /*********************************************/
 
-char *our_gzgets(gzFile fp, char *buf, int size)
+char *our_gzgets(void *fp, char *buf, int size)
 {
    char *out_cp=buf;      /* point to output */
    while (1)
    {
       if (f_cp>(f_buf+f_end-1))     /* load? */
       {
+#ifdef USE_BZIP
+         f_end=(gz_log==COMP_BZIP)?
+            BZ2_bzread(fp, f_buf, GZ_BUFSIZE):
+            gzread(fp, f_buf, GZ_BUFSIZE);
+#else
          f_end=gzread(fp, f_buf, GZ_BUFSIZE);
+#endif
          if (f_end<=0) return Z_NULL;
          f_cp=f_buf;
       }
@@ -1895,6 +2376,59 @@ char *our_gzgets(gzFile fp, char *buf, int size)
          if (*f_cp++ == '\n') { *out_cp='\0'; return buf; }
       }
       else { *out_cp='\0'; return buf; }
+   }
+}
+
+#ifdef USE_BZIP
+/*********************************************/
+/* bz2_rewind - our 'rewind' for bz2 files   */
+/*********************************************/
+
+int bz2_rewind( void **fp, char *fname, char *mode )
+{
+   BZ2_bzclose( *fp );
+   *fp = BZ2_bzopen( fname, "rb");
+   f_cp=f_buf+GZ_BUFSIZE; f_end=0;   /* reset buffer counters */
+   memset(f_buf, 0, sizeof(f_buf));
+   if (*fp == Z_NULL) return -1;
+   else return 0;
+}
+#endif /* USE_BZIP */
+
+/*********************************************/
+/* ISIPADDR - Determine if str is IP address */
+/*********************************************/
+
+int isipaddr(char *str)
+{
+   int  i=1,j=0;
+   char *cp;   /* generic ptr  */
+
+   if (strchr(str,':')!=NULL)
+   {
+      /* Possible IPv6 Address */
+      cp=str;
+      while (strchr(":.abcdef0123456789",*cp)!=NULL && *cp!='\0')
+      {
+         if (*cp=='.')   j++;
+         if (*cp++==':') i++;
+      }
+
+      if (*cp!='\0') return -1;                   /* bad hostname (has ':') */
+      if (i>1 && j) return 2;                     /* IPv4/IPv6    */
+      return 3;                                   /* IPv6         */
+   }
+   else
+   {
+      /* Not an IPv6 address, check for IPv4 */
+      cp=str;
+      while (strchr(".0123456789",*cp)!=NULL && *cp!='\0')
+      {
+         if (*cp++=='.') i++;
+      }
+      if (*cp!='\0') return 0;                    /* hostname     */
+      if (i!=4) return -1;                        /* bad hostname */
+      return 1;                                   /* IPv4         */
    }
 }
 
@@ -1923,14 +2457,14 @@ char *our_gzgets(gzFile fp, char *buf, int size)
 /*                                                               */
 /*****************************************************************/
 
-u_long jdate( int day, int month, int year )
+u_int64_t jdate( int day, int month, int year )
 {
-   u_long days;                      /* value returned */
+   u_int64_t days;                      /* value returned */
    int mtable[] = {0,31,59,90,120,151,181,212,243,273,304,334};
 
    /* First, calculate base number including leap and Centenial year stuff */
 
-   days=(((u_long)year*365)+day+mtable[month-1]+
+   days=(((u_int64_t)year*365)+day+mtable[month-1]+
            ((year+4)/4) - ((year/100)-(year/400)));
 
    /* now adjust for leap year before March 1st */

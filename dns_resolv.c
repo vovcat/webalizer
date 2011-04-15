@@ -1,7 +1,7 @@
 /*
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2001  Bradford L. Barrett (brad@mrunix.net)
+    Copyright (C) 1997-2011  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,17 +19,6 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-    This software uses the gd graphics library, which is copyright by
-    Quest Protein Database Center, Cold Spring Harbor Labs.  Please
-    see the documentation supplied with the library for additional
-    information and license terms, or visit www.boutell.com/gd/ for the
-    most recent version of the library and supporting documentation.
-
-    dns_resolv.c - based on the dns-resolver code submitted by
-                   Henning P. Schmiedehausen <hps@tanstaafl.de>
-                   and modified for inclusion in the Webalizer
-                   directly.  Enabled with -DUSE_DNS.
-
 */
 
 /*********************************************/
@@ -40,25 +29,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include <unistd.h>                           /* normal stuff             */
 #include <ctype.h>
 #include <sys/utsname.h>
-#include <sys/times.h>
 #include <zlib.h>
-
-/* Need socket header? */
-#ifdef HAVE_SYS_SOCKET_H
-#include <sys/socket.h>
-#endif
-
-/* ensure getopt */
-#ifdef HAVE_GETOPT_H
-#include <getopt.h>
-#endif
 
 /* ensure sys/types */
 #ifndef _SYS_TYPES_H
 #include <sys/types.h>
+#endif
+
+/* Need socket header? */
+#ifdef HAVE_SYS_SOCKET_H
+#include <sys/socket.h>
 #endif
 
 /* some systems need this */
@@ -66,29 +50,18 @@
 #include <math.h>
 #endif
 
-/* SunOS 4.x Fix */
-#ifndef CLK_TCK
-#define CLK_TCK _SC_CLK_TCK
-#endif
-
 #ifdef USE_DNS                   /* skip everything in this file if no DNS */
 
 #include <netinet/in.h>          /* include stuff we need for dns lookups, */
 #include <arpa/inet.h>           /* DB access, file control, etc...        */
 #include <fcntl.h>
-#include <netdb.h>
+#include <netdb.h>               /* ensure getaddrinfo/getnameinfo         */
 #include <signal.h>
 #include <sys/signal.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/wait.h>
-
-#ifdef HAVE_DB_185_H
-#include <db_185.h>                            /* on my RH6.0 system ?!?   */
-#else
 #include <db.h>                                /* DB header ****************/
-#endif /* HAVE_DB_185_H */
-
 #include "webalizer.h"                         /* main header              */
 #include "lang.h"                              /* language declares        */
 #include "hashtab.h"                           /* hash table functions     */
@@ -97,12 +70,11 @@
 
 /* local data */
 
-#ifndef HAVE_ERRNO_H
-int      errno;                                /* errno for those in need  */
-#endif
-
 DB       *dns_db   = NULL;                     /* DNS cache database       */
 int      dns_fd    = 0;
+
+DB       *geo_db   = NULL;                     /* GeoDB database           */
+DBC      *geo_dbc  = NULL;                     /* GeoDB database cursor    */
 
 struct   dns_child child[MAXCHILD];            /* DNS child pipe data      */
 
@@ -118,7 +90,7 @@ time_t runtime;
 time_t start_time, end_time;
 float  temp_time;
 
-extern char *our_gzgets(gzFile, char *, int);  /* external our_gzgets func */
+extern char *our_gzgets(void *, char *, int);  /* external our_gzgets func */
 
 /* internal function prototypes */
 
@@ -127,6 +99,7 @@ static void sigChild(int);
 static void db_put(char *, char *, int);
 void   set_fl(int, int);
 void   clr_fl(int, int);
+int    iptype(char *, unsigned char *);
 
 /*********************************************/
 /* RESOLVE_DNS - lookup IP in cache          */
@@ -135,34 +108,38 @@ void   clr_fl(int, int);
 void resolve_dns(struct log_struct *log_rec)
 {
    DBT    query, response;
+   int    i;
    /* aligned dnsRecord to prevent Solaris from doing a dump */
    /* (not found in debugger, as it can dereference it :(    */
    struct dnsRecord alignedRecord;
 
    if (!dns_db) return;   /* ensure we have a dns db */
 
+   memset(&query, 0, sizeof(query));
+   memset(&response, 0, sizeof(response));
    query.data = log_rec->hostname;
    query.size = strlen(log_rec->hostname);
 
    if (debug_mode) fprintf(stderr,"Checking %s...", log_rec->hostname);
 
-   switch((dns_db->get)(dns_db, &query, &response, 0))
+   if ( (i=dns_db->get(dns_db, NULL, &query, &response, 0)) == 0)
    {
-      case -1: if (debug_mode) fprintf(stderr," Lookup error\n"); break;
-      case  1: if (debug_mode) fprintf(stderr," not found\n");    break;
-      case  0:
+      memcpy(&alignedRecord, response.data, sizeof(struct dnsRecord));
+      strncpy (log_rec->hostname,
+               ((struct dnsRecord *)response.data)->hostName,
+               MAXHOST);
+      log_rec->hostname[MAXHOST-1]=0;
+      if (debug_mode)
+         fprintf(stderr," found: %s (%ld)\n",
+           log_rec->hostname, alignedRecord.timeStamp);
+   }
+   else  /* not found or error occured during get */
+   {
+      if (debug_mode)
       {
-         memcpy(&alignedRecord, response.data, sizeof(struct dnsRecord));
-         strncpy (log_rec->hostname,
-                  ((struct dnsRecord *)response.data)->hostName,
-                  MAXHOST);
-         log_rec->hostname[MAXHOST]=0;
-         if (debug_mode)
-            fprintf(stderr," found: %s (%ld)\n",
-             log_rec->hostname, alignedRecord.timeStamp);
-         break;
+         if (i==DB_NOTFOUND) fprintf(stderr," not found\n");
+         else                fprintf(stderr," error (%d)\n",i);
       }
-      default: if (debug_mode) fprintf(stderr," Invalid response\n");
    }
 }
 
@@ -178,11 +155,10 @@ int dns_resolver(void *log_fp)
    int       i;
    int       save_verbose=verbose;
 
-   u_long    listEntries = 0;
+   u_int64_t listEntries = 0;
 
    struct sigaction sigPipeAction;
    struct stat dbStat;
-   struct tms  mytms;
    /* aligned dnsRecord to prevent Solaris from doing a dump */
    /* (not found in debugger, as it can dereference it :(    */
    struct dnsRecord alignedRecord;
@@ -195,7 +171,9 @@ int dns_resolver(void *log_fp)
    tmp_flock.l_pid=0;
 
    time(&runtime);
-   start_time = times(&mytms);   /* get start time */
+
+   /* get processing start time */
+   start_time = time(NULL);
 
    /* minimal sanity check on it */
    if(stat(dns_cache, &dbStat) < 0)
@@ -215,7 +193,10 @@ int dns_resolver(void *log_fp)
    }
 
    /* open cache file */
-   if(!(dns_db = dbopen(dns_cache, O_RDWR|O_CREAT, 0664, DB_HASH, NULL)))
+   if ( (db_create(&dns_db, NULL, 0) != 0)   ||
+        (dns_db->open(dns_db, NULL,
+           dns_cache, NULL, DB_HASH,
+           DB_CREATE, 0644) != 0) )
    {
       /* Error: Unable to open DNS cache file <filename> */
       if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nodb,dns_cache);
@@ -225,14 +206,14 @@ int dns_resolver(void *log_fp)
    }
 
    /* get file descriptor */
-   dns_fd = dns_db->fd(dns_db);
+   dns_db->fd(dns_db, &dns_fd);
 
    tmp_flock.l_type=F_WRLCK;                    /* set read/write lock type */
    if (fcntl(dns_fd,F_SETLK,&tmp_flock) < 0)    /* and barf if we cant lock */
    {
       /* Error: Unable to lock DNS cache file <filename> */
       if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nolk,dns_cache);
-      dns_db->close(dns_db);
+      dns_db->close(dns_db, 0);
       dns_cache=NULL;
       dns_db=NULL;
       return 0;                  /* disable cache */
@@ -249,13 +230,13 @@ int dns_resolver(void *log_fp)
    verbose=0;
 
    /* Main loop to read log records (either regular or zipped) */
-   while ( (gz_log)?(our_gzgets((gzFile)log_fp,buffer,BUFSIZE) != Z_NULL):
+   while ( (gz_log)?(our_gzgets((void *)log_fp,buffer,BUFSIZE) != Z_NULL):
            (fgets(buffer,BUFSIZE,log_fname?(FILE *)log_fp:stdin) != NULL))
    {
       if (strlen(buffer) == (BUFSIZE-1))
       {
          /* get the rest of the record */
-         while ( (gz_log)?(our_gzgets((gzFile)log_fp,buffer,BUFSIZE)!=Z_NULL):
+         while ( (gz_log)?(our_gzgets((void *)log_fp,buffer,BUFSIZE)!=Z_NULL):
                  (fgets(buffer,BUFSIZE,log_fname?(FILE *)log_fp:stdin)!=NULL))
          {
             if (strlen(buffer) < BUFSIZE-1) break;
@@ -266,42 +247,37 @@ int dns_resolver(void *log_fp)
       strcpy(tmp_buf, buffer);            /* save buffer in case of error */
       if(parse_record(buffer))            /* parse the record             */
       {
-         if((log_rec.addr.s_addr = inet_addr(log_rec.hostname)) != INADDR_NONE)
+         struct addrinfo hints, *ares;
+         memset(&hints, 0, sizeof(hints));
+         hints.ai_family   = AF_UNSPEC;
+         hints.ai_socktype = SOCK_STREAM;
+         hints.ai_flags    = AI_NUMERICHOST;
+         if (0 == getaddrinfo(log_rec.hostname, "0", &hints, &ares))
          {
             DBT q, r;
+            memset(&q, 0, sizeof(q));
+            memset(&r, 0, sizeof(r));
             q.data = log_rec.hostname;
             q.size = strlen(log_rec.hostname);
 
-            switch((dns_db->get)(dns_db, &q, &r, 0))
+            /* Check if we have it in DB */
+            if ( (i=dns_db->get(dns_db, NULL, &q, &r, 0)) == 0 )
             {
-               case -1: break;  /* Error while retrieving .. just ignore     */
-               case 1:          /* No record on file, queue up for resolving */
-               {
-                  put_dnode(log_rec.hostname,
-                            &log_rec.addr,
-                            host_table);
-                  break;
-               }
-
-               case 0: /* We have a record for this address */
-               {
-                  memcpy(&alignedRecord, r.data, sizeof(struct dnsRecord));
-                  if((runtime - alignedRecord.timeStamp ) < DNS_CACHE_TTL)
-                  {
-                     if(!alignedRecord.numeric)  /* It is a name. Do nothing */
-                        break;
-                     /* otherise, it a number.. fall through */
-                  }
-                  else
-                  {
-                     /* queue up stale entry for retrieval */
-                     put_dnode(log_rec.hostname,
-                               &log_rec.addr,
-                               host_table);
-                     break;
-                  }
-               }
+               /* have a record for this address */
+               memcpy(&alignedRecord, r.data, sizeof(struct dnsRecord));
+               if (alignedRecord.timeStamp != 0)
+                  /* If it's not permanent, check if it's TTL has expired */
+                  if ( (runtime-alignedRecord.timeStamp ) > (86400*cache_ttl) )
+                     put_dnode(log_rec.hostname, ares->ai_addr,
+                               ares->ai_addrlen,  host_table);
             }
+            else
+            {
+               if (i==DB_NOTFOUND)
+                   put_dnode(log_rec.hostname, ares->ai_addr,
+                             ares->ai_addrlen, host_table);
+            }
+            freeaddrinfo(ares);
          }
       }
    }
@@ -326,23 +302,26 @@ int dns_resolver(void *log_fp)
       if (verbose>1) printf("%s\n",msg_dns_none);
       tmp_flock.l_type=F_UNLCK;
       fcntl(dns_fd, F_SETLK, &tmp_flock);
-      dns_db->close(dns_db);
+      dns_db->close(dns_db, 0);
       return 0;
    }
 
    /* process our list now... */
    process_list(l_list);
 
-   /* display timing totals ? */
-   end_time = times(&mytms);              /* display timing totals?   */
+   /* get processing end time */
+   end_time = time(NULL);
+
+   /* display DNS processing statistics */
    if (time_me || (verbose>1))
    {
       if (verbose<2 && time_me) printf("DNS: ");
-      printf("%lu %s ",listEntries, msg_addresses);
+      printf("%llu %s ",listEntries, msg_addresses);
 
-      /* get processing time (end-start) */
-      temp_time = (float)(end_time-start_time)/CLK_TCK;
-      printf("%s %.2f %s", msg_in, temp_time, msg_seconds);
+      /* total processing time in seconds */
+      temp_time = difftime(end_time,start_time);
+      if (temp_time==0) temp_time=1;
+      printf("%s %.0f %s", msg_in, temp_time, msg_seconds);
 
       /* calculate records per second */
       if (temp_time)
@@ -356,7 +335,7 @@ int dns_resolver(void *log_fp)
    /* processing done, exit   */
    tmp_flock.l_type=F_UNLCK;
    fcntl(dns_fd, F_SETLK, &tmp_flock);
-   dns_db->close(dns_db);
+   dns_db->close(dns_db, 0);
    return 0;
 
 }
@@ -369,12 +348,13 @@ static void process_list(DNODEPTR l_list)
 {
    DNODEPTR  trav;
 
-   char   child_buf[MAXHOST];
+   char   child_buf[MAXHOST+3-((unsigned long)&trav+sizeof(trav))%3];
    char   dns_buf[MAXHOST];
    int    i;
    int    pid;
    int    nof_children = 0;
    fd_set rd_set;
+   char   hbuf[NI_MAXHOST];
 
    struct sigaction sigChildAction;
 
@@ -414,12 +394,10 @@ static void process_list(DNODEPTR l_list)
          {
             int size;
 
-            struct hostent *res_ent;
-
             close(child[i].inpipe[0]);
             close(child[i].outpipe[1]);
 
-            /* get struct in_addr here */
+            /* get struct sockaddr_storage here */
             while((size = read(child[i].outpipe[0], child_buf, MAXHOST)))
             {
                if(size < 0)
@@ -429,37 +407,31 @@ static void process_list(DNODEPTR l_list)
                }
                else
                {
-                  if(debug_mode)
-                  printf("Child got work: %lx(%d)\n",
-                          *((unsigned long *)child_buf), size);
+                  /* Clear out our buffer */
+                  memset(hbuf,0,NI_MAXHOST);
 
-                  if((res_ent = gethostbyaddr(child_buf, size, AF_INET)))
+                  if(0 == getnameinfo((struct sockaddr*)child_buf, size,
+                                     hbuf, sizeof(hbuf), NULL, 0, NI_NAMEREQD))
                   {
                      /* must be at least 4 chars */
-                     if (strlen(res_ent->h_name)>3)
+                     if (strlen(hbuf)>3)
                      {
-                        if(debug_mode)
-                           printf("Child got %s for %lx(%d), %d bytes\n",
-                                   res_ent->h_name,
-                                   *((unsigned long *)child_buf),
-                                   size,strlen(res_ent->h_name));
-
                         /* If long hostname, take max domain name part */
-                        if ((size = strlen(res_ent->h_name)) > MAXHOST-2)
-                           strcpy(child_buf,(res_ent->h_name+(size-MAXHOST+1)));
-                        else strcpy(child_buf, res_ent->h_name);
+                        if ((size = strlen(hbuf)) > MAXHOST-2)
+                           strcpy(child_buf,(hbuf+(size-MAXHOST+1)));
+                        else strcpy(child_buf, hbuf);
                         size = strlen(child_buf);
                      }
                      else
                      {
                         if (debug_mode)
-                           printf("gethostbyaddr returned bad h_name!\n");
+                           printf("Child %d getnameinfo bad hbuf!\n",i);
                      }
                   }
                   else
                   {
                      if(debug_mode)
-                        printf("gethostbyaddr returned NULL! (%d)\n",h_errno);
+                       printf("Child %d getnameinfo failed!\n",i);
                   }
 
                   if (write(child[i].inpipe[1], child_buf, size) == -1)
@@ -538,8 +510,8 @@ static void process_list(DNODEPTR l_list)
 
                if(trav)  /* something to resolve */
                {
-                  if (write(child[i].outpipe[1], &(trav->addr.s_addr),
-                     sizeof(trav->addr.s_addr)) != -1)
+                  if (write(child[i].outpipe[1], &trav->addr,
+                     trav->addrlen) != -1)
                   {
                      /* We will watch this child */
                      child[i].cur    = trav;
@@ -547,9 +519,8 @@ static void process_list(DNODEPTR l_list)
                      max_fd = MAX(max_fd, child[i].inpipe[0]);
 
                      if(debug_mode)
-                        printf("Giving %s (%lx) to Child %d for resolving\n",
-                                child[i].cur->string,
-                                (unsigned long)child[i].cur->addr.s_addr, i);
+                        printf("Giving %d bytes to Child %d\n",
+                        trav->addrlen, i);
 
                      trav = trav->llist;
                   }
@@ -612,9 +583,6 @@ static void process_list(DNODEPTR l_list)
 
                   res--;  /* One less... */
 
-                  if(debug_mode)
-                  printf("Work requested from Child %d\n", i);
-
                   switch (size=read(child[i].inpipe[0], dns_buf, MAXHOST))
                   {
                      case -1:
@@ -640,22 +608,24 @@ static void process_list(DNODEPTR l_list)
                      default:
                      {
                         dns_buf[size] = '\0';
-                        if(memcmp(dns_buf, &(child[i].cur->addr.s_addr),
-                                    sizeof(child[i].cur->addr.s_addr)))
+                        if( strlen(dns_buf) > 1 &&
+                             memcmp(dns_buf, &(child[i].cur->addr),
+                                    sizeof(child[i].cur->addr)))
                         {
                            if(debug_mode)
-                              printf("Got a result (%d): %s -> %s\n",
+                              printf("Child %d Got a result: %s -> %s\n",
                                      i, child[i].cur->string, dns_buf);
                            db_put(child[i].cur->string, dns_buf, 0);
                         }
                         else
                         {
                            if(debug_mode)
-                              printf("Could not resolve (%d):  %s\n",
-                                     i, child[i].cur->string);
-                           /*
-                           db_put(child[i].cur->string,child[i].cur->string,1);
-                           */
+                              printf("Child %d could not resolve: %s (%s)\n",
+                                     i, child[i].cur->string,
+                                     (cache_ips)?"cache":"no cache");
+                           if (cache_ips)      /* Cache non-resolved? */
+                              db_put(child[i].cur->string,
+                                     child[i].cur->string,1);
                         }
 
                         if(debug_mode)
@@ -721,9 +691,11 @@ void clr_fl(int fd, int flags)
 
 static void db_put(char *key, char *value, int numeric)
 {
-   DBT k, v;
+   DBT    k, v;
+   char   *cp;
    struct dnsRecord *recPtr = NULL;
-   int nameLen = strlen(value)+1;
+   int    nameLen = strlen(value)+1;
+
    /* Align to multiple of eight bytes */
    int recSize = (sizeof(struct dnsRecord)+nameLen+7) & ~0x7;
 
@@ -735,6 +707,12 @@ static void db_put(char *key, char *value, int numeric)
          recPtr->timeStamp = runtime;
          recPtr->numeric = numeric;
          memcpy(&recPtr->hostName, value, nameLen);
+         memset(&k, 0, sizeof(k));
+         memset(&v, 0, sizeof(v));
+
+         /* Ensure all data is lowercase */
+         cp=key;   while (*cp++!='\0') *cp=tolower(*cp);
+         cp=value; while (*cp++!='\0') *cp=tolower(*cp);
 
          k.data = key;
          k.size = strlen(key);
@@ -742,7 +720,7 @@ static void db_put(char *key, char *value, int numeric)
          v.size = recSize;
          v.data = recPtr;
 
-         if((dns_db->put)(dns_db, &k, &v, 0) < 0)
+         if ( dns_db->put(dns_db, NULL, &k, &v, 0) != 0 )
             if (verbose>1) fprintf(stderr,"db_put fail!\n");
          free(recPtr);
       }
@@ -790,7 +768,10 @@ int open_cache()
    }
 
    /* open cache file */
-   if(!(dns_db = dbopen(dns_cache, O_RDONLY, 0664, DB_HASH, NULL)))
+   if ( (db_create(&dns_db, NULL, 0) != 0)   ||
+        (dns_db->open(dns_db, NULL,
+           dns_cache, NULL, DB_HASH,
+           DB_RDONLY, 0644) != 0) )
    {
       /* Error: Unable to open DNS cache file <filename> */
       if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nodb,dns_cache);
@@ -798,13 +779,13 @@ int open_cache()
    }
 
    /* get file descriptor */
-   dns_fd = dns_db->fd(dns_db);
+   dns_db->fd(dns_db, &dns_fd);
 
    /* Get shared lock on cache file */
    if (fcntl(dns_fd, F_SETLK, &tmp_flock) < 0)
    {
       if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nolk,dns_cache);
-      dns_db->close(dns_db);
+      dns_db->close(dns_db, 0);
       return 0;
    }
    return 1;
@@ -826,8 +807,117 @@ int close_cache()
 
    /* clear lock and close cache file */
    fcntl(dns_fd, F_SETLK, &tmp_flock);
-   dns_db->close(dns_db);
+   dns_db->close(dns_db, 0);
    return 1;
+}
+
+/*********************************************/
+/* GEODB_OPEN - Open GeoDB database/cursor   */
+/*********************************************/
+
+DB *geodb_open(char *dbname)
+{
+   char buf[1025];
+
+   if (dbname==NULL)
+      snprintf(buf,sizeof(buf),"%s/GeoDB.dat",GEODB_LOC);
+   else
+      strncpy(buf,dbname,sizeof(buf)-1);
+   buf[sizeof(buf)-1]='\0';
+
+   /* create database thingie */
+   if ( db_create(&geo_db, NULL, 0) ) return NULL;
+
+   /* open the database */
+   if (geo_db->open(geo_db,NULL,buf,NULL,DB_BTREE,DB_RDONLY,0)) return NULL;
+
+   /* create our cursor */
+   if (geo_db->cursor(geo_db,NULL,&geo_dbc,0))
+   {
+      geo_db->close(geo_db,0);
+      return NULL;
+   }
+   /* all is well in the world */
+   return geo_db;
+}
+
+/*********************************************/
+/* GEODB_VER - Get database version info     */
+/*********************************************/
+
+char *geodb_ver(DB *db, char *str)
+{
+   int       i;
+   DBT       k,v;
+   unsigned  char x[16];
+
+   memset(&x,   0, sizeof(x));
+   memset(&k,   0, sizeof(k));
+   memset(&v,   0, sizeof(v));
+   k.data=&x;
+   k.size=sizeof(x);
+
+   i=geo_db->get(geo_db, NULL, &k, &v, 0);
+
+   if (i) strncpy(str, "Unknown", 8);
+   else   strncpy(str, v.data+3, v.size-3);
+   return str;
+}
+
+/*********************************************/
+/* GEODB_GET_CC - Get country code for IP    */
+/*********************************************/
+
+char *geodb_get_cc(DB *db, char *ip, char *buf)
+{
+   int      i;
+   DBT      k,v;
+   unsigned char addr[16];
+
+   memset(addr, 0, sizeof(addr));
+   strncpy(buf, "--", 3);
+
+   /* get IP address */
+   if (!iptype(ip, addr)) return buf;
+
+   /* kludge for IPv6 mapped IPv4 */
+   if (addr[0]==0 && addr[1]==0 && addr[2]==0) { addr[10]=0; addr[11]=0; }
+
+   /* kludge for IPv6 6to4 (RFC3056) */
+   if (addr[0]==0x20 && addr[1]==0x02)
+   {
+      memcpy(&addr[12],&addr[2],4);
+      memset(&addr,0,12);
+   }
+
+   memset(&k, 0, sizeof(k));
+   memset(&v, 0, sizeof(v));
+   k.data=&addr;
+   k.size=sizeof(addr);
+
+   i=geo_dbc->c_get(geo_dbc, &k, &v, DB_SET_RANGE);
+   if (!i) memcpy(buf, v.data, 2);
+   return buf;
+}
+
+/*********************************************/
+/* GEODB_CLOSE - close GeoDB database        */
+/*********************************************/
+
+void geodb_close(DB *db)
+{
+   db->close(db,0);
+}
+
+/*********************************************/
+/* IPTYPE - get IP type and format addr buf  */
+/*********************************************/
+
+int iptype(char *ip, unsigned char *buf)
+{
+   if (inet_pton(AF_INET6, ip, buf)>0)     return 2;
+   if (inet_pton(AF_INET,  ip, buf+12)>0)  return 1;
+   else return 0;
 }
 
 #endif  /* USE_DNS */

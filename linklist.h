@@ -1,12 +1,12 @@
 #ifndef _LINKLIST_H
 #define _LINKLIST_H
 
-struct nlist {  char string[80];           /* list struct for HIDE items   */
+struct nlist {  char string[MAXKVAL];     /* list struct for HIDE items   */
               struct nlist *next; };
 typedef struct nlist *NLISTPTR;
 
-struct glist {  char string[80];           /* list struct for GROUP items  */
-                char name[80];
+struct glist {  char string[MAXKVAL];     /* list struct for GROUP items  */
+                char name[MAXKVAL];
               struct glist *next; };
 typedef struct glist *GLISTPTR;
 
@@ -38,6 +38,8 @@ extern NLISTPTR html_post     ;               /* middle HTML code          */
 extern NLISTPTR html_tail     ;               /* tail HTML code            */
 extern NLISTPTR html_end      ;               /* after everything else     */
 extern NLISTPTR page_type     ;               /* page view types           */
+extern NLISTPTR omit_page     ;               /* pages not counted         */
+extern NLISTPTR page_prefix   ;               /* page view prefixes        */
 extern GLISTPTR search_list   ;               /* Search engine list        */
 
 extern char     *isinlist(NLISTPTR, char *);        /* scan list for str   */

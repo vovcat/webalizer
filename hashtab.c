@@ -1,7 +1,7 @@
 /*
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2001  Bradford L. Barrett (brad@mrunix.net)
+    Copyright (C) 1997-2011  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,11 +19,6 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA
 
-    This software uses the gd graphics library, which is copyright by
-    Quest Protein Database Center, Cold Spring Harbor Labs.  Please
-    see the documentation supplied with the library for additional
-    information and license terms, or visit www.boutell.com/gd/ for the
-    most recent version of the library and supporting documentation.
 */
 
 /*********************************************/
@@ -37,26 +32,25 @@
 #include <unistd.h>                           /* normal stuff             */
 #include <ctype.h>
 #include <sys/utsname.h>
-#include <sys/times.h>
-
-/* ensure getopt */
-#ifdef HAVE_GETOPT_H
-#include <getopt.h>
-#endif
 
 /* ensure sys/types */
 #ifndef _SYS_TYPES_H
 #include <sys/types.h>
 #endif
 
+/* some need for uint* */
+#ifdef HAVE_STDINT_H
+#include <stdint.h>
+#endif
+
+/* need socket header? */
+#ifdef HAVE_SYS_SOCKET_H
+#include <sys/socket.h>
+#endif
+
 /* some systems need this */
 #ifdef HAVE_MATH_H
 #include <math.h>
-#endif
-
-/* SunOS 4.x Fix */
-#ifndef CLK_TCK
-#define CLK_TCK _SC_CLK_TCK
 #endif
 
 #include "webalizer.h"                        /* main header              */
@@ -79,7 +73,7 @@ DNODEPTR new_dnode(char *);                   /* new DNS node             */
 void     update_entry(char *);                /* update entry/exit        */
 void     update_exit(char *);                 /* page totals              */
 
-u_long   hash(char *);                        /* hash function            */
+unsigned int hash(char *);                    /* hash function            */
 
 /* local data */
 
@@ -94,6 +88,10 @@ INODEPTR im_htab[MAXHASH];                    /* ident table (username)   */
 DNODEPTR host_table[MAXHASH];                 /* DNS hash table           */
 #endif  /* USE_DNS */
 
+/* Last node pointers */
+HNODEPTR lm_hnode=NULL;
+HNODEPTR ld_hnode=NULL;
+RNODEPTR l_rnode=NULL;
 
 /*********************************************/
 /* DEL_HTABS - clear out our hash tables     */
@@ -152,31 +150,35 @@ HNODEPTR new_hnode(char *str)
 /* PUT_HNODE - insert/update host node       */
 /*********************************************/
 
-int put_hnode( char     *str,   /* Hostname  */
+int put_hnode( char      *str,  /* Hostname  */
                int       type,  /* obj type  */
-               u_long    count, /* hit count */
-               u_long    file,  /* File flag */
+               u_int64_t count, /* hit count */
+               u_int64_t file,  /* File flag */
                double    xfer,  /* xfer size */
-               u_long   *ctr,   /* counter   */
-               u_long    visit, /* visits    */
-               u_long    tstamp,/* timestamp */
-               char     *lasturl, /* lasturl */
-               HNODEPTR *htab)  /* ptr>next  */
+               u_int64_t *ctr,  /* counter   */
+               u_int64_t visit, /* visits    */
+               u_int64_t tstamp,/* timestamp */
+               char      *lasturl, /* lasturl */
+               HNODEPTR  *htab)  /* ptr>next  */
 {
    HNODEPTR cptr,nptr;
+   unsigned int hval;
 
    /* check if hashed */
-   if ( (cptr = htab[hash(str)]) == NULL)
+   hval=hash(str);
+   if ( (cptr = htab[hval]) == NULL)
    {
       /* not hashed */
       if ( (nptr=new_hnode(str)) != NULL)
       {
+         if (htab==sm_htab) lm_hnode=nptr;
+         else               ld_hnode=nptr;
          nptr->flag  = type;
          nptr->count = count;
          nptr->files = file;
          nptr->xfer  = xfer;
          nptr->next  = NULL;
-         htab[hash(str)] = nptr;
+         htab[hval] = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
 
          if (visit)
@@ -200,7 +202,16 @@ int put_hnode( char     *str,   /* Hostname  */
    }
    else
    {
-      /* hashed */
+      /* hashed (SPEEDUP) */
+      if (htab==sm_htab)
+      {
+         if (lm_hnode!=NULL && strcmp(lm_hnode->string,str)==0) cptr=lm_hnode;
+      }
+      else
+      {
+         if (ld_hnode!=NULL && strcmp(ld_hnode->string,str)==0) cptr=ld_hnode;
+      }
+
       while (cptr != NULL)
       {
          if (strcmp(cptr->string,str)==0)
@@ -226,6 +237,8 @@ int put_hnode( char     *str,   /* Hostname  */
                   cptr->lasturl=find_url(log_rec.url);
                   cptr->tstamp=tstamp;
                }
+               if (htab==sm_htab) lm_hnode=cptr;
+               else               ld_hnode=cptr;
                return 0;
             }
          }
@@ -234,12 +247,14 @@ int put_hnode( char     *str,   /* Hostname  */
       /* not found... */
       if ( (nptr = new_hnode(str)) != NULL)
       {
+         if (htab==sm_htab) lm_hnode=nptr;
+         else               ld_hnode=nptr;
          nptr->flag  = type;
          nptr->count = count;
          nptr->files = file;
          nptr->xfer  = xfer;
-         nptr->next  = htab[hash(str)];
-         htab[hash(str)]=nptr;
+         nptr->next  = htab[hval];
+         htab[hval]=nptr;
          if (type!=OBJ_GRP) (*ctr)++;
 
          if (visit)
@@ -271,6 +286,8 @@ int put_hnode( char     *str,   /* Hostname  */
          /* check if it's a hidden object */
          if ((hide_sites)||(isinlist(hidden_sites,nptr->string)!=NULL))
            nptr->flag=OBJ_HIDE;
+         if (htab==sm_htab) lm_hnode=nptr;
+         else               ld_hnode=nptr;
       }
    }
    return nptr==NULL;
@@ -301,6 +318,8 @@ void	del_hlist(HNODEPTR *htab)
          htab[i]=NULL;
       }
    }
+   lm_hnode=NULL;
+   ld_hnode=NULL;
 }
 
 /*********************************************/
@@ -341,15 +360,17 @@ UNODEPTR new_unode(char *str)
 /* PUT_UNODE - insert/update URL node        */
 /*********************************************/
 
-int put_unode(char *str, int type, u_long count, double xfer,
-              u_long *ctr, u_long entry, u_long exit, UNODEPTR *htab)
+int put_unode(char *str, int type, u_int64_t count, double xfer,
+              u_int64_t *ctr, u_int64_t entry, u_int64_t exit, UNODEPTR *htab)
 {
    UNODEPTR cptr,nptr;
+   unsigned int hval;
 
    if (str[0]=='-') return 0;
 
+   hval = hash(str);
    /* check if hashed */
-   if ( (cptr = htab[hash(str)]) == NULL)
+   if ( (cptr = htab[hval]) == NULL)
    {
       /* not hashed */
       if ( (nptr=new_unode(str)) != NULL)
@@ -360,7 +381,7 @@ int put_unode(char *str, int type, u_long count, double xfer,
          nptr->next = NULL;
          nptr->entry= entry;
          nptr->exit = exit;
-         htab[hash(str)] = nptr;
+         htab[hval] = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
       }
    }
@@ -387,10 +408,10 @@ int put_unode(char *str, int type, u_long count, double xfer,
          nptr->flag = type;
          nptr->count= count;
          nptr->xfer = xfer;
-         nptr->next = htab[hash(str)];
+         nptr->next = htab[hval];
          nptr->entry= entry;
          nptr->exit = exit;
-         htab[hash(str)]=nptr;
+         htab[hval] = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
       }
    }
@@ -468,14 +489,17 @@ RNODEPTR new_rnode(char *str)
 /* PUT_RNODE - insert/update referrer node   */
 /*********************************************/
 
-int put_rnode(char *str, int type, u_long count, u_long *ctr, RNODEPTR *htab)
+int put_rnode(char *str, int type, u_int64_t count,
+              u_int64_t *ctr, RNODEPTR *htab)
 {
    RNODEPTR cptr,nptr;
+   unsigned int hval;
 
    if (str[0]=='-') strcpy(str,"- (Direct Request)");
 
+   hval = hash(str);
    /* check if hashed */
-   if ( (cptr = htab[hash(str)]) == NULL)
+   if ( (cptr = htab[hval]) == NULL)
    {
       /* not hashed */
       if ( (nptr=new_rnode(str)) != NULL)
@@ -483,13 +507,15 @@ int put_rnode(char *str, int type, u_long count, u_long *ctr, RNODEPTR *htab)
          nptr->flag  = type;
          nptr->count = count;
          nptr->next  = NULL;
-         htab[hash(str)] = nptr;
+         htab[hval]  = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
       }
    }
    else
    {
-      /* hashed */
+      /* hashed (SPEEDUP) */
+      if (l_rnode!=NULL && strcmp(l_rnode->string,str)==0) cptr=l_rnode;
+
       while (cptr != NULL)
       {
          if (strcmp(cptr->string,str)==0)
@@ -508,8 +534,8 @@ int put_rnode(char *str, int type, u_long count, u_long *ctr, RNODEPTR *htab)
       {
          nptr->flag  = type;
          nptr->count = count;
-         nptr->next  = htab[hash(str)];
-         htab[hash(str)]=nptr;
+         nptr->next  = htab[hval];
+         htab[hval]  = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
       }
    }
@@ -518,6 +544,7 @@ int put_rnode(char *str, int type, u_long count, u_long *ctr, RNODEPTR *htab)
       if (type==OBJ_GRP) nptr->flag=OBJ_GRP;
       else if (isinlist(hidden_refs,nptr->string)!=NULL)
                          nptr->flag=OBJ_HIDE;
+      l_rnode=nptr;
    }
    return nptr==NULL;
 }
@@ -547,6 +574,7 @@ void	del_rlist(RNODEPTR *htab)
          htab[i]=NULL;
       }
    }
+   l_rnode=NULL;
 }
 
 /*********************************************/
@@ -587,14 +615,17 @@ ANODEPTR new_anode(char *str)
 /* PUT_ANODE - insert/update user agent node */
 /*********************************************/
 
-int put_anode(char *str, int type, u_long count, u_long *ctr, ANODEPTR *htab)
+int put_anode(char *str, int type, u_int64_t count,
+              u_int64_t *ctr, ANODEPTR *htab)
 {
    ANODEPTR cptr,nptr;
+   unsigned int hval;
 
    if (str[0]=='-') return 0;     /* skip bad user agents */
 
+   hval = hash(str);
    /* check if hashed */
-   if ( (cptr = htab[hash(str)]) == NULL)
+   if ( (cptr = htab[hval]) == NULL)
    {
       /* not hashed */
       if ( (nptr=new_anode(str)) != NULL)
@@ -602,7 +633,7 @@ int put_anode(char *str, int type, u_long count, u_long *ctr, ANODEPTR *htab)
          nptr->flag = type;
          nptr->count= count;
          nptr->next = NULL;
-         htab[hash(str)] = nptr;
+         htab[hval] = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
       }
    }
@@ -627,8 +658,8 @@ int put_anode(char *str, int type, u_long count, u_long *ctr, ANODEPTR *htab)
       {
          nptr->flag  = type;
          nptr->count = count;
-         nptr->next  = htab[hash(str)];
-         htab[hash(str)]=nptr;
+         nptr->next  = htab[hval];
+         htab[hval]  = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
       }
    }
@@ -702,21 +733,23 @@ SNODEPTR new_snode(char *str)
 /* PUT_SNODE - insert/update search str node */
 /*********************************************/
 
-int put_snode(char *str, u_long count, SNODEPTR *htab)
+int put_snode(char *str, u_int64_t count, SNODEPTR *htab)
 {
    SNODEPTR cptr,nptr;
+   unsigned int hval;
 
    if (str[0]==0 || str[0]==' ') return 0;     /* skip bad search strs */
 
+   hval=hash(str);
    /* check if hashed */
-   if ( (cptr = htab[hash(str)]) == NULL)
+   if ( (cptr = htab[hval]) == NULL)
    {
       /* not hashed */
       if ( (nptr=new_snode(str)) != NULL)
       {
          nptr->count = count;
          nptr->next = NULL;
-         htab[hash(str)] = nptr;
+         htab[hval] = nptr;
       }
    }
    else
@@ -736,8 +769,8 @@ int put_snode(char *str, u_long count, SNODEPTR *htab)
       if ( (nptr = new_snode(str)) != NULL)
       {
          nptr->count = count;
-         nptr->next  = htab[hash(str)];
-         htab[hash(str)]=nptr;
+         nptr->next  = htab[hval];
+         htab[hval]  = nptr;
       }
    }
    return nptr==NULL;
@@ -808,22 +841,24 @@ INODEPTR new_inode(char *str)
 /* PUT_INODE - insert/update ident node      */
 /*********************************************/
 
-int put_inode( char     *str,   /* ident str */
+int put_inode( char      *str,  /* ident str */
                int       type,  /* obj type  */
-               u_long    count, /* hit count */
-               u_long    file,  /* File flag */
+               u_int64_t count, /* hit count */
+               u_int64_t file,  /* File flag */
                double    xfer,  /* xfer size */
-               u_long   *ctr,   /* counter   */
-               u_long    visit, /* visits    */
-               u_long    tstamp,/* timestamp */
-               INODEPTR *htab)  /* hashtable */
+               u_int64_t *ctr,  /* counter   */
+               u_int64_t visit, /* visits    */
+               u_int64_t tstamp,/* timestamp */
+               INODEPTR  *htab) /* hashtable */
 {
    INODEPTR cptr,nptr;
+   unsigned int hval;
 
    if ((str[0]=='-') || (str[0]==0)) return 0;  /* skip if no username */
 
+   hval = hash(str);
    /* check if hashed */
-   if ( (cptr = htab[hash(str)]) == NULL)
+   if ( (cptr = htab[hval]) == NULL)
    {
       /* not hashed */
       if ( (nptr=new_inode(str)) != NULL)
@@ -833,7 +868,7 @@ int put_inode( char     *str,   /* ident str */
          nptr->files = file;
          nptr->xfer  = xfer;
          nptr->next  = NULL;
-         htab[hash(str)] = nptr;
+         htab[hval] = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
 
          if (visit)
@@ -880,8 +915,8 @@ int put_inode( char     *str,   /* ident str */
          nptr->count = count;
          nptr->files = file;
          nptr->xfer  = xfer;
-         nptr->next  = htab[hash(str)];
-         htab[hash(str)]=nptr;
+         nptr->next  = htab[hval];
+         htab[hval]  = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
 
          if (visit)
@@ -976,22 +1011,25 @@ DNODEPTR new_dnode(char *str)
 /* PUT_DNODE - insert/update dns host node   */
 /*********************************************/
 
-int put_dnode(char *str, struct in_addr *addr, DNODEPTR *htab)
+int put_dnode(char *str, void *addr, int len, DNODEPTR *htab)
 {
    DNODEPTR cptr,nptr;
+   unsigned int hval;
 
    if (str[0]==0 || str[0]==' ') return 0;     /* skip bad hostnames */
 
+   hval = hash(str);
    /* check if hashed */
-   if ( (cptr = htab[hash(str)]) == NULL)
+   if ( (cptr = htab[hval]) == NULL)
    {
       /* not hashed */
       if ( (nptr=new_dnode(str)) != NULL)
       {
-         if (addr) memcpy(&nptr->addr, addr, sizeof(struct in_addr));
-            else   memset(&nptr->addr, 0, sizeof(struct in_addr));
+         if (addr) memcpy(&nptr->addr, addr, len);
+            else   memset(&nptr->addr, 0, sizeof(struct sockaddr_storage));
+         nptr->addrlen = len;
          nptr->next = NULL;
-         htab[hash(str)] = nptr;
+         htab[hval] = nptr;
       }
    }
    else
@@ -1005,10 +1043,11 @@ int put_dnode(char *str, struct in_addr *addr, DNODEPTR *htab)
       /* not found... */
       if ( (nptr = new_dnode(str)) != NULL)
       {
-         if (addr) memcpy(&nptr->addr, addr, sizeof(struct in_addr));
-            else   memset(&nptr->addr, 0, sizeof(struct in_addr));
-         nptr->next  = htab[hash(str)];
-         htab[hash(str)]=nptr;
+         if (addr) memcpy(&nptr->addr, addr, len);
+            else   memset(&nptr->addr, 0, sizeof(struct sockaddr_storage));
+         nptr->addrlen = len;
+         nptr->next  = htab[hval];
+         htab[hval]  = nptr;
       }
    }
    return nptr==NULL;
@@ -1042,18 +1081,6 @@ void	del_dlist(DNODEPTR *htab)
 }
 
 #endif /* USE_DNS */
-
-/*********************************************/
-/* HASH - return hash value for string       */
-/*********************************************/
-
-u_long hash(char *str)
-{
-   u_long hashval;
-   for (hashval = 0; *str != '\0'; str++)
-      hashval = *str + 31 * hashval;
-   return hashval % MAXHASH;
-}
 
 /*********************************************/
 /* FIND_URL - Find URL in hash table         */
@@ -1133,7 +1160,7 @@ void update_exit(char *str)
 /* MONTH_UPDATE_EXIT  - eom exit page update */
 /*********************************************/
 
-void month_update_exit(u_long tstamp)
+void month_update_exit(u_int64_t tstamp)
 {
    HNODEPTR nptr;
    int i;
@@ -1157,10 +1184,10 @@ void month_update_exit(u_long tstamp)
 /* TOT_VISIT - calculate total visits        */
 /*********************************************/
 
-u_long tot_visit(HNODEPTR *list)
+u_int64_t tot_visit(HNODEPTR *list)
 {
    HNODEPTR   hptr;
-   u_long     tot=0;
+   u_int64_t  tot=0;
    int        i;
 
    for (i=0;i<MAXHASH;i++)
@@ -1174,3 +1201,84 @@ u_long tot_visit(HNODEPTR *list)
    }
    return tot;
 }
+
+#ifdef USE_OLDHASH
+/*********************************************/
+/* HASH - return hash value for string       */
+/*********************************************/
+
+unsigned int hash(char *str)
+{
+   uint32_t  hashval=0;
+
+   for (hashval = 0; *str != '\0'; str++)
+      hashval = *str + (hashval << 5) - hashval;
+
+   return hashval % MAXHASH;
+}
+
+#else /* USE_OLDHASH */
+/*********************************************/
+/* HASH (SuperFastHash by Paul Hsieh)        */
+/*********************************************/
+
+#undef get16bits
+#if (defined(__GNUC__) && defined(__i386__)) || defined(__WATCOMC__) \
+  || defined(_MSC_VER) || defined (__BORLANDC__) || defined (__TURBOC__)
+#define get16bits(d) (*((const uint16_t *) (d)))
+#endif
+
+#if !defined (get16bits)
+#define get16bits(d) ((((uint32_t)(((const uint8_t *)(d))[1])) << 8)\
+                       +(uint32_t)(((const uint8_t *)(d))[0]) )
+#endif
+
+unsigned int hash(char *str)
+{
+   int len=strlen(str);
+   uint32_t hash = len, tmp;
+   int rem;
+
+   if (len <= 0 || str == NULL) return 0;
+
+   rem = len & 3;
+   len >>= 2;
+
+   /* Main loop */
+   for (;len > 0; len--)
+   {
+      hash  += get16bits (str);
+      tmp    = (get16bits (str+2) << 11) ^ hash;
+      hash   = (hash << 16) ^ tmp;
+      str   += 2*sizeof (uint16_t);
+      hash  += hash >> 11;
+   }
+
+   /* Handle end cases */
+   switch (rem)
+   {
+      case 3: hash += get16bits (str);
+              hash ^= hash << 16;
+              hash ^= str[sizeof (uint16_t)] << 18;
+              hash += hash >> 11;
+              break;
+      case 2: hash += get16bits (str);
+              hash ^= hash << 11;
+              hash += hash >> 17;
+              break;
+      case 1: hash += *str;
+              hash ^= hash << 10;
+              hash += hash >> 1;
+   }
+
+   /* Force "avalanching" of final 127 bits */
+   hash ^= hash << 3;
+   hash += hash >> 5;
+   hash ^= hash << 4;
+   hash += hash >> 17;
+   hash ^= hash << 25;
+   hash += hash >> 6;
+
+   return hash % MAXHASH;
+}
+#endif /* USE_OLDHASH */

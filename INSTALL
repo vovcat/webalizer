@@ -2,12 +2,12 @@ Installation instructions for The Webalizer
 
 The Webalizer is distributed in either source or binary distributions,
 and installation is different for each type.  Regardless of the type
-of installation, you need to obtain and un-tar/un-zip the distribution
-file somewhere.  For binary distributions, you should create a directory
-somewhere and chdir to it before unpacking the file.  Source distributions
-will automagically create a directory for you (webalizer-x.xx-xx).  If
-you are upgrading from a previous version, check the CHANGES file, and
-the README.FIRST file for important upgrade information.
+of installation, you need to obtain and un-tar/un-zip the distribution.
+For binary distributions, you should create a directory somewhere and
+chdir to it before unpacking the file.  Source distributions will
+automagically create a directory for you (webalizer-x.xx-xx).  If you
+are upgrading from a previous version, check the CHANGES file, and the
+README.FIRST file for important upgrade information.
 
 
 For Binary distributions
@@ -32,9 +32,27 @@ Note: There may also be platform specific installation instructions
 For Source distributions
 ------------------------
 
-The Webalizer requires the GD graphics library by Tom Boutell.  If
-you don't already have it, go to http://www.boutell.com/gd/ and
-grab a copy.
+The Webalizer requires, at a minimum, the GD graphics library
+(http://www.libgd.org/), the PNG (portable network graphics)
+graphics library ( http://www.libpng.org/pub/png/ ), the Zlib
+compression library ( http://www.zlib.net/ ) and associated
+header files for these libraries.  Most modern systems will have
+these libraries, but may or may not have the required header files
+for them unless you installed the 'dev' (development) versions
+(which include the required header files along with the libraries).
+Consult your systems documentation for specifics.
+
+For native DNS and Geolocation (GeoDB) support, the Berkeley DB
+library (by sleepycat, now owned by Oracle) v4.1 or higher and
+associated header file is required.
+http://www.oracle.com/technology/products/berkeley-db/
+
+For BZip2 support, the bzip2 compression library and header file is
+required. http://www.bzip.org/
+
+For GeoIP geolocation support, the GeoIP library (by MaxMind, Inc.)
+and header file is required, along with a Country Edition database.
+http://www.maxmind.com/app/ip-location
 
 
 New style build:
@@ -49,6 +67,12 @@ make install
 Normal configure options apply, type ./configure --help to get a
 complete list.  A few options in particular may be useful:
 
+--sysconfdir=/etc
+
+The sysconfdir switch specifies where the default configuration
+file (webalizer.conf) should be looked for.  If not specified, the
+default of ${prefix}/etc is used.
+
 --with-language=<language>
 
 Allows you to specify the language to use.  Check the /lang directory
@@ -60,24 +84,32 @@ to compile the program using french (webalizer_lang.french) for output.
 You can also use the --without-language switch, which will use the
 default language (english).
 
---with-gdlib=<path-to-gd-library>
---with-gd=<path-to-gd-headers>
-
-The configure script will attempt to locate the gd library and header
-files in some of the more usual places, and should find them in most
-cases.  If you have the files someplace unusual, you can specify
-additional locations to look for them with this option.  (If you are
-compiling gd in your home directory, and don't want to or can't put
-them in the normal system places, create a directory under the webalizer
-named 'gd' or 'gd1.3' for it and the script should find it without
-problems or extra command line switches).
-
 --enable-dns
 
-DNS lookup features are added.  This simply adds the -DUSE_DNS compiler
-switch.  Several dependencies are present when using the DNS code,
-which is why it must be enabled manually.  If you system supports the
-DNS functionality, great.. if not, don't enable it.
+DNS lookup and native geolocation features are added if the required
+library (libdb) and header file (db.h) are found.  DNS/GeoDB code is
+enabled at compile time by using the -DUSE_DNS compiler switch.  For
+GeoDB lookups, a current geodb database is also required (available
+at ftp://ftp.mrunix.net/pub/webalizer/geodb).
+
+--with-geodb=<path>
+
+The default location for the GeoDB database is /usr/share/GeoDB but
+may be changed using this option.
+
+--enable-bz2
+
+BZip2 compression support will be added if the required library
+(libbz2) and header file (bzlib.h) are found.  BZip2 code is
+enabled at compile time using the -DUSE_BZIP compiler switch.
+
+--enable-geoip
+
+GeoIP geolocation support will be added if the required library
+(libGeoIP) and header file (GeoIP.h) are found.  No attempt is
+made to locate a valid Country Edition database, which is also
+required for GeoIP lookups to be performed.  GeoIP code is
+enabled at compile time using the -DUSE_GEOIP compiler switch.
 
 Some systems may require unusual settings that the configure script
 cannot determine.  You can pass values to the script by setting
@@ -89,10 +121,58 @@ Would allow you to set the compiler (c89) and various flags and
 libraries to use, which would then be passed to the configure script
 and eventually to the Makefile generated.  It also will cause the
 program to be compiled using German instead of the English default.
+Additionally, the various --with-<package> and --with-<packagelib>
+options allow specification of non-standard locations for the
+various libraries and headers.  For example, if you built the bzip2
+library in /src/bzip2, you could use:
+
+./configure --with-bz2=/src/bzip2 --with-bz2lib=/src/bzip2 --enable-bz2
+
+to specify where the bz2 header files (--with-bz2) and library
+(--with-bz2lib) are located.  They should then be detected by
+the configure script and enabled.  Please note that if you are
+linking against a shared library (ie: libbz2.so), then even though
+configure script finds the library, and The Webalizer compiles
+successfully, the program may FAIL when run because the systems
+run-time linking loader cannot find the library.  If this happens,
+then you need to tell the loader where the library is, and is
+dependent upon what type system is being used.  Some platforms
+require the path to the library to be placed in the LD_LIBRARY_PATH
+environment variable.. some (such as linux based platforms) use
+the ld.so.conf file and ldconfig program to configure the dynamic
+linker run-time bindings.  Consult the documentation for your
+system specific requirements.
+
+For package maintainers, the environment variable DESTDIR can be
+used to specify a root directory for installation.  This is the
+top level directory under which all other directories will be
+placed when 'make install' is invoked, and allows binary packages
+to be easily built outside the normal root directory tree.  For
+example, if you wish to build a binary package of The Webalizer
+under the /usr/pkg/webalizer-2.20 directory, you could type:
+
+make install DESTDIR=/usr/pkg/webalizer-2.20
+
+Which would then create the following directory tree:
+
+/usr/pkg/webalizer-2.20/
+/usr/pkg/webalizer-2.20/etc/
+/usr/pkg/webalizer-2.20/etc/webalizer.conf.sample
+/usr/pkg/webalizer-2.20/usr/
+/usr/pkg/webalizer-2.20/usr/bin/
+/usr/pkg/webalizer-2.20/usr/bin/webalizer
+/usr/pkg/webalizer-2.20/usr/bin/webazolver -> webalizer
+/usr/pkg/webalizer-2.20/usr/bin/wcmgr
+/usr/pkg/webalizer-2.20/usr/man/
+/usr/pkg/webalizer-2.20/usr/man/man1/
+/usr/pkg/webalizer-2.20/usr/man/man1/webalizer.1
+/usr/pkg/webalizer-2.20/usr/man/man1/webazolver.1 -> webalizer.1
+/usr/pkg/webalizer-2.20/usr/man/man1/wcmgr.1
+
 
 If the configure script doesn't work for you.. please let me know
 (along with relevant info like system type, compiler, etc..)  If you
-are able and can tweek something to make it work, let me know as well.
+are able and can tweak something to make it work, let me know as well.
 
 
 Old style build:
@@ -102,14 +182,16 @@ some other situation where you have to configure and build the
 source yourself,  the file 'Makefile.std' is a "stock" Makefile
 that you can use to build the Webalizer.  Copy or rename the file
 to 'Makefile', edit to match your system, and do the usual 'make'.
-If everything seems to have gone well, next type 'make install'.
+This is a very generic Makefile, so expect to have to tweak it for
+your particular platform and configuration.  If everything seems
+to have gone well, next type 'make install' to do a stock install.
+Again, you may want to tweak the Makefile for the install, or
+skip the 'make install' step completely (see below).
 
 This will install the Webalizer on your system, and put a sample
 configuration file in /etc (named 'webalizer.conf.sample').  If
 you don't want to use the 'make install' method... just copy the
-file 'webalizer' to someplace usefull and you are ready to go :)
-
-Makefile.std works on a stock slackware 3.6 linux system. YMMV.
+file 'webalizer' to someplace useful, and you are ready to go :)
 
 
 Usage
@@ -173,8 +255,8 @@ To test the new configuration file, type 'webalizer -c mysite.conf'
 browser and look at the results.  If you rename your new
 configuration file to 'webalizer.conf', you will only need
 to type 'webalizer', and The Webalizer will use it as the
-default.  See the README file for more on configuation and
-use of configuation files.
+default.  See the README file for more on configuration and
+use of configuration files.
 
 
 Language Support
@@ -186,7 +268,7 @@ have the source code, get it.  If you can't compile the
 program yourself, ask a friend.  The /lang/ directory of
 the distribution contains all supported languages at the
 time of release.  Additional/updated language files will
-be found at ftp://ftp.mrunix.net/pub/webalizer/lang and
+be found at ftp://ftp.webalizer.org/pub/webalizer/lang and
 are always the most current versions.
 
 To build with language support, use the --with-language
@@ -206,8 +288,8 @@ and re-compile the program.
 Note: The source distribution of The Webalizer contains all
       language support files that were available at the time.
       Additional/updated language files can be found at:
-      ftp://ftp.mrunix.net/pub/webalizer/lang where I will put
-      them as I receive them.
+      ftp://ftp.webalizer.org/pub/webalizer/lang where I will
+      put them as I receive them.
 
 
 Common Questions
@@ -219,10 +301,13 @@ A: If it is a *nix platform, it should without a problem.  If it's
    want to try to make it work.
 
 Q: When I compile, I get "file not found" errors?
-A: Most likely, the compiler cant find the header files for the
-   GD Graphics library.  If they are someplace other than the
-   default /usr/local/include/gd, then you need to change the
-   GDLIB variable in the Makefile to point to the proper place.
+A: Most likely, the compiler cant find the header files for one
+   the required libraries.  If they are someplace other than the
+   standard locations (ie: /usr/include), then you  probably need
+   to specify an alternate location to look using one of the
+   --with-<package> command line switches when you run configure,
+   or edit the Makefile and specify the location with an '-I<path>'
+   compiler flag.
 
 Q: I get "libgd not found' errors?
 A: You don't have the GD graphics located in a standard library
@@ -231,8 +316,24 @@ A: You don't have the GD graphics located in a standard library
    If you do have it, add a -L switch in the Makefile to point
    to the proper location.
 
-Q: I can't get the GD graphics library to compile?
-A: The GD Library was written (and hopefully maintained) by
-   Tom Boutell, not me.  Visit his web site, ask him a
-   question or hit one of the newsgroups...  I can't help you
-   out too much with this one.
+Q: I get unresolved symbol errors when compiling, why?
+A: This most often occurs when the GD library was built with
+   additional support for such things as TrueType fonts or
+   X11 graphics.  The configure script for The Webalizer only
+   checks that the gd library is available, and does not check
+   any other dependencies it may have.  Typically, to fix this
+   problem, you need to edit the Makefile and add the dependent
+   libraries to a compiler switch (or pass them on the command
+   line when running the configure script).  For example, if
+   you are getting errors about not finding truetype routines,
+   you may need to add '-lttf' (for 'libttf', the truetype library)
+   to the "LIBS" variable.
+
+   Hint: I usually find it easier to just grab the GD library
+         source, and compile it myself locally as a static
+         library, in a directory just above where I compile The
+         Webalizer.  Then, at configure time, just add the
+         '-with-gd=../gd' and '--with-gdlib=../gd' switches,
+         and the GD graphic stuff will be statically linked into
+         The Webalizer, eliminating any other library dependencies
+         that the normal, shared library on my system may have.

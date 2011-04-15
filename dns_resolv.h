@@ -3,12 +3,6 @@
 
 #ifdef USE_DNS    /* skip whole file if not using DNS stuff...             */
 
-#ifdef HAVE_ERRNO_H
-#include <errno.h>
-#else
-extern int  errno;
-#endif  /* HAVE_ERRNO_H */
-
 struct dnsRecord { time_t    timeStamp;       /* Timestamp of resolv data  */
                    int       numeric;         /* 0: Name, 1: IP-address    */
                    char      hostName[1]; };  /* Hostname (var length)     */
@@ -29,11 +23,20 @@ extern int  dns_resolver(void *);
 extern int  open_cache();
 extern int  close_cache();
 
+extern DB   *geo_db;
+extern DB   *geodb_open(char *);
+extern char *geodb_ver(DB *, char *);
+extern char *geodb_get_cc(DB *, char *, char *);
+extern void  geodb_close(DB *);
+
 #define DNS_CHILD_READY   0x1         /* Our child flags                    */
 #define DNS_CHILD_RUNNING 0x2
 
 #define MAXCHILD          100         /* Maximum number of DNS children     */
-#define DNS_CACHE_TTL     86400*3     /* TTL of an Entry in the DNS cache   */
+
+#ifndef GEODB_LOC
+#define GEODB_LOC "/usr/share/GeoDB"
+#endif
 
 #endif  /* USE_DNS */
 #endif  /* _DNS_RESOLV_H */

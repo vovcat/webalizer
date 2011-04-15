@@ -1,7 +1,10 @@
 /*
    webalizer_lang.simplified_chinese
 
-   Webalizer V2.0x Language Support file for Simplified Chinese(used in Mainland China).
+   Webalizer V2.0x Language Support file for Simplified Chinese
+                   (used in Mainland China).
+   26-Mar-2008 Updated to current IANA TLDs (brad@mrunix.net)
+   26-May-2008 Modified for level 2.2 support (brad@mrunix.net)
 
 
    Language files are named using the following convention:
@@ -23,6 +26,7 @@
 /***********************************************************************/
 
 char *language  = "Simplified Chinese";
+char *langcode  = "zh-Hans";
 
 /***********************************************************************/
 /*                                                                     */
@@ -77,6 +81,13 @@ char *msg_dns_nolk= "错误: 不能锁定 DNS 缓存文件";
 char *msg_dns_usec= "正在使用 DNS 缓存文件";
 char *msg_dns_rslv= "DNS 查找";
 char *msg_dns_none= "没有可以处理的记录";
+char *msg_dns_abrt= "DNS support not present, aborting...";
+
+/* Geolocation stuff */
+char *msg_geo_open= "Error opening file";
+char *msg_geo_use = "Using";
+char *msg_geo_nolu= "lookups disabled";
+char *msg_geo_dflt= "default";
 
 /* memory allocation errors */
 char *msg_nomem_ts= "不能分配足够的内存, 取消 Top Sites 报告项!";
@@ -110,33 +121,38 @@ char *msg_no_open = "错误: 不能打开文件";
 char *h_usage1 = "用法";
 char *h_usage2 = "[选项] [日志文件]";
 char *h_msg[]= {
-         "-h        = 显示本帮助信息"             ,
-         "-v -V     = 显示本版本信息"           ,
-         "-d        = 显示附加的调试信息"         ,
-         "-F type   = 日志类型.  类型= (clf | ftp | squid)",
-         "-f        = 合并次序错误?(Fold sequence errors)"                ,
-         "-i        = 忽略历史信息文件"                 ,
-         "-p        = 保持状态信息(增量方式)"        ,
-         "-q        = 不显示一般信息"      ,
-         "-Q        = 不显示*所有*信息"              ,
-         "-Y        = 不显示按国家分布的图表"               ,
-         "-G        = 不显示按小时分布的图表"                ,
-         "-H        = 不显示按小时分布的统计信息"                ,
-         "-L        = 不显示颜色图例"   ,
-         "-l num    = 在图表上使用 num 条背景线"   ,
-         "-m num    = 设定访问超时值(单位: 秒)"        ,
-         "-T        = 显示定时信息"            ,
-         "-c file   = 指定配置文件为 'file'"       ,
-         "-n name   = 指定使用的主机名为 'name'"                     ,
-         "-o dir    = 指定输出目录为 'dir'"             ,
-         "-t name   = 指定报表标题为 'name'"                 ,
-         "-a name   = 隐藏名字为 'name' 的用户代理"              ,
-         "-r name   = 隐藏名字为 'name' 的引用"                ,
-         "-s name   = 隐藏名字为 'name' 的站点"                    ,
-         "-u name   = 隐藏名字为 'name' 的 URL"                     ,
+         "-h        = 显示本帮助信息"                      ,
+         "-V        = 显示本版本信息"                      ,
+         "-v        = be verbose"                          ,
+         "-d        = 显示附加的调试信息"                  ,
+         "-F type   = 日志类型.  类型= (clf | ftp | squid | w3c)",
+         "-f        = 合并次序错误?(Fold sequence errors)" ,
+         "-i        = 忽略历史信息文件"                    ,
+         "-p        = 保持状态信息(增量方式)"              ,
+         "-b        = ignore state (incremental)"          ,
+         "-q        = 不显示一般信息"                      ,
+         "-Q        = 不显示*所有*信息"                    ,
+         "-Y        = 不显示按国家分布的图表"              ,
+         "-G        = 不显示按小时分布的图表"              ,
+         "-H        = 不显示按小时分布的统计信息"          ,
+         "-L        = 不显示颜色图例"                      ,
+         "-l num    = 在图表上使用 num 条背景线"           ,
+         "-m num    = 设定访问超时值(单位: 秒)"            ,
+         "-T        = 显示定时信息"                        ,
+         "-c file   = 指定配置文件为 'file'"               ,
+         "-n name   = 指定使用的主机名为 'name'"           ,
+         "-o dir    = 指定输出目录为 'dir'"                ,
+         "-t name   = 指定报表标题为 'name'"               ,
+         "-a name   = 隐藏名字为 'name' 的用户代理"        ,
+         "-r name   = 隐藏名字为 'name' 的引用"            ,
+         "-s name   = 隐藏名字为 'name' 的站点"            ,
+         "-u name   = 隐藏名字为 'name' 的 URL"            ,
          "-x name   = 指定使用的文件扩展名为 'name'"       ,
-         "-P name   = 指定使用的页面类型扩展名为 'name'"          ,
-         "-I name   = 指定索引别名为 'name'"                  ,
+         "-O name   = Omit page 'name'"                    ,
+         "-P name   = 指定使用的页面类型扩展名为 'name'"   ,
+         "-I name   = 指定索引别名为 'name'"               ,
+         "-K num    = num months in summary table"         ,
+         "-k num    = num months in summary graph"         ,
          "-A num    = 显示 num 个 top agents"              ,
          "-C num    = 显示 num 个 top countries"           ,
          "-R num    = 显示 num 个 top referrers"           ,
@@ -144,10 +160,19 @@ char *h_msg[]= {
          "-U num    = 显示 num 个 top URLs"                ,
          "-e num    = 显示 num 个 top Entry Pages"         ,
          "-E num    = 显示 num 个 top Exit Pages"          ,
-         "-g num    = 把域按 num 个级别分组"       ,
-         "-X        = 隐藏单个站点"               ,
-         "-D name   = 使用 DNS 缓存文件 'name'"           ,
+         "-g num    = 把域按 num 个级别分组"               ,
+         "-X        = 隐藏单个站点"                        ,
+         "-z dir    = Use country flags in 'dir'"          ,
+#ifdef USE_DNS
+         "-D name   = 使用 DNS 缓存文件 'name'"            ,
          "-N num    = 指定 DNS 解析的进程数(0 = 不进行DNS 解析)" ,
+         "-j        = Enable native GeoDB lookups"         ,
+         "-J name   = Use GeoDB database 'name'"           ,
+#endif
+#ifdef USE_GEOIP
+         "-w        = Enable GeoIP lookups"                ,
+         "-W name   = Use GeoIP database 'name'"           ,
+#endif
          NULL};
 
 /***********************************************************************/
@@ -165,7 +190,8 @@ char *msg_hhdr_gt = "产生于";
 
 /* main index strings */
 char *msg_main_us = "使用摘要";
-char *msg_main_per= "最近 12 个月";
+/* char *msg_main_per= "最近 12 个月"; */
+char *msg_main_per= "按月摘要";
 char *msg_main_sum= "按月摘要";
 char *msg_main_da = "每日平均";
 char *msg_main_mt = "每月总计";
@@ -224,6 +250,7 @@ char *msg_mtot_mhd= "每天点击数";
 char *msg_mtot_mhh= "每小时点击数";
 char *msg_mtot_mfd= "每天文件数";
 char *msg_mtot_mpd= "每天页面数";
+char *msg_mtot_msd= "Sites per Day";
 char *msg_mtot_mvd= "每天访问数";
 char *msg_mtot_mkd= "每天流量数（单位：千字节）";
 char *msg_mtot_rc = "按响应码的点击数";
@@ -327,8 +354,22 @@ struct  country_code ctry[] = {
 { IDX_3C('m','i','l'),    ".mil",                             0,0,0 },
 { IDX_3C('n','e','t'),    ".net",                             0,0,0 },
 { IDX_3C('o','r','g'),    ".org",                             0,0,0 },
+{ IDX_3C('b','i','z'),    "Generic Business (biz)",           0,0,0 },
+{ IDX_3C('c','a','t'),    "Catalan Community (cat)",          0,0,0 },
+{ IDX_3C('p','r','o'),    "Professional (pro)",               0,0,0 },
+{ IDX_3C('t','e','l'),    "Ind. Contact Data (tel)",          0,0,0 },
+{ IDX_4C('a','e','r','o'),"Air Transport Industry (aero)",    0,0,0 },
+{ IDX_4C('a','s','i','a'),"Asia Pacific Community (asia)",    0,0,0 },
+{ IDX_4C('c','o','o','p'),"Cooperative Association (coop)",   0,0,0 },
+{ IDX_4C('i','n','f','o'),"Generic TLD (info)",               0,0,0 },
+{ IDX_4C('j','o','b','s'),"Human Resources (jobs)",           0,0,0 },
+{ IDX_4C('m','o','b','i'),"Generic Mobile TLD (mobi)",        0,0,0 },
+{ IDX_4C('n','a','m','e'),"Individual (name)",                0,0,0 },
 { IDX_4C('a','r','p','a'),".arpa",                            0,0,0 },
 { IDX_4C('n','a','t','o'),"北大西洋公约组织",                 0,0,0 },
+{ IDX_6C('m','u','s','e','u','m'), "Museums (museum)",        0,0,0 },
+{ IDX_6C('t','r','a','v','e','l'), "Travel Ind. (travel)",    0,0,0 },
+{ IDX_2C('a','c'),        "Ascension Island",                 0,0,0 },
 { IDX_2C('a','d'),        "安道尔",                           0,0,0 },
 { IDX_2C('a','e'),        "阿联酋",                           0,0,0 },
 { IDX_2C('a','f'),        "阿富汗",                           0,0,0 },
@@ -344,6 +385,7 @@ struct  country_code ctry[] = {
 { IDX_2C('a','t'),        "奥地利",                           0,0,0 },
 { IDX_2C('a','u'),        "澳大利亚",                         0,0,0 },
 { IDX_2C('a','w'),        "阿鲁巴",                           0,0,0 },
+{ IDX_2C('a','x'),        "Aland Islands",                    0,0,0 },
 { IDX_2C('a','z'),        "阿塞拜疆",                         0,0,0 },
 { IDX_2C('b','a'),        "波黑",                             0,0,0 },
 { IDX_2C('b','b'),        "巴巴多斯",                         0,0,0 },
@@ -354,6 +396,7 @@ struct  country_code ctry[] = {
 { IDX_2C('b','h'),        "巴林",                             0,0,0 },
 { IDX_2C('b','i'),        "布隆迪",                           0,0,0 },
 { IDX_2C('b','j'),        "贝宁",                             0,0,0 },
+{ IDX_2C('b','l'),        "Saint Barthelemy",                 0,0,0 },
 { IDX_2C('b','m'),        "百慕大",                           0,0,0 },
 { IDX_2C('b','n'),        "文莱",                             0,0,0 },
 { IDX_2C('b','o'),        "玻利维亚",                         0,0,0 },
@@ -366,6 +409,7 @@ struct  country_code ctry[] = {
 { IDX_2C('b','z'),        "伯利兹",                           0,0,0 },
 { IDX_2C('c','a'),        "加拿大",                           0,0,0 },
 { IDX_2C('c','c'),        "可可岛",                           0,0,0 },
+{ IDX_2C('c','d'),        "Congo, Democratic Republic",       0,0,0 },
 { IDX_2C('c','f'),        "中非",                             0,0,0 },
 { IDX_2C('c','g'),        "刚果",                             0,0,0 },
 { IDX_2C('c','h'),        "瑞士",                             0,0,0 },
@@ -376,7 +420,6 @@ struct  country_code ctry[] = {
 { IDX_2C('c','n'),        "中国",                             0,0,0 },
 { IDX_2C('c','o'),        "哥伦比亚",                         0,0,0 },
 { IDX_2C('c','r'),        "哥斯达黎加",                       0,0,0 },
-{ IDX_2C('c','s'),        "前捷克斯洛伐克",                   0,0,0 },
 { IDX_2C('c','u'),        "古巴",                             0,0,0 },
 { IDX_2C('c','v'),        "佛得角",                           0,0,0 },
 { IDX_2C('c','x'),        "圣诞岛",                           0,0,0 },
@@ -395,18 +438,19 @@ struct  country_code ctry[] = {
 { IDX_2C('e','r'),        "Eritrea",                          0,0,0 },
 { IDX_2C('e','s'),        "西班牙",                           0,0,0 },
 { IDX_2C('e','t'),        "埃塞俄比亚",                       0,0,0 },
+{ IDX_2C('e','u'),        "European Union",                   0,0,0 },
 { IDX_2C('f','i'),        "芬兰",                             0,0,0 },
 { IDX_2C('f','j'),        "斐济",                             0,0,0 },
 { IDX_2C('f','k'),        "福克兰群岛(马尔维纳斯群岛)",       0,0,0 },
 { IDX_2C('f','m'),        "密克罗尼西亚",                     0,0,0 },
 { IDX_2C('f','o'),        "法罗群岛（丹麦）",                 0,0,0 },
 { IDX_2C('f','r'),        "法国",                             0,0,0 },
-{ IDX_2C('f','x'),        "France, Metropolitan",             0,0,0 },
 { IDX_2C('g','a'),        "加蓬",                             0,0,0 },
 { IDX_2C('g','b'),        "英国",                             0,0,0 },
 { IDX_2C('g','d'),        "格林纳达",                         0,0,0 },
 { IDX_2C('g','e'),        "格鲁吉亚",                         0,0,0 },
 { IDX_2C('g','f'),        "法属圭亚那",                       0,0,0 },
+{ IDX_2C('g','g'),        "Guernsey",                         0,0,0 },
 { IDX_2C('g','h'),        "加纳",                             0,0,0 },
 { IDX_2C('g','i'),        "直布罗陀",                         0,0,0 },
 { IDX_2C('g','l'),        "格陵兰",                           0,0,0 },
@@ -420,7 +464,7 @@ struct  country_code ctry[] = {
 { IDX_2C('g','u'),        "关岛",                             0,0,0 },
 { IDX_2C('g','w'),        "几内亚比绍",                       0,0,0 },
 { IDX_2C('g','y'),        "圭亚那",                           0,0,0 },
-{ IDX_2C('h','k'),        "中国香港",                     0,0,0 },
+{ IDX_2C('h','k'),        "中国香港",                         0,0,0 },
 { IDX_2C('h','m'),        "Heard and McDonald Islands",       0,0,0 },
 { IDX_2C('h','n'),        "洪都拉斯",                         0,0,0 },
 { IDX_2C('h','r'),        "克罗地亚",                         0,0,0 },
@@ -429,12 +473,14 @@ struct  country_code ctry[] = {
 { IDX_2C('i','d'),        "印度尼西亚",                       0,0,0 },
 { IDX_2C('i','e'),        "爱尔兰",                           0,0,0 },
 { IDX_2C('i','l'),        "以色列",                           0,0,0 },
+{ IDX_2C('i','m'),        "Isle of Man",                      0,0,0 },
 { IDX_2C('i','n'),        "印度",                             0,0,0 },
 { IDX_2C('i','o'),        "英联邦的印度洋领域",               0,0,0 },
 { IDX_2C('i','q'),        "伊拉克",                           0,0,0 },
 { IDX_2C('i','r'),        "伊朗",                             0,0,0 },
 { IDX_2C('i','s'),        "冰岛",                             0,0,0 },
 { IDX_2C('i','t'),        "意大利",                           0,0,0 },
+{ IDX_2C('j','e'),        "Jersey",                           0,0,0 },
 { IDX_2C('j','m'),        "牙买加",                           0,0,0 },
 { IDX_2C('j','o'),        "约旦",                             0,0,0 },
 { IDX_2C('j','p'),        "日本",                             0,0,0 },
@@ -463,6 +509,8 @@ struct  country_code ctry[] = {
 { IDX_2C('m','a'),        "摩洛哥",                           0,0,0 },
 { IDX_2C('m','c'),        "摩纳哥",                           0,0,0 },
 { IDX_2C('m','d'),        "摩尔多瓦",                         0,0,0 },
+{ IDX_2C('m','e'),        "Montenegro",                       0,0,0 },
+{ IDX_2C('m','f'),        "Saint Martin (French part)",       0,0,0 },
 { IDX_2C('m','g'),        "马达加斯加",                       0,0,0 },
 { IDX_2C('m','h'),        "马绍尔群岛",                       0,0,0 },
 { IDX_2C('m','k'),        "马其顿",                           0,0,0 },
@@ -491,7 +539,6 @@ struct  country_code ctry[] = {
 { IDX_2C('n','o'),        "挪威",                             0,0,0 },
 { IDX_2C('n','p'),        "尼泊尔",                           0,0,0 },
 { IDX_2C('n','r'),        "瑙鲁",                             0,0,0 },
-{ IDX_2C('n','t'),        "中立区",                           0,0,0 },
 { IDX_2C('n','u'),        "纽埃",                             0,0,0 },
 { IDX_2C('n','z'),        "新西兰",                           0,0,0 },
 { IDX_2C('o','m'),        "阿曼",                             0,0,0 },
@@ -505,16 +552,18 @@ struct  country_code ctry[] = {
 { IDX_2C('p','m'),        "圣皮埃尔和密克隆（法）",           0,0,0 },
 { IDX_2C('p','n'),        "皮特开恩群岛",                     0,0,0 },
 { IDX_2C('p','r'),        "波多黎各（美）",                   0,0,0 },
+{ IDX_2C('p','s'),        "Palestinian Territory, Occupied",  0,0,0 },
 { IDX_2C('p','t'),        "葡萄牙",                           0,0,0 },
 { IDX_2C('p','w'),        "帕劳",                             0,0,0 },
 { IDX_2C('p','y'),        "巴拉圭",                           0,0,0 },
 { IDX_2C('q','a'),        "卡塔尔",                           0,0,0 },
 { IDX_2C('r','e'),        "留尼汪（法）",                     0,0,0 },
 { IDX_2C('r','o'),        "罗马尼亚",                         0,0,0 },
+{ IDX_2C('r','s'),        "Serbia",                           0,0,0 },
 { IDX_2C('r','u'),        "俄罗斯联邦",                       0,0,0 },
 { IDX_2C('r','w'),        "卢旺达",                           0,0,0 },
 { IDX_2C('s','a'),        "沙特阿拉伯",                       0,0,0 },
-{ IDX_2C('s','B'),        "所罗门群岛",                       0,0,0 },
+{ IDX_2C('s','b'),        "所罗门群岛",                       0,0,0 },
 { IDX_2C('s','c'),        "塞舌尔",                           0,0,0 },
 { IDX_2C('s','d'),        "苏丹",                             0,0,0 },
 { IDX_2C('s','e'),        "瑞典",                             0,0,0 },
@@ -540,6 +589,7 @@ struct  country_code ctry[] = {
 { IDX_2C('t','h'),        "泰国",                             0,0,0 },
 { IDX_2C('t','j'),        "塔吉克斯坦",                       0,0,0 },
 { IDX_2C('t','k'),        "托克劳",                           0,0,0 },
+{ IDX_2C('t','l'),        "Timor-Leste",                      0,0,0 },
 { IDX_2C('t','m'),        "土库曼斯坦",                       0,0,0 },
 { IDX_2C('t','n'),        "突尼斯",                           0,0,0 },
 { IDX_2C('t','o'),        "汤加",                             0,0,0 },
@@ -570,6 +620,10 @@ struct  country_code ctry[] = {
 { IDX_2C('y','u'),        "南斯拉夫",                         0,0,0 },
 { IDX_2C('z','a'),        "南非",                             0,0,0 },
 { IDX_2C('z','m'),        "赞比亚",                           0,0,0 },
-{ IDX_2C('z','r'),        "扎伊尔",                           0,0,0 },
 { IDX_2C('z','w'),        "津巴布韦",                         0,0,0 },
+{ IDX_2C('a','1'),        "Anonymous Proxy",                  0,0,0 },
+{ IDX_2C('a','2'),        "Satellite Provider",               0,0,0 },
+{ IDX_2C('o','1'),        "Other",                            0,0,0 },
+{ IDX_2C('a','p'),        "Asia/Pacific Region",              0,0,0 },
+{ IDX_3C('l','a','n'),    "Local Network (lan)",              0,0,0 },
 { 0              ,        NULL,                               0,0,0 }};

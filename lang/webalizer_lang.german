@@ -27,6 +27,11 @@
    04-Feb-2000 Minor fixes by Marcus Schommer <schommer@rdts.de>
    22-Feb-2000 Modified for level 2.0 support (brad@mrunix.net)
    05-Feb-2000 level 2.0 by Dirk Meyer <dirk.meyer@dinoex.sub.org>
+   16-Jun-2003 grammar and spelling by Dirk Randhahn <dirait00@fht-esslingen.de>
+   26-Mar-2008 Updated to current IANA TLDs (brad@mrunix.net)
+   26-May-2008 Modified for level 2.2 support (brad@mrunix.net)
+   05-Jul-2008 level 2.2 by Dirk Meyer <dirk.meyer@dinoex.sub.org>
+
 
    Language files are named using the following convention:
 
@@ -47,6 +52,7 @@
 /***********************************************************************/
 
 char *language  = "German";
+char *langcode  = "de";
 
 /***********************************************************************/
 /*                                                                     */
@@ -72,75 +78,84 @@ char *msg_log_use = "Verwende Protokolldatei";
 char *msg_dir_err = "Fehler: Kann nicht in das Verzeichnis wechseln.";
 char *msg_dir_use = "Erzeuge Dateien in";
 char *msg_cur_dir = "dem aktuellen Verzeichnis";
-char *msg_hostname= "Rechnername für Bericht ist";
-char *msg_ign_hist= "Ignoriere vorhandene historische Daten...";
-char *msg_no_hist = "Datei mit historischen Daten nicht gefunden...";
-char *msg_get_hist= "Lese Datei mit historischen Daten...";
-char *msg_put_hist= "Speichere historische Daten...";
-char *msg_hist_err= "Fehler: Kann Datei mit historischen Daten nicht schreiben.";
-char *msg_bad_hist= "Fehler: Ignoriere ungültigen historischen Eintrag.";
-char *msg_bad_conf= "Fehler: Kann Konfigurations-Datei nicht lesen.";
+char *msg_hostname= "Der Rechnername für den Bericht ist";
+char *msg_ign_hist= "Ignoriere die vorhandenen historischen Daten...";
+char *msg_no_hist = "Datei mit historischen Daten wurde nicht gefunden...";
+char *msg_get_hist= "Lese die Datei mit den historischen Daten...";
+char *msg_put_hist= "Speichere die historischen Daten...";
+char *msg_hist_err= "Fehler: Kann die Datei mit den historischen Daten nicht schreiben.";
+char *msg_bad_hist= "Fehler: Ignoriere den ungültigen historischen Eintrag.";
+char *msg_bad_conf= "Fehler: Kann die Konfigurations-Datei nicht lesen.";
 char *msg_bad_key = "Warnung: unbekanntes Schlüsselwort";
-char *msg_bad_date= "Fehler: Eintrag wird übersprungen (Datum ungültig).";
-char *msg_ign_nscp= "Überspringe Netscape Kopfeintrag.";
-char *msg_bad_rec = "Überspringe ungültigen Eintrag.";
+char *msg_bad_date= "Fehler: Der Eintrag wird übersprungen (Datum ungültig).";
+char *msg_ign_nscp= "Überspringe den Netscape Kopfeintrag.";
+char *msg_bad_rec = "Überspringe den ungültigen Eintrag.";
 char *msg_no_vrec = "Keine gültigen Einträge gefunden!";
-char *msg_gen_rpt = "Erzeuge Bericht für";
-char *msg_gen_sum = "Erzeuge Zusammenfassung";
-char *msg_get_data= "Lese Daten vom letzten Programmlauf...";
-char *msg_put_data= "Speichere Daten des aktuellen Programmlaufes...";
-char *msg_no_data = "Daten des letzten Programmlaufes nicht gefunden...";
-char *msg_bad_data= "Fehler: Kann Daten des letzten Programmlaufes nicht wiederherstellen";
-char *msg_data_err= "Fehler: Kann Daten des letzten Programmlaufes nicht speichern";
-char *msg_dup_data= "Warnung: Möglicherweise doppelte Daten gelesen.";
+char *msg_gen_rpt = "Erzeuge den Bericht für";
+char *msg_gen_sum = "Erzeuge die Zusammenfassung";
+char *msg_get_data= "Lese die Daten vom letzten Programmlauf...";
+char *msg_put_data= "Speichere die Daten des aktuellen Programmlaufs...";
+char *msg_no_data = "Daten des letzten Programmlaufs wurden nicht gefunden...";
+char *msg_bad_data= "Fehler: Kann die Daten des letzten Programmlaufs nicht wiederherstellen";
+char *msg_data_err= "Fehler: Kann die Daten des letzten Programmlaufs nicht speichern";
+char *msg_dup_data= "Warnung: Möglicherweise wurden Daten doppelt gelesen.";
 
 /* DNS Stuff */
-char *msg_dns_nocf= "Keine Datei für den DNS-Cache angegeben, breche ab...";
-char *msg_dns_nodb= "Fehler: Datei für den DNS-Cache konnte nicht geöffnet werden.";
-char *msg_dns_nolk= "Fehler: Datei für den DNS-Cache konnte nicht verriegelt werden.";
-char *msg_dns_usec= "Benutze Datei für den DNS-Cache";
+char *msg_dns_nocf= "Es wurde keine Datei für den DNS-Cache angegeben, breche ab...";
+char *msg_dns_nodb= "Fehler: Die Datei für den DNS-Cache konnte nicht geöffnet werden.";
+char *msg_dns_nolk= "Fehler: Die Datei für den DNS-Cache konnte nicht verriegelt werden.";
+char *msg_dns_usec= "Benutze die Datei für den DNS-Cache";
 char *msg_dns_rslv= "DNS Abfrage";
 char *msg_dns_none= "Nichts zu bearbeiten";
+char *msg_dns_abrt= "DNS Unterstüzung nicht vorhanden, breche ab...";
+
+/* Geolocation stuff */
+char *msg_geo_open= "Fehler beim Öffnen der Datei";
+char *msg_geo_use = "Benutze";
+char *msg_geo_nolu= "Abfragen deaktiviert";
+char *msg_geo_dflt= "Standard";
 
 /* memory allocation errors */
-char *msg_nomem_ts= "Nicht genug Speicher, Top Sites deaktiviert!";
-char *msg_nomem_tr= "Nicht genug Speicher, Top Verweise deaktiviert!";
-char *msg_nomem_tu= "Nicht genug Speicher, Top URLs deaktiviert!";
-char *msg_nomem_tc= "Nicht genug Speicher, Top Countries deaktiviert!";
-char *msg_nomem_ta= "Nicht genug Speicher, Top User Agents deaktiviert!";
-char *msg_nomem_tsr="Nicht genug Speicher, Top Suchausdrücke deaktiviert!";
-char *msg_nomem_ti= "Nicht genug Speicher, Top Benutzer deaktiviert!";
-char *msg_nomem_dh= "Fehler beim Hinzufügen Rechner-node (daily), überspringe Eintrag.";
-char *msg_nomem_mh= "Fehler beim Hinzufügen Rechner-node (monthly), überspringe Eintrag.";
-char *msg_nomem_u = "Fehler beim Hinzufügen URL-node, überspringe Eintrag.";
-char *msg_nomem_a = "Fehler beim Hinzufügen User-Agent-node, überspringe Eintrag.";
-char *msg_nomem_r = "Fehler beim Hinzufügen Verweis-node, überspringe Eintrag.";
-char *msg_nomem_sc= "Fehler beim Hinzufügen Suchausdrucks-node, überspringe Eintrag.";
-char *msg_nomem_i = "Fehler beim Hinzufügen Benutzer-node, überspringe Eintrag.";
+char *msg_nomem_ts= "Nicht genug Speicher vorhanden, Top Sites wurden deaktiviert!";
+char *msg_nomem_tr= "Nicht genug Speicher vorhanden, Top Verweised wurden eaktiviert!";
+char *msg_nomem_tu= "Nicht genug Speicher vorhanden, Top URLs wurden deaktiviert!";
+char *msg_nomem_tc= "Nicht genug Speicher vorhanden, Top Countries wurden deaktiviert!";
+char *msg_nomem_ta= "Nicht genug Speicher vorhanden, Top User Agents wurden deaktiviert!";
+char *msg_nomem_tsr="Nicht genug Speicher vorhanden, Top Suchausdrücke wurden deaktiviert!";
+char *msg_nomem_ti= "Nicht genug Speicher vorhanden, Top Benutzer wurden deaktiviert!";
+char *msg_nomem_dh= "Fehler beim Hinzufügen Rechner-node (daily), überspringe den Eintrag.";
+char *msg_nomem_mh= "Fehler beim Hinzufügen Rechner-node (monthly), überspringe den Eintrag.";
+char *msg_nomem_u = "Fehler beim Hinzufügen URL-node, überspringe den Eintrag.";
+char *msg_nomem_a = "Fehler beim Hinzufügen User-Agent-node, überspringe den Eintrag.";
+char *msg_nomem_r = "Fehler beim Hinzufügen Verweis-node, überspringe den Eintrag.";
+char *msg_nomem_sc= "Fehler beim Hinzufügen Suchausdrucks-node, überspringe den Eintrag.";
+char *msg_nomem_i = "Fehler beim Hinzufügen Benutzer-node, überspringe den Eintrag.";
 
 /* log record errors */
-char *msg_big_rec = "Fehler: Überspringe überlangen Eintrag";
-char *msg_big_host= "Warnung: Überlanges Rechner-Feld abgeschnitten";
-char *msg_big_date= "Warnung: Überlanges Datums-Feld abgeschnitten";
-char *msg_big_req = "Warnung: Überlanges Request-Feld abgeschnitten";
-char *msg_big_ref = "Warnung: Überlanges Verweis-Feld abgeschnitten";
-char *msg_big_user= "Warnung: Überlanges Benutzer-Feld abgeschnitten";
-char *msg_big_one = "Warnung: Überlangen Text abgeschnitten";
+char *msg_big_rec = "Fehler: Überspringe einen überlangen Eintrag";
+char *msg_big_host= "Warnung: Überlanges Rechner-Feld wurde abgeschnitten";
+char *msg_big_date= "Warnung: Überlanges Datums-Feld wurde abgeschnitten";
+char *msg_big_req = "Warnung: Überlanges Request-Feld wurde abgeschnitten";
+char *msg_big_ref = "Warnung: Überlanges Verweis-Feld wurde abgeschnitten";
+char *msg_big_user= "Warnung: Überlanges Benutzer-Feld wurde abgeschnitten";
+char *msg_big_one = "Warnung: Überlangen Text wurde abgeschnitten";
 
 /* misc errors */
-char *msg_no_open = "Fehler: Kann Datei nicht öffnen.";
+char *msg_no_open = "Fehler: Kann die Datei nicht öffnen.";
 
 /* Help display... */
 char *h_usage1 = "Syntax";
 char *h_usage2 = "[Optionen] [Protokolldatei]";
 char *h_msg[]= {
          "-h        = diese Hilfe ausgeben"                ,
-         "-v        = Version ausgeben"                    ,
+         "-V        = Version ausgeben"                    ,
+         "-v        = mehr Ausgaben zum Programablauf"     ,
          "-d        = zusätzliche Kontrolldaten ausgeben"  ,
-         "-F type   = Art der Protokolldatei.  type= (clf | ftp | squid)",
+         "-F type   = Art der Protokolldatei.  type= (clf | ftp | squid | w3c)",
          "-f        = Ignoriere zeitliche Fehler bei Besuchen",
          "-i        = Datei mit historischen Daten ignorieren",
-         "-p        = sichere Programmzustand (inkrementell)",
+         "-p        = sichere den Programmzustand (inkrementell)",
+         "-b        = Ignoriere den gespeicherten Zwischenstand (incremental)",
          "-q        = Statusmeldungen unterdrücken"        ,
          "-Q        = alle Meldungen unterdrücken"         ,
          "-Y        = Ländergrafik unterdrücken"           ,
@@ -159,8 +174,11 @@ char *h_msg[]= {
          "-s name   = Rechner 'name' unterdrücken"         ,
          "-u name   = URL 'name' unterdrücken"             ,
          "-x name   = Dateiendung 'name' verwenden"        ,
+         "-O name   = Lasse die Seite 'name' weg."         ,
          "-P name   = Seitenendung 'name' verwenden"       ,
-         "-I name   = weitere Name für den Index setzen"   ,
+         "-I name   = weiteren Name für den Index setzen"  ,
+         "-K anz    = anz months in summary table"         ,
+         "-k anz    = anz months in summary graph"         ,
          "-A anz    = die Top 'anz' Anwenderprogramme darstellen",
          "-C anz    = die Top 'anz' Länder darstellen"     ,
          "-R anz    = die Top 'anz' Verweiser darstellen"  ,
@@ -170,8 +188,17 @@ char *h_msg[]= {
          "-E anz    = die Top 'anz' Endseiten darstellen"  ,
          "-g anz    = Gruppiere Domänen zu 'anz' Ebenen"   ,
          "-X        = Verstecke einzelne Rechner"          ,
-         "-D name   = Benutze Datei 'name' für DNS-Cache"  ,
+         "-z dir    = Verwende Fahnen für die Länder in 'dir'",
+#ifdef USE_DNS
+         "-D name   = Benutze die Datei 'name' für DNS-Cache"  ,
          "-N num    = Anzahl Prozesse für DNS Abfragen (0=deaktiviert)",
+         "-j        = Aktiviere interne GeoDB Abfragen"    ,
+         "-J name   = Benutze GeoDB Datenbank 'name'"      ,
+#endif
+#ifdef USE_GEOIP
+         "-w        = Aktiviere GeoIP Abfragen"            ,
+         "-W name   = Benutze GeoIP Datenbank 'name'"      ,
+#endif
          NULL};
 
 #define LAST_HLP_MSG (int)(sizeof(h_msg)/sizeof(char *))
@@ -191,7 +218,8 @@ char *msg_hhdr_gt = "Erstellt am";
 
 /* main index strings */
 char *msg_main_us = "Zusammenfassung der Anfragen an";
-char *msg_main_per= "Letzte 12 Monate";
+/* char *msg_main_per= "Letzte 12 Monate"; */
+char *msg_main_per= "Zusammenfassung nach Monaten";
 char *msg_main_sum= "Zusammenfassung nach Monaten";
 char *msg_main_da = "Tagesdurchschnitt";
 char *msg_main_mt = "Monats-Summe";
@@ -239,21 +267,22 @@ char *msg_hlnk_i  = "Benutzer";
 
 /* monthly total table */
 char *msg_mtot_ms = "Monats-Statistik f&uuml;r";
-char *msg_mtot_th = "Summe Anfragen";
-char *msg_mtot_tf = "Summe Dateien";
-char *msg_mtot_tx = "Summe kb";
-char *msg_mtot_us = "Summe unterschiedlicher Rechner (IP-Adressen)";
-char *msg_mtot_ur = "Summe unterschiedlicher Verweise";
-char *msg_mtot_ua = "Summe unterschiedlicher Anwenderprogramme";
-char *msg_mtot_uu = "Summe unterschiedlicher URLs";
-char *msg_mtot_ui = "Summe unterschiedlicher Benutzer";
+char *msg_mtot_th = "Summe der Anfragen";
+char *msg_mtot_tf = "Summe der Dateien";
+char *msg_mtot_tx = "Summe in kb";
+char *msg_mtot_us = "Summe der unterschiedlichen Rechner (IP-Adressen)";
+char *msg_mtot_ur = "Summe der unterschiedlichen Verweise";
+char *msg_mtot_ua = "Summe der unterschiedlichen Anwenderprogramme";
+char *msg_mtot_uu = "Summe der unterschiedlichen URLs";
+char *msg_mtot_ui = "Summe der unterschiedlichen Benutzer";
 char *msg_mtot_mhd= "Anfragen pro Tag";
 char *msg_mtot_mhh= "Anfragen pro Stunde";
 char *msg_mtot_mfd= "Dateien pro Tag";
 char *msg_mtot_mpd= "Seiten pro Tag";
+char *msg_mtot_msd= "Rechner (IP-Adressen) pro Tag";
 char *msg_mtot_mvd= "Besuche pro Tag";
 char *msg_mtot_mkd= "kb pro Tag";
-char *msg_mtot_rc = "Anfragen nach Status-Code";
+char *msg_mtot_rc = "Anfragen nach Status-Codes";
 
 /* daily total table */
 /* Keine Umlaute, gd 1.3 kann sie nicht darstellen */
@@ -296,54 +325,54 @@ char *s_month[12]={ "Jan", "Feb", "Mar",
 
 /* long month names - can be any length */
 /* Keine Umlaute, gd 1.3 kann sie nicht darstellen */
-char *l_month[12]={ "Januar",   "Februar",  "Maerz",   "April",
-                    "Mai",      "Juni",     "Juli",    "August",
-                    "September","Oktober",  "November","Dezember"};
+char *l_month[12]={ "Januar",    "Februar",  "Maerz",    "April",
+                    "Mai",       "Juni",     "Juli",     "August",
+                    "September", "Oktober",  "November", "Dezember"};
 
 /* Nur Ligaturen verwenden, viele Browser haben nicht ISO_8859-1 */
 /* response code descriptions... order IS important!      */
 struct response_code response[] =
-       { { "Unbekannter Antwort-Code",                  0 },
-         { "Code 100 - Weiter",                         0 },
-         { "Code 101 - Wechsel des Protokolls",         0 },
-         { "Code 200 - OK",                             0 },
-         { "Code 201 - Erzeugt",                        0 },
-         { "Code 202 - Angenommen",                     0 },
-         { "Code 203 - Keine endg&uuml;ltige Information", 0 },
-         { "Code 204 - Kein Inhalt",                    0 },
-         { "Code 205 - L&ouml;sche Inhalt",             0 },
-         { "Code 206 - Unvollst&auml;ndiger Inhalt",    0 },
-         { "Code 300 - Mehrere Auswahlm&ouml;glichkeiten", 0 },
-         { "Code 301 - Seite dauerhaft an anderer Stelle", 0 },
-         { "Code 302 - Seite an anderer Stelle gefunden", 0 },
-         { "Code 303 - Hole Seite von anderer Position", 0 },
-         { "Code 304 - Seite nicht ge&auml;ndert",      0 },
-         { "Code 305 - Benutzung des Proxys erforderlich", 0 },
-         { "Code 307 - Seite vor&uuml;bergehend an anderer Stelle", 0 },
-         { "Code 400 - Ung&uuml;ltige Anfrage",         0 },
-         { "Code 401 - Authentifizierung fehlt/ungültig", 0 },
-         { "Code 402 - Bezahlung erforderlich",         0 },
-         { "Code 403 - Antwort verweigert",             0 },
-         { "Code 404 - Seite nicht gefunden!",          0 },
-         { "Code 405 - Methode nicht erlaubt",          0 },
-         { "Code 406 - Nicht akzeptabel",               0 },
-         { "Code 407 - Proxy-Autorisierung erforderlich",  0 },
-         { "Code 408 - Zeit&uuml;berschreitung durch Anwenderprogramm...", 0 },
-         { "Code 409 - Konflikt",                       0 },
-         { "Code 410 - Verloren",                       0 },
-         { "Code 411 - L&auml;ngenangabe erforderlich", 0 },
-         { "Code 412 - Fehlende Voraussetzung",         0 },
-         { "Code 413 - Request-Entity zu gro&szlig;",   0 },
-         { "Code 414 - Request-URI zu lang",            0 },
-         { "Code 415 - Nicht unterst&uuml;tzter Medientyp", 0 },
-         { "Code 416 - Angegebener Bereich nicht in Ordnung", 0 },
-         { "Code 417 - Erwartung fehlgeschlagen",       0 },
-         { "Code 500 - Interner Server-Fehler (CGI?)",  0 },
-         { "Code 501 - Nicht implementiert",            0 },
-         { "Code 502 - Fehlerhaftes Gateway",           0 },
-         { "Code 503 - Service nicht verf&uuml;gbar",   0 },
-         { "Code 504 - Gateway Zeit&uuml;berschreitung...", 0 },
-         { "Code 505 - HTTP-Version wird nicht unterst&uuml;tzt", 0 } };
+       { { "Unbekannter Antwort-Code",                                                      0 },
+         { "Code 100 - Weiter",                                                             0 },
+         { "Code 101 - Wechsel des Protokolls",                                             0 },
+         { "Code 200 - OK",                                                                 0 },
+         { "Code 201 - Erzeugt",                                                            0 },
+         { "Code 202 - Angenommen",                                                         0 },
+         { "Code 203 - Keine endg&uuml;ltige Information",                                  0 },
+         { "Code 204 - Kein Inhalt",                                                        0 },
+         { "Code 205 - L&ouml;sche Inhalt",                                                 0 },
+         { "Code 206 - Unvollst&auml;ndiger Inhalt",                                        0 },
+         { "Code 300 - Mehrere Auswahlm&ouml;glichkeiten",                                  0 },
+         { "Code 301 - Die Seite wurde dauerhaft an einen andere Stelle verlegt",           0 },
+         { "Code 302 - Die Seite wurde an einer anderer Stelle gefunden",                   0 },
+         { "Code 303 - Hole die Seite von einer anderen Position",                          0 },
+         { "Code 304 - Die Seite wurde nicht ge&auml;ndert",                                0 },
+         { "Code 305 - Die Benutzung des Proxys ist erforderlich",                          0 },
+         { "Code 307 - Die Seite wurde vor&uuml;bergehend an eine andere Stelle verlegt",   0 },
+         { "Code 400 - Ung&uuml;ltige Anfrage",                                             0 },
+         { "Code 401 - Die Authentifizierung fehlt oder ist ungültig",                      0 },
+         { "Code 402 - Bezahlung ist erforderlich",                                         0 },
+         { "Code 403 - Die Antwort wurde verweigert",                                       0 },
+         { "Code 404 - Die Seite wurde nicht gefunden!",                                    0 },
+         { "Code 405 - Die Methode ist nicht erlaubt",                                      0 },
+         { "Code 406 - Nicht akzeptabel",                                                   0 },
+         { "Code 407 - Eine Proxy-Autorisierung ist erforderlich",                          0 },
+         { "Code 408 - Eine Zeit&uuml;berschreitung erfolgte durch das Anwenderprogramm ...", 0 },
+         { "Code 409 - Konflikt",                                                           0 },
+         { "Code 410 - Verloren",                                                           0 },
+         { "Code 411 - Eine L&auml;ngenangabe ist erforderlich",                            0 },
+         { "Code 412 - Fehlende Voraussetzung",                                             0 },
+         { "Code 413 - Request-Entity zu gro&szlig;",                                       0 },
+         { "Code 414 - Request-URI zu lang",                                                0 },
+         { "Code 415 - Nicht unterst&uuml;tzter Medientyp",                                 0 },
+         { "Code 416 - Angegebener Bereich nicht in Ordnung",                               0 },
+         { "Code 417 - Die Erwartung ist fehlgeschlagen",                                   0 },
+         { "Code 500 - Interner Server-Fehler ist aufgetreten (CGI?)",                      0 },
+         { "Code 501 - Nicht implementiert",                                                0 },
+         { "Code 502 - Fehlerhaftes Gateway",                                               0 },
+         { "Code 503 - Der Service ist nicht verf&uuml;gbar",                               0 },
+         { "Code 504 - Gateway Zeit&uuml;berschreitung...",                                 0 },
+         { "Code 505 - Die HTTP-Version wird nicht unterst&uuml;tzt",                       0 } };
 
 /* New for 1.1 */
 
@@ -355,15 +384,29 @@ char *msg_h_other = "Sonstige";
 /* Keine Umlaute, gd 1.3 kann sie nicht darstellen */
 struct	country_code ctry[] = {
 { 0,                      "Unbekannte Adressen",              0,0,0 },
-{ IDX_3C('c','o','m'),    "Firmen (COM)",                     0,0,0 },
-{ IDX_3C('e','d','u'),    "USA-Univers./Schulen",             0,0,0 },
-{ IDX_3C('g','o','v'),    "USA-Behoerden",                    0,0,0 },
-{ IDX_3C('i','n','t'),    "Intern. Einrichtungen",            0,0,0 },
-{ IDX_3C('m','i','l'),    "USA-Militaer",                     0,0,0 },
-{ IDX_3C('n','e','t'),    "Netzwerke (NET)",                  0,0,0 },
-{ IDX_3C('o','r','g'),    "Organisationen (ORG)",             0,0,0 },
-{ IDX_4C('a','r','p','a'),"Alte Arpanet-Adressen",            0,0,0 },
-{ IDX_4C('n','a','t','o'),"NATO-Adressen",                    0,0,0 },
+{ IDX_3C('c','o','m'),    "Firmen (com)",                     0,0,0 },
+{ IDX_3C('e','d','u'),    "Univers./Schulen (edu)",           0,0,0 },
+{ IDX_3C('g','o','v'),    "USA-Behoerden (gov)",              0,0,0 },
+{ IDX_3C('i','n','t'),    "Internationale Einrichtungen (int)",0,0,0 },
+{ IDX_3C('m','i','l'),    "USA-Militaer (mil)",               0,0,0 },
+{ IDX_3C('n','e','t'),    "Netzwerke (net)",                  0,0,0 },
+{ IDX_3C('o','r','g'),    "Organisationen (org)",             0,0,0 },
+{ IDX_3C('b','i','z'),    "Allgemeine Firmen (biz)",          0,0,0 },
+{ IDX_3C('c','a','t'),    "Katalanische Gemeinschaft (cat)",  0,0,0 },
+{ IDX_3C('p','r','o'),    "Professional (pro)",               0,0,0 },
+{ IDX_3C('t','e','l'),    "Adressregister (tel)",             0,0,0 },
+{ IDX_4C('a','e','r','o'),"Organisationen der Luftfahrt (aero)",0,0,0 },
+{ IDX_4C('a','s','i','a'),"Asien/Pazifik Gemeinschaft (asia)",0,0,0 },
+{ IDX_4C('c','o','o','p'),"Gesellschaften (coop)",            0,0,0 },
+{ IDX_4C('i','n','f','o'),"Informationsanbieter (info)",      0,0,0 },
+{ IDX_4C('j','o','b','s'),"Stellenangebote (jobs)",           0,0,0 },
+{ IDX_4C('m','o','b','i'),"Mobile Geräte (mobi)",             0,0,0 },
+{ IDX_4C('n','a','m','e'),"Privatpersonen (name)",            0,0,0 },
+{ IDX_4C('a','r','p','a'),"Alte Arpanet-Adressen (arpa)",     0,0,0 },
+{ IDX_4C('n','a','t','o'),"NATO-Adressen (nato)",             0,0,0 },
+{ IDX_6C('m','u','s','e','u','m'), "Museen (museum)",         0,0,0 },
+{ IDX_6C('t','r','a','v','e','l'), "Reise-Industrie (travel)",0,0,0 },
+{ IDX_2C('a','c'),        "Ascension",                        0,0,0 },
 { IDX_2C('a','d'),        "Andorra",                          0,0,0 },
 { IDX_2C('a','e'),        "Arabische Emirate",                0,0,0 },
 { IDX_2C('a','f'),        "Afghanistan",                      0,0,0 },
@@ -379,6 +422,7 @@ struct	country_code ctry[] = {
 { IDX_2C('a','t'),        "Oesterreich",                      0,0,0 },
 { IDX_2C('a','u'),        "Australien",                       0,0,0 },
 { IDX_2C('a','w'),        "Aruba",                            0,0,0 },
+{ IDX_2C('a','x'),        "Åland",                            0,0,0 },
 { IDX_2C('a','z'),        "Aserbaidschan",                    0,0,0 },
 { IDX_2C('b','a'),        "Bosnien und Herzegowina",          0,0,0 },
 { IDX_2C('b','b'),        "Barbados",                         0,0,0 },
@@ -389,6 +433,7 @@ struct	country_code ctry[] = {
 { IDX_2C('b','h'),        "Bahrain",                          0,0,0 },
 { IDX_2C('b','i'),        "Burundi",                          0,0,0 },
 { IDX_2C('b','j'),        "Benin",                            0,0,0 },
+{ IDX_2C('b','l'),        "Saint-Barthélemy",                 0,0,0 },
 { IDX_2C('b','m'),        "Bermuda",                          0,0,0 },
 { IDX_2C('b','n'),        "Brunei",                           0,0,0 },
 { IDX_2C('b','o'),        "Bolivien",                         0,0,0 },
@@ -401,6 +446,7 @@ struct	country_code ctry[] = {
 { IDX_2C('b','z'),        "Belize",                           0,0,0 },
 { IDX_2C('c','a'),        "Kanada",                           0,0,0 },
 { IDX_2C('c','c'),        "Kokos-Inseln",                     0,0,0 },
+{ IDX_2C('c','d'),        "Congo, Democratic Republic",       0,0,0 },
 { IDX_2C('c','f'),        "Zentralafrikanische Republik",     0,0,0 },
 { IDX_2C('c','g'),        "Kongo",                            0,0,0 },
 { IDX_2C('c','h'),        "Schweiz",                          0,0,0 },
@@ -411,7 +457,6 @@ struct	country_code ctry[] = {
 { IDX_2C('c','n'),        "China",                            0,0,0 },
 { IDX_2C('c','o'),        "Kolumbien",                        0,0,0 },
 { IDX_2C('c','r'),        "Costa Rica",                       0,0,0 },
-{ IDX_2C('c','s'),        "Tschechoslowakei",                 0,0,0 },
 { IDX_2C('c','u'),        "Kuba",                             0,0,0 },
 { IDX_2C('c','v'),        "Kapverden",                        0,0,0 },
 { IDX_2C('c','x'),        "Weihnachtsinsel",                  0,0,0 },
@@ -430,18 +475,19 @@ struct	country_code ctry[] = {
 { IDX_2C('e','r'),        "Eritrea",                          0,0,0 },
 { IDX_2C('e','s'),        "Spanien",                          0,0,0 },
 { IDX_2C('e','t'),        "Aethiopien",                       0,0,0 },
+{ IDX_2C('e','u'),        "Europäische Union",                0,0,0 },
 { IDX_2C('f','i'),        "Finnland",                         0,0,0 },
 { IDX_2C('f','j'),        "Fidschi-Inseln",                   0,0,0 },
 { IDX_2C('f','k'),        "Falkland Inseln",                  0,0,0 },
 { IDX_2C('f','m'),        "Mikronesien",                      0,0,0 },
 { IDX_2C('f','o'),        "Faeroeer Inseln",                  0,0,0 },
 { IDX_2C('f','r'),        "Frankreich",                       0,0,0 },
-{ IDX_2C('f','x'),        "Frankreich, Metropolitan",         0,0,0 },
 { IDX_2C('g','a'),        "Gabun",                            0,0,0 },
 { IDX_2C('g','b'),        "Grossbritannien (alt)",            0,0,0 },
 { IDX_2C('g','d'),        "Grenada",                          0,0,0 },
 { IDX_2C('g','e'),        "Georgien",                         0,0,0 },
 { IDX_2C('g','f'),        "Franz. Guayana",                   0,0,0 },
+{ IDX_2C('g','g'),        "Guernsey",                         0,0,0 },
 { IDX_2C('g','h'),        "Ghana",                            0,0,0 },
 { IDX_2C('g','i'),        "Gibraltar",                        0,0,0 },
 { IDX_2C('g','l'),        "Groenland",                        0,0,0 },
@@ -458,18 +504,20 @@ struct	country_code ctry[] = {
 { IDX_2C('h','k'),        "Hong Kong",                        0,0,0 },
 { IDX_2C('h','m'),        "Heard und McDonald Inseln",        0,0,0 },
 { IDX_2C('h','n'),        "Honduras",                         0,0,0 },
-{ IDX_2C('h','r'),        "Kroatien (Hrvatska)",              0,0,0 },
+{ IDX_2C('h','r'),        "Kroatien",                         0,0,0 },
 { IDX_2C('h','t'),        "Haiti",                            0,0,0 },
 { IDX_2C('h','u'),        "Ungarn",                           0,0,0 },
 { IDX_2C('i','d'),        "Indonesien",                       0,0,0 },
 { IDX_2C('i','e'),        "Irland",                           0,0,0 },
 { IDX_2C('i','l'),        "Israel",                           0,0,0 },
+{ IDX_2C('i','m'),        "Isle of Man",                      0,0,0 },
 { IDX_2C('i','n'),        "Indien",                           0,0,0 },
 { IDX_2C('i','o'),        "Brit. Indischer Ozean",            0,0,0 },
 { IDX_2C('i','q'),        "Irak",                             0,0,0 },
 { IDX_2C('i','r'),        "Iran",                             0,0,0 },
 { IDX_2C('i','s'),        "Island",                           0,0,0 },
 { IDX_2C('i','t'),        "Italien",                          0,0,0 },
+{ IDX_2C('j','e'),        "Jersey",                           0,0,0 },
 { IDX_2C('j','m'),        "Jamaika",                          0,0,0 },
 { IDX_2C('j','o'),        "Jordanien",                        0,0,0 },
 { IDX_2C('j','p'),        "Japan",                            0,0,0 },
@@ -498,6 +546,8 @@ struct	country_code ctry[] = {
 { IDX_2C('m','a'),        "Marokko",                          0,0,0 },
 { IDX_2C('m','c'),        "Monaco",                           0,0,0 },
 { IDX_2C('m','d'),        "Moldawien",                        0,0,0 },
+{ IDX_2C('m','e'),        "Montenegro",                       0,0,0 },
+{ IDX_2C('m','f'),        "Saint Martin (französisch)",       0,0,0 },
 { IDX_2C('m','g'),        "Madagaskar",                       0,0,0 },
 { IDX_2C('m','h'),        "Marshall Inseln",                  0,0,0 },
 { IDX_2C('m','k'),        "Mazedonien",                       0,0,0 },
@@ -526,7 +576,6 @@ struct	country_code ctry[] = {
 { IDX_2C('n','o'),        "Norwegen",                         0,0,0 },
 { IDX_2C('n','p'),        "Nepal",                            0,0,0 },
 { IDX_2C('n','r'),        "Nauru",                            0,0,0 },
-{ IDX_2C('n','t'),        "Neutrale Zone",                    0,0,0 },
 { IDX_2C('n','u'),        "Niue",                             0,0,0 },
 { IDX_2C('n','z'),        "Neuseeland",                       0,0,0 },
 { IDX_2C('o','m'),        "Oman",                             0,0,0 },
@@ -540,16 +589,18 @@ struct	country_code ctry[] = {
 { IDX_2C('p','m'),        "St. Pierre und Miquelon",          0,0,0 },
 { IDX_2C('p','n'),        "Pitcairn",                         0,0,0 },
 { IDX_2C('p','r'),        "Puerto Rico",                      0,0,0 },
+{ IDX_2C('p','s'),        "Palästinas",                       0,0,0 },
 { IDX_2C('p','t'),        "Portugal",                         0,0,0 },
 { IDX_2C('p','w'),        "Palau (Belau)",                    0,0,0 },
 { IDX_2C('p','y'),        "Paraguay",                         0,0,0 },
 { IDX_2C('q','a'),        "Katar",                            0,0,0 },
 { IDX_2C('r','e'),        "Reunion",                          0,0,0 },
 { IDX_2C('r','o'),        "Rumaenien",                        0,0,0 },
+{ IDX_2C('r','s'),        "Serbien",                          0,0,0 },
 { IDX_2C('r','u'),        "Russische Foederation",            0,0,0 },
 { IDX_2C('r','w'),        "Ruanda",                           0,0,0 },
 { IDX_2C('s','a'),        "Saudi Arabien",                    0,0,0 },
-{ IDX_2C('s','B'),        "Solomonen",                        0,0,0 },
+{ IDX_2C('s','b'),        "Solomonen",                        0,0,0 },
 { IDX_2C('s','c'),        "Seychellen",                       0,0,0 },
 { IDX_2C('s','d'),        "Sudan",                            0,0,0 },
 { IDX_2C('s','e'),        "Schweden",                         0,0,0 },
@@ -575,6 +626,7 @@ struct	country_code ctry[] = {
 { IDX_2C('t','h'),        "Thailand",                         0,0,0 },
 { IDX_2C('t','j'),        "Tadschikistan",                    0,0,0 },
 { IDX_2C('t','k'),        "Tokelau",                          0,0,0 },
+{ IDX_2C('t','l'),        "Timor-Leste",                      0,0,0 },
 { IDX_2C('t','m'),        "Turkmenistan",                     0,0,0 },
 { IDX_2C('t','n'),        "Tunesien",                         0,0,0 },
 { IDX_2C('t','o'),        "Tonga",                            0,0,0 },
@@ -605,6 +657,10 @@ struct	country_code ctry[] = {
 { IDX_2C('y','u'),        "Jugoslawien (Serbien)",            0,0,0 },
 { IDX_2C('z','a'),        "Suedafrika",                       0,0,0 },
 { IDX_2C('z','m'),        "Sambia",                           0,0,0 },
-{ IDX_2C('z','r'),        "Zaire",                            0,0,0 },
-{ IDX_2C('z','w'),        "Simbabwe",                         0,0,0},
-{ 0,                      NULL,                               0,0,0}};
+{ IDX_2C('z','w'),        "Simbabwe",                         0,0,0 },
+{ IDX_2C('a','1'),        "Anonymisierter Proxy",             0,0,0 },
+{ IDX_2C('a','2'),        "Satelliten Provider",              0,0,0 },
+{ IDX_2C('o','1'),        "Sonstige",                         0,0,0 },
+{ IDX_2C('a','p'),        "Gebiet Asien/Pacifik",             0,0,0 },
+{ IDX_3C('l','a','n'),    "Loakales Netzwerk (lan)",          0,0,0 },
+{ 0,                      NULL,                               0,0,0 }};
