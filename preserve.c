@@ -121,7 +121,8 @@ void get_history()
          if (i>=0)
          {
          /* month# year# requests files sites xfer firstday lastday */
-         numfields = sscanf(buffer,"%d %d %llu %llu %llu %lf %d %d %llu %llu",
+         numfields = sscanf(buffer,
+	               "%d %d %llu %llu %llu %lf %d %d %llu %llu %lf %lf",
                        &hist[i].month,
                        &hist[i].year,
                        &hist[i].hit,
@@ -131,7 +132,9 @@ void get_history()
                        &hist[i].fday,
                        &hist[i].lday,
                        &hist[i].page,
-                       &hist[i].visit);
+                       &hist[i].visit,
+                       &hist[i].ixfer,
+                       &hist[i].oxfer);
          }
       }
       fclose(hist_fp);
@@ -184,7 +187,7 @@ void put_history()
 
       for (i=HISTSIZE-1;i>=0;i--)
       {
-         fprintf(hist_fp,"%d %d %llu %llu %llu %.0f %d %d %llu %llu\n",
+         fprintf(hist_fp,"%d %d %llu %llu %llu %.0f %d %d %llu %llu %.0f %.0f\n",
                          hist[i].month,
                          hist[i].year,
                          hist[i].hit,
@@ -194,7 +197,9 @@ void put_history()
                          hist[i].fday,
                          hist[i].lday,
                          hist[i].page,
-                         hist[i].visit);
+                         hist[i].visit,
+                         hist[i].ixfer,
+                         hist[i].oxfer);
       }
       /* Done, close file */
       fclose(hist_fp);
@@ -296,6 +301,8 @@ void update_history()
       hist[i].visit = t_visit;
       hist[i].site  = t_site;
       hist[i].xfer  = t_xfer/1024;
+      hist[i].ixfer = t_ixfer/1024;
+      hist[i].oxfer = t_oxfer/1024;
       hist[i].fday  = f_day;
       hist[i].lday  = l_day;
    }
@@ -361,9 +368,9 @@ int save_state()
    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
 
    /* Monthly totals for sites, urls, etc... */
-   sprintf(buffer,"%llu %llu %llu %llu %llu %llu %.0f %llu %llu %llu\n",
+   sprintf(buffer,"%llu %llu %llu %llu %llu %llu %.0f %llu %llu %llu %.0f %.0f\n",
         t_hit, t_file, t_site, t_url,
-        t_ref, t_agent, t_xfer, t_page, t_visit, t_user);
+        t_ref, t_agent, t_xfer, t_page, t_visit, t_user, t_ixfer, t_oxfer);
    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
 
    /* Daily totals for sites, urls, etc... */
@@ -374,16 +381,17 @@ int save_state()
    /* Monthly (by day) total array */
    for (i=0;i<31;i++)
    {
-      sprintf(buffer,"%llu %llu %.0f %llu %llu %llu\n",
-        tm_hit[i],tm_file[i],tm_xfer[i],tm_site[i],tm_page[i],tm_visit[i]);
+      sprintf(buffer,"%llu %llu %.0f %llu %llu %llu %.0f %.0f\n",
+        tm_hit[i],tm_file[i],tm_xfer[i],tm_site[i],
+	tm_page[i],tm_visit[i],tm_ixfer[i],tm_oxfer[i]);
       if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
    }
 
    /* Daily (by hour) total array */
    for (i=0;i<24;i++)
    {
-      sprintf(buffer,"%llu %llu %.0f %llu\n",
-        th_hit[i],th_file[i],th_xfer[i],th_page[i]);
+      sprintf(buffer,"%llu %llu %.0f %llu %.0f %.0f\n",
+        th_hit[i],th_file[i],th_xfer[i],th_page[i],th_ixfer[i],th_oxfer[i]);
       if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
    }
 
@@ -402,9 +410,11 @@ int save_state()
       uptr=um_htab[i];
       while (uptr!=NULL)
       {
-         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu\n",
+         snprintf(buffer,sizeof(buffer),
+	          "%s\n%d %llu %llu %.0f %llu %llu %.0f %.0f\n",
                   uptr->string, uptr->flag, uptr->count, uptr->files,
-                  uptr->xfer, uptr->entry, uptr->exit);
+                  uptr->xfer, uptr->entry, uptr->exit,
+		  uptr->ixfer, uptr->oxfer);
          if (fputs(buffer,fp)==EOF) return 1;
          uptr=uptr->next;
       }
@@ -419,9 +429,10 @@ int save_state()
       hptr=sm_htab[i];
       while (hptr!=NULL)
       {
-         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu\n%s\n",
+         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu %.0f %.0f\n%s\n",
                   hptr->string, hptr->flag, hptr->count, hptr->files,
                   hptr->xfer, hptr->visit, hptr->tstamp,
+		  hptr->ixfer, hptr->oxfer,
                   (hptr->lasturl==blank_str)?"-":hptr->lasturl);
          if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
          hptr=hptr->next;
@@ -436,9 +447,10 @@ int save_state()
       hptr=sd_htab[i];
       while (hptr!=NULL)
       {
-         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu\n%s\n",
+         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu %.0f %.0f\n%s\n",
                   hptr->string, hptr->flag, hptr->count, hptr->files,
                   hptr->xfer, hptr->visit, hptr->tstamp,
+		  hptr->ixfer, hptr->oxfer,
                   (hptr->lasturl==blank_str)?"-":hptr->lasturl);
          if (fputs(buffer,fp)==EOF) return 1;
          hptr=hptr->next;
@@ -505,9 +517,9 @@ int save_state()
       iptr=im_htab[i];
       while (iptr!=NULL)
       {
-         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu\n",
+         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu %.0f %.0f\n",
                   iptr->string, iptr->flag, iptr->count, iptr->files,
-              iptr->xfer, iptr->visit, iptr->tstamp);
+              iptr->xfer, iptr->visit, iptr->tstamp, iptr->ixfer, iptr->oxfer);
          if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
          iptr=iptr->next;
       }
@@ -589,9 +601,10 @@ int restore_state()
    /* Get monthly totals */
    if ((fgets(buffer,BUFSIZE,fp)) != NULL)
    {
-      sscanf(buffer,"%llu %llu %llu %llu %llu %llu %lf %llu %llu %llu",
+      sscanf(buffer,"%llu %llu %llu %llu %llu %llu %lf %llu %llu %llu %lf %lf",
        &t_hit, &t_file, &t_site, &t_url,
-       &t_ref, &t_agent, &t_xfer, &t_page, &t_visit, &t_user);
+       &t_ref, &t_agent, &t_xfer, &t_page, &t_visit,
+       &t_user, &t_ixfer, &t_oxfer);
    } else return 3;  /* error exit */
 
    /* Get daily totals */
@@ -606,9 +619,9 @@ int restore_state()
    {
       if ((fgets(buffer,BUFSIZE,fp)) != NULL)
       {
-         sscanf(buffer,"%llu %llu %lf %llu %llu %llu",
+         sscanf(buffer,"%llu %llu %lf %llu %llu %llu %lf %lf",
           &tm_hit[i],&tm_file[i],&tm_xfer[i],&tm_site[i],&tm_page[i],
-          &tm_visit[i]);
+          &tm_visit[i],&tm_ixfer[i],&tm_oxfer[i]);
       } else return 5;  /* error exit */
    }
 
@@ -617,8 +630,9 @@ int restore_state()
    {
       if ((fgets(buffer,BUFSIZE,fp)) != NULL)
       {
-         sscanf(buffer,"%llu %llu %lf %llu",
-          &th_hit[i],&th_file[i],&th_xfer[i],&th_page[i]);
+         sscanf(buffer,"%llu %llu %lf %llu %lf %lf",
+          &th_hit[i],&th_file[i],&th_xfer[i],
+	  &th_page[i],&th_ixfer[i],&th_oxfer[i]);
       } else return 6;  /* error exit */
    }
 
@@ -652,14 +666,15 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 10;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %llu %llu %lf %llu %llu",
+      sscanf(buffer,"%d %llu %llu %lf %llu %llu %lf %lf",
          &t_unode.flag,&t_unode.count,
          &t_unode.files, &t_unode.xfer,
-         &t_unode.entry, &t_unode.exit);
+         &t_unode.entry, &t_unode.exit, &t_unode.ixfer, &t_unode.oxfer);
 
       /* Good record, insert into hash table */
       if (put_unode(tmp_buf,t_unode.flag,t_unode.count,
-         t_unode.xfer,&ul_bogus,t_unode.entry,t_unode.exit,um_htab))
+         t_unode.xfer,t_unode.ixfer,t_unode.oxfer,&ul_bogus,t_unode.entry,
+	 t_unode.exit,um_htab))
       {
          if (verbose)
          /* Error adding URL node, skipping ... */
@@ -683,10 +698,10 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 8;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %llu %llu %lf %llu %llu",
+      sscanf(buffer,"%d %llu %llu %lf %llu %llu %lf %lf",
          &t_hnode.flag,&t_hnode.count,
          &t_hnode.files, &t_hnode.xfer,
-         &t_hnode.visit, &t_hnode.tstamp);
+         &t_hnode.visit, &t_hnode.tstamp, &t_hnode.ixfer, &t_hnode.oxfer);
 
       /* get last url */
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 8;  /* error exit */
@@ -699,7 +714,8 @@ int restore_state()
 
       /* Good record, insert into hash table */
       if (put_hnode(tmp_buf,t_hnode.flag,
-         t_hnode.count,t_hnode.files,t_hnode.xfer,&ul_bogus,
+         t_hnode.count,t_hnode.files,t_hnode.xfer,t_hnode.ixfer,t_hnode.oxfer,
+         &ul_bogus,
          t_hnode.visit+1,t_hnode.tstamp,t_hnode.lasturl,sm_htab))
       {
          /* Error adding host node (monthly), skipping .... */
@@ -723,10 +739,10 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 9;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %llu %llu %lf %llu %llu",
+      sscanf(buffer,"%d %llu %llu %lf %llu %llu %lf %lf",
           &t_hnode.flag,&t_hnode.count,
           &t_hnode.files, &t_hnode.xfer,
-          &t_hnode.visit, &t_hnode.tstamp);
+          &t_hnode.visit, &t_hnode.tstamp, &t_hnode.ixfer, &t_hnode.oxfer);
 
       /* get last url */
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 9;  /* error exit */
@@ -739,7 +755,8 @@ int restore_state()
 
       /* Good record, insert into hash table */
       if (put_hnode(tmp_buf,t_hnode.flag,
-         t_hnode.count,t_hnode.files,t_hnode.xfer,&ul_bogus,
+         t_hnode.count,t_hnode.files,t_hnode.xfer,t_hnode.ixfer,t_hnode.oxfer,
+         &ul_bogus,
          t_hnode.visit+1,t_hnode.tstamp,t_hnode.lasturl,sd_htab))
       {
          /* Error adding host node (daily), skipping .... */
@@ -837,14 +854,15 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 14;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %llu %llu %lf %llu %llu",
+      sscanf(buffer,"%d %llu %llu %lf %llu %llu %lf %lf",
          &t_inode.flag,&t_inode.count,
          &t_inode.files, &t_inode.xfer,
-         &t_inode.visit, &t_inode.tstamp);
+         &t_inode.visit, &t_inode.tstamp, &t_inode.ixfer, &t_inode.oxfer);
 
       /* Good record, insert into hash table */
       if (put_inode(tmp_buf,t_inode.flag,
-         t_inode.count,t_inode.files,t_inode.xfer,&ul_bogus,
+         t_inode.count,t_inode.files,t_inode.xfer,t_inode.ixfer,t_inode.oxfer,
+	 &ul_bogus,
          t_inode.visit+1,t_inode.tstamp,im_htab))
       {
          if (verbose)

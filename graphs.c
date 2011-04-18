@@ -51,6 +51,8 @@
 #define FILECOLOR  file_or_blue            /* files               */
 #define SITECOLOR  site_or_orange          /* sites               */
 #define KBYTECOLOR kbyte_or_red            /* KBytes              */
+#define IKBYTECOLOR file_or_blue           /* In KBytes           */
+#define OKBYTECOLOR hit_or_green           /* Out KBytes          */
 #define PAGECOLOR  page_or_cyan            /* Files               */
 #define VISITCOLOR visit_or_yellow         /* Visits              */
 
@@ -106,7 +108,7 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
 {
 
    /* local variables */
-   int i,j,x1,y1,x2;
+   int i,j,k,x1,y1,x2;
    int s_mth,s_year=0;
    float cw,cs,co,ci;
 
@@ -139,10 +141,24 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
    {
       /* Kbytes Legend */
       i = (strlen(msg_h_xfer)*6);
-      gdImageString(im,gdFontSmall,491-i,237,
+      j = (strlen(msg_h_ixfer)*6);
+      k = (strlen(msg_h_oxfer)*6);
+      gdImageString(im,gdFontSmall,491-i-j-k-24,237,
                     (unsigned char *)msg_h_xfer,dkgrey);
-      gdImageString(im,gdFontSmall,490-i,236,
+      gdImageString(im,gdFontSmall,490-i-j-k-24,236,
                     (unsigned char *)msg_h_xfer,KBYTECOLOR);
+      gdImageString(im,gdFontSmall,491-k-j-21,237,"/",dkgrey);
+      gdImageString(im,gdFontSmall,490-k-j-21,236,"/",black);
+      gdImageString(im,gdFontSmall,491-k-j-12,237,
+                    (unsigned char *)msg_h_ixfer,dkgrey);
+      gdImageString(im,gdFontSmall,490-k-j-12,236,
+                    (unsigned char *)msg_h_ixfer,IKBYTECOLOR);
+      gdImageString(im,gdFontSmall,491-k-9,237,"/",dkgrey);
+      gdImageString(im,gdFontSmall,490-k-9,236,"/",black);
+      gdImageString(im,gdFontSmall,491-k,237,
+                    (unsigned char *)msg_h_oxfer,dkgrey);
+      gdImageString(im,gdFontSmall,490-k,236,
+                    (unsigned char *)msg_h_oxfer,OKBYTECOLOR);
 
       /* Sites/Visits Legend */
       i = (strlen(msg_h_visits)*6);
@@ -303,25 +319,53 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
    }
 
    fmaxval=0.0;
-   for (i=s_mth; i<HISTSIZE; i++)
+   for (i=s_mth; i<HISTSIZE; i++){
        if (data[i].xfer > fmaxval) fmaxval = data[i].xfer;
+       if (data[i].ixfer > fmaxval) fmaxval = data[i].ixfer;
+       if (data[i].oxfer > fmaxval) fmaxval = data[i].oxfer;
+   }
    if (fmaxval <= 0.0) fmaxval = 1.0;
    sprintf(maxvaltxt, "%.0f", fmaxval);
    gdImageStringUp(im, gdFontSmall,493,130+(strlen(maxvaltxt)*6),
                    (unsigned char *)maxvaltxt,black);
 
-   cs = 180.0/graph_mths; cw = (cs/2)+(co/2);
-   ci = 308+((cw-co)/2);
+   cs = 180.0/graph_mths; cw = (cs/2);
+   co = (36/graph_mths<1)?1:36/graph_mths;
+   ci = 308+((cw-2*co)/2);
 
    /* xfer */
    for (i=s_mth; i<HISTSIZE; i++)
    {
       percent = ((float)data[i].xfer / (float)fmaxval);
       if (percent <= 0.0) continue;
-      x1 = ci+ ((i-s_mth)*cs);
+      x1 = ci + ((i-s_mth)*cs);
       x2 = x1 + cw;
       y1 = 232 - (percent * 98);
       gdImageFilledRectangle(im, x1, y1, x2, 232, KBYTECOLOR);
+      if (cw>2) gdImageRectangle(im, x1, y1, x2, 232, black);
+   }
+
+   /* ixfer */
+   for (i=s_mth; i<HISTSIZE; i++)
+   {
+      percent = ((float)data[i].ixfer / (float)fmaxval);
+      if (percent <= 0.0) continue;
+      x1 = ci + co + ((i-s_mth)*cs);
+      x2 = x1 + cw;
+      y1 = 232 - (percent * 98);
+      gdImageFilledRectangle(im, x1, y1, x2, 232, IKBYTECOLOR);
+      if (cw>2) gdImageRectangle(im, x1, y1, x2, 232, black);
+   }
+
+   /* oxfer */
+   for (i=s_mth; i<HISTSIZE; i++)
+   {
+      percent = ((float)data[i].oxfer / (float)fmaxval);
+      if (percent <= 0.0) continue;
+      x1 = ci + co + co + ((i-s_mth)*cs);
+      x2 = x1 + cw;
+      y1 = 232 - (percent * 98);
+      gdImageFilledRectangle(im, x1, y1, x2, 232, OKBYTECOLOR);
       if (cw>2) gdImageRectangle(im, x1, y1, x2, 232, black);
    }
 
@@ -365,8 +409,10 @@ int month_graph6(     char  *fname,        /* filename           */
                  u_int64_t  data2[31],     /* data2 (files)      */
                  u_int64_t  data3[31],     /* data3 (sites)      */
                  double     data4[31],     /* data4 (kbytes)     */
-                 u_int64_t  data5[31],     /* data5 (views)      */
-                 u_int64_t  data6[31])     /* data6 (visits)     */
+                 double     data5[31],     /* data4 (kbytes)     */
+                 double     data6[31],     /* data4 (kbytes)     */
+                 u_int64_t  data7[31],     /* data5 (views)      */
+                 u_int64_t  data8[31])     /* data6 (visits)     */
 {
 
    /* local variables */
@@ -415,7 +461,7 @@ int month_graph6(     char  *fname,        /* filename           */
    {
        if (data1[i] > maxval) maxval = data1[i];           /* get max val    */
        if (data2[i] > maxval) maxval = data2[i];
-       if (data5[i] > maxval) maxval = data5[i];
+       if (data7[i] > maxval) maxval = data7[i];
    }
    if (maxval <= 0) maxval = 1;
    sprintf(maxvaltxt, "%llu", maxval);
@@ -425,22 +471,36 @@ int month_graph6(     char  *fname,        /* filename           */
    if (graph_legend)                           /* Print color coded legends? */
    {
       /* Kbytes Legend */
+      i=(strlen(msg_h_xfer)*6);
+      j=(strlen(msg_h_ixfer)*6);
       gdImageStringUp(im,gdFontSmall,494,376,
                       (unsigned char *)msg_h_xfer,dkgrey);
       gdImageStringUp(im,gdFontSmall,493,375,
                       (unsigned char *)msg_h_xfer,KBYTECOLOR);
+      gdImageStringUp(im,gdFontSmall,494,376-i-3,"/",dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,375-i-3,"/",black);
+      gdImageStringUp(im,gdFontSmall,494,376-i-12,
+                      (unsigned char *)msg_h_ixfer,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,375-i-12,
+                      (unsigned char *)msg_h_ixfer,IKBYTECOLOR);
+      gdImageStringUp(im,gdFontSmall,494,376-i-j-15,"/",dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,375-i-j-15,"/",black);
+      gdImageStringUp(im,gdFontSmall,494,376-i-j-24,
+                      (unsigned char *)msg_h_oxfer,dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,375-i-j-24,
+                      (unsigned char *)msg_h_oxfer,OKBYTECOLOR);
 
       /* Sites/Visits Legend */
       i = (strlen(msg_h_sites)*6);
-      gdImageStringUp(im,gdFontSmall,494,276,
+      gdImageStringUp(im,gdFontSmall,494,256,
                       (unsigned char *)msg_h_sites,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,275,
+      gdImageStringUp(im,gdFontSmall,493,255,
                       (unsigned char *)msg_h_sites,SITECOLOR);
-      gdImageStringUp(im,gdFontSmall,494,276-i-3,(unsigned char *)"/",dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,275-i-3,(unsigned char *)"/",black);
-      gdImageStringUp(im,gdFontSmall,494,276-i-12,
+      gdImageStringUp(im,gdFontSmall,494,256-i-3,(unsigned char *)"/",dkgrey);
+      gdImageStringUp(im,gdFontSmall,493,255-i-3,(unsigned char *)"/",black);
+      gdImageStringUp(im,gdFontSmall,494,256-i-12,
                       (unsigned char *)msg_h_visits,dkgrey);
-      gdImageStringUp(im,gdFontSmall,493,275-i-12,
+      gdImageStringUp(im,gdFontSmall,493,255-i-12,
                       (unsigned char *)msg_h_visits,VISITCOLOR);
 
       /* Pages/Files/Hits Legend */
@@ -489,11 +549,11 @@ int month_graph6(     char  *fname,        /* filename           */
       gdImageRectangle(im, x1, y1, x2, 176, black);
    }
 
-   /* data5 */
+   /* data7 */
    for (i=0; i<31; i++)
    {
-      if (data5[i]==0) continue;
-      percent = ((float)data5[i] / (float)maxval);
+      if (data7[i]==0) continue;
+      percent = ((float)data7[i] / (float)maxval);
       if (percent <= 0.0) continue;
       x1 = 29 + (i*15);
       x2 = x1 + 7;
@@ -507,7 +567,7 @@ int month_graph6(     char  *fname,        /* filename           */
    for (i=0; i<31; i++)
    {
       if (data3[i]>maxval) maxval = data3[i];
-      if (data6[i]>maxval) maxval = data6[i];
+      if (data8[i]>maxval) maxval = data8[i];
    }
    if (maxval <= 0) maxval = 1;
    sprintf(maxvaltxt, "%llu", maxval);
@@ -517,7 +577,7 @@ int month_graph6(     char  *fname,        /* filename           */
    /* data 6 */
    for (i=0; i<31; i++)
    {
-      percent = ((float)data6[i] / (float)maxval);
+      percent = ((float)data8[i] / (float)maxval);
       if (percent <= 0.0) continue;
       x1 = 25 + (i*15);
       x2 = x1 + 8;
@@ -538,25 +598,54 @@ int month_graph6(     char  *fname,        /* filename           */
       gdImageRectangle(im, x1, y1, x2, 276, black);
    }
 
-   /* data4 */
+   /* xfer */
    fmaxval=0.0;
-   for (i=0; i<31; i++)
+   for (i=0; i<31; i++){
       if (data4[i]>fmaxval) fmaxval = data4[i];
+      if (data5[i]>fmaxval) fmaxval = data5[i];
+      if (data6[i]>fmaxval) fmaxval = data6[i];
+   }
    if (fmaxval <= 0.0) fmaxval = 1.0;
    sprintf(maxvaltxt, "%.0f", fmaxval/1024);
    gdImageStringUp(im, gdFontSmall,8,280+(strlen(maxvaltxt)*6),
                    (unsigned char *)maxvaltxt, black);
 
+   /* data4 */
    for (i=0; i<31; i++)
    {
       percent = data4[i] / fmaxval;
       if (percent <= 0.0) continue;
-      x1 = 26 + (i*15);
-      x2 = x1 + 10;
+      x1 = 25 + (i*15);
+      x2 = x1 + 7;
       y1 = 375 - ( percent * 91 );
       gdImageFilledRectangle(im, x1, y1, x2, 375, KBYTECOLOR);
       gdImageRectangle(im, x1, y1, x2, 375, black);
    }
+
+   /* data5 */
+   for (i=0; i<31; i++)
+   {
+      percent = data5[i] / fmaxval;
+      if (percent <= 0.0) continue;
+      x1 = 27 + (i*15);
+      x2 = x1 + 7;
+      y1 = 375 - ( percent * 91 );
+      gdImageFilledRectangle(im, x1, y1, x2, 375, IKBYTECOLOR);
+      gdImageRectangle(im, x1, y1, x2, 375, black);
+   }
+
+   /* data6 */
+   for (i=0; i<31; i++)
+   {
+      percent = data6[i] / fmaxval;
+      if (percent <= 0.0) continue;
+      x1 = 29 + (i*15);
+      x2 = x1 + 7;
+      y1 = 375 - ( percent * 91 );
+      gdImageFilledRectangle(im, x1, y1, x2, 375, OKBYTECOLOR);
+      gdImageRectangle(im, x1, y1, x2, 375, black);
+   }
+
 
    /* stat the file */
    if ( !(lstat(fname, &out_stat)) )

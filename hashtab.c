@@ -155,6 +155,8 @@ int put_hnode( char      *str,  /* Hostname  */
                u_int64_t count, /* hit count */
                u_int64_t file,  /* File flag */
                double    xfer,  /* xfer size */
+               double    ixfer, /* in xfer size */
+               double    oxfer, /* out xfer size */
                u_int64_t *ctr,  /* counter   */
                u_int64_t visit, /* visits    */
                u_int64_t tstamp,/* timestamp */
@@ -177,6 +179,8 @@ int put_hnode( char      *str,  /* Hostname  */
          nptr->count = count;
          nptr->files = file;
          nptr->xfer  = xfer;
+         nptr->ixfer = ixfer;
+         nptr->oxfer = oxfer;
          nptr->next  = NULL;
          htab[hval] = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
@@ -219,9 +223,11 @@ int put_hnode( char      *str,  /* Hostname  */
             if ((type==cptr->flag)||((type!=OBJ_GRP)&&(cptr->flag!=OBJ_GRP)))
             {
                /* found... bump counter */
-               cptr->count+=count;
-               cptr->files+=file;
-               cptr->xfer +=xfer;
+               cptr->count +=count;
+               cptr->files +=file;
+               cptr->xfer  +=xfer;
+               cptr->ixfer +=ixfer;
+               cptr->oxfer +=oxfer;
 
                if (ispage(log_rec.url))
                {
@@ -253,6 +259,8 @@ int put_hnode( char      *str,  /* Hostname  */
          nptr->count = count;
          nptr->files = file;
          nptr->xfer  = xfer;
+         nptr->ixfer = ixfer;
+         nptr->oxfer = oxfer;
          nptr->next  = htab[hval];
          htab[hval]=nptr;
          if (type!=OBJ_GRP) (*ctr)++;
@@ -361,6 +369,7 @@ UNODEPTR new_unode(char *str)
 /*********************************************/
 
 int put_unode(char *str, int type, u_int64_t count, double xfer,
+              double ixfer, double oxfer,
               u_int64_t *ctr, u_int64_t entry, u_int64_t exit, UNODEPTR *htab)
 {
    UNODEPTR cptr,nptr;
@@ -378,6 +387,8 @@ int put_unode(char *str, int type, u_int64_t count, double xfer,
          nptr->flag = type;
          nptr->count= count;
          nptr->xfer = xfer;
+         nptr->ixfer= ixfer;
+         nptr->oxfer= oxfer;
          nptr->next = NULL;
          nptr->entry= entry;
          nptr->exit = exit;
@@ -395,8 +406,10 @@ int put_unode(char *str, int type, u_int64_t count, double xfer,
             if ((type==cptr->flag)||((type!=OBJ_GRP)&&(cptr->flag!=OBJ_GRP)))
             {
                /* found... bump counter */
-               cptr->count+=count;
-               cptr->xfer += xfer;
+               cptr->count +=count;
+               cptr->xfer  += xfer;
+               cptr->ixfer += ixfer;
+               cptr->oxfer += oxfer;
                return 0;
             }
          }
@@ -408,6 +421,8 @@ int put_unode(char *str, int type, u_int64_t count, double xfer,
          nptr->flag = type;
          nptr->count= count;
          nptr->xfer = xfer;
+         nptr->ixfer= ixfer;
+         nptr->oxfer= oxfer;
          nptr->next = htab[hval];
          nptr->entry= entry;
          nptr->exit = exit;
@@ -846,6 +861,8 @@ int put_inode( char      *str,  /* ident str */
                u_int64_t count, /* hit count */
                u_int64_t file,  /* File flag */
                double    xfer,  /* xfer size */
+               double    ixfer, /* in xfer size */
+               double    oxfer, /* out xfer size */
                u_int64_t *ctr,  /* counter   */
                u_int64_t visit, /* visits    */
                u_int64_t tstamp,/* timestamp */
@@ -867,6 +884,8 @@ int put_inode( char      *str,  /* ident str */
          nptr->count = count;
          nptr->files = file;
          nptr->xfer  = xfer;
+         nptr->ixfer = ixfer;
+         nptr->oxfer = oxfer;
          nptr->next  = NULL;
          htab[hval] = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
@@ -893,9 +912,11 @@ int put_inode( char      *str,  /* ident str */
             if ((type==cptr->flag)||((type!=OBJ_GRP)&&(cptr->flag!=OBJ_GRP)))
             {
                /* found... bump counter */
-               cptr->count+=count;
-               cptr->files+=file;
-               cptr->xfer +=xfer;
+               cptr->count +=count;
+               cptr->files +=file;
+               cptr->xfer  +=xfer;
+               cptr->ixfer +=ixfer;
+               cptr->oxfer +=oxfer;
 
                if (ispage(log_rec.url))
                {
@@ -915,6 +936,8 @@ int put_inode( char      *str,  /* ident str */
          nptr->count = count;
          nptr->files = file;
          nptr->xfer  = xfer;
+         nptr->ixfer = ixfer;
+         nptr->oxfer = oxfer;
          nptr->next  = htab[hval];
          htab[hval]  = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
