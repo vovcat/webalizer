@@ -1,0 +1,101 @@
+# translation of webalizer_2.01.10-32.2_templates.po to Russian
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Pavel Vinogradov <Pavel.VInogradov@nixdev.net>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer_2.01.10-32.2_templates\n"
+"Report-Msgid-Bugs-To: webalizer@packages.debian.org\n"
+"POT-Creation-Date: 2010-10-06 23:35+0200\n"
+"PO-Revision-Date: 2008-05-18 18:33+0500\n"
+"Last-Translator: Pavel Vinogradov <Pavel.VInogradov@nixdev.net>\n"
+"Language-Team: Russian\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid "Upgrading from a version < 2.01.6"
+msgstr "Обновление с версии < 2.01.6"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"ВНИМАНИЕ: если вы обновляетесь с версии < 2.01.6 смотрите /usr/share/doc/"
+"webalizer/README.FIRST.gz для детального описания обновления ваших старых "
+"данных."
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "Обновление с версии < 2.01.10-30"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
+msgstr ""
+"ВНИМАНИЕ: В этой версии файл webalizer.conf перенесен в директорию /etc/"
+"webalizer.  Также добавлены новые возможности. Пожалуйста прочитайте README."
+"FIRST.gz, README.gz и новый examples/sample.conf.gz в директории /usr/share/"
+"doc/webalizer "
+
+#. Type: string
+#. Description
+#: ../templates:3001
+msgid "Directory to put the output in:"
+msgstr "Директория для хранения выходных данных:"
+
+#. Type: string
+#. Default
+#: ../templates:4001
+msgid "Usage Statistics for[ hostname will be appended ]"
+msgstr "Статистика использования для:"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "Title of the reports webalizer will generate:"
+msgstr "Заголовок для отчетов генерируемых webalizer:"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "(your system's hostname will be appended to it)"
+msgstr "(hostname вашей системы будет добавлен к нему)"
+
+#. Type: string
+#. Description
+#: ../templates:5001
+msgid "Webserver's rotated log filename:"
+msgstr "Имя обрабатываемого логфайла web-сервера: "
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr "Включить опцию DNSCache?"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
+"Ускорить распознавание имен с помощью включения опции DNSCache. Смотрите "
+"подробности в /usr/share/doc/webalizer/DNS.README.gz."
