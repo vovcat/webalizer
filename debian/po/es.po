@@ -1,0 +1,105 @@
+# Spanish translation for webalizer (debconf).
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# Javi Castelo <javicastelo@ono.com>, 2004
+# Javier Fernandez-Sanguino <jfs@debian.org>, 2006
+#
+# - Revision
+# Esteban Manchado Velázquez <zoso@demiurgo.org>
+# Carlos Valdivia Yagüe <valya@dat.etsit.upm.es>
+# David Martínez Moreno <ender@debian.org>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer 2.01.10\n"
+"Report-Msgid-Bugs-To: webalizer@packages.debian.org\n"
+"POT-Creation-Date: 2010-10-06 23:35+0200\n"
+"PO-Revision-Date: 2006-12-17 00:43+0100\n"
+"Last-Translator: Javier Fernandez-Sanguino <jfs@debian.org>\n"
+"Language-Team: Debian Spanish <debian-l10n-spanish@lists.debian.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid "Upgrading from a version < 2.01.6"
+msgstr "Actualizando una versión inferior a la 2.01.6"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"¡¡ADVERTENCIA: Si está actualizando una versión inferior a la 2.01.6, lea «/"
+"usr/share/doc/webalizer/README.FIRST.gz» para los detalles sobre la "
+"actualización de sus datos anteriores!!"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "Actualizando de una versión inferior a la 2.01.10-30"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
+msgstr ""
+"AVISO: Esta versión moverá el fichero webalizer.conf al directorio «/etc/"
+"webalizer». También se han incluido nuevas funcionalidades. Por favor, lea "
+"los ficheros README.FIRST.gz, README.gz y «examples/sample.conf.gz» en el "
+"directorio «/usr/share/doc/webalizer»."
+
+#. Type: string
+#. Description
+#: ../templates:3001
+msgid "Directory to put the output in:"
+msgstr "Directorio en el que poner la salida:"
+
+#. Type: string
+#. Default
+#: ../templates:4001
+msgid "Usage Statistics for[ hostname will be appended ]"
+msgstr "Estadísticas de uso de"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "Title of the reports webalizer will generate:"
+msgstr "Título de los informes que generará webalizer:"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "(your system's hostname will be appended to it)"
+msgstr "(el nombre de servidor de su sistema se añadirá a dichos informes)"
+
+#. Type: string
+#. Description
+#: ../templates:5001
+msgid "Webserver's rotated log filename:"
+msgstr "Nombre del fichero de registro rotado del servidor web:"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr "¿Desea activar la opción «DNSCache»?"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
+"Puede agilizar la resolución de nombres si activa la opción «DNSCache». Para "
+"más información consulte «/usr/share/doc/webalizer/DNS.README.gz»."

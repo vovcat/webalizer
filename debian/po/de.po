@@ -1,0 +1,103 @@
+# translation of de.po to German
+# German translation for webalizer (debconf).
+# Copyright 2005 Free Software Foundation, Inc.
+#
+# Erik Schanze <eriks@debian.org>, 2005-2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: de\n"
+"Report-Msgid-Bugs-To: webalizer@packages.debian.org\n"
+"POT-Creation-Date: 2010-10-06 23:35+0200\n"
+"PO-Revision-Date: 2006-11-15 22:20+0100\n"
+"Last-Translator: Erik Schanze <eriks@debian.org>\n"
+"Language-Team: German <debian-l10n-german@lists.debian.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid "Upgrading from a version < 2.01.6"
+msgstr "Aktualisierung einer Version < 2.01.6"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"ACHTUNG: Wenn Sie eine Version < 2.01.6 aktualisieren, sehen Sie sich die "
+"Datei /usr/share/doc/webalizer/README.FIRST.gz für Einzelheiten der "
+"Aktualisierung Ihrer alten Daten an!!"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "Aktualisierung einer Version < 2.01.10-30"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
+msgstr ""
+"ACHTUNG: Diese Aktualisierung wird die Datei webalizer.conf in das "
+"Verzeichnis /etc/webalizer verschieben. Es wurden auch neue Funktionen "
+"hinzugefügt. Bitte lesen Sie die Dateien README.FIRST.gz, README.gz und die "
+"neue examples/sample.conf.gz im Verzeichnis /usr/share/doc/webalizer."
+
+#. Type: string
+#. Description
+#: ../templates:3001
+msgid "Directory to put the output in:"
+msgstr "Verzeichnis, in dem die Ausgaben abgelegt werden:"
+
+#. Type: string
+#. Default
+#: ../templates:4001
+msgid "Usage Statistics for[ hostname will be appended ]"
+msgstr "Benutzungsstatistik für"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "Title of the reports webalizer will generate:"
+msgstr "Titel der Berichte, die Webalizer erstellen wird:"
+
+#. Type: string
+#. Description
+#: ../templates:4002
+msgid "(your system's hostname will be appended to it)"
+msgstr "(Ihr Rechnername wird daran angehängt.)"
+
+#. Type: string
+#. Description
+#: ../templates:5001
+msgid "Webserver's rotated log filename:"
+msgstr "Dateiname der rotierten Protokolldateien des Webservers:"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Enable DNSCache Option?"
+msgstr "DNSCache-Option aktivieren?"
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
+"Die Namensauflösung wird durch Aktivieren der DNSCache-Option beschleunigt. "
+"Mehr Informationen finden Sie in der Datei /usr/share/doc/webalizer/DNS."
+"README.gz."
