@@ -1,7 +1,7 @@
 /*
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2011  Bradford L. Barrett
+    Copyright (C) 1997-2013  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -190,10 +190,10 @@ int add_glist(char *str, GLISTPTR *list)
    strncpy(temp_buf,str,MAXKVAL-1);
    temp_buf[MAXKVAL-1]=0;
 
-   if (!sep)                                            /* Space seperated   */
+   if (!sep)                                            /* Space separated   */
       while (!isspace((unsigned char)*name) && *name!=0) name++;
    else
-      while (*name!=sep && *name!=0) name++;            /* Quote seperated   */
+      while (*name!=sep && *name!=0) name++;            /* Quote separated   */
 
    if (*name==0) name=temp_buf;
    else

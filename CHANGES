@@ -243,7 +243,7 @@ Changes/Additions:
    This change also modified the format of the incremental data file.
 
  o Added the ability to display ALL sites, URLs, Referrers,
-   User Agents and Search Strings on a seperate HTML page from
+   User Agents and Search Strings on a separate HTML page from
    the normal statistics page.  This adds the configuration
    keywords 'AllSites', 'AllURLs', 'AllReferrers', 'AllAgents'
    and 'AllSearchStr', which can have either a "yes" or "no"

@@ -1,7 +1,7 @@
 /*
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2011  Bradford L. Barrett
+    Copyright (C) 1997-2013  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -88,11 +88,6 @@ INODEPTR im_htab[MAXHASH];                    /* ident table (username)   */
 DNODEPTR host_table[MAXHASH];                 /* DNS hash table           */
 #endif  /* USE_DNS */
 
-/* Last node pointers */
-HNODEPTR lm_hnode=NULL;
-HNODEPTR ld_hnode=NULL;
-RNODEPTR l_rnode=NULL;
-
 /*********************************************/
 /* DEL_HTABS - clear out our hash tables     */
 /*********************************************/
@@ -171,8 +166,6 @@ int put_hnode( char      *str,  /* Hostname  */
       /* not hashed */
       if ( (nptr=new_hnode(str)) != NULL)
       {
-         if (htab==sm_htab) lm_hnode=nptr;
-         else               ld_hnode=nptr;
          nptr->flag  = type;
          nptr->count = count;
          nptr->files = file;
@@ -202,16 +195,6 @@ int put_hnode( char      *str,  /* Hostname  */
    }
    else
    {
-      /* hashed (SPEEDUP) */
-      if (htab==sm_htab)
-      {
-         if (lm_hnode!=NULL && strcmp(lm_hnode->string,str)==0) cptr=lm_hnode;
-      }
-      else
-      {
-         if (ld_hnode!=NULL && strcmp(ld_hnode->string,str)==0) cptr=ld_hnode;
-      }
-
       while (cptr != NULL)
       {
          if (strcmp(cptr->string,str)==0)
@@ -237,8 +220,6 @@ int put_hnode( char      *str,  /* Hostname  */
                   cptr->lasturl=find_url(log_rec.url);
                   cptr->tstamp=tstamp;
                }
-               if (htab==sm_htab) lm_hnode=cptr;
-               else               ld_hnode=cptr;
                return 0;
             }
          }
@@ -247,8 +228,6 @@ int put_hnode( char      *str,  /* Hostname  */
       /* not found... */
       if ( (nptr = new_hnode(str)) != NULL)
       {
-         if (htab==sm_htab) lm_hnode=nptr;
-         else               ld_hnode=nptr;
          nptr->flag  = type;
          nptr->count = count;
          nptr->files = file;
@@ -286,8 +265,6 @@ int put_hnode( char      *str,  /* Hostname  */
          /* check if it's a hidden object */
          if ((hide_sites)||(isinlist(hidden_sites,nptr->string)!=NULL))
            nptr->flag=OBJ_HIDE;
-         if (htab==sm_htab) lm_hnode=nptr;
-         else               ld_hnode=nptr;
       }
    }
    return nptr==NULL;
@@ -318,8 +295,6 @@ void	del_hlist(HNODEPTR *htab)
          htab[i]=NULL;
       }
    }
-   lm_hnode=NULL;
-   ld_hnode=NULL;
 }
 
 /*********************************************/
@@ -513,9 +488,6 @@ int put_rnode(char *str, int type, u_int64_t count,
    }
    else
    {
-      /* hashed (SPEEDUP) */
-      if (l_rnode!=NULL && strcmp(l_rnode->string,str)==0) cptr=l_rnode;
-
       while (cptr != NULL)
       {
          if (strcmp(cptr->string,str)==0)
@@ -544,7 +516,6 @@ int put_rnode(char *str, int type, u_int64_t count,
       if (type==OBJ_GRP) nptr->flag=OBJ_GRP;
       else if (isinlist(hidden_refs,nptr->string)!=NULL)
                          nptr->flag=OBJ_HIDE;
-      l_rnode=nptr;
    }
    return nptr==NULL;
 }
@@ -574,7 +545,6 @@ void	del_rlist(RNODEPTR *htab)
          htab[i]=NULL;
       }
    }
-   l_rnode=NULL;
 }
 
 /*********************************************/

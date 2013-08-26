@@ -1,7 +1,7 @@
 /*
     graphs.c  - produces graphs used by the Webalizer
 
-    Copyright (C) 1997-2011  Bradford L. Barrett
+    Copyright (C) 1997-2013  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

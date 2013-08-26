@@ -3,7 +3,7 @@
 
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2011  Bradford L. Barrett
+    Copyright (C) 1997-2013  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -73,6 +73,11 @@ int main()
 #include <db.h>
 #include "webalizer.h"
 
+/* Stupid pre-processor tricks */
+#define xstr(x) #x
+#define str(x) xstr(x)
+#define SMAXHOST str(MAXHOST)   /* String version of MAXHOST value */
+
 /*********************************************/
 /* Forward reference local functions         */
 /*********************************************/
@@ -94,9 +99,9 @@ static int db_put(char *, char *, int, time_t);
 
 char    *pname       = "WCMGR - Webalizer (DNS) Cache file Manager";
 char    *version     = "1.00";             /* program version             */
-char    *editlvl     = "03";               /* edit level                  */
-char    *moddate     = "12-Jul-2008";      /* modification date           */
-char    *copyright   = "Copyright 2007-2011 by Bradford L. Barrett";
+char    *editlvl     = "04";               /* edit level                  */
+char    *moddate     = "26-Aug-2013";      /* modification date           */
+char    *copyright   = "Copyright 2007-2013 by Bradford L. Barrett";
 
 int       action     = 'l';                /* action flag (default=list)  */
 int       create     = 0;                  /* cache creation flag         */
@@ -124,6 +129,8 @@ struct dnsRec
           int       numeric;               /* 0: Name, 1: IP-address      */
           char      hostName[MAXHOST+1];   /* Hostname buffer (variable)  */
        } dns_rec;
+
+#define DNSZ sizeof(struct dnsRec)         /* define static record size   */
 
 /*********************************************/
 /* PRINT_VER - display version information   */
@@ -327,7 +334,8 @@ void list_cache()
       t_rec++;
       memset(ip_buf, 0, sizeof(ip_buf));
       strncpy(ip_buf, q.data, (q.size>47)?47:q.size);  /* save IP address  */
-      memcpy(&dns_rec, r.data, r.size);
+      memcpy(&dns_rec, r.data, (r.size>DNSZ)?DNSZ:r.size);
+
       if (dns_rec.numeric) t_num++;
       printf("%-15s [%s] %s\n",ip_buf,
              (dns_rec.timeStamp)?
@@ -430,7 +438,7 @@ void purge_cache()
    {
       /* got a record */
       t_in++;
-      memcpy(&dns_rec, r.data, r.size);
+      memcpy(&dns_rec, r.data, (r.size>DNSZ)?DNSZ:r.size);
 
       /* get record ttl age */
       if (dns_rec.timeStamp==0) age=0;
@@ -592,7 +600,8 @@ void find_rec()
       /* We found it! display info */
       memset(ip_buf, 0, sizeof(ip_buf));
       strncpy(ip_buf, q.data, (q.size>47)?47:q.size);  /* save IP address  */
-      memcpy(&dns_rec, r.data, r.size);
+      memcpy(&dns_rec, r.data, (r.size>DNSZ)?DNSZ:r.size);
+
       if (verbose)
       {
          /* Verbose display */
@@ -815,7 +824,7 @@ void import_cache()
       {
          memset(&dns_rec, 0, sizeof(dns_rec));
          memset(&ip_buf, 0, sizeof(ip_buf));
-         i = sscanf(buffer,"%s\t%lu\t%d\t%s",
+         i = sscanf(buffer,"%47s\t%lu\t%d\t%" SMAXHOST "s",
                     ip_buf,
                     &dns_rec.timeStamp,
                     &dns_rec.numeric,
@@ -911,7 +920,7 @@ void export_cache()
       t_rec++;
       memset(ip_buf, 0, sizeof(ip_buf));
       strncpy(ip_buf, q.data, (q.size>47)?47:q.size);  /* save IP address  */
-      memcpy(&dns_rec, r.data, r.size);
+      memcpy(&dns_rec, r.data, (r.size>DNSZ)?DNSZ:r.size);
 
       /* Print out tab delimited line          */
       /* Format: IP timestamp numeric hostname */

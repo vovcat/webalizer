@@ -1,7 +1,7 @@
 #
 # Makefile for webalizer - a web server log analysis program
 #
-# Copyright (C) 1997-2011  Bradford L. Barrett
+# Copyright (C) 1997-2013  Bradford L. Barrett
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ exec_prefix     = @exec_prefix@
 datadir         = @datarootdir@
 
 BINDIR          = @bindir@
-MANDIR          = ${datadir}/man/man1
+MANDIR          = @mandir@/man1
 ETCDIR          = @sysconfdir@
 GEODB           = @GEODB_LOC@
 CC              = @CC@
@@ -78,7 +78,7 @@ graphs.o:	graphs.c graphs.h webalizer.h lang.h
 wcmgr:	wcmgr.o
 	$(CC) ${LDFLAGS} -o wcmgr wcmgr.o ${WCMGR_LIBS}
 
-wcmgr.o:	wcmgr.c
+wcmgr.o:	wcmgr.c webalizer.h
 	$(CC) ${CFLAGS} ${DEFS} -c wcmgr.c
 
 clean:

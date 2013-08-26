@@ -14,7 +14,7 @@
 
 #define MAXHASH  4096                  /* Size of our hash tables          */
 #define BUFSIZE  4096                  /* Max buffer size for log record   */
-#define MAXHOST  128                   /* Max hostname buffer size         */
+#define MAXHOST  256                   /* Max hostname buffer size         */
 #define MAXURL   4096                  /* Max HTTP request/URL field size  */
 #define MAXURLH  512                   /* Max URL field size in htab       */
 #define MAXREF   1024                  /* Max referrer field size          */

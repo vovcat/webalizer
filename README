@@ -1,5 +1,5 @@
 The Webalizer - A web server log file analysis tool
-Copyright 1997-2011 by Bradford L. Barrett
+Copyright 1997-2013 by Bradford L. Barrett
 
 Distributed under the GNU GPL.  See the files "COPYING" and
 "Copyright" supplied with the distribution for additional info.
@@ -43,7 +43,7 @@ is also provided which allows the creation and manipulation of the DNS
 cache files used and produced by the webalizer.  See the file DNS.README
 for additional information regarding DNS support.
 
-This documentation applies to The Webalizer Version 2.21
+This documentation applies to The Webalizer Version 2.23
 
 Running the Webalizer
 ---------------------

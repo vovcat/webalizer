@@ -1,7 +1,7 @@
 /*
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2011  Bradford L. Barrett
+    Copyright (C) 1997-2013  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -117,7 +117,7 @@ int parse_record_ftp(char *buffer)
 
    size = strlen(buffer);                 /* get length of buffer        */
    eob = buffer+size;                     /* calculate end of buffer     */
-   fmt_logrec(buffer);                    /* seperate fields with \0's   */
+   fmt_logrec(buffer);                    /* separate fields with \0's   */
 
    /* Start out with date/time       */
    cp1=buffer;
@@ -213,7 +213,7 @@ int parse_record_clf(char *buffer)
 
    size = strlen(buffer);                 /* get length of buffer        */
    eob = buffer+size;                     /* calculate end of buffer     */
-   fmt_logrec(buffer);                    /* seperate fields with \0's   */
+   fmt_logrec(buffer);                    /* separate fields with \0's   */
 
    /* HOSTNAME */
    cp1 = cpx = buffer; cp2=log_rec.hostname;
@@ -380,7 +380,7 @@ int parse_record_squid(char *buffer)
 
    size = strlen(buffer);                 /* get length of buffer        */
    eob = buffer+size;                     /* calculate end of buffer     */
-   fmt_logrec(buffer);                    /* seperate fields with \0's   */
+   fmt_logrec(buffer);                    /* separate fields with \0's   */
 
    /* date/time */
    cp1=buffer;
@@ -571,7 +571,7 @@ int parse_record_w3c(char *buffer)
          break;
    }
 
-   fmt_logrec(buffer);                    /* seperate fields with \0's   */
+   fmt_logrec(buffer);                    /* separate fields with \0's   */
 
    cp = buffer;
 

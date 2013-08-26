@@ -1,6 +1,6 @@
 dnl
 dnl The Webalizer - A web server log file analysis program
-dnl Copyright (C) 1997-2011 by Bradford L. Barrett
+dnl Copyright (C) 1997-2013 by Bradford L. Barrett
 dnl
 dnl configure.in template for The Webalizer Version 2.23
 dnl Process this file with autoconf to produce a configure script.

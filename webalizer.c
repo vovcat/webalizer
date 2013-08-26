@@ -1,7 +1,7 @@
 /*
     webalizer - a web server log analysis program
 
-    Copyright (C) 1997-2011  Bradford L. Barrett
+    Copyright (C) 1997-2013  Bradford L. Barrett
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -112,9 +112,9 @@ int     isipaddr(char *);                           /* is IP address test  */
 /*********************************************/
 
 char    *version     = "2.23";                /* program version          */
-char    *editlvl     = "05";                  /* edit level               */
-char    *moddate     = "14-Apr-2011";         /* modification date        */
-char    *copyright   = "Copyright 1997-2011 by Bradford L. Barrett";
+char    *editlvl     = "08";                  /* edit level               */
+char    *moddate     = "26-Aug-2013";         /* modification date        */
+char    *copyright   = "Copyright 1997-2013 by Bradford L. Barrett";
 
 int     verbose      = 2;                     /* 2=verbose,1=err, 0=none  */
 int     debug_mode   = 0;                     /* debug mode flag          */
