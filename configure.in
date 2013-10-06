@@ -281,43 +281,16 @@ AC_ARG_ENABLE(oldhash,
   if test "$OLDHASH" = "yes"; then OPTS="-DUSE_OLDHASH"; fi
 
 dnl ------------------------------------------
-dnl check language to use (default is english)
+dnl language with gettext
 dnl ------------------------------------------
 
-LANG_CACHE=yes
-AC_ARG_WITH(language,
-  [  --with-language=name    Use language 'name' (default is english)],
-  WEBALIZER_LANG="${withval}"; LANG_CACHE=no, LANG_CACHE=yes)
-if test "$WEBALIZER_LANG" = "no"; then WEBALIZER_LANG=english; fi
+dnl keep datadir, it is needed for "bindtextdomain" since we use gettext
+OPTS="-DDATADIR=\\\"${datadir}\\\" ${OPTS}"
 
-dnl ------------------------------------------
-dnl check if specfied language is valid
-dnl ------------------------------------------
+#AM_GNU_GETTEXT
 
-AC_MSG_CHECKING(for language file)
-if test "$LANG_CACHE" = "yes"; then
-  AC_CACHE_VAL(ac_cv_language, ac_cv_language=$DEFAULT_LANG)
-  WEBALIZER_LANG=$ac_cv_language
-fi
-
-if test -f lang/webalizer_lang.${WEBALIZER_LANG}; then
-AC_MSG_RESULT(yes - ${WEBALIZER_LANG})
-else
- if test -f lang/webalizer_lang.${DEFAULT_LANG}; then
-  AC_MSG_RESULT('${WEBALIZER_LANG}' not found - using ${DEFAULT_LANG})
-  WEBALIZER_LANG=${DEFAULT_LANG}
- else
-  AC_MSG_RESULT(no)
-  AC_MSG_ERROR(language files not found... fix before continuing)
- fi
-fi
-ac_cv_language=${WEBALIZER_LANG}
-
-dnl ------------------------------------------
-dnl create link to language file
-dnl ------------------------------------------
-
-AC_LINK_FILES(lang/webalizer_lang.${WEBALIZER_LANG}, webalizer_lang.h)
+localedir=${datadir}/locale
+AC_SUBST(localedir)
 
 dnl ------------------------------------------
 dnl done.. write out our Makefile
