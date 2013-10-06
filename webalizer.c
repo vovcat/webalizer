@@ -216,11 +216,15 @@ int        check_dup=0;                       /* check for dup flag       */
 int        gz_log=COMP_NONE;                  /* gziped log? (0=no)       */
 
 double     t_xfer=0.0;                        /* monthly total xfer value */
+double     t_ixfer=0.0;                       /* monthly total in xfer    */
+double     t_oxfer=0.0;                       /* monthly total out xfer   */
 u_int64_t  t_hit=0,t_file=0,t_site=0,         /* monthly total vars       */
            t_url=0,t_ref=0,t_agent=0,
            t_page=0, t_visit=0, t_user=0;
 
 double     tm_xfer[31];                       /* daily transfer totals    */
+double     tm_ixfer[31];                      /* daily in xfer totals     */
+double     tm_oxfer[31];                      /* daily out xfer totals    */
 
 u_int64_t  tm_hit[31], tm_file[31],           /* daily total arrays       */
            tm_site[31], tm_page[31],
@@ -234,6 +238,8 @@ u_int64_t  th_hit[24], th_file[24],           /* hourly total arrays      */
            th_page[24];
 
 double     th_xfer[24];
+double     th_ixfer[24];
+double     th_oxfer[24];
 
 int        f_day,l_day;                       /* first/last day vars      */
 
@@ -1202,7 +1208,8 @@ int main(int argc, char *argv[])
          {
             /* URL hash table */
             if (put_unode(log_rec.url,OBJ_REG,(u_int64_t)1,
-                log_rec.xfer_size,&t_url,(u_int64_t)0,(u_int64_t)0,um_htab))
+                log_rec.xfer_size,log_rec.ixfer_size,log_rec.oxfer_size,
+                &t_url,(u_int64_t)0,(u_int64_t)0,um_htab))
             {
                if (verbose)
                /* Error adding URL node, skipping ... */
@@ -1211,7 +1218,8 @@ int main(int argc, char *argv[])
 
             /* ident (username) hash table */
             if (put_inode(log_rec.ident,OBJ_REG,
-                1,(u_int64_t)i,log_rec.xfer_size,&t_user,
+                1,(u_int64_t)i,log_rec.xfer_size,
+                log_rec.ixfer_size,log_rec.oxfer_size,&t_user,
                 0,rec_tstamp,im_htab))
             {
                if (verbose)
@@ -1233,7 +1241,8 @@ int main(int argc, char *argv[])
 
          /* hostname (site) hash table - daily */
          if (put_hnode(log_rec.hostname,OBJ_REG,
-             1,(u_int64_t)i,log_rec.xfer_size,&dt_site,
+             1,(u_int64_t)i,log_rec.xfer_size,
+             log_rec.ixfer_size,log_rec.oxfer_size,&dt_site,
              0,rec_tstamp,"",sd_htab))
          {
             if (verbose)
@@ -1243,7 +1252,8 @@ int main(int argc, char *argv[])
 
          /* hostname (site) hash table - monthly */
          if (put_hnode(log_rec.hostname,OBJ_REG,
-             1,(u_int64_t)i,log_rec.xfer_size,&t_site,
+             1,(u_int64_t)i,log_rec.xfer_size,
+             log_rec.ixfer_size,log_rec.oxfer_size,&t_site,
              0,rec_tstamp,"",sm_htab))
          {
             if (verbose)
@@ -1264,10 +1274,16 @@ int main(int argc, char *argv[])
 
          /* bump monthly/daily/hourly totals        */
          t_hit++; ht_hit++;                         /* daily/hourly hits    */
-         t_xfer += log_rec.xfer_size;               /* total xfer size      */
-         tm_xfer[rec_day-1] += log_rec.xfer_size;   /* daily xfer total     */
+         t_xfer  += log_rec.xfer_size;              /* total xfer size      */
+         t_ixfer += log_rec.ixfer_size;             /* total in xfer size   */
+         t_oxfer += log_rec.oxfer_size;             /* total out xfer size  */
+         tm_xfer[rec_day-1]  += log_rec.xfer_size;  /* daily xfer total     */
+         tm_ixfer[rec_day-1] += log_rec.ixfer_size; /* daily in xfer total  */
+         tm_oxfer[rec_day-1] += log_rec.oxfer_size; /* daily out xfer total */
          tm_hit[rec_day-1]++;                       /* daily hits total     */
          th_xfer[rec_hour] += log_rec.xfer_size;    /* hourly xfer total    */
+         th_ixfer[rec_hour] += log_rec.ixfer_size;  /* hourly in xfer total */
+         th_oxfer[rec_hour] += log_rec.oxfer_size;  /* hourly out xfer total*/
          th_hit[rec_hour]++;                        /* hourly hits total    */
 
          /* if RC_OK, increase file counters */
@@ -1297,6 +1313,7 @@ int main(int argc, char *argv[])
          if ( (cp1=isinglist(group_urls,log_rec.url))!=NULL)
          {
             if (put_unode(cp1,OBJ_GRP,(u_int64_t)1,log_rec.xfer_size,
+                log_rec.ixfer_size,log_rec.oxfer_size,
                 &ul_bogus,(u_int64_t)0,(u_int64_t)0,um_htab))
             {
                if (verbose)
@@ -1310,7 +1327,8 @@ int main(int argc, char *argv[])
          {
             if (put_hnode(cp1,OBJ_GRP,1,
                           (u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
-                          log_rec.xfer_size,&ul_bogus,
+                          log_rec.xfer_size,
+			  log_rec.ixfer_size,log_rec.oxfer_size,&ul_bogus,
                           0,rec_tstamp,"",sm_htab))
             {
                if (verbose)
@@ -1328,8 +1346,8 @@ int main(int argc, char *argv[])
                {
                   if (put_hnode(cp1,OBJ_GRP,1,
                       (u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
-                      log_rec.xfer_size,&ul_bogus,
-                      0,rec_tstamp,"",sm_htab))
+                      log_rec.xfer_size,log_rec.ixfer_size,log_rec.oxfer_size,
+                      &ul_bogus,0,rec_tstamp,"",sm_htab))
                   {
                      if (verbose)
                      /* Error adding Site node, skipping ... */
@@ -1366,7 +1384,8 @@ int main(int argc, char *argv[])
          {
             if (put_inode(cp1,OBJ_GRP,1,
                           (u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
-                          log_rec.xfer_size,&ul_bogus,
+                          log_rec.xfer_size,
+			  log_rec.ixfer_size,log_rec.oxfer_size,&ul_bogus,
                           0,rec_tstamp,im_htab))
             {
                if (verbose)
@@ -1905,22 +1924,22 @@ void init_counters()
    for (i=0;i<TOTAL_RC;i++) response[i].count = 0;
    for (i=0;i<31;i++)  /* monthly totals      */
    {
-    tm_xfer[i]=0.0;
+    tm_xfer[i]=tm_ixfer[i]=tm_oxfer[i]=0.0;
     tm_hit[i]=tm_file[i]=tm_site[i]=tm_page[i]=tm_visit[i]=0;
    }
    for (i=0;i<24;i++)  /* hourly totals       */
    {
       th_hit[i]=th_file[i]=th_page[i]=0;
-      th_xfer[i]=0.0;
+      th_xfer[i]=th_ixfer[i]=th_oxfer[i]=0.0;
    }
    for (i=0;ctry[i].desc;i++) /* country totals */
    {
       ctry[i].count=0;
       ctry[i].files=0;
-      ctry[i].xfer=0;
+      ctry[i].xfer=ctry[i].ixfer=ctry[i].oxfer=0;
    }
    t_hit=t_file=t_site=t_url=t_ref=t_agent=t_page=t_visit=t_user=0;
-   t_xfer=0.0;
+   t_xfer=t_ixfer=t_oxfer=0.0;
    mh_hit = dt_site = 0;
    f_day=l_day=1;
 }
