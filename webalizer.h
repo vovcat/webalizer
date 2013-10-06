@@ -144,7 +144,9 @@ struct	country_code {u_int64_t idx;              /* TLD index number     */
                            char *desc;            /* TLD description      */
                       u_int64_t count;            /* hit counter          */
                       u_int64_t files;            /* file counter         */
-                         double xfer; };          /* xfer amt counter     */
+                         double xfer;             /* xfer amt counter     */
+                         double ixfer;            /* in xfer amt counter  */
+                         double oxfer; };         /* out xfer amt counter */
 
 typedef struct country_code *CLISTPTR;
 
@@ -154,6 +156,8 @@ struct  log_struct  {  char   hostname[MAXHOST];  /* hostname             */
                        char   url[MAXURL];        /* raw request field    */
                         int   resp_code;          /* response code        */
                   u_int64_t   xfer_size;          /* xfer size in bytes   */
+                  u_int64_t   ixfer_size;         /* in xfer size bytes   */
+                  u_int64_t   oxfer_size;         /* out xfer size bytes  */
                        char   refer[MAXREF];      /* referrer             */
                        char   agent[MAXAGENT];    /* user agent (browser) */
                        char   srchstr[MAXSRCH];   /* search string        */
@@ -252,11 +256,15 @@ extern int       cur_year,cur_month,          /* year/month/day/hour      */
                  cur_min, cur_sec;
 
 extern double    t_xfer;                      /* monthly total xfer value */
+extern double    t_ixfer;                     /* monthly total in xfer    */
+extern double    t_oxfer;                     /* monthly total out xfer   */
 extern u_int64_t t_hit, t_file, t_site,       /* monthly total vars       */
                  t_url, t_ref,  t_agent,
                  t_page,t_visit,t_user;
 
 extern double    tm_xfer[31];                 /* daily transfer totals    */
+extern double    tm_ixfer[31];                /* daily in xfer totals     */
+extern double    tm_oxfer[31];                /* daily out xfer totals    */
 
 extern u_int64_t tm_hit[31], tm_file[31],     /* daily total arrays       */
                  tm_site[31],tm_page[31],
@@ -270,6 +278,8 @@ extern u_int64_t th_hit[24], th_file[24],     /* hourly total arrays      */
                  th_page[24];
 
 extern double    th_xfer[24];                 /* hourly xfer array        */
+extern double    th_ixfer[24];
+extern double    th_oxfer[24];
 
 extern int       f_day,l_day;                 /* first/last day vars      */
 extern int       gz_log;                      /* flag for zipped log      */

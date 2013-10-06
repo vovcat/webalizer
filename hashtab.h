@@ -32,6 +32,8 @@ struct hnode {  char *string;              /* host hash table structure    */
            u_int64_t tstamp;
                 char *lasturl;
               double xfer;
+              double ixfer;
+              double oxfer;
               struct hnode *next; };
 
 struct unode {  char *string;              /* url hash table structure     */
@@ -41,6 +43,8 @@ struct unode {  char *string;              /* url hash table structure     */
            u_int64_t entry;                /* entry page counter           */
            u_int64_t exit;                 /* exit page counter            */
               double xfer;                 /* xfer size in bytes           */
+              double ixfer;                /* in xfer size in bytes        */
+              double oxfer;                /* out xfer size in bytes       */
               struct unode *next; };       /* pointer to next node         */
 
 struct rnode {  char *string;              /* referrer hash table struct   */
@@ -64,6 +68,8 @@ struct inode {  char *string;                 /* host hash table struct    */
            u_int64_t visit;
            u_int64_t tstamp;
               double xfer;
+              double ixfer;
+              double oxfer;
               struct inode *next; };
 
 extern HNODEPTR sm_htab[MAXHASH];             /* hash tables               */
@@ -77,11 +83,11 @@ extern INODEPTR im_htab[MAXHASH];             /* ident table (username)    */
 extern DNODEPTR host_table[MAXHASH];          /* DNS resolver table        */
 #endif
 
-extern int    put_hnode(char *, int, u_int64_t, u_int64_t, double,
+extern int    put_hnode(char *, int, u_int64_t, u_int64_t, double, double, double,
                         u_int64_t *, u_int64_t, u_int64_t, char *, HNODEPTR *);
-extern int    put_unode(char *, int, u_int64_t, double, u_int64_t *,
+extern int    put_unode(char *, int, u_int64_t, double, double, double, u_int64_t *,
                         u_int64_t, u_int64_t, UNODEPTR *);
-extern int    put_inode(char *, int, u_int64_t, u_int64_t, double,
+extern int    put_inode(char *, int, u_int64_t, u_int64_t, double, double, double,
                         u_int64_t *, u_int64_t, u_int64_t, INODEPTR *);
 extern int    put_rnode(char *, int, u_int64_t, u_int64_t *, RNODEPTR *);
 extern int    put_anode(char *, int, u_int64_t, u_int64_t *, ANODEPTR *);
