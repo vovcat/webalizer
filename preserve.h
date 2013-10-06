@@ -21,6 +21,8 @@ struct hist_rec {       int   year;           /* year                     */
                   u_int64_t   page;           /* pages for month          */
                   u_int64_t   visit;          /* visits for month         */
                      double   xfer;           /* xfer amt for month       */
+                     double   ixfer;          /* ixfer amt for month      */
+                     double   oxfer;          /* oxfer amt for month      */
                 };
 
 extern struct hist_rec hist[HISTSIZE];        /* declare our hist array   */
