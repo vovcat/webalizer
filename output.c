@@ -191,7 +191,7 @@ void write_html_head(char *period, FILE *out_fp)
 
    fprintf(out_fp,"<HTML lang=\"%s\">\n<HEAD>\n",langcode);
    fprintf(out_fp," <TITLE>%s %s - %s</TITLE>\n",
-                  msg_title, hname, (period)?period:msg_main_per);
+                  report_title, hname, (period)?period:msg_main_per);
    lptr=html_head;
    while (lptr!=NULL)
    {
@@ -213,7 +213,7 @@ void write_html_head(char *period, FILE *out_fp)
          lptr=lptr->next;
       }
    }
-   fprintf(out_fp,"<H2>%s %s</H2>\n",msg_title, hname);
+   fprintf(out_fp,"<H2>%s %s</H2>\n",report_title, hname);
    if (period)
       fprintf(out_fp,"<SMALL><STRONG>\n%s: %s<BR>\n",msg_hhdr_sp,period);
    else
@@ -289,7 +289,7 @@ int write_month_html()
    char htitle[256];
 
    if (verbose>1)
-      printf("%s %s %d\n",msg_gen_rpt, l_month[cur_month-1], cur_year);
+      printf("%s %s %d\n",msg_gen_rpt, Q_(l_month[cur_month-1]), cur_year);
 
    /* fill in filenames */
    snprintf(html_fname,sizeof(html_fname),"usage_%04d%02d.%s",
@@ -301,7 +301,7 @@ int write_month_html()
    if (daily_graph)
    {
       snprintf(dtitle,sizeof(dtitle),"%s %s %d",
-               msg_hmth_du,l_month[cur_month-1],cur_year);
+               msg_hmth_du,Q_(l_month[cur_month-1]),cur_year);
       month_graph6 (  png1_fname,          /* filename          */
                       dtitle,              /* graph title       */
                       cur_month,           /* graph month       */
@@ -319,7 +319,7 @@ int write_month_html()
    if (hourly_graph)
    {
       snprintf(htitle,sizeof(htitle),"%s %s %d",
-               msg_hmth_hu,l_month[cur_month-1],cur_year);
+               msg_hmth_hu,Q_(l_month[cur_month-1]),cur_year);
       day_graph3(    png2_fname,
                      htitle,
                      th_hit,
@@ -331,7 +331,7 @@ int write_month_html()
    /* first, open the file */
    if ( (out_fp=open_out_file(html_fname))==NULL ) return 1;
 
-   snprintf(buffer,sizeof(buffer),"%s %d",l_month[cur_month-1],cur_year);
+   snprintf(buffer,sizeof(buffer),"%s %d",Q_(l_month[cur_month-1]),cur_year);
    write_html_head(buffer, out_fp);
    month_links();
    month_total_table();
@@ -529,7 +529,7 @@ void month_total_table()
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH COLSPAN=3 ALIGN=center BGCOLOR=\"%s\">"           \
-      "%s %s %d</TH></TR>\n",GREY,msg_mtot_ms,l_month[cur_month-1],cur_year);
+      "%s %s %d</TH></TR>\n",GREY,msg_mtot_ms,Q_(l_month[cur_month-1]),cur_year);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    /* Total Hits */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"     \
@@ -694,7 +694,7 @@ void daily_total_table()
    /* Daily statistics for ... */
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" COLSPAN=%d ALIGN=center>"          \
            "%s %s %d</TH></TR>\n",
-           GREY,(dump_inout==0)?13:17,msg_dtot_ds,l_month[cur_month-1], cur_year);
+           GREY,(dump_inout==0)?13:17,msg_dtot_ds,Q_(l_month[cur_month-1]), cur_year);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH ALIGN=center BGCOLOR=\"%s\">"                     \
                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n"                       \
@@ -807,7 +807,7 @@ void hourly_total_table()
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" COLSPAN=%d ALIGN=center>"\
            "%s %s %d</TH></TR>\n",
-           GREY,(dump_inout==0)?13:19,msg_htot_hs,l_month[cur_month-1], cur_year);
+           GREY,(dump_inout==0)?13:19,msg_htot_hs,Q_(l_month[cur_month-1]), cur_year);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH ALIGN=center ROWSPAN=2 BGCOLOR=\"%s\">" \
                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n"             \
@@ -1085,7 +1085,7 @@ int all_sites_page(u_int64_t h_reg, u_int64_t h_grp)
    if ( (out_fp=open_out_file(site_fname))==NULL ) return 0;
 
    snprintf(buffer,sizeof(buffer),"%s %d - %s",
-            l_month[cur_month-1],cur_year,msg_h_sites);
+            Q_(l_month[cur_month-1]),cur_year,msg_h_sites);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1344,7 +1344,7 @@ int all_urls_page(u_int64_t u_reg, u_int64_t u_grp)
    if ( (out_fp=open_out_file(url_fname))==NULL ) return 0;
 
    snprintf(buffer,sizeof(buffer),"%s %d - %s",
-            l_month[cur_month-1],cur_year,msg_h_url);
+            Q_(l_month[cur_month-1]),cur_year,msg_h_url);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1644,7 +1644,7 @@ int all_refs_page(u_int64_t r_reg, u_int64_t r_grp)
    if ( (out_fp=open_out_file(ref_fname))==NULL ) return 0;
 
    snprintf(buffer,sizeof(buffer),"%s %d - %s",
-            l_month[cur_month-1],cur_year,msg_h_ref);
+            Q_(l_month[cur_month-1]),cur_year,msg_h_ref);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1798,7 +1798,7 @@ int all_agents_page(u_int64_t a_reg, u_int64_t a_grp)
    if ( (out_fp=open_out_file(agent_fname))==NULL ) return 0;
 
    snprintf(buffer,sizeof(buffer),"%s %d - %s",
-            l_month[cur_month-1],cur_year,msg_h_agent);
+            Q_(l_month[cur_month-1]),cur_year,msg_h_agent);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -1934,7 +1934,7 @@ int all_search_page(u_int64_t tot_num, u_int64_t t_val)
    if ( (out_fp=open_out_file(search_fname))==NULL ) return 0;
 
    snprintf(buffer,sizeof(buffer),"%s %d - %s",
-            l_month[cur_month-1],cur_year,msg_h_search);
+            Q_(l_month[cur_month-1]),cur_year,msg_h_search);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -2098,7 +2098,7 @@ int all_users_page(u_int64_t i_reg, u_int64_t i_grp)
    if ( (out_fp=open_out_file(user_fname))==NULL ) return 0;
 
    snprintf(buffer,sizeof(buffer),"%s %d - %s",
-            l_month[cur_month-1],cur_year,msg_h_uname);
+            Q_(l_month[cur_month-1]),cur_year,msg_h_uname);
    write_html_head(buffer, out_fp);
 
    fprintf(out_fp,"<FONT SIZE=\"-1\"></CENTER><PRE>\n");
@@ -2226,7 +2226,7 @@ void top_ctry_table()
                   if (geo_ctry[0]=='-')
                   {
                      if (debug_mode)
-                        fprintf(stderr,"GeoDB: %s unknown!\n",hptr->string);
+                        fprintf(stderr,_("GeoDB: %s unknown!\n"),hptr->string);
                   }
                   else idx=ctry_idx(geo_ctry);
                }
@@ -2239,7 +2239,7 @@ void top_ctry_table()
                   if (geo_rc==NULL||geo_rc[0]=='\0'||geo_rc[0]=='-')
                   {
                      if (debug_mode)
-                        fprintf(stderr,"GeoIP: %s unknown (returns '%s')\n",
+                        fprintf(stderr,_("GeoIP: %s unknown (returns '%s')\n"),
                                 hptr->string,(geo_rc==NULL)?"null":geo_rc);
                   }
                   else
@@ -2321,10 +2321,10 @@ void top_ctry_table()
       for (i=0;i<j;i++)
       {
          pie_data[i]=top_ctrys[i]->count;           /* load the array       */
-         pie_legend[i]=top_ctrys[i]->desc;
+         pie_legend[i]=_(top_ctrys[i]->desc);
       }
       snprintf(pie_title,sizeof(pie_title),"%s %s %d",
-               msg_ctry_use,l_month[cur_month-1],cur_year);
+               msg_ctry_use,Q_(l_month[cur_month-1]),cur_year);
       sprintf(pie_fname,"ctry_usage_%04d%02d.png",cur_year,cur_month);
 
       pie_chart(pie_fname,pie_title,t_hit,pie_data,pie_legend);  /* do it   */
@@ -2741,7 +2741,7 @@ int write_main_index()
       else
       {
          if (errno!=EEXIST && verbose)
-            fprintf(stderr,"Error: Failed to create .htaccess file: %s\n",
+            fprintf(stderr,_("Error: Failed to create .htaccess file: %s\n"),
                     strerror(errno));
       }
    }
@@ -2849,10 +2849,10 @@ int write_main_index()
          fprintf(out_fp,"<A HREF=\"usage_%04d%02d.%s\">"                  \
                         "<FONT SIZE=\"-1\">%s %d</FONT></A></TD>\n",
                          hist[i].year, hist[i].month, html_ext,
-                         s_month[hist[i].month-1], hist[i].year);
+                         Q_(s_month[hist[i].month-1]), hist[i].year);
       else
          fprintf(out_fp,"<FONT SIZE=\"-1\">%s %d</FONT></A></TD>\n",      \
-                         s_month[hist[i].month-1], hist[i].year);
+                         Q_(s_month[hist[i].month-1]), hist[i].year);
 
       fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
                       hist[i].hit/days_in_month);
