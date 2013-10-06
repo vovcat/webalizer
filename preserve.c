@@ -75,7 +75,7 @@ void get_history()
 
    if (hist_fp)
    {
-      if (verbose>1) printf("%s %s\n",msg_get_hist,hist_fname);
+      if (verbose>1) printf("%s %s\n",_("Reading history file..."),hist_fname);
       while ( fgets(buffer,BUFSIZE,hist_fp) != NULL )
       {
          if (buffer[0]=='#') { continue; } /* skip comments */
@@ -86,7 +86,7 @@ void get_history()
          /* check if valid numbers */
          if ( (in_m<1 || in_m>12 || in_y<1970) )
          {
-            if (verbose) fprintf(stderr,"%s (mth=%d)\n",msg_bad_hist,in_m);
+            if (verbose) fprintf(stderr,"%s (mth=%d)\n",_("Error: Ignoring invalid history record"),in_m);
             continue;
          }
 
@@ -139,7 +139,7 @@ void get_history()
       }
       fclose(hist_fp);
    }
-   else if (verbose>1) printf("%s\n",msg_no_hist);
+   else if (verbose>1) printf("%s\n",_("History file not found..."));
 }
 
 /*********************************************/
@@ -166,7 +166,7 @@ void put_history()
       if ( S_ISLNK(hist_stat.st_mode) )
       {
          if (verbose)
-         fprintf(stderr,"%s %s (symlink)\n",msg_no_open,new_fname);
+         fprintf(stderr,"%s %s (symlink)\n",_("Error: Unable to open file"),new_fname);
          return;
       }
    }
@@ -179,7 +179,7 @@ void put_history()
    hist_fp = fopen(new_fname,"w");
    if (hist_fp)
    {
-      if (verbose>1) printf("%s\n",msg_put_hist);
+      if (verbose>1) printf("%s\n",_("Saving history information..."));
 
       /* write header */
       fprintf(hist_fp,"# Webalizer V%s-%s History Data - %s (%d month)\n",
@@ -219,7 +219,7 @@ void put_history()
    }
    else
       if (verbose)
-      fprintf(stderr,"%s %s\n",msg_hist_err,new_fname);
+      fprintf(stderr,"%s %s\n",_("Error: Unable to write history file"),new_fname);
 }
 
 /*********************************************/
@@ -338,7 +338,7 @@ int save_state()
       if ( S_ISLNK(state_stat.st_mode) )
       {
          if (verbose)
-         fprintf(stderr,"%s %s (symlink)\n",msg_no_open,new_fname);
+         fprintf(stderr,"%s %s (symlink)\n",_("Error: Unable to open file"),new_fname);
          return(EBADF);
       }
    }
@@ -352,7 +352,7 @@ int save_state()
    {
       sprintf(buffer,"%02d/%02d/%04d %02d:%02d:%02d",
        cur_month,cur_day,cur_year,cur_hour,cur_min,cur_sec);
-      printf("%s [%s]\n",msg_put_data,buffer);
+      printf("%s [%s]\n",_("Saving current run data..."),buffer);
    }
 
    /* first, save the easy stuff */
@@ -566,12 +566,12 @@ int restore_state()
    if (fp==NULL)
    {
       /* Previous run data not found... */
-      if (verbose>1) printf("%s\n",msg_no_data);
+      if (verbose>1) printf("%s\n",_("Previous run data not found..."));
       return 0;   /* return with ok code */
    }
 
    /* Reading previous run data... */
-   if (verbose>1) printf("%s %s\n",msg_get_data,state_fname);
+   if (verbose>1) printf("%s %s\n",_("Reading previous run data.."),state_fname);
 
    /* get easy stuff */
    sprintf(tmp_buf,"# Webalizer V%s    ",version);
@@ -678,7 +678,7 @@ int restore_state()
       {
          if (verbose)
          /* Error adding URL node, skipping ... */
-         fprintf(stderr,"%s %s\n", msg_nomem_u, t_unode.string);
+         fprintf(stderr,"%s %s\n", _("Error adding URL node, skipping"), t_unode.string);
       }
    }
 
@@ -719,7 +719,7 @@ int restore_state()
          t_hnode.visit+1,t_hnode.tstamp,t_hnode.lasturl,sm_htab))
       {
          /* Error adding host node (monthly), skipping .... */
-         if (verbose) fprintf(stderr,"%s %s\n",msg_nomem_mh, t_hnode.string);
+         if (verbose) fprintf(stderr,"%s %s\n",_("Error adding host node (monthly), skipping"), t_hnode.string);
       }
    }
 
@@ -760,7 +760,7 @@ int restore_state()
          t_hnode.visit+1,t_hnode.tstamp,t_hnode.lasturl,sd_htab))
       {
          /* Error adding host node (daily), skipping .... */
-         if (verbose) fprintf(stderr,"%s %s\n",msg_nomem_dh, t_hnode.string);
+         if (verbose) fprintf(stderr,"%s %s\n",_("Error adding host node (daily), skipping"), t_hnode.string);
       }
    }
 
@@ -785,7 +785,7 @@ int restore_state()
       if (put_rnode(tmp_buf,t_rnode.flag,
          t_rnode.count, &ul_bogus, rm_htab))
       {
-         if (verbose) fprintf(stderr,"%s %s\n", msg_nomem_r, log_rec.refer);
+         if (verbose) fprintf(stderr,"%s %s\n", _("Error adding Referrer node, skipping"), log_rec.refer);
       }
    }
 
@@ -810,7 +810,7 @@ int restore_state()
       if (put_anode(tmp_buf,t_anode.flag,t_anode.count,
          &ul_bogus,am_htab))
       {
-         if (verbose) fprintf(stderr,"%s %s\n", msg_nomem_a, log_rec.agent);
+         if (verbose) fprintf(stderr,"%s %s\n", _("Error adding User Agent node, skipping"), log_rec.agent);
       }
    }
 
@@ -834,7 +834,7 @@ int restore_state()
       /* insert node */
       if (put_snode(tmp_buf,t_snode.count,sr_htab))
       {
-         if (verbose) fprintf(stderr,"%s %s\n", msg_nomem_sc, t_snode.string);
+         if (verbose) fprintf(stderr,"%s %s\n", _("Error adding Search String Node, skipping"), t_snode.string);
       }
    }
 
@@ -867,7 +867,7 @@ int restore_state()
       {
          if (verbose)
          /* Error adding username node, skipping .... */
-         fprintf(stderr,"%s %s\n",msg_nomem_i, t_inode.string);
+         fprintf(stderr,"%s %s\n",_("Error adding Username node, skipping"), t_inode.string);
       }
    }
 

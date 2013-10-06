@@ -199,7 +199,7 @@ int dns_resolver(void *log_fp)
            DB_CREATE, 0644) != 0) )
    {
       /* Error: Unable to open DNS cache file <filename> */
-      if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nodb,dns_cache);
+      if (verbose) fprintf(stderr,"%s %s\n",_("Error: Unable to open DNS cache file"),dns_cache);
       dns_cache=NULL;
       dns_db=NULL;
       return 0;                  /* disable cache */
@@ -212,7 +212,7 @@ int dns_resolver(void *log_fp)
    if (fcntl(dns_fd,F_SETLK,&tmp_flock) < 0)    /* and barf if we cant lock */
    {
       /* Error: Unable to lock DNS cache file <filename> */
-      if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nolk,dns_cache);
+      if (verbose) fprintf(stderr,"%s %s\n",_("Error: Unable to lock DNS cache file"),dns_cache);
       dns_db->close(dns_db, 0);
       dns_cache=NULL;
       dns_db=NULL;
@@ -299,7 +299,7 @@ int dns_resolver(void *log_fp)
    if(!l_list)
    {
       /* No valid addresses found... */
-      if (verbose>1) printf("%s\n",msg_dns_none);
+      if (verbose>1) printf("%s\n",_("None to process"));
       tmp_flock.l_type=F_UNLCK;
       fcntl(dns_fd, F_SETLK, &tmp_flock);
       dns_db->close(dns_db, 0);
@@ -316,12 +316,12 @@ int dns_resolver(void *log_fp)
    if (time_me || (verbose>1))
    {
       if (verbose<2 && time_me) printf("DNS: ");
-      printf("%llu %s ",listEntries, msg_addresses);
+      printf("%llu %s ",listEntries, _("addresses"));
 
       /* total processing time in seconds */
       temp_time = difftime(end_time,start_time);
       if (temp_time==0) temp_time=1;
-      printf("%s %.0f %s", msg_in, temp_time, msg_seconds);
+      printf("%s %.0f %s", _("in"), temp_time, _("seconds"));
 
       /* calculate records per second */
       if (temp_time)
@@ -774,7 +774,7 @@ int open_cache()
            DB_RDONLY, 0644) != 0) )
    {
       /* Error: Unable to open DNS cache file <filename> */
-      if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nodb,dns_cache);
+      if (verbose) fprintf(stderr,"%s %s\n",_("Error: Unable to open DNS cache file"),dns_cache);
       return 0;                  /* disable cache */
    }
 
@@ -784,7 +784,7 @@ int open_cache()
    /* Get shared lock on cache file */
    if (fcntl(dns_fd, F_SETLK, &tmp_flock) < 0)
    {
-      if (verbose) fprintf(stderr,"%s %s\n",msg_dns_nolk,dns_cache);
+      if (verbose) fprintf(stderr,"%s %s\n",_("Error: Unable to lock DNS cache file"),dns_cache);
       dns_db->close(dns_db, 0);
       return 0;
    }
