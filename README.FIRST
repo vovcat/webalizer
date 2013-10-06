@@ -19,3 +19,11 @@ Report bugs to 'brad at mrunix dot net' with "Webalizer" somewhere
 in the subject. Please do not send HTML formatted e-mails or e-mail
 containing HTML tags as my mail server will reject them.  Thanks!
 
+###################  SUMMARY 05_apache_logio  ##########################
+
+##################
+# This Webalizer 2.01-10 patch intoduces necessary logic for presenting the
+# numbers collected by mod_logio in the reports. There are no special
+# configuration options required, just patch the Webalizer, configure it
+# with the options you prefer, build it, install it and use it.
+##################

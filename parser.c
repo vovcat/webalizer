@@ -199,6 +199,9 @@ int parse_record_ftp(char *buffer)
    /* return appropriate response code */
    log_rec.resp_code=(*(eob-2)=='i')?206:200;
 
+   /* don't worry about I/O bytes in FTP */
+   log_rec.ixfer_size=log_rec.oxfer_size=0;
+
    return 1;
 }
 
@@ -365,6 +368,18 @@ int parse_record_clf(char *buffer)
    while ( (*cp1 != '\0') && (cp1 != eos) ) *cp2++ = *cp1++;
    *cp2 = '\0';
 
+   /* IN xfer size */
+   while ( (*cp1 != '\0') && (cp1 < eob) ) cp1++;
+   if (cp1 < eob) cp1++;
+   if (*cp1<'0'||*cp1>'9') log_rec.ixfer_size=0;
+   else log_rec.ixfer_size = strtoul(cp1,NULL,10);
+
+   /* OUT xfer size */
+   while ( (*cp1 != '\0') && (cp1 < eob) ) cp1++;
+   if (cp1 < eob) cp1++;
+   if (*cp1<'0'||*cp1>'9') log_rec.oxfer_size=0;
+   else log_rec.oxfer_size = strtoul(cp1,NULL,10);
+
    return 1;     /* maybe a valid record, return with TRUE */
 }
 
@@ -500,6 +515,9 @@ int parse_record_squid(char *buffer)
 
    /* strip trailing space(s) */
    while (*cp2==' ') *cp2--='\0';
+
+   /* don't do this for squid */
+   log_rec.ixfer_size=log_rec.oxfer_size=0;
 
    /* we have no interest in the remaining fields */
    return 1;
