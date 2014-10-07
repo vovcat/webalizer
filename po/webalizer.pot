@@ -1,0 +1,2361 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-11-24 15:03+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: dns_resolv.c:123
+#, c-format
+msgid "Checking %s..."
+msgstr ""
+
+#: dns_resolv.c:133
+#, c-format
+msgid " found: %s (%ld)\n"
+msgstr ""
+
+#: dns_resolv.c:140
+#, c-format
+msgid " not found\n"
+msgstr ""
+
+#: dns_resolv.c:141
+#, c-format
+msgid " error (%d)\n"
+msgstr ""
+
+#: dns_resolv.c:202 dns_resolv.c:777
+msgid "Error: Unable to open DNS cache file"
+msgstr ""
+
+#: dns_resolv.c:215 dns_resolv.c:787
+msgid "Error: Unable to lock DNS cache file"
+msgstr ""
+
+#: dns_resolv.c:302
+msgid "None to process"
+msgstr ""
+
+#: dns_resolv.c:319
+msgid "addresses"
+msgstr ""
+
+#: dns_resolv.c:324 webalizer.c:1500
+msgid "in"
+msgstr ""
+
+#: dns_resolv.c:324 webalizer.c:1500
+msgid "seconds"
+msgstr ""
+
+#: dns_resolv.c:331
+#, c-format
+msgid ", %d/sec\n"
+msgstr ""
+
+#: dns_resolv.c:374
+#, c-format
+msgid "INPIPE creation error"
+msgstr ""
+
+#: dns_resolv.c:380
+#, c-format
+msgid "OUTPIPE creation error"
+msgstr ""
+
+#: dns_resolv.c:389
+#, c-format
+msgid "FORK error"
+msgstr ""
+
+#: dns_resolv.c:405
+msgid "read error"
+msgstr ""
+
+#: dns_resolv.c:428
+#, c-format
+msgid "Child %d getnameinfo bad hbuf!\n"
+msgstr ""
+
+#: dns_resolv.c:434
+#, c-format
+msgid "Child %d getnameinfo failed!\n"
+msgstr ""
+
+#: dns_resolv.c:439
+msgid "write error"
+msgstr ""
+
+#: dns_resolv.c:448
+#, c-format
+msgid "Child %d got closed input, shutting down\n"
+msgstr ""
+
+#: dns_resolv.c:493
+#, c-format
+msgid "Reaped Child %d\n"
+msgstr ""
+
+#: dns_resolv.c:522
+#, c-format
+msgid "Giving %d bytes to Child %d\n"
+msgstr ""
+
+#: dns_resolv.c:531
+msgid "Could not write to pipe"
+msgstr ""
+
+#: dns_resolv.c:560
+msgid "Error in select"
+msgstr ""
+
+#: dns_resolv.c:568
+#, c-format
+msgid "tick\n"
+msgstr ""
+
+#: dns_resolv.c:603
+#, c-format
+msgid "Child %d wants to be reaped\n"
+msgstr ""
+
+#: dns_resolv.c:616
+#, c-format
+msgid "Child %d Got a result: %s -> %s\n"
+msgstr ""
+
+#: dns_resolv.c:623
+#, c-format
+msgid "Child %d could not resolve: %s (%s)\n"
+msgstr ""
+
+#: dns_resolv.c:632
+#, c-format
+msgid "Child %d back in task pool\n"
+msgstr ""
+
+#: dns_resolv.c:724
+#, c-format
+msgid "db_put fail!\n"
+msgstr ""
+
+#: graphs.c:143 graphs.c:147 graphs.c:149 graphs.c:473 graphs.c:476
+#: graphs.c:478 output.c:715 output.c:806 output.c:925 output.c:937
+#: output.c:1039 output.c:1131 output.c:1143 output.c:1268 output.c:1901
+#: output.c:1998 output.c:2225 output.c:2301 output.c:2345 output.c:2466
+#: output.c:2623
+msgid "kB F"
+msgstr ""
+
+#: graphs.c:144 graphs.c:153 graphs.c:155 graphs.c:474 graphs.c:482
+#: graphs.c:484 output.c:716 output.c:807 output.c:939 output.c:1039
+#: output.c:1146 output.c:1268 output.c:1903 output.c:1998 output.c:2227
+#: output.c:2301 output.c:2345 output.c:2466 output.c:2625
+msgid "kB In"
+msgstr ""
+
+#: graphs.c:145 graphs.c:159 graphs.c:161 graphs.c:488 graphs.c:490
+#: output.c:717 output.c:808 output.c:941 output.c:1039 output.c:1149
+#: output.c:1268 output.c:1905 output.c:1998 output.c:2229 output.c:2301
+#: output.c:2346 output.c:2466 output.c:2627
+msgid "kB Out"
+msgstr ""
+
+#: graphs.c:164 graphs.c:167 graphs.c:169 graphs.c:501 graphs.c:503
+#: output.c:547 output.c:713 output.c:943 output.c:1040 output.c:1374
+#: output.c:1907 output.c:1999 output.c:2301 output.c:2466 output.c:2619
+#: output.c:2629
+msgid "Visits"
+msgstr ""
+
+#: graphs.c:165 graphs.c:173 graphs.c:175 graphs.c:493 graphs.c:495
+#: graphs.c:497 output.c:490 output.c:714 output.c:1032 output.c:2621
+msgid "Sites"
+msgstr ""
+
+#: graphs.c:178 graphs.c:181 graphs.c:183 graphs.c:506 graphs.c:510
+#: graphs.c:512 graphs.c:718 graphs.c:722 graphs.c:724 output.c:543
+#: output.c:712 output.c:805 output.c:2617 output.c:2631
+msgid "Pages"
+msgstr ""
+
+#: graphs.c:179 graphs.c:187 graphs.c:189 graphs.c:507 graphs.c:516
+#: graphs.c:518 graphs.c:719 graphs.c:728 graphs.c:730 output.c:711
+#: output.c:804 output.c:935 output.c:1039 output.c:1899 output.c:1998
+#: output.c:2223 output.c:2301 output.c:2466 output.c:2615 output.c:2633
+msgid "Files"
+msgstr ""
+
+#: graphs.c:193 graphs.c:195 graphs.c:508 graphs.c:522 graphs.c:524
+#: graphs.c:720 graphs.c:734 graphs.c:736 output.c:710 output.c:803
+#: output.c:933 output.c:1039 output.c:1140 output.c:1268 output.c:1371
+#: output.c:1466 output.c:1551 output.c:1631 output.c:1705 output.c:1778
+#: output.c:1841 output.c:1897 output.c:1998 output.c:2221 output.c:2301
+#: output.c:2345 output.c:2387 output.c:2426 output.c:2466 output.c:2510
+#: output.c:2613 output.c:2635
+msgid "Hits"
+msgstr ""
+
+#: graphs.c:378 graphs.c:656 graphs.c:782 graphs.c:888 output.c:2570
+#: output.c:2592 output.c:3075 output.c:3084 preserve.c:169 preserve.c:339
+msgid "Error: Unable to open file"
+msgstr ""
+
+#: graphs.c:873 lang2.h:432
+msgid "Other"
+msgstr ""
+
+#: hashtab.c:118 hashtab.c:316 hashtab.c:450 hashtab.c:570 hashtab.c:687
+#: hashtab.c:792 hashtab.c:970 linklist.c:109 linklist.c:166
+msgid "Warning: String exceeds storage size"
+msgstr ""
+
+#: lang2.h:40
+msgid "-h        = print this help message"
+msgstr ""
+
+#: lang2.h:41
+msgid "-V        = print version information"
+msgstr ""
+
+#: lang2.h:42
+msgid "-v        = be verbose"
+msgstr ""
+
+#: lang2.h:43
+msgid "-d        = print additional debug info"
+msgstr ""
+
+#: lang2.h:44
+msgid "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
+msgstr ""
+
+#: lang2.h:45
+msgid "-f        = Fold sequence errors"
+msgstr ""
+
+#: lang2.h:46
+msgid "-i        = ignore history file"
+msgstr ""
+
+#: lang2.h:47
+msgid "-p        = preserve state (incremental)"
+msgstr ""
+
+#: lang2.h:48
+msgid "-b        = ignore state (incremental)"
+msgstr ""
+
+#: lang2.h:49
+msgid "-q        = suppress informational messages"
+msgstr ""
+
+#: lang2.h:50
+msgid "-Q        = suppress _ALL_ messages"
+msgstr ""
+
+#: lang2.h:51
+msgid "-Y        = suppress country graph"
+msgstr ""
+
+#: lang2.h:52
+msgid "-G        = suppress hourly graph"
+msgstr ""
+
+#: lang2.h:53
+msgid "-H        = suppress hourly stats"
+msgstr ""
+
+#: lang2.h:54
+msgid "-L        = suppress color coded graph legends"
+msgstr ""
+
+#: lang2.h:55
+msgid "-l num    = use num background lines on graph"
+msgstr ""
+
+#: lang2.h:56
+msgid "-m num    = Visit timeout value (seconds)"
+msgstr ""
+
+#: lang2.h:57
+msgid "-T        = print timing information"
+msgstr ""
+
+#: lang2.h:58
+msgid "-c file   = use configuration file 'file'"
+msgstr ""
+
+#: lang2.h:59
+msgid "-n name   = hostname to use"
+msgstr ""
+
+#: lang2.h:60
+msgid "-o dir    = output directory to use"
+msgstr ""
+
+#: lang2.h:61
+msgid "-t name   = report title 'name'"
+msgstr ""
+
+#: lang2.h:62
+msgid "-a name   = hide user agent 'name'"
+msgstr ""
+
+#: lang2.h:63
+msgid "-r name   = hide referrer 'name'"
+msgstr ""
+
+#: lang2.h:64
+msgid "-s name   = hide site 'name'"
+msgstr ""
+
+#: lang2.h:65
+msgid "-u name   = hide URL 'name'"
+msgstr ""
+
+#: lang2.h:66
+msgid "-x name   = Use filename extension 'name'"
+msgstr ""
+
+#: lang2.h:67
+msgid "-O name   = Omit page 'name'"
+msgstr ""
+
+#: lang2.h:68
+msgid "-P name   = Page type extension 'name'"
+msgstr ""
+
+#: lang2.h:69
+msgid "-I name   = Index alias 'name'"
+msgstr ""
+
+#: lang2.h:70
+msgid "-K num    = num months in summary table"
+msgstr ""
+
+#: lang2.h:71
+msgid "-k num    = num months in summary graph"
+msgstr ""
+
+#: lang2.h:72
+msgid "-A num    = Display num top agents"
+msgstr ""
+
+#: lang2.h:73
+msgid "-C num    = Display num top countries"
+msgstr ""
+
+#: lang2.h:74
+msgid "-R num    = Display num top referrers"
+msgstr ""
+
+#: lang2.h:75
+msgid "-S num    = Display num top sites"
+msgstr ""
+
+#: lang2.h:76
+msgid "-U num    = Display num top URLs"
+msgstr ""
+
+#: lang2.h:77
+msgid "-e num    = Display num top Entry Pages"
+msgstr ""
+
+#: lang2.h:78
+msgid "-E num    = Display num top Exit Pages"
+msgstr ""
+
+#: lang2.h:79
+msgid "-g num    = Group Domains to 'num' levels"
+msgstr ""
+
+#: lang2.h:80
+msgid "-X        = Hide individual sites"
+msgstr ""
+
+#: lang2.h:81
+msgid "-z dir    = Use country flags in 'dir'"
+msgstr ""
+
+#: lang2.h:83
+msgid "-D name   = Use DNS Cache file 'name'"
+msgstr ""
+
+#: lang2.h:84
+msgid "-N num    = Number of DNS processes (0=disable)"
+msgstr ""
+
+#: lang2.h:85
+msgid "-j        = Enable native GeoDB lookups"
+msgstr ""
+
+#: lang2.h:86
+msgid "-J name   = Use GeoDB database 'name'"
+msgstr ""
+
+#: lang2.h:89
+msgid "-w        = Enable GeoIP lookups"
+msgstr ""
+
+#: lang2.h:90
+msgid "-W name   = Use GeoIP database 'name'"
+msgstr ""
+
+#: lang2.h:95
+msgid "Feb"
+msgstr ""
+
+#: lang2.h:95
+msgid "Jan"
+msgstr ""
+
+#: lang2.h:95
+msgid "Mar"
+msgstr ""
+
+#: lang2.h:96
+msgid "Apr"
+msgstr ""
+
+#: lang2.h:96
+msgid "Jun"
+msgstr ""
+
+#: lang2.h:96
+msgid "short|May"
+msgstr ""
+
+#: lang2.h:97
+msgid "Aug"
+msgstr ""
+
+#: lang2.h:97
+msgid "Jul"
+msgstr ""
+
+#: lang2.h:97
+msgid "Sep"
+msgstr ""
+
+#: lang2.h:98
+msgid "Dec"
+msgstr ""
+
+#: lang2.h:98
+msgid "Nov"
+msgstr ""
+
+#: lang2.h:98
+msgid "Oct"
+msgstr ""
+
+#: lang2.h:101
+msgid "February"
+msgstr ""
+
+#: lang2.h:101
+msgid "January"
+msgstr ""
+
+#: lang2.h:101
+msgid "March"
+msgstr ""
+
+#: lang2.h:102
+msgid "April"
+msgstr ""
+
+#: lang2.h:102
+msgid "June"
+msgstr ""
+
+#: lang2.h:102
+msgid "long|May"
+msgstr ""
+
+#: lang2.h:103
+msgid "August"
+msgstr ""
+
+#: lang2.h:103
+msgid "July"
+msgstr ""
+
+#: lang2.h:103
+msgid "September"
+msgstr ""
+
+#: lang2.h:104
+msgid "December"
+msgstr ""
+
+#: lang2.h:104
+msgid "November"
+msgstr ""
+
+#: lang2.h:104
+msgid "October"
+msgstr ""
+
+#: lang2.h:108
+msgid "Undefined response code"
+msgstr ""
+
+#: lang2.h:109
+msgid "Code 100 - Continue"
+msgstr ""
+
+#: lang2.h:110
+msgid "Code 101 - Switching Protocols"
+msgstr ""
+
+#: lang2.h:111
+msgid "Code 200 - OK"
+msgstr ""
+
+#: lang2.h:112
+msgid "Code 201 - Created"
+msgstr ""
+
+#: lang2.h:113
+msgid "Code 202 - Accepted"
+msgstr ""
+
+#: lang2.h:114
+msgid "Code 203 - Non-Authoritative Information"
+msgstr ""
+
+#: lang2.h:115
+msgid "Code 204 - No Content"
+msgstr ""
+
+#: lang2.h:116
+msgid "Code 205 - Reset Content"
+msgstr ""
+
+#: lang2.h:117
+msgid "Code 206 - Partial Content"
+msgstr ""
+
+#: lang2.h:118
+msgid "Code 300 - Multiple Choices"
+msgstr ""
+
+#: lang2.h:119
+msgid "Code 301 - Moved Permanently"
+msgstr ""
+
+#: lang2.h:120
+msgid "Code 302 - Found"
+msgstr ""
+
+#: lang2.h:121
+msgid "Code 303 - See Other"
+msgstr ""
+
+#: lang2.h:122
+msgid "Code 304 - Not Modified"
+msgstr ""
+
+#: lang2.h:123
+msgid "Code 305 - Use Proxy"
+msgstr ""
+
+#: lang2.h:124
+msgid "Code 307 - Moved Temporarily"
+msgstr ""
+
+#: lang2.h:125
+msgid "Code 400 - Bad Request"
+msgstr ""
+
+#: lang2.h:126
+msgid "Code 401 - Unauthorized"
+msgstr ""
+
+#: lang2.h:127
+msgid "Code 402 - Payment Required"
+msgstr ""
+
+#: lang2.h:128
+msgid "Code 403 - Forbidden"
+msgstr ""
+
+#: lang2.h:129
+msgid "Code 404 - Not Found"
+msgstr ""
+
+#: lang2.h:130
+msgid "Code 405 - Method Not Allowed"
+msgstr ""
+
+#: lang2.h:131
+msgid "Code 406 - Not Acceptable"
+msgstr ""
+
+#: lang2.h:132
+msgid "Code 407 - Proxy Authentication Required"
+msgstr ""
+
+#: lang2.h:133
+msgid "Code 408 - Request Timeout"
+msgstr ""
+
+#: lang2.h:134
+msgid "Code 409 - Conflict"
+msgstr ""
+
+#: lang2.h:135
+msgid "Code 410 - Gone"
+msgstr ""
+
+#: lang2.h:136
+msgid "Code 411 - Length Required"
+msgstr ""
+
+#: lang2.h:137
+msgid "Code 412 - Precondition Failed"
+msgstr ""
+
+#: lang2.h:138
+msgid "Code 413 - Request Entity Too Large"
+msgstr ""
+
+#: lang2.h:139
+msgid "Code 414 - Request-URI Too Long"
+msgstr ""
+
+#: lang2.h:140
+msgid "Code 415 - Unsupported Media Type"
+msgstr ""
+
+#: lang2.h:141
+msgid "Code 416 - Requested Range Not Satisfiable"
+msgstr ""
+
+#: lang2.h:142
+msgid "Code 417 - Expectation Failed"
+msgstr ""
+
+#: lang2.h:143
+msgid "Code 500 - Internal Server Error"
+msgstr ""
+
+#: lang2.h:144
+msgid "Code 501 - Not Implemented"
+msgstr ""
+
+#: lang2.h:145
+msgid "Code 502 - Bad Gateway"
+msgstr ""
+
+#: lang2.h:146
+msgid "Code 503 - Service Unavailable"
+msgstr ""
+
+#: lang2.h:147
+msgid "Code 504 - Gateway Timeout"
+msgstr ""
+
+#: lang2.h:148
+msgid "Code 505 - HTTP Version Not Supported"
+msgstr ""
+
+#: lang2.h:155
+msgid "Unresolved/Unknown"
+msgstr ""
+
+#: lang2.h:156
+msgid "Commercial (com)"
+msgstr ""
+
+#: lang2.h:157
+msgid "Educational (edu)"
+msgstr ""
+
+#: lang2.h:158
+msgid "US Government (gov)"
+msgstr ""
+
+#: lang2.h:159
+msgid "International (int)"
+msgstr ""
+
+#: lang2.h:160
+msgid "US Military (mil)"
+msgstr ""
+
+#: lang2.h:161
+msgid "Network (net)"
+msgstr ""
+
+#: lang2.h:162
+msgid "Non-Profit (org)"
+msgstr ""
+
+#: lang2.h:163
+msgid "Generic Business (biz)"
+msgstr ""
+
+#: lang2.h:164
+msgid "Catalan Community (cat)"
+msgstr ""
+
+#: lang2.h:165
+msgid "Professional (pro)"
+msgstr ""
+
+#: lang2.h:166
+msgid "Ind. Contact Data (tel)"
+msgstr ""
+
+#: lang2.h:167
+msgid "Air Transport Industry (aero)"
+msgstr ""
+
+#: lang2.h:168
+msgid "Asia Pacific Community (asia)"
+msgstr ""
+
+#: lang2.h:169
+msgid "Cooperative Association (coop)"
+msgstr ""
+
+#: lang2.h:170
+msgid "Generic TLD (info)"
+msgstr ""
+
+#: lang2.h:171
+msgid "Human Resources (jobs)"
+msgstr ""
+
+#: lang2.h:172
+msgid "Generic Mobile TLD (mobi)"
+msgstr ""
+
+#: lang2.h:173
+msgid "Individual (name)"
+msgstr ""
+
+#: lang2.h:174
+msgid "Address Routing (arpa)"
+msgstr ""
+
+#: lang2.h:175
+msgid "Nato field (nato)"
+msgstr ""
+
+#: lang2.h:176
+msgid "Museums (museum)"
+msgstr ""
+
+#: lang2.h:177
+msgid "Travel Ind. (travel)"
+msgstr ""
+
+#: lang2.h:178
+msgid "Ascension Island"
+msgstr ""
+
+#: lang2.h:179
+msgid "Andorra"
+msgstr ""
+
+#: lang2.h:180
+msgid "United Arab Emirates"
+msgstr ""
+
+#: lang2.h:181
+msgid "Afghanistan"
+msgstr ""
+
+#: lang2.h:182
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: lang2.h:183
+msgid "Anguilla"
+msgstr ""
+
+#: lang2.h:184
+msgid "Albania"
+msgstr ""
+
+#: lang2.h:185
+msgid "Armenia"
+msgstr ""
+
+#: lang2.h:186
+msgid "Netherlands Antilles"
+msgstr ""
+
+#: lang2.h:187
+msgid "Angola"
+msgstr ""
+
+#: lang2.h:188
+msgid "Antarctica"
+msgstr ""
+
+#: lang2.h:189
+msgid "Argentina"
+msgstr ""
+
+#: lang2.h:190
+msgid "American Samoa"
+msgstr ""
+
+#: lang2.h:191
+msgid "Austria"
+msgstr ""
+
+#: lang2.h:192
+msgid "Australia"
+msgstr ""
+
+#: lang2.h:193
+msgid "Aruba"
+msgstr ""
+
+#: lang2.h:194
+msgid "Aland Islands"
+msgstr ""
+
+#: lang2.h:195
+msgid "Azerbaijan"
+msgstr ""
+
+#: lang2.h:196
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: lang2.h:197
+msgid "Barbados"
+msgstr ""
+
+#: lang2.h:198
+msgid "Bangladesh"
+msgstr ""
+
+#: lang2.h:199
+msgid "Belgium"
+msgstr ""
+
+#: lang2.h:200
+msgid "Burkina Faso"
+msgstr ""
+
+#: lang2.h:201
+msgid "Bulgaria"
+msgstr ""
+
+#: lang2.h:202
+msgid "Bahrain"
+msgstr ""
+
+#: lang2.h:203
+msgid "Burundi"
+msgstr ""
+
+#: lang2.h:204
+msgid "Benin"
+msgstr ""
+
+#: lang2.h:205
+msgid "Saint Barthelemy"
+msgstr ""
+
+#: lang2.h:206
+msgid "Bermuda"
+msgstr ""
+
+#: lang2.h:207
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: lang2.h:208
+msgid "Bolivia"
+msgstr ""
+
+#: lang2.h:209
+msgid "Brazil"
+msgstr ""
+
+#: lang2.h:210
+msgid "Bahamas"
+msgstr ""
+
+#: lang2.h:211
+msgid "Bhutan"
+msgstr ""
+
+#: lang2.h:212
+msgid "Bouvet Island"
+msgstr ""
+
+#: lang2.h:213
+msgid "Botswana"
+msgstr ""
+
+#: lang2.h:214
+msgid "Belarus"
+msgstr ""
+
+#: lang2.h:215
+msgid "Belize"
+msgstr ""
+
+#: lang2.h:216
+msgid "Canada"
+msgstr ""
+
+#: lang2.h:217
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: lang2.h:218
+msgid "Congo, Democratic Republic"
+msgstr ""
+
+#: lang2.h:219
+msgid "Central African Republic"
+msgstr ""
+
+#: lang2.h:220
+msgid "Congo"
+msgstr ""
+
+#: lang2.h:221
+msgid "Switzerland"
+msgstr ""
+
+#: lang2.h:222
+msgid "Cote D'Ivoire (Ivory Coast)"
+msgstr ""
+
+#: lang2.h:223
+msgid "Cook Islands"
+msgstr ""
+
+#: lang2.h:224
+msgid "Chile"
+msgstr ""
+
+#: lang2.h:225
+msgid "Cameroon"
+msgstr ""
+
+#: lang2.h:226
+msgid "China"
+msgstr ""
+
+#: lang2.h:227
+msgid "Colombia"
+msgstr ""
+
+#: lang2.h:228
+msgid "Costa Rica"
+msgstr ""
+
+#: lang2.h:229
+msgid "Cuba"
+msgstr ""
+
+#: lang2.h:230
+msgid "Cape Verde"
+msgstr ""
+
+#: lang2.h:231
+msgid "Christmas Island"
+msgstr ""
+
+#: lang2.h:232
+msgid "Cyprus"
+msgstr ""
+
+#: lang2.h:233
+msgid "Czech Republic"
+msgstr ""
+
+#: lang2.h:234
+msgid "Germany"
+msgstr ""
+
+#: lang2.h:235
+msgid "Djibouti"
+msgstr ""
+
+#: lang2.h:236
+msgid "Denmark"
+msgstr ""
+
+#: lang2.h:237
+msgid "Dominica"
+msgstr ""
+
+#: lang2.h:238
+msgid "Dominican Republic"
+msgstr ""
+
+#: lang2.h:239
+msgid "Algeria"
+msgstr ""
+
+#: lang2.h:240
+msgid "Ecuador"
+msgstr ""
+
+#: lang2.h:241
+msgid "Estonia"
+msgstr ""
+
+#: lang2.h:242
+msgid "Egypt"
+msgstr ""
+
+#: lang2.h:243
+msgid "Western Sahara"
+msgstr ""
+
+#: lang2.h:244
+msgid "Eritrea"
+msgstr ""
+
+#: lang2.h:245
+msgid "Spain"
+msgstr ""
+
+#: lang2.h:246
+msgid "Ethiopia"
+msgstr ""
+
+#: lang2.h:247
+msgid "European Union"
+msgstr ""
+
+#: lang2.h:248
+msgid "Finland"
+msgstr ""
+
+#: lang2.h:249
+msgid "Fiji"
+msgstr ""
+
+#: lang2.h:250
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: lang2.h:251
+msgid "Micronesia"
+msgstr ""
+
+#: lang2.h:252
+msgid "Faroe Islands"
+msgstr ""
+
+#: lang2.h:253
+msgid "France"
+msgstr ""
+
+#: lang2.h:254
+msgid "Gabon"
+msgstr ""
+
+#: lang2.h:255
+msgid "Great Britain (UK)"
+msgstr ""
+
+#: lang2.h:256
+msgid "Grenada"
+msgstr ""
+
+#: lang2.h:257
+msgid "Georgia"
+msgstr ""
+
+#: lang2.h:258
+msgid "French Guiana"
+msgstr ""
+
+#: lang2.h:259
+msgid "Guernsey"
+msgstr ""
+
+#: lang2.h:260
+msgid "Ghana"
+msgstr ""
+
+#: lang2.h:261
+msgid "Gibraltar"
+msgstr ""
+
+#: lang2.h:262
+msgid "Greenland"
+msgstr ""
+
+#: lang2.h:263
+msgid "Gambia"
+msgstr ""
+
+#: lang2.h:264
+msgid "Guinea"
+msgstr ""
+
+#: lang2.h:265
+msgid "Guadeloupe"
+msgstr ""
+
+#: lang2.h:266
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: lang2.h:267
+msgid "Greece"
+msgstr ""
+
+#: lang2.h:268
+msgid "S. Georgia and S. Sandwich Isls."
+msgstr ""
+
+#: lang2.h:269
+msgid "Guatemala"
+msgstr ""
+
+#: lang2.h:270
+msgid "Guam"
+msgstr ""
+
+#: lang2.h:271
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: lang2.h:272
+msgid "Guyana"
+msgstr ""
+
+#: lang2.h:273
+msgid "Hong Kong"
+msgstr ""
+
+#: lang2.h:274
+msgid "Heard and McDonald Islands"
+msgstr ""
+
+#: lang2.h:275
+msgid "Honduras"
+msgstr ""
+
+#: lang2.h:276
+msgid "Croatia"
+msgstr ""
+
+#: lang2.h:277
+msgid "Haiti"
+msgstr ""
+
+#: lang2.h:278
+msgid "Hungary"
+msgstr ""
+
+#: lang2.h:279
+msgid "Indonesia"
+msgstr ""
+
+#: lang2.h:280
+msgid "Ireland"
+msgstr ""
+
+#: lang2.h:281
+msgid "Israel"
+msgstr ""
+
+#: lang2.h:282
+msgid "Isle of Man"
+msgstr ""
+
+#: lang2.h:283
+msgid "India"
+msgstr ""
+
+#: lang2.h:284
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: lang2.h:285
+msgid "Iraq"
+msgstr ""
+
+#: lang2.h:286
+msgid "Iran"
+msgstr ""
+
+#: lang2.h:287
+msgid "Iceland"
+msgstr ""
+
+#: lang2.h:288
+msgid "Italy"
+msgstr ""
+
+#: lang2.h:289
+msgid "Jersey"
+msgstr ""
+
+#: lang2.h:290
+msgid "Jamaica"
+msgstr ""
+
+#: lang2.h:291
+msgid "Jordan"
+msgstr ""
+
+#: lang2.h:292
+msgid "Japan"
+msgstr ""
+
+#: lang2.h:293
+msgid "Kenya"
+msgstr ""
+
+#: lang2.h:294
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: lang2.h:295
+msgid "Cambodia"
+msgstr ""
+
+#: lang2.h:296
+msgid "Kiribati"
+msgstr ""
+
+#: lang2.h:297
+msgid "Comoros"
+msgstr ""
+
+#: lang2.h:298
+msgid "Saint Kitts and Nevis"
+msgstr ""
+
+#: lang2.h:299
+msgid "Korea, Democratic Republic of"
+msgstr ""
+
+#: lang2.h:300
+msgid "Korea, Republic of"
+msgstr ""
+
+#: lang2.h:301
+msgid "Kuwait"
+msgstr ""
+
+#: lang2.h:302
+msgid "Cayman Islands"
+msgstr ""
+
+#: lang2.h:303
+msgid "Kazakhstan"
+msgstr ""
+
+#: lang2.h:304
+msgid "Laos"
+msgstr ""
+
+#: lang2.h:305
+msgid "Lebanon"
+msgstr ""
+
+#: lang2.h:306
+msgid "Saint Lucia"
+msgstr ""
+
+#: lang2.h:307
+msgid "Liechtenstein"
+msgstr ""
+
+#: lang2.h:308
+msgid "Sri Lanka"
+msgstr ""
+
+#: lang2.h:309
+msgid "Liberia"
+msgstr ""
+
+#: lang2.h:310
+msgid "Lesotho"
+msgstr ""
+
+#: lang2.h:311
+msgid "Lithuania"
+msgstr ""
+
+#: lang2.h:312
+msgid "Luxembourg"
+msgstr ""
+
+#: lang2.h:313
+msgid "Latvia"
+msgstr ""
+
+#: lang2.h:314
+msgid "Libya"
+msgstr ""
+
+#: lang2.h:315
+msgid "Morocco"
+msgstr ""
+
+#: lang2.h:316
+msgid "Monaco"
+msgstr ""
+
+#: lang2.h:317
+msgid "Moldova"
+msgstr ""
+
+#: lang2.h:318
+msgid "Montenegro"
+msgstr ""
+
+#: lang2.h:319
+msgid "Saint Martin (French part)"
+msgstr ""
+
+#: lang2.h:320
+msgid "Madagascar"
+msgstr ""
+
+#: lang2.h:321
+msgid "Marshall Islands"
+msgstr ""
+
+#: lang2.h:322
+msgid "Macedonia"
+msgstr ""
+
+#: lang2.h:323
+msgid "Mali"
+msgstr ""
+
+#: lang2.h:324
+msgid "Myanmar"
+msgstr ""
+
+#: lang2.h:325
+msgid "Mongolia"
+msgstr ""
+
+#: lang2.h:326
+msgid "Macau"
+msgstr ""
+
+#: lang2.h:327
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: lang2.h:328
+msgid "Martinique"
+msgstr ""
+
+#: lang2.h:329
+msgid "Mauritania"
+msgstr ""
+
+#: lang2.h:330
+msgid "Montserrat"
+msgstr ""
+
+#: lang2.h:331
+msgid "Malta"
+msgstr ""
+
+#: lang2.h:332
+msgid "Mauritius"
+msgstr ""
+
+#: lang2.h:333
+msgid "Maldives"
+msgstr ""
+
+#: lang2.h:334
+msgid "Malawi"
+msgstr ""
+
+#: lang2.h:335
+msgid "Mexico"
+msgstr ""
+
+#: lang2.h:336
+msgid "Malaysia"
+msgstr ""
+
+#: lang2.h:337
+msgid "Mozambique"
+msgstr ""
+
+#: lang2.h:338
+msgid "Namibia"
+msgstr ""
+
+#: lang2.h:339
+msgid "New Caledonia"
+msgstr ""
+
+#: lang2.h:340
+msgid "Niger"
+msgstr ""
+
+#: lang2.h:341
+msgid "Norfolk Island"
+msgstr ""
+
+#: lang2.h:342
+msgid "Nigeria"
+msgstr ""
+
+#: lang2.h:343
+msgid "Nicaragua"
+msgstr ""
+
+#: lang2.h:344
+msgid "Netherlands"
+msgstr ""
+
+#: lang2.h:345
+msgid "Norway"
+msgstr ""
+
+#: lang2.h:346
+msgid "Nepal"
+msgstr ""
+
+#: lang2.h:347
+msgid "Nauru"
+msgstr ""
+
+#: lang2.h:348
+msgid "Niue"
+msgstr ""
+
+#: lang2.h:349
+msgid "New Zealand"
+msgstr ""
+
+#: lang2.h:350
+msgid "Oman"
+msgstr ""
+
+#: lang2.h:351
+msgid "Panama"
+msgstr ""
+
+#: lang2.h:352
+msgid "Peru"
+msgstr ""
+
+#: lang2.h:353
+msgid "French Polynesia"
+msgstr ""
+
+#: lang2.h:354
+msgid "Papua New Guinea"
+msgstr ""
+
+#: lang2.h:355
+msgid "Philippines"
+msgstr ""
+
+#: lang2.h:356
+msgid "Pakistan"
+msgstr ""
+
+#: lang2.h:357
+msgid "Poland"
+msgstr ""
+
+#: lang2.h:358
+msgid "St. Pierre and Miquelon"
+msgstr ""
+
+#: lang2.h:359
+msgid "Pitcairn"
+msgstr ""
+
+#: lang2.h:360
+msgid "Puerto Rico"
+msgstr ""
+
+#: lang2.h:361
+msgid "Palestinian Territory, Occupied"
+msgstr ""
+
+#: lang2.h:362
+msgid "Portugal"
+msgstr ""
+
+#: lang2.h:363
+msgid "Palau"
+msgstr ""
+
+#: lang2.h:364
+msgid "Paraguay"
+msgstr ""
+
+#: lang2.h:365
+msgid "Qatar"
+msgstr ""
+
+#: lang2.h:366
+msgid "Reunion"
+msgstr ""
+
+#: lang2.h:367
+msgid "Romania"
+msgstr ""
+
+#: lang2.h:368
+msgid "Serbia"
+msgstr ""
+
+#: lang2.h:369
+msgid "Russian Federation"
+msgstr ""
+
+#: lang2.h:370
+msgid "Rwanda"
+msgstr ""
+
+#: lang2.h:371
+msgid "Saudi Arabia"
+msgstr ""
+
+#: lang2.h:372
+msgid "Solomon Islands"
+msgstr ""
+
+#: lang2.h:373
+msgid "Seychelles"
+msgstr ""
+
+#: lang2.h:374
+msgid "Sudan"
+msgstr ""
+
+#: lang2.h:375
+msgid "Sweden"
+msgstr ""
+
+#: lang2.h:376
+msgid "Singapore"
+msgstr ""
+
+#: lang2.h:377
+msgid "St. Helena"
+msgstr ""
+
+#: lang2.h:378
+msgid "Slovenia"
+msgstr ""
+
+#: lang2.h:379
+msgid "Svalbard and Jan Mayen Islands"
+msgstr ""
+
+#: lang2.h:380
+msgid "Slovakia"
+msgstr ""
+
+#: lang2.h:381
+msgid "Sierra Leone"
+msgstr ""
+
+#: lang2.h:382
+msgid "San Marino"
+msgstr ""
+
+#: lang2.h:383
+msgid "Senegal"
+msgstr ""
+
+#: lang2.h:384
+msgid "Somalia"
+msgstr ""
+
+#: lang2.h:385
+msgid "Suriname"
+msgstr ""
+
+#: lang2.h:386
+msgid "Sao Tome and Principe"
+msgstr ""
+
+#: lang2.h:387
+msgid "Soviet Union"
+msgstr ""
+
+#: lang2.h:388
+msgid "El Salvador"
+msgstr ""
+
+#: lang2.h:389
+msgid "Syrian Arab Republic"
+msgstr ""
+
+#: lang2.h:390
+msgid "Swaziland"
+msgstr ""
+
+#: lang2.h:391
+msgid "Turks and Caicos Islands"
+msgstr ""
+
+#: lang2.h:392
+msgid "Chad"
+msgstr ""
+
+#: lang2.h:393
+msgid "French Southern Territories"
+msgstr ""
+
+#: lang2.h:394
+msgid "Togo"
+msgstr ""
+
+#: lang2.h:395
+msgid "Thailand"
+msgstr ""
+
+#: lang2.h:396
+msgid "Tajikistan"
+msgstr ""
+
+#: lang2.h:397
+msgid "Tokelau"
+msgstr ""
+
+#: lang2.h:398
+msgid "Timor-Leste"
+msgstr ""
+
+#: lang2.h:399
+msgid "Turkmenistan"
+msgstr ""
+
+#: lang2.h:400
+msgid "Tunisia"
+msgstr ""
+
+#: lang2.h:401
+msgid "Tonga"
+msgstr ""
+
+#: lang2.h:402
+msgid "Portuguese Timor"
+msgstr ""
+
+#: lang2.h:403
+msgid "Turkey"
+msgstr ""
+
+#: lang2.h:404
+msgid "Trinidad and Tobago"
+msgstr ""
+
+#: lang2.h:405
+msgid "Tuvalu"
+msgstr ""
+
+#: lang2.h:406
+msgid "Taiwan"
+msgstr ""
+
+#: lang2.h:407
+msgid "Tanzania"
+msgstr ""
+
+#: lang2.h:408
+msgid "Ukraine"
+msgstr ""
+
+#: lang2.h:409
+msgid "Uganda"
+msgstr ""
+
+#: lang2.h:410
+msgid "United Kingdom"
+msgstr ""
+
+#: lang2.h:411
+msgid "US Minor Outlying Islands"
+msgstr ""
+
+#: lang2.h:412
+msgid "United States"
+msgstr ""
+
+#: lang2.h:413
+msgid "Uruguay"
+msgstr ""
+
+#: lang2.h:414
+msgid "Uzbekistan"
+msgstr ""
+
+#: lang2.h:415
+msgid "Vatican City State (Holy See)"
+msgstr ""
+
+#: lang2.h:416
+msgid "Saint Vincent and the Grenadines"
+msgstr ""
+
+#: lang2.h:417
+msgid "Venezuela"
+msgstr ""
+
+#: lang2.h:418
+msgid "Virgin Islands (British)"
+msgstr ""
+
+#: lang2.h:419
+msgid "Virgin Islands (U.S.)"
+msgstr ""
+
+#: lang2.h:420
+msgid "Vietnam"
+msgstr ""
+
+#: lang2.h:421
+msgid "Vanuatu"
+msgstr ""
+
+#: lang2.h:422
+msgid "Wallis and Futuna Islands"
+msgstr ""
+
+#: lang2.h:423
+msgid "Samoa"
+msgstr ""
+
+#: lang2.h:424
+msgid "Yemen"
+msgstr ""
+
+#: lang2.h:425
+msgid "Mayotte"
+msgstr ""
+
+#: lang2.h:426
+msgid "Yugoslavia"
+msgstr ""
+
+#: lang2.h:427
+msgid "South Africa"
+msgstr ""
+
+#: lang2.h:428
+msgid "Zambia"
+msgstr ""
+
+#: lang2.h:429
+msgid "Zimbabwe"
+msgstr ""
+
+#: lang2.h:430
+msgid "Anonymous Proxy"
+msgstr ""
+
+#: lang2.h:431
+msgid "Satellite Provider"
+msgstr ""
+
+#: lang2.h:433
+msgid "Asia/Pacific Region"
+msgstr ""
+
+#: lang2.h:434
+msgid "Local Network (lan)"
+msgstr ""
+
+#: output.c:190
+msgid "en"
+msgstr ""
+
+#: output.c:192 output.c:218 output.c:2604
+msgid "Summary by Month"
+msgstr ""
+
+#: output.c:216
+msgid "Summary Period"
+msgstr ""
+
+#: output.c:219
+msgid "Generated"
+msgstr ""
+
+#: output.c:290
+msgid "Generating report for"
+msgstr ""
+
+#: output.c:302
+msgid "Daily usage for"
+msgstr ""
+
+#: output.c:320
+msgid "Hourly usage for"
+msgstr ""
+
+#: output.c:372
+msgid "Can't allocate enough memory, Top URLs disabled!"
+msgstr ""
+
+#: output.c:394
+msgid "Can't allocate enough memory, Top Sites disabled!"
+msgstr ""
+
+#: output.c:411
+msgid "Can't allocate enough memory, Top Referrers disabled!"
+msgstr ""
+
+#: output.c:428
+msgid "Can't allocate enough memory, Top Search Strings disabled!"
+msgstr ""
+
+#: output.c:445
+msgid "Can't allocate enough memory, Top Usernames disabled!"
+msgstr ""
+
+#: output.c:462
+msgid "Can't allocate enough memory, Top User Agents disabled!"
+msgstr ""
+
+#: output.c:480
+msgid "Daily Statistics"
+msgstr ""
+
+#: output.c:482
+msgid "Hourly Statistics"
+msgstr ""
+
+#: output.c:484
+msgid "URLs"
+msgstr ""
+
+#: output.c:486
+msgid "Entry"
+msgstr ""
+
+#: output.c:488
+msgid "Exit"
+msgstr ""
+
+#: output.c:492
+msgid "Referrers"
+msgstr ""
+
+#: output.c:494
+msgid "Search"
+msgstr ""
+
+#: output.c:496
+msgid "Users"
+msgstr ""
+
+#: output.c:498
+msgid "Agents"
+msgstr ""
+
+#: output.c:500
+msgid "Countries"
+msgstr ""
+
+#: output.c:530
+msgid "Monthly Statistics for"
+msgstr ""
+
+#: output.c:535
+msgid "Total Hits"
+msgstr ""
+
+#: output.c:539
+msgid "Total Files"
+msgstr ""
+
+#: output.c:543 output.c:547 output.c:813 output.c:818 output.c:823
+#: output.c:828 output.c:833 output.c:838
+msgid "Total"
+msgstr ""
+
+#: output.c:551
+msgid "Total kB Files"
+msgstr ""
+
+#: output.c:554
+msgid "Total kB In"
+msgstr ""
+
+#: output.c:557
+msgid "Total kB Out"
+msgstr ""
+
+#: output.c:564
+msgid "Total Unique Sites"
+msgstr ""
+
+#: output.c:569
+msgid "Total Unique URLs"
+msgstr ""
+
+#: output.c:575
+msgid "Total Unique Referrers"
+msgstr ""
+
+#: output.c:581
+msgid "Total Unique Usernames"
+msgstr ""
+
+#: output.c:587
+msgid "Total Unique User Agents"
+msgstr ""
+
+#: output.c:597 output.c:813 output.c:818 output.c:823 output.c:828
+#: output.c:833 output.c:838
+msgid "Avg"
+msgstr ""
+
+#: output.c:597
+msgid "Max"
+msgstr ""
+
+#: output.c:604
+msgid "Hits per Hour"
+msgstr ""
+
+#: output.c:610
+msgid "Hits per Day"
+msgstr ""
+
+#: output.c:616
+msgid "Files per Day"
+msgstr ""
+
+#: output.c:622
+msgid "Pages per Day"
+msgstr ""
+
+#: output.c:628
+msgid "Sites per Day"
+msgstr ""
+
+#: output.c:634
+msgid "Visits per Day"
+msgstr ""
+
+#: output.c:640
+msgid "kB Files per Day"
+msgstr ""
+
+#: output.c:646
+msgid "kB In per Day"
+msgstr ""
+
+#: output.c:652
+msgid "kB Out per Day"
+msgstr ""
+
+#: output.c:658
+msgid "Hits by Response Code"
+msgstr ""
+
+#: output.c:689
+msgid "Daily Statistics for"
+msgstr ""
+
+#: output.c:709
+msgid "Day"
+msgstr ""
+
+#: output.c:786
+msgid "Hourly Statistics for"
+msgstr ""
+
+#: output.c:802
+msgid "Hour"
+msgstr ""
+
+#: output.c:924 output.c:928 output.c:1130 output.c:1134 output.c:1363
+#: output.c:1459 output.c:1624 output.c:1771 output.c:1892 output.c:2216
+msgid "Top"
+msgstr ""
+
+#: output.c:924 output.c:928 output.c:1130 output.c:1134 output.c:1363
+#: output.c:1459 output.c:1624 output.c:1771 output.c:1892 output.c:2216
+msgid "of"
+msgstr ""
+
+#: output.c:925 output.c:1131
+msgid "By"
+msgstr ""
+
+#: output.c:925 output.c:928
+msgid "Total Sites"
+msgstr ""
+
+#: output.c:945 output.c:1040 output.c:2302
+msgid "Hostname"
+msgstr ""
+
+#: output.c:1004
+msgid "View All Sites"
+msgstr ""
+
+#: output.c:1131 output.c:1134
+msgid "Total URLs"
+msgstr ""
+
+#: output.c:1152 output.c:1262 output.c:1268 output.c:1377 output.c:2346
+msgid "URL"
+msgstr ""
+
+#: output.c:1234
+msgid "View All URLs"
+msgstr ""
+
+#: output.c:1364
+msgid "Total Entry Pages"
+msgstr ""
+
+#: output.c:1364
+msgid "Total Exit Pages"
+msgstr ""
+
+#: output.c:1459
+msgid "Total Referrers"
+msgstr ""
+
+#: output.c:1469 output.c:1546 output.c:1551 output.c:2387
+msgid "Referrer"
+msgstr ""
+
+#: output.c:1521
+msgid "View All Referrers"
+msgstr ""
+
+#: output.c:1624
+msgid "Total User Agents"
+msgstr ""
+
+#: output.c:1634 output.c:1700 output.c:1705 output.c:2426
+msgid "User Agent"
+msgstr ""
+
+#: output.c:1675
+msgid "View All User Agents"
+msgstr ""
+
+#: output.c:1771
+msgid "Total Search Strings"
+msgstr ""
+
+#: output.c:1781 output.c:1836 output.c:1841 output.c:2510
+msgid "Search String"
+msgstr ""
+
+#: output.c:1810
+msgid "View All Search Strings"
+msgstr ""
+
+#: output.c:1892
+msgid "Total Usernames"
+msgstr ""
+
+#: output.c:1909 output.c:1991 output.c:1999 output.c:2467
+msgid "Username"
+msgstr ""
+
+#: output.c:1966
+msgid "View All Usernames"
+msgstr ""
+
+#: output.c:2101
+#, c-format
+msgid "GeoDB: %s unknown!\n"
+msgstr ""
+
+#: output.c:2114
+#, c-format
+msgid "GeoIP: %s unknown (returns '%s')\n"
+msgstr ""
+
+#: output.c:2199
+msgid "Usage by Country for"
+msgstr ""
+
+#: output.c:2216
+msgid "Total Countries"
+msgstr ""
+
+#: output.c:2231
+msgid "Country"
+msgstr ""
+
+#: output.c:2550
+msgid "Generating summary report"
+msgstr ""
+
+#: output.c:2552
+msgid "Usage summary for"
+msgstr ""
+
+#: output.c:2584
+#, c-format
+msgid "Error: Failed to create .htaccess file: %s\n"
+msgstr ""
+
+#: output.c:2607
+msgid "Month"
+msgstr ""
+
+#: output.c:2609
+msgid "Daily Avg"
+msgstr ""
+
+#: output.c:2611
+msgid "Monthly Totals"
+msgstr ""
+
+#: output.c:2743
+msgid "Totals"
+msgstr ""
+
+#: parser.c:232 parser.c:426
+msgid "Warning: Truncating oversized hostname"
+msgstr ""
+
+#: parser.c:264
+msgid "Warning: Truncating oversized username"
+msgstr ""
+
+#: parser.c:286
+msgid "Warning: Truncating oversized date field"
+msgstr ""
+
+#: parser.c:311 parser.c:463 parser.c:492 webalizer.c:1005
+msgid "Warning: Truncating oversized request field"
+msgstr ""
+
+#: parser.c:355 webalizer.c:997
+msgid "Warning: Truncating oversized referrer field"
+msgstr ""
+
+#: preserve.c:78
+msgid "Reading history file..."
+msgstr ""
+
+#: preserve.c:89
+msgid "Error: Ignoring invalid history record"
+msgstr ""
+
+#: preserve.c:142
+msgid "History file not found..."
+msgstr ""
+
+#: preserve.c:182
+msgid "Saving history information..."
+msgstr ""
+
+#: preserve.c:222
+msgid "Error: Unable to write history file"
+msgstr ""
+
+#: preserve.c:353
+msgid "Saving current run data..."
+msgstr ""
+
+#: preserve.c:567
+msgid "Previous run data not found..."
+msgstr ""
+
+#: preserve.c:572
+msgid "Reading previous run data.."
+msgstr ""
+
+#: preserve.c:679 webalizer.c:1227 webalizer.c:1332
+msgid "Error adding URL node, skipping"
+msgstr ""
+
+#: preserve.c:720 webalizer.c:1272 webalizer.c:1347 webalizer.c:1365
+msgid "Error adding host node (monthly), skipping"
+msgstr ""
+
+#: preserve.c:761 webalizer.c:1261
+msgid "Error adding host node (daily), skipping"
+msgstr ""
+
+#: preserve.c:786 webalizer.c:1249 webalizer.c:1378
+msgid "Error adding Referrer node, skipping"
+msgstr ""
+
+#: preserve.c:811 webalizer.c:1282 webalizer.c:1389
+msgid "Error adding User Agent node, skipping"
+msgstr ""
+
+#: preserve.c:835 webalizer.c:2223
+msgid "Error adding Search String Node, skipping"
+msgstr ""
+
+#: preserve.c:868 webalizer.c:1238 webalizer.c:1404
+msgid "Error adding Username node, skipping"
+msgstr ""
+
+#: webalizer.c:326
+msgid "Usage Statistics for"
+msgstr ""
+
+#: webalizer.c:491 webalizer.c:1989
+msgid "locale"
+msgstr ""
+
+#: webalizer.c:497
+msgid "DNS support not present, aborting..."
+msgstr ""
+
+#: webalizer.c:514 webalizer.c:531 webalizer.c:542
+msgid "Error: Can't open log file"
+msgstr ""
+
+#: webalizer.c:551
+msgid "Using logfile"
+msgstr ""
+
+#: webalizer.c:572
+msgid "Error: Can't change directory to"
+msgstr ""
+
+#: webalizer.c:584
+msgid "No cache file specified, aborting..."
+msgstr ""
+
+#: webalizer.c:593
+msgid "DNS Lookup"
+msgstr ""
+
+#: webalizer.c:611
+msgid "Using DNS cache file"
+msgstr ""
+
+#: webalizer.c:621
+msgid "Error opening file"
+msgstr ""
+
+#: webalizer.c:622 webalizer.c:652
+msgid "default"
+msgstr ""
+
+#: webalizer.c:623 webalizer.c:647
+msgid "lookups disabled"
+msgstr ""
+
+#: webalizer.c:627 webalizer.c:650
+msgid "Using"
+msgstr ""
+
+#: webalizer.c:658
+msgid "Creating output in"
+msgstr ""
+
+#: webalizer.c:658
+msgid "current directory"
+msgstr ""
+
+#: webalizer.c:668
+msgid "Hostname for reports is"
+msgstr ""
+
+#: webalizer.c:671
+msgid "Ignoring previous history..."
+msgstr ""
+
+#: webalizer.c:680
+msgid "Error: Unable to restore run data"
+msgstr ""
+
+#: webalizer.c:689
+msgid "Can't allocate enough memory, Top Countries disabled!"
+msgstr ""
+
+#: webalizer.c:706
+msgid "Error: Skipping oversized log record"
+msgstr ""
+
+#: webalizer.c:766
+msgid "Error: Skipping record (bad date)"
+msgstr ""
+
+#: webalizer.c:1419
+msgid "Skipping Netscape header record"
+msgstr ""
+
+#: webalizer.c:1436
+msgid "Skipping bad record"
+msgstr ""
+
+#: webalizer.c:1471
+msgid "Error: Unable to save current run data"
+msgstr ""
+
+#: webalizer.c:1488
+msgid "records"
+msgstr ""
+
+#: webalizer.c:1491
+msgid "ignored"
+msgstr ""
+
+#: webalizer.c:1492 webalizer.c:1495
+msgid "bad"
+msgstr ""
+
+#: webalizer.c:1529
+msgid "No valid records found!"
+msgstr ""
+
+#: webalizer.c:1679
+msgid "Error: Unable to open configuration file"
+msgstr ""
+
+#: webalizer.c:1709 webalizer.c:1835 webalizer.c:1866 webalizer.c:1884
+msgid "Warning: Invalid keyword"
+msgstr ""
+
+#: webalizer.c:1972
+msgid "Usage"
+msgstr ""
+
+#: webalizer.c:1972
+msgid "[options] [log file]"
+msgstr ""
+
+#: webalizer.c:2008
+#, c-format
+msgid "Default GeoDB dir : %s\n"
+msgstr ""
+
+#: webalizer.c:2010
+#, c-format
+msgid "Default config dir: %s\n"
+msgstr ""
