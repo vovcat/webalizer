@@ -109,7 +109,7 @@ void get_history()
                         yr = hist[i].year;
                         mth= hist[i].month+1;
                         if (mth>12) { mth=1; yr++; }
-                        memcpy(&hist[0], &hist[1], sizeof(hist[0])*i);
+                        memmove(&hist[0], &hist[1], sizeof(hist[0])*i);
                         memset(&hist[i], 0, sizeof(struct hist_rec));
                         hist[i].year=yr; hist[i].month=mth; n--;
                     }
@@ -282,7 +282,7 @@ void update_history()
                   yr = hist[i].year;
                   mth= hist[i].month+1;
                   if (mth>12) { mth=1; yr++; }
-                  memcpy(&hist[0],&hist[1],sizeof(hist[0])*i);
+                  memmove(&hist[0],&hist[1],sizeof(hist[0])*i);
                   memset(&hist[i], 0, sizeof(struct hist_rec));
                   hist[i].year=yr; hist[i].month=mth; n--;
                }

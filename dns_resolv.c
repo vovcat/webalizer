@@ -886,7 +886,7 @@ char *geodb_get_cc(DB *db, char *ip, char *buf)
    /* kludge for IPv6 6to4 (RFC3056) */
    if (addr[0]==0x20 && addr[1]==0x02)
    {
-      memcpy(&addr[12],&addr[2],4);
+      memmove(&addr[12],&addr[2],4);
       memset(&addr,0,12);
    }
 
