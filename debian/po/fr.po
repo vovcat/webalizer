@@ -1,0 +1,117 @@
+# French translation for webalizer (debconf).
+# Copyright (C) 2004 Free Software Foundation, Inc.
+# Christian Perrier <bubulle@debian.org>, 2003
+# Gregory Colpart <reg@evolix.fr>, 2006
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer\n"
+"Report-Msgid-Bugs-To: webalizer@packages.debian.org\n"
+"POT-Creation-Date: 2013-11-17 23:24+0100\n"
+"PO-Revision-Date: 2006-11-29 21:53+0100\n"
+"Last-Translator: Gregory Colpart <reg@evolix.fr>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid "Upgrading from a version < 2.01.6"
+msgstr "Mise à niveau depuis une version inférieure à 2.01.6"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"ATTENTION : si vous mettez à niveau le programme depuis une version "
+"inférieure à 2.01.6, veuillez consulter /usr/share/doc/webalizer/README."
+"FIRST.gz pour obtenir des informations sur la méthode de mise à niveau de "
+"vos anciennes données."
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "Mise à niveau depuis une version inférieure à 2.01.10-30"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
+msgstr ""
+"ATTENTION : cette version déplace le fichier webalizer.conf vers le "
+"répertoire /etc/webalizer. De nouvelles fonctionnalités apparaissent "
+"également. Veuillez lire les fichiers README.FIRST.gz, README.gz et le "
+"nouveau fichier examples/sample.conf.gz situés dans le répertoire /usr/share/"
+"doc/webalizer."
+
+#. Type: string
+#. Description
+#: ../templates:3001
+msgid "Directory to put the output in:"
+msgstr "Répertoire où sera stockée la sortie de webalizer :"
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid "Generate a default configuration file ?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid ""
+"Note that webalizer always parses the default configuration, so if you plan "
+"on using more than one configuration or using the -c parameter, you probably "
+"want to say No here."
+msgstr ""
+
+#. Type: string
+#. Default
+#: ../templates:5001
+msgid "Usage Statistics for[ hostname will be appended ]"
+msgstr "Statistiques d'utilisation de"
+
+#. Type: string
+#. Description
+#: ../templates:5002
+msgid "Title of the reports webalizer will generate:"
+msgstr "Titre des rapports créés par webalizer :"
+
+#. Type: string
+#. Description
+#: ../templates:5002
+msgid "(your system's hostname will be appended to it)"
+msgstr "Le nom de votre machine sera ajouté à ce titre."
+
+#. Type: string
+#. Description
+#: ../templates:6001
+msgid "Webserver's rotated log filename:"
+msgstr "Nom du journal du serveur web après rotation :"
+
+#. Type: boolean
+#. Description
+#: ../templates:7001
+msgid "Enable DNSCache Option?"
+msgstr "Faut-il activer l'option DNSCache ?"
+
+#. Type: boolean
+#. Description
+#: ../templates:7001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
+"Choisir l'option DNSCache accélère la résolution de noms. Veuillez lire le "
+"fichier /usr/share/doc/webalizer/DNS.README.gz pour plus d'informations."
