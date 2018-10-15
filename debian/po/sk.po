@@ -1,0 +1,118 @@
+# Slovak translations for webalizer package
+# Slovenské preklady pre balík webalizer.
+# Copyright (C) 2012 THE webalizer'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the webalizer package.
+# Slavko <linux@slavino.sk>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer 2.23.05-1\n"
+"Report-Msgid-Bugs-To: webalizer@packages.debian.org\n"
+"POT-Creation-Date: 2013-11-17 23:24+0100\n"
+"PO-Revision-Date: 2012-09-26 21:27+0200\n"
+"Last-Translator: Slavko <linux@slavino.sk>\n"
+"Language-Team: slovenčina <debian-l10n-slovak@lists.debian.org>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-POFile-SpellExtra: rotovaného sample 01 DNS etc webalizer share gz\n"
+"X-POFile-SpellExtra: examples 10-30 usr conf README DNSCache FIRST\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid "Upgrading from a version < 2.01.6"
+msgstr "Aktualizácia z verzie < 2.01.6"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"VAROVANIE: Ak aktualizujete z verzie < 2.01.6, prečítajte si podrobnosti o "
+"aktualizácii svojich starých dát v /usr/share/doc/webalizer/README.FIRST.gz!!"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "Aktualizácia z verzie < 2.01.10-30"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
+msgstr ""
+"VAROVANIE: Táto verzia presunie súbor webalizer.conf do adresára /etc/"
+"webalizer. Obsahuje aj nové vlastnosti. Prosím, prečítajte si README.FIRST."
+"gz, README.gz a nové examples/sample.conf.gz v adresári /usr/share/doc/"
+"webalizer."
+
+#. Type: string
+#. Description
+#: ../templates:3001
+msgid "Directory to put the output in:"
+msgstr "Adresár na umiestnenie výstupu:"
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid "Generate a default configuration file ?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid ""
+"Note that webalizer always parses the default configuration, so if you plan "
+"on using more than one configuration or using the -c parameter, you probably "
+"want to say No here."
+msgstr ""
+
+#. Type: string
+#. Default
+#: ../templates:5001
+msgid "Usage Statistics for[ hostname will be appended ]"
+msgstr "Štatistiky použitia pre [ bude pridané meno hostiteľa ]"
+
+#. Type: string
+#. Description
+#: ../templates:5002
+msgid "Title of the reports webalizer will generate:"
+msgstr "Nadpis hlásení, ktoré bude webalizer generovať:"
+
+#. Type: string
+#. Description
+#: ../templates:5002
+msgid "(your system's hostname will be appended to it)"
+msgstr "(bude pripojené meno hostiteľa vášho systému)"
+
+#. Type: string
+#. Description
+#: ../templates:6001
+msgid "Webserver's rotated log filename:"
+msgstr "Meno súboru rotovaného záznamu webového servera:"
+
+#. Type: boolean
+#. Description
+#: ../templates:7001
+msgid "Enable DNSCache Option?"
+msgstr "Zapnúť voľbu DNSCache?"
+
+#. Type: boolean
+#. Description
+#: ../templates:7001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
+"Zapnutie zrýchlenia prekladu mien pomocou voľby DNSCache. Ďalšie informácie "
+"v hľadajte  /usr/share/doc/webalizer/DNS.README.gz."

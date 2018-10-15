@@ -1,0 +1,44 @@
+Template: webalizer/upgrading
+Type: note
+_Description: Upgrading from a version < 2.01.6
+ WARNING: If you're upgrading from a version < 2.01.6, see
+ /usr/share/doc/webalizer/README.FIRST.gz for details on upgrading your old
+ data!!
+
+Template: webalizer/upgrade2011030
+Type: note
+_Description: Upgrading from a version < 2.01.10-30
+ WARNING: This release will move webalizer.conf file to /etc/webalizer
+ directory.  New features have been included, too. Please read README.FIRST.gz,
+ README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer directory.
+
+Template: webalizer/directory
+Type: string
+Default: /var/www/webalizer
+_Description: Directory to put the output in:
+
+Template: webalizer/create_conf
+Type: boolean
+Default: true
+_Description: Generate a default configuration file ?
+ Note that webalizer always parses the default configuration, so if you plan
+ on using more than one configuration or using the -c parameter, you probably
+ want to say No here.
+
+Template: webalizer/doc_title
+Type: string
+_Default: Usage Statistics for[ hostname will be appended ]
+_Description: Title of the reports webalizer will generate:
+ (your system's hostname will be appended to it)
+
+Template: webalizer/logfile
+Type: string
+Default: /var/log/apache/access.log.1
+_Description: Webserver's rotated log filename:
+
+Template: webalizer/dnscache
+Type: boolean
+Default: false
+_Description: Enable DNSCache Option?
+ Speed up name resolving with the DNSCache option enabled. See
+ /usr/share/doc/webalizer/DNS.README.gz for more information.
