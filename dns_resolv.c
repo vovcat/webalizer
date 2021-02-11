@@ -78,11 +78,11 @@ DBC      *geo_dbc  = NULL;                     /* GeoDB database cursor    */
 
 struct   dns_child child[MAXCHILD];            /* DNS child pipe data      */
 
-DNODEPTR host_table[MAXHASH];                  /* hostname/ip hash table   */
+extern DNODEPTR host_table[MAXHASH];           /* hostname/ip hash table   */
 
-char     buffer[BUFSIZE];                      /* log file record buffer   */
-char     tmp_buf[BUFSIZE];                     /* used to temp save above  */
-struct   utsname system_info;                  /* system info structure    */
+extern char     buffer[BUFSIZE];               /* log file record buffer   */
+extern char     tmp_buf[BUFSIZE];              /* used to temp save above  */
+extern struct   utsname system_info;           /* system info structure    */
 
 int      raiseSigChild = 1;
 
