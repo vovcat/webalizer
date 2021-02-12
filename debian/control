@@ -1,0 +1,26 @@
+Source: webalizer
+Priority: optional
+Section: web
+Maintainer: Julien Viard de Galbert <julien@vdg.blogsite.org>
+Uploaders: Felipe Augusto van de Wiel (faw) <faw@debian.org>
+Build-Depends: debhelper (>= 10), libgd-dev, libfreetype6-dev, libpng-dev, libdb-dev (>= 4.7), zlib1g-dev, gettext, po-debconf, libgeoip-dev, autoconf
+Standards-Version: 4.1.2
+Homepage: http://www.mrunix.net/webalizer/
+#Vcs-Git: https://anonscm.debian.org/git/collab-maint/webalizer.git
+#Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/webalizer.git/
+
+Package: webalizer
+Architecture: any
+Recommends: geoip-database
+Suggests: httpd, fonts-dejavu-core | fonts-freefont-ttf
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Pre-Depends: debconf (>= 1.4.58) | debconf-2.0
+Description: web server log analysis program
+ The Webalizer was designed to scan web server log files in various formats
+ and produce usage statistics in HTML format for viewing through a browser.
+ The Webalizer produces yearly, monthly, daily and hourly statistics.  In
+ the monthly reports, various statistics may be produced to show overall
+ usage, usage by day and hour, usage by visiting sites, URLs, user agents
+ (browsers), referrers and country.  The Webalizer is highly configurable by
+ use of either command line options or a configuration file, allowing the
+ program to be tailored to individual needs easily.

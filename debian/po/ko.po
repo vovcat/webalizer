@@ -1,0 +1,122 @@
+# Korean translation of webalizer debconf templates.
+# Copyright (C) 2011 - 2012 min-ji Kang(justminji@gmail.com)
+# This file is distributed under the same license as the webalizer package.
+# min-ji Kang <justminji@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: debconf template\n"
+"Report-Msgid-Bugs-To: webalizer@packages.debian.org\n"
+"POT-Creation-Date: 2013-11-17 23:24+0100\n"
+"PO-Revision-Date: 2011-06-24 18:39+0900\n"
+"Last-Translator: 강민지 <justminji@gmail.com>\n"
+"Language-Team: opensource <justminji@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Korean\n"
+"X-Poedit-Country: KOREA, REPUBLIC OF\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid "Upgrading from a version < 2.01.6"
+msgstr "<2.01.6버전에서 업그레이드 하세요."
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"경고:<2.01.6 버전에서 업그레이드 할 경우, 당신의 기존 데이터의 업그레이드에 "
+"대한 자세한 내용은 /usr/공유/문서/webalizer/README.FIRST.gz를 참조하세요."
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "<2.01.10-30 버전에서 업그레이드 하세요."
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
+msgstr ""
+"경고:이 릴리스는 /etc/wenalizer 디렉토리에서 webalizer.conf 파일을 이동합니"
+"다. 새로운 기능도 포함되었습니다.  README.FIRST.gz, README.gz 그리고 /usr/공"
+"유/문서/webalizer 디렉토리의 새로운 예제/ sample.conf.gz을 읽어보시기 바랍니"
+"다."
+
+#. Type: string
+#. Description
+#: ../templates:3001
+msgid "Directory to put the output in:"
+msgstr "출력을 넣은 디렉토리:"
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid "Generate a default configuration file ?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid ""
+"Note that webalizer always parses the default configuration, so if you plan "
+"on using more than one configuration or using the -c parameter, you probably "
+"want to say No here."
+msgstr ""
+
+#. Type: string
+#. Default
+#: ../templates:5001
+#, fuzzy
+#| msgid "(your system's hostname will be appended to it)"
+msgid "Usage Statistics for[ hostname will be appended ]"
+msgstr "(당신의 시스템의 호스트 이름이 추가됩니다)"
+
+#. Type: string
+#. Description
+#: ../templates:5002
+msgid "Title of the reports webalizer will generate:"
+msgstr "리포트 webalizer의 제목을 생성합니다:"
+
+#. Type: string
+#. Description
+#: ../templates:5002
+msgid "(your system's hostname will be appended to it)"
+msgstr "(당신의 시스템의 호스트 이름이 추가됩니다)"
+
+#. Type: string
+#. Description
+#: ../templates:6001
+msgid "Webserver's rotated log filename:"
+msgstr "웹서버의 회전된 로그 파일 이름:"
+
+#. Type: boolean
+#. Description
+#: ../templates:7001
+msgid "Enable DNSCache Option?"
+msgstr "DNSCache 옵션을 설정합니까?"
+
+#. Type: boolean
+#. Description
+#: ../templates:7001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
+"DNSCache 옵션 해결과 함께 이름도 빨리 정하세요. 자세한 내용은 /usr/공유/doc/"
+"webalizer/DNS.README.gz를 참조하세요."
+
+#~ msgid "Usage Statistics for"
+#~ msgstr "사용 통계"
