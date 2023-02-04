@@ -1,0 +1,114 @@
+# Czech translation for webalizer (debconf).
+# Copyright 2005 Free Software Foundation, Inc.
+# Miroslav Kure <kurem@debian.cz>, 2005, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: webalizer\n"
+"Report-Msgid-Bugs-To: webalizer@packages.debian.org\n"
+"POT-Creation-Date: 2013-11-17 23:24+0100\n"
+"PO-Revision-Date: 2006-11-17 15:20+0100\n"
+"Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
+"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid "Upgrading from a version < 2.01.6"
+msgstr "Přechod z verze < 2.01.6"
+
+#. Type: note
+#. Description
+#: ../templates:1001
+msgid ""
+"WARNING: If you're upgrading from a version < 2.01.6, see /usr/share/doc/"
+"webalizer/README.FIRST.gz for details on upgrading your old data!!"
+msgstr ""
+"VAROVÁNÍ: Přecházíte-li z verze < 2.01.6, přečtěte si soubor /usr/share/doc/"
+"webalizer/README.FIRST.gz, kde naleznete podrobnosti o aktualizaci svých "
+"starých dat!"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid "Upgrading from a version < 2.01.10-30"
+msgstr "Přechod z verze < 2.01.10-30"
+
+#. Type: note
+#. Description
+#: ../templates:2001
+msgid ""
+"WARNING: This release will move webalizer.conf file to /etc/webalizer  "
+"directory.  New features have been included, too. Please read README.FIRST."
+"gz, README.gz and new examples/sample.conf.gz in /usr/share/doc/webalizer "
+"directory."
+msgstr ""
+"VAROVÁNÍ: Tato verze přesune soubor webalizer.conf do adresáře /etc/"
+"webalizer. V této verzi je mnoho nových vlastností. Projděte si prosím "
+"README.FIRST.gz, README.gz a examples/sample.conf.gz v adresáři /usr/share/"
+"doc/webalizer."
+
+#. Type: string
+#. Description
+#: ../templates:3001
+msgid "Directory to put the output in:"
+msgstr "Adresář, do kterého se má ukládat výstup:"
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid "Generate a default configuration file ?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid ""
+"Note that webalizer always parses the default configuration, so if you plan "
+"on using more than one configuration or using the -c parameter, you probably "
+"want to say No here."
+msgstr ""
+
+#. Type: string
+#. Default
+#: ../templates:5001
+msgid "Usage Statistics for[ hostname will be appended ]"
+msgstr "Statistika využívání na"
+
+#. Type: string
+#. Description
+#: ../templates:5002
+msgid "Title of the reports webalizer will generate:"
+msgstr "Titulek zpráv, které bude webalizer vytvářet:"
+
+#. Type: string
+#. Description
+#: ../templates:5002
+msgid "(your system's hostname will be appended to it)"
+msgstr "(k titulku bude připojeno jméno počítače)"
+
+#. Type: string
+#. Description
+#: ../templates:6001
+msgid "Webserver's rotated log filename:"
+msgstr "Jméno souboru s logem webového serveru:"
+
+#. Type: boolean
+#. Description
+#: ../templates:7001
+msgid "Enable DNSCache Option?"
+msgstr "Povolit volbu DNSCache?"
+
+#. Type: boolean
+#. Description
+#: ../templates:7001
+msgid ""
+"Speed up name resolving with the DNSCache option enabled. See /usr/share/doc/"
+"webalizer/DNS.README.gz for more information."
+msgstr ""
+"Volbou DNSCache se urychlí překlad jmen. Více informací naleznete v souboru /"
+"usr/share/doc/webalizer/DNS.README.gz."
