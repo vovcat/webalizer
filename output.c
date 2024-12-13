@@ -1199,34 +1199,35 @@ void top_urls_table(int flag)
 
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
-   if (flag) fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=%d>"  \
-           "%s %ju %s %ju %s %s %s</TH></TR>\n",
-           GREY,(dump_inout==0)?6:10,_("Top"),tot_num,_("of"),
-           t_url,_("Total URLs"),_("By"),_("kB F"));
-   else fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=%d>"   \
-           "%s %ju %s %ju %s</TH></TR>\n",
-           GREY,(dump_inout==0)?6:10,_("Top"),tot_num,_("of"),t_url,_("Total URLs"));
+
+   if (flag) fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=%d>"
+           "%s %ju %s %ju %s %s %s</TH></TR>\n", GREY,(dump_inout==0)?6:10,
+           _("Top"),tot_num,_("of"), t_url,_("Total URLs"),_("By"),_("kB F"));
+   else fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=%d>"
+           "%s %ju %s %ju %s</TH></TR>\n", GREY,(dump_inout==0)?6:10,
+           _("Top"),tot_num,_("of"),t_url,_("Total URLs"));
+
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
-   fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                  \
+   fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"
                   "<FONT SIZE=\"-1\">#</FONT></TH>\n",GREY);
-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
+   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"
                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
                   HITCOLOR,_("Hits"));
-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"            \
+   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"
                   "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
                   KBYTECOLOR,_("kB F"));
    if (dump_inout!=0)
    {
-      fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"         \
+      fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"
 		     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
 		     IKBYTECOLOR,_("kB In"));
-      fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"         \
+      fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center COLSPAN=2>"
 		     "<FONT SIZE=\"-1\">%s</FONT></TH>\n",
 		     OKBYTECOLOR,_("kB Out"));
    }
-   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                      \
+   fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"
                   "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",
-                  MISCCOLOR,_("URL"));
+                  MISCCOLOR, _("URL"));
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
    pointer=u_array; i=0;
@@ -1238,7 +1239,8 @@ void top_urls_table(int flag)
          /* shade grouping? */
          if (shade_groups && (uptr->flag==OBJ_GRP))
             fprintf(out_fp,"<TR BGCOLOR=\"%s\">\n", GRPCOLOR);
-         else fprintf(out_fp,"<TR>\n");
+         else
+            fprintf(out_fp,"<TR>\n");
 
          fprintf(out_fp,
             "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
@@ -1268,38 +1270,32 @@ void top_urls_table(int flag)
 	       (t_oxfer==0)?0:((float)uptr->oxfer/t_oxfer)*100.0);
 	 }
 
-         if (uptr->flag==OBJ_GRP)
-         {
+         if (uptr->flag==OBJ_GRP) {
             if (hlite_groups)
-               fprintf(out_fp,"<STRONG>%s</STRONG></FONT></TD></TR>\n",
-                uptr->string);
-            else fprintf(out_fp,"%s</FONT></TD></TR>\n",uptr->string);
-         }
-         else
-	 {
+               fprintf(out_fp,"<STRONG>%.100s</STRONG>", uptr->string);
+            else
+               fprintf(out_fp, "%.100s", uptr->string);
+         } else {
             /* check for a service prefix (ie: http://) */
-            if (strstr(uptr->string,"://")!=NULL)
-               fprintf(out_fp,"<A HREF=\"%s\">%s</A></FONT></TD></TR>\n",
-                 uptr->string,uptr->string);
-	    else
-            {
-               if (log_type == LOG_FTP) /* FTP log? */
-                   fprintf(out_fp,"%s</FONT></TD></TR>\n",uptr->string);
-               else
-               {             /* Web log  */
+            if (strstr(uptr->string,"://")!=NULL) {
+               fprintf(out_fp, "<A HREF=\"%s\">%.100s</A>",
+                  uptr->string, uptr->string);
+	    } else {
+               if (log_type == LOG_FTP) { /* FTP log? */
+                   fprintf(out_fp, "%.100s",  uptr->string);
+               } else {                   /* Web log  */
                   if (use_https)
                      /* secure server mode, use https:// */
-                     fprintf(out_fp,
-                     "<A HREF=\"https://%s%s\">%s</A></FONT></TD></TR>\n",
-                      hname,uptr->string,uptr->string);
-                   else
-                      /* otherwise use standard 'http://' */
-                      fprintf(out_fp,
-                      "<A HREF=\"http://%s%s\">%s</A></FONT></TD></TR>\n",
-                      hname,uptr->string,uptr->string);
+                     fprintf(out_fp, "<A HREF=\"https://%s%s\">%.100s</A>",
+                        hname,uptr->string,uptr->string);
+                  else
+                     /* otherwise use standard 'http://' */
+                     fprintf(out_fp, "<A HREF=\"http://%s%s\">%.100s</A>",
+                        hname,uptr->string,uptr->string);
                }
             }
 	 }
+         fprintf(out_fp, "</FONT></TD></TR>\n");
          tot_num--;
          i++;
       }
@@ -1499,29 +1495,26 @@ void top_entry_table(int flag)
                    :((t_entry==0)?0:((float)uptr->entry/t_entry)*100.0));
 
          /* check for a service prefix (ie: http://) */
-         if (strstr(uptr->string,"://")!=NULL)
-          fprintf(out_fp,
-             "<A HREF=\"%s\">%s</A></FONT></TD></TR>\n",
-              uptr->string,uptr->string);
-	 else
-         {
+         if (strstr(uptr->string,"://") != NULL) {
+            fprintf(out_fp, "<A HREF=\"%s\">%.100s</A>",
+               uptr->string, uptr->string);
+	 } else {
             if (use_https)
-            /* secure server mode, use https:// */
-             fprintf(out_fp,
-                "<A HREF=\"https://%s%s\">%s</A></FONT></TD></TR>\n",
-                 hname,uptr->string,uptr->string);
+               /* secure server mode, use https:// */
+               fprintf(out_fp, "<A HREF=\"https://%s%s\">%.100s</A>",
+                  hname, uptr->string, uptr->string);
             else
-            /* otherwise use standard 'http://' */
-             fprintf(out_fp,
-                "<A HREF=\"http://%s%s\">%s</A></FONT></TD></TR>\n",
-                 hname,uptr->string,uptr->string);
+               /* otherwise use standard 'http://' */
+               fprintf(out_fp, "<A HREF=\"http://%s%s\">%.100s</A>",
+                  hname, uptr->string, uptr->string);
 	 }
+         fprintf(out_fp, "</FONT></TD></TR>\n");
          tot_num--;
          i++;
       }
    }
-   fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
-   fprintf(out_fp,"</TABLE>\n<P>\n");
+   fprintf(out_fp, "<TR><TH HEIGHT=4></TH></TR>\n");
+   fprintf(out_fp, "</TABLE>\n<P>\n");
 }
 
 /*********************************************/
@@ -1570,8 +1563,8 @@ void top_refs_table()
           MISCCOLOR,_("Referrer"));
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
 
-   pointer=r_array; i=0;
-   while(tot_num)
+   pointer = r_array; i = 0;
+   while (tot_num)
    {
       rptr=*pointer++;
       if (rptr->flag != OBJ_HIDE)
@@ -1599,10 +1592,10 @@ void top_refs_table()
          {
             /* only link if enabled and has a service prefix */
             if ( (strstr(rptr->string,"://")!=NULL) && link_referrer )
-               fprintf(out_fp,"<A HREF=\"%s\" rel=\"nofollow\">%s</A>",
+               fprintf(out_fp,"<A HREF=\"%s\" rel=\"nofollow\">%.100s</A>",
                        rptr->string, rptr->string);
             else
-               fprintf(out_fp,"%s", rptr->string);
+               fprintf(out_fp,"%.100s", rptr->string);
          }
          fprintf(out_fp,"</FONT></TD></TR>\n");
          tot_num--;
