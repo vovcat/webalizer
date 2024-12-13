@@ -2433,50 +2433,72 @@ char *get_domain(char *str)
 /* AGENT_MANGLE - Re-format user agent       */
 /*********************************************/
 
+#define INCLUDED(cp1) (			\
+    strncmp(cp1, "Linux", 5) &&		\
+    strncmp(cp1, "Mobile", 6) &&	\
+    strncmp(cp1, "Version", 7) &&	\
+    strncmp(cp1, "Language/", 9) &&	\
+    strncmp(cp1, "Process/", 8) &&	\
+    strncmp(cp1, "NetType/", 8) &&	\
+    strncmp(cp1, "TBS/", 4) &&		\
+    strncmp(cp1, "SA/", 3) &&		\
+    1					\
+)
+
 void agent_mangle(char *str)
 {
-   char *cp1, *cp2, *cp3;
+   char *cp0 = log_rec.agent, *cp1, *cp2 = cp0, *cp3 = cp2 + strlen(cp2);
 
-   str=cp2=log_rec.agent;
-   cp1=strstr(str,"ompatible"); /* check known fakers */
-   if (cp1!=NULL)
-   {
-      while (*cp1!=';'&&*cp1!='\0') cp1++;
+   str = cp2;
+   if (str[0] == '"') str++;
+   if (cp3 > str && *--cp3 == '"') *cp3 = '\0';
+
+   if ((cp1 = strstr(str, "compatible")) != NULL) { /* check known fakers */
+      while (*cp1 != ';' && *cp1) cp1++;
       /* kludge for Mozilla/3.01 (compatible;) */
-      if (*cp1++==';' && strcmp(cp1,")\""))  /* success! */
-      {
+      if (*cp1++ == ';' && strcmp(cp1, ")\"") != 0) { /* success! */
          /* Opera can hide as MSIE */
-         cp3=strstr(str,"Opera");
-         if (cp3!=NULL)
-         {
-            while (*cp3!='.'&&*cp3!='\0')
-            {
-               if(*cp3=='/') *cp2++=' ';
-               else *cp2++=*cp3;
+         if ((cp3 = strstr(str, "Opera")) != NULL) {
+            while (*cp3!='.'&&*cp3!='\0') {
+               if (*cp3 == '/') *cp2++ = ' ';
+               else *cp2++ = *cp3;
                cp3++;
             }
-            cp1=cp3;
+            cp1 = cp3;
+         } else {
+            // "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)"
+            // "Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/Robots/2.0; +https://help.mail.ru/webmaster/indexing/robots)"
+            // "Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.0; +https://openai.com/gptbot)"
+            while (*cp1 == ' ') cp1++; // eat spaces
+            if ((cp3 = strchr(cp1, ')')) != NULL) *cp3 = '\0';
+            cp3 = cp1;
+            char *found = NULL;
+            while ((cp1 = strsep(&cp3, ";")) != NULL) {
+               while (*cp1 == ' ') cp1++; // eat spaces
+               if (strchr("AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789_", *cp1) && INCLUDED(cp1)) {
+                  found = cp1;
+                  break; // find first
+               }
+            }
+            cp1 = found ? found : str + strlen(str);
+            while (*cp1 && !strchr(";()\"/ .", *cp1)) *cp2++ = *cp1++;
          }
-         else
-         {
-            while (*cp1 == ' ') cp1++; /* eat spaces */
-            while (*cp1!='.'&&*cp1!='\0'&&*cp1!=';') *cp2++=*cp1++;
+         if (mangle_agent < 5) {
+            if (*cp1 == ' ') *cp1 = '/';
+            if (*cp1 == '/') *cp2++ = *cp1++;
+            while (*cp1 && !strchr(";()\" .", *cp1)) *cp2++ = *cp1++;
          }
-         if (mangle_agent<5)
-         {
-            while (*cp1!='.'&&*cp1!=';'&&*cp1!='\0') *cp2++=*cp1++;
-            if (*cp1!=';'&&*cp1!='\0') { *cp2++=*cp1++; *cp2++=*cp1++; }
+         if (mangle_agent < 4) {
+            //while (*cp1 >= '0' && *cp1 <= '9') *cp2++ = *cp1++;
+            while (*cp1 && !strchr(";()\" ", *cp1)) *cp2++ = *cp1++;
          }
-         if (mangle_agent<4)
-            if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
-         if (mangle_agent<3)
-            while (*cp1!=';'&&*cp1!='\0'&&*cp1!='('&&*cp1!=' ') *cp2++=*cp1++;
-         if (mangle_agent<2)
-         {
+         if (mangle_agent < 3) {
+            while (*cp1 && *cp1 != ';' && *cp1!='(' && *cp1 != ' ') *cp2++ = *cp1++;
+         }
+         if (mangle_agent < 2) {
             /* Level 1 - try to get OS */
-            cp1=strstr(cp1,")");
-            if (cp1!=NULL)
-            {
+            cp1 = strstr(cp1,")");
+            if (cp1 != NULL) {
                *cp2++=' ';
                *cp2++='(';
                while (*cp1!=';'&&*cp1!='('&&cp1!=str) cp1--;
@@ -2487,27 +2509,19 @@ void agent_mangle(char *str)
             }
          }
          *cp2='\0';
-      }
-      else
-      {
+      } else {
          /* nothing after "compatible", should we mangle? */
          /* not for now */
       }
-   }
-   else
-   {
-      cp1=strstr(str,"Opera");  /* Opera flavor         */
-      if (cp1!=NULL)
-      {
+   } else if ((cp1 = strstr(str, "Opera")) != NULL) { /* Opera flavor */
+         //printf("[+] opr %s\n", cp1);
          while (*cp1!='/'&&*cp1!=' '&&*cp1!='\0') *cp2++=*cp1++;
-         while (*cp1!='.'&&*cp1!='\0')
-         {
+         while (*cp1!='.'&&*cp1!='\0') {
             if(*cp1=='/') *cp2++=' ';
             else *cp2++=*cp1;
             cp1++;
          }
-         if (mangle_agent<5)
-         {
+         if (mangle_agent<5) {
             while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
             *cp2++=*cp1++;
             *cp2++=*cp1++;
@@ -2516,11 +2530,9 @@ void agent_mangle(char *str)
             if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
          if (mangle_agent<3)
             while (*cp1!=' '&&*cp1!='\0'&&*cp1!='(') *cp2++=*cp1++;
-         if (mangle_agent<2)
-         {
+         if (mangle_agent<2) {
             cp1=strstr(cp1,"(");
-            if (cp1!=NULL)
-            {
+            if (cp1!=NULL) {
                cp1++;
                *cp2++=' ';
                *cp2++='(';
@@ -2528,42 +2540,65 @@ void agent_mangle(char *str)
                *cp2++=')';
             }
          }
-         *cp2='\0';
-      }
-      else
-      {
-         cp1=strstr(str,"Mozilla");  /* Netscape flavor      */
-         if (cp1!=NULL)
-         {
-            while (*cp1!='/'&&*cp1!=' '&&*cp1!='\0') *cp2++=*cp1++;
-            if (*cp1==' ') *cp1='/';
-            while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
-            if (mangle_agent<5)
-            {
-               while (*cp1!='.'&&*cp1!='\0') *cp2++=*cp1++;
-               *cp2++=*cp1++;
-               *cp2++=*cp1++;
+         *cp2 = '\0';
+   } else if (strncmp(cp1 = str, "Mozilla", 7) == 0) { /* Netscape flavor */
+         // "Mozilla/5.0 (Windows NT 10.0; WOW64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 OPR/70.0.3728.95"
+         // "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/600.2.5 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5 (Amazonbot/0.1; +https://developer.amazon.com/support/amazonbot)"
+         //printf("[+] mzl %s\n", cp1);
+         while (*cp1 && !strchr(";()\"/ .", *cp1)) *cp2++ = *cp1++;
+         if (mangle_agent < 5) {
+            if (*cp1 == '/') *cp2++ = *cp1++;
+            while (*cp1 && !strchr(";()\" .", *cp1)) *cp2++ = *cp1++;
+         }
+         if (mangle_agent < 4) {
+            while (*cp1 && !strchr(";()\" ", *cp1)) *cp2++ = *cp1++;
+         }
+         if (mangle_agent < 3) {
+            while (*cp1 && *cp1 != ';' && *cp1!='(' && *cp1 != ' ') *cp2++ = *cp1++;
+         }
+         if (mangle_agent < 2) { /* Level 1 - Try to get OS */
+            if ((cp1 = strstr(cp1, "(")) != NULL) {
+               cp1++; *cp2++ =' '; *cp2 ++ ='(';
+               while (*cp1 && !strchr(";()\"", *cp1)) *cp2++ = *cp1++;
+               *cp2++ = ')';
             }
-            if (mangle_agent<4)
-               if (*cp1>='0'&&*cp1<='9') *cp2++=*cp1++;
-            if (mangle_agent<3)
-               while (*cp1!=' '&&*cp1!='\0'&&*cp1!='(') *cp2++=*cp1++;
-            if (mangle_agent<2)
-            {
-               /* Level 1 - Try to get OS */
-               cp1=strstr(cp1,"(");
-               if (cp1!=NULL)
-               {
-                  cp1++;
-                  *cp2++=' ';
-                  *cp2++='(';
-                  while (*cp1!=';'&&*cp1!=')'&&*cp1!='\0') *cp2++=*cp1++;
-                  *cp2++=')';
+         }
+         if ((cp1 = strstr(cp1, ")")) != NULL) {
+            cp3 = ++cp1;
+            char *found = NULL;
+            while ((cp1 = strsep(&cp3, " ()")) != NULL) {
+               if (strchr("AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789_", *cp1) &&
+                   INCLUDED(cp1) && strchr(cp1, '/')) {
+                  //printf("mz+ %s\n", cp1);
+                  found = cp1;
                }
             }
-            *cp2='\0';
+            if (found) {
+                cp1 = found; cp2 = cp0;
+                while (*cp1 && !strchr(";()\"/ .", *cp1))*cp2++ = *cp1++;
+                if (mangle_agent < 5) {
+                   if (*cp1 == '/') *cp2++ = *cp1++;
+                   while (*cp1 && !strchr(";()\"/ .", *cp1)) *cp2++ = *cp1++;
+                }
+                if (mangle_agent < 4) {
+                   while (*cp1 && !strchr(";()\"/ ", *cp1)) *cp2++ = *cp1++;
+                }
+                if (mangle_agent < 3) {
+                   while (*cp1 && !strchr(";()\"", *cp1)) *cp2++ = *cp1++;
+                }
+            }
          }
-      }
+         *cp2 = '\0';
+   } else {
+         cp1 = str;
+         //printf("[+] reg %s\n", cp1);
+         if (mangle_agent < 6)
+            while (*cp1 && !strchr(";()\" ./", *cp1)) *cp2++ = *cp1++;
+         if (mangle_agent < 5)
+            while (*cp1 && !strchr(";()\" .", *cp1)) *cp2++ = *cp1++;
+         if (mangle_agent < 4)
+            while (*cp1 && !strchr(";()\" ", *cp1)) *cp2++ = *cp1++;
+         *cp2 = '\0';
    }
 }
 
