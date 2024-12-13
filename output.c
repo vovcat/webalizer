@@ -533,19 +533,19 @@ void month_total_table()
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    /* Total Hits */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
-      "</FONT></TD></TR>\n",_("Total Hits"),t_hit);
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%ju</B>"              \
+      "</FONT></TD></TR>\n",_("Total Hits"), t_hit);
    /* Total Files */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%ju</B>"              \
       "</FONT></TD></TR>\n",_("Total Files"),t_file);
    /* Total Pages */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"  \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%ju</B>"              \
       "</FONT></TD></TR>\n",_("Total Pages"), t_page);
    /* Total Visits */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"  \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%ju</B>"              \
       "</FONT></TD></TR>\n",_("Total Visits"), t_visit);
    /* Total XFer */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"     \
@@ -565,30 +565,30 @@ void month_total_table()
    /* Unique Sites */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"                     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%ju</B>"              \
       "</FONT></TD></TR>\n",_("Total Unique Sites"),t_site);
    /* Unique URLs */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"                     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%ju</B>"              \
       "</FONT></TD></TR>\n",_("Total Unique URLs"),t_url);
    /* Unique Referrers */
    if (t_ref != 0)
    fprintf(out_fp,"<TR>"                                                     \
       "<TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"                     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%ju</B>"              \
       "</FONT></TD></TR>\n",_("Total Unique Referrers"),t_ref);
    /* Unique Usernames */
    if (t_user != 0)
    fprintf(out_fp,"<TR>"                                                     \
       "<TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"                     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%ju</B>"              \
       "</FONT></TD></TR>\n",_("Total Unique Usernames"),t_user);
    /* Unique Agents */
    if (t_agent != 0)
    fprintf(out_fp,"<TR>"                                                     \
       "<TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"                     \
-      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
+      "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%ju</B>"              \
       "</FONT></TD></TR>\n",_("Total Unique User Agents"),t_agent);
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    /**********************************************/
@@ -604,38 +604,38 @@ void month_total_table()
    /* Max/Avg Hits per Hour */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%ju</B>"                   \
       "</FONT></TD></TR>\n",_("Hits per Hour"), t_hit/(24*days_in_month),mh_hit);
    /* Max/Avg Hits per Day */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%ju</B>"                   \
       "</FONT></TD></TR>\n",_("Hits per Day"), t_hit/days_in_month, max_hits);
    /* Max/Avg Files per Day */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%ju</B>"                   \
       "</FONT></TD></TR>\n",_("Files per Day"), t_file/days_in_month,max_files);
    /* Max/Avg Pages per Day */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%ju</B>"                   \
       "</FONT></TD></TR>\n",_("Pages per Day"), t_page/days_in_month,max_pages);
    /* Max/Avg Sites per Day */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%ju</B>"                   \
       "</FONT></TD></TR>\n",_("Sites per Day"), t_site/days_in_month,max_sites);
    /* Max/Avg Visits per Day */
    fprintf(out_fp,"<TR>"                                                     \
       "<TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"                               \
-      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
-      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%llu</B>"                   \
+      "<TD ALIGN=right WIDTH=65><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
+      "<TD WIDTH=65 ALIGN=right><FONT SIZE=-1><B>%ju</B>"                   \
       "</FONT></TD></TR>\n",_("Visits per Day"), t_visit/days_in_month,max_visits);
    /* Max/Avg KBytes per Day */
    fprintf(out_fp,"<TR>"                                                     \
@@ -670,7 +670,7 @@ void month_total_table()
       if (response[i].count != 0)
          fprintf(out_fp,"<TR><TD><FONT SIZE=\"-1\">%s</FONT></TD>\n"         \
             "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"       \
-            "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD></TR>\n",
+            "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD></TR>\n",
             response[i].desc,PCENT(response[i].count,t_hit),response[i].count);
    }
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
@@ -745,23 +745,23 @@ void daily_total_table()
       else fprintf(out_fp,"<TR><TD ALIGN=center>");
       fprintf(out_fp,"<FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n", i+1);
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
-              "<FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"                  \
+              "<FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"                  \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
               tm_hit[i],PCENT(tm_hit[i],t_hit));
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
-              "<FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"                  \
+              "<FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"                  \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
               tm_file[i],PCENT(tm_file[i],t_file));
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
-              "<FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"                  \
+              "<FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"                  \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
               tm_page[i],PCENT(tm_page[i],t_page));
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
-              "<FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"                  \
+              "<FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"                  \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
               tm_visit[i],PCENT(tm_visit[i],t_visit));
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
-              "<FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"                  \
+              "<FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"                  \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
               tm_site[i],PCENT(tm_site[i],t_site));
       fprintf(out_fp,"<TD ALIGN=right>"                                      \
@@ -883,20 +883,20 @@ void hourly_total_table()
       fprintf(out_fp,"<TR><TD ALIGN=center>"                          \
          "<FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n",i);
       fprintf(out_fp,
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
          "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
          th_hit[i]/days_in_month,th_hit[i],
          PCENT(th_hit[i],t_hit));
       fprintf(out_fp,
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
          "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
          th_file[i]/days_in_month,th_file[i],
          PCENT(th_file[i],t_file));
       fprintf(out_fp,
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
          "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
          th_page[i]/days_in_month,th_page[i],
          PCENT(th_page[i],t_page));
@@ -968,11 +968,11 @@ void top_sites_table(int flag)
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    if (flag) fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=%d>" \
-           "%s %llu %s %llu %s %s %s</TH></TR>\n",
+           "%s %ju %s %ju %s %s %s</TH></TR>\n",
            GREY,(dump_inout==0)?10:14, _("Top"),tot_num,_("of"),
            t_site,_("Total Sites"),_("By"),_("kB F"));
    else      fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=%d>" \
-           "%s %llu %s %llu %s</TH></TR>\n",
+           "%s %ju %s %ju %s</TH></TR>\n",
            GREY,(dump_inout==0)?10:14,_("Top"), tot_num, _("of"), t_site, _("Total Sites"));
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                    \
@@ -1009,9 +1009,9 @@ void top_sites_table(int flag)
 
          fprintf(out_fp,
               "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n"  \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
               "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%.0f</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
@@ -1030,7 +1030,7 @@ void top_sites_table(int flag)
 		 hptr->oxfer/1024,(t_oxfer==0)?0:((float)hptr->oxfer/t_oxfer)*100.0);
 	 }
          fprintf(out_fp,
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
               "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
 	      hptr->visit,(t_visit==0)?0:((float)hptr->visit/t_visit)*100.0);
@@ -1112,7 +1112,7 @@ int all_sites_page(u_int64_t h_reg, u_int64_t h_grp)
       if (hptr->flag == OBJ_GRP)
       {
          fprintf(out_fp,
-            "%-8llu %6.02f%%  %8llu %6.02f%%  %8.0f %6.02f%%  ",
+            "%-8ju %6.02f%%  %8ju %6.02f%%  %8.0f %6.02f%%  ",
             hptr->count,
             (t_hit==0)?0:((float)hptr->count/t_hit)*100.0,hptr->files,
             (t_file==0)?0:((float)hptr->files/t_file)*100.0,hptr->xfer/1024,
@@ -1125,7 +1125,7 @@ int all_sites_page(u_int64_t h_reg, u_int64_t h_grp)
 	       hptr->oxfer/1024,(t_oxfer==0)?0:((float)hptr->oxfer/t_oxfer)*100.0);
 	 }
          fprintf(out_fp,
-            "%8llu %6.02f%%  %s\n",
+            "%8ju %6.02f%%  %s\n",
 	    hptr->visit,(t_visit==0)?0:((float)hptr->visit/t_visit)*100.0,
             hptr->string);
          h_grp--;
@@ -1142,7 +1142,7 @@ int all_sites_page(u_int64_t h_reg, u_int64_t h_grp)
       if (hptr->flag == OBJ_REG)
       {
          fprintf(out_fp,
-            "%-8llu %6.02f%%  %8llu %6.02f%%  %8.0f %6.02f%%  ",
+            "%-8ju %6.02f%%  %8ju %6.02f%%  %8.0f %6.02f%%  ",
             hptr->count,
             (t_hit==0)?0:((float)hptr->count/t_hit)*100.0,hptr->files,
             (t_file==0)?0:((float)hptr->files/t_file)*100.0,hptr->xfer/1024,
@@ -1155,7 +1155,7 @@ int all_sites_page(u_int64_t h_reg, u_int64_t h_grp)
 	       hptr->oxfer/1024,(t_oxfer==0)?0:((float)hptr->oxfer/t_oxfer)*100.0);
 	 }
          fprintf(out_fp,
-            "%8llu %6.02f%%  %s\n",
+            "%8ju %6.02f%%  %s\n",
 	    hptr->visit,(t_visit==0)?0:((float)hptr->visit/t_visit)*100.0,
             hptr->string);
          h_reg--;
@@ -1200,11 +1200,11 @@ void top_urls_table(int flag)
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    if (flag) fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=%d>"  \
-           "%s %llu %s %llu %s %s %s</TH></TR>\n",
+           "%s %ju %s %ju %s %s %s</TH></TR>\n",
            GREY,(dump_inout==0)?6:10,_("Top"),tot_num,_("of"),
            t_url,_("Total URLs"),_("By"),_("kB F"));
    else fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=%d>"   \
-           "%s %llu %s %llu %s</TH></TR>\n",
+           "%s %ju %s %ju %s</TH></TR>\n",
            GREY,(dump_inout==0)?6:10,_("Top"),tot_num,_("of"),t_url,_("Total URLs"));
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                  \
@@ -1242,7 +1242,7 @@ void top_urls_table(int flag)
 
          fprintf(out_fp,
             "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
-            "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+            "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
             "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%.0f</B></FONT></TD>\n"\
             "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
@@ -1369,7 +1369,7 @@ int all_urls_page(u_int64_t u_reg, u_int64_t u_grp)
       uptr=*pointer++;
       if (uptr->flag == OBJ_GRP)
       {
-         fprintf(out_fp,"%-8llu %6.02f%%  %8.0f %6.02f%%",
+         fprintf(out_fp,"%-8ju %6.02f%%  %8.0f %6.02f%%",
             uptr->count,
             (t_hit==0)?0:((float)uptr->count/t_hit)*100.0,
             uptr->xfer/1024,
@@ -1397,7 +1397,7 @@ int all_urls_page(u_int64_t u_reg, u_int64_t u_grp)
       uptr=*pointer++;
       if (uptr->flag == OBJ_REG)
       {
-         fprintf(out_fp,"%-8llu %6.02f%%  %8.0f %6.02f%%",
+         fprintf(out_fp,"%-8ju %6.02f%%  %8.0f %6.02f%%",
             uptr->count,
             (t_hit==0)?0:((float)uptr->count/t_hit)*100.0,
             uptr->xfer/1024,
@@ -1460,7 +1460,7 @@ void top_entry_table(int flag)
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=6>"        \
-           "%s %llu %s %llu %s</TH></TR>\n",
+           "%s %ju %s %ju %s</TH></TR>\n",
            GREY,_("Top"),tot_num,_("of"),
            (flag)?u_exit:u_entry,(flag)?_("Total Exit Pages"):_("Total Entry Pages"));
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
@@ -1487,9 +1487,9 @@ void top_entry_table(int flag)
          fprintf(out_fp,"<TR>\n");
          fprintf(out_fp,
              "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
-             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
              "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
-             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
              "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
              "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
              i+1,uptr->count,
@@ -1556,7 +1556,7 @@ void top_refs_table()
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=4>"         \
-           "%s %llu %s %llu %s</TH></TR>\n",
+           "%s %ju %s %ju %s</TH></TR>\n",
            GREY, _("Top"), tot_num, _("of"), t_ref, _("Total Referrers"));
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                   \
@@ -1583,7 +1583,7 @@ void top_refs_table()
 
          fprintf(out_fp,
              "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n"  \
-             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
              "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
              "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
              i+1,rptr->count,
@@ -1659,7 +1659,7 @@ int all_refs_page(u_int64_t r_reg, u_int64_t r_grp)
       rptr=*pointer++;
       if (rptr->flag == OBJ_GRP)
       {
-         fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
+         fprintf(out_fp,"%-8ju %6.02f%%  %s\n",
             rptr->count,
             (t_hit==0)?0:((float)rptr->count/t_hit)*100.0,
             rptr->string);
@@ -1676,13 +1676,13 @@ int all_refs_page(u_int64_t r_reg, u_int64_t r_grp)
       if (rptr->flag == OBJ_REG)
       {
          if (strstr(rptr->string,"://")!=NULL)
-            fprintf(out_fp,"%-8llu %6.02f%%  <A HREF=\"%s\" rel=\"nofollow\">%s</A>\n",
+            fprintf(out_fp,"%-8ju %6.02f%%  <A HREF=\"%s\" rel=\"nofollow\">%s</A>\n",
                rptr->count,
                (t_hit==0)?0:((float)rptr->count/t_hit)*100.0,
                rptr->string,
                rptr->string);
          else
-            fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
+            fprintf(out_fp,"%-8ju %6.02f%%  %s\n",
                rptr->count,
                (t_hit==0)?0:((float)rptr->count/t_hit)*100.0,
                rptr->string);
@@ -1728,7 +1728,7 @@ void top_agents_table()
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=4>"        \
-          "%s %llu %s %llu %s</TH></TR>\n",
+          "%s %ju %s %ju %s</TH></TR>\n",
           GREY, _("Top"), tot_num, _("of"), t_agent, _("Total User Agents"));
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                  \
@@ -1755,7 +1755,7 @@ void top_agents_table()
 
          fprintf(out_fp,
              "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
-             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
              "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
              "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
              i+1,aptr->count,
@@ -1820,7 +1820,7 @@ int all_agents_page(u_int64_t a_reg, u_int64_t a_grp)
       aptr=*pointer++;
       if (aptr->flag == OBJ_GRP)
       {
-         fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
+         fprintf(out_fp,"%-8ju %6.02f%%  %s\n",
              aptr->count,
              (t_hit==0)?0:((float)aptr->count/t_hit)*100.0,
              aptr->string);
@@ -1836,7 +1836,7 @@ int all_agents_page(u_int64_t a_reg, u_int64_t a_grp)
       aptr=*pointer++;
       if (aptr->flag == OBJ_REG)
       {
-         fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
+         fprintf(out_fp,"%-8ju %6.02f%%  %s\n",
              aptr->count,
              (t_hit==0)?0:((float)aptr->count/t_hit)*100.0,
              aptr->string);
@@ -1875,7 +1875,7 @@ void top_search_table()
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=4>"        \
-          "%s %llu %s %llu %s</TH></TR>\n",
+          "%s %ju %s %ju %s</TH></TR>\n",
           GREY, _("Top"), tot_num, _("of"), a_ctr, _("Total Search Strings"));
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                  \
@@ -1896,7 +1896,7 @@ void top_search_table()
       fprintf(out_fp,
          "<TR>\n"                                                     \
          "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
-         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+         "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
          "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
          "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
          i+1,sptr->count,
@@ -1953,7 +1953,7 @@ int all_search_page(u_int64_t tot_num, u_int64_t t_val)
    while(tot_num)
    {
       sptr=*pointer++;
-      fprintf(out_fp,"%-8llu %6.02f%%  %s\n",
+      fprintf(out_fp,"%-8ju %6.02f%%  %s\n",
          sptr->count,
          (t_val==0)?0:((float)sptr->count/t_val)*100.0,
          sptr->string);
@@ -1996,7 +1996,7 @@ void top_users_table()
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=CENTER COLSPAN=%d>" \
-           "%s %llu %s %llu %s</TH></TR>\n",
+           "%s %ju %s %ju %s</TH></TR>\n",
            GREY,(dump_inout==0)?10:14,_("Top"), tot_num, _("of"), t_user, _("Total Usernames"));
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" ALIGN=center>"                   \
@@ -2033,9 +2033,9 @@ void top_users_table()
 
          fprintf(out_fp,
               "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n"  \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
               "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%.0f</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
@@ -2054,7 +2054,7 @@ void top_users_table()
 		 iptr->oxfer/1024,(t_oxfer==0)?0:((float)iptr->oxfer/t_oxfer)*100.0);
 	 }
          fprintf(out_fp,
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n" \
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n" \
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"    \
               "<TD ALIGN=left NOWRAP><FONT SIZE=\"-1\">",
 	      iptr->visit,
@@ -2132,7 +2132,7 @@ int all_users_page(u_int64_t i_reg, u_int64_t i_grp)
       if (iptr->flag == OBJ_GRP)
       {
          fprintf(out_fp,
-            "%-8llu %6.02f%%  %8llu %6.02f%%  %8.0f %6.02f%%  ",
+            "%-8ju %6.02f%%  %8ju %6.02f%%  %8.0f %6.02f%%  ",
             iptr->count,
             (t_hit==0)?0:((float)iptr->count/t_hit)*100.0,iptr->files,
             (t_file==0)?0:((float)iptr->files/t_file)*100.0,iptr->xfer/1024,
@@ -2145,7 +2145,7 @@ int all_users_page(u_int64_t i_reg, u_int64_t i_grp)
 	       iptr->oxfer/1024,(t_oxfer==0)?0:((float)iptr->oxfer/t_oxfer)*100.0);
 	 }
          fprintf(out_fp,
-            "%8llu %6.02f%%  %s\n",
+            "%8ju %6.02f%%  %s\n",
 	    iptr->visit,(t_visit==0)?0:((float)iptr->visit/t_visit)*100.0,
             iptr->string);
          i_grp--;
@@ -2162,7 +2162,7 @@ int all_users_page(u_int64_t i_reg, u_int64_t i_grp)
       if (iptr->flag == OBJ_REG)
       {
          fprintf(out_fp,
-            "%-8llu %6.02f%%  %8llu %6.02f%%  %8.0f %6.02f%%  ",
+            "%-8ju %6.02f%%  %8ju %6.02f%%  %8.0f %6.02f%%  ",
             iptr->count,
             (t_hit==0)?0:((float)iptr->count/t_hit)*100.0,iptr->files,
             (t_file==0)?0:((float)iptr->files/t_file)*100.0,iptr->xfer/1024,
@@ -2175,7 +2175,7 @@ int all_users_page(u_int64_t i_reg, u_int64_t i_grp)
 	       iptr->oxfer/1024,(t_oxfer==0)?0:((float)iptr->oxfer/t_oxfer)*100.0);
 	 }
          fprintf(out_fp,
-            "%8llu %6.02f%%  %s\n",
+            "%8ju %6.02f%%  %s\n",
 	    iptr->visit,(t_visit==0)?0:((float)iptr->visit/t_visit)*100.0,
             iptr->string);
          i_reg--;
@@ -2289,8 +2289,8 @@ void top_ctry_table()
                ctry[0].count+=hptr->count;
                ctry[0].files+=hptr->files;
                ctry[0].xfer +=hptr->xfer;
-	       ctry[0].ixfer+=hptr->ixfer;
-	       ctry[0].oxfer+=hptr->oxfer;
+               ctry[0].ixfer+=hptr->ixfer;
+               ctry[0].oxfer+=hptr->oxfer;
             }
          }
          hptr=hptr->next;
@@ -2375,9 +2375,9 @@ void top_ctry_table()
       {
 	 fprintf(out_fp,"<TR>"                                                \
               "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
-              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%llu</B></FONT></TD>\n"\
+              "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%ju</B></FONT></TD>\n"\
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"   \
               "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%.0f</B></FONT></TD>\n"\
               "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
@@ -2454,14 +2454,14 @@ void dump_all_sites()
       hptr=*pointer++;
       if (hptr->flag != OBJ_GRP)
       {
-         fprintf(out_fp,"%llu\t%llu\t%.0f",
+         fprintf(out_fp,"%ju\t%ju\t%.0f",
             hptr->count,hptr->files,hptr->xfer/1024);
-	 if (dump_inout != 0)
-	 {
-	    fprintf(out_fp, "\t%.0f\t%.0f",
-	       hptr->ixfer/1024,hptr->oxfer/1024);
-	 }
-         fprintf(out_fp, "\t%llu\t%s\n",
+         if (dump_inout != 0)
+         {
+            fprintf(out_fp, "\t%.0f\t%.0f",
+               hptr->ixfer/1024,hptr->oxfer/1024);
+         }
+         fprintf(out_fp, "\t%ju\t%s\n",
             hptr->visit,hptr->string);
       }
       cnt--;
@@ -2506,12 +2506,12 @@ void dump_all_urls()
       uptr=*pointer++;
       if (uptr->flag != OBJ_GRP)
       {
-         fprintf(out_fp,"%llu\t%.0f",uptr->count,uptr->xfer/1024);
-	 if (dump_inout != 0)
-	 {
-	    fprintf(out_fp,"\t%.0f\t%.0f",uptr->ixfer/1024,uptr->oxfer/1024);
-	 }
-	 fprintf(out_fp,"\t%s\n",uptr->string);
+         fprintf(out_fp,"%ju\t%.0f",uptr->count,uptr->xfer/1024);
+         if (dump_inout != 0)
+         {
+            fprintf(out_fp,"\t%.0f\t%.0f",uptr->ixfer/1024,uptr->oxfer/1024);
+         }
+         fprintf(out_fp,"\t%s\n",uptr->string);
       }
       cnt--;
    }
@@ -2550,7 +2550,7 @@ void dump_all_refs()
       rptr=*pointer++;
       if (rptr->flag != OBJ_GRP)
       {
-         fprintf(out_fp,"%llu\t%s\n",rptr->count, rptr->string);
+         fprintf(out_fp,"%ju\t%s\n",rptr->count, rptr->string);
       }
       cnt--;
    }
@@ -2589,7 +2589,7 @@ void dump_all_agents()
       aptr=*pointer++;
       if (aptr->flag != OBJ_GRP)
       {
-         fprintf(out_fp,"%llu\t%s\n",aptr->count,aptr->string);
+         fprintf(out_fp,"%ju\t%s\n",aptr->count,aptr->string);
       }
       cnt--;
    }
@@ -2633,13 +2633,13 @@ void dump_all_users()
       iptr=*pointer++;
       if (iptr->flag != OBJ_GRP)
       {
-         fprintf(out_fp,"%llu\t%llu\t%.0f",
-	    iptr->count,iptr->files,iptr->xfer/1024);
-	 if (dump_inout != 0)
-	 {
-	    fprintf(out_fp,"\t%.0f\t%.0f",iptr->ixfer/1024,iptr->oxfer/1024);
-	 }
-         fprintf(out_fp,"\t%llu\t%s\n",iptr->visit,iptr->string);
+         fprintf(out_fp,"%ju\t%ju\t%.0f",
+            iptr->count,iptr->files,iptr->xfer/1024);
+         if (dump_inout != 0)
+         {
+            fprintf(out_fp,"\t%.0f\t%.0f",iptr->ixfer/1024,iptr->oxfer/1024);
+         }
+         fprintf(out_fp,"\t%ju\t%s\n",iptr->visit,iptr->string);
       }
       cnt--;
    }
@@ -2676,7 +2676,7 @@ void dump_all_search()
    while(cnt)
    {
       sptr=*pointer++;
-      fprintf(out_fp,"%llu\t%s\n",sptr->count,sptr->string);
+      fprintf(out_fp,"%ju\t%s\n",sptr->count,sptr->string);
       cnt--;
    }
    fclose(out_fp);
@@ -2731,7 +2731,7 @@ int write_main_index()
          {
             if (verbose)
 	    fprintf(stderr,"%s %s (symlink)\n",_("Error: Unable to open file"),".htaccess");
-            return NULL;
+            return 0;
          }
       }
 
@@ -2829,13 +2829,13 @@ int write_main_index()
                      "<FONT SIZE=\"-1\">%.0f</TH>", GRPCOLOR, m_oxfer);
             }
             fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
-                  "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_visits);
+                  "<FONT SIZE=\"-1\">%0ju</TH>", GRPCOLOR, m_visits);
             fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
-                  "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_pages);
+                  "<FONT SIZE=\"-1\">%0ju</TH>", GRPCOLOR, m_pages);
             fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
-                  "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_files);
+                  "<FONT SIZE=\"-1\">%0ju</TH>", GRPCOLOR, m_files);
             fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
-                  "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_hit);
+                  "<FONT SIZE=\"-1\">%0ju</TH>", GRPCOLOR, m_hit);
             m_xfer=0; m_ixfer=0; m_oxfer=0; m_visits=0; m_pages=0; m_files=0; m_hit=0;
          }
 
@@ -2857,15 +2857,15 @@ int write_main_index()
          fprintf(out_fp,"<FONT SIZE=\"-1\">%s %d</FONT></A></TD>\n",      \
                          Q_(s_month[hist[i].month-1]), hist[i].year);
 
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%ju</FONT></TD>\n",
                       hist[i].hit/days_in_month);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%ju</FONT></TD>\n",
                       hist[i].files/days_in_month);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%ju</FONT></TD>\n",
                       hist[i].page/days_in_month);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%ju</FONT></TD>\n",
                       hist[i].visit/days_in_month);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%ju</FONT></TD>\n",
                       hist[i].site);
       fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%.0f</FONT></TD>\n",
                       hist[i].xfer);
@@ -2876,13 +2876,13 @@ int write_main_index()
 	 fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%.0f</FONT></TD>\n",
 			 hist[i].oxfer);
       }
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%ju</FONT></TD>\n",
                       hist[i].visit);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%ju</FONT></TD>\n",
                       hist[i].page);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>\n",
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%ju</FONT></TD>\n",
                       hist[i].files);
-      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%llu</FONT></TD>",
+      fprintf(out_fp,"<TD ALIGN=right><FONT SIZE=\"-1\">%ju</FONT></TD>",
                       hist[i].hit);
       fprintf(out_fp,"</TR>\n");
       gt_hit   += hist[i].hit;
@@ -2916,13 +2916,13 @@ int write_main_index()
                         "<FONT SIZE=\"-1\">%.0f</TH>", GRPCOLOR, m_oxfer);
       }
       fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
-                     "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_visits);
+                     "<FONT SIZE=\"-1\">%0ju</TH>", GRPCOLOR, m_visits);
       fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
-                     "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_pages);
+                     "<FONT SIZE=\"-1\">%0ju</TH>", GRPCOLOR, m_pages);
       fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
-                     "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_files);
+                     "<FONT SIZE=\"-1\">%0ju</TH>", GRPCOLOR, m_files);
       fprintf(out_fp,"<TH ALIGN=\"right\" BGCOLOR=\"%s\">"       \
-                     "<FONT SIZE=\"-1\">%0llu</TH>", GRPCOLOR, m_hit);
+                     "<FONT SIZE=\"-1\">%0ju</TH>", GRPCOLOR, m_hit);
    }
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
    fprintf(out_fp,"<TR><TH BGCOLOR=\"%s\" COLSPAN=6 ALIGN=left>"          \

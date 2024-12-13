@@ -774,7 +774,7 @@ int main(int argc, char *argv[])
             total_bad++;                /* if a bad date, bump counter      */
             if (verbose)
             {
-               fprintf(stderr,"%s: %s [%llu]",
+               fprintf(stderr,"%s: %s [%ju]",
                  _("Error: Skipping record (bad date)"),log_rec.datetime,total_rec);
                if (debug_mode) fprintf(stderr,":\n%s\n",tmp_buf);
                else fprintf(stderr,"\n");
@@ -1005,7 +1005,7 @@ int main(int argc, char *argv[])
          /* if necessary, shrink referrer to fit storage */
          if (strlen(log_rec.refer)>=MAXREFH)
          {
-            if (verbose) fprintf(stderr,"%s [%llu]\n",
+            if (verbose) fprintf(stderr,"%s [%ju]\n",
                 _("Warning: Truncating oversized referrer field"),total_rec);
             log_rec.refer[MAXREFH-1]='\0';
          }
@@ -1013,7 +1013,7 @@ int main(int argc, char *argv[])
          /* if necessary, shrink URL to fit storage */
          if (strlen(log_rec.url)>=MAXURLH)
          {
-            if (verbose) fprintf(stderr,"%s [%llu]\n",
+            if (verbose) fprintf(stderr,"%s [%ju]\n",
                 _("Warning: Truncating oversized request field"),total_rec);
             log_rec.url[MAXURLH-1]='\0';
          }
@@ -1453,7 +1453,7 @@ int main(int argc, char *argv[])
                total_bad++;
                if (verbose)
                {
-                  fprintf(stderr,"%s (%llu)",_("Skipping bad record"),total_rec);
+                  fprintf(stderr,"%s (%ju)",_("Skipping bad record"),total_rec);
                   if (debug_mode) fprintf(stderr,":\n%s\n",tmp_buf);
                   else fprintf(stderr,"\n");
                }
@@ -1505,14 +1505,14 @@ int main(int argc, char *argv[])
       /* display end of processing statistics */
       if (time_me || (verbose>1))
       {
-         printf("%llu %s ",total_rec, _("records"));
+         printf("%ju %s ",total_rec, _("records"));
          if (total_ignore)
          {
-            printf("(%llu %s",total_ignore,_("ignored"));
-            if (total_bad) printf(", %llu %s) ",total_bad,_("bad"));
+            printf("(%ju %s",total_ignore,_("ignored"));
+            if (total_bad) printf(", %ju %s) ",total_bad,_("bad"));
                else        printf(") ");
          }
-         else if (total_bad) printf("(%llu %s) ",total_bad,_("bad"));
+         else if (total_bad) printf("(%ju %s) ",total_bad,_("bad"));
 
          /* totoal processing time in seconds */
          temp_time = difftime(end_time, start_time);

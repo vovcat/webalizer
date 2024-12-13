@@ -122,7 +122,7 @@ void get_history()
          {
          /* month# year# requests files sites xfer firstday lastday */
          numfields = sscanf(buffer,
-	               "%d %d %llu %llu %llu %lf %d %d %llu %llu %lf %lf",
+                       "%d %d %ju %ju %ju %lf %d %d %ju %ju %lf %lf",
                        &hist[i].month,
                        &hist[i].year,
                        &hist[i].hit,
@@ -187,7 +187,7 @@ void put_history()
 
       for (i=HISTSIZE-1;i>=0;i--)
       {
-         fprintf(hist_fp,"%d %d %llu %llu %llu %.0f %d %d %llu %llu %.0f %.0f\n",
+         fprintf(hist_fp,"%d %d %ju %ju %ju %.0f %d %d %ju %ju %.0f %.0f\n",
                          hist[i].month,
                          hist[i].year,
                          hist[i].hit,
@@ -368,29 +368,29 @@ int save_state()
    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
 
    /* Monthly totals for sites, urls, etc... */
-   sprintf(buffer,"%llu %llu %llu %llu %llu %llu %.0f %llu %llu %llu %.0f %.0f\n",
+   sprintf(buffer,"%ju %ju %ju %ju %ju %ju %.0f %ju %ju %ju %.0f %.0f\n",
         t_hit, t_file, t_site, t_url,
         t_ref, t_agent, t_xfer, t_page, t_visit, t_user, t_ixfer, t_oxfer);
    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
 
    /* Daily totals for sites, urls, etc... */
-   sprintf(buffer,"%llu %llu %llu %d %d\n",
+   sprintf(buffer,"%ju %ju %ju %d %d\n",
         dt_site, ht_hit, mh_hit, f_day, l_day);
    if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
 
    /* Monthly (by day) total array */
    for (i=0;i<31;i++)
    {
-      sprintf(buffer,"%llu %llu %.0f %llu %llu %llu %.0f %.0f\n",
+      sprintf(buffer,"%ju %ju %.0f %ju %ju %ju %.0f %.0f\n",
         tm_hit[i],tm_file[i],tm_xfer[i],tm_site[i],
-	tm_page[i],tm_visit[i],tm_ixfer[i],tm_oxfer[i]);
+        tm_page[i],tm_visit[i],tm_ixfer[i],tm_oxfer[i]);
       if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
    }
 
    /* Daily (by hour) total array */
    for (i=0;i<24;i++)
    {
-      sprintf(buffer,"%llu %llu %.0f %llu %.0f %.0f\n",
+      sprintf(buffer,"%ju %ju %.0f %ju %.0f %.0f\n",
         th_hit[i],th_file[i],th_xfer[i],th_page[i],th_ixfer[i],th_oxfer[i]);
       if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
    }
@@ -398,7 +398,7 @@ int save_state()
    /* Response codes */
    for (i=0;i<TOTAL_RC;i++)
    {
-      sprintf(buffer,"%llu\n",response[i].count);
+      sprintf(buffer,"%ju\n",response[i].count);
       if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
    }
 
@@ -411,10 +411,10 @@ int save_state()
       while (uptr!=NULL)
       {
          snprintf(buffer,sizeof(buffer),
-	          "%s\n%d %llu %llu %.0f %llu %llu %.0f %.0f\n",
+                  "%s\n%d %ju %ju %.0f %ju %ju %.0f %.0f\n",
                   uptr->string, uptr->flag, uptr->count, uptr->files,
                   uptr->xfer, uptr->entry, uptr->exit,
-		  uptr->ixfer, uptr->oxfer);
+                  uptr->ixfer, uptr->oxfer);
          if (fputs(buffer,fp)==EOF) return 1;
          uptr=uptr->next;
       }
@@ -429,10 +429,10 @@ int save_state()
       hptr=sm_htab[i];
       while (hptr!=NULL)
       {
-         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu %.0f %.0f\n%s\n",
+         snprintf(buffer,sizeof(buffer),"%s\n%d %ju %ju %.0f %ju %ju %.0f %.0f\n%s\n",
                   hptr->string, hptr->flag, hptr->count, hptr->files,
                   hptr->xfer, hptr->visit, hptr->tstamp,
-		  hptr->ixfer, hptr->oxfer,
+                  hptr->ixfer, hptr->oxfer,
                   (hptr->lasturl==blank_str)?"-":hptr->lasturl);
          if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
          hptr=hptr->next;
@@ -447,10 +447,10 @@ int save_state()
       hptr=sd_htab[i];
       while (hptr!=NULL)
       {
-         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu %.0f %.0f\n%s\n",
+         snprintf(buffer,sizeof(buffer),"%s\n%d %ju %ju %.0f %ju %ju %.0f %.0f\n%s\n",
                   hptr->string, hptr->flag, hptr->count, hptr->files,
                   hptr->xfer, hptr->visit, hptr->tstamp,
-		  hptr->ixfer, hptr->oxfer,
+                  hptr->ixfer, hptr->oxfer,
                   (hptr->lasturl==blank_str)?"-":hptr->lasturl);
          if (fputs(buffer,fp)==EOF) return 1;
          hptr=hptr->next;
@@ -467,7 +467,7 @@ int save_state()
          rptr=rm_htab[i];
          while (rptr!=NULL)
          {
-            snprintf(buffer,sizeof(buffer),"%s\n%d %llu\n",
+            snprintf(buffer,sizeof(buffer),"%s\n%d %ju\n",
                      rptr->string, rptr->flag, rptr->count);
             if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
             rptr=rptr->next;
@@ -485,7 +485,7 @@ int save_state()
          aptr=am_htab[i];
          while (aptr!=NULL)
          {
-            snprintf(buffer,sizeof(buffer),"%s\n%d %llu\n",
+            snprintf(buffer,sizeof(buffer),"%s\n%d %ju\n",
                      aptr->string, aptr->flag, aptr->count);
             if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
             aptr=aptr->next;
@@ -501,7 +501,7 @@ int save_state()
       sptr=sr_htab[i];
       while (sptr!=NULL)
       {
-         snprintf(buffer,sizeof(buffer),"%s\n%llu\n",
+         snprintf(buffer,sizeof(buffer),"%s\n%ju\n",
                   sptr->string,sptr->count);
          if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
          sptr=sptr->next;
@@ -517,7 +517,7 @@ int save_state()
       iptr=im_htab[i];
       while (iptr!=NULL)
       {
-         snprintf(buffer,sizeof(buffer),"%s\n%d %llu %llu %.0f %llu %llu %.0f %.0f\n",
+         snprintf(buffer,sizeof(buffer),"%s\n%d %ju %ju %.0f %ju %ju %.0f %.0f\n",
                   iptr->string, iptr->flag, iptr->count, iptr->files,
               iptr->xfer, iptr->visit, iptr->tstamp, iptr->ixfer, iptr->oxfer);
          if (fputs(buffer,fp)==EOF) return 1;  /* error exit */
@@ -601,7 +601,7 @@ int restore_state()
    /* Get monthly totals */
    if ((fgets(buffer,BUFSIZE,fp)) != NULL)
    {
-      sscanf(buffer,"%llu %llu %llu %llu %llu %llu %lf %llu %llu %llu %lf %lf",
+      sscanf(buffer,"%ju %ju %ju %ju %ju %ju %lf %ju %ju %ju %lf %lf",
        &t_hit, &t_file, &t_site, &t_url,
        &t_ref, &t_agent, &t_xfer, &t_page, &t_visit,
        &t_user, &t_ixfer, &t_oxfer);
@@ -610,7 +610,7 @@ int restore_state()
    /* Get daily totals */
    if ((fgets(buffer,BUFSIZE,fp)) != NULL)
    {
-      sscanf(buffer,"%llu %llu %llu %d %d",
+      sscanf(buffer,"%ju %ju %ju %d %d",
        &dt_site, &ht_hit, &mh_hit, &f_day, &l_day);
    } else return 4;  /* error exit */
 
@@ -619,7 +619,7 @@ int restore_state()
    {
       if ((fgets(buffer,BUFSIZE,fp)) != NULL)
       {
-         sscanf(buffer,"%llu %llu %lf %llu %llu %llu %lf %lf",
+         sscanf(buffer,"%ju %ju %lf %ju %ju %ju %lf %lf",
           &tm_hit[i],&tm_file[i],&tm_xfer[i],&tm_site[i],&tm_page[i],
           &tm_visit[i],&tm_ixfer[i],&tm_oxfer[i]);
       } else return 5;  /* error exit */
@@ -630,9 +630,9 @@ int restore_state()
    {
       if ((fgets(buffer,BUFSIZE,fp)) != NULL)
       {
-         sscanf(buffer,"%llu %llu %lf %llu %lf %lf",
+         sscanf(buffer,"%ju %ju %lf %ju %lf %lf",
           &th_hit[i],&th_file[i],&th_xfer[i],
-	  &th_page[i],&th_ixfer[i],&th_oxfer[i]);
+          &th_page[i],&th_ixfer[i],&th_oxfer[i]);
       } else return 6;  /* error exit */
    }
 
@@ -640,7 +640,7 @@ int restore_state()
    for (i=0;i<TOTAL_RC;i++)
    {
       if ((fgets(buffer,BUFSIZE,fp)) != NULL)
-         sscanf(buffer,"%llu",&response[i].count);
+         sscanf(buffer,"%ju",&response[i].count);
       else return 7;  /* error exit */
    }
 
@@ -666,7 +666,7 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 10;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %llu %llu %lf %llu %llu %lf %lf",
+      sscanf(buffer,"%d %ju %ju %lf %ju %ju %lf %lf",
          &t_unode.flag,&t_unode.count,
          &t_unode.files, &t_unode.xfer,
          &t_unode.entry, &t_unode.exit, &t_unode.ixfer, &t_unode.oxfer);
@@ -674,7 +674,7 @@ int restore_state()
       /* Good record, insert into hash table */
       if (put_unode(tmp_buf,t_unode.flag,t_unode.count,
          t_unode.xfer,t_unode.ixfer,t_unode.oxfer,&ul_bogus,t_unode.entry,
-	 t_unode.exit,um_htab))
+         t_unode.exit,um_htab))
       {
          if (verbose)
          /* Error adding URL node, skipping ... */
@@ -698,7 +698,7 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 8;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %llu %llu %lf %llu %llu %lf %lf",
+      sscanf(buffer,"%d %ju %ju %lf %ju %ju %lf %lf",
          &t_hnode.flag,&t_hnode.count,
          &t_hnode.files, &t_hnode.xfer,
          &t_hnode.visit, &t_hnode.tstamp, &t_hnode.ixfer, &t_hnode.oxfer);
@@ -739,7 +739,7 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 9;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %llu %llu %lf %llu %llu %lf %lf",
+      sscanf(buffer,"%d %ju %ju %lf %ju %ju %lf %lf",
           &t_hnode.flag,&t_hnode.count,
           &t_hnode.files, &t_hnode.xfer,
           &t_hnode.visit, &t_hnode.tstamp, &t_hnode.ixfer, &t_hnode.oxfer);
@@ -779,7 +779,7 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 11;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %llu",&t_rnode.flag,&t_rnode.count);
+      sscanf(buffer,"%d %ju",&t_rnode.flag,&t_rnode.count);
 
       /* insert node */
       if (put_rnode(tmp_buf,t_rnode.flag,
@@ -804,7 +804,7 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 12;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %llu",&t_anode.flag,&t_anode.count);
+      sscanf(buffer,"%d %ju",&t_anode.flag,&t_anode.count);
 
       /* insert node */
       if (put_anode(tmp_buf,t_anode.flag,t_anode.count,
@@ -829,7 +829,7 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 13;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%llu",&t_snode.count);
+      sscanf(buffer,"%ju",&t_snode.count);
 
       /* insert node */
       if (put_snode(tmp_buf,t_snode.count,sr_htab))
@@ -854,7 +854,7 @@ int restore_state()
       if (!isdigit((unsigned char)buffer[0])) return 14;  /* error exit */
 
       /* load temporary node data */
-      sscanf(buffer,"%d %llu %llu %lf %llu %llu %lf %lf",
+      sscanf(buffer,"%d %ju %ju %lf %ju %ju %lf %lf",
          &t_inode.flag,&t_inode.count,
          &t_inode.files, &t_inode.xfer,
          &t_inode.visit, &t_inode.tstamp, &t_inode.ixfer, &t_inode.oxfer);
@@ -862,7 +862,7 @@ int restore_state()
       /* Good record, insert into hash table */
       if (put_inode(tmp_buf,t_inode.flag,
          t_inode.count,t_inode.files,t_inode.xfer,t_inode.ixfer,t_inode.oxfer,
-	 &ul_bogus,
+         &ul_bogus,
          t_inode.visit+1,t_inode.tstamp,im_htab))
       {
          if (verbose)
