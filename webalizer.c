@@ -716,7 +716,7 @@ int main(int argc, char *argv[])
          if (verbose>1)
          {
             fprintf(stderr,"%s",_("Error: Skipping oversized log record"));
-            if (debug_mode) fprintf(stderr,":\n%s",buffer);
+            if (debug_mode) fprintf(stderr,":\n%s", buffer);
             else fprintf(stderr,"\n");
          }
 
@@ -1309,6 +1309,14 @@ int main(int argc, char *argv[])
          th_oxfer[rec_hour] += log_rec.oxfer_size;  /* hourly out xfer total*/
          th_hit[rec_hour]++;                        /* hourly hits total    */
 
+         if (dump_inout == 2) {                     /* auto display InOutKb? */
+            /* check with monthly totals */
+            /* if some In Out totals are not 0, enable displaying them */
+            /* else hide them */
+            if (t_ixfer || t_oxfer) dump_inout = 1;
+            else dump_inout = 0;
+         }
+
          /* if RC_OK, increase file counters */
          if (log_rec.resp_code == RC_OK)
          {
@@ -1472,21 +1480,6 @@ int main(int argc, char *argv[])
       tm_visit[cur_day-1]=tot_visit(sd_htab);
       t_visit=tot_visit(sm_htab);
       if (ht_hit > mh_hit) mh_hit = ht_hit;
-
-      if(dump_inout == 2)                    /* auto display InOutKb?    */
-      {
-         /* check with monthly totals */
-         /* if some In Out totals are not 0, enable displaying them */
-         /* else hide them*/
-         if((t_ixfer != 0) && (t_oxfer != 0))
-         {
-            dump_inout = 1;
-         }
-	 else
-         {
-            dump_inout = 0;
-         }
-      }
 
       if (total_rec > (total_ignore+total_bad)) /* did we process any?   */
       {
