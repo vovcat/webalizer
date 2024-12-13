@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-24 15:03+0100\n"
+"POT-Creation-Date: 2024-12-13 23:59+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,11 +53,11 @@ msgstr ""
 msgid "addresses"
 msgstr ""
 
-#: dns_resolv.c:324 webalizer.c:1500
+#: dns_resolv.c:324 webalizer.c:1520
 msgid "in"
 msgstr ""
 
-#: dns_resolv.c:324 webalizer.c:1500
+#: dns_resolv.c:324 webalizer.c:1520
 msgid "seconds"
 msgstr ""
 
@@ -152,74 +152,73 @@ msgstr ""
 msgid "db_put fail!\n"
 msgstr ""
 
-#: graphs.c:143 graphs.c:147 graphs.c:149 graphs.c:473 graphs.c:476
-#: graphs.c:478 output.c:715 output.c:806 output.c:925 output.c:937
-#: output.c:1039 output.c:1131 output.c:1143 output.c:1268 output.c:1901
-#: output.c:1998 output.c:2225 output.c:2301 output.c:2345 output.c:2466
-#: output.c:2623
+#: graphs.c:144 graphs.c:148 graphs.c:150 graphs.c:157 graphs.c:159
+#: graphs.c:501 graphs.c:503 graphs.c:506 output.c:719 output.c:826
+#: output.c:973 output.c:985 output.c:1094 output.c:1205 output.c:1217
+#: output.c:1352 output.c:2009 output.c:2114 output.c:2360 output.c:2446
+#: output.c:2498 output.c:2625 output.c:2790
 msgid "kB F"
 msgstr ""
 
-#: graphs.c:144 graphs.c:153 graphs.c:155 graphs.c:474 graphs.c:482
-#: graphs.c:484 output.c:716 output.c:807 output.c:939 output.c:1039
-#: output.c:1146 output.c:1268 output.c:1903 output.c:1998 output.c:2227
-#: output.c:2301 output.c:2345 output.c:2466 output.c:2625
+#: graphs.c:154 graphs.c:163 graphs.c:165 graphs.c:507 graphs.c:511
+#: graphs.c:513 output.c:731 output.c:838 output.c:989 output.c:1097
+#: output.c:1222 output.c:1355 output.c:2013 output.c:2117 output.c:2364
+#: output.c:2449 output.c:2501 output.c:2628 output.c:2794
 msgid "kB In"
 msgstr ""
 
-#: graphs.c:145 graphs.c:159 graphs.c:161 graphs.c:488 graphs.c:490
-#: output.c:717 output.c:808 output.c:941 output.c:1039 output.c:1149
-#: output.c:1268 output.c:1905 output.c:1998 output.c:2229 output.c:2301
-#: output.c:2346 output.c:2466 output.c:2627
+#: graphs.c:155 graphs.c:169 graphs.c:171 graphs.c:517 graphs.c:519
+#: output.c:732 output.c:839 output.c:991 output.c:1097 output.c:1225
+#: output.c:1355 output.c:2015 output.c:2117 output.c:2366 output.c:2449
+#: output.c:2501 output.c:2628 output.c:2796
 msgid "kB Out"
 msgstr ""
 
-#: graphs.c:164 graphs.c:167 graphs.c:169 graphs.c:501 graphs.c:503
-#: output.c:547 output.c:713 output.c:943 output.c:1040 output.c:1374
-#: output.c:1907 output.c:1999 output.c:2301 output.c:2466 output.c:2619
-#: output.c:2629
+#: graphs.c:174 graphs.c:177 graphs.c:179 graphs.c:531 graphs.c:533
+#: output.c:717 output.c:994 output.c:1099 output.c:1475 output.c:2018
+#: output.c:2119 output.c:2451 output.c:2630 output.c:2786 output.c:2799
 msgid "Visits"
 msgstr ""
 
-#: graphs.c:165 graphs.c:173 graphs.c:175 graphs.c:493 graphs.c:495
-#: graphs.c:497 output.c:490 output.c:714 output.c:1032 output.c:2621
+#: graphs.c:175 graphs.c:183 graphs.c:185 graphs.c:523 graphs.c:525
+#: graphs.c:527 output.c:718 output.c:1088 output.c:2788
 msgid "Sites"
 msgstr ""
 
-#: graphs.c:178 graphs.c:181 graphs.c:183 graphs.c:506 graphs.c:510
-#: graphs.c:512 graphs.c:718 graphs.c:722 graphs.c:724 output.c:543
-#: output.c:712 output.c:805 output.c:2617 output.c:2631
+#: graphs.c:188 graphs.c:191 graphs.c:193 graphs.c:536 graphs.c:540
+#: graphs.c:542 graphs.c:761 graphs.c:765 graphs.c:767 output.c:716
+#: output.c:825 output.c:2784 output.c:2801
 msgid "Pages"
 msgstr ""
 
-#: graphs.c:179 graphs.c:187 graphs.c:189 graphs.c:507 graphs.c:516
-#: graphs.c:518 graphs.c:719 graphs.c:728 graphs.c:730 output.c:711
-#: output.c:804 output.c:935 output.c:1039 output.c:1899 output.c:1998
-#: output.c:2223 output.c:2301 output.c:2466 output.c:2615 output.c:2633
+#: graphs.c:189 graphs.c:197 graphs.c:199 graphs.c:537 graphs.c:546
+#: graphs.c:548 graphs.c:762 graphs.c:771 graphs.c:773 output.c:715
+#: output.c:824 output.c:983 output.c:1094 output.c:2007 output.c:2114
+#: output.c:2358 output.c:2446 output.c:2625 output.c:2782 output.c:2803
 msgid "Files"
 msgstr ""
 
-#: graphs.c:193 graphs.c:195 graphs.c:508 graphs.c:522 graphs.c:524
-#: graphs.c:720 graphs.c:734 graphs.c:736 output.c:710 output.c:803
-#: output.c:933 output.c:1039 output.c:1140 output.c:1268 output.c:1371
-#: output.c:1466 output.c:1551 output.c:1631 output.c:1705 output.c:1778
-#: output.c:1841 output.c:1897 output.c:1998 output.c:2221 output.c:2301
-#: output.c:2345 output.c:2387 output.c:2426 output.c:2466 output.c:2510
-#: output.c:2613 output.c:2635
+#: graphs.c:203 graphs.c:205 graphs.c:538 graphs.c:552 graphs.c:554
+#: graphs.c:763 graphs.c:777 graphs.c:779 output.c:714 output.c:823
+#: output.c:981 output.c:1094 output.c:1214 output.c:1352 output.c:1472
+#: output.c:1567 output.c:1652 output.c:1739 output.c:1813 output.c:1886
+#: output.c:1949 output.c:2005 output.c:2114 output.c:2356 output.c:2446
+#: output.c:2498 output.c:2547 output.c:2586 output.c:2625 output.c:2675
+#: output.c:2780 output.c:2805
 msgid "Hits"
 msgstr ""
 
-#: graphs.c:378 graphs.c:656 graphs.c:782 graphs.c:888 output.c:2570
-#: output.c:2592 output.c:3075 output.c:3084 preserve.c:169 preserve.c:339
+#: graphs.c:405 graphs.c:699 graphs.c:825 graphs.c:931 output.c:2737
+#: output.c:2759 output.c:3268 output.c:3277 preserve.c:169 preserve.c:341
 msgid "Error: Unable to open file"
 msgstr ""
 
-#: graphs.c:873 lang2.h:432
+#: graphs.c:916 lang2.h:432
 msgid "Other"
 msgstr ""
 
-#: hashtab.c:118 hashtab.c:316 hashtab.c:450 hashtab.c:570 hashtab.c:687
-#: hashtab.c:792 hashtab.c:970 linklist.c:109 linklist.c:166
+#: hashtab.c:122 hashtab.c:321 hashtab.c:457 hashtab.c:578 hashtab.c:697
+#: hashtab.c:804 hashtab.c:984 linklist.c:109 linklist.c:166
 msgid "Warning: String exceeds storage size"
 msgstr ""
 
@@ -1791,358 +1790,370 @@ msgstr ""
 msgid "Local Network (lan)"
 msgstr ""
 
-#: output.c:190
+#: output.c:192
 msgid "en"
 msgstr ""
 
-#: output.c:192 output.c:218 output.c:2604
+#: output.c:194 output.c:220 output.c:2771
 msgid "Summary by Month"
 msgstr ""
 
-#: output.c:216
+#: output.c:218
 msgid "Summary Period"
 msgstr ""
 
-#: output.c:219
+#: output.c:221
 msgid "Generated"
 msgstr ""
 
-#: output.c:290
+#: output.c:292
 msgid "Generating report for"
 msgstr ""
 
-#: output.c:302
+#: output.c:304
 msgid "Daily usage for"
 msgstr ""
 
-#: output.c:320
+#: output.c:322
 msgid "Hourly usage for"
 msgstr ""
 
-#: output.c:372
+#: output.c:374
 msgid "Can't allocate enough memory, Top URLs disabled!"
 msgstr ""
 
-#: output.c:394
+#: output.c:396
 msgid "Can't allocate enough memory, Top Sites disabled!"
 msgstr ""
 
-#: output.c:411
+#: output.c:413
 msgid "Can't allocate enough memory, Top Referrers disabled!"
 msgstr ""
 
-#: output.c:428
+#: output.c:430
 msgid "Can't allocate enough memory, Top Search Strings disabled!"
 msgstr ""
 
-#: output.c:445
+#: output.c:447
 msgid "Can't allocate enough memory, Top Usernames disabled!"
 msgstr ""
 
-#: output.c:462
+#: output.c:464
 msgid "Can't allocate enough memory, Top User Agents disabled!"
 msgstr ""
 
-#: output.c:480
-msgid "Daily Statistics"
-msgstr ""
-
 #: output.c:482
-msgid "Hourly Statistics"
+msgid "[Daily Statistics]"
 msgstr ""
 
 #: output.c:484
-msgid "URLs"
+msgid "[Hourly Statistics]"
 msgstr ""
 
 #: output.c:486
-msgid "Entry"
+msgid "[URLs]"
 msgstr ""
 
 #: output.c:488
-msgid "Exit"
+msgid "[Entry]"
+msgstr ""
+
+#: output.c:490
+msgid "[Exit]"
 msgstr ""
 
 #: output.c:492
-msgid "Referrers"
+msgid "[Sites]"
 msgstr ""
 
 #: output.c:494
-msgid "Search"
+msgid "[Referrers]"
 msgstr ""
 
 #: output.c:496
-msgid "Users"
+msgid "[Search]"
 msgstr ""
 
 #: output.c:498
-msgid "Agents"
+msgid "[Users]"
 msgstr ""
 
 #: output.c:500
-msgid "Countries"
+msgid "[Agents]"
 msgstr ""
 
-#: output.c:530
+#: output.c:502
+msgid "[Countries]"
+msgstr ""
+
+#: output.c:532
 msgid "Monthly Statistics for"
 msgstr ""
 
-#: output.c:535
+#: output.c:537
 msgid "Total Hits"
 msgstr ""
 
-#: output.c:539
+#: output.c:541
 msgid "Total Files"
 msgstr ""
 
-#: output.c:543 output.c:547 output.c:813 output.c:818 output.c:823
-#: output.c:828 output.c:833 output.c:838
-msgid "Total"
+#: output.c:545
+msgid "Total Pages"
 msgstr ""
 
-#: output.c:551
+#: output.c:549
+msgid "Total Visits"
+msgstr ""
+
+#: output.c:553
 msgid "Total kB Files"
 msgstr ""
 
-#: output.c:554
+#: output.c:558
 msgid "Total kB In"
 msgstr ""
 
-#: output.c:557
+#: output.c:561
 msgid "Total kB Out"
 msgstr ""
 
-#: output.c:564
+#: output.c:569
 msgid "Total Unique Sites"
 msgstr ""
 
-#: output.c:569
+#: output.c:574
 msgid "Total Unique URLs"
 msgstr ""
 
-#: output.c:575
+#: output.c:580
 msgid "Total Unique Referrers"
 msgstr ""
 
-#: output.c:581
+#: output.c:586
 msgid "Total Unique Usernames"
 msgstr ""
 
-#: output.c:587
+#: output.c:592
 msgid "Total Unique User Agents"
 msgstr ""
 
-#: output.c:597 output.c:813 output.c:818 output.c:823 output.c:828
-#: output.c:833 output.c:838
+#: output.c:602 output.c:845 output.c:850 output.c:855 output.c:860
+#: output.c:872 output.c:877
 msgid "Avg"
 msgstr ""
 
-#: output.c:597
+#: output.c:602
 msgid "Max"
 msgstr ""
 
-#: output.c:604
+#: output.c:609
 msgid "Hits per Hour"
 msgstr ""
 
-#: output.c:610
+#: output.c:615
 msgid "Hits per Day"
 msgstr ""
 
-#: output.c:616
+#: output.c:621
 msgid "Files per Day"
 msgstr ""
 
-#: output.c:622
+#: output.c:627
 msgid "Pages per Day"
 msgstr ""
 
-#: output.c:628
+#: output.c:633
 msgid "Sites per Day"
 msgstr ""
 
-#: output.c:634
+#: output.c:639
 msgid "Visits per Day"
 msgstr ""
 
-#: output.c:640
+#: output.c:645
 msgid "kB Files per Day"
 msgstr ""
 
-#: output.c:646
+#: output.c:653
 msgid "kB In per Day"
 msgstr ""
 
-#: output.c:652
+#: output.c:659
 msgid "kB Out per Day"
 msgstr ""
 
-#: output.c:658
+#: output.c:666
 msgid "Hits by Response Code"
 msgstr ""
 
-#: output.c:689
+#: output.c:697
 msgid "Daily Statistics for"
 msgstr ""
 
-#: output.c:709
+#: output.c:713
 msgid "Day"
 msgstr ""
 
-#: output.c:786
+#: output.c:810
 msgid "Hourly Statistics for"
 msgstr ""
 
-#: output.c:802
+#: output.c:822
 msgid "Hour"
 msgstr ""
 
-#: output.c:924 output.c:928 output.c:1130 output.c:1134 output.c:1363
-#: output.c:1459 output.c:1624 output.c:1771 output.c:1892 output.c:2216
+#: output.c:845 output.c:850 output.c:855 output.c:860 output.c:872
+#: output.c:877
+msgid "Total"
+msgstr ""
+
+#: output.c:972 output.c:976 output.c:1204 output.c:1208 output.c:1464
+#: output.c:1560 output.c:1732 output.c:1879 output.c:2000 output.c:2351
 msgid "Top"
 msgstr ""
 
-#: output.c:924 output.c:928 output.c:1130 output.c:1134 output.c:1363
-#: output.c:1459 output.c:1624 output.c:1771 output.c:1892 output.c:2216
+#: output.c:972 output.c:976 output.c:1204 output.c:1208 output.c:1464
+#: output.c:1560 output.c:1732 output.c:1879 output.c:2000 output.c:2351
 msgid "of"
 msgstr ""
 
-#: output.c:925 output.c:1131
+#: output.c:973 output.c:1205
 msgid "By"
 msgstr ""
 
-#: output.c:925 output.c:928
+#: output.c:973 output.c:976
 msgid "Total Sites"
 msgstr ""
 
-#: output.c:945 output.c:1040 output.c:2302
+#: output.c:996 output.c:1099 output.c:2451
 msgid "Hostname"
 msgstr ""
 
-#: output.c:1004
+#: output.c:1060
 msgid "View All Sites"
 msgstr ""
 
-#: output.c:1131 output.c:1134
+#: output.c:1205 output.c:1208
 msgid "Total URLs"
 msgstr ""
 
-#: output.c:1152 output.c:1262 output.c:1268 output.c:1377 output.c:2346
+#: output.c:1229 output.c:1347 output.c:1357 output.c:1478 output.c:2503
 msgid "URL"
 msgstr ""
 
-#: output.c:1234
+#: output.c:1319
 msgid "View All URLs"
 msgstr ""
 
-#: output.c:1364
+#: output.c:1465
 msgid "Total Entry Pages"
 msgstr ""
 
-#: output.c:1364
+#: output.c:1465
 msgid "Total Exit Pages"
 msgstr ""
 
-#: output.c:1459
+#: output.c:1560
 msgid "Total Referrers"
 msgstr ""
 
-#: output.c:1469 output.c:1546 output.c:1551 output.c:2387
+#: output.c:1570 output.c:1647 output.c:1652 output.c:2547
 msgid "Referrer"
 msgstr ""
 
-#: output.c:1521
+#: output.c:1622
 msgid "View All Referrers"
 msgstr ""
 
-#: output.c:1624
+#: output.c:1732
 msgid "Total User Agents"
 msgstr ""
 
-#: output.c:1634 output.c:1700 output.c:1705 output.c:2426
+#: output.c:1742 output.c:1808 output.c:1813 output.c:2586
 msgid "User Agent"
 msgstr ""
 
-#: output.c:1675
+#: output.c:1783
 msgid "View All User Agents"
 msgstr ""
 
-#: output.c:1771
+#: output.c:1879
 msgid "Total Search Strings"
 msgstr ""
 
-#: output.c:1781 output.c:1836 output.c:1841 output.c:2510
+#: output.c:1889 output.c:1944 output.c:1949 output.c:2675
 msgid "Search String"
 msgstr ""
 
-#: output.c:1810
+#: output.c:1918
 msgid "View All Search Strings"
 msgstr ""
 
-#: output.c:1892
+#: output.c:2000
 msgid "Total Usernames"
 msgstr ""
 
-#: output.c:1909 output.c:1991 output.c:1999 output.c:2467
+#: output.c:2020 output.c:2108 output.c:2119 output.c:2630
 msgid "Username"
 msgstr ""
 
-#: output.c:1966
+#: output.c:2083
 msgid "View All Usernames"
 msgstr ""
 
-#: output.c:2101
+#: output.c:2236
 #, c-format
 msgid "GeoDB: %s unknown!\n"
 msgstr ""
 
-#: output.c:2114
+#: output.c:2249
 #, c-format
 msgid "GeoIP: %s unknown (returns '%s')\n"
 msgstr ""
 
-#: output.c:2199
+#: output.c:2334
 msgid "Usage by Country for"
 msgstr ""
 
-#: output.c:2216
+#: output.c:2351
 msgid "Total Countries"
 msgstr ""
 
-#: output.c:2231
+#: output.c:2369
 msgid "Country"
 msgstr ""
 
-#: output.c:2550
+#: output.c:2717
 msgid "Generating summary report"
 msgstr ""
 
-#: output.c:2552
+#: output.c:2719
 msgid "Usage summary for"
 msgstr ""
 
-#: output.c:2584
+#: output.c:2751
 #, c-format
 msgid "Error: Failed to create .htaccess file: %s\n"
 msgstr ""
 
-#: output.c:2607
+#: output.c:2774
 msgid "Month"
 msgstr ""
 
-#: output.c:2609
+#: output.c:2776
 msgid "Daily Avg"
 msgstr ""
 
-#: output.c:2611
+#: output.c:2778
 msgid "Monthly Totals"
 msgstr ""
 
-#: output.c:2743
+#: output.c:2933
 msgid "Totals"
 msgstr ""
 
-#: parser.c:232 parser.c:426
+#: parser.c:232 parser.c:433
 msgid "Warning: Truncating oversized hostname"
 msgstr ""
 
@@ -2154,11 +2165,11 @@ msgstr ""
 msgid "Warning: Truncating oversized date field"
 msgstr ""
 
-#: parser.c:311 parser.c:463 parser.c:492 webalizer.c:1005
+#: parser.c:311 parser.c:470 parser.c:499 webalizer.c:1017
 msgid "Warning: Truncating oversized request field"
 msgstr ""
 
-#: parser.c:355 webalizer.c:997
+#: parser.c:362 webalizer.c:1009
 msgid "Warning: Truncating oversized referrer field"
 msgstr ""
 
@@ -2182,180 +2193,180 @@ msgstr ""
 msgid "Error: Unable to write history file"
 msgstr ""
 
-#: preserve.c:353
+#: preserve.c:355
 msgid "Saving current run data..."
 msgstr ""
 
-#: preserve.c:567
+#: preserve.c:569
 msgid "Previous run data not found..."
 msgstr ""
 
-#: preserve.c:572
+#: preserve.c:574
 msgid "Reading previous run data.."
 msgstr ""
 
-#: preserve.c:679 webalizer.c:1227 webalizer.c:1332
+#: preserve.c:681 webalizer.c:1239 webalizer.c:1352
 msgid "Error adding URL node, skipping"
 msgstr ""
 
-#: preserve.c:720 webalizer.c:1272 webalizer.c:1347 webalizer.c:1365
+#: preserve.c:722 webalizer.c:1284 webalizer.c:1367 webalizer.c:1385
 msgid "Error adding host node (monthly), skipping"
 msgstr ""
 
-#: preserve.c:761 webalizer.c:1261
+#: preserve.c:763 webalizer.c:1273
 msgid "Error adding host node (daily), skipping"
 msgstr ""
 
-#: preserve.c:786 webalizer.c:1249 webalizer.c:1378
+#: preserve.c:788 webalizer.c:1261 webalizer.c:1398
 msgid "Error adding Referrer node, skipping"
 msgstr ""
 
-#: preserve.c:811 webalizer.c:1282 webalizer.c:1389
+#: preserve.c:813 webalizer.c:1294 webalizer.c:1409
 msgid "Error adding User Agent node, skipping"
 msgstr ""
 
-#: preserve.c:835 webalizer.c:2223
+#: preserve.c:837 webalizer.c:2406
 msgid "Error adding Search String Node, skipping"
 msgstr ""
 
-#: preserve.c:868 webalizer.c:1238 webalizer.c:1404
+#: preserve.c:870 webalizer.c:1250 webalizer.c:1424
 msgid "Error adding Username node, skipping"
 msgstr ""
 
-#: webalizer.c:326
+#: webalizer.c:336
 msgid "Usage Statistics for"
 msgstr ""
 
-#: webalizer.c:491 webalizer.c:1989
+#: webalizer.c:501 webalizer.c:2019
 msgid "locale"
 msgstr ""
 
-#: webalizer.c:497
+#: webalizer.c:507
 msgid "DNS support not present, aborting..."
 msgstr ""
 
-#: webalizer.c:514 webalizer.c:531 webalizer.c:542
+#: webalizer.c:524 webalizer.c:541 webalizer.c:552
 msgid "Error: Can't open log file"
 msgstr ""
 
-#: webalizer.c:551
+#: webalizer.c:561
 msgid "Using logfile"
 msgstr ""
 
-#: webalizer.c:572
+#: webalizer.c:582
 msgid "Error: Can't change directory to"
 msgstr ""
 
-#: webalizer.c:584
+#: webalizer.c:594
 msgid "No cache file specified, aborting..."
 msgstr ""
 
-#: webalizer.c:593
+#: webalizer.c:603
 msgid "DNS Lookup"
 msgstr ""
 
-#: webalizer.c:611
+#: webalizer.c:621
 msgid "Using DNS cache file"
 msgstr ""
 
-#: webalizer.c:621
+#: webalizer.c:631
 msgid "Error opening file"
 msgstr ""
 
-#: webalizer.c:622 webalizer.c:652
+#: webalizer.c:632 webalizer.c:662
 msgid "default"
 msgstr ""
 
-#: webalizer.c:623 webalizer.c:647
+#: webalizer.c:633 webalizer.c:657
 msgid "lookups disabled"
 msgstr ""
 
-#: webalizer.c:627 webalizer.c:650
+#: webalizer.c:637 webalizer.c:660
 msgid "Using"
 msgstr ""
 
-#: webalizer.c:658
+#: webalizer.c:668
 msgid "Creating output in"
 msgstr ""
 
-#: webalizer.c:658
+#: webalizer.c:668
 msgid "current directory"
 msgstr ""
 
-#: webalizer.c:668
+#: webalizer.c:678
 msgid "Hostname for reports is"
 msgstr ""
 
-#: webalizer.c:671
+#: webalizer.c:681
 msgid "Ignoring previous history..."
 msgstr ""
 
-#: webalizer.c:680
+#: webalizer.c:690
 msgid "Error: Unable to restore run data"
 msgstr ""
 
-#: webalizer.c:689
+#: webalizer.c:699
 msgid "Can't allocate enough memory, Top Countries disabled!"
 msgstr ""
 
-#: webalizer.c:706
+#: webalizer.c:718
 msgid "Error: Skipping oversized log record"
 msgstr ""
 
-#: webalizer.c:766
+#: webalizer.c:778
 msgid "Error: Skipping record (bad date)"
 msgstr ""
 
-#: webalizer.c:1419
+#: webalizer.c:1439
 msgid "Skipping Netscape header record"
 msgstr ""
 
-#: webalizer.c:1436
+#: webalizer.c:1456
 msgid "Skipping bad record"
 msgstr ""
 
-#: webalizer.c:1471
+#: webalizer.c:1491
 msgid "Error: Unable to save current run data"
 msgstr ""
 
-#: webalizer.c:1488
+#: webalizer.c:1508
 msgid "records"
 msgstr ""
 
-#: webalizer.c:1491
+#: webalizer.c:1511
 msgid "ignored"
 msgstr ""
 
-#: webalizer.c:1492 webalizer.c:1495
+#: webalizer.c:1512 webalizer.c:1515
 msgid "bad"
 msgstr ""
 
-#: webalizer.c:1529
+#: webalizer.c:1551
 msgid "No valid records found!"
 msgstr ""
 
-#: webalizer.c:1679
+#: webalizer.c:1704
 msgid "Error: Unable to open configuration file"
 msgstr ""
 
-#: webalizer.c:1709 webalizer.c:1835 webalizer.c:1866 webalizer.c:1884
+#: webalizer.c:1734 webalizer.c:1860 webalizer.c:1891 webalizer.c:1909
 msgid "Warning: Invalid keyword"
 msgstr ""
 
-#: webalizer.c:1972
+#: webalizer.c:2002
 msgid "Usage"
 msgstr ""
 
-#: webalizer.c:1972
+#: webalizer.c:2002
 msgid "[options] [log file]"
 msgstr ""
 
-#: webalizer.c:2008
+#: webalizer.c:2038
 #, c-format
 msgid "Default GeoDB dir : %s\n"
 msgstr ""
 
-#: webalizer.c:2010
+#: webalizer.c:2040
 #, c-format
 msgid "Default config dir: %s\n"
 msgstr ""

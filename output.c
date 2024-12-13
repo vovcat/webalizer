@@ -479,27 +479,27 @@ void month_links()
 {
    fprintf(out_fp,"<SMALL>\n");
    if (daily_stats || daily_graph)
-      fprintf(out_fp,"<A HREF=\"#DAYSTATS\">[%s]</A>\n",_("Daily Statistics"));
+      fprintf(out_fp,"<A HREF=\"#DAYSTATS\">%s</A>\n",_("[Daily Statistics]"));
    if (hourly_stats || hourly_graph)
-      fprintf(out_fp,"<A HREF=\"#HOURSTATS\">[%s]</A>\n",_("Hourly Statistics"));
+      fprintf(out_fp,"<A HREF=\"#HOURSTATS\">%s</A>\n",_("[Hourly Statistics]"));
    if (ntop_urls || ntop_urlsK)
-      fprintf(out_fp,"<A HREF=\"#TOPURLS\">[%s]</A>\n",_("URLs"));
+      fprintf(out_fp,"<A HREF=\"#TOPURLS\">%s</A>\n",_("[URLs]"));
    if (ntop_entry)
-      fprintf(out_fp,"<A HREF=\"#TOPENTRY\">[%s]</A>\n",_("Entry"));
+      fprintf(out_fp,"<A HREF=\"#TOPENTRY\">%s</A>\n",_("[Entry]"));
    if (ntop_exit)
-      fprintf(out_fp,"<A HREF=\"#TOPEXIT\">[%s]</A>\n",_("Exit"));
+      fprintf(out_fp,"<A HREF=\"#TOPEXIT\">%s</A>\n",_("[Exit]"));
    if (ntop_sites || ntop_sitesK)
-      fprintf(out_fp,"<A HREF=\"#TOPSITES\">[%s]</A>\n",_("Sites"));
+      fprintf(out_fp,"<A HREF=\"#TOPSITES\">%s</A>\n",_("[Sites]"));
    if (ntop_refs && t_ref)
-      fprintf(out_fp,"<A HREF=\"#TOPREFS\">[%s]</A>\n",_("Referrers"));
+      fprintf(out_fp,"<A HREF=\"#TOPREFS\">%s</A>\n",_("[Referrers]"));
    if (ntop_search)
-      fprintf(out_fp,"<A HREF=\"#TOPSEARCH\">[%s]</A>\n",_("Search"));
+      fprintf(out_fp,"<A HREF=\"#TOPSEARCH\">%s</A>\n",_("[Search]"));
    if (ntop_users && t_user)
-      fprintf(out_fp,"<A HREF=\"#TOPUSERS\">[%s]</A>\n",_("Users"));
+      fprintf(out_fp,"<A HREF=\"#TOPUSERS\">%s</A>\n",_("[Users]"));
    if (ntop_agents && t_agent)
-      fprintf(out_fp,"<A HREF=\"#TOPAGENTS\">[%s]</A>\n",_("Agents"));
+      fprintf(out_fp,"<A HREF=\"#TOPAGENTS\">%s</A>\n",_("[Agents]"));
    if (ntop_ctrys)
-      fprintf(out_fp,"<A HREF=\"#TOPCTRYS\">[%s]</A>\n",_("Countries"));
+      fprintf(out_fp,"<A HREF=\"#TOPCTRYS\">%s</A>\n",_("[Countries]"));
    fprintf(out_fp,"</SMALL>\n<P>\n");
 }
 
@@ -540,13 +540,13 @@ void month_total_table()
       "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
       "</FONT></TD></TR>\n",_("Total Files"),t_file);
    /* Total Pages */
-   fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s %s</FONT></TD>\n"  \
+   fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"  \
       "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
-      "</FONT></TD></TR>\n",_("Total"), _("Pages"), t_page);
+      "</FONT></TD></TR>\n",_("Total Pages"), t_page);
    /* Total Visits */
-   fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s %s</FONT></TD>\n"  \
+   fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"  \
       "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%llu</B>"              \
-      "</FONT></TD></TR>\n",_("Total"), _("Visits"), t_visit);
+      "</FONT></TD></TR>\n",_("Total Visits"), t_visit);
    /* Total XFer */
    fprintf(out_fp,"<TR><TD WIDTH=380><FONT SIZE=\"-1\">%s</FONT></TD>\n"     \
       "<TD ALIGN=right COLSPAN=2><FONT SIZE=\"-1\"><B>%.0f</B>"              \
@@ -2368,22 +2368,10 @@ void top_ctry_table()
    fprintf(out_fp,"<TH BGCOLOR=\"%s\" ALIGN=center>"                       \
           "<FONT SIZE=\"-1\">%s</FONT></TH></TR>\n",MISCCOLOR,_("Country"));
    fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
-   for (i=0;i<ntop_ctrys;i++)
-   {
-      flag_buf[0]=0;
-      if (use_flags)
-      {
-         domain=un_idx((idx=top_ctrys[i]->idx));
-         if (strlen(domain)<3 && idx!=0) /* only to ccTLDs */
-         {
-            if ( domain[0]!='a'||domain[1]!='p' )  /* all but 'ap' */
-            snprintf(flag_buf,sizeof(flag_buf),
-            "<IMG SRC=\"%s/%s.png\" ALT=\"%s\" WIDTH=18 HEIGHT=12> ",
-            flag_dir,domain,top_ctrys[i]->desc);
-         }
-      }
 
-      if (top_ctrys[i]->count!=0)
+   for (i = 0; i < ntop_ctrys; i++) {
+
+      if (top_ctrys[i]->count != 0)
       {
 	 fprintf(out_fp,"<TR>"                                                \
               "<TD ALIGN=center><FONT SIZE=\"-1\"><B>%d</B></FONT></TD>\n" \
@@ -2412,14 +2400,22 @@ void top_ctry_table()
               (t_oxfer==0)?0:((float)top_ctrys[i]->oxfer/t_oxfer)*100.0);
          }
 
-	 fprintf(out_fp,
-              "<TD ALIGN=left NOWRAP>%s<FONT SIZE=\"-1\">%s</FONT>"        \
-              "</TD></TR>\n",
-              flag_buf,top_ctrys[i]->desc);
+         flag_buf[0] = '\0';
+         if (use_flags) {
+            domain = un_idx((idx = top_ctrys[i]->idx));
+            if (strlen(domain) < 3 && idx != 0) { /* only to ccTLDs */
+               if (strcmp(domain, "ap"))  /* all but 'ap' */
+                  snprintf(flag_buf, sizeof(flag_buf),
+                     "<IMG SRC=\"%s/%s.png\" ALT=\"%s\" WIDTH=18 HEIGHT=12> ",
+                     flag_dir, domain, top_ctrys[i]->desc);
+            }
+         }
+	 fprintf(out_fp, "<TD ALIGN=left NOWRAP>%s<FONT SIZE=\"-1\">%s</FONT></TD></TR>\n",
+              flag_buf, _(top_ctrys[i]->desc));
       }
    }
-   fprintf(out_fp,"<TR><TH HEIGHT=4></TH></TR>\n");
-   fprintf(out_fp,"</TABLE>\n<P>\n");
+   fprintf(out_fp, "<TR><TH HEIGHT=4></TH></TR>\n");
+   fprintf(out_fp, "</TABLE>\n<P>\n");
 }
 
 /*********************************************/

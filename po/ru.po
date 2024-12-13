@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-24 15:03+0100\n"
+"POT-Creation-Date: 2024-12-13 23:59+0300\n"
 "PO-Revision-Date: 2003-05-25 23:29+0200\n"
 "Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
 "Language-Team: French <tech@jexiste.org>\n"
@@ -47,11 +47,11 @@ msgstr "Нечего обрабатывать"
 msgid "addresses"
 msgstr "адресов"
 
-#: dns_resolv.c:324 webalizer.c:1500
+#: dns_resolv.c:324 webalizer.c:1520
 msgid "in"
 msgstr "за"
 
-#: dns_resolv.c:324 webalizer.c:1500
+#: dns_resolv.c:324 webalizer.c:1520
 msgid "seconds"
 msgstr "секунд"
 
@@ -146,74 +146,73 @@ msgstr ""
 msgid "db_put fail!\n"
 msgstr ""
 
-#: graphs.c:143 graphs.c:147 graphs.c:149 graphs.c:473 graphs.c:476
-#: graphs.c:478 output.c:715 output.c:806 output.c:925 output.c:937
-#: output.c:1039 output.c:1131 output.c:1143 output.c:1268 output.c:1901
-#: output.c:1998 output.c:2225 output.c:2301 output.c:2345 output.c:2466
-#: output.c:2623
+#: graphs.c:144 graphs.c:148 graphs.c:150 graphs.c:157 graphs.c:159
+#: graphs.c:501 graphs.c:503 graphs.c:506 output.c:719 output.c:826
+#: output.c:973 output.c:985 output.c:1094 output.c:1205 output.c:1217
+#: output.c:1352 output.c:2009 output.c:2114 output.c:2360 output.c:2446
+#: output.c:2498 output.c:2625 output.c:2790
 msgid "kB F"
-msgstr "килобайт"
+msgstr "Килобайт"
 
-#: graphs.c:144 graphs.c:153 graphs.c:155 graphs.c:474 graphs.c:482
-#: graphs.c:484 output.c:716 output.c:807 output.c:939 output.c:1039
-#: output.c:1146 output.c:1268 output.c:1903 output.c:1998 output.c:2227
-#: output.c:2301 output.c:2345 output.c:2466 output.c:2625
+#: graphs.c:154 graphs.c:163 graphs.c:165 graphs.c:507 graphs.c:511
+#: graphs.c:513 output.c:731 output.c:838 output.c:989 output.c:1097
+#: output.c:1222 output.c:1355 output.c:2013 output.c:2117 output.c:2364
+#: output.c:2449 output.c:2501 output.c:2628 output.c:2794
 msgid "kB In"
 msgstr "кБ вх"
 
-#: graphs.c:145 graphs.c:159 graphs.c:161 graphs.c:488 graphs.c:490
-#: output.c:717 output.c:808 output.c:941 output.c:1039 output.c:1149
-#: output.c:1268 output.c:1905 output.c:1998 output.c:2229 output.c:2301
-#: output.c:2346 output.c:2466 output.c:2627
+#: graphs.c:155 graphs.c:169 graphs.c:171 graphs.c:517 graphs.c:519
+#: output.c:732 output.c:839 output.c:991 output.c:1097 output.c:1225
+#: output.c:1355 output.c:2015 output.c:2117 output.c:2366 output.c:2449
+#: output.c:2501 output.c:2628 output.c:2796
 msgid "kB Out"
 msgstr "кБ исх"
 
-#: graphs.c:164 graphs.c:167 graphs.c:169 graphs.c:501 graphs.c:503
-#: output.c:547 output.c:713 output.c:943 output.c:1040 output.c:1374
-#: output.c:1907 output.c:1999 output.c:2301 output.c:2466 output.c:2619
-#: output.c:2629
+#: graphs.c:174 graphs.c:177 graphs.c:179 graphs.c:531 graphs.c:533
+#: output.c:717 output.c:994 output.c:1099 output.c:1475 output.c:2018
+#: output.c:2119 output.c:2451 output.c:2630 output.c:2786 output.c:2799
 msgid "Visits"
-msgstr "посещений"
+msgstr "Посещений"
 
-#: graphs.c:165 graphs.c:173 graphs.c:175 graphs.c:493 graphs.c:495
-#: graphs.c:497 output.c:490 output.c:714 output.c:1032 output.c:2621
+#: graphs.c:175 graphs.c:183 graphs.c:185 graphs.c:523 graphs.c:525
+#: graphs.c:527 output.c:718 output.c:1088 output.c:2788
 msgid "Sites"
-msgstr "хостов"
+msgstr "Хостов"
 
-#: graphs.c:178 graphs.c:181 graphs.c:183 graphs.c:506 graphs.c:510
-#: graphs.c:512 graphs.c:718 graphs.c:722 graphs.c:724 output.c:543
-#: output.c:712 output.c:805 output.c:2617 output.c:2631
+#: graphs.c:188 graphs.c:191 graphs.c:193 graphs.c:536 graphs.c:540
+#: graphs.c:542 graphs.c:761 graphs.c:765 graphs.c:767 output.c:716
+#: output.c:825 output.c:2784 output.c:2801
 msgid "Pages"
-msgstr "страниц"
+msgstr "Страниц"
 
-#: graphs.c:179 graphs.c:187 graphs.c:189 graphs.c:507 graphs.c:516
-#: graphs.c:518 graphs.c:719 graphs.c:728 graphs.c:730 output.c:711
-#: output.c:804 output.c:935 output.c:1039 output.c:1899 output.c:1998
-#: output.c:2223 output.c:2301 output.c:2466 output.c:2615 output.c:2633
+#: graphs.c:189 graphs.c:197 graphs.c:199 graphs.c:537 graphs.c:546
+#: graphs.c:548 graphs.c:762 graphs.c:771 graphs.c:773 output.c:715
+#: output.c:824 output.c:983 output.c:1094 output.c:2007 output.c:2114
+#: output.c:2358 output.c:2446 output.c:2625 output.c:2782 output.c:2803
 msgid "Files"
-msgstr "файлов"
+msgstr "Файлов"
 
-#: graphs.c:193 graphs.c:195 graphs.c:508 graphs.c:522 graphs.c:524
-#: graphs.c:720 graphs.c:734 graphs.c:736 output.c:710 output.c:803
-#: output.c:933 output.c:1039 output.c:1140 output.c:1268 output.c:1371
-#: output.c:1466 output.c:1551 output.c:1631 output.c:1705 output.c:1778
-#: output.c:1841 output.c:1897 output.c:1998 output.c:2221 output.c:2301
-#: output.c:2345 output.c:2387 output.c:2426 output.c:2466 output.c:2510
-#: output.c:2613 output.c:2635
+#: graphs.c:203 graphs.c:205 graphs.c:538 graphs.c:552 graphs.c:554
+#: graphs.c:763 graphs.c:777 graphs.c:779 output.c:714 output.c:823
+#: output.c:981 output.c:1094 output.c:1214 output.c:1352 output.c:1472
+#: output.c:1567 output.c:1652 output.c:1739 output.c:1813 output.c:1886
+#: output.c:1949 output.c:2005 output.c:2114 output.c:2356 output.c:2446
+#: output.c:2498 output.c:2547 output.c:2586 output.c:2625 output.c:2675
+#: output.c:2780 output.c:2805
 msgid "Hits"
-msgstr "запросов"
+msgstr "Запросов"
 
-#: graphs.c:378 graphs.c:656 graphs.c:782 graphs.c:888 output.c:2570
-#: output.c:2592 output.c:3075 output.c:3084 preserve.c:169 preserve.c:339
+#: graphs.c:405 graphs.c:699 graphs.c:825 graphs.c:931 output.c:2737
+#: output.c:2759 output.c:3268 output.c:3277 preserve.c:169 preserve.c:341
 msgid "Error: Unable to open file"
 msgstr "Ошибка: нельзя открыть файл"
 
-#: graphs.c:873 lang2.h:432
+#: graphs.c:916 lang2.h:432
 msgid "Other"
 msgstr "Прочие"
 
-#: hashtab.c:118 hashtab.c:316 hashtab.c:450 hashtab.c:570 hashtab.c:687
-#: hashtab.c:792 hashtab.c:970 linklist.c:109 linklist.c:166
+#: hashtab.c:122 hashtab.c:321 hashtab.c:457 hashtab.c:578 hashtab.c:697
+#: hashtab.c:804 hashtab.c:984 linklist.c:109 linklist.c:166
 msgid "Warning: String exceeds storage size"
 msgstr "Предупреждение: строка превысила зарезервированный объём"
 
@@ -222,12 +221,10 @@ msgid "-h        = print this help message"
 msgstr "-h        = выдать это информационное сообщение"
 
 #: lang2.h:41
-#, fuzzy
 msgid "-V        = print version information"
 msgstr "-v -V     = выдать информацию о версии"
 
 #: lang2.h:42
-#, fuzzy
 msgid "-v        = be verbose"
 msgstr "-v        = be verbose"
 
@@ -236,7 +233,6 @@ msgid "-d        = print additional debug info"
 msgstr "-d        = выдавать дополнительную отладочную информацию"
 
 #: lang2.h:44
-#, fuzzy
 msgid "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
 msgstr "-F тип    = вид исходной статистики. тип = (clf | ftp | squid)"
 
@@ -253,7 +249,6 @@ msgid "-p        = preserve state (incremental)"
 msgstr "-p        = сохранять информацию о состоянии (последовательно)"
 
 #: lang2.h:48
-#, fuzzy
 msgid "-b        = ignore state (incremental)"
 msgstr "-p        = сохранять информацию о состоянии (последовательно)"
 
@@ -330,9 +325,8 @@ msgid "-x name   = Use filename extension 'name'"
 msgstr "-x имя    = использовать расширение 'имя' для HTML-файлов"
 
 #: lang2.h:67
-#, fuzzy
 msgid "-O name   = Omit page 'name'"
-msgstr "-s имя    = не обрабатывать хост 'имя'"
+msgstr "-O имя    = Пропустить страницу 'имя'"
 
 #: lang2.h:68
 msgid "-P name   = Page type extension 'name'"
@@ -347,7 +341,6 @@ msgid "-K num    = num months in summary table"
 msgstr "-K число  = число месяцев в суммарной таблице"
 
 #: lang2.h:71
-#, fuzzy
 msgid "-k num    = num months in summary graph"
 msgstr "-k число  = число месяцев в суммарном графике"
 
@@ -404,18 +397,16 @@ msgid "-j        = Enable native GeoDB lookups"
 msgstr "-j        = Использовать поиск по встроенной GeoDB"
 
 #: lang2.h:86
-#, fuzzy
 msgid "-J name   = Use GeoDB database 'name'"
-msgstr "-D имя    = Использовать DNS 'имя' кэш-файл"
+msgstr "-J имя    = Использовать базу данных GeoDB 'имя'"
 
 #: lang2.h:89
 msgid "-w        = Enable GeoIP lookups"
-msgstr "-ц        = Использовать поиск по GeoIP"
+msgstr "-w        = Использовать поиск по GeoIP"
 
 #: lang2.h:90
-#, fuzzy
 msgid "-W name   = Use GeoIP database 'name'"
-msgstr "-I имя    = использовать как дополнительный индексный файл"
+msgstr "-W имя    = Использовать базу данных GeoIP 'имя'"
 
 #: lang2.h:95
 msgid "Feb"
@@ -439,7 +430,7 @@ msgstr "Июн"
 
 #: lang2.h:96
 msgid "short|May"
-msgstr ""
+msgstr "Май"
 
 #: lang2.h:97
 msgid "Aug"
@@ -486,9 +477,8 @@ msgid "June"
 msgstr "Июнь"
 
 #: lang2.h:102
-#, fuzzy
 msgid "long|May"
-msgstr "Острова Тонга"
+msgstr "Май"
 
 #: lang2.h:103
 msgid "August"
@@ -683,102 +673,96 @@ msgid "Unresolved/Unknown"
 msgstr "Нераспознанные/неизвестные"
 
 #: lang2.h:156
-#, fuzzy
 msgid "Commercial (com)"
-msgstr "США коммерческие"
+msgstr "Коммерческие (com)"
 
 #: lang2.h:157
-#, fuzzy
 msgid "Educational (edu)"
-msgstr "США образовательные"
+msgstr "Образовательные (edu)"
 
 #: lang2.h:158
-#, fuzzy
 msgid "US Government (gov)"
-msgstr "США правительственные"
+msgstr "США правительственные (gov)"
 
 #: lang2.h:159
 msgid "International (int)"
 msgstr "Интернациональные (int)"
 
 #: lang2.h:160
-#, fuzzy
 msgid "US Military (mil)"
-msgstr "США военные"
+msgstr "США военные (mil)"
 
 #: lang2.h:161
-#, fuzzy
 msgid "Network (net)"
-msgstr "Сетевые организации"
+msgstr "Сетевые организации (net)"
 
 #: lang2.h:162
-#, fuzzy
 msgid "Non-Profit (org)"
-msgstr "Некоммерческие организации"
+msgstr "Некоммерческие организации (org)"
 
 #: lang2.h:163
 msgid "Generic Business (biz)"
-msgstr ""
+msgstr "Бизнес (biz)"
 
 #: lang2.h:164
 msgid "Catalan Community (cat)"
-msgstr ""
+msgstr "Каталанский (cat)"
 
 #: lang2.h:165
 msgid "Professional (pro)"
-msgstr ""
+msgstr "Профессионалы (pro)"
 
 #: lang2.h:166
 msgid "Ind. Contact Data (tel)"
-msgstr ""
+msgstr "Контактная информация (tel)"
 
 #: lang2.h:167
 msgid "Air Transport Industry (aero)"
-msgstr ""
+msgstr "Авиатранспортные компании (aero)"
 
 #: lang2.h:168
 msgid "Asia Pacific Community (asia)"
-msgstr ""
+msgstr "Азиатско-Тихоокеанский регион"
 
 #: lang2.h:169
 msgid "Cooperative Association (coop)"
-msgstr ""
+msgstr "Кооперативы (coop)"
 
 #: lang2.h:170
 msgid "Generic TLD (info)"
-msgstr ""
+msgstr "Информация (info)"
 
 #: lang2.h:171
 msgid "Human Resources (jobs)"
-msgstr ""
+msgstr "Работа (jobs)"
 
 #: lang2.h:172
 msgid "Generic Mobile TLD (mobi)"
-msgstr ""
+msgstr "Мобильные сайты (mobi)"
 
 #: lang2.h:173
 msgid "Individual (name)"
-msgstr ""
+msgstr "Персональные домены (name)"
 
 #: lang2.h:174
 msgid "Address Routing (arpa)"
-msgstr ""
+msgstr "Старый Arpanet (arpa)"
 
 #: lang2.h:175
 msgid "Nato field (nato)"
-msgstr "Зона НАТО (nato)"
+msgstr "НАТО (nato)"
 
 #: lang2.h:176
 msgid "Museums (museum)"
-msgstr ""
+msgstr "Музеи (museum)"
 
 #: lang2.h:177
 msgid "Travel Ind. (travel)"
-msgstr ""
+msgstr "Путешествия (travel)"
 
 #: lang2.h:178
 msgid "Ascension Island"
-msgstr ""
+msgstr "Острова Вознесения (Британия)"
 
 #: lang2.h:179
 msgid "Andorra"
@@ -818,7 +802,7 @@ msgstr "Ангола"
 
 #: lang2.h:188
 msgid "Antarctica"
-msgstr "Антарктика"
+msgstr "Антарктида"
 
 #: lang2.h:189
 msgid "Argentina"
@@ -841,9 +825,8 @@ msgid "Aruba"
 msgstr "Аруба"
 
 #: lang2.h:194
-#, fuzzy
 msgid "Aland Islands"
-msgstr "Каймановые острова"
+msgstr "Аландские острова (Финляндия)"
 
 #: lang2.h:195
 msgid "Azerbaijan"
@@ -887,7 +870,7 @@ msgstr "Бенин"
 
 #: lang2.h:205
 msgid "Saint Barthelemy"
-msgstr ""
+msgstr "Сен-Бартелеми (Франция, неисп.)"
 
 #: lang2.h:206
 msgid "Bermuda"
@@ -938,9 +921,8 @@ msgid "Cocos (Keeling) Islands"
 msgstr "Кокосовые Острова"
 
 #: lang2.h:218
-#, fuzzy
 msgid "Congo, Democratic Republic"
-msgstr "Центральноафриканская республика"
+msgstr "Конго (ДРК)"
 
 #: lang2.h:219
 msgid "Central African Republic"
@@ -1000,7 +982,7 @@ msgstr "Кипр"
 
 #: lang2.h:233
 msgid "Czech Republic"
-msgstr "Республика Чехия"
+msgstr "Чехия"
 
 #: lang2.h:234
 msgid "Germany"
@@ -1024,7 +1006,7 @@ msgstr "Доминиканская Республика"
 
 #: lang2.h:239
 msgid "Algeria"
-msgstr "Алгерия"
+msgstr "Алжир"
 
 #: lang2.h:240
 msgid "Ecuador"
@@ -1056,7 +1038,7 @@ msgstr "Эфиопия"
 
 #: lang2.h:247
 msgid "European Union"
-msgstr ""
+msgstr "Европейский союз"
 
 #: lang2.h:248
 msgid "Finland"
@@ -1104,7 +1086,7 @@ msgstr "Французская Гвиана"
 
 #: lang2.h:259
 msgid "Guernsey"
-msgstr ""
+msgstr "Гернси (Британия)"
 
 #: lang2.h:260
 msgid "Ghana"
@@ -1140,7 +1122,7 @@ msgstr "Греция"
 
 #: lang2.h:268
 msgid "S. Georgia and S. Sandwich Isls."
-msgstr "Южн. Георгия и Южн. Сандвичевы о-ва"
+msgstr "Южн. Георгия и Сандвичевы о-ва"
 
 #: lang2.h:269
 msgid "Guatemala"
@@ -1172,7 +1154,7 @@ msgstr "Гондурас"
 
 #: lang2.h:276
 msgid "Croatia"
-msgstr ""
+msgstr "Хорватия"
 
 #: lang2.h:277
 msgid "Haiti"
@@ -1196,7 +1178,7 @@ msgstr "Израиль"
 
 #: lang2.h:282
 msgid "Isle of Man"
-msgstr ""
+msgstr "Остров Мэн"
 
 #: lang2.h:283
 msgid "India"
@@ -1224,7 +1206,7 @@ msgstr "Италия"
 
 #: lang2.h:289
 msgid "Jersey"
-msgstr ""
+msgstr "Джерси (Британия)"
 
 #: lang2.h:290
 msgid "Jamaica"
@@ -1264,12 +1246,11 @@ msgstr "Острова святого Китса и Невиса"
 
 #: lang2.h:299
 msgid "Korea, Democratic Republic of"
-msgstr ""
+msgstr "Северная Корея"
 
 #: lang2.h:300
-#, fuzzy
 msgid "Korea, Republic of"
-msgstr "Республика Словакия"
+msgstr "Южная Корея"
 
 #: lang2.h:301
 msgid "Kuwait"
@@ -1277,7 +1258,7 @@ msgstr "Кувейт"
 
 #: lang2.h:302
 msgid "Cayman Islands"
-msgstr "Каймановые острова"
+msgstr "Каймановы острова"
 
 #: lang2.h:303
 msgid "Kazakhstan"
@@ -1289,7 +1270,7 @@ msgstr "Лаос"
 
 #: lang2.h:305
 msgid "Lebanon"
-msgstr "Лебанон"
+msgstr "Ливан"
 
 #: lang2.h:306
 msgid "Saint Lucia"
@@ -1313,7 +1294,7 @@ msgstr "Лесото"
 
 #: lang2.h:311
 msgid "Lithuania"
-msgstr "Литания"
+msgstr "Литва"
 
 #: lang2.h:312
 msgid "Luxembourg"
@@ -1340,13 +1321,12 @@ msgid "Moldova"
 msgstr "Молдавия"
 
 #: lang2.h:318
-#, fuzzy
 msgid "Montenegro"
-msgstr "Монсеррат"
+msgstr "Черногория"
 
 #: lang2.h:319
 msgid "Saint Martin (French part)"
-msgstr ""
+msgstr "Сен-Мартен (Франция)"
 
 #: lang2.h:320
 msgid "Madagascar"
@@ -1366,7 +1346,7 @@ msgstr "Мали"
 
 #: lang2.h:324
 msgid "Myanmar"
-msgstr "Майанмар"
+msgstr "Мьянма"
 
 #: lang2.h:325
 msgid "Mongolia"
@@ -1465,7 +1445,6 @@ msgid "Niue"
 msgstr "Ниуэ"
 
 #: lang2.h:349
-#, fuzzy
 msgid "New Zealand"
 msgstr "Новая Зеландия"
 
@@ -1507,7 +1486,7 @@ msgstr "Остров святого Пьера и Мигеля"
 
 #: lang2.h:359
 msgid "Pitcairn"
-msgstr "Питккерн"
+msgstr "Острова Питкэрн"
 
 #: lang2.h:360
 msgid "Puerto Rico"
@@ -1515,7 +1494,7 @@ msgstr "Пуэрто Рико"
 
 #: lang2.h:361
 msgid "Palestinian Territory, Occupied"
-msgstr ""
+msgstr "Палестинские территории"
 
 #: lang2.h:362
 msgid "Portugal"
@@ -1531,7 +1510,7 @@ msgstr "Парагвай"
 
 #: lang2.h:365
 msgid "Qatar"
-msgstr "Кватар"
+msgstr "Катар"
 
 #: lang2.h:366
 msgid "Reunion"
@@ -1543,7 +1522,7 @@ msgstr "Румыния"
 
 #: lang2.h:368
 msgid "Serbia"
-msgstr ""
+msgstr "Сербия"
 
 #: lang2.h:369
 msgid "Russian Federation"
@@ -1590,9 +1569,8 @@ msgid "Svalbard and Jan Mayen Islands"
 msgstr "Острова Свалбард и Ян-Майен"
 
 #: lang2.h:380
-#, fuzzy
 msgid "Slovakia"
-msgstr "Словения"
+msgstr "Словакия"
 
 #: lang2.h:381
 msgid "Sierra Leone"
@@ -1620,20 +1598,19 @@ msgstr "Сао Том и Принциповы острова"
 
 #: lang2.h:387
 msgid "Soviet Union"
-msgstr ""
+msgstr "Бывший СССР (SU)"
 
 #: lang2.h:388
 msgid "El Salvador"
 msgstr "Сальвадор"
 
 #: lang2.h:389
-#, fuzzy
 msgid "Syrian Arab Republic"
-msgstr "Центральноафриканская республика"
+msgstr "Сирия"
 
 #: lang2.h:390
 msgid "Swaziland"
-msgstr "Свазиланд"
+msgstr "Эсватини (Свазиленд)"
 
 #: lang2.h:391
 msgid "Turks and Caicos Islands"
@@ -1641,7 +1618,7 @@ msgstr "Острова Тюркс и Кайкос"
 
 #: lang2.h:392
 msgid "Chad"
-msgstr "Республика Чад"
+msgstr "Чад"
 
 #: lang2.h:393
 msgid "French Southern Territories"
@@ -1653,7 +1630,7 @@ msgstr "Того"
 
 #: lang2.h:395
 msgid "Thailand"
-msgstr "Таиланд"
+msgstr "Тайланд"
 
 #: lang2.h:396
 msgid "Tajikistan"
@@ -1665,7 +1642,7 @@ msgstr "Острова Токелау"
 
 #: lang2.h:398
 msgid "Timor-Leste"
-msgstr ""
+msgstr "Восточный Тимор"
 
 #: lang2.h:399
 msgid "Turkmenistan"
@@ -1681,7 +1658,7 @@ msgstr "Острова Тонга"
 
 #: lang2.h:402
 msgid "Portuguese Timor"
-msgstr ""
+msgstr "Португальский Тимор (устаревшее)"
 
 #: lang2.h:403
 msgid "Turkey"
@@ -1693,7 +1670,7 @@ msgstr "Тринидад и Тобаго"
 
 #: lang2.h:405
 msgid "Tuvalu"
-msgstr "Тувалау"
+msgstr "Тувалу"
 
 #: lang2.h:406
 msgid "Taiwan"
@@ -1752,7 +1729,6 @@ msgid "Virgin Islands (U.S.)"
 msgstr "Виргинские острова (США)"
 
 #: lang2.h:420
-#, fuzzy
 msgid "Vietnam"
 msgstr "Вьетнам"
 
@@ -1794,385 +1770,390 @@ msgstr "Зимбабве"
 
 #: lang2.h:430
 msgid "Anonymous Proxy"
-msgstr ""
+msgstr "Анонимные прокси"
 
 #: lang2.h:431
 msgid "Satellite Provider"
-msgstr ""
+msgstr "Спутниковые провайдеры"
 
 #: lang2.h:433
 msgid "Asia/Pacific Region"
-msgstr ""
+msgstr "Азиатско-Тихоокеанский регион"
 
 #: lang2.h:434
 msgid "Local Network (lan)"
-msgstr ""
+msgstr "Локальная сеть (lan)"
 
-#: output.c:190
+#: output.c:192
 msgid "en"
 msgstr "ru"
 
-#: output.c:192 output.c:218 output.c:2604
+#: output.c:194 output.c:220 output.c:2771
 msgid "Summary by Month"
 msgstr "Ежемесячная статистика"
 
-#: output.c:216
+#: output.c:218
 msgid "Summary Period"
 msgstr "Период статистики"
 
-#: output.c:219
+#: output.c:221
 msgid "Generated"
 msgstr "Дата создания"
 
-#: output.c:290
+#: output.c:292
 msgid "Generating report for"
 msgstr "Генерируется отчёт за"
 
-#: output.c:302
+#: output.c:304
 msgid "Daily usage for"
 msgstr "Использование по дням на"
 
-#: output.c:320
+#: output.c:322
 msgid "Hourly usage for"
 msgstr "Использование по часам на"
 
-#: output.c:372
+#: output.c:374
 msgid "Can't allocate enough memory, Top URLs disabled!"
 msgstr "Нельзя зарезервировать достаточно памяти, статистика URL отключена!"
 
-#: output.c:394
+#: output.c:396
 msgid "Can't allocate enough memory, Top Sites disabled!"
 msgstr "Нельзя зарезервировать достаточно памяти, статистика хостов отключена!"
 
-#: output.c:411
+#: output.c:413
 msgid "Can't allocate enough memory, Top Referrers disabled!"
-msgstr "Нельзя зарезервировать достаточно памяти, статистика ссылающихся страниц отключена!"
+msgstr ""
+"Нельзя зарезервировать достаточно памяти, статистика ссылающихся страниц "
+"отключена!"
 
-#: output.c:428
+#: output.c:430
 msgid "Can't allocate enough memory, Top Search Strings disabled!"
 msgstr ""
 "Нельзя зарезервировать достаточно памяти, статистика строк поиска отключена!"
 
-#: output.c:445
+#: output.c:447
 msgid "Can't allocate enough memory, Top Usernames disabled!"
 msgstr ""
 "Нельзя зарезервировать достаточно памяти, статистика имён пользователей "
 "отключена!"
 
-#: output.c:462
+#: output.c:464
 msgid "Can't allocate enough memory, Top User Agents disabled!"
 msgstr ""
 "Нельзя зарезервировать достаточно памяти, статистика браузеров отключена!"
 
-#: output.c:480
-msgid "Daily Statistics"
-msgstr "Статистика по дням"
-
 #: output.c:482
-msgid "Hourly Statistics"
-msgstr "Статистика по часам"
+msgid "[Daily Statistics]"
+msgstr "[Статистика по дням]"
 
 #: output.c:484
-msgid "URLs"
-msgstr "URL"
+msgid "[Hourly Statistics]"
+msgstr "[Статистика по часам]"
 
 #: output.c:486
-msgid "Entry"
-msgstr "Начальные страницы"
+msgid "[URLs]"
+msgstr "[URL]"
 
 #: output.c:488
-msgid "Exit"
-msgstr "Последние страницы"
+msgid "[Entry]"
+msgstr "[Начальные страницы]"
+
+#: output.c:490
+msgid "[Exit]"
+msgstr "[Последние страницы]"
 
 #: output.c:492
-msgid "Referrers"
-msgstr "Ссылающиеся страницы"
+msgid "[Sites]"
+msgstr "[Хосты]"
 
 #: output.c:494
-msgid "Search"
-msgstr "Поиск"
+msgid "[Referrers]"
+msgstr "[Ссылающиеся страницы]"
 
 #: output.c:496
-msgid "Users"
-msgstr "Пользователи"
+msgid "[Search]"
+msgstr "[Поиск]"
 
 #: output.c:498
-msgid "Agents"
-msgstr "Браузеры"
+msgid "[Users]"
+msgstr "[Пользователи]"
 
 #: output.c:500
-msgid "Countries"
-msgstr "Страны"
+msgid "[Agents]"
+msgstr "[Браузеры]"
 
-#: output.c:530
+#: output.c:502
+msgid "[Countries]"
+msgstr "[Страны]"
+
+#: output.c:532
 msgid "Monthly Statistics for"
 msgstr "Статистика за месяц на"
 
-#: output.c:535
+#: output.c:537
 msgid "Total Hits"
 msgstr "Всего запросов"
 
-#: output.c:539
+#: output.c:541
 msgid "Total Files"
 msgstr "Всего файлов"
 
-#: output.c:543 output.c:547 output.c:813 output.c:818 output.c:823
-#: output.c:828 output.c:833 output.c:838
-msgid "Total"
-msgstr "Всего"
+#: output.c:545
+msgid "Total Pages"
+msgstr "Всего страниц"
 
-#: output.c:551
-#, fuzzy
+#: output.c:549
+msgid "Total Visits"
+msgstr "Всего посещений"
+
+#: output.c:553
 msgid "Total kB Files"
-msgstr "Всего кБ файлов"
+msgstr "Общий объем (кб)"
 
-#: output.c:554
-#, fuzzy
+#: output.c:558
 msgid "Total kB In"
-msgstr "Всего кБ вх"
+msgstr "Всего кб вх"
 
-#: output.c:557
-#, fuzzy
+#: output.c:561
 msgid "Total kB Out"
-msgstr "Всего кБ исх"
+msgstr "Всего кб исх"
 
-#: output.c:564
+#: output.c:569
 msgid "Total Unique Sites"
 msgstr "Всего уникальных хостов"
 
-#: output.c:569
+#: output.c:574
 msgid "Total Unique URLs"
 msgstr "Всего уникальных URL"
 
-#: output.c:575
+#: output.c:580
 msgid "Total Unique Referrers"
 msgstr "Всего уникальных ссылающихся страниц"
 
-#: output.c:581
+#: output.c:586
 msgid "Total Unique Usernames"
 msgstr "Всего уникальных имён"
 
-#: output.c:587
+#: output.c:592
 msgid "Total Unique User Agents"
 msgstr "Всего уникальных браузеров"
 
-#: output.c:597 output.c:813 output.c:818 output.c:823 output.c:828
-#: output.c:833 output.c:838
+#: output.c:602 output.c:845 output.c:850 output.c:855 output.c:860
+#: output.c:872 output.c:877
 msgid "Avg"
 msgstr "Средн."
 
-#: output.c:597
+#: output.c:602
 msgid "Max"
 msgstr "Макс"
 
-#: output.c:604
+#: output.c:609
 msgid "Hits per Hour"
 msgstr "Обращений в час"
 
-#: output.c:610
+#: output.c:615
 msgid "Hits per Day"
 msgstr "Обращений в день"
 
-#: output.c:616
+#: output.c:621
 msgid "Files per Day"
 msgstr "Файлов в день"
 
-#: output.c:622
+#: output.c:627
 msgid "Pages per Day"
 msgstr "Страниц в день"
 
-#: output.c:628
-#, fuzzy
+#: output.c:633
 msgid "Sites per Day"
 msgstr "Хостов в день"
 
-#: output.c:634
+#: output.c:639
 msgid "Visits per Day"
 msgstr "Посещений в день"
 
-#: output.c:640
-#, fuzzy
+#: output.c:645
 msgid "kB Files per Day"
-msgstr "Файлов в день"
+msgstr "Килобайт в день"
 
-#: output.c:646
-#, fuzzy
+#: output.c:653
 msgid "kB In per Day"
-msgstr "Объём в день (Кбайт)"
+msgstr "Кбайт в день (вх)"
 
-#: output.c:652
-#, fuzzy
+#: output.c:659
 msgid "kB Out per Day"
-msgstr "Объём в день (Кбайт)"
+msgstr "Кбайт в день (исх)"
 
-#: output.c:658
+#: output.c:666
 msgid "Hits by Response Code"
 msgstr "Запросы по кодам ответа"
 
-#: output.c:689
+#: output.c:697
 msgid "Daily Statistics for"
 msgstr "Статистика по дням на"
 
-#: output.c:709
+#: output.c:713
 msgid "Day"
 msgstr "День"
 
-#: output.c:786
+#: output.c:810
 msgid "Hourly Statistics for"
 msgstr "Статистика по часам на"
 
-#: output.c:802
+#: output.c:822
 msgid "Hour"
 msgstr "Час"
 
-#: output.c:924 output.c:928 output.c:1130 output.c:1134 output.c:1363
-#: output.c:1459 output.c:1624 output.c:1771 output.c:1892 output.c:2216
+#: output.c:845 output.c:850 output.c:855 output.c:860 output.c:872
+#: output.c:877
+msgid "Total"
+msgstr "Всего"
+
+#: output.c:972 output.c:976 output.c:1204 output.c:1208 output.c:1464
+#: output.c:1560 output.c:1732 output.c:1879 output.c:2000 output.c:2351
 msgid "Top"
 msgstr "Первые"
 
-#: output.c:924 output.c:928 output.c:1130 output.c:1134 output.c:1363
-#: output.c:1459 output.c:1624 output.c:1771 output.c:1892 output.c:2216
+#: output.c:972 output.c:976 output.c:1204 output.c:1208 output.c:1464
+#: output.c:1560 output.c:1732 output.c:1879 output.c:2000 output.c:2351
 msgid "of"
 msgstr "из"
 
-#: output.c:925 output.c:1131
+#: output.c:973 output.c:1205
 msgid "By"
 msgstr "по"
 
-#: output.c:925 output.c:928
+#: output.c:973 output.c:976
 msgid "Total Sites"
 msgstr "Хостов"
 
-#: output.c:945 output.c:1040 output.c:2302
+#: output.c:996 output.c:1099 output.c:2451
 msgid "Hostname"
 msgstr "Имя хоста"
 
-#: output.c:1004
+#: output.c:1060
 msgid "View All Sites"
 msgstr "Посмотреть все хосты"
 
-#: output.c:1131 output.c:1134
+#: output.c:1205 output.c:1208
 msgid "Total URLs"
 msgstr "URL"
 
-#: output.c:1152 output.c:1262 output.c:1268 output.c:1377 output.c:2346
+#: output.c:1229 output.c:1347 output.c:1357 output.c:1478 output.c:2503
 msgid "URL"
 msgstr "URL"
 
-#: output.c:1234
+#: output.c:1319
 msgid "View All URLs"
 msgstr "Посмотреть все URL-ы"
 
-#: output.c:1364
+#: output.c:1465
 msgid "Total Entry Pages"
 msgstr "начальных страниц"
 
-#: output.c:1364
+#: output.c:1465
 msgid "Total Exit Pages"
 msgstr "последних страниц"
 
-#: output.c:1459
+#: output.c:1560
 msgid "Total Referrers"
 msgstr "ссылающихся страниц"
 
-#: output.c:1469 output.c:1546 output.c:1551 output.c:2387
+#: output.c:1570 output.c:1647 output.c:1652 output.c:2547
 msgid "Referrer"
 msgstr "Ссылающаяся страница"
 
-#: output.c:1521
+#: output.c:1622
 msgid "View All Referrers"
 msgstr "Посмотреть все ссылающиеся страницы"
 
-#: output.c:1624
+#: output.c:1732
 msgid "Total User Agents"
 msgstr "браузеров"
 
-#: output.c:1634 output.c:1700 output.c:1705 output.c:2426
+#: output.c:1742 output.c:1808 output.c:1813 output.c:2586
 msgid "User Agent"
 msgstr "Браузер"
 
-#: output.c:1675
+#: output.c:1783
 msgid "View All User Agents"
 msgstr "Посмотреть все браузеры"
 
-#: output.c:1771
+#: output.c:1879
 msgid "Total Search Strings"
 msgstr "строк поиска"
 
-#: output.c:1781 output.c:1836 output.c:1841 output.c:2510
+#: output.c:1889 output.c:1944 output.c:1949 output.c:2675
 msgid "Search String"
 msgstr "Строка поиска"
 
-#: output.c:1810
+#: output.c:1918
 msgid "View All Search Strings"
 msgstr "Посмотреть все строки поиска"
 
-#: output.c:1892
+#: output.c:2000
 msgid "Total Usernames"
 msgstr "имён пользователей"
 
-#: output.c:1909 output.c:1991 output.c:1999 output.c:2467
+#: output.c:2020 output.c:2108 output.c:2119 output.c:2630
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: output.c:1966
+#: output.c:2083
 msgid "View All Usernames"
 msgstr "Посмотреть все имена пользователей"
 
-#: output.c:2101
+#: output.c:2236
 #, c-format
 msgid "GeoDB: %s unknown!\n"
 msgstr ""
 
-#: output.c:2114
+#: output.c:2249
 #, c-format
 msgid "GeoIP: %s unknown (returns '%s')\n"
 msgstr ""
 
-#: output.c:2199
-#, fuzzy
+#: output.c:2334
 msgid "Usage by Country for"
 msgstr "Статистика по странам на"
 
-#: output.c:2216
-#, fuzzy
+#: output.c:2351
 msgid "Total Countries"
-msgstr "Страны"
+msgstr "стран"
 
-#: output.c:2231
+#: output.c:2369
 msgid "Country"
 msgstr "Страна"
 
-#: output.c:2550
+#: output.c:2717
 msgid "Generating summary report"
 msgstr "Генерируется общий отчёт"
 
-#: output.c:2552
+#: output.c:2719
 msgid "Usage summary for"
 msgstr "Суммарное использование сервера"
 
-#: output.c:2584
-#, fuzzy, c-format
+#: output.c:2751
+#, c-format
 msgid "Error: Failed to create .htaccess file: %s\n"
-msgstr "Ошибка: нельзя записать файл состояния"
+msgstr "Ошибка: нельзя создать файл .htaccess: %s\n"
 
-#: output.c:2607
+#: output.c:2774
 msgid "Month"
 msgstr "Месяц"
 
-#: output.c:2609
+#: output.c:2776
 msgid "Daily Avg"
 msgstr "В среднем за день"
 
-#: output.c:2611
+#: output.c:2778
 msgid "Monthly Totals"
 msgstr "Всего за месяц"
 
-#: output.c:2743
+#: output.c:2933
 msgid "Totals"
 msgstr "Всего"
 
-#: parser.c:232 parser.c:426
+#: parser.c:232 parser.c:433
 msgid "Warning: Truncating oversized hostname"
 msgstr "Предупреждение: пропускается слишком длинное имя хоста"
 
@@ -2184,11 +2165,11 @@ msgstr "Предупреждение: пропускается слишком длинное поле имени пользователя"
 msgid "Warning: Truncating oversized date field"
 msgstr "Предупреждение: пропускается слишком длинное поле даты"
 
-#: parser.c:311 parser.c:463 parser.c:492 webalizer.c:1005
+#: parser.c:311 parser.c:470 parser.c:499 webalizer.c:1017
 msgid "Warning: Truncating oversized request field"
 msgstr "Предупреждение: пропускается слишком длинное поле запроса"
 
-#: parser.c:355 webalizer.c:997
+#: parser.c:362 webalizer.c:1009
 msgid "Warning: Truncating oversized referrer field"
 msgstr "Предупреждение: пропускается слишком длинное поле ссылающейся страницы"
 
@@ -2212,183 +2193,180 @@ msgstr "Сохраняется информация о состоянии..."
 msgid "Error: Unable to write history file"
 msgstr "Ошибка: нельзя записать файл состояния"
 
-#: preserve.c:353
+#: preserve.c:355
 msgid "Saving current run data..."
 msgstr "Сохраняются данные текущего запуска..."
 
-#: preserve.c:567
+#: preserve.c:569
 msgid "Previous run data not found..."
 msgstr "Данные предыдущего запуска не найдены..."
 
-#: preserve.c:572
-#, fuzzy
+#: preserve.c:574
 msgid "Reading previous run data.."
 msgstr "Читаются данные предыдущего запуска..."
 
-#: preserve.c:679 webalizer.c:1227 webalizer.c:1332
+#: preserve.c:681 webalizer.c:1239 webalizer.c:1352
 msgid "Error adding URL node, skipping"
 msgstr "Ошибка добавления узла URL, пропускается"
 
-#: preserve.c:720 webalizer.c:1272 webalizer.c:1347 webalizer.c:1365
+#: preserve.c:722 webalizer.c:1284 webalizer.c:1367 webalizer.c:1385
 msgid "Error adding host node (monthly), skipping"
 msgstr "Ошибка добавления узла хоста (месячный отчёт), пропускается"
 
-#: preserve.c:761 webalizer.c:1261
+#: preserve.c:763 webalizer.c:1273
 msgid "Error adding host node (daily), skipping"
 msgstr "Ошибка добавления узла хоста (дневной отчёт), пропускается"
 
-#: preserve.c:786 webalizer.c:1249 webalizer.c:1378
+#: preserve.c:788 webalizer.c:1261 webalizer.c:1398
 msgid "Error adding Referrer node, skipping"
 msgstr "Ошибка добавления узла ссылки, пропускается"
 
-#: preserve.c:811 webalizer.c:1282 webalizer.c:1389
+#: preserve.c:813 webalizer.c:1294 webalizer.c:1409
 msgid "Error adding User Agent node, skipping"
 msgstr "Ошибка добавления узла браузера, пропускается"
 
-#: preserve.c:835 webalizer.c:2223
+#: preserve.c:837 webalizer.c:2406
 msgid "Error adding Search String Node, skipping"
 msgstr "Ошибка добавления узла строки поиска, пропускается"
 
-#: preserve.c:868 webalizer.c:1238 webalizer.c:1404
+#: preserve.c:870 webalizer.c:1250 webalizer.c:1424
 msgid "Error adding Username node, skipping"
 msgstr "Ошибка добавления узла имени пользователя, пропускается"
 
-#: webalizer.c:326
+#: webalizer.c:336
 msgid "Usage Statistics for"
 msgstr "Статистика использования сервера"
 
-#: webalizer.c:491 webalizer.c:1989
+#: webalizer.c:501 webalizer.c:2019
 msgid "locale"
 msgstr ""
 
-#: webalizer.c:497
+#: webalizer.c:507
 msgid "DNS support not present, aborting..."
 msgstr ""
 
-#: webalizer.c:514 webalizer.c:531 webalizer.c:542
+#: webalizer.c:524 webalizer.c:541 webalizer.c:552
 msgid "Error: Can't open log file"
 msgstr "Ошибка: нельзя открыть учётный файл"
 
-#: webalizer.c:551
+#: webalizer.c:561
 msgid "Using logfile"
 msgstr "Используется учётный файл"
 
-#: webalizer.c:572
+#: webalizer.c:582
 msgid "Error: Can't change directory to"
 msgstr "Ошибка: нельзя сменить каталог на"
 
-#: webalizer.c:584
+#: webalizer.c:594
 msgid "No cache file specified, aborting..."
 msgstr "Не указан кэш-файл, останов..."
 
-#: webalizer.c:593
+#: webalizer.c:603
 msgid "DNS Lookup"
 msgstr "DNS поиск"
 
-#: webalizer.c:611
+#: webalizer.c:621
 msgid "Using DNS cache file"
 msgstr "Используется DNS кэш-файл"
 
-#: webalizer.c:621
-#, fuzzy
+#: webalizer.c:631
 msgid "Error opening file"
-msgstr "Ошибка: нельзя открыть учётный файл"
+msgstr "Ошибка: невозможно открыть файл"
 
-#: webalizer.c:622 webalizer.c:652
+#: webalizer.c:632 webalizer.c:662
 msgid "default"
 msgstr ""
 
-#: webalizer.c:623 webalizer.c:647
+#: webalizer.c:633 webalizer.c:657
 msgid "lookups disabled"
 msgstr ""
 
-#: webalizer.c:627 webalizer.c:650
+#: webalizer.c:637 webalizer.c:660
 msgid "Using"
 msgstr ""
 
-#: webalizer.c:658
+#: webalizer.c:668
 msgid "Creating output in"
 msgstr "Результат создаётся в"
 
-#: webalizer.c:658
+#: webalizer.c:668
 msgid "current directory"
 msgstr "текущем каталоге"
 
-#: webalizer.c:668
+#: webalizer.c:678
 msgid "Hostname for reports is"
 msgstr "Для отчётов используется имя хоста"
 
-#: webalizer.c:671
+#: webalizer.c:681
 msgid "Ignoring previous history..."
 msgstr "Предыдущее состояние игнорируется..."
 
-#: webalizer.c:680
+#: webalizer.c:690
 msgid "Error: Unable to restore run data"
 msgstr "Ошибка: нельзя восстановить данные предыдущего запуска"
 
-#: webalizer.c:689
+#: webalizer.c:699
 msgid "Can't allocate enough memory, Top Countries disabled!"
 msgstr "Нельзя зарезервировать достаточно памяти, статистика стран отключена!"
 
-#: webalizer.c:706
-#, fuzzy
+#: webalizer.c:718
 msgid "Error: Skipping oversized log record"
-msgstr "Ошибка: пропускается слишком длинная учётная запись"
+msgstr "Ошибка: пропускается слишком длинная запись"
 
-#: webalizer.c:766
+#: webalizer.c:778
 msgid "Error: Skipping record (bad date)"
 msgstr "Ошибка: пропускается запись (неверная дата)"
 
-#: webalizer.c:1419
+#: webalizer.c:1439
 msgid "Skipping Netscape header record"
 msgstr "Пропускается запись заголовка Netscape"
 
-#: webalizer.c:1436
+#: webalizer.c:1456
 msgid "Skipping bad record"
 msgstr "Пропускается неверная запись"
 
-#: webalizer.c:1471
+#: webalizer.c:1491
 msgid "Error: Unable to save current run data"
 msgstr "Ошибка: нельзя сохранить данные текущего запуска"
 
-#: webalizer.c:1488
+#: webalizer.c:1508
 msgid "records"
 msgstr "записей"
 
-#: webalizer.c:1491
+#: webalizer.c:1511
 msgid "ignored"
 msgstr "проигнорировано"
 
-#: webalizer.c:1492 webalizer.c:1495
+#: webalizer.c:1512 webalizer.c:1515
 msgid "bad"
 msgstr "неверных"
 
-#: webalizer.c:1529
+#: webalizer.c:1551
 msgid "No valid records found!"
 msgstr "Не найдено ни одной верной записи!"
 
-#: webalizer.c:1679
+#: webalizer.c:1704
 msgid "Error: Unable to open configuration file"
 msgstr "Ошибка: нельзя открыть файл конфигурации"
 
-#: webalizer.c:1709 webalizer.c:1835 webalizer.c:1866 webalizer.c:1884
+#: webalizer.c:1734 webalizer.c:1860 webalizer.c:1891 webalizer.c:1909
 msgid "Warning: Invalid keyword"
 msgstr "Предупреждение: неверное ключевое слово"
 
-#: webalizer.c:1972
+#: webalizer.c:2002
 msgid "Usage"
 msgstr "Использование"
 
-#: webalizer.c:1972
+#: webalizer.c:2002
 msgid "[options] [log file]"
 msgstr "[параметры] [учётный файл]"
 
-#: webalizer.c:2008
+#: webalizer.c:2038
 #, c-format
 msgid "Default GeoDB dir : %s\n"
 msgstr ""
 
-#: webalizer.c:2010
+#: webalizer.c:2040
 #, c-format
 msgid "Default config dir: %s\n"
 msgstr ""
@@ -2397,14 +2375,13 @@ msgstr ""
 #~ msgstr "Старый Arpanet (arpa)"
 
 #~ msgid "Czechoslovakia (former)"
-#~ msgstr "Бывшая Чехословакия"
+#~ msgstr "Чехословакия"
 
-#, fuzzy
 #~ msgid "France, Metropolitan"
 #~ msgstr "Франция (метрополия)"
 
 #~ msgid "Croatia (Hrvatska)"
-#~ msgstr "Хорватия (Hrvatska)"
+#~ msgstr "Хорватия"
 
 #~ msgid "Korea (North)"
 #~ msgstr "Северная Корея"
@@ -2427,18 +2404,15 @@ msgstr ""
 #~ msgid "Zaire"
 #~ msgstr "Заир"
 
-#, fuzzy
 #~ msgid "Locations"
-#~ msgstr "Лаос"
+#~ msgstr "Места"
 
-#, fuzzy
 #~ msgid "Total Locations"
-#~ msgstr "стран"
+#~ msgstr "Всего мест"
 
 #~ msgid "Last 12 Months"
 #~ msgstr "последние 12 месяцев"
 
-#, fuzzy
 #~ msgid "Can't allocate enough memory, Top Locations disabled!"
 #~ msgstr "Нельзя зарезервировать достаточно памяти, статистика URL отключена!"
 
@@ -2447,9 +2421,6 @@ msgstr ""
 
 #~ msgid "KBytes"
 #~ msgstr "Кбайт"
-
-#~ msgid "May"
-#~ msgstr "Май"
 
 #~ msgid "Warning: Possible duplicate data found"
 #~ msgstr "Предупреждение: обнаружено возможное дублирование данных"
