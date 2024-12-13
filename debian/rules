@@ -10,7 +10,9 @@ include /usr/share/dpkg/buildflags.mk
 	dh $@
 
 override_dh_auto_configure:
-	dh_auto_configure -- --prefix=/usr --mandir=\$${prefix}/share/man --sysconfdir=/etc/webalizer --enable-dns --enable-geoip --datadir=/usr/share --with-etcdir=/etc/webalizer
+	dh_auto_configure -- --prefix=/usr --mandir=\$${prefix}/share/man \
+		--sysconfdir=/etc/webalizer --enable-dns --enable-geoip \
+		--datadir=/usr/share --with-etcdir=/etc/webalizer
 
 override_dh_installdirs:
 	dh_installdirs

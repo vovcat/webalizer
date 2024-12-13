@@ -1,3 +1,11 @@
+webalizer (2.23.08-3.3vc) unstable; urgency=low
+
+  * Use LOCALEDIR environment variable if set for bindtextdomain()
+    (default is /usr/share/locale)
+  * Update Russian translation
+
+ -- Volodymyr Prodan <vovcat@gmail.com>  Tue, 25 Jun 2024 19:51:57 +0300
+
 webalizer (2.23.08-3.3) unstable; urgency=medium
 
   * Non-maintainer upload.

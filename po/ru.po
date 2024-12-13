@@ -152,21 +152,21 @@ msgstr ""
 #: output.c:1998 output.c:2225 output.c:2301 output.c:2345 output.c:2466
 #: output.c:2623
 msgid "kB F"
-msgstr ""
+msgstr "килобайт"
 
 #: graphs.c:144 graphs.c:153 graphs.c:155 graphs.c:474 graphs.c:482
 #: graphs.c:484 output.c:716 output.c:807 output.c:939 output.c:1039
 #: output.c:1146 output.c:1268 output.c:1903 output.c:1998 output.c:2227
 #: output.c:2301 output.c:2345 output.c:2466 output.c:2625
 msgid "kB In"
-msgstr ""
+msgstr "кБ вх"
 
 #: graphs.c:145 graphs.c:159 graphs.c:161 graphs.c:488 graphs.c:490
 #: output.c:717 output.c:808 output.c:941 output.c:1039 output.c:1149
 #: output.c:1268 output.c:1905 output.c:1998 output.c:2229 output.c:2301
 #: output.c:2346 output.c:2466 output.c:2627
 msgid "kB Out"
-msgstr ""
+msgstr "кБ исх"
 
 #: graphs.c:164 graphs.c:167 graphs.c:169 graphs.c:501 graphs.c:503
 #: output.c:547 output.c:713 output.c:943 output.c:1040 output.c:1374
@@ -178,7 +178,7 @@ msgstr "посещений"
 #: graphs.c:165 graphs.c:173 graphs.c:175 graphs.c:493 graphs.c:495
 #: graphs.c:497 output.c:490 output.c:714 output.c:1032 output.c:2621
 msgid "Sites"
-msgstr "Сайты"
+msgstr "хостов"
 
 #: graphs.c:178 graphs.c:181 graphs.c:183 graphs.c:506 graphs.c:510
 #: graphs.c:512 graphs.c:718 graphs.c:722 graphs.c:724 output.c:543
@@ -229,7 +229,7 @@ msgstr "-v -V     = выдать информацию о версии"
 #: lang2.h:42
 #, fuzzy
 msgid "-v        = be verbose"
-msgstr "-f        = fold sequence errors"
+msgstr "-v        = be verbose"
 
 #: lang2.h:43
 msgid "-d        = print additional debug info"
@@ -242,7 +242,7 @@ msgstr "-F тип    = вид исходной статистики. тип = (clf | ftp | squid)"
 
 #: lang2.h:45
 msgid "-f        = Fold sequence errors"
-msgstr "-f        = fold sequence errors"
+msgstr "-f        = Fold sequence errors"
 
 #: lang2.h:46
 msgid "-i        = ignore history file"
@@ -311,7 +311,7 @@ msgstr "-t имя    = заголовок отчёта 'имя'"
 
 #: lang2.h:62
 msgid "-a name   = hide user agent 'name'"
-msgstr "-a имя    = не обрабатывать броузер 'имя'"
+msgstr "-a имя    = не обрабатывать браузер 'имя'"
 
 #: lang2.h:63
 msgid "-r name   = hide referrer 'name'"
@@ -344,16 +344,16 @@ msgstr "-I имя    = использовать как дополнительный индексный файл"
 
 #: lang2.h:70
 msgid "-K num    = num months in summary table"
-msgstr ""
+msgstr "-K число  = число месяцев в суммарной таблице"
 
 #: lang2.h:71
 #, fuzzy
 msgid "-k num    = num months in summary graph"
-msgstr "-l число  = размер тени в 'число' линий"
+msgstr "-k число  = число месяцев в суммарном графике"
 
 #: lang2.h:72
 msgid "-A num    = Display num top agents"
-msgstr "-A число  = Отображать 'число' записей статистики броузеров"
+msgstr "-A число  = Отображать 'число' записей статистики браузеров"
 
 #: lang2.h:73
 msgid "-C num    = Display num top countries"
@@ -365,7 +365,7 @@ msgstr "-R число  = Отображать 'число' записей статистики ссылающихся страниц"
 
 #: lang2.h:75
 msgid "-S num    = Display num top sites"
-msgstr "-S число  = Отображать 'число' записей статистики сайтов"
+msgstr "-S число  = Отображать 'число' записей статистики хостов"
 
 #: lang2.h:76
 msgid "-U num    = Display num top URLs"
@@ -385,11 +385,11 @@ msgstr "-g число  = Группировать домены уровня 'число'"
 
 #: lang2.h:80
 msgid "-X        = Hide individual sites"
-msgstr "-X        = Скрыть отдельные сайты"
+msgstr "-X        = Скрыть отдельные хосты"
 
 #: lang2.h:81
 msgid "-z dir    = Use country flags in 'dir'"
-msgstr ""
+msgstr "-z dir    = Использовать флаги стран в 'dir'"
 
 #: lang2.h:83
 msgid "-D name   = Use DNS Cache file 'name'"
@@ -401,7 +401,7 @@ msgstr "-N число  = Число DNS процессов (0=отключить)"
 
 #: lang2.h:85
 msgid "-j        = Enable native GeoDB lookups"
-msgstr ""
+msgstr "-j        = Использовать поиск по встроенной GeoDB"
 
 #: lang2.h:86
 #, fuzzy
@@ -410,7 +410,7 @@ msgstr "-D имя    = Использовать DNS 'имя' кэш-файл"
 
 #: lang2.h:89
 msgid "-w        = Enable GeoIP lookups"
-msgstr ""
+msgstr "-ц        = Использовать поиск по GeoIP"
 
 #: lang2.h:90
 #, fuzzy
@@ -1810,7 +1810,7 @@ msgstr ""
 
 #: output.c:190
 msgid "en"
-msgstr ""
+msgstr "ru"
 
 #: output.c:192 output.c:218 output.c:2604
 msgid "Summary by Month"
@@ -1842,13 +1842,11 @@ msgstr "Нельзя зарезервировать достаточно памяти, статистика URL отключена!"
 
 #: output.c:394
 msgid "Can't allocate enough memory, Top Sites disabled!"
-msgstr "Нельзя зарезервировать достаточно памяти, статистика сайтов отключена!"
+msgstr "Нельзя зарезервировать достаточно памяти, статистика хостов отключена!"
 
 #: output.c:411
 msgid "Can't allocate enough memory, Top Referrers disabled!"
-msgstr ""
-"Нельзя зарезервировать достаточно памяти, статистика ссылающихся страниц "
-"отключена!"
+msgstr "Нельзя зарезервировать достаточно памяти, статистика ссылающихся страниц отключена!"
 
 #: output.c:428
 msgid "Can't allocate enough memory, Top Search Strings disabled!"
@@ -1864,7 +1862,7 @@ msgstr ""
 #: output.c:462
 msgid "Can't allocate enough memory, Top User Agents disabled!"
 msgstr ""
-"Нельзя зарезервировать достаточно памяти, статистика броузеров отключена!"
+"Нельзя зарезервировать достаточно памяти, статистика браузеров отключена!"
 
 #: output.c:480
 msgid "Daily Statistics"
@@ -1900,7 +1898,7 @@ msgstr "Пользователи"
 
 #: output.c:498
 msgid "Agents"
-msgstr "Броузеры"
+msgstr "Браузеры"
 
 #: output.c:500
 msgid "Countries"
@@ -1926,21 +1924,21 @@ msgstr "Всего"
 #: output.c:551
 #, fuzzy
 msgid "Total kB Files"
-msgstr "Всего файлов"
+msgstr "Всего кБ файлов"
 
 #: output.c:554
 #, fuzzy
 msgid "Total kB In"
-msgstr "Всего"
+msgstr "Всего кБ вх"
 
 #: output.c:557
 #, fuzzy
 msgid "Total kB Out"
-msgstr "Всего килобайт"
+msgstr "Всего кБ исх"
 
 #: output.c:564
 msgid "Total Unique Sites"
-msgstr "Всего уникальных сайтов"
+msgstr "Всего уникальных хостов"
 
 #: output.c:569
 msgid "Total Unique URLs"
@@ -1956,16 +1954,16 @@ msgstr "Всего уникальных имён"
 
 #: output.c:587
 msgid "Total Unique User Agents"
-msgstr "Всего уникальных броузеров"
+msgstr "Всего уникальных браузеров"
 
 #: output.c:597 output.c:813 output.c:818 output.c:823 output.c:828
 #: output.c:833 output.c:838
 msgid "Avg"
-msgstr "В среднем"
+msgstr "Средн."
 
 #: output.c:597
 msgid "Max"
-msgstr "Max"
+msgstr "Макс"
 
 #: output.c:604
 msgid "Hits per Hour"
@@ -1986,7 +1984,7 @@ msgstr "Страниц в день"
 #: output.c:628
 #, fuzzy
 msgid "Sites per Day"
-msgstr "Обращений в день"
+msgstr "Хостов в день"
 
 #: output.c:634
 msgid "Visits per Day"
@@ -2043,7 +2041,7 @@ msgstr "по"
 
 #: output.c:925 output.c:928
 msgid "Total Sites"
-msgstr "сайтов"
+msgstr "Хостов"
 
 #: output.c:945 output.c:1040 output.c:2302
 msgid "Hostname"
@@ -2051,7 +2049,7 @@ msgstr "Имя хоста"
 
 #: output.c:1004
 msgid "View All Sites"
-msgstr "Посмотреть все сайты"
+msgstr "Посмотреть все хосты"
 
 #: output.c:1131 output.c:1134
 msgid "Total URLs"
@@ -2087,15 +2085,15 @@ msgstr "Посмотреть все ссылающиеся страницы"
 
 #: output.c:1624
 msgid "Total User Agents"
-msgstr "броузеров"
+msgstr "браузеров"
 
 #: output.c:1634 output.c:1700 output.c:1705 output.c:2426
 msgid "User Agent"
-msgstr "Броузер"
+msgstr "Браузер"
 
 #: output.c:1675
 msgid "View All User Agents"
-msgstr "Посмотреть все броузеры"
+msgstr "Посмотреть все браузеры"
 
 #: output.c:1771
 msgid "Total Search Strings"
@@ -2245,7 +2243,7 @@ msgstr "Ошибка добавления узла ссылки, пропускается"
 
 #: preserve.c:811 webalizer.c:1282 webalizer.c:1389
 msgid "Error adding User Agent node, skipping"
-msgstr "Ошибка добавления узла броузера, пропускается"
+msgstr "Ошибка добавления узла браузера, пропускается"
 
 #: preserve.c:835 webalizer.c:2223
 msgid "Error adding Search String Node, skipping"

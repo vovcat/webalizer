@@ -324,7 +324,9 @@ int main(int argc, char *argv[])
    /* stat struct for files */
    struct stat log_stat;
    current_locale = setlocale (LC_ALL, "");
-   bindtextdomain ("webalizer", DATADIR"/locale");
+   const char *localedir = getenv("LOCALEDIR");
+   if (!localedir) localedir = DATADIR "/locale";
+   bindtextdomain ("webalizer", localedir);
    textdomain ("webalizer");
 
    /* Assume that LC_CTYPE is what the user wants for non-ASCII chars   */
