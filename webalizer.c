@@ -2041,7 +2041,7 @@ void print_version(char *locale)
       if (buf[0]!=0) printf("%s",buf);
       else           printf("none");
       printf("\n");
-#if USE_DNS
+#ifdef USE_DNS
       printf(_("Default GeoDB dir : %s\n"),GEODB_LOC);
 #endif
       printf(_("Default config dir: %s\n"),ETCDIR);
