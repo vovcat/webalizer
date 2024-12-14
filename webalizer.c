@@ -114,106 +114,106 @@ int     isipaddr(char *);                           /* is IP address test  */
 /* GLOBAL VARIABLES                          */
 /*********************************************/
 
-char    *version     = "2.23";                /* program version          */
-char    *editlvl     = "08";                  /* edit level               */
-char    *moddate     = "26-Aug-2013";         /* modification date        */
-char    *copyright   = "Copyright 1997-2013 by Bradford L. Barrett";
+char    *version      = "2.23";               /* program version          */
+char    *editlvl      = "08-3.3vc";           /* edit level               */
+char    *moddate      = "2024-12-14";         /* modification date        */
+char    *copyright    = "Copyright 1997-2013 by Bradford L. Barrett";
 
-int     verbose      = 2;                     /* 2=verbose,1=err, 0=none  */
-int     debug_mode   = 0;                     /* debug mode flag          */
-int     time_me      = 0;                     /* timing display flag      */
-int     local_time   = 1;                     /* 1=localtime 0=GMT (UTC)  */
-int     hist_gap     = 0;                     /* 1=error w/hist, save bkp */
-int     ignore_hist  = 0;                     /* history flag (1=skip)    */
-int     ignore_state = 0;                     /* state flag (1=skip)      */
-int     default_index= 1;                     /* default index. (1=yes)   */
-int     hourly_graph = 1;                     /* hourly graph display     */
-int     hourly_stats = 1;                     /* hourly stats table       */
-int     daily_graph  = 1;                     /* daily graph display      */
-int     daily_stats  = 1;                     /* daily stats table        */
-int     ctry_graph   = 1;                     /* country graph display    */
-int     shade_groups = 1;                     /* Group shading 0=no 1=yes */
-int     hlite_groups = 1;                     /* Group hlite 0=no 1=yes   */
-int     mangle_agent = 0;                     /* mangle user agents       */
-int     incremental  = 0;                     /* incremental mode 1=yes   */
-int     use_https    = 0;                     /* use 'https://' on URLs   */
-int     htaccess     = 0;                     /* create .htaccess? (0=no) */
-int     stripcgi     = 1;                     /* strip url cgi (0=no)     */
-int     normalize    = 1;                     /* normalize CLF URL (0=no) */
-int     trimsquid    = 0;                     /* trim squid urls (0=no)   */
-int     searchcasei  = 1;                     /* case insensitive search  */
-int     visit_timeout= 1800;                  /* visit timeout (seconds)  */
-int     graph_legend = 1;                     /* graph legend (1=yes)     */
-int     graph_lines  = 2;                     /* graph lines (0=none)     */
-int     fold_seq_err = 0;                     /* fold seq err (0=no)      */
-int     log_type     = LOG_CLF;               /* log type (default=CLF)   */
-int     group_domains= 0;                     /* Group domains 0=none     */
-int     hide_sites   = 0;                     /* Hide ind. sites (0=no)   */
-int     link_referrer= 0;                     /* Link referrers (0=no)    */
-char    *hname       = NULL;                  /* hostname for reports     */
-char    *state_fname = "webalizer.current";   /* run state file name      */
-char    *hist_fname  = "webalizer.hist";      /* name of history file     */
-char    *html_ext    = "html";                /* HTML file suffix         */
-char    *dump_ext    = "tab";                 /* Dump file suffix         */
-char    *conf_fname  = NULL;                  /* name of config file      */
-char    *log_fname   = NULL;                  /* log file pointer         */
-char    *out_dir     = NULL;                  /* output directory         */
-char    *blank_str   = "";                    /* blank string             */
-char    *geodb_fname = NULL;                  /* GeoDB database filename  */
-char    *dns_cache   = NULL;                  /* DNS cache file name      */
-int     dns_children = 0;                     /* DNS children (0=don't do)*/
-int     cache_ips    = 0;                     /* CacheIPs in DB (0=no)    */
-int     cache_ttl    = 7;                     /* DNS Cache TTL (days)     */
-int     geodb        = 0;                     /* Use GeoDB (0=no)         */
-int     graph_mths   = 12;                    /* # months in index graph  */
-int     index_mths   = 12;                    /* # months in index table  */
-int     year_hdrs    = 1;                     /* index year seperators    */
-int     year_totals  = 1;                     /* index year subtotals     */
-int     use_flags    = 0;                     /* Show flags in ctry table */
-char    *flag_dir    = "flags";               /* location of flag icons   */
+int     verbose       = 2;                    /* 2=verbose,1=err, 0=none  */
+int     debug_mode    = 0;                    /* debug mode flag          */
+int     time_me       = 0;                    /* timing display flag      */
+int     local_time    = 1;                    /* 1=localtime 0=GMT (UTC)  */
+int     hist_gap      = 0;                    /* 1=error w/hist, save bkp */
+int     ignore_hist   = 0;                    /* history flag (1=skip)    */
+int     ignore_state  = 0;                    /* state flag (1=skip)      */
+int     default_index = 1;                    /* default index. (1=yes)   */
+int     hourly_graph  = 1;                    /* hourly graph display     */
+int     hourly_stats  = 1;                    /* hourly stats table       */
+int     daily_graph   = 1;                    /* daily graph display      */
+int     daily_stats   = 1;                    /* daily stats table        */
+int     ctry_graph    = 1;                    /* country graph display    */
+int     shade_groups  = 1;                    /* Group shading 0=no 1=yes */
+int     hlite_groups  = 1;                    /* Group hlite 0=no 1=yes   */
+int     mangle_agent  = 0;                    /* mangle user agents       */
+int     incremental   = 0;                    /* incremental mode 1=yes   */
+int     use_https     = 0;                    /* use 'https://' on URLs   */
+int     htaccess      = 0;                    /* create .htaccess? (0=no) */
+int     stripcgi      = 1;                    /* strip url cgi (0=no)     */
+int     normalize     = 1;                    /* normalize CLF URL (0=no) */
+int     trimsquid     = 0;                    /* trim squid urls (0=no)   */
+int     searchcasei   = 1;                    /* case insensitive search  */
+int     visit_timeout = 1800;                 /* visit timeout (seconds)  */
+int     graph_legend  = 1;                    /* graph legend (1=yes)     */
+int     graph_lines   = 2;                    /* graph lines (0=none)     */
+int     fold_seq_err  = 0;                    /* fold seq err (0=no)      */
+int     log_type      = LOG_CLF;              /* log type (default=CLF)   */
+int     group_domains = 0;                    /* Group domains 0=none     */
+int     hide_sites    = 0;                    /* Hide ind. sites (0=no)   */
+int     link_referrer = 0;                    /* Link referrers (0=no)    */
+char    *hname        = NULL;                 /* hostname for reports     */
+char    *state_fname  = "webalizer.current";  /* run state file name      */
+char    *hist_fname   = "webalizer.hist";     /* name of history file     */
+char    *html_ext     = "html";               /* HTML file suffix         */
+char    *dump_ext     = "tab";                /* Dump file suffix         */
+char    *conf_fname   = NULL;                 /* name of config file      */
+char    *log_fname    = NULL;                 /* log file pointer         */
+char    *out_dir      = NULL;                 /* output directory         */
+char    *blank_str    = "";                   /* blank string             */
+char    *geodb_fname  = NULL;                 /* GeoDB database filename  */
+char    *dns_cache    = NULL;                 /* DNS cache file name      */
+int     dns_children  = 0;                    /* DNS children (0=don't do)*/
+int     cache_ips     = 0;                    /* CacheIPs in DB (0=no)    */
+int     cache_ttl     = 7;                    /* DNS Cache TTL (days)     */
+int     geodb         = 0;                    /* Use GeoDB (0=no)         */
+int     graph_mths    = 12;                   /* # months in index graph  */
+int     index_mths    = 12;                   /* # months in index table  */
+int     year_hdrs     = 1;                    /* index year seperators    */
+int     year_totals   = 1;                    /* index year subtotals     */
+int     use_flags     = 0;                    /* Show flags in ctry table */
+char    *flag_dir     = "flags";              /* location of flag icons   */
 
 #ifdef USE_GEOIP
-int     geoip        = 0;                     /* Use GeoIP (0=no)         */
-char    *geoip_db    = NULL;                  /* GeoIP database filename  */
-GeoIP   *geo_fp      = NULL;                  /* GeoIP database handle    */
+int     geoip         = 0;                    /* Use GeoIP (0=no)         */
+char    *geoip_db     = NULL;                 /* GeoIP database filename  */
+GeoIP   *geo_fp       = NULL;                 /* GeoIP database handle    */
 #endif
 
 #ifdef HAVE_LIBGD_TTF
-char    *ttf_file    = "";                    /* truetype font file       */
+char    *ttf_file     = "";                   /* truetype font file       */
 #endif
 
-int     ntop_sites   = 30;                    /* top n sites to display   */
-int     ntop_sitesK  = 10;                    /* top n sites (by kbytes)  */
-int     ntop_urls    = 30;                    /* top n url's to display   */
-int     ntop_urlsK   = 10;                    /* top n url's (by kbytes)  */
-int     ntop_entry   = 10;                    /* top n entry url's        */
-int     ntop_exit    = 10;                    /* top n exit url's         */
-int     ntop_refs    = 30;                    /* top n referrers ""       */
-int     ntop_agents  = 15;                    /* top n user agents ""     */
-int     ntop_ctrys   = 30;                    /* top n countries   ""     */
-int     ntop_search  = 20;                    /* top n search strings     */
-int     ntop_users   = 20;                    /* top n users to display   */
+int     ntop_sites    = 30;                   /* top n sites to display   */
+int     ntop_sitesK   = 10;                   /* top n sites (by kbytes)  */
+int     ntop_urls     = 30;                   /* top n url's to display   */
+int     ntop_urlsK    = 10;                   /* top n url's (by kbytes)  */
+int     ntop_entry    = 10;                   /* top n entry url's        */
+int     ntop_exit     = 10;                   /* top n exit url's         */
+int     ntop_refs     = 30;                   /* top n referrers ""       */
+int     ntop_agents   = 15;                   /* top n user agents ""     */
+int     ntop_ctrys    = 30;                   /* top n countries   ""     */
+int     ntop_search   = 20;                   /* top n search strings     */
+int     ntop_users    = 20;                   /* top n users to display   */
 
-int     all_sites    = 0;                     /* List All sites (0=no)    */
-int     all_urls     = 0;                     /* List All URLs  (0=no)    */
-int     all_refs     = 0;                     /* List All Referrers       */
-int     all_agents   = 0;                     /* List All User Agents     */
-int     all_search   = 0;                     /* List All Search Strings  */
-int     all_users    = 0;                     /* List All Usernames       */
+int     all_sites     = 0;                    /* List All sites (0=no)    */
+int     all_urls      = 0;                    /* List All URLs  (0=no)    */
+int     all_refs      = 0;                    /* List All Referrers       */
+int     all_agents    = 0;                    /* List All User Agents     */
+int     all_search    = 0;                    /* List All Search Strings  */
+int     all_users     = 0;                    /* List All Usernames       */
 
-int     dump_sites   = 0;                     /* Dump tab delimited sites */
-int     dump_urls    = 0;                     /* URLs                     */
-int     dump_refs    = 0;                     /* Referrers                */
-int     dump_agents  = 0;                     /* User Agents              */
-int     dump_users   = 0;                     /* Usernames                */
-int     dump_search  = 0;                     /* Search strings           */
-int     dump_header  = 0;                     /* Dump header as first rec */
-char    *dump_path   = NULL;                  /* Path for dump files      */
-int     dump_inout   = 2;                     /* In Out kB (logio) 2=auto */
+int     dump_sites    = 0;                    /* Dump tab delimited sites */
+int     dump_urls     = 0;                    /* URLs                     */
+int     dump_refs     = 0;                    /* Referrers                */
+int     dump_agents   = 0;                    /* User Agents              */
+int     dump_users    = 0;                    /* Usernames                */
+int     dump_search   = 0;                    /* Search strings           */
+int     dump_header   = 0;                    /* Dump header as first rec */
+char    *dump_path    = NULL;                 /* Path for dump files      */
+int     dump_inout    = 2;                    /* In Out kB (logio) 2=auto */
 
-int        cur_year=0, cur_month=0,           /* year/month/day/hour      */
-           cur_day=0, cur_hour=0,             /* tracking variables       */
-           cur_min=0, cur_sec=0;
+int     cur_year=0, cur_month=0,              /* year/month/day/hour      */
+        cur_day=0, cur_hour=0,                /* tracking variables       */
+        cur_min=0, cur_sec=0;
 
 u_int64_t  cur_tstamp=0;                      /* Timestamp...             */
 u_int64_t  rec_tstamp=0;
@@ -1359,7 +1359,7 @@ int main(int argc, char *argv[])
             if (put_hnode(cp1,OBJ_GRP,1,
                           (u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
                           log_rec.xfer_size,
-			  log_rec.ixfer_size,log_rec.oxfer_size,&ul_bogus,
+                          log_rec.ixfer_size,log_rec.oxfer_size,&ul_bogus,
                           0,rec_tstamp,"",sm_htab))
             {
                if (verbose)
@@ -1416,7 +1416,7 @@ int main(int argc, char *argv[])
             if (put_inode(cp1,OBJ_GRP,1,
                           (u_int64_t)(log_rec.resp_code==RC_OK)?1:0,
                           log_rec.xfer_size,
-			  log_rec.ixfer_size,log_rec.oxfer_size,&ul_bogus,
+                          log_rec.ixfer_size,log_rec.oxfer_size,&ul_bogus,
                           0,rec_tstamp,im_htab))
             {
                if (verbose)
