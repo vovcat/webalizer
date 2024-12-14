@@ -2327,83 +2327,81 @@ int ouricmp(char *str1, char *str2)
 void srch_string(char *ptr)
 {
    /* ptr should point to unescaped query string */
-   char tmpbuf[BUFSIZE];
-   char srch[80]="";
-   unsigned char *cp1, *cp2, *cps;
-   int  sp_flg=0;
-   int utf8;
-   char tmpbuf2[BUFSIZE];
+   char tmpbuf[BUFSIZE], tmpbuf2[BUFSIZE];
+   char srch[MAXSRCH] = "";
+   char *cp1, *cp2, *cp3, *cps;
    size_t inlen, outlen;
-   unsigned char *cp3;
+   ssize_t ret;
+   int sp_flg = 0;
+   int utf8;
 
    /* Check if search engine referrer or return  */
-   if ( (cps=(unsigned char *)isinglist(search_list,log_rec.refer))==NULL)
+   if ((cps = isinglist(search_list, log_rec.refer)) == NULL)
       return;
 
    /* Try to find query variable */
-   srch[0]='?'; srch[sizeof(srch)-1] = '\0';
-   strncpy(&srch[1],(char *)cps,sizeof(srch)-2);   /* First, try "?..."      */
-   if ((cp1=(unsigned char *)strstr(ptr,srch))==NULL)
-   {
-      srch[0]='&';                                 /* Next, try "&..."       */
-      if ((cp1=(unsigned char *)strstr(ptr,srch))==NULL) return;
+   srch[0] = '?'; /* First, try "?..." */
+   srch[sizeof(srch)-1] = '\0';
+   strncpy(&srch[1], cps, sizeof(srch) - 2);
+   if ((cp1 = strstr(ptr, srch)) == NULL) {
+      srch[0]='&'; /* Next, try "&..." */
+      if ((cp1 = strstr(ptr, srch)) == NULL)
+         return;
    }
-   cp2=(unsigned char *)tmpbuf;
-   while (*cp1!='=' && *cp1!=0) cp1++; if (*cp1!=0) cp1++;
-   while (*cp1!='&' && *cp1!=0)
-   {
-      if (*cp1=='"' || *cp1==',' || *cp1=='?')
-          { cp1++; continue; }                         /* skip bad ones..    */
-      else
-      {
-         if (*cp1=='+') *cp1=' ';                      /* change + to space  */
-         if (sp_flg && *cp1==' ') { cp1++; continue; } /* compress spaces    */
-         if (*cp1==' ') sp_flg=1; else sp_flg=0;       /* (flag spaces here) */
-         if (searchcasei)
-            *cp2++=tolower(*cp1++);                    /* normal character   */
-         else *cp2++=*cp1++;
+
+   cp2 = tmpbuf;
+   while (*cp1 && *cp1 != '=') cp1++;
+   if (*cp1) cp1++;
+   while (*cp1 && *cp1 != '&') {
+      if (*cp1=='"' || *cp1==',' || *cp1=='?') {         /* skip bad ones..    */
+         cp1++; continue;
+      } else {
+         if (*cp1 == '+') *cp1=' ';                      /* change + to space  */
+         if (sp_flg && *cp1 == ' ') { cp1++; continue; } /* compress spaces    */
+         sp_flg = *cp1 == ' ';                           /* (flag spaces here) */
+         *cp2++ = *cp1++;
       }
    }
-   *cp2=0; cp2=(unsigned char *)tmpbuf;
-   if (tmpbuf[0]=='?') tmpbuf[0]=' ';                  /* format fix ?       */
-   while( *cp2!=0 && isspace((unsigned char)*cp2) ) cp2++;     /* skip sps.  */
-   if (*cp2==0) return;
+   *cp2 = '\0';
+
+   cp2 = tmpbuf;
+   if (cp2[0] == '?') cp2[0] = ' ';                      /* format fix ?       */
+   while (*cp2 && isspace(*cp2)) cp2++;                  /* skip spaces        */
+   if (!*cp2) return;
 
    /* any trailing spaces? */
-   cp1=cp2+strlen((char *)cp2)-1;
-   while (cp1!=cp2) if (isspace((unsigned char)*cp1)) *cp1--='\0'; else break;
+   cp1 = cp2 + strlen(cp2) - 1;
+   while (cp1 < cp2) {
+       if (!isspace(*cp1)) break;
+       *cp1-- = '\0';
+   }
 
    /* unescape second time */
    unescape(cp2);
 
    utf8 = score_utf8(cp2);
    if (utf8 > 0) {
-     cp3 = cp2;
-     inlen = strlen(cp2)+1;
-     cp1 = tmpbuf2;
-     outlen = sizeof(tmpbuf2);
-     iconv(cd_from_utf8, NULL, 0, NULL, 0);
-     if (iconv(cd_from_utf8, (char **)&cp3, &inlen,
-        (char**)&cp1, &outlen) >= 0 && inlen == 0) {
-       cp2 = tmpbuf2;
-     }
+      cp3 = cp2; inlen = strlen(cp2);
+      cp1 = tmpbuf2; outlen = sizeof(tmpbuf2) - 1;
+      iconv(cd_from_utf8, NULL, 0, NULL, 0); // initialize conversion state
+      if ((ret = iconv(cd_from_utf8, &cp3, &inlen, &cp1, &outlen)) >= 0 && inlen == 0) {
+         *cp1 = '\0'; cp2 = tmpbuf2;
+      }
    } else {
-     xdecode(cp2);
+      xdecode(cp2);
    }
 
-   /* strip invalid chars */
-   cp1=cp2;
-   while (*cp1!=0) {
-     if ((*cp1<32)||(*cp1==127)) *cp1='_';
-     //*cp1=tolower(*cp1);
-     cp1++;
+   /* strip invalid chars, lowercase */
+   cp1 = cp2;
+   while (*cp1) {
+      if (*cp1 > 0 && *cp1 < 32) *cp1 = '_';
+      else if (searchcasei) *cp1 = tolower(*cp1); // lowercase
+      cp1++;
    }
 
-   if (put_snode((char *)cp2,(u_int64_t)1,sr_htab))
-   {
+   if (put_snode(cp2, 1, sr_htab)) {
       if (verbose)
-      /* Error adding search string node, skipping .... */
-      fprintf(stderr,"%s %s\n", _("Error adding Search String Node, skipping"), tmpbuf);
+         fprintf(stderr, "%s %s\n", _("Error adding Search String Node, skipping"), tmpbuf);
    }
    return;
 }
