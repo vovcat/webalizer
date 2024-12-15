@@ -1,0 +1,52 @@
+"Mozilla/5.0 (compatible; Refer.Ru; +http://www.refer.ru)"
+	Refer.Ru
+"Mozilla/5.0 (compatible; Dataprovider.com)"
+	Dataprovider.com
+"GuzzleHttp/6.2.1 curl/7.52.1 PHP/7.2.33-1+0~20200807.47+debian9~1.gbpcb3068"
+	GuzzleHttp/6.2.1
+"Mozilla/4.0 (compatible; fluid/0.0; +http://www.leak.info/bot.html)"
+	fluid/0.0
+"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)"
+	MSIE/10.0
+"Mozilla/5.0 (Windows NT 10.0; WOW64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36 OPR/70.0.3728.95"
+	OPR/70.0.3728.95
+"Mozilla/5.0  (Windows NT 10.0; Win64; x64)"
+	Mozilla/5.0
+"Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.6422.65 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+	Googlebot/2.1
+"Mozilla/5.0 (compatible; Linux x86_64; Mail.RU_Bot/Robots/2.0; +https://help.mail.ru/webmaster/indexing/robots)"
+	Mail.RU_Bot/Robots/2.0
+"Mozilla/5.0 (compatible; AwarioBot/1.0; +https://awario.com/bots.html)"
+	AwarioBot/1.0
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/600.2.5 (KHTML, like Gecko) Version/8.0.2 Safari/600.2.5 (Amazonbot/0.1; +https://developer.amazon.com/support/amazonbot)"
+	Amazonbot/0.1
+"Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; GPTBot/1.0; +https://openai.com/gptbot)"
+	GPTBot/1.0
+"KOCMOHABT (https://kozmonavt.su/) Mozilla/5.0 (Web Explorer)"
+	KOCMOHABT
+"Opera/9.63 (Windows NT 5.1; U; MRA 5.10 (build 5196); ru) Presto/2.1.1"
+	Opera 9.63
+"Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.8.1.1) Gecko/20061205 Firefox/2.0.0.1 (Debian-2.0.0.1+dfsg-2)"
+	Firefox/2.0.0.1
+"Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5 (.NET CLR 3.5.30729)"
+	Firefox/3.5.5
+"Mozilla/5.0 \\(Windows NT 10.0\\; Win64\\; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/100.0.4896.60 Safari/537.36"
+	Safari/537.36
+"Apache/2.4.34 (Ubuntu) OpenSSL/1.1.1 (internal dummy connection)"
+	Apache/2.4.34
+"Mozilla/5.0 (Linux; Android 5.1; OPPO A59s Build/LMY47I; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044813 Mobile Safari/537.36 MMWEBID/6148 MicroMessenger/7.0.6.1460(0x27000634) Process/tools NetType/WIFI Language/zh_CN"
+	MicroMessenger/7.0.6.1460
+"Mozilla/5.0 (Linux; Android 5.1.1; vivo X6S A Build/LMY47V; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/044207 Mobile Safari/537.36 MicroMessenger/6.7.3.1340(0x26070332) NetType/4G Language/zh_CN Process/tools"
+	MicroMessenger/6.7.3.1340
+"Mozilla/5.0 (Linux; Android 9; JSN-AL00a Build/HONORJSN-AL00a; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044807 Mobile Safari/537.36 MMWEBID/1961 MicroMessenger/7.0.6.1460(0x27000634) Process/tools NetType/WIFI Language/zh_CN"
+	MicroMessenger/7.0.6.1460
+"Mozilla/5.0 (Linux; Android 6.0.1; KIW-AL10 Build/HONORKIW-AL10; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/044208 Mobile Safari/537.36 MicroMessenger/6.6.7.1321(0x26060739) NetType/4G Language/zh_CN"
+	MicroMessenger/6.6.7.1321
+"Mozilla/5.0 (Linux; Android 6.0.1; OPPO A57 Build/MMB29M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/6.2 TBS/044813 Mobile Safari/537.36 MMWEBID/6886 MicroMessenger/7.0.6.1460(0x27000634) Process/tools NetType/WIFI Language/zh_CN"
+	MicroMessenger/7.0.6.1460
+"Mozilla/5.0 (iPhone; CPU iPhone OS 17_6_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 YaBrowser/24.7.8.318.10 YaApp_iOS/2407.8 YaApp_iOS_Browser/2407.8 Safari/604.1 SA/3"
+	Safari/604.1
+"Mozilla/5.0 (Linux; arm_64; Android 14; SM-A356E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.6613.629 YaApp_Android/24.101.1 YaSearchBrowser/24.101.1 BroPP/1.0 SA/3 Mobile Safari/537.36"
+	Safari/537.36
+"Mozilla/5.0 (Linux; arm_64; Android 13; SM-A525F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.6478.224 YaSearchBrowser/24.78.1 BroPP/1.0 YaSearchApp/24.78.1 webOmni SA/3 Mobile Safari/537.36"
+	Safari/537.36
