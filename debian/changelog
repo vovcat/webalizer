@@ -1,3 +1,14 @@
+webalizer (2.23.08-vc2) unstable; urgency=low
+
+  Use package-specific localedir to decouple HTML output language from
+  system locale set wich is affected by localepurge.
+
+  Default translation message catalog files location changed
+    from /usr/share/locale/$lang/LC_MESSAGES/webalizer.mo
+    to /usr/share/webalizer/locale/$lang/LC_MESSAGES/webalizer.mo
+
+ -- Volodymyr Prodan <vovcat@gmail.com>  Mon, 16 Dec 2024 09:35:10 +0300
+
 webalizer (2.23.08-3.3vc) unstable; urgency=low
 
   * Use LOCALEDIR environment variable if set for bindtextdomain()
