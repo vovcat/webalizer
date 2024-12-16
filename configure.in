@@ -284,17 +284,38 @@ dnl ------------------------------------------
 dnl language with gettext
 dnl ------------------------------------------
 
-dnl keep datadir, it is needed for "bindtextdomain" since we use gettext
-OPTS="-DDATADIR=\\\"${datadir}\\\" ${OPTS}"
-
 #AM_GNU_GETTEXT
 
-localedir=${datadir}/locale
-AC_SUBST(localedir)
+dnl ------------------------------------------
+dnl Use package-specific localedir to decouple HTML output language from
+dnl system locale set wich is affected by localepurge
+dnl ------------------------------------------
+
+m4_define([PKGLOCALEDIR_], [["DATAROOTDIR/]AC_PACKAGE_TARNAME[/locale"]])
+echo "[PKGLOCALEDIR_]=PKGLOCALEDIR_"
+
+m4_define([PKGLOCALEDIR_DEFAULT], [[DATAROOTDIR/]AC_PACKAGE_TARNAME[/locale]])
+dnl   [  --with-pkglocaledir=DIR Default package locale files directory @<:@PKGLOCALEDIR_DEFAULT@:>@],
+
+AC_ARG_WITH(pkglocaledir,
+  [  --with-pkglocaledir=DIR Default package locale files directory @<:@[DATAROOTDIR/]AC_PACKAGE_TARNAME[/locale]@:>@],
+  PKGLOCALEDIR="${withval}", PKGLOCALEDIR='${datarootdir}/${PACKAGE_NAME}/locale')
+AC_SUBST(PKGLOCALEDIR)
+
+
+dnl ------------------------------------------
+dnl ETCDIR variable
+dnl ------------------------------------------
+
+AC_ARG_WITH(etcdir,
+  [  --with-etcdir=DIR       Default config directory @<:@[SYSCONFDIR/]AC_PACKAGE_TARNAME@:>@],
+  ETCDIR="${withval}", ETCDIR='${sysconfdir}/${PACKAGE_NAME}')
+AC_SUBST(ETCDIR)
 
 dnl ------------------------------------------
 dnl done.. write out our Makefile
 dnl ------------------------------------------
 
 AC_OUTPUT(Makefile)
+AC_MSG_NOTICE([localedir=$localedir, PKGLOCALEDIR=$PKGLOCALEDIR, ETCDIR=$ETCDIR])
 AC_MSG_NOTICE(Done.  Type 'make' to continue with build.)

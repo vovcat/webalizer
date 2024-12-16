@@ -18,18 +18,23 @@
 
 prefix          = @prefix@
 exec_prefix     = @exec_prefix@
-datadir         = @datarootdir@
+datarootdir     = @datarootdir@
+datadir         = @datadir@
+sysconfdir      = @sysconfdir@
+localedir       = @localedir@
 
+PACKAGE_NAME    = @PACKAGE_TARNAME@
 BINDIR          = @bindir@
 MANDIR          = @mandir@/man1
-ETCDIR          = @sysconfdir@
-LOCALEDIR       = @localedir@
+ETCDIR          = @ETCDIR@
+PKGLOCALEDIR    = @PKGLOCALEDIR@
 GEODB           = @GEODB_LOC@
 CC              = @CC@
 CFLAGS          = @CFLAGS@ @CPPFLAGS@
 LIBS            = @LIBS@ -ldb
 WCMGR_LIBS      = @WCMGR_LIBS@
-DEFS            = -DETCDIR=\"${ETCDIR}\" -DGEODB_LOC=\"${GEODB}\" @DEFS@ @OPTS@
+DEFS_DIRS       = -DETCDIR=\"${ETCDIR}\" -DPKGLOCALEDIR=\"${PKGLOCALEDIR}\" -DGEODB_LOC=\"${GEODB}\"
+DEFS            = @DEFS@ @OPTS@ $(DEFS_DIRS)
 LDFLAGS         = @LDFLAGS@
 INSTALL         = @INSTALL@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -38,10 +43,16 @@ DEFLANG         = @DEFAULT_LANG@
 
 LANGS=$(shell for a in po/*.po; do basename $${a%.po}; done)
 
-
 # Shouldn't have to touch below here!
 
 all: webalizer wcmgr
+
+vars = $(foreach v, $(filter-out .VARIABLES vars vars_, $(.VARIABLES)), \
+    $(if $(filter-out environment, $(origin $(v))),                     \
+        $(info [$(origin $(v))] $(v)=$(call $(1), $(v)))                \
+    ))
+vars:; $(call vars, value)
+vars_exp:; $(call vars, call)
 
 webalizer:	webalizer.o webalizer.h hashtab.o hashtab.h  \
 		linklist.o linklist.h preserve.o preserve.h  \
@@ -119,7 +130,7 @@ install: all
 	rm -f ${DESTDIR}${MANDIR}/webazolver.1
 	@LN_S@ webalizer.1 ${DESTDIR}${MANDIR}/webazolver.1
 	$(INSTALL_DATA) sample.conf ${DESTDIR}${ETCDIR}/webalizer.conf.sample
-	for a in $(LANGS); do $(INSTALL_DATA) po/$$a.mo ${DESTDIR}/$(LOCALEDIR)/$$a/LC_MESSAGES/webalizer.mo; done
+	for a in $(LANGS); do $(INSTALL_DATA) -D po/$$a.mo ${DESTDIR}/${PKGLOCALEDIR}/$$a/LC_MESSAGES/webalizer.mo; done
 
 uninstall:
 	rm -f ${DESTDIR}${BINDIR}/webalizer
@@ -129,4 +140,4 @@ uninstall:
 	rm -f ${DESTDIR}${MANDIR}/webazolver.1
 	rm -f ${DESTDIR}${MANDIR}/wcmgr.1
 	rm -f ${DESTDIR}${ETCDIR}/webalizer.conf.sample
-	for a in $(LANGS); do rm -f $(LOCALEDIR)/$$a/LC_MESSAGES/webalizer.mo; done
+	rm -rf ${DESTDIR}${PKGLOCALEDIR}

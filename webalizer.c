@@ -322,8 +322,9 @@ int main(int argc, char *argv[])
    /* stat struct for files */
    struct stat log_stat;
    current_locale = setlocale(LC_ALL, "");
+
    const char *localedir = getenv("LOCALEDIR");
-   if (!localedir) localedir = DATADIR "/locale";
+   if (!localedir) localedir = PKGLOCALEDIR;
    bindtextdomain(PACKAGE_NAME, localedir);
    textdomain(PACKAGE_NAME);
 

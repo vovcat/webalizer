@@ -10,13 +10,4 @@ include /usr/share/dpkg/buildflags.mk
 	dh $@
 
 override_dh_auto_configure:
-	dh_auto_configure -- --prefix=/usr --mandir=\$${prefix}/share/man \
-		--sysconfdir=/etc/webalizer --enable-dns --enable-geoip \
-		--datadir=/usr/share --with-etcdir=/etc/webalizer
-
-override_dh_installdirs:
-	dh_installdirs
-	# Create locale directories
-	for i in $$(ls po/*.mo -1 -f | sed -e 's/po\///g' -e 's/\.mo//g'); do \
-		mkdir -p $(CURDIR)/debian/webalizer/usr/share/locale/$$i/LC_MESSAGES; \
-	done
+	dh_auto_configure -- --enable-dns --enable-geoip

@@ -5,6 +5,14 @@
 #define PACKAGE_NAME "webalizer"
 #endif
 
+#ifndef ETCDIR
+#define ETCDIR "/etc/" PACKAGE_NAME
+#endif
+
+#ifndef PKGLOCALEDIR
+#define PKGLOCALEDIR "/usr/share/" PACKAGE_NAME "/locale"
+#endif
+
 #define PCENT(val,max) ((val)?((double)val/(double)max)*100.0 : 0.0)
 #define IDX_2C(c1,c2)       (((c1-'a'+1)<<7)+(c2-'a'+1) )
 #define IDX_3C(c1,c2,c3)    (((c1-'a'+1)<<12)+((c2-'a'+1)<<7)+(c3-'a'+1) )
