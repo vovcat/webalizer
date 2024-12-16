@@ -151,8 +151,8 @@ int     group_domains = 0;                    /* Group domains 0=none     */
 int     hide_sites    = 0;                    /* Hide ind. sites (0=no)   */
 int     link_referrer = 0;                    /* Link referrers (0=no)    */
 char    *hname        = NULL;                 /* hostname for reports     */
-char    *state_fname  = "webalizer.current";  /* run state file name      */
-char    *hist_fname   = "webalizer.hist";     /* name of history file     */
+char    *state_fname  = PACKAGE_NAME ".current"; /* run state file name   */
+char    *hist_fname   = PACKAGE_NAME ".hist"; /* name of history file     */
 char    *html_ext     = "html";               /* HTML file suffix         */
 char    *dump_ext     = "tab";                /* Dump file suffix         */
 char    *conf_fname   = NULL;                 /* name of config file      */
@@ -316,37 +316,35 @@ int main(int argc, char *argv[])
    int    max_ctry;                      /* max countries defined       */
 
    /* month names used for parsing logfile (shouldn't be lang specific) */
-   char *log_month[12]={ "jan", "feb", "mar",
-                         "apr", "may", "jun",
-                         "jul", "aug", "sep",
-                         "oct", "nov", "dec"};
+   char *log_month[12] = { "jan", "feb", "mar", "apr", "may", "jun",
+      "jul", "aug", "sep", "oct", "nov", "dec" };
 
    /* stat struct for files */
    struct stat log_stat;
-   current_locale = setlocale (LC_ALL, "");
+   current_locale = setlocale(LC_ALL, "");
    const char *localedir = getenv("LOCALEDIR");
    if (!localedir) localedir = DATADIR "/locale";
-   bindtextdomain ("webalizer", localedir);
-   textdomain ("webalizer");
+   bindtextdomain(PACKAGE_NAME, localedir);
+   textdomain(PACKAGE_NAME);
 
    /* Assume that LC_CTYPE is what the user wants for non-ASCII chars   */
-   setlocale(LC_CTYPE,"");
+   setlocale(LC_CTYPE, "");
 
    /* Initialise report_title with the default localized value          */
    report_title = _("Usage Statistics for");
 
    /* initalize epoch */
-   epoch=jdate(1,1,1970);                /* used for timestamp adj.     */
+   epoch = jdate(1, 1, 1970); /* used for timestamp adj. */
 
-   sprintf(tmp_buf,"%s/webalizer.conf",ETCDIR);
+   sprintf(tmp_buf, "%s/" PACKAGE_NAME ".conf", ETCDIR);
    /* check for default config file */
-   if (!access("webalizer.conf",F_OK))
-      get_config("webalizer.conf");
+   if (!access(PACKAGE_NAME ".conf", F_OK))
+      get_config(PACKAGE_NAME ".conf");
    else if (!access(tmp_buf,F_OK))
       get_config(tmp_buf);
 
    /* get command line options */
-   opterr = 0;     /* disable parser errors */
+   opterr = 0; /* disable parser errors */
    while ((i=getopt(argc,argv,"a:A:bc:C:dD:e:E:fF:g:GhHiI:jJ:k:K:l:Lm:M:n:N:o:O:pP:qQr:R:s:S:t:Tu:U:vVwW:x:XYz:Z"))!=EOF)
    {
       switch (i)
