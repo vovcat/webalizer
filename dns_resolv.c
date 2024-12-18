@@ -848,20 +848,19 @@ DB *geodb_open(char *dbname)
 
 char *geodb_ver(DB *db, char *str)
 {
-   int       i;
-   DBT       k,v;
-   unsigned  char x[16];
+   DBT k, v;
+   unsigned char x[16];
 
-   memset(&x,   0, sizeof(x));
-   memset(&k,   0, sizeof(k));
-   memset(&v,   0, sizeof(v));
-   k.data=&x;
-   k.size=sizeof(x);
+   memset(&x, 0, sizeof(x));
+   memset(&k, 0, sizeof(k));
+   memset(&v, 0, sizeof(v));
+   k.data = &x;
+   k.size = sizeof(x);
 
-   i=geo_db->get(geo_db, NULL, &k, &v, 0);
+   int i = db->get(db, NULL, &k, &v, 0);
 
    if (i) strncpy(str, "Unknown", 8);
-   else   strncpy(str, v.data+3, v.size-3);
+   else   strncpy(str, v.data + 3, v.size - 3);
    return str;
 }
 
@@ -871,10 +870,10 @@ char *geodb_ver(DB *db, char *str)
 
 char *geodb_get_cc(DB *db, char *ip, char *buf)
 {
-   int      i;
-   DBT      k,v;
+   DBT k,v;
    unsigned char addr[16];
 
+   (void) db;
    memset(addr, 0, sizeof(addr));
    strncpy(buf, "--", 3);
 
@@ -882,21 +881,22 @@ char *geodb_get_cc(DB *db, char *ip, char *buf)
    if (!iptype(ip, addr)) return buf;
 
    /* kludge for IPv6 mapped IPv4 */
-   if (addr[0]==0 && addr[1]==0 && addr[2]==0) { addr[10]=0; addr[11]=0; }
+   if (addr[0]==0 && addr[1]==0 && addr[2]==0) {
+      addr[10]=0; addr[11]=0;
+   }
 
    /* kludge for IPv6 6to4 (RFC3056) */
-   if (addr[0]==0x20 && addr[1]==0x02)
-   {
-      memmove(&addr[12],&addr[2],4);
-      memset(&addr,0,12);
+   if (addr[0] == 0x20 && addr[1] == 0x02) {
+      memmove(&addr[12], &addr[2], 4);
+      memset(&addr, 0, 12);
    }
 
    memset(&k, 0, sizeof(k));
    memset(&v, 0, sizeof(v));
-   k.data=&addr;
-   k.size=sizeof(addr);
+   k.data = &addr;
+   k.size = sizeof(addr);
 
-   i=geo_dbc->c_get(geo_dbc, &k, &v, DB_SET_RANGE);
+   int i = geo_dbc->c_get(geo_dbc, &k, &v, DB_SET_RANGE);
    if (!i) memcpy(buf, v.data, 2);
    return buf;
 }
