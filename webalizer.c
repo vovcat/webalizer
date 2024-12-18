@@ -2254,50 +2254,52 @@ int score_sjis(unsigned char *str)
   return score;
 }
 
-int score_utf8(unsigned char *str)
+int score_utf8(char *str)
 {
-  int stat=0;
-  int score=0;
-  int bad=0;
-  if(str==NULL) return -1;
+  int state = 0;
+  int score = 0;
+  int bad = 0;
 
-  for(; *str != 0; str++){
-    switch(stat){
+  if (!str) return -1;
+
+  for(; *str != 0; str++) {
+    unsigned char c = *str;
+    switch (state) {
     case 0:
-      if(*str>= 0x20 && *str <= 0x7e) score++; //ASCII
-      else if(*str >= 0xc0 && *str <= 0xdf) stat=1; //greek etc.
-      else if(*str >= 0xe0 && *str <= 0xef) stat=2; //KANJI etc.
-      else if(*str >= 0xf0 && *str <= 0xf7) stat=4;
-      else if(*str < 0x20); //CTRL
-      else bad=1;
+      if (c>= 0x20 && c <= 0x7e) score++; //ASCII
+      else if (c >= 0xc0 && c <= 0xdf) state = 1; //greek etc.
+      else if (c >= 0xe0 && c <= 0xef) state = 2; //KANJI etc.
+      else if (c >= 0xf0 && c <= 0xf7) state = 4;
+      else if (c < 0x20) /**/; //CTRL
+      else bad = 1;
       break;
     case 1:
-      if(*str >= 0x80 && *str <= 0xbf) score++;
-      else bad=1;
-      stat=0;
+      if (c >= 0x80 && c <= 0xbf) score++;
+      else bad = 1;
+      state = 0;
       break;
     case 2:
-      if(*str >= 0x80 && *str <= 0xbf) stat=3; //KANJI(2)
-      else {bad=1; stat=0;}
+      if (c >= 0x80 && c <= 0xbf) state = 3; //KANJI(2)
+      else { bad = 1; state = 0; }
       break;
     case 3:
-      if(*str >= 0x80 && *str <= 0xbf) score+=3; //KANJI(3)
-      else bad=1;
-      stat=0;
+      if (c >= 0x80 && c <= 0xbf) score += 3; //KANJI(3)
+      else bad = 1;
+      state = 0;
       break;
     case 4:
     case 5:
-      if(*str >= 0x80 && *str <= 0xbf) stat++;
-      else {bad=1; stat=0;}
+      if (c >= 0x80 && c <= 0xbf) state++;
+      else { bad = 1; state = 0; }
       break;
     case 6:
-      if(*str >= 0x80 && *str <= 0xbf) score+=4;
-      else bad=1;
-      stat=0;
+      if (c >= 0x80 && c <= 0xbf) score += 4;
+      else bad = 1;
+      state = 0;
       break;
     }
   }
-  if(bad != 0) score = -1;
+  if (bad) score = -1;
   return score;
 }
 
