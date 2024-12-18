@@ -1,3 +1,9 @@
+webalizer (2.23.08-vc2+) unstable; urgency=low
+
+  WIP
+
+ -- Volodymyr Prodan <vovcat@gmail.com>  Mon, 16 Dec 2024 09:36:10 +0300
+
 webalizer (2.23.08-vc2) unstable; urgency=low
 
   Use package-specific localedir to decouple HTML output language from
