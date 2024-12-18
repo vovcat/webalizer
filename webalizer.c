@@ -1520,12 +1520,10 @@ int main(int argc, char *argv[])
          printf("%s %.0f %s", _("in"), temp_time, _("seconds"));
 
          /* calculate records per second */
-         if (temp_time)
-           i=( (int)( (float)total_rec/temp_time ) );
-         else i=0;
-
-         if ( (i>0) && (i<=total_rec) ) printf(", %d/sec\n", i);
-            else  printf("\n");
+         u_int64_t ui = 0;
+         if (temp_time) ui = (float)total_rec / temp_time;
+         if (ui > 0 && ui <= total_rec) printf(", %ju/sec\n", ui);
+         else printf("\n");
       }
 
 #ifdef USE_DNS
