@@ -157,14 +157,18 @@ int year_graph6x(char *fname, char *title, struct hist_rec data[HISTSIZE])
                     (unsigned char *)_("kB F"),dkgrey);
       gdImageString(im,gdFontSmall,490-i-j-k-24,236,
                     (unsigned char *)_("kB F"),KBYTECOLOR);
-      gdImageString(im,gdFontSmall,491-k-j-21,237,"/",dkgrey);
-      gdImageString(im,gdFontSmall,490-k-j-21,236,"/",black);
+      gdImageString(im,gdFontSmall,491-k-j-21,237,
+                    (unsigned char *)"/",dkgrey);
+      gdImageString(im,gdFontSmall,490-k-j-21,236,
+                    (unsigned char *)"/",black);
       gdImageString(im,gdFontSmall,491-k-j-12,237,
                     (unsigned char *)_("kB In"),dkgrey);
       gdImageString(im,gdFontSmall,490-k-j-12,236,
                     (unsigned char *)_("kB In"),IKBYTECOLOR);
-      gdImageString(im,gdFontSmall,491-k-9,237,"/",dkgrey);
-      gdImageString(im,gdFontSmall,490-k-9,236,"/",black);
+      gdImageString(im,gdFontSmall,491-k-9,237,
+                    (unsigned char *)"/",dkgrey);
+      gdImageString(im,gdFontSmall,490-k-9,236,
+                    (unsigned char *)"/",black);
       gdImageString(im,gdFontSmall,491-k,237,
                     (unsigned char *)_("kB Out"),dkgrey);
       gdImageString(im,gdFontSmall,490-k,236,
@@ -505,14 +509,18 @@ int month_graph6(     char  *fname,        /* filename           */
       {
 	 i=(strlen(_("kB F"))*6);
 	 j=(strlen(_("kB In"))*6);
-	 gdImageStringUp(im,gdFontSmall,494,376-i-3,"/",dkgrey);
-	 gdImageStringUp(im,gdFontSmall,493,375-i-3,"/",black);
+	 gdImageStringUp(im,gdFontSmall,494,376-i-3,
+			 (unsigned char *)"/",dkgrey);
+	 gdImageStringUp(im,gdFontSmall,493,375-i-3,
+			 (unsigned char *)"/",black);
 	 gdImageStringUp(im,gdFontSmall,494,376-i-12,
 			 (unsigned char *)_("kB In"),dkgrey);
 	 gdImageStringUp(im,gdFontSmall,493,375-i-12,
 			 (unsigned char *)_("kB In"),IKBYTECOLOR);
-	 gdImageStringUp(im,gdFontSmall,494,376-i-j-15,"/",dkgrey);
-	 gdImageStringUp(im,gdFontSmall,493,375-i-j-15,"/",black);
+	 gdImageStringUp(im,gdFontSmall,494,376-i-j-15,
+			 (unsigned char *)"/",dkgrey);
+	 gdImageStringUp(im,gdFontSmall,493,375-i-j-15,
+			 (unsigned char *)"/",black);
 	 gdImageStringUp(im,gdFontSmall,494,376-i-j-24,
 			 (unsigned char *)_("kB Out"),dkgrey);
 	 gdImageStringUp(im,gdFontSmall,493,375-i-j-24,
