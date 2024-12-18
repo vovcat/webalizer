@@ -2155,45 +2155,40 @@ char from_hex(char c)                           /* convert hex to dec      */
 
 char *unescape(char *str)
 {
-   unsigned char *cp1=(unsigned char *)str;     /* force unsigned so we    */
-   unsigned char *cp2=cp1;                      /* can do > 127            */
+   char *cp1 = str, *cp2 = cp1;
+   if (!str) return NULL;                       /* make sure string is valid */
 
-   if (!str) return NULL;                       /* make sure strings valid */
-
-   while(*cp1){  /* for apache log's escape code. */
-     if(*cp1 == '\\' && *(cp1+1) == 'x' &&
-	isxdigit(*(cp1+2)) && isxdigit(*(cp1+3))){
-       *cp2 = from_hex(*(cp1+2))*16 + from_hex(*(cp1+3));
-       if ((*cp2<32)||(*cp2==127)) *cp2='_';
-       cp1+=4; cp2++;
-
+   while (*cp1) {                               /* for apache log's escape code */
+     if (cp1[0] == '\\' && cp1[1] == 'x' && isxdigit(cp1[2]) && isxdigit(cp1[3])) {
+       *cp2 = from_hex(cp1[2]) * 16 + from_hex(cp1[3]);
+       if ((*cp2 >= 0 && *cp2 < 32) || *cp2 == 127) *cp2 = '_';
+       cp1 += 4; cp2++;
+     } else if(cp1[0] == '\\' && cp1[1] == '\\'){
+       *cp2++ = '\\';
+       cp1 += 2;
+     } else {
+       *cp2++ = *cp1++;
      }
-     else if(*cp1 == '\\' && *(cp1+1) == '\\'){
-       *cp2++='\\';
-       cp1+=2;
-     }
-     else *cp2++ = *cp1++;
    }
-   *cp2=*cp1;
+   *cp2 = *cp1;
 
-   cp1=cp2=str;
-   while (*cp1)
-   {
-      if (*cp1=='%')                            /* Found an escape?        */
-      {
+   cp1 = cp2 = str;
+   while (*cp1) {
+      if (*cp1=='%') {                          /* Found an escape?        */
          cp1++;
-         if (isxdigit(*cp1))                    /* ensure a hex digit      */
-         {
+         if (isxdigit(*cp1)) {                  /* ensure a hex digit      */
             if (*cp1) *cp2=from_hex(*cp1++)*16; /* convert hex to an ASCII */
             if (*cp1) *cp2+=from_hex(*cp1);     /* (hopefully) character   */
-            if ((*cp2<32)||(*cp2==127)) *cp2='_'; /* make '_' if its bad   */
+            if ((*cp2 >= 0 && *cp2 < 32) || *cp2 == 127) *cp2 = '_'; /* make '_' if its bad */
             if (*cp1) { cp2++; cp1++; }
+         } else {
+            *cp2++ = '%';
          }
-         else *cp2++='%';
+      } else {
+         *cp2++ = *cp1++;                       /* if not, just continue   */
       }
-      else *cp2++ = *cp1++;                     /* if not, just continue   */
    }
-   *cp2=*cp1;                                   /* don't forget terminator */
+   *cp2 = *cp1;                                 /* don't forget terminator */
    return str;                                  /* return the string       */
 }
 
