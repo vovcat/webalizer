@@ -214,7 +214,7 @@ int put_hnode( char      *str,  /* Hostname  */
 
                if (ispage(log_rec.url))
                {
-                  if ((tstamp-cptr->tstamp)>=visit_timeout)
+                  if ((tstamp-cptr->tstamp) >= (u_int64_t) visit_timeout)
                   {
                      cptr->visit++;
                      if (htab==sm_htab)
@@ -890,7 +890,7 @@ int put_inode( char      *str,  /* ident str */
 
                if (ispage(log_rec.url))
                {
-                  if ((tstamp-cptr->tstamp)>=visit_timeout)
+                  if ((tstamp-cptr->tstamp) >= (u_int64_t) visit_timeout)
                      cptr->visit++;
                   cptr->tstamp=tstamp;
                }
@@ -1165,7 +1165,7 @@ void month_update_exit(u_int64_t tstamp)
       {
          if (nptr->flag!=OBJ_GRP)
          {
-            if ((tstamp-nptr->tstamp)>=visit_timeout)
+            if ((tstamp-nptr->tstamp) >= (u_int64_t) visit_timeout)
                update_exit(nptr->lasturl);
          }
          nptr=nptr->next;
