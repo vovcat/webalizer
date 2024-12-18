@@ -1102,7 +1102,7 @@ int main(int argc, char *argv[])
          }
 
          /* save hostname for later */
-         strncpy(host_buf, log_rec.hostname, sizeof(log_rec.hostname));
+         strncpy(host_buf, log_rec.hostname, sizeof(host_buf));
 
 #ifdef USE_DNS
          /* Resolve IP address if needed */
@@ -1140,7 +1140,8 @@ int main(int argc, char *argv[])
                   /* Invalid hostname found! */
                   if (strcmp(log_rec.hostname, host_buf))
                      strcpy(log_rec.hostname, host_buf);
-                  else strncpy(log_rec.hostname,"Invalid",8);
+                  else
+                     strcpy(log_rec.hostname, "Invalid");
                   break;
                }
             }
