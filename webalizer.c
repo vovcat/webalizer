@@ -962,22 +962,22 @@ int main(int argc, char *argv[])
 
          /* get query portion of cgi referrals */
          cp1 = log_rec.refer;
-         if (*cp1 != '\0')
-         {
-            while (*cp1 != '\0')
-            {
-               if (!isurlchar(*cp1, 1))
-               {
-                  /* Save query portion in log.rec.srchstr */
-                  strncpy(log_rec.srchstr,(char *)cp1,MAXSRCH);
-                  *cp1++='\0';
+         if (*cp1) {
+            while (*cp1) {
+               if (!isurlchar(*cp1, 1)) {
+                  /* Save query portion in log_rec.srchstr */
+                  strncpy(log_rec.srchstr, cp1, sizeof(log_rec.srchstr) - 1);
+                  log_rec.srchstr[sizeof(log_rec.srchstr) - 1] = '\0';
+                  *cp1++ = '\0';
                   break;
                }
-               else cp1++;
+               cp1++;
             }
             /* handle null referrer */
-            if (log_rec.refer[0]=='\0')
-              { log_rec.refer[0]='-'; log_rec.refer[1]='\0'; }
+            if (log_rec.refer[0] == '\0') {
+               log_rec.refer[0] = '-';
+               log_rec.refer[1] = '\0';
+            }
          }
 
          /* if HTTP request, lowercase http://sitename/ portion */
