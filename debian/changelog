@@ -1,6 +1,7 @@
 webalizer (2.23.08-vc2+) unstable; urgency=low
 
-  WIP
+  * Fix compilation warnings
+  * Convert build system to automake
 
  -- Volodymyr Prodan <vovcat@gmail.com>  Mon, 16 Dec 2024 09:36:10 +0300
 

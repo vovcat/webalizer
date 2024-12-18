@@ -151,8 +151,8 @@ int     group_domains = 0;                    /* Group domains 0=none     */
 int     hide_sites    = 0;                    /* Hide ind. sites (0=no)   */
 int     link_referrer = 0;                    /* Link referrers (0=no)    */
 char    *hname        = NULL;                 /* hostname for reports     */
-char    *state_fname  = PACKAGE_NAME ".current"; /* run state file name   */
-char    *hist_fname   = PACKAGE_NAME ".hist"; /* name of history file     */
+char    *state_fname  = PACKAGE ".current";   /* run state file name      */
+char    *hist_fname   = PACKAGE ".hist";      /* name of history file     */
 char    *html_ext     = "html";               /* HTML file suffix         */
 char    *dump_ext     = "tab";                /* Dump file suffix         */
 char    *conf_fname   = NULL;                 /* name of config file      */
@@ -325,8 +325,8 @@ int main(int argc, char *argv[])
 
    const char *localedir = getenv("LOCALEDIR");
    if (!localedir) localedir = PKGLOCALEDIR;
-   bindtextdomain(PACKAGE_NAME, localedir);
-   textdomain(PACKAGE_NAME);
+   bindtextdomain(PACKAGE, localedir);
+   textdomain(PACKAGE);
 
    /* Assume that LC_CTYPE is what the user wants for non-ASCII chars   */
    setlocale(LC_CTYPE, "");
@@ -337,10 +337,10 @@ int main(int argc, char *argv[])
    /* initalize epoch */
    epoch = jdate(1, 1, 1970); /* used for timestamp adj. */
 
-   sprintf(tmp_buf, "%s/" PACKAGE_NAME ".conf", ETCDIR);
+   sprintf(tmp_buf, "%s/" PACKAGE ".conf", ETCDIR);
    /* check for default config file */
-   if (!access(PACKAGE_NAME ".conf", F_OK))
-      get_config(PACKAGE_NAME ".conf");
+   if (!access(PACKAGE ".conf", F_OK))
+      get_config(PACKAGE ".conf");
    else if (!access(tmp_buf,F_OK))
       get_config(tmp_buf);
 

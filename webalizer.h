@@ -1,16 +1,20 @@
 #ifndef _WEBALIZER_H
 #define _WEBALIZER_H
 
-#ifndef PACKAGE_NAME
-#define PACKAGE_NAME "webalizer"
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
+#ifndef PACKAGE
+#define PACKAGE "webalizer"
 #endif
 
 #ifndef ETCDIR
-#define ETCDIR "/etc/" PACKAGE_NAME
+#define ETCDIR "/etc/" PACKAGE
 #endif
 
 #ifndef PKGLOCALEDIR
-#define PKGLOCALEDIR "/usr/share/" PACKAGE_NAME "/locale"
+#define PKGLOCALEDIR "/usr/share/" PACKAGE "/locale"
 #endif
 
 #define PCENT(val,max) ((val)?((double)val/(double)max)*100.0 : 0.0)
