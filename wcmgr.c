@@ -444,7 +444,7 @@ void purge_cache()
       if (dns_rec.timeStamp==0) age=0;
       else age = runtime - dns_rec.timeStamp;
 
-      if ( age <= (rec_ttl*86400) )
+      if (age <= (u_int64_t) rec_ttl * 86400)
       {
          /* Good record.. insert into new cache file */
          if ( (i=out_db->put(out_db, NULL, &q, &r, 0)) != 0 )
