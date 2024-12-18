@@ -74,9 +74,58 @@
 
 /* forward reference internal routines */
 
-void    init_graph(char *, int, int);
+void init_graph(char *, int, int);
 struct  pie_data *calc_arc(float, float);
-int     ashex2int(char *);
+
+#ifdef HAVE_LIBGD_TTF
+/*
+ * Simple wrapper of gdImageString() for TrueType fonts
+ *
+ * To support Japanese (and other multi-byte characters), GD 1.7
+ * or later that supports kanji(JISX208) TTF has been required.
+ * So, we must use TrueType fonts instead of gd built-in
+ * bitmap fonts.
+ *
+ * Original of function written by <yasu@on.cs.keio.ac.jp>.
+ * And modified by Tatsuki Sugiura <sugi@nemui.org>
+ *
+ */
+static void gdImageStringWrapper(gdImagePtr im,  gdFontPtr f, int x, int y,
+				 unsigned char *s, int color, double rad)
+{
+   double ptsize = 11.0;
+   int    brect[8];
+   extern char *ttf_file;
+
+   if (ttf_file == NULL || strcmp(ttf_file, "") == 0) {
+      if (fabs(rad) < PI/4.0)
+        gdImageString(im, f, x, y, s, color);
+      else
+        gdImageStringUp(im, f, x, y, s, color);
+   } else {
+      if (f == gdFontSmall)
+         ptsize = 9.0;
+
+      gdImageStringFT(im, brect, color, ttf_file, ptsize, rad,
+                     x + (int)(ptsize*sin(rad)),
+                     y + (int)(ptsize*cos(rad)),
+                     (char *)s);
+   }
+}
+
+#define gdImageString(im, f, x, y, s, color) \
+        gdImageStringWrapper(im, f, x, y, s, color, 0.0)
+#define gdImageStringUp(im, f, x, y, s, color) \
+	gdImageStringWrapper(im, f, x, y, s, color, PI/2.0)
+
+#endif /* HAVE_LIBGD_TTF */
+
+/* ASHEX2INT - ASCII HEX TO INT CONVERTER */
+/* returns integer value from a 2 ASCII hex number */
+int ashex2int(char *str)
+{
+   return from_hex(str[0]) * 16 + from_hex(str[1]);
+}
 
 /* common public declarations */
 
@@ -1031,56 +1080,3 @@ void init_graph(char *title, int xsize, int ysize)
    return;
 }
 
-#ifdef HAVE_LIBGD_TTF
-/*
- * Simple wrapper of gdImageString() for TrueType fonts
- *
- * To support Japanese (and other multi-byte characters), GD 1.7
- * or later that supports kanji(JISX208) TTF has been required.
- * So, we must use TrueType fonts instead of gd built-in
- * bitmap fonts.
- *
- * Original of function written by <yasu@on.cs.keio.ac.jp>.
- * And modified by Tatsuki Sugiura <sugi@nemui.org>
- *
- */
-static void gdImageStringWrapper(gdImagePtr im,  gdFontPtr f,
-				 int x, int y,
-				 unsigned char *s, int color, double rad)
-{
-   double ptsize = 11.0;
-   int    brect[8];
-   extern char *ttf_file;
-
-   if (ttf_file == NULL || strcmp(ttf_file, "") == 0) {
-      if (fabs(rad) < PI/4.0)
-        gdImageString(im, f, x, y, s, color);
-      else
-        gdImageStringUp(im, f, x, y, s, color);
-   } else {
-      if (f == gdFontSmall)
-         ptsize = 9.0;
-
-      gdImageStringFT(im, brect, color, ttf_file, ptsize, rad,
-                     x + (int)(ptsize*sin(rad)),
-                     y + (int)(ptsize*cos(rad)), s);
-   }
-}
-
-#define gdImageString(im, f, x, y, s, color) \
-        gdImageStringWrapper(im, f, x, y, s, color, 0.0)
-#define gdImageStringUp(im, f, x, y, s, color) \
-	gdImageStringWrapper(im, f, x, y, s, color, PI/2.0)
-#endif /* HAVE_LIBGD_TTF */
-
-/****************************************************************/
-/*                                                              */
-/* ASHEX2INT - ASCII HEX TO INT CONVERTER                       */
-/*                                                              */
-/****************************************************************/
-
-int ashex2int(char *str)
-{
-   /* returns base-10 integer value from a 2 ASCII hex number   */
-   return from_hex(str[1])+(from_hex(str[0])*16);
-}
