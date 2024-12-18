@@ -536,7 +536,7 @@ int save_state()
 int restore_state()
 {
    FILE *fp;
-   int  i;
+   int i;
    struct hnode t_hnode;         /* Temporary hash nodes */
    struct unode t_unode;
    struct rnode t_rnode;
@@ -544,17 +544,17 @@ int restore_state()
    struct snode t_snode;
    struct inode t_inode;
 
-   char         buffer[BUFSIZE];
-   char         tmp_buf[BUFSIZE];
+   char buffer[BUFSIZE];
+   char tmp_buf[BUFSIZE];
 
-   u_int64_t    ul_bogus=0;
+   u_int64_t ul_bogus = 0;
 
    /* if ignoring, just return */
    if (ignore_state) return 0;
 
    /* try to open state file */
-   fp=fopen(state_fname,"r");
-   if (fp==NULL)
+   fp = fopen(state_fname,"r");
+   if (fp == NULL)
    {
       /* Previous run data not found... */
       if (verbose>1) printf("%s\n",_("Previous run data not found..."));
@@ -647,11 +647,11 @@ int restore_state()
       else return 10;   /* error exit */
    }
 
-   while ((fgets(buffer,BUFSIZE,fp)) != NULL)
+   while ((fgets(buffer, BUFSIZE, fp)) != NULL)
    {
       if (!strncmp(buffer,"# End Of Table ",15)) break;
-      strncpy(tmp_buf,buffer,MAXURLH);
-      tmp_buf[strlen(tmp_buf)-1]=0;
+      strncpy(tmp_buf, buffer, MAXURLH); tmp_buf[sizeof(tmp_buf)-1] = '\0';
+      if (tmp_buf[0] && tmp_buf[strlen(tmp_buf)-1] == '\n') tmp_buf[strlen(tmp_buf)-1] = '\0';
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 10;  /* error exit */
       if (!isdigit((unsigned char)buffer[0])) return 10;  /* error exit */
@@ -682,8 +682,8 @@ int restore_state()
    {
       /* Check for end of table */
       if (!strncmp(buffer,"# End Of Table ",15)) break;
-      strncpy(tmp_buf,buffer,MAXHOST);
-      tmp_buf[strlen(buffer)-1]=0;
+      strncpy(tmp_buf, buffer, MAXHOST); tmp_buf[sizeof(tmp_buf)-1] = '\0';
+      if (tmp_buf[0] && tmp_buf[strlen(tmp_buf)-1] == '\n') tmp_buf[strlen(tmp_buf)-1] = '\0';
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 8;  /* error exit */
       if (!isdigit((unsigned char)buffer[0])) return 8;  /* error exit */
@@ -696,11 +696,11 @@ int restore_state()
 
       /* get last url */
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 8;  /* error exit */
-      if (buffer[0]=='-') t_hnode.lasturl=blank_str;
-      else
-      {
-         buffer[strlen(buffer)-1]=0;
-         t_hnode.lasturl=find_url(buffer);
+      if (buffer[0] == '-') {
+         t_hnode.lasturl = blank_str;
+      } else {
+         buffer[sizeof(buffer)-1] = 0;
+         t_hnode.lasturl = find_url(buffer);
       }
 
       /* Good record, insert into hash table */
@@ -723,8 +723,8 @@ int restore_state()
    {
       /* Check for end of table */
       if (!strncmp(buffer,"# End Of Table ",15)) break;
-      strncpy(tmp_buf,buffer,MAXHOST);
-      tmp_buf[strlen(buffer)-1]=0;
+      strncpy(tmp_buf, buffer, MAXHOST); tmp_buf[sizeof(tmp_buf)-1] = '\0';
+      if (tmp_buf[0] && tmp_buf[strlen(tmp_buf)-1] == '\n') tmp_buf[strlen(tmp_buf)-1] = '\0';
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 9;  /* error exit */
       if (!isdigit((unsigned char)buffer[0])) return 9;  /* error exit */
@@ -737,11 +737,11 @@ int restore_state()
 
       /* get last url */
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 9;  /* error exit */
-      if (buffer[0]=='-') t_hnode.lasturl=blank_str;
-      else
-      {
-         buffer[strlen(buffer)-1]=0;
-         t_hnode.lasturl=find_url(buffer);
+      if (buffer[0] == '-') {
+         t_hnode.lasturl = blank_str;
+      } else {
+         buffer[sizeof(buffer)-1] = 0;
+         t_hnode.lasturl = find_url(buffer);
       }
 
       /* Good record, insert into hash table */
@@ -763,8 +763,8 @@ int restore_state()
    while ((fgets(buffer,BUFSIZE,fp)) != NULL)
    {
       if (!strncmp(buffer,"# End Of Table ",15)) break;
-      strncpy(tmp_buf,buffer,MAXREFH);
-      tmp_buf[strlen(buffer)-1]=0;
+      strncpy(tmp_buf, buffer, MAXREFH); tmp_buf[sizeof(tmp_buf)-1] = '\0';
+      if (tmp_buf[0] && tmp_buf[strlen(tmp_buf)-1] == '\n') tmp_buf[strlen(tmp_buf)-1] = '\0';
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 11;  /* error exit */
       if (!isdigit((unsigned char)buffer[0])) return 11;  /* error exit */
@@ -788,8 +788,8 @@ int restore_state()
    while ((fgets(buffer,BUFSIZE,fp)) != NULL)
    {
       if (!strncmp(buffer,"# End Of Table ",15)) break;
-      strncpy(tmp_buf,buffer,MAXAGENT);
-      tmp_buf[strlen(buffer)-1]=0;
+      strncpy(tmp_buf, buffer, MAXAGENT); tmp_buf[sizeof(tmp_buf)-1] = '\0';
+      if (tmp_buf[0] && tmp_buf[strlen(tmp_buf)-1] == '\n') tmp_buf[strlen(tmp_buf)-1] = '\0';
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 12;  /* error exit */
       if (!isdigit((unsigned char)buffer[0])) return 12;  /* error exit */
@@ -813,8 +813,8 @@ int restore_state()
    while ((fgets(buffer,BUFSIZE,fp)) != NULL)
    {
       if (!strncmp(buffer,"# End Of Table ",15)) break;
-      strncpy(tmp_buf,buffer,MAXSRCH);
-      tmp_buf[strlen(buffer)-1]=0;
+      strncpy(tmp_buf, buffer, MAXSRCH); tmp_buf[sizeof(tmp_buf)-1] = '\0';
+      if (tmp_buf[0] && tmp_buf[strlen(tmp_buf)-1] == '\n') tmp_buf[strlen(tmp_buf)-1] = '\0';
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 13;  /* error exit */
       if (!isdigit((unsigned char)buffer[0])) return 13;  /* error exit */
@@ -838,8 +838,8 @@ int restore_state()
    {
       /* Check for end of table */
       if (!strncmp(buffer,"# End Of Table ",15)) break;
-      strncpy(tmp_buf,buffer,MAXIDENT);
-      tmp_buf[strlen(buffer)-1]=0;
+      strncpy(tmp_buf, buffer, MAXIDENT); tmp_buf[sizeof(tmp_buf)-1] = '\0';
+      if (tmp_buf[0] && tmp_buf[strlen(tmp_buf)-1] == '\n') tmp_buf[strlen(tmp_buf)-1] = '\0';
 
       if ((fgets(buffer,BUFSIZE,fp)) == NULL) return 14;  /* error exit */
       if (!isdigit((unsigned char)buffer[0])) return 14;  /* error exit */
