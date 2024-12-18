@@ -141,10 +141,10 @@
 #define TOTAL_RC               41
 
 #ifdef USE_DNS
-#include <netinet/in.h>       /* needed for in_addr structure definition   */
+#include <netinet/in.h> /* needed for in_addr structure definition */
 #ifndef INADDR_NONE
 #define INADDR_NONE 0xFFFFFFFF
-#endif  /* INADDR_NONE */
+#endif /* INADDR_NONE */
 #endif
 
 /* Response code structure */
@@ -152,13 +152,13 @@ struct response_code {     char    *desc;         /* code description     */
                       u_int64_t    count; };      /* hit counter          */
 
 /* Country code structure */
-struct	country_code {u_int64_t idx;              /* TLD index number     */
-                           char *desc;            /* TLD description      */
-                      u_int64_t count;            /* hit counter          */
-                      u_int64_t files;            /* file counter         */
-                         double xfer;             /* xfer amt counter     */
-                         double ixfer;            /* in xfer amt counter  */
-                         double oxfer; };         /* out xfer amt counter */
+struct country_code { u_int64_t idx;              /* TLD index number     */
+                         char *desc;              /* TLD description      */
+                    u_int64_t count;              /* hit counter          */
+                    u_int64_t files;              /* file counter         */
+                        double xfer;              /* xfer amt counter     */
+                       double ixfer;              /* in xfer amt counter  */
+                       double oxfer; };           /* out xfer amt counter */
 
 typedef struct country_code *CLISTPTR;
 
