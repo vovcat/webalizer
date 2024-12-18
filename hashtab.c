@@ -343,14 +343,14 @@ UNODEPTR new_unode(char *str)
 /* PUT_UNODE - insert/update URL node        */
 /*********************************************/
 
-int put_unode(char *str, int type, u_int64_t count, double xfer,
-              double ixfer, double oxfer,
+int put_unode(char *str, int type, u_int64_t count, double xfer, double ixfer, double oxfer,
               u_int64_t *ctr, u_int64_t entry, u_int64_t exit, UNODEPTR *htab)
 {
    UNODEPTR cptr,nptr;
    unsigned int hval;
 
-   if (str[0]=='-') return 0;
+   if (str[0]=='-')
+      return 0;
 
    hval = hash(str);
    /* check if hashed */
@@ -359,15 +359,16 @@ int put_unode(char *str, int type, u_int64_t count, double xfer,
       /* not hashed */
       if ( (nptr=new_unode(str)) != NULL)
       {
-         nptr->flag = type;
-         nptr->count= count;
-         nptr->xfer = xfer;
-         nptr->ixfer= ixfer;
-         nptr->oxfer= oxfer;
-         nptr->next = NULL;
-         nptr->entry= entry;
-         nptr->exit = exit;
-         htab[hval] = nptr;
+         nptr->flag  = type;
+         nptr->count = count;
+         nptr->files = 0;
+         nptr->entry = entry;
+         nptr->exit  = exit;
+         nptr->xfer  = xfer;
+         nptr->ixfer = ixfer;
+         nptr->oxfer = oxfer;
+         nptr->next  = NULL;
+         htab[hval]  = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
       }
    }
@@ -381,7 +382,7 @@ int put_unode(char *str, int type, u_int64_t count, double xfer,
             if ((type==cptr->flag)||((type!=OBJ_GRP)&&(cptr->flag!=OBJ_GRP)))
             {
                /* found... bump counter */
-               cptr->count +=count;
+               cptr->count += count;
                cptr->xfer  += xfer;
                cptr->ixfer += ixfer;
                cptr->oxfer += oxfer;
@@ -393,14 +394,15 @@ int put_unode(char *str, int type, u_int64_t count, double xfer,
       /* not found... */
       if ( (nptr = new_unode(str)) != NULL)
       {
-         nptr->flag = type;
-         nptr->count= count;
-         nptr->xfer = xfer;
-         nptr->ixfer= ixfer;
-         nptr->oxfer= oxfer;
+         nptr->flag  = type;
+         nptr->count = count;
+         nptr->files = 0;
+         nptr->entry = entry;
+         nptr->exit  = exit;
+         nptr->xfer  = xfer;
+         nptr->ixfer = ixfer;
+         nptr->oxfer = oxfer;
          nptr->next = htab[hval];
-         nptr->entry= entry;
-         nptr->exit = exit;
          htab[hval] = nptr;
          if (type!=OBJ_GRP) (*ctr)++;
       }
