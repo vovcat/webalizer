@@ -2130,8 +2130,11 @@ char *un_idx(u_int64_t idx)
       { buf[0]=(idx>>7)+'a'; buf[1]=j-32; return buf; }
 
    for (i=5;i>=0;i--)
-      buf[i]=(i==5)?(idx&0x7f)+'a'-1:(j=(idx>>(((5-i)*5)+2))&0x1f)?j+'a'-1:' ';
-   cp=buf; while (*cp==' ') { for (i=0;i<6;i++) buf[i]=buf[i+1]; } return buf;
+      buf[i] = (i==5) ? (int)(idx&0x7f) + 'a' - 1 :
+         (j = (int)(idx>>(((5-i)*5)+2))&0x1f) ? j + 'a' - 1 : ' ';
+
+   cp = buf; while (*cp == ' ') { for (i = 0; i < 6; i++) buf[i] = buf[i+1]; }
+   return buf;
 }
 
 /*********************************************/
