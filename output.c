@@ -2186,7 +2186,6 @@ void top_ctry_table()
    extern GeoIP  *geo_fp;
    const  char   *geo_rc=NULL;
 #endif
-   char          geo_ctry[3]="--";
 
    /* scan hash table adding up domain totals */
    for (i=0;i<MAXHASH;i++)
@@ -2202,6 +2201,7 @@ void top_ctry_table()
 #ifdef USE_DNS
                if (geodb)
                {
+                  char geo_ctry[3] = "--";
                   /* Lookup IP address here, turn into idx   */
                   geodb_get_cc(geo_db, hptr->string, geo_ctry);
                   if (geo_ctry[0]=='-')
@@ -2215,6 +2215,7 @@ void top_ctry_table()
 #ifdef USE_GEOIP
                if (geoip)
                {
+                  char geo_ctry[3] = "--";
                   /* Lookup IP address here,  turn into idx  */
                   geo_rc=GeoIP_country_code_by_addr(geo_fp, hptr->string);
                   if (geo_rc==NULL||geo_rc[0]=='\0'||geo_rc[0]=='-')
