@@ -313,7 +313,7 @@ int dns_resolver(void *log_fp)
    end_time = time(NULL);
 
    /* display DNS processing statistics */
-   if (time_me || (verbose>1))
+   if (time_me || verbose > 1)
    {
       if (verbose<2 && time_me) printf("DNS: ");
       printf("%ju %s ",listEntries, _("addresses"));
@@ -324,12 +324,11 @@ int dns_resolver(void *log_fp)
       printf("%s %.0f %s", _("in"), temp_time, _("seconds"));
 
       /* calculate records per second */
-      if (temp_time)
-         i=( (int)((float)listEntries/temp_time) );
-      else i=0;
+      u_int64_t eps = 0;
+      if (temp_time) eps = (int) ((float) listEntries / temp_time);
 
-      if ( (i>0) && (i<=listEntries) ) printf(_(", %d/sec\n"), i);
-         else  printf("\n");
+      if (eps <= listEntries) printf(_(", %ju/sec\n"), eps);
+      else printf("\n");
    }
 
    /* processing done, exit   */
