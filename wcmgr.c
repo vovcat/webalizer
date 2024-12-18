@@ -705,25 +705,23 @@ void add_rec()
    char  *cp;
 
    /* ensure we have addr string */
-   if (addr[0]!='\0') cp=addr;
-   else
-   {
+   if (addr[0]) {
+      cp = addr;
+   } else {
       fprintf(stderr,"Error: No IP address specified!\n");
       exit(1);
    }
 
    /* and check size */
-   if (strlen(addr)>47)
-   {
+   if (strlen(addr) > 47) {
       fprintf(stderr,"Error: IP address too long!\n");
       exit(1);
    }
 
    /* ensure everything is lowercase */
-   cp=addr; while (*cp!='\0') *cp++=tolower(*cp);
-   if (name[0]!='\0')
-   {
-      cp=name; while (*cp!='\0') *cp++=tolower(*cp);
+   cp=addr; while (*cp) *cp++=tolower(*cp);
+   if (name[0]) {
+      cp=name; while (*cp) *cp++=tolower(*cp);
    }
 
    /* open the database (read-write) */
@@ -752,7 +750,7 @@ void add_rec()
    }
    else
    {
-      if (i!=DB_NOTFOUND)
+      if (i != DB_NOTFOUND)
       {
          fprintf(stderr,"Error: %s\n",db_strerror(i));
          exit(1);
@@ -760,8 +758,10 @@ void add_rec()
       else
       {
          /* check hostname */
-         if (name[0]=='\0')
-            strncpy(name,addr,strlen(addr));
+         if (!name[0]) {
+            strncpy(name, addr, sizeof(name) - 1);
+            name[sizeof(name) - 1] = '\0';
+         }
 
          /* check if perm */
          if (rec_ttl==0) runtime=0;
