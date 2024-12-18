@@ -64,18 +64,19 @@ struct hist_rec hist[HISTSIZE];              /* history structure array   */
 
 void get_history()
 {
-   int   i,n,numfields;
+   int   i, n;
    int   in_m,in_y;
    int   mth, yr;
    FILE  *hist_fp;
    char  buffer[BUFSIZE];
 
    /* try to open history file */
-   hist_fp=fopen(hist_fname,"r");
+   hist_fp = fopen(hist_fname,"r");
 
-   if (hist_fp)
-   {
-      if (verbose>1) printf("%s %s\n",_("Reading history file..."),hist_fname);
+   if (hist_fp) {
+      if (verbose > 1)
+         printf("%s %s\n",_("Reading history file..."),hist_fname);
+
       while ( fgets(buffer,BUFSIZE,hist_fp) != NULL )
       {
          if (buffer[0]=='#') { continue; } /* skip comments */
@@ -118,28 +119,18 @@ void get_history()
                }
             }
          }
-         if (i>=0)
-         {
-         /* month# year# requests files sites xfer firstday lastday */
-         numfields = sscanf(buffer,
-                       "%d %d %ju %ju %ju %lf %d %d %ju %ju %lf %lf",
-                       &hist[i].month,
-                       &hist[i].year,
-                       &hist[i].hit,
-                       &hist[i].files,
-                       &hist[i].site,
-                       &hist[i].xfer,
-                       &hist[i].fday,
-                       &hist[i].lday,
-                       &hist[i].page,
-                       &hist[i].visit,
-                       &hist[i].ixfer,
-                       &hist[i].oxfer);
+         if (i >= 0) {
+            /* month# year# requests files sites xfer firstday lastday */
+            sscanf(buffer, "%d %d %ju %ju %ju %lf %d %d %ju %ju %lf %lf",
+               &hist[i].month, &hist[i].year, &hist[i].hit, &hist[i].files,
+               &hist[i].site, &hist[i].xfer, &hist[i].fday, &hist[i].lday,
+               &hist[i].page, &hist[i].visit, &hist[i].ixfer, &hist[i].oxfer);
          }
       }
       fclose(hist_fp);
+   } else if (verbose > 1) {
+      printf("%s\n", _("History file not found..."));
    }
-   else if (verbose>1) printf("%s\n",_("History file not found..."));
 }
 
 /*********************************************/
