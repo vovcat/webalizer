@@ -1,1 +1,1 @@
-void xdecode(unsigned char *str);
+void xdecode(char *str);
