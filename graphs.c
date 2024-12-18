@@ -845,8 +845,7 @@ int day_graph3(     char  *fname,
 /*                                                               */
 /*****************************************************************/
 
-int pie_chart(char *fname, char *title, u_int64_t t_val,
-              u_int64_t data1[], char *legend[])
+int pie_chart(char *fname, char *title, u_int64_t t_val, u_int64_t data1[], char *legend[])
 {
    int i,x,percent,y=47;
    double s_arc=0.0;
