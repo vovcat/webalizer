@@ -935,15 +935,15 @@ void hourly_total_table()
 
 void top_sites_table(int flag)
 {
-   u_int64_t cnt=0, h_reg=0, h_grp=0, h_hid=0, tot_num;
-   int       i;
-   HNODEPTR  hptr, *pointer;
+   u_int64_t cnt = 0, h_reg = 0, h_grp = 0, h_hid = 0, tot_num;
+   HNODEPTR hptr, *pointer;
+   int i;
 
-   cnt=a_ctr; pointer=h_array;
-   while(cnt--)
+   cnt = a_ctr; pointer = h_array;
+   while (cnt--)
    {
       /* calculate totals */
-      switch ( (*pointer)->flag )
+      switch ((*pointer)->flag)
       {
          case OBJ_REG:   h_reg++;  break;
          case OBJ_GRP:   h_grp++;  break;
@@ -952,11 +952,10 @@ void top_sites_table(int flag)
       pointer++;
    }
 
-   if ( (tot_num=h_reg+h_grp)==0 ) return;              /* split if none    */
-   i=(flag)?ntop_sitesK:ntop_sites;                     /* Hits or KBytes?? */
-   if (tot_num > i) tot_num = i;                        /* get max to do... */
-
-   if ((!flag) || (flag&&!ntop_sites))                  /* now do <A> tag   */
+   if ((tot_num = h_reg + h_grp) == 0) return;          /* split if none    */
+   u_int64_t ntop = flag ? ntop_sitesK : ntop_sites;    /* Hits or KBytes   */
+   if (tot_num > ntop) tot_num = ntop;                  /* get max to do... */
+   if (!flag || (flag && !ntop_sites))                  /* now do <A> tag   */
       fprintf(out_fp,"<A NAME=\"TOPSITES\"></A>\n");
 
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
@@ -1042,7 +1041,7 @@ void top_sites_table(int flag)
    fprintf(out_fp,"<TR><TH HEIGHT=4 COLSPAN=10></TH></TR>\n");
    if ((!flag) || (flag&&!ntop_sites))
    {
-      if ( (all_sites) && ((h_reg+h_grp)>ntop_sites) )
+      if (all_sites && h_reg + h_grp > (u_int64_t) ntop_sites)
       {
          if (all_sites_page(h_reg, h_grp))
          {
@@ -1168,15 +1167,15 @@ int all_sites_page(u_int64_t h_reg, u_int64_t h_grp)
 
 void top_urls_table(int flag)
 {
-   u_int64_t cnt=0,u_reg=0,u_grp=0,u_hid=0, tot_num;
-   int       i;
-   UNODEPTR  uptr, *pointer;
+   u_int64_t cnt = 0, u_reg = 0, u_grp = 0, u_hid = 0, tot_num;
+   UNODEPTR uptr, *pointer;
+   int i;
 
-   cnt=a_ctr; pointer=u_array;
+   cnt = a_ctr; pointer = u_array;
    while (cnt--)
    {
       /* calculate totals */
-      switch ( (*pointer)->flag )
+      switch ((*pointer)->flag)
       {
          case OBJ_REG:  u_reg++;  break;
          case OBJ_GRP:  u_grp++;  break;
@@ -1185,10 +1184,10 @@ void top_urls_table(int flag)
       pointer++;
    }
 
-   if ( (tot_num=u_reg+u_grp)==0 ) return;              /* split if none    */
-   i=(flag)?ntop_urlsK:ntop_urls;                       /* Hits or KBytes?? */
-   if (tot_num > i) tot_num = i;                        /* get max to do... */
-   if ((!flag) || (flag&&!ntop_urls))                   /* now do <A> tag   */
+   if ((tot_num = u_reg + u_grp) == 0) return;          /* split if none    */
+   u_int64_t ntop = flag ? ntop_urlsK : ntop_urls;      /* Hits or KBytes   */
+   if (tot_num > ntop) tot_num = ntop;                  /* get max to do... */
+   if (!flag || (flag && !ntop_urls))                   /* now do <A> tag   */
       fprintf(out_fp,"<A NAME=\"TOPURLS\"></A>\n");
 
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
@@ -1224,7 +1223,7 @@ void top_urls_table(int flag)
                   MISCCOLOR, _("URL"));
    fprintf(out_fp,"<TR><TH HEIGHT=4 COLSPAN=6></TH></TR>\n");
 
-   pointer=u_array; i=0;
+   pointer = u_array; i = 0;
    while (tot_num)
    {
       uptr=*pointer++;             /* point to the URL node */
@@ -1242,7 +1241,7 @@ void top_urls_table(int flag)
             "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n"
             "<TD ALIGN=right><FONT SIZE=\"-1\"><B>%.0f</B></FONT></TD>\n"
             "<TD ALIGN=right><FONT SIZE=\"-2\">%3.02f%%</FONT></TD>\n",
-            i+1,uptr->count,
+            i+1, uptr->count,
             (t_hit==0)?0:((float)uptr->count/t_hit)*100.0,
             uptr->xfer/1024,
             (t_xfer==0)?0:((float)uptr->xfer/t_xfer)*100.0);
@@ -1297,7 +1296,7 @@ void top_urls_table(int flag)
    fprintf(out_fp,"<TR><TH HEIGHT=4 COLSPAN=6></TH></TR>\n");
    if ((!flag) || (flag&&!ntop_urls))
    {
-      if ( (all_urls) && ((u_reg+u_grp)>ntop_urls) )
+      if (all_urls && u_reg + u_grp > (u_int64_t) ntop_urls)
       {
          if (all_urls_page(u_reg, u_grp))
          {
@@ -1418,28 +1417,28 @@ int all_urls_page(u_int64_t u_reg, u_int64_t u_grp)
 
 void top_entry_table(int flag)
 {
-   u_int64_t cnt=0, u_entry=0, u_exit=0, tot_num;
-   u_int64_t t_entry=0, t_exit=0;
-   int       i;
-   UNODEPTR  uptr, *pointer;
+   u_int64_t cnt = 0, u_entry = 0, u_exit = 0, tot_num;
+   u_int64_t t_entry = 0, t_exit = 0;
+   UNODEPTR uptr, *pointer;
+   int i;
 
-   cnt=a_ctr; pointer=u_array;
+   cnt = a_ctr; pointer = u_array;
    while (cnt--)
    {
-      if ( (*pointer)->flag == OBJ_REG )
+      if ((*pointer)->flag == OBJ_REG)
       {
          if ( (u_int64_t)(((UNODEPTR)(*pointer))->entry) )
-            {  u_entry++; t_entry+=(u_int64_t)(((UNODEPTR)(*pointer))->entry); }
+            {  u_entry++; t_entry += (u_int64_t)(((UNODEPTR)(*pointer))->entry); }
          if ( (u_int64_t)(((UNODEPTR)(*pointer))->exit)  )
-            { u_exit++;   t_exit +=(u_int64_t)(((UNODEPTR)(*pointer))->exit);  }
+            { u_exit++;   t_exit  += (u_int64_t)(((UNODEPTR)(*pointer))->exit);  }
       }
       pointer++;
    }
 
    /* calculate how many we have */
-   tot_num=(flag)?u_exit:u_entry;
-   if (flag) { if (tot_num > ntop_exit ) tot_num=ntop_exit;  }
-   else      { if (tot_num > ntop_entry) tot_num=ntop_entry; }
+   tot_num = flag ? u_exit : u_entry;
+   if (flag) { if (tot_num > (u_int64_t) ntop_exit ) tot_num = ntop_exit;  }
+   else      { if (tot_num > (u_int64_t) ntop_entry) tot_num = ntop_entry; }
 
    /* return if none to do */
    if (!tot_num) return;
@@ -1513,17 +1512,17 @@ void top_entry_table(int flag)
 
 void top_refs_table()
 {
-   u_int64_t cnt=0, r_reg=0, r_grp=0, r_hid=0, tot_num;
-   int       i;
-   RNODEPTR  rptr, *pointer;
+   u_int64_t cnt = 0, r_reg = 0, r_grp = 0, r_hid = 0, tot_num;
+   RNODEPTR rptr, *pointer;
+   int i;
 
-   if (t_ref==0) return;        /* return if none to process */
+   if (t_ref == 0) return;        /* return if none to process */
 
-   cnt=a_ctr; pointer=r_array;
-   while(cnt--)
+   cnt = a_ctr; pointer = r_array;
+   while (cnt--)
    {
       /* calculate totals */
-      switch ( (*pointer)->flag )
+      switch ((*pointer)->flag)
       {
          case OBJ_REG:  r_reg++;  break;
          case OBJ_HIDE: r_hid++;  break;
@@ -1532,8 +1531,8 @@ void top_refs_table()
       pointer++;
    }
 
-   if ( (tot_num=r_reg+r_grp)==0 ) return;              /* split if none    */
-   if (tot_num > ntop_refs) tot_num=ntop_refs;          /* get max to do... */
+   if ( (tot_num = r_reg + r_grp) == 0) return;              /* split if none    */
+   if (tot_num > (u_int64_t) ntop_refs) tot_num = ntop_refs;          /* get max to do... */
 
    fprintf(out_fp,"<A NAME=\"TOPREFS\"></A>\n");
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
@@ -1590,7 +1589,7 @@ void top_refs_table()
       }
    }
    fprintf(out_fp,"<TR><TH HEIGHT=4 COLSPAN=4></TH></TR>\n");
-   if ( (all_refs) && ((r_reg+r_grp)>ntop_refs) )
+   if (all_refs && r_reg + r_grp > (u_int64_t) ntop_refs)
    {
       if (all_refs_page(r_reg, r_grp))
       {
@@ -1681,17 +1680,17 @@ int all_refs_page(u_int64_t r_reg, u_int64_t r_grp)
 
 void top_agents_table()
 {
-   u_int64_t cnt, a_reg=0, a_grp=0, a_hid=0, tot_num;
-   int       i;
-   ANODEPTR  aptr, *pointer;
+   u_int64_t cnt, a_reg = 0, a_grp = 0, a_hid = 0, tot_num;
+   ANODEPTR aptr, *pointer;
+   int i;
 
    if (t_agent == 0) return;    /* don't bother if we don't have any */
 
-   cnt=a_ctr; pointer=a_array;
-   while(cnt--)
+   cnt = a_ctr; pointer = a_array;
+   while (cnt--)
    {
       /* calculate totals */
-      switch ( (*pointer)->flag )
+      switch ((*pointer)->flag)
       {
          case OBJ_REG:   a_reg++;  break;
          case OBJ_GRP:   a_grp++;  break;
@@ -1700,8 +1699,8 @@ void top_agents_table()
       pointer++;
    }
 
-   if ( (tot_num=a_reg+a_grp)==0 ) return;              /* split if none    */
-   if (tot_num > ntop_agents) tot_num=ntop_agents;      /* get max to do... */
+   if ((tot_num = a_reg + a_grp) == 0) return; /* split if none    */
+   if (tot_num > (u_int64_t) ntop_agents) tot_num = ntop_agents; /* get max to do... */
 
    fprintf(out_fp,"<A NAME=\"TOPAGENTS\"></A>\n");
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
@@ -1746,7 +1745,7 @@ void top_agents_table()
       }
    }
    fprintf(out_fp,"<TR><TH HEIGHT=4 COLSPAN=4></TH></TR>\n");
-   if ( (all_agents) && ((a_reg+a_grp)>ntop_agents) )
+   if (all_agents && a_reg + a_grp > (u_int64_t) ntop_agents)
    {
       if (all_agents_page(a_reg, a_grp))
       {
@@ -1831,20 +1830,20 @@ int all_agents_page(u_int64_t a_reg, u_int64_t a_grp)
 
 void top_search_table()
 {
-   u_int64_t cnt,t_val=0, tot_num;
-   int       i;
-   SNODEPTR  sptr, *pointer;
+   u_int64_t cnt, t_val = 0, tot_num;
+   SNODEPTR sptr, *pointer;
+   int i;
 
-   if (a_ctr==0) return;                  /* don't bother if none to do    */
+   if (a_ctr == 0) return; /* don't bother if none to do    */
 
-   cnt=tot_num=a_ctr; pointer=s_array;
-   while(cnt--)
+   cnt = tot_num = a_ctr; pointer = s_array;
+   while (cnt--)
    {
-      t_val+=(u_int64_t)(((SNODEPTR)(*pointer))->count);
+      t_val += (u_int64_t)(((SNODEPTR)(*pointer))->count);
       pointer++;
    }
 
-   if ( tot_num > ntop_search) tot_num=ntop_search;
+   if (tot_num > (u_int64_t) ntop_search) tot_num = ntop_search;
 
    fprintf(out_fp,"<A NAME=\"TOPSEARCH\"></A>\n");
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
@@ -1881,7 +1880,7 @@ void top_search_table()
       i++;
    }
    fprintf(out_fp,"<TR><TH HEIGHT=4 COLSPAN=4></TH></TR>\n");
-   if ( (all_search) && (a_ctr>ntop_search) )
+   if (all_search && a_ctr > (u_int64_t) ntop_search)
    {
       if (all_search_page(a_ctr, t_val))
       {
@@ -1946,15 +1945,15 @@ int all_search_page(u_int64_t tot_num, u_int64_t t_val)
 
 void top_users_table()
 {
-   u_int64_t cnt=0, i_reg=0, i_grp=0, i_hid=0, tot_num;
-   int       i;
+   u_int64_t cnt = 0, i_reg = 0, i_grp = 0, i_hid = 0, tot_num;
    INODEPTR  iptr, *pointer;
+   int i;
 
-   cnt=a_ctr; pointer=i_array;
-   while(cnt--)
+   cnt = a_ctr; pointer = i_array;
+   while (cnt--)
    {
       /* calculate totals */
-      switch ( (*pointer)->flag )
+      switch ((*pointer)->flag)
       {
          case OBJ_REG:   i_reg++;  break;
          case OBJ_GRP:   i_grp++;  break;
@@ -1963,10 +1962,10 @@ void top_users_table()
       pointer++;
    }
 
-   if ( (tot_num=i_reg+i_grp)==0 ) return;              /* split if none    */
-   if (tot_num > ntop_users) tot_num = ntop_users;
+   if ( (tot_num=i_reg+i_grp)==0 ) return; /* split if none    */
+   if (tot_num > (u_int64_t) ntop_users) tot_num = ntop_users;
 
-   fprintf(out_fp,"<A NAME=\"TOPUSERS\"></A>\n");       /* now do <A> tag   */
+   fprintf(out_fp,"<A NAME=\"TOPUSERS\"></A>\n"); /* now do <A> tag   */
 
    fprintf(out_fp,"<TABLE WIDTH=510 BORDER=2 CELLSPACING=1 CELLPADDING=1>\n");
    fprintf(out_fp,"<TR><TH HEIGHT=4 COLSPAN=10></TH></TR>\n");
@@ -2046,7 +2045,7 @@ void top_users_table()
    }
 
    fprintf(out_fp,"<TR><TH HEIGHT=4 COLSPAN=10></TH></TR>\n");
-   if ( (all_users) && ((i_reg+i_grp)>ntop_users) )
+   if (all_users && i_reg + i_grp > (u_int64_t) ntop_users)
    {
       if (all_users_page(i_reg, i_grp))
       {
