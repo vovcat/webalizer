@@ -1862,17 +1862,17 @@ void get_config(char *fname)
         case 88: link_referrer=
                     (tolower(value[0])=='y')?1:0;  break; /* LinkReferrer   */
         case 89: add_nlist(value,&page_prefix);    break; /* PagePrefix     */
-        case 90: strncpy(hit_color+1,  value, 6);  break; /* ColorHit       */
-        case 91: strncpy(file_color+1, value, 6);  break; /* ColorFile      */
-        case 92: strncpy(site_color+1, value, 6);  break; /* ColorSite      */
-        case 93: strncpy(kbyte_color+1,value, 6);  break; /* ColorKbyte     */
-        case 94: strncpy(page_color+1, value, 6);  break; /* ColorPage      */
-        case 95: strncpy(visit_color+1,value, 6);  break; /* ColorVisit     */
-        case 96: strncpy(misc_color+1, value, 6);  break; /* ColorMisc      */
-        case 97: strncpy(pie_color1+1, value, 6);  break; /* PieColor1      */
-        case 98: strncpy(pie_color2+1, value, 6);  break; /* PieColor2      */
-        case 99: strncpy(pie_color3+1, value, 6);  break; /* PieColor3      */
-        case 100:strncpy(pie_color4+1, value, 6);  break; /* PieColor4      */
+        case 90: colrcpy(hit_color,  value);       break; /* ColorHit       */
+        case 91: colrcpy(file_color, value);       break; /* ColorFile      */
+        case 92: colrcpy(site_color, value);       break; /* ColorSite      */
+        case 93: colrcpy(kbyte_color,value);       break; /* ColorKbyte     */
+        case 94: colrcpy(page_color, value);       break; /* ColorPage      */
+        case 95: colrcpy(visit_color,value);       break; /* ColorVisit     */
+        case 96: colrcpy(misc_color, value);       break; /* ColorMisc      */
+        case 97: colrcpy(pie_color1, value);       break; /* PieColor1      */
+        case 98: colrcpy(pie_color2, value);       break; /* PieColor2      */
+        case 99: colrcpy(pie_color3, value);       break; /* PieColor3      */
+        case 100:colrcpy(pie_color4, value);       break; /* PieColor4      */
 #ifdef USE_DNS
         case 101: cache_ips=
                     (tolower(value[0])=='y')?1:0;  break; /* CacheIPs       */
@@ -1920,8 +1920,8 @@ void get_config(char *fname)
 	case 121: dump_inout=
 	            (tolower(value[0])=='n')?0:
                     (tolower(value[0])=='y')?1:2;  break; /* InOutkB        */
-        case 122: strncpy(ikbyte_color+1,value,6); break; /* ColorIKbyte    */
-        case 123: strncpy(okbyte_color+1,value,6); break; /* ColorOKbyte    */
+        case 122: colrcpy(ikbyte_color, value);    break; /* ColorIKbyte    */
+        case 123: colrcpy(okbyte_color, value);    break; /* ColorOKbyte    */
 #ifdef HAVE_LIBGD_TTF
         case 124: ttf_file=save_opt(value);        break; /* TrueType font  */
 #endif

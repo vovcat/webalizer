@@ -325,4 +325,6 @@ extern char      from_hex(char);
 extern int       isipaddr(char *);
 extern char      *intl_strip_context();
 
+#define colrcpy(colr, value) memcpy(colr + 1, value, strnlen(value, 6))
+
 #endif  /* _WEBALIZER_H */
