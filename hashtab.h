@@ -1,6 +1,8 @@
 #ifndef _HASHTAB_H
 #define _HASHTAB_H
 
+#include <stdint.h> // uint8_t, uint32_t, u_int64_t
+
 typedef struct hnode *HNODEPTR;            /* site node (host) pointer     */
 typedef struct unode *UNODEPTR;            /* url node pointer             */
 typedef struct rnode *RNODEPTR;            /* referrer node                */
