@@ -103,13 +103,14 @@ NLISTPTR new_nlist(char *str)
 {
    NLISTPTR newptr;
 
-   if (sizeof(newptr->string) < strlen(str))
-   {
+   if (sizeof(newptr->string) < strlen(str)) {
       if (verbose)
-    fprintf(stderr,"[new_nlist] %s\n",_("Warning: String exceeds storage size"));
+         fprintf(stderr,"[new_nlist] %s\n",_("Warning: String exceeds storage size"));
    }
-   if (( newptr = malloc(sizeof(struct nlist))) != NULL)
-    {strncpy(newptr->string, str, sizeof(newptr->string));newptr->next=NULL;}
+   if ((newptr = malloc(sizeof(struct nlist))) != NULL) {
+      strncpy(newptr->string, str, sizeof(newptr->string) - 1);
+      newptr->next = NULL;
+   }
    return newptr;
 }
 
@@ -159,18 +160,15 @@ GLISTPTR new_glist(char *str, char *name)
 {
    GLISTPTR newptr;
 
-   if (sizeof(newptr->string) < strlen(str) ||
-       sizeof(newptr->name) < strlen(name))
-   {
+   if (sizeof(newptr->string) < strlen(str) || sizeof(newptr->name) < strlen(name)) {
       if (verbose)
-	fprintf(stderr,"[new_glist] %s\n",_("Warning: String exceeds storage size"));
+         fprintf(stderr,"[new_glist] %s\n",_("Warning: String exceeds storage size"));
    }
-   if (( newptr = malloc(sizeof(struct glist))) != NULL)
-     {
-       strncpy(newptr->string, str, sizeof(newptr->string));
-       strncpy(newptr->name, name, sizeof(newptr->name));
-       newptr->next=NULL;
-     }
+   if ((newptr = malloc(sizeof(struct glist))) != NULL) {
+      strncpy(newptr->string, str, sizeof(newptr->string) - 1);
+      strncpy(newptr->name, name, sizeof(newptr->name) - 1);
+      newptr->next = NULL;
+   }
    return newptr;
 }
 
