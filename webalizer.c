@@ -99,7 +99,7 @@ int bz2_rewind(void **, char *, char *);
 void    clear_month();                              /* clear monthly stuff */
 char    *unescape(char *);                          /* unescape URLs       */
 void    print_opts(char *);                         /* print options       */
-void    print_version(char * locale);               /* duhh...             */
+void    print_version();                            /* duhh...             */
 int     isurlchar(unsigned char, int);              /* valid URL char fnc. */
 void    get_config(char *);                         /* Read a config file  */
 static  char *save_opt(char *);                     /* save conf option    */
@@ -386,16 +386,16 @@ int main(int argc, char *argv[])
         case 'P': add_nlist(optarg,&page_type); break; /* page view types   */
         case 'q': verbose=1;                 break;  /* Quiet (verbose=1)   */
         case 'Q': verbose=0;                 break;  /* Really Quiet        */
-        case 'r': add_nlist(optarg,&hidden_refs);   break; /* Hide referrer */
+        case 'r': add_nlist(optarg,&hidden_refs); break; /* Hide referrer   */
         case 'R': ntop_refs=atoi(optarg);    break;  /* Top referrers       */
-        case 's': add_nlist(optarg,&hidden_sites);  break; /* Hide site     */
+        case 's': add_nlist(optarg,&hidden_sites); break; /* Hide site      */
         case 'S': ntop_sites=atoi(optarg);   break;  /* Top sites           */
         case 't': report_title=optarg;       break;  /* Report title        */
         case 'T': time_me=1;                 break;  /* TimeMe              */
-        case 'u': add_nlist(optarg,&hidden_urls);   break; /* hide URL      */
+        case 'u': add_nlist(optarg,&hidden_urls); break; /* hide URL        */
         case 'U': ntop_urls=atoi(optarg);    break;  /* Top urls            */
         case 'v': verbose=2; debug_mode=1;   break;  /* Verbose             */
-        case 'V': print_version(current_locale); break;  /* Version         */
+        case 'V': print_version();           break;  /* Version             */
 #ifdef USE_GEOIP
         case 'w': geoip=1;                   break;  /* Enable GeoIP        */
         case 'W': geoip_db=optarg;           break;  /* GeoIP database name */
@@ -2004,7 +2004,7 @@ void print_opts(char *pname)
 /* PRINT_VERSION                             */
 /*********************************************/
 
-void print_version(char *locale)
+void print_version()
 {
    char buf[128]="";
    uname(&system_info);
