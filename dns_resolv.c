@@ -733,6 +733,7 @@ static void db_put(char *key, char *value, int numeric)
 
 static void sigChild(int signum)
 {
+   (void) signum;
    raiseSigChild++;
 }
 
