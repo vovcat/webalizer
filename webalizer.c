@@ -321,15 +321,14 @@ int main(int argc, char *argv[])
 
    /* stat struct for files */
    struct stat log_stat;
+
+   /* Assume that LC_CTYPE is what the user wants for non-ASCII chars   */
    current_locale = setlocale(LC_ALL, "");
 
    const char *localedir = getenv("LOCALEDIR");
    if (!localedir) localedir = PKGLOCALEDIR;
    bindtextdomain(PACKAGE, localedir);
    textdomain(PACKAGE);
-
-   /* Assume that LC_CTYPE is what the user wants for non-ASCII chars   */
-   setlocale(LC_CTYPE, "");
 
    /* Initialise report_title with the default localized value          */
    report_title = _("Usage Statistics for");
