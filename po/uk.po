@@ -152,45 +152,45 @@ msgstr ""
 #: output.c:1352 output.c:2009 output.c:2114 output.c:2360 output.c:2446
 #: output.c:2498 output.c:2625 output.c:2790
 msgid "kB F"
-msgstr ""
+msgstr "Кілобайт"
 
 #: graphs.c:154 graphs.c:163 graphs.c:165 graphs.c:507 graphs.c:511
 #: graphs.c:513 output.c:731 output.c:838 output.c:989 output.c:1097
 #: output.c:1222 output.c:1355 output.c:2013 output.c:2117 output.c:2364
 #: output.c:2449 output.c:2501 output.c:2628 output.c:2794
 msgid "kB In"
-msgstr ""
+msgstr "кБ вх"
 
 #: graphs.c:155 graphs.c:169 graphs.c:171 graphs.c:517 graphs.c:519
 #: output.c:732 output.c:839 output.c:991 output.c:1097 output.c:1225
 #: output.c:1355 output.c:2015 output.c:2117 output.c:2366 output.c:2449
 #: output.c:2501 output.c:2628 output.c:2796
 msgid "kB Out"
-msgstr ""
+msgstr "кБ вих"
 
 #: graphs.c:174 graphs.c:177 graphs.c:179 graphs.c:531 graphs.c:533
 #: output.c:717 output.c:994 output.c:1099 output.c:1475 output.c:2018
 #: output.c:2119 output.c:2451 output.c:2630 output.c:2786 output.c:2799
 msgid "Visits"
-msgstr "відвід."
+msgstr "Відвідувань"
 
 #: graphs.c:175 graphs.c:183 graphs.c:185 graphs.c:523 graphs.c:525
 #: graphs.c:527 output.c:718 output.c:1088 output.c:2788
 msgid "Sites"
-msgstr "Сайти"
+msgstr "Хостів"
 
 #: graphs.c:188 graphs.c:191 graphs.c:193 graphs.c:536 graphs.c:540
 #: graphs.c:542 graphs.c:761 graphs.c:765 graphs.c:767 output.c:716
 #: output.c:825 output.c:2784 output.c:2801
 msgid "Pages"
-msgstr "стор."
+msgstr "Сторінок"
 
 #: graphs.c:189 graphs.c:197 graphs.c:199 graphs.c:537 graphs.c:546
 #: graphs.c:548 graphs.c:762 graphs.c:771 graphs.c:773 output.c:715
 #: output.c:824 output.c:983 output.c:1094 output.c:2007 output.c:2114
 #: output.c:2358 output.c:2446 output.c:2625 output.c:2782 output.c:2803
 msgid "Files"
-msgstr "файлів"
+msgstr "Файлів"
 
 #: graphs.c:203 graphs.c:205 graphs.c:538 graphs.c:552 graphs.c:554
 #: graphs.c:763 graphs.c:777 graphs.c:779 output.c:714 output.c:823
@@ -200,7 +200,7 @@ msgstr "файлів"
 #: output.c:2498 output.c:2547 output.c:2586 output.c:2625 output.c:2675
 #: output.c:2780 output.c:2805
 msgid "Hits"
-msgstr "запитів"
+msgstr "Запитів"
 
 #: graphs.c:405 graphs.c:699 graphs.c:825 graphs.c:931 output.c:2737
 #: output.c:2759 output.c:3268 output.c:3277 preserve.c:169 preserve.c:341
@@ -221,23 +221,20 @@ msgid "-h        = print this help message"
 msgstr "-h        = print this help message"
 
 #: lang2.h:41
-#, fuzzy
 msgid "-V        = print version information"
 msgstr "-v -V     = print version information"
 
 #: lang2.h:42
-#, fuzzy
 msgid "-v        = be verbose"
-msgstr "-f        = Fold sequence errors"
+msgstr "-v        = be verbose"
 
 #: lang2.h:43
 msgid "-d        = print additional debug info"
 msgstr "-d        = print additional debug info"
 
 #: lang2.h:44
-#, fuzzy
 msgid "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
-msgstr "-F type   = Log type.  type= (clf | ftp | squid)"
+msgstr "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
 
 #: lang2.h:45
 msgid "-f        = Fold sequence errors"
@@ -252,9 +249,8 @@ msgid "-p        = preserve state (incremental)"
 msgstr "-p        = preserve state (incremental)"
 
 #: lang2.h:48
-#, fuzzy
 msgid "-b        = ignore state (incremental)"
-msgstr "-p        = preserve state (incremental)"
+msgstr "-b        = ignore state (incremental)"
 
 #: lang2.h:49
 msgid "-q        = suppress informational messages"
@@ -326,16 +322,15 @@ msgstr "-u name   = hide URL 'name'"
 
 #: lang2.h:66
 msgid "-x name   = Use filename extension 'name'"
-msgstr "-x name   = Use filename extension 'name'"
+msgstr "-x name   = Use filename extension 'name' for HTML output"
 
 #: lang2.h:67
-#, fuzzy
 msgid "-O name   = Omit page 'name'"
-msgstr "-s name   = hide site 'name'"
+msgstr "-O name   = Omit page 'name'"
 
 #: lang2.h:68
 msgid "-P name   = Page type extension 'name'"
-msgstr "-P name   = Page type extension 'name'"
+msgstr "-P name   = Page type extension: 'name'"
 
 #: lang2.h:69
 msgid "-I name   = Index alias 'name'"
@@ -343,12 +338,11 @@ msgstr "-I name   = Index alias 'name'"
 
 #: lang2.h:70
 msgid "-K num    = num months in summary table"
-msgstr ""
+msgstr "-K num    = num months in summary table"
 
 #: lang2.h:71
-#, fuzzy
 msgid "-k num    = num months in summary graph"
-msgstr "-l num    = use num background lines on graph"
+msgstr "-k num    = num months in summary graph"
 
 #: lang2.h:72
 msgid "-A num    = Display num top agents"
@@ -388,7 +382,7 @@ msgstr "-X        = Hide individual sites"
 
 #: lang2.h:81
 msgid "-z dir    = Use country flags in 'dir'"
-msgstr ""
+msgstr "-z dir    = Use country flags in 'dir'"
 
 #: lang2.h:83
 msgid "-D name   = Use DNS Cache file 'name'"
@@ -400,29 +394,27 @@ msgstr "-N num    = Number of DNS processes (0=disable)"
 
 #: lang2.h:85
 msgid "-j        = Enable native GeoDB lookups"
-msgstr ""
+msgstr "-j        = Enable native GeoDB lookups"
 
 #: lang2.h:86
-#, fuzzy
 msgid "-J name   = Use GeoDB database 'name'"
-msgstr "-D name   = Use DNS Cache file 'name'"
+msgstr "-J name   = Use GeoDB database 'name'"
 
 #: lang2.h:89
 msgid "-w        = Enable GeoIP lookups"
-msgstr ""
+msgstr "-w        = Enable GeoIP lookups"
 
 #: lang2.h:90
-#, fuzzy
 msgid "-W name   = Use GeoIP database 'name'"
-msgstr "-I name   = Index alias 'name'"
-
-#: lang2.h:95
-msgid "Feb"
-msgstr "Лют"
+msgstr "-W name   = Use GeoIP database 'name'"
 
 #: lang2.h:95
 msgid "Jan"
 msgstr "Січ"
+
+#: lang2.h:95
+msgid "Feb"
+msgstr "Лют"
 
 #: lang2.h:95
 msgid "Mar"
@@ -433,44 +425,44 @@ msgid "Apr"
 msgstr "Кві"
 
 #: lang2.h:96
-msgid "Jun"
-msgstr "Чер"
+msgid "short|May"
+msgstr "Тра"
 
 #: lang2.h:96
-msgid "short|May"
-msgstr ""
-
-#: lang2.h:97
-msgid "Aug"
-msgstr "Сер"
+msgid "Jun"
+msgstr "Чер"
 
 #: lang2.h:97
 msgid "Jul"
 msgstr "Лип"
 
 #: lang2.h:97
+msgid "Aug"
+msgstr "Сер"
+
+#: lang2.h:97
 msgid "Sep"
 msgstr "Вер"
 
 #: lang2.h:98
-msgid "Dec"
-msgstr "Гру"
+msgid "Oct"
+msgstr "Жов"
 
 #: lang2.h:98
 msgid "Nov"
 msgstr "Лис"
 
 #: lang2.h:98
-msgid "Oct"
-msgstr "Жов"
-
-#: lang2.h:101
-msgid "February"
-msgstr "Лютий"
+msgid "Dec"
+msgstr "Гру"
 
 #: lang2.h:101
 msgid "January"
 msgstr "Січень"
+
+#: lang2.h:101
+msgid "February"
+msgstr "Лютий"
 
 #: lang2.h:101
 msgid "March"
@@ -481,13 +473,12 @@ msgid "April"
 msgstr "Квітень"
 
 #: lang2.h:102
-msgid "June"
-msgstr "Червень"
+msgid "long|May"
+msgstr "Травень"
 
 #: lang2.h:102
-#, fuzzy
-msgid "long|May"
-msgstr "Острови Тонга (to)"
+msgid "June"
+msgstr "Червень"
 
 #: lang2.h:103
 msgid "August"
@@ -502,16 +493,16 @@ msgid "September"
 msgstr "Вересень"
 
 #: lang2.h:104
-msgid "December"
-msgstr "Грудень"
+msgid "October"
+msgstr "Жовтень"
 
 #: lang2.h:104
 msgid "November"
 msgstr "Листопад"
 
 #: lang2.h:104
-msgid "October"
-msgstr "Жовтень"
+msgid "December"
+msgstr "Грудень"
 
 #: lang2.h:108
 msgid "Undefined response code"
@@ -519,265 +510,259 @@ msgstr "Невідомий код відповіді"
 
 #: lang2.h:109
 msgid "Code 100 - Continue"
-msgstr "Code 100 - Continue"
+msgstr "Код 100 - Continue"
 
 #: lang2.h:110
 msgid "Code 101 - Switching Protocols"
-msgstr "Code 101 - Switching Protocols"
+msgstr "Код 101 - Switching Protocols"
 
 #: lang2.h:111
 msgid "Code 200 - OK"
-msgstr "Code 200 - OK"
+msgstr "Код 200 - OK"
 
 #: lang2.h:112
 msgid "Code 201 - Created"
-msgstr "Code 201 - Created"
+msgstr "Код 201 - Created"
 
 #: lang2.h:113
 msgid "Code 202 - Accepted"
-msgstr "Code 202 - Accepted"
+msgstr "Код 202 - Accepted"
 
 #: lang2.h:114
 msgid "Code 203 - Non-Authoritative Information"
-msgstr "Code 203 - Non-Authoritative Information"
+msgstr "Код 203 - Non-Authoritative Information"
 
 #: lang2.h:115
 msgid "Code 204 - No Content"
-msgstr "Code 204 - No Content"
+msgstr "Код 204 - No Content"
 
 #: lang2.h:116
 msgid "Code 205 - Reset Content"
-msgstr "Code 205 - Reset Content"
+msgstr "Код 205 - Reset Content"
 
 #: lang2.h:117
 msgid "Code 206 - Partial Content"
-msgstr "Code 206 - Partial Content"
+msgstr "Код 206 - Partial Content"
 
 #: lang2.h:118
 msgid "Code 300 - Multiple Choices"
-msgstr "Code 300 - Multiple Choices"
+msgstr "Код 300 - Multiple Choices"
 
 #: lang2.h:119
 msgid "Code 301 - Moved Permanently"
-msgstr "Code 301 - Moved Permanently"
+msgstr "Код 301 - Moved Permanently"
 
 #: lang2.h:120
 msgid "Code 302 - Found"
-msgstr "Code 302 - Found"
+msgstr "Код 302 - Found"
 
 #: lang2.h:121
 msgid "Code 303 - See Other"
-msgstr "Code 303 - See Other"
+msgstr "Код 303 - See Other"
 
 #: lang2.h:122
 msgid "Code 304 - Not Modified"
-msgstr "Code 304 - Not Modified"
+msgstr "Код 304 - Not Modified"
 
 #: lang2.h:123
 msgid "Code 305 - Use Proxy"
-msgstr "Code 305 - Use Proxy"
+msgstr "Код 305 - Use Proxy"
 
 #: lang2.h:124
 msgid "Code 307 - Moved Temporarily"
-msgstr "Code 307 - Moved Temporarily"
+msgstr "Код 307 - Moved Temporarily"
 
 #: lang2.h:125
 msgid "Code 400 - Bad Request"
-msgstr "Code 400 - Bad Request"
+msgstr "Код 400 - Bad Request"
 
 #: lang2.h:126
 msgid "Code 401 - Unauthorized"
-msgstr "Code 401 - Unauthorized"
+msgstr "Код 401 - Unauthorized"
 
 #: lang2.h:127
 msgid "Code 402 - Payment Required"
-msgstr "Code 402 - Payment Required"
+msgstr "Код 402 - Payment Required"
 
 #: lang2.h:128
 msgid "Code 403 - Forbidden"
-msgstr "Code 403 - Forbidden"
+msgstr "Код 403 - Forbidden"
 
 #: lang2.h:129
 msgid "Code 404 - Not Found"
-msgstr "Code 404 - Not Found"
+msgstr "Код 404 - Not Found"
 
 #: lang2.h:130
 msgid "Code 405 - Method Not Allowed"
-msgstr "Code 405 - Method Not Allowed"
+msgstr "Код 405 - Method Not Allowed"
 
 #: lang2.h:131
 msgid "Code 406 - Not Acceptable"
-msgstr "Code 406 - Not Acceptable"
+msgstr "Код 406 - Not Acceptable"
 
 #: lang2.h:132
 msgid "Code 407 - Proxy Authentication Required"
-msgstr "Code 407 - Proxy Authentication Required"
+msgstr "Код 407 - Proxy Authentication Required"
 
 #: lang2.h:133
 msgid "Code 408 - Request Timeout"
-msgstr "Code 408 - Request Timeout"
+msgstr "Код 408 - Request Timeout"
 
 #: lang2.h:134
 msgid "Code 409 - Conflict"
-msgstr "Code 409 - Conflict"
+msgstr "Код 409 - Conflict"
 
 #: lang2.h:135
 msgid "Code 410 - Gone"
-msgstr "Code 410 - Gone"
+msgstr "Код 410 - Gone"
 
 #: lang2.h:136
 msgid "Code 411 - Length Required"
-msgstr "Code 411 - Length Required"
+msgstr "Код 411 - Length Required"
 
 #: lang2.h:137
 msgid "Code 412 - Precondition Failed"
-msgstr "Code 412 - Precondition Failed"
+msgstr "Код 412 - Precondition Failed"
 
 #: lang2.h:138
 msgid "Code 413 - Request Entity Too Large"
-msgstr "Code 413 - Request Entity Too Large"
+msgstr "Код 413 - Request Entity Too Large"
 
 #: lang2.h:139
 msgid "Code 414 - Request-URI Too Long"
-msgstr "Code 414 - Request-URI Too Long"
+msgstr "Код 414 - Request-URI Too Long"
 
 #: lang2.h:140
 msgid "Code 415 - Unsupported Media Type"
-msgstr "Code 415 - Unsupported Media Type"
+msgstr "Код 415 - Unsupported Media Type"
 
 #: lang2.h:141
 msgid "Code 416 - Requested Range Not Satisfiable"
-msgstr "Code 416 - Requested Range Not Satisfiable"
+msgstr "Код 416 - Requested Range Not Satisfiable"
 
 #: lang2.h:142
 msgid "Code 417 - Expectation Failed"
-msgstr "Code 417 - Expectation Failed"
+msgstr "Код 417 - Expectation Failed"
 
 #: lang2.h:143
 msgid "Code 500 - Internal Server Error"
-msgstr "Code 500 - Internal Server Error"
+msgstr "Код 500 - Internal Server Error"
 
 #: lang2.h:144
 msgid "Code 501 - Not Implemented"
-msgstr "Code 501 - Not Implemented"
+msgstr "Код 501 - Not Implemented"
 
 #: lang2.h:145
 msgid "Code 502 - Bad Gateway"
-msgstr "Code 502 - Bad Gateway"
+msgstr "Код 502 - Bad Gateway"
 
 #: lang2.h:146
 msgid "Code 503 - Service Unavailable"
-msgstr "Code 503 - Service Unavailable"
+msgstr "Код 503 - Service Unavailable"
 
 #: lang2.h:147
 msgid "Code 504 - Gateway Timeout"
-msgstr "Code 504 - Gateway Timeout"
+msgstr "Код 504 - Gateway Timeout"
 
 #: lang2.h:148
 msgid "Code 505 - HTTP Version Not Supported"
-msgstr "Code 505 - HTTP Version Not Supported"
+msgstr "Код 505 - HTTP Version Not Supported"
 
 #: lang2.h:155
 msgid "Unresolved/Unknown"
-msgstr "Нерозв'язані/Невідомі"
+msgstr "Нерозпізнані/невідомі"
 
 #: lang2.h:156
-#, fuzzy
 msgid "Commercial (com)"
 msgstr "Комерційні (com)"
 
 #: lang2.h:157
-#, fuzzy
 msgid "Educational (edu)"
 msgstr "Освітні (edu)"
 
 #: lang2.h:158
-#, fuzzy
 msgid "US Government (gov)"
-msgstr "Урядові (gov)"
+msgstr "США урядові (gov)"
 
 #: lang2.h:159
 msgid "International (int)"
 msgstr "Інтернаціональні (int)"
 
 #: lang2.h:160
-#, fuzzy
 msgid "US Military (mil)"
-msgstr "Військові (mil)"
+msgstr "США військові (mil)"
 
 #: lang2.h:161
-#, fuzzy
 msgid "Network (net)"
-msgstr "Мережеві (net)"
+msgstr "Мережеві організаціі (net)"
 
 #: lang2.h:162
-#, fuzzy
 msgid "Non-Profit (org)"
 msgstr "Некомерційні організації (org)"
 
 #: lang2.h:163
 msgid "Generic Business (biz)"
-msgstr ""
+msgstr "Бізнес (biz)"
 
 #: lang2.h:164
 msgid "Catalan Community (cat)"
-msgstr ""
+msgstr "Каталонська (cat)"
 
 #: lang2.h:165
 msgid "Professional (pro)"
-msgstr ""
+msgstr "Професіонали (pro)"
 
 #: lang2.h:166
 msgid "Ind. Contact Data (tel)"
-msgstr ""
+msgstr "Контактна інформація (tel)"
 
 #: lang2.h:167
 msgid "Air Transport Industry (aero)"
-msgstr ""
+msgstr "Авіатранспортні компанії (aero)"
 
 #: lang2.h:168
 msgid "Asia Pacific Community (asia)"
-msgstr ""
+msgstr "Азіатсько-Тихоокеанський регіон"
 
 #: lang2.h:169
 msgid "Cooperative Association (coop)"
-msgstr ""
+msgstr "Кооперативи (coop)"
 
 #: lang2.h:170
 msgid "Generic TLD (info)"
-msgstr ""
+msgstr "Інформація (info)"
 
 #: lang2.h:171
 msgid "Human Resources (jobs)"
-msgstr ""
+msgstr "Вакансії (jobs)"
 
 #: lang2.h:172
 msgid "Generic Mobile TLD (mobi)"
-msgstr ""
+msgstr "Мобільні сайти (mobi)"
 
 #: lang2.h:173
 msgid "Individual (name)"
-msgstr ""
+msgstr "Персональні домени (name)"
 
 #: lang2.h:174
 msgid "Address Routing (arpa)"
-msgstr ""
+msgstr "Старий Arpanet (arpa)"
 
 #: lang2.h:175
 msgid "Nato field (nato)"
-msgstr "Зона Nato (nato)"
+msgstr "НАТО (nato)"
 
 #: lang2.h:176
 msgid "Museums (museum)"
-msgstr ""
+msgstr "Музеї (museum)"
 
 #: lang2.h:177
 msgid "Travel Ind. (travel)"
-msgstr ""
+msgstr "Подорожі (travel)"
 
 #: lang2.h:178
 msgid "Ascension Island"
-msgstr ""
+msgstr "Острова Вознесіння (Британія)"
 
 #: lang2.h:179
 msgid "Andorra"
@@ -793,7 +778,7 @@ msgstr "Афганістан (af)"
 
 #: lang2.h:182
 msgid "Antigua and Barbuda"
-msgstr "Трінідад та Тобаго (ag)"
+msgstr "Антигуа і Барбуда (ag)"
 
 #: lang2.h:183
 msgid "Anguilla"
@@ -817,7 +802,7 @@ msgstr "Ангола (ao)"
 
 #: lang2.h:188
 msgid "Antarctica"
-msgstr "Антарктика (aq)"
+msgstr "Антарктида (aq)"
 
 #: lang2.h:189
 msgid "Argentina"
@@ -840,9 +825,8 @@ msgid "Aruba"
 msgstr "Аруба (aw)"
 
 #: lang2.h:194
-#, fuzzy
 msgid "Aland Islands"
-msgstr "Кайманські Острови (ky)"
+msgstr "Аландські острови, Фінляндія (ax)"
 
 #: lang2.h:195
 msgid "Azerbaijan"
@@ -886,7 +870,7 @@ msgstr "Бенін (bj)"
 
 #: lang2.h:205
 msgid "Saint Barthelemy"
-msgstr ""
+msgstr "Сен-Бартелемі, Франція (bl)"
 
 #: lang2.h:206
 msgid "Bermuda"
@@ -937,9 +921,8 @@ msgid "Cocos (Keeling) Islands"
 msgstr "Какосові Острови (cc)"
 
 #: lang2.h:218
-#, fuzzy
 msgid "Congo, Democratic Republic"
-msgstr "Центрально Африканська Республіка (cf)"
+msgstr "Конго (ДРК) (cd)"
 
 #: lang2.h:219
 msgid "Central African Republic"
@@ -955,7 +938,7 @@ msgstr "Швейцарія (ch)"
 
 #: lang2.h:222
 msgid "Cote D'Ivoire (Ivory Coast)"
-msgstr "Узбережжя Іворі (ci)"
+msgstr "Кот-д'Івуар (ci)"
 
 #: lang2.h:223
 msgid "Cook Islands"
@@ -979,7 +962,7 @@ msgstr "Колумбія (co)"
 
 #: lang2.h:228
 msgid "Costa Rica"
-msgstr "Коста Ріка (cr)"
+msgstr "Коста-Рика (cr)"
 
 #: lang2.h:229
 msgid "Cuba"
@@ -987,7 +970,7 @@ msgstr "Куба (cu)"
 
 #: lang2.h:230
 msgid "Cape Verde"
-msgstr "Кейп Верде (cv)"
+msgstr "Кабо-Верде (cv)"
 
 #: lang2.h:231
 msgid "Christmas Island"
@@ -999,7 +982,7 @@ msgstr "Кіпр (cy)"
 
 #: lang2.h:233
 msgid "Czech Republic"
-msgstr "Чеська республіка (cz)"
+msgstr "Чехія (cz)"
 
 #: lang2.h:234
 msgid "Germany"
@@ -1023,7 +1006,7 @@ msgstr "Домініканська республіка (do)"
 
 #: lang2.h:239
 msgid "Algeria"
-msgstr "Алгерія (dz)"
+msgstr "Алжир (dz)"
 
 #: lang2.h:240
 msgid "Ecuador"
@@ -1055,11 +1038,11 @@ msgstr "Ефіопія (et)"
 
 #: lang2.h:247
 msgid "European Union"
-msgstr ""
+msgstr "Європейський союз (eu)"
 
 #: lang2.h:248
 msgid "Finland"
-msgstr "Aінляндія (fi)"
+msgstr "Фінляндія (fi)"
 
 #: lang2.h:249
 msgid "Fiji"
@@ -1067,7 +1050,7 @@ msgstr "Фіджі (fj)"
 
 #: lang2.h:250
 msgid "Falkland Islands (Malvinas)"
-msgstr "Фолклендські Острови (fk)"
+msgstr "Фолклендські (Мальвінські) острови (fk)"
 
 #: lang2.h:251
 msgid "Micronesia"
@@ -1075,7 +1058,7 @@ msgstr "Мікронезія (fm)"
 
 #: lang2.h:252
 msgid "Faroe Islands"
-msgstr "Фарерські Острови (fo)"
+msgstr "Фарерські острови (fo)"
 
 #: lang2.h:253
 msgid "France"
@@ -1083,7 +1066,7 @@ msgstr "Франція (fr)"
 
 #: lang2.h:254
 msgid "Gabon"
-msgstr "Гобон (ga)"
+msgstr "Габон (ga)"
 
 #: lang2.h:255
 msgid "Great Britain (UK)"
@@ -1099,11 +1082,11 @@ msgstr "Грузія (ge)"
 
 #: lang2.h:258
 msgid "French Guiana"
-msgstr "Французька Гаяна (gf)"
+msgstr "Французька Гвіана (gf)"
 
 #: lang2.h:259
 msgid "Guernsey"
-msgstr ""
+msgstr "Гернсі, Британія (gg)"
 
 #: lang2.h:260
 msgid "Ghana"
@@ -1139,7 +1122,7 @@ msgstr "Греція (gr)"
 
 #: lang2.h:268
 msgid "S. Georgia and S. Sandwich Isls."
-msgstr "Пд. Георгія і Пд. Острови Сендвіч (gs)"
+msgstr "Пд. Георгія і Сандвічеві о-ви (gs)"
 
 #: lang2.h:269
 msgid "Guatemala"
@@ -1151,7 +1134,7 @@ msgstr "Гуам (gu)"
 
 #: lang2.h:271
 msgid "Guinea-Bissau"
-msgstr "Гвінею-Бісау (gw)"
+msgstr "Гвінея-Бісау (gw)"
 
 #: lang2.h:272
 msgid "Guyana"
@@ -1159,7 +1142,7 @@ msgstr "Гаяна (gy)"
 
 #: lang2.h:273
 msgid "Hong Kong"
-msgstr "Гон Конг (hk)"
+msgstr "Гонконг (hk)"
 
 #: lang2.h:274
 msgid "Heard and McDonald Islands"
@@ -1171,7 +1154,7 @@ msgstr "Гондурас (hn)"
 
 #: lang2.h:276
 msgid "Croatia"
-msgstr ""
+msgstr "Хорватія (hr)"
 
 #: lang2.h:277
 msgid "Haiti"
@@ -1179,7 +1162,7 @@ msgstr "Гаїті (ht)"
 
 #: lang2.h:278
 msgid "Hungary"
-msgstr "Угорщині (hu)"
+msgstr "Угорщина (hu)"
 
 #: lang2.h:279
 msgid "Indonesia"
@@ -1195,7 +1178,7 @@ msgstr "Ізраїль (il)"
 
 #: lang2.h:282
 msgid "Isle of Man"
-msgstr ""
+msgstr "Острів Мен (im)"
 
 #: lang2.h:283
 msgid "India"
@@ -1203,7 +1186,7 @@ msgstr "Індія (in)"
 
 #: lang2.h:284
 msgid "British Indian Ocean Territory"
-msgstr "Британські тер .в Індійському Океані (io)"
+msgstr "Британська тер. в Індійському океані (io)"
 
 #: lang2.h:285
 msgid "Iraq"
@@ -1223,7 +1206,7 @@ msgstr "Італія (it)"
 
 #: lang2.h:289
 msgid "Jersey"
-msgstr ""
+msgstr "Джерсі, Британія (je)"
 
 #: lang2.h:290
 msgid "Jamaica"
@@ -1231,7 +1214,7 @@ msgstr "Ямайка (jm)"
 
 #: lang2.h:291
 msgid "Jordan"
-msgstr "Йордан (jo)"
+msgstr "Йорданія (jo)"
 
 #: lang2.h:292
 msgid "Japan"
@@ -1243,7 +1226,7 @@ msgstr "Кенія (ke)"
 
 #: lang2.h:294
 msgid "Kyrgyzstan"
-msgstr "Киргистан (kg)"
+msgstr "Киргизстан (kg)"
 
 #: lang2.h:295
 msgid "Cambodia"
@@ -1255,20 +1238,19 @@ msgstr "Кірібаті (ki)"
 
 #: lang2.h:297
 msgid "Comoros"
-msgstr "Коморські Острови (km)"
+msgstr "Коморські острови (km)"
 
 #: lang2.h:298
 msgid "Saint Kitts and Nevis"
-msgstr "Острови св. Кітса и Невіса (kn)"
+msgstr "Острови Сент-Кіттс і Невіс (kn)"
 
 #: lang2.h:299
 msgid "Korea, Democratic Republic of"
-msgstr ""
+msgstr "Пінічна Корея (kp)"
 
 #: lang2.h:300
-#, fuzzy
 msgid "Korea, Republic of"
-msgstr "Республіка Словакії (sk)"
+msgstr "Південна Корея (kr)"
 
 #: lang2.h:301
 msgid "Kuwait"
@@ -1276,7 +1258,7 @@ msgstr "Кувейт (kw)"
 
 #: lang2.h:302
 msgid "Cayman Islands"
-msgstr "Кайманські Острови (ky)"
+msgstr "Кайманові острови (ky)"
 
 #: lang2.h:303
 msgid "Kazakhstan"
@@ -1288,7 +1270,7 @@ msgstr "Лаос (la)"
 
 #: lang2.h:305
 msgid "Lebanon"
-msgstr "Лебанон (lb)"
+msgstr "Ліван (lb)"
 
 #: lang2.h:306
 msgid "Saint Lucia"
@@ -1328,7 +1310,7 @@ msgstr "Лівія (ly)"
 
 #: lang2.h:315
 msgid "Morocco"
-msgstr "Мароко (ma)"
+msgstr "Марокко (ma)"
 
 #: lang2.h:316
 msgid "Monaco"
@@ -1339,13 +1321,12 @@ msgid "Moldova"
 msgstr "Молдова (md)"
 
 #: lang2.h:318
-#, fuzzy
 msgid "Montenegro"
-msgstr "Монтсерат (ms)"
+msgstr "Чорногорія (me)"
 
 #: lang2.h:319
 msgid "Saint Martin (French part)"
-msgstr ""
+msgstr "Сен-Мартен, Франція (mf)"
 
 #: lang2.h:320
 msgid "Madagascar"
@@ -1353,7 +1334,7 @@ msgstr "Мадагаскар (mg)"
 
 #: lang2.h:321
 msgid "Marshall Islands"
-msgstr "Маршалові Острови (mh)"
+msgstr "Маршалові острови (mh)"
 
 #: lang2.h:322
 msgid "Macedonia"
@@ -1365,7 +1346,7 @@ msgstr "Малі (ml)"
 
 #: lang2.h:324
 msgid "Myanmar"
-msgstr "Майанмар (mm)"
+msgstr "М'янма (mm)"
 
 #: lang2.h:325
 msgid "Mongolia"
@@ -1373,11 +1354,11 @@ msgstr "Монголія (mn)"
 
 #: lang2.h:326
 msgid "Macau"
-msgstr "Макау (mo)"
+msgstr "Макао (mo)"
 
 #: lang2.h:327
 msgid "Northern Mariana Islands"
-msgstr "Північні Маріанські Острови (mp)"
+msgstr "Північні Маріанські острови (mp)"
 
 #: lang2.h:328
 msgid "Martinique"
@@ -1389,7 +1370,7 @@ msgstr "Мавританія (mr)"
 
 #: lang2.h:330
 msgid "Montserrat"
-msgstr "Монтсерат (ms)"
+msgstr "Монтсеррат (ms)"
 
 #: lang2.h:331
 msgid "Malta"
@@ -1413,7 +1394,7 @@ msgstr "Мексика (mx)"
 
 #: lang2.h:336
 msgid "Malaysia"
-msgstr "Малазія (my)"
+msgstr "Малайзія (my)"
 
 #: lang2.h:337
 msgid "Mozambique"
@@ -1464,7 +1445,6 @@ msgid "Niue"
 msgstr "Ніуе (nu)"
 
 #: lang2.h:349
-#, fuzzy
 msgid "New Zealand"
 msgstr "Нова Зеландія (nz)"
 
@@ -1490,11 +1470,11 @@ msgstr "Папуа Нова Гвінея (pg)"
 
 #: lang2.h:355
 msgid "Philippines"
-msgstr "Філіпіни (ph)"
+msgstr "Філіппіни (ph)"
 
 #: lang2.h:356
 msgid "Pakistan"
-msgstr "Пакістан (pk)"
+msgstr "Пакистан (pk)"
 
 #: lang2.h:357
 msgid "Poland"
@@ -1502,7 +1482,7 @@ msgstr "Польща (pl)"
 
 #: lang2.h:358
 msgid "St. Pierre and Miquelon"
-msgstr "Острів св. Пєра і Мігеля (pm)"
+msgstr "Острова Сен-П'єр і Мікелон (pm)"
 
 #: lang2.h:359
 msgid "Pitcairn"
@@ -1514,7 +1494,7 @@ msgstr "Пуерто Ріко (pr)"
 
 #: lang2.h:361
 msgid "Palestinian Territory, Occupied"
-msgstr ""
+msgstr "Палестинські території"
 
 #: lang2.h:362
 msgid "Portugal"
@@ -1542,7 +1522,7 @@ msgstr "Румунія (po)"
 
 #: lang2.h:368
 msgid "Serbia"
-msgstr ""
+msgstr "Сербія (rs)"
 
 #: lang2.h:369
 msgid "Russian Federation"
@@ -1550,7 +1530,7 @@ msgstr "Російська Федерація (ru)"
 
 #: lang2.h:370
 msgid "Rwanda"
-msgstr "Руана (rw)"
+msgstr "Руанда (rw)"
 
 #: lang2.h:371
 msgid "Saudi Arabia"
@@ -1558,11 +1538,11 @@ msgstr "Саудівська Аравія (sa)"
 
 #: lang2.h:372
 msgid "Solomon Islands"
-msgstr "Соломонові Острови (sb)"
+msgstr "Соломонові острови (sb)"
 
 #: lang2.h:373
 msgid "Seychelles"
-msgstr "Сейшельські Острови (sc)"
+msgstr "Сейшельські острови (sc)"
 
 #: lang2.h:374
 msgid "Sudan"
@@ -1589,13 +1569,12 @@ msgid "Svalbard and Jan Mayen Islands"
 msgstr "Острови Свалбард і Ян-Майен (sj)"
 
 #: lang2.h:380
-#, fuzzy
 msgid "Slovakia"
-msgstr "Словенія (si)"
+msgstr "Словакія (sk)"
 
 #: lang2.h:381
 msgid "Sierra Leone"
-msgstr "Сієра Леоне (sl)"
+msgstr "Сьєрра-Леоне (sl)"
 
 #: lang2.h:382
 msgid "San Marino"
@@ -1611,32 +1590,31 @@ msgstr "Сомалі (so)"
 
 #: lang2.h:385
 msgid "Suriname"
-msgstr "Сурінам (sr)"
+msgstr "Суринам (sr)"
 
 #: lang2.h:386
 msgid "Sao Tome and Principe"
-msgstr "Сао Том і Принципові Острови (st)"
+msgstr "Сан-Томе і Принсіпі (st)"
 
 #: lang2.h:387
 msgid "Soviet Union"
-msgstr ""
+msgstr "Колишній СРСР (SU)"
 
 #: lang2.h:388
 msgid "El Salvador"
 msgstr "Сальвадор (sv)"
 
 #: lang2.h:389
-#, fuzzy
 msgid "Syrian Arab Republic"
-msgstr "Центрально Африканська Республіка (cf)"
+msgstr "Cирія (sy)"
 
 #: lang2.h:390
 msgid "Swaziland"
-msgstr "Свазіланд (sz)"
+msgstr "Эсватіні (Свазіленд) (sz)"
 
 #: lang2.h:391
 msgid "Turks and Caicos Islands"
-msgstr "Острови Тюркс і Кайкос (tc)"
+msgstr "Острови Теркс і Кайкос (tc)"
 
 #: lang2.h:392
 msgid "Chad"
@@ -1664,11 +1642,11 @@ msgstr "Острови Токелау (tk)"
 
 #: lang2.h:398
 msgid "Timor-Leste"
-msgstr ""
+msgstr "Східний Тимор (tl)"
 
 #: lang2.h:399
 msgid "Turkmenistan"
-msgstr "Туркменистан (tm)"
+msgstr "Туркменістан (tm)"
 
 #: lang2.h:400
 msgid "Tunisia"
@@ -1680,7 +1658,7 @@ msgstr "Острови Тонга (to)"
 
 #: lang2.h:402
 msgid "Portuguese Timor"
-msgstr ""
+msgstr "Португальський Тимор (застаріле) (pt)"
 
 #: lang2.h:403
 msgid "Turkey"
@@ -1688,7 +1666,7 @@ msgstr "Туреччина (tr)"
 
 #: lang2.h:404
 msgid "Trinidad and Tobago"
-msgstr "Республіка Трінідад та Тобаго (tt)"
+msgstr "Трінідад і Тобаго (tt)"
 
 #: lang2.h:405
 msgid "Tuvalu"
@@ -1728,15 +1706,15 @@ msgstr "Уругвай (uy)"
 
 #: lang2.h:414
 msgid "Uzbekistan"
-msgstr "Eзбекистан (uz)"
+msgstr "Узбекистан (uz)"
 
 #: lang2.h:415
 msgid "Vatican City State (Holy See)"
-msgstr "Ватікан (va)"
+msgstr "Ватикан (va)"
 
 #: lang2.h:416
 msgid "Saint Vincent and the Grenadines"
-msgstr "Острови св. Вінсента і Гренадіни (vc)"
+msgstr "Сент-Вінсент і Гренадини (vc)"
 
 #: lang2.h:417
 msgid "Venezuela"
@@ -1744,14 +1722,13 @@ msgstr "Венесуела (ve)"
 
 #: lang2.h:418
 msgid "Virgin Islands (British)"
-msgstr "Вірджинські Острови (Британські, vg)"
+msgstr "Британські Віргінські острови (vg)"
 
 #: lang2.h:419
 msgid "Virgin Islands (U.S.)"
-msgstr "Вірджинські Острови (США, vi)"
+msgstr "Віргінські острови, США (vi)"
 
 #: lang2.h:420
-#, fuzzy
 msgid "Vietnam"
 msgstr "В'єтнам (vn)"
 
@@ -1761,7 +1738,7 @@ msgstr "Вануату (vu)"
 
 #: lang2.h:422
 msgid "Wallis and Futuna Islands"
-msgstr "Острова Велліс і Футуна (wf)"
+msgstr "Острова Волліс і Футуна (wf)"
 
 #: lang2.h:423
 msgid "Samoa"
@@ -1773,11 +1750,11 @@ msgstr "Ємен (ye)"
 
 #: lang2.h:425
 msgid "Mayotte"
-msgstr "Острів Майота (yt)"
+msgstr "Острів Майотта (yt)"
 
 #: lang2.h:426
 msgid "Yugoslavia"
-msgstr "Югославія (колишня, yu)"
+msgstr "Колишня Югославія (yu)"
 
 #: lang2.h:427
 msgid "South Africa"
@@ -1793,27 +1770,27 @@ msgstr "Зімбабве (zw)"
 
 #: lang2.h:430
 msgid "Anonymous Proxy"
-msgstr ""
+msgstr "Анонімні проксі-сервери (a1)"
 
 #: lang2.h:431
 msgid "Satellite Provider"
-msgstr ""
+msgstr "Супутниковий провайдер (a2)"
 
 #: lang2.h:433
 msgid "Asia/Pacific Region"
-msgstr ""
+msgstr "Азіатсько-Тихоокеанський регіон (ap)"
 
 #: lang2.h:434
 msgid "Local Network (lan)"
-msgstr ""
+msgstr "Локальна мережа (lan)"
 
 #: output.c:192
 msgid "en"
-msgstr ""
+msgstr "uk"
 
 #: output.c:194 output.c:220 output.c:2771
 msgid "Summary by Month"
-msgstr "Щомісячний підсумок"
+msgstr "Щомісячна статистика"
 
 #: output.c:218
 msgid "Summary Period"
@@ -1821,7 +1798,7 @@ msgstr "Період статистики"
 
 #: output.c:221
 msgid "Generated"
-msgstr "Створено"
+msgstr "Дата створення"
 
 #: output.c:292
 msgid "Generating report for"
@@ -1860,63 +1837,52 @@ msgid "Can't allocate enough memory, Top User Agents disabled!"
 msgstr "Can't allocate enough memory, Top User Agents disabled!"
 
 #: output.c:482
-#, fuzzy
 msgid "[Daily Statistics]"
-msgstr "Статистика по днях"
+msgstr "[Статистика по днях]"
 
 #: output.c:484
-#, fuzzy
 msgid "[Hourly Statistics]"
-msgstr "Статистика по годинах"
+msgstr "[Статистика по годинах]"
 
 #: output.c:486
-#, fuzzy
 msgid "[URLs]"
-msgstr "URL'и"
+msgstr "[URL'и]"
 
 #: output.c:488
-#, fuzzy
 msgid "[Entry]"
-msgstr "Початкові сторінки"
+msgstr "[Початкові сторінки]"
 
 #: output.c:490
-#, fuzzy
 msgid "[Exit]"
-msgstr "Кінцеві сторінки"
+msgstr "[Кінцеві сторінки]"
 
 #: output.c:492
-#, fuzzy
 msgid "[Sites]"
-msgstr "Сайти"
+msgstr "[Сайти]"
 
 #: output.c:494
-#, fuzzy
 msgid "[Referrers]"
-msgstr "Посилання"
+msgstr "[Посилання]"
 
 #: output.c:496
-#, fuzzy
 msgid "[Search]"
-msgstr "Пошук"
+msgstr "[Пошук]"
 
 #: output.c:498
-#, fuzzy
 msgid "[Users]"
-msgstr "Користувачі"
+msgstr "[Користувачі]"
 
 #: output.c:500
-#, fuzzy
 msgid "[Agents]"
-msgstr "Агенти користувача"
+msgstr "[Браузери]"
 
 #: output.c:502
-#, fuzzy
 msgid "[Countries]"
-msgstr "Країни"
+msgstr "[Країни]"
 
 #: output.c:532
 msgid "Monthly Statistics for"
-msgstr "Місячна статисника за"
+msgstr "Місячна статистика за"
 
 #: output.c:537
 msgid "Total Hits"
@@ -1927,37 +1893,32 @@ msgid "Total Files"
 msgstr "Всього файлів"
 
 #: output.c:545
-#, fuzzy
 msgid "Total Pages"
-msgstr "кінцевих сторінок"
+msgstr "Всього сторінок"
 
 #: output.c:549
-#, fuzzy
 msgid "Total Visits"
-msgstr "Всього запитів"
+msgstr "Всього відвідувань"
 
 #: output.c:553
-#, fuzzy
 msgid "Total kB Files"
-msgstr "Всього файлів"
+msgstr "Загальний обсяг (кб)"
 
 #: output.c:558
-#, fuzzy
 msgid "Total kB In"
-msgstr "всього"
+msgstr "Всього кб вх"
 
 #: output.c:561
-#, fuzzy
 msgid "Total kB Out"
-msgstr "Всього КБайт"
+msgstr "Всього кб вих"
 
 #: output.c:569
 msgid "Total Unique Sites"
-msgstr "Всього унікальних сайтів"
+msgstr "Всього унікальних хостів"
 
 #: output.c:574
 msgid "Total Unique URLs"
-msgstr "Всього унікальних URL'ів"
+msgstr "Всього унікальних URL"
 
 #: output.c:580
 msgid "Total Unique Referrers"
@@ -1965,20 +1926,20 @@ msgstr "Всього унікальних посилань"
 
 #: output.c:586
 msgid "Total Unique Usernames"
-msgstr "Всього унікальних імен"
+msgstr "Всього унікальних імен користувачів"
 
 #: output.c:592
 msgid "Total Unique User Agents"
-msgstr "Всього унікальних агентів користувача"
+msgstr "Всього унікальних браузерів"
 
 #: output.c:602 output.c:845 output.c:850 output.c:855 output.c:860
 #: output.c:872 output.c:877
 msgid "Avg"
-msgstr "середн."
+msgstr "Середн."
 
 #: output.c:602
 msgid "Max"
-msgstr "макс."
+msgstr "Макс"
 
 #: output.c:609
 msgid "Hits per Hour"
@@ -1997,32 +1958,28 @@ msgid "Pages per Day"
 msgstr "Сторінок за день"
 
 #: output.c:633
-#, fuzzy
 msgid "Sites per Day"
-msgstr "Звертань за день"
+msgstr "Хостів за день"
 
 #: output.c:639
 msgid "Visits per Day"
 msgstr "Відвідувань за день"
 
 #: output.c:645
-#, fuzzy
 msgid "kB Files per Day"
-msgstr "Файлів за день"
+msgstr "Кілобайт за день"
 
 #: output.c:653
-#, fuzzy
 msgid "kB In per Day"
-msgstr "KБайт за день"
+msgstr "Кбайт за день (вх)"
 
 #: output.c:659
-#, fuzzy
 msgid "kB Out per Day"
-msgstr "KБайт за день"
+msgstr "Кбайт за день (вих)"
 
 #: output.c:666
 msgid "Hits by Response Code"
-msgstr "Звертань за кодом відповіді"
+msgstr "Звертання за кодом відповіді"
 
 #: output.c:697
 msgid "Daily Statistics for"
@@ -2030,7 +1987,7 @@ msgstr "Статистика по днях за"
 
 #: output.c:713
 msgid "Day"
-msgstr "день"
+msgstr "День"
 
 #: output.c:810
 msgid "Hourly Statistics for"
@@ -2038,12 +1995,12 @@ msgstr "Статистика по годинах за"
 
 #: output.c:822
 msgid "Hour"
-msgstr "година"
+msgstr "Година"
 
 #: output.c:845 output.c:850 output.c:855 output.c:860 output.c:872
 #: output.c:877
 msgid "Total"
-msgstr "всього"
+msgstr "Всього"
 
 #: output.c:972 output.c:976 output.c:1204 output.c:1208 output.c:1464
 #: output.c:1560 output.c:1732 output.c:1879 output.c:2000 output.c:2351
@@ -2061,15 +2018,15 @@ msgstr "по"
 
 #: output.c:973 output.c:976
 msgid "Total Sites"
-msgstr "сайтів"
+msgstr "Хостів"
 
 #: output.c:996 output.c:1099 output.c:2451
 msgid "Hostname"
-msgstr "ім'я хоста"
+msgstr "Ім'я хоста"
 
 #: output.c:1060
 msgid "View All Sites"
-msgstr "Переглянути всі сайти"
+msgstr "Переглянути всі хости"
 
 #: output.c:1205 output.c:1208
 msgid "Total URLs"
@@ -2097,7 +2054,7 @@ msgstr "посилань"
 
 #: output.c:1570 output.c:1647 output.c:1652 output.c:2547
 msgid "Referrer"
-msgstr "посилання"
+msgstr "Посилання"
 
 #: output.c:1622
 msgid "View All Referrers"
@@ -2105,35 +2062,35 @@ msgstr "Переглянути всі посилання"
 
 #: output.c:1732
 msgid "Total User Agents"
-msgstr "агентів користувача"
+msgstr "браузерів"
 
 #: output.c:1742 output.c:1808 output.c:1813 output.c:2586
 msgid "User Agent"
-msgstr "агент користувача"
+msgstr "Браузер"
 
 #: output.c:1783
 msgid "View All User Agents"
-msgstr "Переглянути всі агенти користувача"
+msgstr "Переглянути всі браузери"
 
 #: output.c:1879
 msgid "Total Search Strings"
-msgstr "стрічок пошуку"
+msgstr "рядків пошуку"
 
 #: output.c:1889 output.c:1944 output.c:1949 output.c:2675
 msgid "Search String"
-msgstr "стрічка пошуку"
+msgstr "Рядок пошуку"
 
 #: output.c:1918
 msgid "View All Search Strings"
-msgstr "Переглянути всі cтрічки пошуку"
+msgstr "Переглянути всі рядки пошуку"
 
 #: output.c:2000
 msgid "Total Usernames"
-msgstr "імен користувача"
+msgstr "імен користувачей"
 
 #: output.c:2020 output.c:2108 output.c:2119 output.c:2630
 msgid "Username"
-msgstr "ім'я користувача"
+msgstr "Ім'я користувача"
 
 #: output.c:2083
 msgid "View All Usernames"
@@ -2142,26 +2099,24 @@ msgstr "Переглянути всі імена користувачів"
 #: output.c:2236
 #, c-format
 msgid "GeoDB: %s unknown!\n"
-msgstr ""
+msgstr "GeoDB: %s unknown!\n"
 
 #: output.c:2249
 #, c-format
 msgid "GeoIP: %s unknown (returns '%s')\n"
-msgstr ""
+msgstr "GeoIP: %s unknown (returns '%s')\n"
 
 #: output.c:2334
-#, fuzzy
 msgid "Usage by Country for"
 msgstr "Cтатистика по країнах за"
 
 #: output.c:2351
-#, fuzzy
 msgid "Total Countries"
-msgstr "Країни"
+msgstr "країн"
 
 #: output.c:2369
 msgid "Country"
-msgstr "країна"
+msgstr "Країна"
 
 #: output.c:2717
 msgid "Generating summary report"
@@ -2169,16 +2124,16 @@ msgstr "Generating summary report"
 
 #: output.c:2719
 msgid "Usage summary for"
-msgstr "Сумарне використання"
+msgstr "Сумарне використання сервера"
 
 #: output.c:2751
-#, fuzzy, c-format
+#, c-format
 msgid "Error: Failed to create .htaccess file: %s\n"
-msgstr "Error: Unable to write history file"
+msgstr "Error: Failed to create .htaccess file: %s\n"
 
 #: output.c:2774
 msgid "Month"
-msgstr "місяць"
+msgstr "Місяць"
 
 #: output.c:2776
 msgid "Daily Avg"
@@ -2241,7 +2196,6 @@ msgid "Previous run data not found..."
 msgstr "Previous run data not found..."
 
 #: preserve.c:574
-#, fuzzy
 msgid "Reading previous run data.."
 msgstr "Reading previous run data.."
 
@@ -2279,7 +2233,7 @@ msgstr "Статистика відвідувань"
 
 #: webalizer.c:501 webalizer.c:2019
 msgid "locale"
-msgstr ""
+msgstr "Ukrainian"
 
 #: webalizer.c:507
 msgid "DNS support not present, aborting..."
@@ -2310,21 +2264,20 @@ msgid "Using DNS cache file"
 msgstr "Using DNS cache file"
 
 #: webalizer.c:631
-#, fuzzy
 msgid "Error opening file"
-msgstr "Error: Can't open log file"
+msgstr "Error opening file"
 
 #: webalizer.c:632 webalizer.c:662
 msgid "default"
-msgstr ""
+msgstr "default"
 
 #: webalizer.c:633 webalizer.c:657
 msgid "lookups disabled"
-msgstr ""
+msgstr "lookups disabled"
 
 #: webalizer.c:637 webalizer.c:660
 msgid "Using"
-msgstr ""
+msgstr "Using"
 
 #: webalizer.c:668
 msgid "Creating output in"
@@ -2351,7 +2304,6 @@ msgid "Can't allocate enough memory, Top Countries disabled!"
 msgstr "Can't allocate enough memory, Top Countries disabled!"
 
 #: webalizer.c:718
-#, fuzzy
 msgid "Error: Skipping oversized log record"
 msgstr "Error: Skipping oversized log record"
 
@@ -2406,12 +2358,12 @@ msgstr "[options] [log file]"
 #: webalizer.c:2038
 #, c-format
 msgid "Default GeoDB dir : %s\n"
-msgstr ""
+msgstr "Default GeoDB dir : %s\n"
 
 #: webalizer.c:2040
 #, c-format
 msgid "Default config dir: %s\n"
-msgstr ""
+msgstr "Default config dir: %s\n"
 
 #~ msgid "Old style Arpanet (arpa)"
 #~ msgstr "Arpanet (arpa)"
@@ -2419,7 +2371,6 @@ msgstr ""
 #~ msgid "Czechoslovakia (former)"
 #~ msgstr "Чехословаччина (колишня, cs)"
 
-#, fuzzy
 #~ msgid "France, Metropolitan"
 #~ msgstr "Франція (метрополія, fx)"
 
@@ -2447,29 +2398,23 @@ msgstr ""
 #~ msgid "Zaire"
 #~ msgstr "Заїр (zr)"
 
-#, fuzzy
 #~ msgid "Locations"
-#~ msgstr "Лаос (la)"
+#~ msgstr "Місця"
 
-#, fuzzy
 #~ msgid "Total Locations"
-#~ msgstr "країн"
+#~ msgstr "Всього місць"
 
 #~ msgid "Last 12 Months"
 #~ msgstr "останні 12 місяців"
 
-#, fuzzy
 #~ msgid "Can't allocate enough memory, Top Locations disabled!"
-#~ msgstr "Can't allocate enough memory, Top URLs disabled!"
+#~ msgstr "Can't allocate enough memory, Top Locations disabled!"
 
 #~ msgid "English"
 #~ msgstr "Ukrainian"
 
 #~ msgid "KBytes"
-#~ msgstr "КБайт"
-
-#~ msgid "May"
-#~ msgstr "Травень"
+#~ msgstr "Кбайт"
 
 #~ msgid "Warning: Possible duplicate data found"
 #~ msgstr "Warning: Possible duplicate data found"

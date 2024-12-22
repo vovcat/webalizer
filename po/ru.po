@@ -33,27 +33,27 @@ msgstr ""
 
 #: dns_resolv.c:202 dns_resolv.c:777
 msgid "Error: Unable to open DNS cache file"
-msgstr "Ошибка: нельзя открыть кэш-файл DNS"
+msgstr "Error: Unable to open DNS cache file"
 
 #: dns_resolv.c:215 dns_resolv.c:787
 msgid "Error: Unable to lock DNS cache file"
-msgstr "Ошибка: нельзя блокировать кэш-файл DNS"
+msgstr "Error: Unable to lock DNS cache file"
 
 #: dns_resolv.c:302
 msgid "None to process"
-msgstr "Нечего обрабатывать"
+msgstr "None to process"
 
 #: dns_resolv.c:319
 msgid "addresses"
-msgstr "адресов"
+msgstr "addresses"
 
 #: dns_resolv.c:324 webalizer.c:1520
 msgid "in"
-msgstr "за"
+msgstr "in"
 
 #: dns_resolv.c:324 webalizer.c:1520
 msgid "seconds"
-msgstr "секунд"
+msgstr "seconds"
 
 #: dns_resolv.c:331
 #, c-format
@@ -205,7 +205,7 @@ msgstr "Запросов"
 #: graphs.c:405 graphs.c:699 graphs.c:825 graphs.c:931 output.c:2737
 #: output.c:2759 output.c:3268 output.c:3277 preserve.c:169 preserve.c:341
 msgid "Error: Unable to open file"
-msgstr "Ошибка: нельзя открыть файл"
+msgstr "Error: Unable to open file"
 
 #: graphs.c:916 lang2.h:432
 msgid "Other"
@@ -214,15 +214,15 @@ msgstr "Прочие"
 #: hashtab.c:122 hashtab.c:321 hashtab.c:457 hashtab.c:578 hashtab.c:697
 #: hashtab.c:804 hashtab.c:984 linklist.c:109 linklist.c:166
 msgid "Warning: String exceeds storage size"
-msgstr "Предупреждение: строка превысила зарезервированный объём"
+msgstr "Warning: String exceeds storage size"
 
 #: lang2.h:40
 msgid "-h        = print this help message"
-msgstr "-h        = выдать это информационное сообщение"
+msgstr "-h        = print this help message"
 
 #: lang2.h:41
 msgid "-V        = print version information"
-msgstr "-v -V     = выдать информацию о версии"
+msgstr "-v -V     = print version information"
 
 #: lang2.h:42
 msgid "-v        = be verbose"
@@ -230,11 +230,11 @@ msgstr "-v        = be verbose"
 
 #: lang2.h:43
 msgid "-d        = print additional debug info"
-msgstr "-d        = выдавать дополнительную отладочную информацию"
+msgstr "-d        = print additional debug info"
 
 #: lang2.h:44
 msgid "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
-msgstr "-F тип    = вид исходной статистики. тип = (clf | ftp | squid)"
+msgstr "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
 
 #: lang2.h:45
 msgid "-f        = Fold sequence errors"
@@ -242,179 +242,179 @@ msgstr "-f        = Fold sequence errors"
 
 #: lang2.h:46
 msgid "-i        = ignore history file"
-msgstr "-i        = игнорировать файл состояния"
+msgstr "-i        = ignore history file"
 
 #: lang2.h:47
 msgid "-p        = preserve state (incremental)"
-msgstr "-p        = сохранять информацию о состоянии (последовательно)"
+msgstr "-p        = preserve state (incremental)"
 
 #: lang2.h:48
 msgid "-b        = ignore state (incremental)"
-msgstr "-p        = сохранять информацию о состоянии (последовательно)"
+msgstr "-b        = ignore state (incremental)"
 
 #: lang2.h:49
 msgid "-q        = suppress informational messages"
-msgstr "-q        = не выдавать информационных сообщений"
+msgstr "-q        = suppress informational messages"
 
 #: lang2.h:50
 msgid "-Q        = suppress _ALL_ messages"
-msgstr "-Q        = не выдавать _НИКАКИХ_ сообщений"
+msgstr "-Q        = suppress _ALL_ messages"
 
 #: lang2.h:51
 msgid "-Y        = suppress country graph"
-msgstr "-Y        = не выдавать график по странам"
+msgstr "-Y        = suppress country graph"
 
 #: lang2.h:52
 msgid "-G        = suppress hourly graph"
-msgstr "-G        = не выдавать почасовой график"
+msgstr "-G        = suppress hourly graph"
 
 #: lang2.h:53
 msgid "-H        = suppress hourly stats"
-msgstr "-H        = не выдавать почасовую статистику"
+msgstr "-H        = suppress hourly stats"
 
 #: lang2.h:54
 msgid "-L        = suppress color coded graph legends"
-msgstr "-L        = не выдавать описание цветов в таблицах"
+msgstr "-L        = suppress color coded graph legends"
 
 #: lang2.h:55
 msgid "-l num    = use num background lines on graph"
-msgstr "-l число  = размер тени в 'число' линий"
+msgstr "-l num    = use num background lines on graph"
 
 #: lang2.h:56
 msgid "-m num    = Visit timeout value (seconds)"
-msgstr "-m число  = интервал для определения 'посещения' (seconds)"
+msgstr "-m num    = Visit timeout value (seconds)"
 
 #: lang2.h:57
 msgid "-T        = print timing information"
-msgstr "-T        = выдать информацию о затраченном времени"
+msgstr "-T        = print timing information"
 
 #: lang2.h:58
 msgid "-c file   = use configuration file 'file'"
-msgstr "-c файл   = использовать файл конфигурации 'файл'"
+msgstr "-c file   = use configuration file 'file'"
 
 #: lang2.h:59
 msgid "-n name   = hostname to use"
-msgstr "-n имя    = использовать в качестве имени хоста"
+msgstr "-n name   = hostname to use"
 
 #: lang2.h:60
 msgid "-o dir    = output directory to use"
-msgstr "-o кат.   = использовать в качестве выходного каталога"
+msgstr "-o dir    = output directory to use"
 
 #: lang2.h:61
 msgid "-t name   = report title 'name'"
-msgstr "-t имя    = заголовок отчёта 'имя'"
+msgstr "-t name   = report title 'name'"
 
 #: lang2.h:62
 msgid "-a name   = hide user agent 'name'"
-msgstr "-a имя    = не обрабатывать браузер 'имя'"
+msgstr "-a name   = hide user agent 'name'"
 
 #: lang2.h:63
 msgid "-r name   = hide referrer 'name'"
-msgstr "-r имя    = не обрабатывать ссылку 'имя'"
+msgstr "-r name   = hide referrer 'name'"
 
 #: lang2.h:64
 msgid "-s name   = hide site 'name'"
-msgstr "-s имя    = не обрабатывать хост 'имя'"
+msgstr "-s name   = hide site 'name'"
 
 #: lang2.h:65
 msgid "-u name   = hide URL 'name'"
-msgstr "-u имя    = не обрабатывать URL 'имя'"
+msgstr "-u name   = hide URL 'name'"
 
 #: lang2.h:66
 msgid "-x name   = Use filename extension 'name'"
-msgstr "-x имя    = использовать расширение 'имя' для HTML-файлов"
+msgstr "-x name   = Use filename extension 'name' for HTML output"
 
 #: lang2.h:67
 msgid "-O name   = Omit page 'name'"
-msgstr "-O имя    = Пропустить страницу 'имя'"
+msgstr "-O name   = Omit page 'name'"
 
 #: lang2.h:68
 msgid "-P name   = Page type extension 'name'"
-msgstr "-P имя    = файлы с расширением 'имя' - страницы на сервере"
+msgstr "-P name   = Page type extension: 'name'"
 
 #: lang2.h:69
 msgid "-I name   = Index alias 'name'"
-msgstr "-I имя    = использовать как дополнительный индексный файл"
+msgstr "-I name   = Index alias 'name'"
 
 #: lang2.h:70
 msgid "-K num    = num months in summary table"
-msgstr "-K число  = число месяцев в суммарной таблице"
+msgstr "-K num    = num months in summary table"
 
 #: lang2.h:71
 msgid "-k num    = num months in summary graph"
-msgstr "-k число  = число месяцев в суммарном графике"
+msgstr "-k num    = num months in summary graph"
 
 #: lang2.h:72
 msgid "-A num    = Display num top agents"
-msgstr "-A число  = Отображать 'число' записей статистики браузеров"
+msgstr "-A num    = Display num top agents"
 
 #: lang2.h:73
 msgid "-C num    = Display num top countries"
-msgstr "-C число  = Отображать 'число' записей статистики стран"
+msgstr "-C num    = Display num top countries"
 
 #: lang2.h:74
 msgid "-R num    = Display num top referrers"
-msgstr "-R число  = Отображать 'число' записей статистики ссылающихся страниц"
+msgstr "-R num    = Display num top referrers"
 
 #: lang2.h:75
 msgid "-S num    = Display num top sites"
-msgstr "-S число  = Отображать 'число' записей статистики хостов"
+msgstr "-S num    = Display num top sites"
 
 #: lang2.h:76
 msgid "-U num    = Display num top URLs"
-msgstr "-U число  = Отображать 'число' записей статистики URL"
+msgstr "-U num    = Display num top URLs"
 
 #: lang2.h:77
 msgid "-e num    = Display num top Entry Pages"
-msgstr "-e число  = Отображать 'число' записей начальных страниц"
+msgstr "-e num    = Display num top Entry Pages"
 
 #: lang2.h:78
 msgid "-E num    = Display num top Exit Pages"
-msgstr "-E число  = Отображать 'число' записей последних страниц"
+msgstr "-E num    = Display num top Exit Pages"
 
 #: lang2.h:79
 msgid "-g num    = Group Domains to 'num' levels"
-msgstr "-g число  = Группировать домены уровня 'число'"
+msgstr "-g num    = Group Domains to 'num' levels"
 
 #: lang2.h:80
 msgid "-X        = Hide individual sites"
-msgstr "-X        = Скрыть отдельные хосты"
+msgstr "-X        = Hide individual sites"
 
 #: lang2.h:81
 msgid "-z dir    = Use country flags in 'dir'"
-msgstr "-z dir    = Использовать флаги стран в 'dir'"
+msgstr "-z dir    = Use country flags in 'dir'"
 
 #: lang2.h:83
 msgid "-D name   = Use DNS Cache file 'name'"
-msgstr "-D имя    = Использовать DNS 'имя' кэш-файл"
+msgstr "-D name   = Use DNS Cache file 'name'"
 
 #: lang2.h:84
 msgid "-N num    = Number of DNS processes (0=disable)"
-msgstr "-N число  = Число DNS процессов (0=отключить)"
+msgstr "-N num    = Number of DNS processes (0=disable)"
 
 #: lang2.h:85
 msgid "-j        = Enable native GeoDB lookups"
-msgstr "-j        = Использовать поиск по встроенной GeoDB"
+msgstr "-j        = Enable native GeoDB lookups"
 
 #: lang2.h:86
 msgid "-J name   = Use GeoDB database 'name'"
-msgstr "-J имя    = Использовать базу данных GeoDB 'имя'"
+msgstr "-J name   = Use GeoDB database 'name'"
 
 #: lang2.h:89
 msgid "-w        = Enable GeoIP lookups"
-msgstr "-w        = Использовать поиск по GeoIP"
+msgstr "-w        = Enable GeoIP lookups"
 
 #: lang2.h:90
 msgid "-W name   = Use GeoIP database 'name'"
-msgstr "-W имя    = Использовать базу данных GeoIP 'имя'"
-
-#: lang2.h:95
-msgid "Feb"
-msgstr "Фев"
+msgstr "-W name   = Use GeoIP database 'name'"
 
 #: lang2.h:95
 msgid "Jan"
 msgstr "Янв"
+
+#: lang2.h:95
+msgid "Feb"
+msgstr "Фев"
 
 #: lang2.h:95
 msgid "Mar"
@@ -425,44 +425,44 @@ msgid "Apr"
 msgstr "Апр"
 
 #: lang2.h:96
-msgid "Jun"
-msgstr "Июн"
-
-#: lang2.h:96
 msgid "short|May"
 msgstr "Май"
 
-#: lang2.h:97
-msgid "Aug"
-msgstr "Авг"
+#: lang2.h:96
+msgid "Jun"
+msgstr "Июн"
 
 #: lang2.h:97
 msgid "Jul"
 msgstr "Июл"
 
 #: lang2.h:97
+msgid "Aug"
+msgstr "Авг"
+
+#: lang2.h:97
 msgid "Sep"
 msgstr "Сен"
 
 #: lang2.h:98
-msgid "Dec"
-msgstr "Дек"
+msgid "Oct"
+msgstr "Окт"
 
 #: lang2.h:98
 msgid "Nov"
 msgstr "Ноя"
 
 #: lang2.h:98
-msgid "Oct"
-msgstr "Окт"
-
-#: lang2.h:101
-msgid "February"
-msgstr "Февраль"
+msgid "Dec"
+msgstr "Дек"
 
 #: lang2.h:101
 msgid "January"
 msgstr "Январь"
+
+#: lang2.h:101
+msgid "February"
+msgstr "Февраль"
 
 #: lang2.h:101
 msgid "March"
@@ -473,36 +473,36 @@ msgid "April"
 msgstr "Апрель"
 
 #: lang2.h:102
-msgid "June"
-msgstr "Июнь"
-
-#: lang2.h:102
 msgid "long|May"
 msgstr "Май"
 
-#: lang2.h:103
-msgid "August"
-msgstr "Август"
+#: lang2.h:102
+msgid "June"
+msgstr "Июнь"
 
 #: lang2.h:103
 msgid "July"
 msgstr "Июль"
 
 #: lang2.h:103
+msgid "August"
+msgstr "Август"
+
+#: lang2.h:103
 msgid "September"
 msgstr "Сентябрь"
 
 #: lang2.h:104
-msgid "December"
-msgstr "Декабрь"
+msgid "October"
+msgstr "Октябрь"
 
 #: lang2.h:104
 msgid "November"
 msgstr "Ноябрь"
 
 #: lang2.h:104
-msgid "October"
-msgstr "Октябрь"
+msgid "December"
+msgstr "Декабрь"
 
 #: lang2.h:108
 msgid "Undefined response code"
@@ -706,7 +706,7 @@ msgstr "Бизнес (biz)"
 
 #: lang2.h:164
 msgid "Catalan Community (cat)"
-msgstr "Каталанский (cat)"
+msgstr "Каталонский (cat)"
 
 #: lang2.h:165
 msgid "Professional (pro)"
@@ -782,7 +782,7 @@ msgstr "Антигуа и Барбуда"
 
 #: lang2.h:183
 msgid "Anguilla"
-msgstr "Ангуилла"
+msgstr "Ангилья"
 
 #: lang2.h:184
 msgid "Albania"
@@ -938,7 +938,7 @@ msgstr "Швейцария"
 
 #: lang2.h:222
 msgid "Cote D'Ivoire (Ivory Coast)"
-msgstr "Побережье Ивори"
+msgstr "Кот-д’Ивуар"
 
 #: lang2.h:223
 msgid "Cook Islands"
@@ -1058,7 +1058,7 @@ msgstr "Микронезия"
 
 #: lang2.h:252
 msgid "Faroe Islands"
-msgstr "Фарерские Острова"
+msgstr "Фарерские острова"
 
 #: lang2.h:253
 msgid "France"
@@ -1070,7 +1070,7 @@ msgstr "Габон"
 
 #: lang2.h:255
 msgid "Great Britain (UK)"
-msgstr "Великобритания (UK)"
+msgstr "Великобритания"
 
 #: lang2.h:256
 msgid "Grenada"
@@ -1242,7 +1242,7 @@ msgstr "Каморские острова"
 
 #: lang2.h:298
 msgid "Saint Kitts and Nevis"
-msgstr "Острова святого Китса и Невиса"
+msgstr "Острова Сент-Китс и Невис"
 
 #: lang2.h:299
 msgid "Korea, Democratic Republic of"
@@ -1318,7 +1318,7 @@ msgstr "Монако"
 
 #: lang2.h:317
 msgid "Moldova"
-msgstr "Молдавия"
+msgstr "Молдова"
 
 #: lang2.h:318
 msgid "Montenegro"
@@ -1382,7 +1382,7 @@ msgstr "Мавритания"
 
 #: lang2.h:333
 msgid "Maldives"
-msgstr "Мальдивская республика"
+msgstr "Мальдивская Республика"
 
 #: lang2.h:334
 msgid "Malawi"
@@ -1530,7 +1530,7 @@ msgstr "Российская Федерация"
 
 #: lang2.h:370
 msgid "Rwanda"
-msgstr "Руана"
+msgstr "Руанда"
 
 #: lang2.h:371
 msgid "Saudi Arabia"
@@ -1574,7 +1574,7 @@ msgstr "Словакия"
 
 #: lang2.h:381
 msgid "Sierra Leone"
-msgstr "Сьерра Леоне"
+msgstr "Сьерра-Леоне"
 
 #: lang2.h:382
 msgid "San Marino"
@@ -1594,7 +1594,7 @@ msgstr "Суринам"
 
 #: lang2.h:386
 msgid "Sao Tome and Principe"
-msgstr "Сао Том и Принциповы острова"
+msgstr "Сан-Томе и Принсипи"
 
 #: lang2.h:387
 msgid "Soviet Union"
@@ -1614,7 +1614,7 @@ msgstr "Эсватини (Свазиленд)"
 
 #: lang2.h:391
 msgid "Turks and Caicos Islands"
-msgstr "Острова Тюркс и Кайкос"
+msgstr "Острова Теркс и Кайкос"
 
 #: lang2.h:392
 msgid "Chad"
@@ -1690,7 +1690,7 @@ msgstr "Уганда"
 
 #: lang2.h:410
 msgid "United Kingdom"
-msgstr "Объединённое Королевство"
+msgstr "Великобритания (Соединённое Королевство)"
 
 #: lang2.h:411
 msgid "US Minor Outlying Islands"
@@ -1714,7 +1714,7 @@ msgstr "Ватикан"
 
 #: lang2.h:416
 msgid "Saint Vincent and the Grenadines"
-msgstr "О-ва св. Винсента и Гренадины"
+msgstr "Сент-Винсент и Гренадины"
 
 #: lang2.h:417
 msgid "Venezuela"
@@ -1722,7 +1722,7 @@ msgstr "Венесуэла"
 
 #: lang2.h:418
 msgid "Virgin Islands (British)"
-msgstr "Виргинские острова (Британия)"
+msgstr "Британские Виргинские острова"
 
 #: lang2.h:419
 msgid "Virgin Islands (U.S.)"
@@ -1738,7 +1738,7 @@ msgstr "Вануату"
 
 #: lang2.h:422
 msgid "Wallis and Futuna Islands"
-msgstr "Острова Вэллис и Футуна"
+msgstr "Острова Уоллис и Футуна"
 
 #: lang2.h:423
 msgid "Samoa"
@@ -1754,7 +1754,7 @@ msgstr "Остров Майотта"
 
 #: lang2.h:426
 msgid "Yugoslavia"
-msgstr "Югославия"
+msgstr "Бывшая Югославия"
 
 #: lang2.h:427
 msgid "South Africa"
@@ -1802,7 +1802,7 @@ msgstr "Дата создания"
 
 #: output.c:292
 msgid "Generating report for"
-msgstr "Генерируется отчёт за"
+msgstr "Generating report for"
 
 #: output.c:304
 msgid "Daily usage for"
@@ -1814,33 +1814,27 @@ msgstr "Использование по часам на"
 
 #: output.c:374
 msgid "Can't allocate enough memory, Top URLs disabled!"
-msgstr "Нельзя зарезервировать достаточно памяти, статистика URL отключена!"
+msgstr "Can't allocate enough memory, Top URLs disabled!"
 
 #: output.c:396
 msgid "Can't allocate enough memory, Top Sites disabled!"
-msgstr "Нельзя зарезервировать достаточно памяти, статистика хостов отключена!"
+msgstr "Can't allocate enough memory, Top Sites disabled!"
 
 #: output.c:413
 msgid "Can't allocate enough memory, Top Referrers disabled!"
-msgstr ""
-"Нельзя зарезервировать достаточно памяти, статистика ссылающихся страниц "
-"отключена!"
+msgstr "Can't allocate enough memory, Top Referrers disabled!"
 
 #: output.c:430
 msgid "Can't allocate enough memory, Top Search Strings disabled!"
-msgstr ""
-"Нельзя зарезервировать достаточно памяти, статистика строк поиска отключена!"
+msgstr "Can't allocate enough memory, Top Search Strings disabled!"
 
 #: output.c:447
 msgid "Can't allocate enough memory, Top Usernames disabled!"
-msgstr ""
-"Нельзя зарезервировать достаточно памяти, статистика имён пользователей "
-"отключена!"
+msgstr "Can't allocate enough memory, Top Usernames disabled!"
 
 #: output.c:464
 msgid "Can't allocate enough memory, Top User Agents disabled!"
-msgstr ""
-"Нельзя зарезервировать достаточно памяти, статистика браузеров отключена!"
+msgstr "Can't allocate enough memory, Top User Agents disabled!"
 
 #: output.c:482
 msgid "[Daily Statistics]"
@@ -1932,7 +1926,7 @@ msgstr "Всего уникальных ссылающихся страниц"
 
 #: output.c:586
 msgid "Total Unique Usernames"
-msgstr "Всего уникальных имён"
+msgstr "Всего уникальных имён пользователей"
 
 #: output.c:592
 msgid "Total Unique User Agents"
@@ -2105,12 +2099,12 @@ msgstr "Посмотреть все имена пользователей"
 #: output.c:2236
 #, c-format
 msgid "GeoDB: %s unknown!\n"
-msgstr ""
+msgstr "GeoDB: %s unknown!\n"
 
 #: output.c:2249
 #, c-format
 msgid "GeoIP: %s unknown (returns '%s')\n"
-msgstr ""
+msgstr "GeoIP: %s unknown (returns '%s')\n"
 
 #: output.c:2334
 msgid "Usage by Country for"
@@ -2126,7 +2120,7 @@ msgstr "Страна"
 
 #: output.c:2717
 msgid "Generating summary report"
-msgstr "Генерируется общий отчёт"
+msgstr "Generating summary report"
 
 #: output.c:2719
 msgid "Usage summary for"
@@ -2155,83 +2149,83 @@ msgstr "Всего"
 
 #: parser.c:232 parser.c:433
 msgid "Warning: Truncating oversized hostname"
-msgstr "Предупреждение: пропускается слишком длинное имя хоста"
+msgstr "Warning: Truncating oversized hostname"
 
 #: parser.c:264
 msgid "Warning: Truncating oversized username"
-msgstr "Предупреждение: пропускается слишком длинное поле имени пользователя"
+msgstr "Warning: Truncating oversized username"
 
 #: parser.c:286
 msgid "Warning: Truncating oversized date field"
-msgstr "Предупреждение: пропускается слишком длинное поле даты"
+msgstr "Warning: Truncating oversized date field"
 
 #: parser.c:311 parser.c:470 parser.c:499 webalizer.c:1017
 msgid "Warning: Truncating oversized request field"
-msgstr "Предупреждение: пропускается слишком длинное поле запроса"
+msgstr "Warning: Truncating oversized request field"
 
 #: parser.c:362 webalizer.c:1009
 msgid "Warning: Truncating oversized referrer field"
-msgstr "Предупреждение: пропускается слишком длинное поле ссылающейся страницы"
+msgstr "Warning: Truncating oversized referrer field"
 
 #: preserve.c:78
 msgid "Reading history file..."
-msgstr "Читается файл состояния..."
+msgstr "Reading history file..."
 
 #: preserve.c:89
 msgid "Error: Ignoring invalid history record"
-msgstr "Ошибка: игнорируется неверная запись состояния"
+msgstr "Error: Ignoring invalid history record"
 
 #: preserve.c:142
 msgid "History file not found..."
-msgstr "Файл состояния не найден..."
+msgstr "History file not found..."
 
 #: preserve.c:182
 msgid "Saving history information..."
-msgstr "Сохраняется информация о состоянии..."
+msgstr "Saving history information..."
 
 #: preserve.c:222
 msgid "Error: Unable to write history file"
-msgstr "Ошибка: нельзя записать файл состояния"
+msgstr "Error: Unable to write history file"
 
 #: preserve.c:355
 msgid "Saving current run data..."
-msgstr "Сохраняются данные текущего запуска..."
+msgstr "Saving current run data..."
 
 #: preserve.c:569
 msgid "Previous run data not found..."
-msgstr "Данные предыдущего запуска не найдены..."
+msgstr "Previous run data not found..."
 
 #: preserve.c:574
 msgid "Reading previous run data.."
-msgstr "Читаются данные предыдущего запуска..."
+msgstr "Reading previous run data.."
 
 #: preserve.c:681 webalizer.c:1239 webalizer.c:1352
 msgid "Error adding URL node, skipping"
-msgstr "Ошибка добавления узла URL, пропускается"
+msgstr "Error adding URL node, skipping"
 
 #: preserve.c:722 webalizer.c:1284 webalizer.c:1367 webalizer.c:1385
 msgid "Error adding host node (monthly), skipping"
-msgstr "Ошибка добавления узла хоста (месячный отчёт), пропускается"
+msgstr "Error adding host node (monthly), skipping"
 
 #: preserve.c:763 webalizer.c:1273
 msgid "Error adding host node (daily), skipping"
-msgstr "Ошибка добавления узла хоста (дневной отчёт), пропускается"
+msgstr "Error adding host node (daily), skipping"
 
 #: preserve.c:788 webalizer.c:1261 webalizer.c:1398
 msgid "Error adding Referrer node, skipping"
-msgstr "Ошибка добавления узла ссылки, пропускается"
+msgstr "Error adding Referrer node, skipping"
 
 #: preserve.c:813 webalizer.c:1294 webalizer.c:1409
 msgid "Error adding User Agent node, skipping"
-msgstr "Ошибка добавления узла браузера, пропускается"
+msgstr "Error adding User Agent node, skipping"
 
 #: preserve.c:837 webalizer.c:2406
 msgid "Error adding Search String Node, skipping"
-msgstr "Ошибка добавления узла строки поиска, пропускается"
+msgstr "Error adding Search String Node, skipping"
 
 #: preserve.c:870 webalizer.c:1250 webalizer.c:1424
 msgid "Error adding Username node, skipping"
-msgstr "Ошибка добавления узла имени пользователя, пропускается"
+msgstr "Error adding Username node, skipping"
 
 #: webalizer.c:336
 msgid "Usage Statistics for"
@@ -2239,137 +2233,137 @@ msgstr "Статистика использования сервера"
 
 #: webalizer.c:501 webalizer.c:2019
 msgid "locale"
-msgstr ""
+msgstr "Russian"
 
 #: webalizer.c:507
 msgid "DNS support not present, aborting..."
-msgstr ""
+msgstr "DNS support not present, aborting..."
 
 #: webalizer.c:524 webalizer.c:541 webalizer.c:552
 msgid "Error: Can't open log file"
-msgstr "Ошибка: нельзя открыть учётный файл"
+msgstr "Error: Can't open log file"
 
 #: webalizer.c:561
 msgid "Using logfile"
-msgstr "Используется учётный файл"
+msgstr "Using logfile"
 
 #: webalizer.c:582
 msgid "Error: Can't change directory to"
-msgstr "Ошибка: нельзя сменить каталог на"
+msgstr "Error: Can't change directory to"
 
 #: webalizer.c:594
 msgid "No cache file specified, aborting..."
-msgstr "Не указан кэш-файл, останов..."
+msgstr "No cache file specified, aborting..."
 
 #: webalizer.c:603
 msgid "DNS Lookup"
-msgstr "DNS поиск"
+msgstr "DNS Lookup"
 
 #: webalizer.c:621
 msgid "Using DNS cache file"
-msgstr "Используется DNS кэш-файл"
+msgstr "Using DNS cache file"
 
 #: webalizer.c:631
 msgid "Error opening file"
-msgstr "Ошибка: невозможно открыть файл"
+msgstr "Error opening file"
 
 #: webalizer.c:632 webalizer.c:662
 msgid "default"
-msgstr ""
+msgstr "default"
 
 #: webalizer.c:633 webalizer.c:657
 msgid "lookups disabled"
-msgstr ""
+msgstr "lookups disabled"
 
 #: webalizer.c:637 webalizer.c:660
 msgid "Using"
-msgstr ""
+msgstr "Using"
 
 #: webalizer.c:668
 msgid "Creating output in"
-msgstr "Результат создаётся в"
+msgstr "Creating output in"
 
 #: webalizer.c:668
 msgid "current directory"
-msgstr "текущем каталоге"
+msgstr "current directory"
 
 #: webalizer.c:678
 msgid "Hostname for reports is"
-msgstr "Для отчётов используется имя хоста"
+msgstr "Hostname for reports is"
 
 #: webalizer.c:681
 msgid "Ignoring previous history..."
-msgstr "Предыдущее состояние игнорируется..."
+msgstr "Ignoring previous history..."
 
 #: webalizer.c:690
 msgid "Error: Unable to restore run data"
-msgstr "Ошибка: нельзя восстановить данные предыдущего запуска"
+msgstr "Error: Unable to restore run data"
 
 #: webalizer.c:699
 msgid "Can't allocate enough memory, Top Countries disabled!"
-msgstr "Нельзя зарезервировать достаточно памяти, статистика стран отключена!"
+msgstr "Can't allocate enough memory, Top Countries disabled!"
 
 #: webalizer.c:718
 msgid "Error: Skipping oversized log record"
-msgstr "Ошибка: пропускается слишком длинная запись"
+msgstr "Error: Skipping oversized log record"
 
 #: webalizer.c:778
 msgid "Error: Skipping record (bad date)"
-msgstr "Ошибка: пропускается запись (неверная дата)"
+msgstr "Error: Skipping record (bad date)"
 
 #: webalizer.c:1439
 msgid "Skipping Netscape header record"
-msgstr "Пропускается запись заголовка Netscape"
+msgstr "Skipping Netscape header record"
 
 #: webalizer.c:1456
 msgid "Skipping bad record"
-msgstr "Пропускается неверная запись"
+msgstr "Skipping bad record"
 
 #: webalizer.c:1491
 msgid "Error: Unable to save current run data"
-msgstr "Ошибка: нельзя сохранить данные текущего запуска"
+msgstr "Error: Unable to save current run data"
 
 #: webalizer.c:1508
 msgid "records"
-msgstr "записей"
+msgstr "records"
 
 #: webalizer.c:1511
 msgid "ignored"
-msgstr "проигнорировано"
+msgstr "ignored"
 
 #: webalizer.c:1512 webalizer.c:1515
 msgid "bad"
-msgstr "неверных"
+msgstr "bad"
 
 #: webalizer.c:1551
 msgid "No valid records found!"
-msgstr "Не найдено ни одной верной записи!"
+msgstr "No valid records found!"
 
 #: webalizer.c:1704
 msgid "Error: Unable to open configuration file"
-msgstr "Ошибка: нельзя открыть файл конфигурации"
+msgstr "Error: Unable to open configuration file"
 
 #: webalizer.c:1734 webalizer.c:1860 webalizer.c:1891 webalizer.c:1909
 msgid "Warning: Invalid keyword"
-msgstr "Предупреждение: неверное ключевое слово"
+msgstr "Warning: Invalid keyword"
 
 #: webalizer.c:2002
 msgid "Usage"
-msgstr "Использование"
+msgstr "Usage"
 
 #: webalizer.c:2002
 msgid "[options] [log file]"
-msgstr "[параметры] [учётный файл]"
+msgstr "[options] [log file]"
 
 #: webalizer.c:2038
 #, c-format
 msgid "Default GeoDB dir : %s\n"
-msgstr ""
+msgstr "Default GeoDB dir : %s\n"
 
 #: webalizer.c:2040
 #, c-format
 msgid "Default config dir: %s\n"
-msgstr ""
+msgstr "Default config dir: %s\n"
 
 #~ msgid "Old style Arpanet (arpa)"
 #~ msgstr "Старый Arpanet (arpa)"
@@ -2414,7 +2408,7 @@ msgstr ""
 #~ msgstr "последние 12 месяцев"
 
 #~ msgid "Can't allocate enough memory, Top Locations disabled!"
-#~ msgstr "Нельзя зарезервировать достаточно памяти, статистика URL отключена!"
+#~ msgstr "Can't allocate enough memory, Top Locations disabled!"
 
 #~ msgid "English"
 #~ msgstr "Russian"
@@ -2423,4 +2417,4 @@ msgstr ""
 #~ msgstr "Кбайт"
 
 #~ msgid "Warning: Possible duplicate data found"
-#~ msgstr "Предупреждение: обнаружено возможное дублирование данных"
+#~ msgstr "Warning: Possible duplicate data found"
