@@ -2742,14 +2742,10 @@ u_int64_t jdate( int day, int month, int year )
 /* month "May" that its forms is equal in Short and Long         */
 /*****************************************************************/
 
-char *intl_strip_context (const char *msgid)
+const char *intl_strip_context(const char *msgid)
 {
-   char *msgval = gettext (msgid);
-   char *pipe;
-
-   pipe = strchr(msgval, '|');
-   if (pipe != NULL)
-      return (char*)(pipe + 1);
-
-   return (char*)msgval;
+   const char *msgval = gettext(msgid);
+   const char *pipe = strchr(msgval, '|');
+   if (pipe) return pipe + 1;
+   return msgval;
 }
