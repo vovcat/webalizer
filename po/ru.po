@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-13 23:59+0300\n"
-"PO-Revision-Date: 2003-05-25 23:29+0200\n"
-"Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
-"Language-Team: French <tech@jexiste.org>\n"
-"Language: fr\n"
+"Report-Msgid-Bugs-To: vovcat@gmail.com\n"
+"POT-Creation-Date: 2014-10-08 01:23+0200\n"
+"PO-Revision-Date: 2024-12-13 23:59+0300\n"
+"Last-Translator: Volodymyr Prodan <vovcat@gmail.com>\n"
+"Language-Team: Volodymyr Prodan <vovcat@gmail.com>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=KOI8-R\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: dns_resolv.c:123
@@ -33,27 +33,27 @@ msgstr ""
 
 #: dns_resolv.c:202 dns_resolv.c:777
 msgid "Error: Unable to open DNS cache file"
-msgstr "Ошибка: нельзя открыть кэш-файл DNS"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╩я▄п╥я▐ п╬я┌п╨я─я▀я┌я▄ п╨я█я┬-я└п╟п╧п╩ DNS"
 
 #: dns_resolv.c:215 dns_resolv.c:787
 msgid "Error: Unable to lock DNS cache file"
-msgstr "Ошибка: нельзя блокировать кэш-файл DNS"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╩я▄п╥я▐ п╠п╩п╬п╨п╦я─п╬п╡п╟я┌я▄ п╨я█я┬-я└п╟п╧п╩ DNS"
 
 #: dns_resolv.c:302
 msgid "None to process"
-msgstr "Нечего обрабатывать"
+msgstr "п²п╣я┤п╣пЁп╬ п╬п╠я─п╟п╠п╟я┌я▀п╡п╟я┌я▄"
 
 #: dns_resolv.c:319
 msgid "addresses"
-msgstr "адресов"
+msgstr "п╟п╢я─п╣я│п╬п╡"
 
 #: dns_resolv.c:324 webalizer.c:1520
 msgid "in"
-msgstr "за"
+msgstr "п╥п╟"
 
 #: dns_resolv.c:324 webalizer.c:1520
 msgid "seconds"
-msgstr "секунд"
+msgstr "я│п╣п╨я┐п╫п╢"
 
 #: dns_resolv.c:331
 #, c-format
@@ -152,45 +152,45 @@ msgstr ""
 #: output.c:1352 output.c:2009 output.c:2114 output.c:2360 output.c:2446
 #: output.c:2498 output.c:2625 output.c:2790
 msgid "kB F"
-msgstr "Килобайт"
+msgstr "п п╦п╩п╬п╠п╟п╧я┌"
 
 #: graphs.c:154 graphs.c:163 graphs.c:165 graphs.c:507 graphs.c:511
 #: graphs.c:513 output.c:731 output.c:838 output.c:989 output.c:1097
 #: output.c:1222 output.c:1355 output.c:2013 output.c:2117 output.c:2364
 #: output.c:2449 output.c:2501 output.c:2628 output.c:2794
 msgid "kB In"
-msgstr "кБ вх"
+msgstr "п╨п▒ п╡я┘"
 
 #: graphs.c:155 graphs.c:169 graphs.c:171 graphs.c:517 graphs.c:519
 #: output.c:732 output.c:839 output.c:991 output.c:1097 output.c:1225
 #: output.c:1355 output.c:2015 output.c:2117 output.c:2366 output.c:2449
 #: output.c:2501 output.c:2628 output.c:2796
 msgid "kB Out"
-msgstr "кБ исх"
+msgstr "п╨п▒ п╦я│я┘"
 
 #: graphs.c:174 graphs.c:177 graphs.c:179 graphs.c:531 graphs.c:533
 #: output.c:717 output.c:994 output.c:1099 output.c:1475 output.c:2018
 #: output.c:2119 output.c:2451 output.c:2630 output.c:2786 output.c:2799
 msgid "Visits"
-msgstr "Посещений"
+msgstr "п÷п╬я│п╣я┴п╣п╫п╦п╧"
 
 #: graphs.c:175 graphs.c:183 graphs.c:185 graphs.c:523 graphs.c:525
 #: graphs.c:527 output.c:718 output.c:1088 output.c:2788
 msgid "Sites"
-msgstr "Хостов"
+msgstr "п╔п╬я│я┌п╬п╡"
 
 #: graphs.c:188 graphs.c:191 graphs.c:193 graphs.c:536 graphs.c:540
 #: graphs.c:542 graphs.c:761 graphs.c:765 graphs.c:767 output.c:716
 #: output.c:825 output.c:2784 output.c:2801
 msgid "Pages"
-msgstr "Страниц"
+msgstr "п║я┌я─п╟п╫п╦я├"
 
 #: graphs.c:189 graphs.c:197 graphs.c:199 graphs.c:537 graphs.c:546
 #: graphs.c:548 graphs.c:762 graphs.c:771 graphs.c:773 output.c:715
 #: output.c:824 output.c:983 output.c:1094 output.c:2007 output.c:2114
 #: output.c:2358 output.c:2446 output.c:2625 output.c:2782 output.c:2803
 msgid "Files"
-msgstr "Файлов"
+msgstr "п╓п╟п╧п╩п╬п╡"
 
 #: graphs.c:203 graphs.c:205 graphs.c:538 graphs.c:552 graphs.c:554
 #: graphs.c:763 graphs.c:777 graphs.c:779 output.c:714 output.c:823
@@ -200,29 +200,29 @@ msgstr "Файлов"
 #: output.c:2498 output.c:2547 output.c:2586 output.c:2625 output.c:2675
 #: output.c:2780 output.c:2805
 msgid "Hits"
-msgstr "Запросов"
+msgstr "п≈п╟п©я─п╬я│п╬п╡"
 
 #: graphs.c:405 graphs.c:699 graphs.c:825 graphs.c:931 output.c:2737
 #: output.c:2759 output.c:3268 output.c:3277 preserve.c:169 preserve.c:341
 msgid "Error: Unable to open file"
-msgstr "Ошибка: нельзя открыть файл"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╩я▄п╥я▐ п╬я┌п╨я─я▀я┌я▄ я└п╟п╧п╩"
 
 #: graphs.c:916 lang2.h:432
 msgid "Other"
-msgstr "Прочие"
+msgstr "п÷я─п╬я┤п╦п╣"
 
 #: hashtab.c:122 hashtab.c:321 hashtab.c:457 hashtab.c:578 hashtab.c:697
 #: hashtab.c:804 hashtab.c:984 linklist.c:109 linklist.c:166
 msgid "Warning: String exceeds storage size"
-msgstr "Предупреждение: строка превысила зарезервированный объём"
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: я│я┌я─п╬п╨п╟ п©я─п╣п╡я▀я│п╦п╩п╟ п╥п╟я─п╣п╥п╣я─п╡п╦я─п╬п╡п╟п╫п╫я▀п╧ п╬п╠я┼я▒п╪"
 
 #: lang2.h:40
 msgid "-h        = print this help message"
-msgstr "-h        = выдать это информационное сообщение"
+msgstr "-h        = п╡я▀п╢п╟я┌я▄ я█я┌п╬ п╦п╫я└п╬я─п╪п╟я├п╦п╬п╫п╫п╬п╣ я│п╬п╬п╠я┴п╣п╫п╦п╣"
 
 #: lang2.h:41
 msgid "-V        = print version information"
-msgstr "-v -V     = выдать информацию о версии"
+msgstr "-v -V     = п╡я▀п╢п╟я┌я▄ п╦п╫я└п╬я─п╪п╟я├п╦я▌ п╬ п╡п╣я─я│п╦п╦"
 
 #: lang2.h:42
 msgid "-v        = be verbose"
@@ -230,11 +230,11 @@ msgstr "-v        = be verbose"
 
 #: lang2.h:43
 msgid "-d        = print additional debug info"
-msgstr "-d        = выдавать дополнительную отладочную информацию"
+msgstr "-d        = п╡я▀п╢п╟п╡п╟я┌я▄ п╢п╬п©п╬п╩п╫п╦я┌п╣п╩я▄п╫я┐я▌ п╬я┌п╩п╟п╢п╬я┤п╫я┐я▌ п╦п╫я└п╬я─п╪п╟я├п╦я▌"
 
 #: lang2.h:44
 msgid "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
-msgstr "-F тип    = вид исходной статистики. тип = (clf | ftp | squid)"
+msgstr "-F я┌п╦п©    = п╡п╦п╢ п╦я│я┘п╬п╢п╫п╬п╧ я│я┌п╟я┌п╦я│я┌п╦п╨п╦. я┌п╦п© = (clf | ftp | squid)"
 
 #: lang2.h:45
 msgid "-f        = Fold sequence errors"
@@ -242,1547 +242,1547 @@ msgstr "-f        = Fold sequence errors"
 
 #: lang2.h:46
 msgid "-i        = ignore history file"
-msgstr "-i        = игнорировать файл состояния"
+msgstr "-i        = п╦пЁп╫п╬я─п╦я─п╬п╡п╟я┌я▄ я└п╟п╧п╩ я│п╬я│я┌п╬я▐п╫п╦я▐"
 
 #: lang2.h:47
 msgid "-p        = preserve state (incremental)"
-msgstr "-p        = сохранять информацию о состоянии (последовательно)"
+msgstr "-p        = я│п╬я┘я─п╟п╫я▐я┌я▄ п╦п╫я└п╬я─п╪п╟я├п╦я▌ п╬ я│п╬я│я┌п╬я▐п╫п╦п╦ (п©п╬я│п╩п╣п╢п╬п╡п╟я┌п╣п╩я▄п╫п╬)"
 
 #: lang2.h:48
 msgid "-b        = ignore state (incremental)"
-msgstr "-p        = сохранять информацию о состоянии (последовательно)"
+msgstr "-p        = я│п╬я┘я─п╟п╫я▐я┌я▄ п╦п╫я└п╬я─п╪п╟я├п╦я▌ п╬ я│п╬я│я┌п╬я▐п╫п╦п╦ (п©п╬я│п╩п╣п╢п╬п╡п╟я┌п╣п╩я▄п╫п╬)"
 
 #: lang2.h:49
 msgid "-q        = suppress informational messages"
-msgstr "-q        = не выдавать информационных сообщений"
+msgstr "-q        = п╫п╣ п╡я▀п╢п╟п╡п╟я┌я▄ п╦п╫я└п╬я─п╪п╟я├п╦п╬п╫п╫я▀я┘ я│п╬п╬п╠я┴п╣п╫п╦п╧"
 
 #: lang2.h:50
 msgid "-Q        = suppress _ALL_ messages"
-msgstr "-Q        = не выдавать _НИКАКИХ_ сообщений"
+msgstr "-Q        = п╫п╣ п╡я▀п╢п╟п╡п╟я┌я▄ _п²п≤п п░п п≤п╔_ я│п╬п╬п╠я┴п╣п╫п╦п╧"
 
 #: lang2.h:51
 msgid "-Y        = suppress country graph"
-msgstr "-Y        = не выдавать график по странам"
+msgstr "-Y        = п╫п╣ п╡я▀п╢п╟п╡п╟я┌я▄ пЁя─п╟я└п╦п╨ п©п╬ я│я┌я─п╟п╫п╟п╪"
 
 #: lang2.h:52
 msgid "-G        = suppress hourly graph"
-msgstr "-G        = не выдавать почасовой график"
+msgstr "-G        = п╫п╣ п╡я▀п╢п╟п╡п╟я┌я▄ п©п╬я┤п╟я│п╬п╡п╬п╧ пЁя─п╟я└п╦п╨"
 
 #: lang2.h:53
 msgid "-H        = suppress hourly stats"
-msgstr "-H        = не выдавать почасовую статистику"
+msgstr "-H        = п╫п╣ п╡я▀п╢п╟п╡п╟я┌я▄ п©п╬я┤п╟я│п╬п╡я┐я▌ я│я┌п╟я┌п╦я│я┌п╦п╨я┐"
 
 #: lang2.h:54
 msgid "-L        = suppress color coded graph legends"
-msgstr "-L        = не выдавать описание цветов в таблицах"
+msgstr "-L        = п╫п╣ п╡я▀п╢п╟п╡п╟я┌я▄ п╬п©п╦я│п╟п╫п╦п╣ я├п╡п╣я┌п╬п╡ п╡ я┌п╟п╠п╩п╦я├п╟я┘"
 
 #: lang2.h:55
 msgid "-l num    = use num background lines on graph"
-msgstr "-l число  = размер тени в 'число' линий"
+msgstr "-l я┤п╦я│п╩п╬  = я─п╟п╥п╪п╣я─ я┌п╣п╫п╦ п╡ 'я┤п╦я│п╩п╬' п╩п╦п╫п╦п╧"
 
 #: lang2.h:56
 msgid "-m num    = Visit timeout value (seconds)"
-msgstr "-m число  = интервал для определения 'посещения' (seconds)"
+msgstr "-m я┤п╦я│п╩п╬  = п╦п╫я┌п╣я─п╡п╟п╩ п╢п╩я▐ п╬п©я─п╣п╢п╣п╩п╣п╫п╦я▐ 'п©п╬я│п╣я┴п╣п╫п╦я▐' (seconds)"
 
 #: lang2.h:57
 msgid "-T        = print timing information"
-msgstr "-T        = выдать информацию о затраченном времени"
+msgstr "-T        = п╡я▀п╢п╟я┌я▄ п╦п╫я└п╬я─п╪п╟я├п╦я▌ п╬ п╥п╟я┌я─п╟я┤п╣п╫п╫п╬п╪ п╡я─п╣п╪п╣п╫п╦"
 
 #: lang2.h:58
 msgid "-c file   = use configuration file 'file'"
-msgstr "-c файл   = использовать файл конфигурации 'файл'"
+msgstr "-c я└п╟п╧п╩   = п╦я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ я└п╟п╧п╩ п╨п╬п╫я└п╦пЁя┐я─п╟я├п╦п╦ 'я└п╟п╧п╩'"
 
 #: lang2.h:59
 msgid "-n name   = hostname to use"
-msgstr "-n имя    = использовать в качестве имени хоста"
+msgstr "-n п╦п╪я▐    = п╦я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ п╡ п╨п╟я┤п╣я│я┌п╡п╣ п╦п╪п╣п╫п╦ я┘п╬я│я┌п╟"
 
 #: lang2.h:60
 msgid "-o dir    = output directory to use"
-msgstr "-o кат.   = использовать в качестве выходного каталога"
+msgstr "-o п╨п╟я┌.   = п╦я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ п╡ п╨п╟я┤п╣я│я┌п╡п╣ п╡я▀я┘п╬п╢п╫п╬пЁп╬ п╨п╟я┌п╟п╩п╬пЁп╟"
 
 #: lang2.h:61
 msgid "-t name   = report title 'name'"
-msgstr "-t имя    = заголовок отчёта 'имя'"
+msgstr "-t п╦п╪я▐    = п╥п╟пЁп╬п╩п╬п╡п╬п╨ п╬я┌я┤я▒я┌п╟ 'п╦п╪я▐'"
 
 #: lang2.h:62
 msgid "-a name   = hide user agent 'name'"
-msgstr "-a имя    = не обрабатывать браузер 'имя'"
+msgstr "-a п╦п╪я▐    = п╫п╣ п╬п╠я─п╟п╠п╟я┌я▀п╡п╟я┌я▄ п╠я─п╟я┐п╥п╣я─ 'п╦п╪я▐'"
 
 #: lang2.h:63
 msgid "-r name   = hide referrer 'name'"
-msgstr "-r имя    = не обрабатывать ссылку 'имя'"
+msgstr "-r п╦п╪я▐    = п╫п╣ п╬п╠я─п╟п╠п╟я┌я▀п╡п╟я┌я▄ я│я│я▀п╩п╨я┐ 'п╦п╪я▐'"
 
 #: lang2.h:64
 msgid "-s name   = hide site 'name'"
-msgstr "-s имя    = не обрабатывать хост 'имя'"
+msgstr "-s п╦п╪я▐    = п╫п╣ п╬п╠я─п╟п╠п╟я┌я▀п╡п╟я┌я▄ я┘п╬я│я┌ 'п╦п╪я▐'"
 
 #: lang2.h:65
 msgid "-u name   = hide URL 'name'"
-msgstr "-u имя    = не обрабатывать URL 'имя'"
+msgstr "-u п╦п╪я▐    = п╫п╣ п╬п╠я─п╟п╠п╟я┌я▀п╡п╟я┌я▄ URL 'п╦п╪я▐'"
 
 #: lang2.h:66
 msgid "-x name   = Use filename extension 'name'"
-msgstr "-x имя    = использовать расширение 'имя' для HTML-файлов"
+msgstr "-x п╦п╪я▐    = п╦я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ я─п╟я│я┬п╦я─п╣п╫п╦п╣ 'п╦п╪я▐' п╢п╩я▐ HTML-я└п╟п╧п╩п╬п╡"
 
 #: lang2.h:67
 msgid "-O name   = Omit page 'name'"
-msgstr "-O имя    = Пропустить страницу 'имя'"
+msgstr "-O п╦п╪я▐    = п÷я─п╬п©я┐я│я┌п╦я┌я▄ я│я┌я─п╟п╫п╦я├я┐ 'п╦п╪я▐'"
 
 #: lang2.h:68
 msgid "-P name   = Page type extension 'name'"
-msgstr "-P имя    = файлы с расширением 'имя' - страницы на сервере"
+msgstr "-P п╦п╪я▐    = я└п╟п╧п╩я▀ я│ я─п╟я│я┬п╦я─п╣п╫п╦п╣п╪ 'п╦п╪я▐' - я│я┌я─п╟п╫п╦я├я▀ п╫п╟ я│п╣я─п╡п╣я─п╣"
 
 #: lang2.h:69
 msgid "-I name   = Index alias 'name'"
-msgstr "-I имя    = использовать как дополнительный индексный файл"
+msgstr "-I п╦п╪я▐    = п╦я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ п╨п╟п╨ п╢п╬п©п╬п╩п╫п╦я┌п╣п╩я▄п╫я▀п╧ п╦п╫п╢п╣п╨я│п╫я▀п╧ я└п╟п╧п╩"
 
 #: lang2.h:70
 msgid "-K num    = num months in summary table"
-msgstr "-K число  = число месяцев в суммарной таблице"
+msgstr "-K я┤п╦я│п╩п╬  = я┤п╦я│п╩п╬ п╪п╣я│я▐я├п╣п╡ п╡ я│я┐п╪п╪п╟я─п╫п╬п╧ я┌п╟п╠п╩п╦я├п╣"
 
 #: lang2.h:71
 msgid "-k num    = num months in summary graph"
-msgstr "-k число  = число месяцев в суммарном графике"
+msgstr "-k я┤п╦я│п╩п╬  = я┤п╦я│п╩п╬ п╪п╣я│я▐я├п╣п╡ п╡ я│я┐п╪п╪п╟я─п╫п╬п╪ пЁя─п╟я└п╦п╨п╣"
 
 #: lang2.h:72
 msgid "-A num    = Display num top agents"
-msgstr "-A число  = Отображать 'число' записей статистики браузеров"
+msgstr "-A я┤п╦я│п╩п╬  = п·я┌п╬п╠я─п╟п╤п╟я┌я▄ 'я┤п╦я│п╩п╬' п╥п╟п©п╦я│п╣п╧ я│я┌п╟я┌п╦я│я┌п╦п╨п╦ п╠я─п╟я┐п╥п╣я─п╬п╡"
 
 #: lang2.h:73
 msgid "-C num    = Display num top countries"
-msgstr "-C число  = Отображать 'число' записей статистики стран"
+msgstr "-C я┤п╦я│п╩п╬  = п·я┌п╬п╠я─п╟п╤п╟я┌я▄ 'я┤п╦я│п╩п╬' п╥п╟п©п╦я│п╣п╧ я│я┌п╟я┌п╦я│я┌п╦п╨п╦ я│я┌я─п╟п╫"
 
 #: lang2.h:74
 msgid "-R num    = Display num top referrers"
-msgstr "-R число  = Отображать 'число' записей статистики ссылающихся страниц"
+msgstr "-R я┤п╦я│п╩п╬  = п·я┌п╬п╠я─п╟п╤п╟я┌я▄ 'я┤п╦я│п╩п╬' п╥п╟п©п╦я│п╣п╧ я│я┌п╟я┌п╦я│я┌п╦п╨п╦ я│я│я▀п╩п╟я▌я┴п╦я┘я│я▐ я│я┌я─п╟п╫п╦я├"
 
 #: lang2.h:75
 msgid "-S num    = Display num top sites"
-msgstr "-S число  = Отображать 'число' записей статистики хостов"
+msgstr "-S я┤п╦я│п╩п╬  = п·я┌п╬п╠я─п╟п╤п╟я┌я▄ 'я┤п╦я│п╩п╬' п╥п╟п©п╦я│п╣п╧ я│я┌п╟я┌п╦я│я┌п╦п╨п╦ я┘п╬я│я┌п╬п╡"
 
 #: lang2.h:76
 msgid "-U num    = Display num top URLs"
-msgstr "-U число  = Отображать 'число' записей статистики URL"
+msgstr "-U я┤п╦я│п╩п╬  = п·я┌п╬п╠я─п╟п╤п╟я┌я▄ 'я┤п╦я│п╩п╬' п╥п╟п©п╦я│п╣п╧ я│я┌п╟я┌п╦я│я┌п╦п╨п╦ URL"
 
 #: lang2.h:77
 msgid "-e num    = Display num top Entry Pages"
-msgstr "-e число  = Отображать 'число' записей начальных страниц"
+msgstr "-e я┤п╦я│п╩п╬  = п·я┌п╬п╠я─п╟п╤п╟я┌я▄ 'я┤п╦я│п╩п╬' п╥п╟п©п╦я│п╣п╧ п╫п╟я┤п╟п╩я▄п╫я▀я┘ я│я┌я─п╟п╫п╦я├"
 
 #: lang2.h:78
 msgid "-E num    = Display num top Exit Pages"
-msgstr "-E число  = Отображать 'число' записей последних страниц"
+msgstr "-E я┤п╦я│п╩п╬  = п·я┌п╬п╠я─п╟п╤п╟я┌я▄ 'я┤п╦я│п╩п╬' п╥п╟п©п╦я│п╣п╧ п©п╬я│п╩п╣п╢п╫п╦я┘ я│я┌я─п╟п╫п╦я├"
 
 #: lang2.h:79
 msgid "-g num    = Group Domains to 'num' levels"
-msgstr "-g число  = Группировать домены уровня 'число'"
+msgstr "-g я┤п╦я│п╩п╬  = п⌠я─я┐п©п©п╦я─п╬п╡п╟я┌я▄ п╢п╬п╪п╣п╫я▀ я┐я─п╬п╡п╫я▐ 'я┤п╦я│п╩п╬'"
 
 #: lang2.h:80
 msgid "-X        = Hide individual sites"
-msgstr "-X        = Скрыть отдельные хосты"
+msgstr "-X        = п║п╨я─я▀я┌я▄ п╬я┌п╢п╣п╩я▄п╫я▀п╣ я┘п╬я│я┌я▀"
 
 #: lang2.h:81
 msgid "-z dir    = Use country flags in 'dir'"
-msgstr "-z dir    = Использовать флаги стран в 'dir'"
+msgstr "-z dir    = п≤я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ я└п╩п╟пЁп╦ я│я┌я─п╟п╫ п╡ 'dir'"
 
 #: lang2.h:83
 msgid "-D name   = Use DNS Cache file 'name'"
-msgstr "-D имя    = Использовать DNS 'имя' кэш-файл"
+msgstr "-D п╦п╪я▐    = п≤я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ DNS 'п╦п╪я▐' п╨я█я┬-я└п╟п╧п╩"
 
 #: lang2.h:84
 msgid "-N num    = Number of DNS processes (0=disable)"
-msgstr "-N число  = Число DNS процессов (0=отключить)"
+msgstr "-N я┤п╦я│п╩п╬  = п╖п╦я│п╩п╬ DNS п©я─п╬я├п╣я│я│п╬п╡ (0=п╬я┌п╨п╩я▌я┤п╦я┌я▄)"
 
 #: lang2.h:85
 msgid "-j        = Enable native GeoDB lookups"
-msgstr "-j        = Использовать поиск по встроенной GeoDB"
+msgstr "-j        = п≤я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ п©п╬п╦я│п╨ п©п╬ п╡я│я┌я─п╬п╣п╫п╫п╬п╧ GeoDB"
 
 #: lang2.h:86
 msgid "-J name   = Use GeoDB database 'name'"
-msgstr "-J имя    = Использовать базу данных GeoDB 'имя'"
+msgstr "-J п╦п╪я▐    = п≤я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ п╠п╟п╥я┐ п╢п╟п╫п╫я▀я┘ GeoDB 'п╦п╪я▐'"
 
 #: lang2.h:89
 msgid "-w        = Enable GeoIP lookups"
-msgstr "-w        = Использовать поиск по GeoIP"
+msgstr "-w        = п≤я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ п©п╬п╦я│п╨ п©п╬ GeoIP"
 
 #: lang2.h:90
 msgid "-W name   = Use GeoIP database 'name'"
-msgstr "-W имя    = Использовать базу данных GeoIP 'имя'"
+msgstr "-W п╦п╪я▐    = п≤я│п©п╬п╩я▄п╥п╬п╡п╟я┌я▄ п╠п╟п╥я┐ п╢п╟п╫п╫я▀я┘ GeoIP 'п╦п╪я▐'"
 
 #: lang2.h:95
 msgid "Feb"
-msgstr "Фев"
+msgstr "п╓п╣п╡"
 
 #: lang2.h:95
 msgid "Jan"
-msgstr "Янв"
+msgstr "п╞п╫п╡"
 
 #: lang2.h:95
 msgid "Mar"
-msgstr "Мар"
+msgstr "п°п╟я─"
 
 #: lang2.h:96
 msgid "Apr"
-msgstr "Апр"
+msgstr "п░п©я─"
 
 #: lang2.h:96
 msgid "Jun"
-msgstr "Июн"
+msgstr "п≤я▌п╫"
 
 #: lang2.h:96
 msgid "short|May"
-msgstr "Май"
+msgstr "п°п╟п╧"
 
 #: lang2.h:97
 msgid "Aug"
-msgstr "Авг"
+msgstr "п░п╡пЁ"
 
 #: lang2.h:97
 msgid "Jul"
-msgstr "Июл"
+msgstr "п≤я▌п╩"
 
 #: lang2.h:97
 msgid "Sep"
-msgstr "Сен"
+msgstr "п║п╣п╫"
 
 #: lang2.h:98
 msgid "Dec"
-msgstr "Дек"
+msgstr "п■п╣п╨"
 
 #: lang2.h:98
 msgid "Nov"
-msgstr "Ноя"
+msgstr "п²п╬я▐"
 
 #: lang2.h:98
 msgid "Oct"
-msgstr "Окт"
+msgstr "п·п╨я┌"
 
 #: lang2.h:101
 msgid "February"
-msgstr "Февраль"
+msgstr "п╓п╣п╡я─п╟п╩я▄"
 
 #: lang2.h:101
 msgid "January"
-msgstr "Январь"
+msgstr "п╞п╫п╡п╟я─я▄"
 
 #: lang2.h:101
 msgid "March"
-msgstr "Март"
+msgstr "п°п╟я─я┌"
 
 #: lang2.h:102
 msgid "April"
-msgstr "Апрель"
+msgstr "п░п©я─п╣п╩я▄"
 
 #: lang2.h:102
 msgid "June"
-msgstr "Июнь"
+msgstr "п≤я▌п╫я▄"
 
 #: lang2.h:102
 msgid "long|May"
-msgstr "Май"
+msgstr "п°п╟п╧"
 
 #: lang2.h:103
 msgid "August"
-msgstr "Август"
+msgstr "п░п╡пЁя┐я│я┌"
 
 #: lang2.h:103
 msgid "July"
-msgstr "Июль"
+msgstr "п≤я▌п╩я▄"
 
 #: lang2.h:103
 msgid "September"
-msgstr "Сентябрь"
+msgstr "п║п╣п╫я┌я▐п╠я─я▄"
 
 #: lang2.h:104
 msgid "December"
-msgstr "Декабрь"
+msgstr "п■п╣п╨п╟п╠я─я▄"
 
 #: lang2.h:104
 msgid "November"
-msgstr "Ноябрь"
+msgstr "п²п╬я▐п╠я─я▄"
 
 #: lang2.h:104
 msgid "October"
-msgstr "Октябрь"
+msgstr "п·п╨я┌я▐п╠я─я▄"
 
 #: lang2.h:108
 msgid "Undefined response code"
-msgstr "Неизвестный код ответа"
+msgstr "п²п╣п╦п╥п╡п╣я│я┌п╫я▀п╧ п╨п╬п╢ п╬я┌п╡п╣я┌п╟"
 
 #: lang2.h:109
 msgid "Code 100 - Continue"
-msgstr "Код 100 - Continue"
+msgstr "п п╬п╢ 100 - Continue"
 
 #: lang2.h:110
 msgid "Code 101 - Switching Protocols"
-msgstr "Код 101 - Switching Protocols"
+msgstr "п п╬п╢ 101 - Switching Protocols"
 
 #: lang2.h:111
 msgid "Code 200 - OK"
-msgstr "Код 200 - OK"
+msgstr "п п╬п╢ 200 - OK"
 
 #: lang2.h:112
 msgid "Code 201 - Created"
-msgstr "Код 201 - Created"
+msgstr "п п╬п╢ 201 - Created"
 
 #: lang2.h:113
 msgid "Code 202 - Accepted"
-msgstr "Код 202 - Accepted"
+msgstr "п п╬п╢ 202 - Accepted"
 
 #: lang2.h:114
 msgid "Code 203 - Non-Authoritative Information"
-msgstr "Код 203 - Non-Authoritative Information"
+msgstr "п п╬п╢ 203 - Non-Authoritative Information"
 
 #: lang2.h:115
 msgid "Code 204 - No Content"
-msgstr "Код 204 - No Content"
+msgstr "п п╬п╢ 204 - No Content"
 
 #: lang2.h:116
 msgid "Code 205 - Reset Content"
-msgstr "Код 205 - Reset Content"
+msgstr "п п╬п╢ 205 - Reset Content"
 
 #: lang2.h:117
 msgid "Code 206 - Partial Content"
-msgstr "Код 206 - Partial Content"
+msgstr "п п╬п╢ 206 - Partial Content"
 
 #: lang2.h:118
 msgid "Code 300 - Multiple Choices"
-msgstr "Код 300 - Multiple Choices"
+msgstr "п п╬п╢ 300 - Multiple Choices"
 
 #: lang2.h:119
 msgid "Code 301 - Moved Permanently"
-msgstr "Код 301 - Moved Permanently"
+msgstr "п п╬п╢ 301 - Moved Permanently"
 
 #: lang2.h:120
 msgid "Code 302 - Found"
-msgstr "Код 302 - Found"
+msgstr "п п╬п╢ 302 - Found"
 
 #: lang2.h:121
 msgid "Code 303 - See Other"
-msgstr "Код 303 - See Other"
+msgstr "п п╬п╢ 303 - See Other"
 
 #: lang2.h:122
 msgid "Code 304 - Not Modified"
-msgstr "Код 304 - Not Modified"
+msgstr "п п╬п╢ 304 - Not Modified"
 
 #: lang2.h:123
 msgid "Code 305 - Use Proxy"
-msgstr "Код 305 - Use Proxy"
+msgstr "п п╬п╢ 305 - Use Proxy"
 
 #: lang2.h:124
 msgid "Code 307 - Moved Temporarily"
-msgstr "Код 307 - Moved Temporarily"
+msgstr "п п╬п╢ 307 - Moved Temporarily"
 
 #: lang2.h:125
 msgid "Code 400 - Bad Request"
-msgstr "Код 400 - Bad Request"
+msgstr "п п╬п╢ 400 - Bad Request"
 
 #: lang2.h:126
 msgid "Code 401 - Unauthorized"
-msgstr "Код 401 - Unauthorized"
+msgstr "п п╬п╢ 401 - Unauthorized"
 
 #: lang2.h:127
 msgid "Code 402 - Payment Required"
-msgstr "Код 402 - Payment Required"
+msgstr "п п╬п╢ 402 - Payment Required"
 
 #: lang2.h:128
 msgid "Code 403 - Forbidden"
-msgstr "Код 403 - Forbidden"
+msgstr "п п╬п╢ 403 - Forbidden"
 
 #: lang2.h:129
 msgid "Code 404 - Not Found"
-msgstr "Код 404 - Not Found"
+msgstr "п п╬п╢ 404 - Not Found"
 
 #: lang2.h:130
 msgid "Code 405 - Method Not Allowed"
-msgstr "Код 405 - Method Not Allowed"
+msgstr "п п╬п╢ 405 - Method Not Allowed"
 
 #: lang2.h:131
 msgid "Code 406 - Not Acceptable"
-msgstr "Код 406 - Not Acceptable"
+msgstr "п п╬п╢ 406 - Not Acceptable"
 
 #: lang2.h:132
 msgid "Code 407 - Proxy Authentication Required"
-msgstr "Код 407 - Proxy Authentication Required"
+msgstr "п п╬п╢ 407 - Proxy Authentication Required"
 
 #: lang2.h:133
 msgid "Code 408 - Request Timeout"
-msgstr "Код 408 - Request Timeout"
+msgstr "п п╬п╢ 408 - Request Timeout"
 
 #: lang2.h:134
 msgid "Code 409 - Conflict"
-msgstr "Код 409 - Conflict"
+msgstr "п п╬п╢ 409 - Conflict"
 
 #: lang2.h:135
 msgid "Code 410 - Gone"
-msgstr "Код 410 - Gone"
+msgstr "п п╬п╢ 410 - Gone"
 
 #: lang2.h:136
 msgid "Code 411 - Length Required"
-msgstr "Код 411 - Length Required"
+msgstr "п п╬п╢ 411 - Length Required"
 
 #: lang2.h:137
 msgid "Code 412 - Precondition Failed"
-msgstr "Код 412 - Precondition Failed"
+msgstr "п п╬п╢ 412 - Precondition Failed"
 
 #: lang2.h:138
 msgid "Code 413 - Request Entity Too Large"
-msgstr "Код 413 - Request Entity Too Large"
+msgstr "п п╬п╢ 413 - Request Entity Too Large"
 
 #: lang2.h:139
 msgid "Code 414 - Request-URI Too Long"
-msgstr "Код 414 - Request-URI Too Long"
+msgstr "п п╬п╢ 414 - Request-URI Too Long"
 
 #: lang2.h:140
 msgid "Code 415 - Unsupported Media Type"
-msgstr "Код 415 - Unsupported Media Type"
+msgstr "п п╬п╢ 415 - Unsupported Media Type"
 
 #: lang2.h:141
 msgid "Code 416 - Requested Range Not Satisfiable"
-msgstr "Код 416 - Requested Range Not Satisfiable"
+msgstr "п п╬п╢ 416 - Requested Range Not Satisfiable"
 
 #: lang2.h:142
 msgid "Code 417 - Expectation Failed"
-msgstr "Код 417 - Expectation Failed"
+msgstr "п п╬п╢ 417 - Expectation Failed"
 
 #: lang2.h:143
 msgid "Code 500 - Internal Server Error"
-msgstr "Код 500 - Internal Server Error"
+msgstr "п п╬п╢ 500 - Internal Server Error"
 
 #: lang2.h:144
 msgid "Code 501 - Not Implemented"
-msgstr "Код 501 - Not Implemented"
+msgstr "п п╬п╢ 501 - Not Implemented"
 
 #: lang2.h:145
 msgid "Code 502 - Bad Gateway"
-msgstr "Код 502 - Bad Gateway"
+msgstr "п п╬п╢ 502 - Bad Gateway"
 
 #: lang2.h:146
 msgid "Code 503 - Service Unavailable"
-msgstr "Код 503 - Service Unavailable"
+msgstr "п п╬п╢ 503 - Service Unavailable"
 
 #: lang2.h:147
 msgid "Code 504 - Gateway Timeout"
-msgstr "Код 504 - Gateway Timeout"
+msgstr "п п╬п╢ 504 - Gateway Timeout"
 
 #: lang2.h:148
 msgid "Code 505 - HTTP Version Not Supported"
-msgstr "Код 505 - HTTP Version Not Supported"
+msgstr "п п╬п╢ 505 - HTTP Version Not Supported"
 
 #: lang2.h:155
 msgid "Unresolved/Unknown"
-msgstr "Нераспознанные/неизвестные"
+msgstr "п²п╣я─п╟я│п©п╬п╥п╫п╟п╫п╫я▀п╣/п╫п╣п╦п╥п╡п╣я│я┌п╫я▀п╣"
 
 #: lang2.h:156
 msgid "Commercial (com)"
-msgstr "Коммерческие (com)"
+msgstr "п п╬п╪п╪п╣я─я┤п╣я│п╨п╦п╣ (com)"
 
 #: lang2.h:157
 msgid "Educational (edu)"
-msgstr "Образовательные (edu)"
+msgstr "п·п╠я─п╟п╥п╬п╡п╟я┌п╣п╩я▄п╫я▀п╣ (edu)"
 
 #: lang2.h:158
 msgid "US Government (gov)"
-msgstr "США правительственные (gov)"
+msgstr "п║п╗п░ п©я─п╟п╡п╦я┌п╣п╩я▄я│я┌п╡п╣п╫п╫я▀п╣ (gov)"
 
 #: lang2.h:159
 msgid "International (int)"
-msgstr "Интернациональные (int)"
+msgstr "п≤п╫я┌п╣я─п╫п╟я├п╦п╬п╫п╟п╩я▄п╫я▀п╣ (int)"
 
 #: lang2.h:160
 msgid "US Military (mil)"
-msgstr "США военные (mil)"
+msgstr "п║п╗п░ п╡п╬п╣п╫п╫я▀п╣ (mil)"
 
 #: lang2.h:161
 msgid "Network (net)"
-msgstr "Сетевые организации (net)"
+msgstr "п║п╣я┌п╣п╡я▀п╣ п╬я─пЁп╟п╫п╦п╥п╟я├п╦п╦ (net)"
 
 #: lang2.h:162
 msgid "Non-Profit (org)"
-msgstr "Некоммерческие организации (org)"
+msgstr "п²п╣п╨п╬п╪п╪п╣я─я┤п╣я│п╨п╦п╣ п╬я─пЁп╟п╫п╦п╥п╟я├п╦п╦ (org)"
 
 #: lang2.h:163
 msgid "Generic Business (biz)"
-msgstr "Бизнес (biz)"
+msgstr "п▒п╦п╥п╫п╣я│ (biz)"
 
 #: lang2.h:164
 msgid "Catalan Community (cat)"
-msgstr "Каталанский (cat)"
+msgstr "п п╟я┌п╟п╩п╟п╫я│п╨п╦п╧ (cat)"
 
 #: lang2.h:165
 msgid "Professional (pro)"
-msgstr "Профессионалы (pro)"
+msgstr "п÷я─п╬я└п╣я│я│п╦п╬п╫п╟п╩я▀ (pro)"
 
 #: lang2.h:166
 msgid "Ind. Contact Data (tel)"
-msgstr "Контактная информация (tel)"
+msgstr "п п╬п╫я┌п╟п╨я┌п╫п╟я▐ п╦п╫я└п╬я─п╪п╟я├п╦я▐ (tel)"
 
 #: lang2.h:167
 msgid "Air Transport Industry (aero)"
-msgstr "Авиатранспортные компании (aero)"
+msgstr "п░п╡п╦п╟я┌я─п╟п╫я│п©п╬я─я┌п╫я▀п╣ п╨п╬п╪п©п╟п╫п╦п╦ (aero)"
 
 #: lang2.h:168
 msgid "Asia Pacific Community (asia)"
-msgstr "Азиатско-Тихоокеанский регион"
+msgstr "п░п╥п╦п╟я┌я│п╨п╬-п╒п╦я┘п╬п╬п╨п╣п╟п╫я│п╨п╦п╧ я─п╣пЁп╦п╬п╫"
 
 #: lang2.h:169
 msgid "Cooperative Association (coop)"
-msgstr "Кооперативы (coop)"
+msgstr "п п╬п╬п©п╣я─п╟я┌п╦п╡я▀ (coop)"
 
 #: lang2.h:170
 msgid "Generic TLD (info)"
-msgstr "Информация (info)"
+msgstr "п≤п╫я└п╬я─п╪п╟я├п╦я▐ (info)"
 
 #: lang2.h:171
 msgid "Human Resources (jobs)"
-msgstr "Работа (jobs)"
+msgstr "п═п╟п╠п╬я┌п╟ (jobs)"
 
 #: lang2.h:172
 msgid "Generic Mobile TLD (mobi)"
-msgstr "Мобильные сайты (mobi)"
+msgstr "п°п╬п╠п╦п╩я▄п╫я▀п╣ я│п╟п╧я┌я▀ (mobi)"
 
 #: lang2.h:173
 msgid "Individual (name)"
-msgstr "Персональные домены (name)"
+msgstr "п÷п╣я─я│п╬п╫п╟п╩я▄п╫я▀п╣ п╢п╬п╪п╣п╫я▀ (name)"
 
 #: lang2.h:174
 msgid "Address Routing (arpa)"
-msgstr "Старый Arpanet (arpa)"
+msgstr "п║я┌п╟я─я▀п╧ Arpanet (arpa)"
 
 #: lang2.h:175
 msgid "Nato field (nato)"
-msgstr "НАТО (nato)"
+msgstr "п²п░п╒п· (nato)"
 
 #: lang2.h:176
 msgid "Museums (museum)"
-msgstr "Музеи (museum)"
+msgstr "п°я┐п╥п╣п╦ (museum)"
 
 #: lang2.h:177
 msgid "Travel Ind. (travel)"
-msgstr "Путешествия (travel)"
+msgstr "п÷я┐я┌п╣я┬п╣я│я┌п╡п╦я▐ (travel)"
 
 #: lang2.h:178
 msgid "Ascension Island"
-msgstr "Острова Вознесения (Британия)"
+msgstr "п·я│я┌я─п╬п╡п╟ п▓п╬п╥п╫п╣я│п╣п╫п╦я▐ (п▒я─п╦я┌п╟п╫п╦я▐)"
 
 #: lang2.h:179
 msgid "Andorra"
-msgstr "Андорра"
+msgstr "п░п╫п╢п╬я─я─п╟"
 
 #: lang2.h:180
 msgid "United Arab Emirates"
-msgstr "Объединённые Арабские Эмираты"
+msgstr "п·п╠я┼п╣п╢п╦п╫я▒п╫п╫я▀п╣ п░я─п╟п╠я│п╨п╦п╣ п╜п╪п╦я─п╟я┌я▀"
 
 #: lang2.h:181
 msgid "Afghanistan"
-msgstr "Афганистан"
+msgstr "п░я└пЁп╟п╫п╦я│я┌п╟п╫"
 
 #: lang2.h:182
 msgid "Antigua and Barbuda"
-msgstr "Антигуа и Барбуда"
+msgstr "п░п╫я┌п╦пЁя┐п╟ п╦ п▒п╟я─п╠я┐п╢п╟"
 
 #: lang2.h:183
 msgid "Anguilla"
-msgstr "Ангуилла"
+msgstr "п░п╫пЁя┐п╦п╩п╩п╟"
 
 #: lang2.h:184
 msgid "Albania"
-msgstr "Албания"
+msgstr "п░п╩п╠п╟п╫п╦я▐"
 
 #: lang2.h:185
 msgid "Armenia"
-msgstr "Армения"
+msgstr "п░я─п╪п╣п╫п╦я▐"
 
 #: lang2.h:186
 msgid "Netherlands Antilles"
-msgstr "Нидерландские Антиллы"
+msgstr "п²п╦п╢п╣я─п╩п╟п╫п╢я│п╨п╦п╣ п░п╫я┌п╦п╩п╩я▀"
 
 #: lang2.h:187
 msgid "Angola"
-msgstr "Ангола"
+msgstr "п░п╫пЁп╬п╩п╟"
 
 #: lang2.h:188
 msgid "Antarctica"
-msgstr "Антарктида"
+msgstr "п░п╫я┌п╟я─п╨я┌п╦п╢п╟"
 
 #: lang2.h:189
 msgid "Argentina"
-msgstr "Аргентина"
+msgstr "п░я─пЁп╣п╫я┌п╦п╫п╟"
 
 #: lang2.h:190
 msgid "American Samoa"
-msgstr "Американское Самоа"
+msgstr "п░п╪п╣я─п╦п╨п╟п╫я│п╨п╬п╣ п║п╟п╪п╬п╟"
 
 #: lang2.h:191
 msgid "Austria"
-msgstr "Австрия"
+msgstr "п░п╡я│я┌я─п╦я▐"
 
 #: lang2.h:192
 msgid "Australia"
-msgstr "Австралия"
+msgstr "п░п╡я│я┌я─п╟п╩п╦я▐"
 
 #: lang2.h:193
 msgid "Aruba"
-msgstr "Аруба"
+msgstr "п░я─я┐п╠п╟"
 
 #: lang2.h:194
 msgid "Aland Islands"
-msgstr "Аландские острова (Финляндия)"
+msgstr "п░п╩п╟п╫п╢я│п╨п╦п╣ п╬я│я┌я─п╬п╡п╟ (п╓п╦п╫п╩я▐п╫п╢п╦я▐)"
 
 #: lang2.h:195
 msgid "Azerbaijan"
-msgstr "Азербайджан"
+msgstr "п░п╥п╣я─п╠п╟п╧п╢п╤п╟п╫"
 
 #: lang2.h:196
 msgid "Bosnia and Herzegovina"
-msgstr "Босния и Герцеговина"
+msgstr "п▒п╬я│п╫п╦я▐ п╦ п⌠п╣я─я├п╣пЁп╬п╡п╦п╫п╟"
 
 #: lang2.h:197
 msgid "Barbados"
-msgstr "Барбадос"
+msgstr "п▒п╟я─п╠п╟п╢п╬я│"
 
 #: lang2.h:198
 msgid "Bangladesh"
-msgstr "Бангладеш"
+msgstr "п▒п╟п╫пЁп╩п╟п╢п╣я┬"
 
 #: lang2.h:199
 msgid "Belgium"
-msgstr "Бельгия"
+msgstr "п▒п╣п╩я▄пЁп╦я▐"
 
 #: lang2.h:200
 msgid "Burkina Faso"
-msgstr "Буркина Фасо"
+msgstr "п▒я┐я─п╨п╦п╫п╟ п╓п╟я│п╬"
 
 #: lang2.h:201
 msgid "Bulgaria"
-msgstr "Болгария"
+msgstr "п▒п╬п╩пЁп╟я─п╦я▐"
 
 #: lang2.h:202
 msgid "Bahrain"
-msgstr "Бахрейн"
+msgstr "п▒п╟я┘я─п╣п╧п╫"
 
 #: lang2.h:203
 msgid "Burundi"
-msgstr "Бурунди"
+msgstr "п▒я┐я─я┐п╫п╢п╦"
 
 #: lang2.h:204
 msgid "Benin"
-msgstr "Бенин"
+msgstr "п▒п╣п╫п╦п╫"
 
 #: lang2.h:205
 msgid "Saint Barthelemy"
-msgstr "Сен-Бартелеми (Франция, неисп.)"
+msgstr "п║п╣п╫-п▒п╟я─я┌п╣п╩п╣п╪п╦ (п╓я─п╟п╫я├п╦я▐, п╫п╣п╦я│п©.)"
 
 #: lang2.h:206
 msgid "Bermuda"
-msgstr "Бермудские острова"
+msgstr "п▒п╣я─п╪я┐п╢я│п╨п╦п╣ п╬я│я┌я─п╬п╡п╟"
 
 #: lang2.h:207
 msgid "Brunei Darussalam"
-msgstr "Бруней Даруссалам"
+msgstr "п▒я─я┐п╫п╣п╧ п■п╟я─я┐я│я│п╟п╩п╟п╪"
 
 #: lang2.h:208
 msgid "Bolivia"
-msgstr "Боливия"
+msgstr "п▒п╬п╩п╦п╡п╦я▐"
 
 #: lang2.h:209
 msgid "Brazil"
-msgstr "Бразилия"
+msgstr "п▒я─п╟п╥п╦п╩п╦я▐"
 
 #: lang2.h:210
 msgid "Bahamas"
-msgstr "Багамы"
+msgstr "п▒п╟пЁп╟п╪я▀"
 
 #: lang2.h:211
 msgid "Bhutan"
-msgstr "Бутан"
+msgstr "п▒я┐я┌п╟п╫"
 
 #: lang2.h:212
 msgid "Bouvet Island"
-msgstr "Остров Бувет"
+msgstr "п·я│я┌я─п╬п╡ п▒я┐п╡п╣я┌"
 
 #: lang2.h:213
 msgid "Botswana"
-msgstr "Ботсвана"
+msgstr "п▒п╬я┌я│п╡п╟п╫п╟"
 
 #: lang2.h:214
 msgid "Belarus"
-msgstr "Беларусь"
+msgstr "п▒п╣п╩п╟я─я┐я│я▄"
 
 #: lang2.h:215
 msgid "Belize"
-msgstr "Белиз"
+msgstr "п▒п╣п╩п╦п╥"
 
 #: lang2.h:216
 msgid "Canada"
-msgstr "Канада"
+msgstr "п п╟п╫п╟п╢п╟"
 
 #: lang2.h:217
 msgid "Cocos (Keeling) Islands"
-msgstr "Кокосовые Острова"
+msgstr "п п╬п╨п╬я│п╬п╡я▀п╣ п·я│я┌я─п╬п╡п╟"
 
 #: lang2.h:218
 msgid "Congo, Democratic Republic"
-msgstr "Конго (ДРК)"
+msgstr "п п╬п╫пЁп╬ (п■п═п )"
 
 #: lang2.h:219
 msgid "Central African Republic"
-msgstr "Центральноафриканская республика"
+msgstr "п╕п╣п╫я┌я─п╟п╩я▄п╫п╬п╟я└я─п╦п╨п╟п╫я│п╨п╟я▐ я─п╣я│п©я┐п╠п╩п╦п╨п╟"
 
 #: lang2.h:220
 msgid "Congo"
-msgstr "Конго"
+msgstr "п п╬п╫пЁп╬"
 
 #: lang2.h:221
 msgid "Switzerland"
-msgstr "Швейцария"
+msgstr "п╗п╡п╣п╧я├п╟я─п╦я▐"
 
 #: lang2.h:222
 msgid "Cote D'Ivoire (Ivory Coast)"
-msgstr "Побережье Ивори"
+msgstr "п÷п╬п╠п╣я─п╣п╤я▄п╣ п≤п╡п╬я─п╦"
 
 #: lang2.h:223
 msgid "Cook Islands"
-msgstr "Острова Кука"
+msgstr "п·я│я┌я─п╬п╡п╟ п я┐п╨п╟"
 
 #: lang2.h:224
 msgid "Chile"
-msgstr "Чили"
+msgstr "п╖п╦п╩п╦"
 
 #: lang2.h:225
 msgid "Cameroon"
-msgstr "Камерун"
+msgstr "п п╟п╪п╣я─я┐п╫"
 
 #: lang2.h:226
 msgid "China"
-msgstr "Китай"
+msgstr "п п╦я┌п╟п╧"
 
 #: lang2.h:227
 msgid "Colombia"
-msgstr "Колумбия"
+msgstr "п п╬п╩я┐п╪п╠п╦я▐"
 
 #: lang2.h:228
 msgid "Costa Rica"
-msgstr "Коста-Рика"
+msgstr "п п╬я│я┌п╟-п═п╦п╨п╟"
 
 #: lang2.h:229
 msgid "Cuba"
-msgstr "Куба"
+msgstr "п я┐п╠п╟"
 
 #: lang2.h:230
 msgid "Cape Verde"
-msgstr "Капе-Верде"
+msgstr "п п╟п©п╣-п▓п╣я─п╢п╣"
 
 #: lang2.h:231
 msgid "Christmas Island"
-msgstr "Остров Рождества"
+msgstr "п·я│я┌я─п╬п╡ п═п╬п╤п╢п╣я│я┌п╡п╟"
 
 #: lang2.h:232
 msgid "Cyprus"
-msgstr "Кипр"
+msgstr "п п╦п©я─"
 
 #: lang2.h:233
 msgid "Czech Republic"
-msgstr "Чехия"
+msgstr "п╖п╣я┘п╦я▐"
 
 #: lang2.h:234
 msgid "Germany"
-msgstr "Германия"
+msgstr "п⌠п╣я─п╪п╟п╫п╦я▐"
 
 #: lang2.h:235
 msgid "Djibouti"
-msgstr "Джибути"
+msgstr "п■п╤п╦п╠я┐я┌п╦"
 
 #: lang2.h:236
 msgid "Denmark"
-msgstr "Дания"
+msgstr "п■п╟п╫п╦я▐"
 
 #: lang2.h:237
 msgid "Dominica"
-msgstr "Доминика"
+msgstr "п■п╬п╪п╦п╫п╦п╨п╟"
 
 #: lang2.h:238
 msgid "Dominican Republic"
-msgstr "Доминиканская Республика"
+msgstr "п■п╬п╪п╦п╫п╦п╨п╟п╫я│п╨п╟я▐ п═п╣я│п©я┐п╠п╩п╦п╨п╟"
 
 #: lang2.h:239
 msgid "Algeria"
-msgstr "Алжир"
+msgstr "п░п╩п╤п╦я─"
 
 #: lang2.h:240
 msgid "Ecuador"
-msgstr "Эквадор"
+msgstr "п╜п╨п╡п╟п╢п╬я─"
 
 #: lang2.h:241
 msgid "Estonia"
-msgstr "Эстония"
+msgstr "п╜я│я┌п╬п╫п╦я▐"
 
 #: lang2.h:242
 msgid "Egypt"
-msgstr "Египет"
+msgstr "п∙пЁп╦п©п╣я┌"
 
 #: lang2.h:243
 msgid "Western Sahara"
-msgstr "Западная Сахара"
+msgstr "п≈п╟п©п╟п╢п╫п╟я▐ п║п╟я┘п╟я─п╟"
 
 #: lang2.h:244
 msgid "Eritrea"
-msgstr "Эритрея"
+msgstr "п╜я─п╦я┌я─п╣я▐"
 
 #: lang2.h:245
 msgid "Spain"
-msgstr "Испания"
+msgstr "п≤я│п©п╟п╫п╦я▐"
 
 #: lang2.h:246
 msgid "Ethiopia"
-msgstr "Эфиопия"
+msgstr "п╜я└п╦п╬п©п╦я▐"
 
 #: lang2.h:247
 msgid "European Union"
-msgstr "Европейский союз"
+msgstr "п∙п╡я─п╬п©п╣п╧я│п╨п╦п╧ я│п╬я▌п╥"
 
 #: lang2.h:248
 msgid "Finland"
-msgstr "Финляндия"
+msgstr "п╓п╦п╫п╩я▐п╫п╢п╦я▐"
 
 #: lang2.h:249
 msgid "Fiji"
-msgstr "Фиджи"
+msgstr "п╓п╦п╢п╤п╦"
 
 #: lang2.h:250
 msgid "Falkland Islands (Malvinas)"
-msgstr "Фолклендские (Мальвинские) о-ва"
+msgstr "п╓п╬п╩п╨п╩п╣п╫п╢я│п╨п╦п╣ (п°п╟п╩я▄п╡п╦п╫я│п╨п╦п╣) п╬-п╡п╟"
 
 #: lang2.h:251
 msgid "Micronesia"
-msgstr "Микронезия"
+msgstr "п°п╦п╨я─п╬п╫п╣п╥п╦я▐"
 
 #: lang2.h:252
 msgid "Faroe Islands"
-msgstr "Фарерские Острова"
+msgstr "п╓п╟я─п╣я─я│п╨п╦п╣ п·я│я┌я─п╬п╡п╟"
 
 #: lang2.h:253
 msgid "France"
-msgstr "Франция"
+msgstr "п╓я─п╟п╫я├п╦я▐"
 
 #: lang2.h:254
 msgid "Gabon"
-msgstr "Габон"
+msgstr "п⌠п╟п╠п╬п╫"
 
 #: lang2.h:255
 msgid "Great Britain (UK)"
-msgstr "Великобритания (UK)"
+msgstr "п▓п╣п╩п╦п╨п╬п╠я─п╦я┌п╟п╫п╦я▐ (UK)"
 
 #: lang2.h:256
 msgid "Grenada"
-msgstr "Гренада"
+msgstr "п⌠я─п╣п╫п╟п╢п╟"
 
 #: lang2.h:257
 msgid "Georgia"
-msgstr "Грузия"
+msgstr "п⌠я─я┐п╥п╦я▐"
 
 #: lang2.h:258
 msgid "French Guiana"
-msgstr "Французская Гвиана"
+msgstr "п╓я─п╟п╫я├я┐п╥я│п╨п╟я▐ п⌠п╡п╦п╟п╫п╟"
 
 #: lang2.h:259
 msgid "Guernsey"
-msgstr "Гернси (Британия)"
+msgstr "п⌠п╣я─п╫я│п╦ (п▒я─п╦я┌п╟п╫п╦я▐)"
 
 #: lang2.h:260
 msgid "Ghana"
-msgstr "Гана"
+msgstr "п⌠п╟п╫п╟"
 
 #: lang2.h:261
 msgid "Gibraltar"
-msgstr "Гибралтар"
+msgstr "п⌠п╦п╠я─п╟п╩я┌п╟я─"
 
 #: lang2.h:262
 msgid "Greenland"
-msgstr "Гренландия"
+msgstr "п⌠я─п╣п╫п╩п╟п╫п╢п╦я▐"
 
 #: lang2.h:263
 msgid "Gambia"
-msgstr "Гамбия"
+msgstr "п⌠п╟п╪п╠п╦я▐"
 
 #: lang2.h:264
 msgid "Guinea"
-msgstr "Гвинея"
+msgstr "п⌠п╡п╦п╫п╣я▐"
 
 #: lang2.h:265
 msgid "Guadeloupe"
-msgstr "Гваделупа"
+msgstr "п⌠п╡п╟п╢п╣п╩я┐п©п╟"
 
 #: lang2.h:266
 msgid "Equatorial Guinea"
-msgstr "Экваториальная Гвинея"
+msgstr "п╜п╨п╡п╟я┌п╬я─п╦п╟п╩я▄п╫п╟я▐ п⌠п╡п╦п╫п╣я▐"
 
 #: lang2.h:267
 msgid "Greece"
-msgstr "Греция"
+msgstr "п⌠я─п╣я├п╦я▐"
 
 #: lang2.h:268
 msgid "S. Georgia and S. Sandwich Isls."
-msgstr "Южн. Георгия и Сандвичевы о-ва"
+msgstr "п╝п╤п╫. п⌠п╣п╬я─пЁп╦я▐ п╦ п║п╟п╫п╢п╡п╦я┤п╣п╡я▀ п╬-п╡п╟"
 
 #: lang2.h:269
 msgid "Guatemala"
-msgstr "Гватемала"
+msgstr "п⌠п╡п╟я┌п╣п╪п╟п╩п╟"
 
 #: lang2.h:270
 msgid "Guam"
-msgstr "Гуам"
+msgstr "п⌠я┐п╟п╪"
 
 #: lang2.h:271
 msgid "Guinea-Bissau"
-msgstr "Гвинея-Бисау"
+msgstr "п⌠п╡п╦п╫п╣я▐-п▒п╦я│п╟я┐"
 
 #: lang2.h:272
 msgid "Guyana"
-msgstr "Гайана"
+msgstr "п⌠п╟п╧п╟п╫п╟"
 
 #: lang2.h:273
 msgid "Hong Kong"
-msgstr "Гонконг"
+msgstr "п⌠п╬п╫п╨п╬п╫пЁ"
 
 #: lang2.h:274
 msgid "Heard and McDonald Islands"
-msgstr "Острова Херда и Макдональда"
+msgstr "п·я│я┌я─п╬п╡п╟ п╔п╣я─п╢п╟ п╦ п°п╟п╨п╢п╬п╫п╟п╩я▄п╢п╟"
 
 #: lang2.h:275
 msgid "Honduras"
-msgstr "Гондурас"
+msgstr "п⌠п╬п╫п╢я┐я─п╟я│"
 
 #: lang2.h:276
 msgid "Croatia"
-msgstr "Хорватия"
+msgstr "п╔п╬я─п╡п╟я┌п╦я▐"
 
 #: lang2.h:277
 msgid "Haiti"
-msgstr "Гаити"
+msgstr "п⌠п╟п╦я┌п╦"
 
 #: lang2.h:278
 msgid "Hungary"
-msgstr "Венгрия"
+msgstr "п▓п╣п╫пЁя─п╦я▐"
 
 #: lang2.h:279
 msgid "Indonesia"
-msgstr "Индонезия"
+msgstr "п≤п╫п╢п╬п╫п╣п╥п╦я▐"
 
 #: lang2.h:280
 msgid "Ireland"
-msgstr "Ирландия"
+msgstr "п≤я─п╩п╟п╫п╢п╦я▐"
 
 #: lang2.h:281
 msgid "Israel"
-msgstr "Израиль"
+msgstr "п≤п╥я─п╟п╦п╩я▄"
 
 #: lang2.h:282
 msgid "Isle of Man"
-msgstr "Остров Мэн"
+msgstr "п·я│я┌я─п╬п╡ п°я█п╫"
 
 #: lang2.h:283
 msgid "India"
-msgstr "Индия"
+msgstr "п≤п╫п╢п╦я▐"
 
 #: lang2.h:284
 msgid "British Indian Ocean Territory"
-msgstr "Британская терр. в Индийск. океане"
+msgstr "п▒я─п╦я┌п╟п╫я│п╨п╟я▐ я┌п╣я─я─. п╡ п≤п╫п╢п╦п╧я│п╨. п╬п╨п╣п╟п╫п╣"
 
 #: lang2.h:285
 msgid "Iraq"
-msgstr "Ирак"
+msgstr "п≤я─п╟п╨"
 
 #: lang2.h:286
 msgid "Iran"
-msgstr "Иран"
+msgstr "п≤я─п╟п╫"
 
 #: lang2.h:287
 msgid "Iceland"
-msgstr "Исландия"
+msgstr "п≤я│п╩п╟п╫п╢п╦я▐"
 
 #: lang2.h:288
 msgid "Italy"
-msgstr "Италия"
+msgstr "п≤я┌п╟п╩п╦я▐"
 
 #: lang2.h:289
 msgid "Jersey"
-msgstr "Джерси (Британия)"
+msgstr "п■п╤п╣я─я│п╦ (п▒я─п╦я┌п╟п╫п╦я▐)"
 
 #: lang2.h:290
 msgid "Jamaica"
-msgstr "Ямайка"
+msgstr "п╞п╪п╟п╧п╨п╟"
 
 #: lang2.h:291
 msgid "Jordan"
-msgstr "Иордания"
+msgstr "п≤п╬я─п╢п╟п╫п╦я▐"
 
 #: lang2.h:292
 msgid "Japan"
-msgstr "Япония"
+msgstr "п╞п©п╬п╫п╦я▐"
 
 #: lang2.h:293
 msgid "Kenya"
-msgstr "Кения"
+msgstr "п п╣п╫п╦я▐"
 
 #: lang2.h:294
 msgid "Kyrgyzstan"
-msgstr "Кыргызстан"
+msgstr "п я▀я─пЁя▀п╥я│я┌п╟п╫"
 
 #: lang2.h:295
 msgid "Cambodia"
-msgstr "Камбоджа"
+msgstr "п п╟п╪п╠п╬п╢п╤п╟"
 
 #: lang2.h:296
 msgid "Kiribati"
-msgstr "Кирибати"
+msgstr "п п╦я─п╦п╠п╟я┌п╦"
 
 #: lang2.h:297
 msgid "Comoros"
-msgstr "Каморские острова"
+msgstr "п п╟п╪п╬я─я│п╨п╦п╣ п╬я│я┌я─п╬п╡п╟"
 
 #: lang2.h:298
 msgid "Saint Kitts and Nevis"
-msgstr "Острова святого Китса и Невиса"
+msgstr "п·я│я┌я─п╬п╡п╟ я│п╡я▐я┌п╬пЁп╬ п п╦я┌я│п╟ п╦ п²п╣п╡п╦я│п╟"
 
 #: lang2.h:299
 msgid "Korea, Democratic Republic of"
-msgstr "Северная Корея"
+msgstr "п║п╣п╡п╣я─п╫п╟я▐ п п╬я─п╣я▐"
 
 #: lang2.h:300
 msgid "Korea, Republic of"
-msgstr "Южная Корея"
+msgstr "п╝п╤п╫п╟я▐ п п╬я─п╣я▐"
 
 #: lang2.h:301
 msgid "Kuwait"
-msgstr "Кувейт"
+msgstr "п я┐п╡п╣п╧я┌"
 
 #: lang2.h:302
 msgid "Cayman Islands"
-msgstr "Каймановы острова"
+msgstr "п п╟п╧п╪п╟п╫п╬п╡я▀ п╬я│я┌я─п╬п╡п╟"
 
 #: lang2.h:303
 msgid "Kazakhstan"
-msgstr "Казахстан"
+msgstr "п п╟п╥п╟я┘я│я┌п╟п╫"
 
 #: lang2.h:304
 msgid "Laos"
-msgstr "Лаос"
+msgstr "п⌡п╟п╬я│"
 
 #: lang2.h:305
 msgid "Lebanon"
-msgstr "Ливан"
+msgstr "п⌡п╦п╡п╟п╫"
 
 #: lang2.h:306
 msgid "Saint Lucia"
-msgstr "Санта Лючия"
+msgstr "п║п╟п╫я┌п╟ п⌡я▌я┤п╦я▐"
 
 #: lang2.h:307
 msgid "Liechtenstein"
-msgstr "Лихтенштейн"
+msgstr "п⌡п╦я┘я┌п╣п╫я┬я┌п╣п╧п╫"
 
 #: lang2.h:308
 msgid "Sri Lanka"
-msgstr "Шри Ланка"
+msgstr "п╗я─п╦ п⌡п╟п╫п╨п╟"
 
 #: lang2.h:309
 msgid "Liberia"
-msgstr "Либерия"
+msgstr "п⌡п╦п╠п╣я─п╦я▐"
 
 #: lang2.h:310
 msgid "Lesotho"
-msgstr "Лесото"
+msgstr "п⌡п╣я│п╬я┌п╬"
 
 #: lang2.h:311
 msgid "Lithuania"
-msgstr "Литва"
+msgstr "п⌡п╦я┌п╡п╟"
 
 #: lang2.h:312
 msgid "Luxembourg"
-msgstr "Люксембург"
+msgstr "п⌡я▌п╨я│п╣п╪п╠я┐я─пЁ"
 
 #: lang2.h:313
 msgid "Latvia"
-msgstr "Латвия"
+msgstr "п⌡п╟я┌п╡п╦я▐"
 
 #: lang2.h:314
 msgid "Libya"
-msgstr "Ливия"
+msgstr "п⌡п╦п╡п╦я▐"
 
 #: lang2.h:315
 msgid "Morocco"
-msgstr "Марокко"
+msgstr "п°п╟я─п╬п╨п╨п╬"
 
 #: lang2.h:316
 msgid "Monaco"
-msgstr "Монако"
+msgstr "п°п╬п╫п╟п╨п╬"
 
 #: lang2.h:317
 msgid "Moldova"
-msgstr "Молдавия"
+msgstr "п°п╬п╩п╢п╟п╡п╦я▐"
 
 #: lang2.h:318
 msgid "Montenegro"
-msgstr "Черногория"
+msgstr "п╖п╣я─п╫п╬пЁп╬я─п╦я▐"
 
 #: lang2.h:319
 msgid "Saint Martin (French part)"
-msgstr "Сен-Мартен (Франция)"
+msgstr "п║п╣п╫-п°п╟я─я┌п╣п╫ (п╓я─п╟п╫я├п╦я▐)"
 
 #: lang2.h:320
 msgid "Madagascar"
-msgstr "Мадагаскар"
+msgstr "п°п╟п╢п╟пЁп╟я│п╨п╟я─"
 
 #: lang2.h:321
 msgid "Marshall Islands"
-msgstr "Маршалловы острова"
+msgstr "п°п╟я─я┬п╟п╩п╩п╬п╡я▀ п╬я│я┌я─п╬п╡п╟"
 
 #: lang2.h:322
 msgid "Macedonia"
-msgstr "Македония"
+msgstr "п°п╟п╨п╣п╢п╬п╫п╦я▐"
 
 #: lang2.h:323
 msgid "Mali"
-msgstr "Мали"
+msgstr "п°п╟п╩п╦"
 
 #: lang2.h:324
 msgid "Myanmar"
-msgstr "Мьянма"
+msgstr "п°я▄я▐п╫п╪п╟"
 
 #: lang2.h:325
 msgid "Mongolia"
-msgstr "Монголия"
+msgstr "п°п╬п╫пЁп╬п╩п╦я▐"
 
 #: lang2.h:326
 msgid "Macau"
-msgstr "Маккау"
+msgstr "п°п╟п╨п╨п╟я┐"
 
 #: lang2.h:327
 msgid "Northern Mariana Islands"
-msgstr "Северные Марианские острова"
+msgstr "п║п╣п╡п╣я─п╫я▀п╣ п°п╟я─п╦п╟п╫я│п╨п╦п╣ п╬я│я┌я─п╬п╡п╟"
 
 #: lang2.h:328
 msgid "Martinique"
-msgstr "Мартиника"
+msgstr "п°п╟я─я┌п╦п╫п╦п╨п╟"
 
 #: lang2.h:329
 msgid "Mauritania"
-msgstr "Мавритания"
+msgstr "п°п╟п╡я─п╦я┌п╟п╫п╦я▐"
 
 #: lang2.h:330
 msgid "Montserrat"
-msgstr "Монсеррат"
+msgstr "п°п╬п╫я│п╣я─я─п╟я┌"
 
 #: lang2.h:331
 msgid "Malta"
-msgstr "Мальта"
+msgstr "п°п╟п╩я▄я┌п╟"
 
 #: lang2.h:332
 msgid "Mauritius"
-msgstr "Мавритания"
+msgstr "п°п╟п╡я─п╦я┌п╟п╫п╦я▐"
 
 #: lang2.h:333
 msgid "Maldives"
-msgstr "Мальдивская республика"
+msgstr "п°п╟п╩я▄п╢п╦п╡я│п╨п╟я▐ я─п╣я│п©я┐п╠п╩п╦п╨п╟"
 
 #: lang2.h:334
 msgid "Malawi"
-msgstr "Малави"
+msgstr "п°п╟п╩п╟п╡п╦"
 
 #: lang2.h:335
 msgid "Mexico"
-msgstr "Мексика"
+msgstr "п°п╣п╨я│п╦п╨п╟"
 
 #: lang2.h:336
 msgid "Malaysia"
-msgstr "Малайзия"
+msgstr "п°п╟п╩п╟п╧п╥п╦я▐"
 
 #: lang2.h:337
 msgid "Mozambique"
-msgstr "Мозамбик"
+msgstr "п°п╬п╥п╟п╪п╠п╦п╨"
 
 #: lang2.h:338
 msgid "Namibia"
-msgstr "Намибия"
+msgstr "п²п╟п╪п╦п╠п╦я▐"
 
 #: lang2.h:339
 msgid "New Caledonia"
-msgstr "Новая Каледония"
+msgstr "п²п╬п╡п╟я▐ п п╟п╩п╣п╢п╬п╫п╦я▐"
 
 #: lang2.h:340
 msgid "Niger"
-msgstr "Нигер"
+msgstr "п²п╦пЁп╣я─"
 
 #: lang2.h:341
 msgid "Norfolk Island"
-msgstr "Остров Норфолк"
+msgstr "п·я│я┌я─п╬п╡ п²п╬я─я└п╬п╩п╨"
 
 #: lang2.h:342
 msgid "Nigeria"
-msgstr "Нигерия"
+msgstr "п²п╦пЁп╣я─п╦я▐"
 
 #: lang2.h:343
 msgid "Nicaragua"
-msgstr "Никарагуа"
+msgstr "п²п╦п╨п╟я─п╟пЁя┐п╟"
 
 #: lang2.h:344
 msgid "Netherlands"
-msgstr "Нидерланды"
+msgstr "п²п╦п╢п╣я─п╩п╟п╫п╢я▀"
 
 #: lang2.h:345
 msgid "Norway"
-msgstr "Норвегия"
+msgstr "п²п╬я─п╡п╣пЁп╦я▐"
 
 #: lang2.h:346
 msgid "Nepal"
-msgstr "Непал"
+msgstr "п²п╣п©п╟п╩"
 
 #: lang2.h:347
 msgid "Nauru"
-msgstr "Науру"
+msgstr "п²п╟я┐я─я┐"
 
 #: lang2.h:348
 msgid "Niue"
-msgstr "Ниуэ"
+msgstr "п²п╦я┐я█"
 
 #: lang2.h:349
 msgid "New Zealand"
-msgstr "Новая Зеландия"
+msgstr "п²п╬п╡п╟я▐ п≈п╣п╩п╟п╫п╢п╦я▐"
 
 #: lang2.h:350
 msgid "Oman"
-msgstr "Оман"
+msgstr "п·п╪п╟п╫"
 
 #: lang2.h:351
 msgid "Panama"
-msgstr "Панама"
+msgstr "п÷п╟п╫п╟п╪п╟"
 
 #: lang2.h:352
 msgid "Peru"
-msgstr "Перу"
+msgstr "п÷п╣я─я┐"
 
 #: lang2.h:353
 msgid "French Polynesia"
-msgstr "Французская Полинезия"
+msgstr "п╓я─п╟п╫я├я┐п╥я│п╨п╟я▐ п÷п╬п╩п╦п╫п╣п╥п╦я▐"
 
 #: lang2.h:354
 msgid "Papua New Guinea"
-msgstr "Папуа Новая Гвинея"
+msgstr "п÷п╟п©я┐п╟ п²п╬п╡п╟я▐ п⌠п╡п╦п╫п╣я▐"
 
 #: lang2.h:355
 msgid "Philippines"
-msgstr "Филиппины"
+msgstr "п╓п╦п╩п╦п©п©п╦п╫я▀"
 
 #: lang2.h:356
 msgid "Pakistan"
-msgstr "Пакистан"
+msgstr "п÷п╟п╨п╦я│я┌п╟п╫"
 
 #: lang2.h:357
 msgid "Poland"
-msgstr "Польша"
+msgstr "п÷п╬п╩я▄я┬п╟"
 
 #: lang2.h:358
 msgid "St. Pierre and Miquelon"
-msgstr "Остров святого Пьера и Мигеля"
+msgstr "п·я│я┌я─п╬п╡ я│п╡я▐я┌п╬пЁп╬ п÷я▄п╣я─п╟ п╦ п°п╦пЁп╣п╩я▐"
 
 #: lang2.h:359
 msgid "Pitcairn"
-msgstr "Острова Питкэрн"
+msgstr "п·я│я┌я─п╬п╡п╟ п÷п╦я┌п╨я█я─п╫"
 
 #: lang2.h:360
 msgid "Puerto Rico"
-msgstr "Пуэрто Рико"
+msgstr "п÷я┐я█я─я┌п╬ п═п╦п╨п╬"
 
 #: lang2.h:361
 msgid "Palestinian Territory, Occupied"
-msgstr "Палестинские территории"
+msgstr "п÷п╟п╩п╣я│я┌п╦п╫я│п╨п╦п╣ я┌п╣я─я─п╦я┌п╬я─п╦п╦"
 
 #: lang2.h:362
 msgid "Portugal"
-msgstr "Португалия"
+msgstr "п÷п╬я─я┌я┐пЁп╟п╩п╦я▐"
 
 #: lang2.h:363
 msgid "Palau"
-msgstr "Палау"
+msgstr "п÷п╟п╩п╟я┐"
 
 #: lang2.h:364
 msgid "Paraguay"
-msgstr "Парагвай"
+msgstr "п÷п╟я─п╟пЁп╡п╟п╧"
 
 #: lang2.h:365
 msgid "Qatar"
-msgstr "Катар"
+msgstr "п п╟я┌п╟я─"
 
 #: lang2.h:366
 msgid "Reunion"
-msgstr "Остров Реюньон"
+msgstr "п·я│я┌я─п╬п╡ п═п╣я▌п╫я▄п╬п╫"
 
 #: lang2.h:367
 msgid "Romania"
-msgstr "Румыния"
+msgstr "п═я┐п╪я▀п╫п╦я▐"
 
 #: lang2.h:368
 msgid "Serbia"
-msgstr "Сербия"
+msgstr "п║п╣я─п╠п╦я▐"
 
 #: lang2.h:369
 msgid "Russian Federation"
-msgstr "Российская Федерация"
+msgstr "п═п╬я│я│п╦п╧я│п╨п╟я▐ п╓п╣п╢п╣я─п╟я├п╦я▐"
 
 #: lang2.h:370
 msgid "Rwanda"
-msgstr "Руана"
+msgstr "п═я┐п╟п╫п╟"
 
 #: lang2.h:371
 msgid "Saudi Arabia"
-msgstr "Саудовская Аравия"
+msgstr "п║п╟я┐п╢п╬п╡я│п╨п╟я▐ п░я─п╟п╡п╦я▐"
 
 #: lang2.h:372
 msgid "Solomon Islands"
-msgstr "Соломоновы острова"
+msgstr "п║п╬п╩п╬п╪п╬п╫п╬п╡я▀ п╬я│я┌я─п╬п╡п╟"
 
 #: lang2.h:373
 msgid "Seychelles"
-msgstr "Сейшельские острова"
+msgstr "п║п╣п╧я┬п╣п╩я▄я│п╨п╦п╣ п╬я│я┌я─п╬п╡п╟"
 
 #: lang2.h:374
 msgid "Sudan"
-msgstr "Судан"
+msgstr "п║я┐п╢п╟п╫"
 
 #: lang2.h:375
 msgid "Sweden"
-msgstr "Швеция"
+msgstr "п╗п╡п╣я├п╦я▐"
 
 #: lang2.h:376
 msgid "Singapore"
-msgstr "Сингапур"
+msgstr "п║п╦п╫пЁп╟п©я┐я─"
 
 #: lang2.h:377
 msgid "St. Helena"
-msgstr "Остров святой Елены"
+msgstr "п·я│я┌я─п╬п╡ я│п╡я▐я┌п╬п╧ п∙п╩п╣п╫я▀"
 
 #: lang2.h:378
 msgid "Slovenia"
-msgstr "Словения"
+msgstr "п║п╩п╬п╡п╣п╫п╦я▐"
 
 #: lang2.h:379
 msgid "Svalbard and Jan Mayen Islands"
-msgstr "Острова Свалбард и Ян-Майен"
+msgstr "п·я│я┌я─п╬п╡п╟ п║п╡п╟п╩п╠п╟я─п╢ п╦ п╞п╫-п°п╟п╧п╣п╫"
 
 #: lang2.h:380
 msgid "Slovakia"
-msgstr "Словакия"
+msgstr "п║п╩п╬п╡п╟п╨п╦я▐"
 
 #: lang2.h:381
 msgid "Sierra Leone"
-msgstr "Сьерра Леоне"
+msgstr "п║я▄п╣я─я─п╟ п⌡п╣п╬п╫п╣"
 
 #: lang2.h:382
 msgid "San Marino"
-msgstr "Сан Марино"
+msgstr "п║п╟п╫ п°п╟я─п╦п╫п╬"
 
 #: lang2.h:383
 msgid "Senegal"
-msgstr "Сенегал"
+msgstr "п║п╣п╫п╣пЁп╟п╩"
 
 #: lang2.h:384
 msgid "Somalia"
-msgstr "Сомали"
+msgstr "п║п╬п╪п╟п╩п╦"
 
 #: lang2.h:385
 msgid "Suriname"
-msgstr "Суринам"
+msgstr "п║я┐я─п╦п╫п╟п╪"
 
 #: lang2.h:386
 msgid "Sao Tome and Principe"
-msgstr "Сао Том и Принциповы острова"
+msgstr "п║п╟п╬ п╒п╬п╪ п╦ п÷я─п╦п╫я├п╦п©п╬п╡я▀ п╬я│я┌я─п╬п╡п╟"
 
 #: lang2.h:387
 msgid "Soviet Union"
-msgstr "Бывший СССР (SU)"
+msgstr "п▒я▀п╡я┬п╦п╧ п║п║п║п═ (SU)"
 
 #: lang2.h:388
 msgid "El Salvador"
-msgstr "Сальвадор"
+msgstr "п║п╟п╩я▄п╡п╟п╢п╬я─"
 
 #: lang2.h:389
 msgid "Syrian Arab Republic"
-msgstr "Сирия"
+msgstr "п║п╦я─п╦я▐"
 
 #: lang2.h:390
 msgid "Swaziland"
-msgstr "Эсватини (Свазиленд)"
+msgstr "п╜я│п╡п╟я┌п╦п╫п╦ (п║п╡п╟п╥п╦п╩п╣п╫п╢)"
 
 #: lang2.h:391
 msgid "Turks and Caicos Islands"
-msgstr "Острова Тюркс и Кайкос"
+msgstr "п·я│я┌я─п╬п╡п╟ п╒я▌я─п╨я│ п╦ п п╟п╧п╨п╬я│"
 
 #: lang2.h:392
 msgid "Chad"
-msgstr "Чад"
+msgstr "п╖п╟п╢"
 
 #: lang2.h:393
 msgid "French Southern Territories"
-msgstr "Южные французские территории"
+msgstr "п╝п╤п╫я▀п╣ я└я─п╟п╫я├я┐п╥я│п╨п╦п╣ я┌п╣я─я─п╦я┌п╬я─п╦п╦"
 
 #: lang2.h:394
 msgid "Togo"
-msgstr "Того"
+msgstr "п╒п╬пЁп╬"
 
 #: lang2.h:395
 msgid "Thailand"
-msgstr "Тайланд"
+msgstr "п╒п╟п╧п╩п╟п╫п╢"
 
 #: lang2.h:396
 msgid "Tajikistan"
-msgstr "Таджикистан"
+msgstr "п╒п╟п╢п╤п╦п╨п╦я│я┌п╟п╫"
 
 #: lang2.h:397
 msgid "Tokelau"
-msgstr "Острова Токелау"
+msgstr "п·я│я┌я─п╬п╡п╟ п╒п╬п╨п╣п╩п╟я┐"
 
 #: lang2.h:398
 msgid "Timor-Leste"
-msgstr "Восточный Тимор"
+msgstr "п▓п╬я│я┌п╬я┤п╫я▀п╧ п╒п╦п╪п╬я─"
 
 #: lang2.h:399
 msgid "Turkmenistan"
-msgstr "Туркменистан"
+msgstr "п╒я┐я─п╨п╪п╣п╫п╦я│я┌п╟п╫"
 
 #: lang2.h:400
 msgid "Tunisia"
-msgstr "Тунис"
+msgstr "п╒я┐п╫п╦я│"
 
 #: lang2.h:401
 msgid "Tonga"
-msgstr "Острова Тонга"
+msgstr "п·я│я┌я─п╬п╡п╟ п╒п╬п╫пЁп╟"
 
 #: lang2.h:402
 msgid "Portuguese Timor"
-msgstr "Португальский Тимор (устаревшее)"
+msgstr "п÷п╬я─я┌я┐пЁп╟п╩я▄я│п╨п╦п╧ п╒п╦п╪п╬я─ (я┐я│я┌п╟я─п╣п╡я┬п╣п╣)"
 
 #: lang2.h:403
 msgid "Turkey"
-msgstr "Турция"
+msgstr "п╒я┐я─я├п╦я▐"
 
 #: lang2.h:404
 msgid "Trinidad and Tobago"
-msgstr "Тринидад и Тобаго"
+msgstr "п╒я─п╦п╫п╦п╢п╟п╢ п╦ п╒п╬п╠п╟пЁп╬"
 
 #: lang2.h:405
 msgid "Tuvalu"
-msgstr "Тувалу"
+msgstr "п╒я┐п╡п╟п╩я┐"
 
 #: lang2.h:406
 msgid "Taiwan"
-msgstr "Тайвань"
+msgstr "п╒п╟п╧п╡п╟п╫я▄"
 
 #: lang2.h:407
 msgid "Tanzania"
-msgstr "Танзания"
+msgstr "п╒п╟п╫п╥п╟п╫п╦я▐"
 
 #: lang2.h:408
 msgid "Ukraine"
-msgstr "Украина"
+msgstr "пёп╨я─п╟п╦п╫п╟"
 
 #: lang2.h:409
 msgid "Uganda"
-msgstr "Уганда"
+msgstr "пёпЁп╟п╫п╢п╟"
 
 #: lang2.h:410
 msgid "United Kingdom"
-msgstr "Объединённое Королевство"
+msgstr "п·п╠я┼п╣п╢п╦п╫я▒п╫п╫п╬п╣ п п╬я─п╬п╩п╣п╡я│я┌п╡п╬"
 
 #: lang2.h:411
 msgid "US Minor Outlying Islands"
-msgstr "Малые внешние острова (США)"
+msgstr "п°п╟п╩я▀п╣ п╡п╫п╣я┬п╫п╦п╣ п╬я│я┌я─п╬п╡п╟ (п║п╗п░)"
 
 #: lang2.h:412
 msgid "United States"
-msgstr "Соединённые Штаты"
+msgstr "п║п╬п╣п╢п╦п╫я▒п╫п╫я▀п╣ п╗я┌п╟я┌я▀"
 
 #: lang2.h:413
 msgid "Uruguay"
-msgstr "Уругвай"
+msgstr "пёя─я┐пЁп╡п╟п╧"
 
 #: lang2.h:414
 msgid "Uzbekistan"
-msgstr "Узбекистан"
+msgstr "пёп╥п╠п╣п╨п╦я│я┌п╟п╫"
 
 #: lang2.h:415
 msgid "Vatican City State (Holy See)"
-msgstr "Ватикан"
+msgstr "п▓п╟я┌п╦п╨п╟п╫"
 
 #: lang2.h:416
 msgid "Saint Vincent and the Grenadines"
-msgstr "О-ва св. Винсента и Гренадины"
+msgstr "п·-п╡п╟ я│п╡. п▓п╦п╫я│п╣п╫я┌п╟ п╦ п⌠я─п╣п╫п╟п╢п╦п╫я▀"
 
 #: lang2.h:417
 msgid "Venezuela"
-msgstr "Венесуэла"
+msgstr "п▓п╣п╫п╣я│я┐я█п╩п╟"
 
 #: lang2.h:418
 msgid "Virgin Islands (British)"
-msgstr "Виргинские острова (Британия)"
+msgstr "п▓п╦я─пЁп╦п╫я│п╨п╦п╣ п╬я│я┌я─п╬п╡п╟ (п▒я─п╦я┌п╟п╫п╦я▐)"
 
 #: lang2.h:419
 msgid "Virgin Islands (U.S.)"
-msgstr "Виргинские острова (США)"
+msgstr "п▓п╦я─пЁп╦п╫я│п╨п╦п╣ п╬я│я┌я─п╬п╡п╟ (п║п╗п░)"
 
 #: lang2.h:420
 msgid "Vietnam"
-msgstr "Вьетнам"
+msgstr "п▓я▄п╣я┌п╫п╟п╪"
 
 #: lang2.h:421
 msgid "Vanuatu"
-msgstr "Вануату"
+msgstr "п▓п╟п╫я┐п╟я┌я┐"
 
 #: lang2.h:422
 msgid "Wallis and Futuna Islands"
-msgstr "Острова Вэллис и Футуна"
+msgstr "п·я│я┌я─п╬п╡п╟ п▓я█п╩п╩п╦я│ п╦ п╓я┐я┌я┐п╫п╟"
 
 #: lang2.h:423
 msgid "Samoa"
-msgstr "Самоа"
+msgstr "п║п╟п╪п╬п╟"
 
 #: lang2.h:424
 msgid "Yemen"
-msgstr "Йемен"
+msgstr "п≥п╣п╪п╣п╫"
 
 #: lang2.h:425
 msgid "Mayotte"
-msgstr "Остров Майотта"
+msgstr "п·я│я┌я─п╬п╡ п°п╟п╧п╬я┌я┌п╟"
 
 #: lang2.h:426
 msgid "Yugoslavia"
-msgstr "Югославия"
+msgstr "п╝пЁп╬я│п╩п╟п╡п╦я▐"
 
 #: lang2.h:427
 msgid "South Africa"
-msgstr "Южная Африка"
+msgstr "п╝п╤п╫п╟я▐ п░я└я─п╦п╨п╟"
 
 #: lang2.h:428
 msgid "Zambia"
-msgstr "Замбия"
+msgstr "п≈п╟п╪п╠п╦я▐"
 
 #: lang2.h:429
 msgid "Zimbabwe"
-msgstr "Зимбабве"
+msgstr "п≈п╦п╪п╠п╟п╠п╡п╣"
 
 #: lang2.h:430
 msgid "Anonymous Proxy"
-msgstr "Анонимные прокси"
+msgstr "п░п╫п╬п╫п╦п╪п╫я▀п╣ п©я─п╬п╨я│п╦"
 
 #: lang2.h:431
 msgid "Satellite Provider"
-msgstr "Спутниковые провайдеры"
+msgstr "п║п©я┐я┌п╫п╦п╨п╬п╡я▀п╣ п©я─п╬п╡п╟п╧п╢п╣я─я▀"
 
 #: lang2.h:433
 msgid "Asia/Pacific Region"
-msgstr "Азиатско-Тихоокеанский регион"
+msgstr "п░п╥п╦п╟я┌я│п╨п╬-п╒п╦я┘п╬п╬п╨п╣п╟п╫я│п╨п╦п╧ я─п╣пЁп╦п╬п╫"
 
 #: lang2.h:434
 msgid "Local Network (lan)"
-msgstr "Локальная сеть (lan)"
+msgstr "п⌡п╬п╨п╟п╩я▄п╫п╟я▐ я│п╣я┌я▄ (lan)"
 
 #: output.c:192
 msgid "en"
@@ -1790,65 +1790,65 @@ msgstr "ru"
 
 #: output.c:194 output.c:220 output.c:2771
 msgid "Summary by Month"
-msgstr "Ежемесячная статистика"
+msgstr "п∙п╤п╣п╪п╣я│я▐я┤п╫п╟я▐ я│я┌п╟я┌п╦я│я┌п╦п╨п╟"
 
 #: output.c:218
 msgid "Summary Period"
-msgstr "Период статистики"
+msgstr "п÷п╣я─п╦п╬п╢ я│я┌п╟я┌п╦я│я┌п╦п╨п╦"
 
 #: output.c:221
 msgid "Generated"
-msgstr "Дата создания"
+msgstr "п■п╟я┌п╟ я│п╬п╥п╢п╟п╫п╦я▐"
 
 #: output.c:292
 msgid "Generating report for"
-msgstr "Генерируется отчёт за"
+msgstr "п⌠п╣п╫п╣я─п╦я─я┐п╣я┌я│я▐ п╬я┌я┤я▒я┌ п╥п╟"
 
 #: output.c:304
 msgid "Daily usage for"
-msgstr "Использование по дням на"
+msgstr "п≤я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦п╣ п©п╬ п╢п╫я▐п╪ п╫п╟"
 
 #: output.c:322
 msgid "Hourly usage for"
-msgstr "Использование по часам на"
+msgstr "п≤я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦п╣ п©п╬ я┤п╟я│п╟п╪ п╫п╟"
 
 #: output.c:374
 msgid "Can't allocate enough memory, Top URLs disabled!"
-msgstr "Нельзя зарезервировать достаточно памяти, статистика URL отключена!"
+msgstr "п²п╣п╩я▄п╥я▐ п╥п╟я─п╣п╥п╣я─п╡п╦я─п╬п╡п╟я┌я▄ п╢п╬я│я┌п╟я┌п╬я┤п╫п╬ п©п╟п╪я▐я┌п╦, я│я┌п╟я┌п╦я│я┌п╦п╨п╟ URL п╬я┌п╨п╩я▌я┤п╣п╫п╟!"
 
 #: output.c:396
 msgid "Can't allocate enough memory, Top Sites disabled!"
-msgstr "Нельзя зарезервировать достаточно памяти, статистика хостов отключена!"
+msgstr "п²п╣п╩я▄п╥я▐ п╥п╟я─п╣п╥п╣я─п╡п╦я─п╬п╡п╟я┌я▄ п╢п╬я│я┌п╟я┌п╬я┤п╫п╬ п©п╟п╪я▐я┌п╦, я│я┌п╟я┌п╦я│я┌п╦п╨п╟ я┘п╬я│я┌п╬п╡ п╬я┌п╨п╩я▌я┤п╣п╫п╟!"
 
 #: output.c:413
 msgid "Can't allocate enough memory, Top Referrers disabled!"
 msgstr ""
-"Нельзя зарезервировать достаточно памяти, статистика ссылающихся страниц "
-"отключена!"
+"п²п╣п╩я▄п╥я▐ п╥п╟я─п╣п╥п╣я─п╡п╦я─п╬п╡п╟я┌я▄ п╢п╬я│я┌п╟я┌п╬я┤п╫п╬ п©п╟п╪я▐я┌п╦, я│я┌п╟я┌п╦я│я┌п╦п╨п╟ я│я│я▀п╩п╟я▌я┴п╦я┘я│я▐ я│я┌я─п╟п╫п╦я├ "
+"п╬я┌п╨п╩я▌я┤п╣п╫п╟!"
 
 #: output.c:430
 msgid "Can't allocate enough memory, Top Search Strings disabled!"
 msgstr ""
-"Нельзя зарезервировать достаточно памяти, статистика строк поиска отключена!"
+"п²п╣п╩я▄п╥я▐ п╥п╟я─п╣п╥п╣я─п╡п╦я─п╬п╡п╟я┌я▄ п╢п╬я│я┌п╟я┌п╬я┤п╫п╬ п©п╟п╪я▐я┌п╦, я│я┌п╟я┌п╦я│я┌п╦п╨п╟ я│я┌я─п╬п╨ п©п╬п╦я│п╨п╟ п╬я┌п╨п╩я▌я┤п╣п╫п╟!"
 
 #: output.c:447
 msgid "Can't allocate enough memory, Top Usernames disabled!"
 msgstr ""
-"Нельзя зарезервировать достаточно памяти, статистика имён пользователей "
-"отключена!"
+"п²п╣п╩я▄п╥я▐ п╥п╟я─п╣п╥п╣я─п╡п╦я─п╬п╡п╟я┌я▄ п╢п╬я│я┌п╟я┌п╬я┤п╫п╬ п©п╟п╪я▐я┌п╦, я│я┌п╟я┌п╦я│я┌п╦п╨п╟ п╦п╪я▒п╫ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╣п╧ "
+"п╬я┌п╨п╩я▌я┤п╣п╫п╟!"
 
 #: output.c:464
 msgid "Can't allocate enough memory, Top User Agents disabled!"
 msgstr ""
-"Нельзя зарезервировать достаточно памяти, статистика браузеров отключена!"
+"п²п╣п╩я▄п╥я▐ п╥п╟я─п╣п╥п╣я─п╡п╦я─п╬п╡п╟я┌я▄ п╢п╬я│я┌п╟я┌п╬я┤п╫п╬ п©п╟п╪я▐я┌п╦, я│я┌п╟я┌п╦я│я┌п╦п╨п╟ п╠я─п╟я┐п╥п╣я─п╬п╡ п╬я┌п╨п╩я▌я┤п╣п╫п╟!"
 
 #: output.c:482
 msgid "[Daily Statistics]"
-msgstr "[Статистика по дням]"
+msgstr "[п║я┌п╟я┌п╦я│я┌п╦п╨п╟ п©п╬ п╢п╫я▐п╪]"
 
 #: output.c:484
 msgid "[Hourly Statistics]"
-msgstr "[Статистика по часам]"
+msgstr "[п║я┌п╟я┌п╦я│я┌п╦п╨п╟ п©п╬ я┤п╟я│п╟п╪]"
 
 #: output.c:486
 msgid "[URLs]"
@@ -1856,183 +1856,183 @@ msgstr "[URL]"
 
 #: output.c:488
 msgid "[Entry]"
-msgstr "[Начальные страницы]"
+msgstr "[п²п╟я┤п╟п╩я▄п╫я▀п╣ я│я┌я─п╟п╫п╦я├я▀]"
 
 #: output.c:490
 msgid "[Exit]"
-msgstr "[Последние страницы]"
+msgstr "[п÷п╬я│п╩п╣п╢п╫п╦п╣ я│я┌я─п╟п╫п╦я├я▀]"
 
 #: output.c:492
 msgid "[Sites]"
-msgstr "[Хосты]"
+msgstr "[п╔п╬я│я┌я▀]"
 
 #: output.c:494
 msgid "[Referrers]"
-msgstr "[Ссылающиеся страницы]"
+msgstr "[п║я│я▀п╩п╟я▌я┴п╦п╣я│я▐ я│я┌я─п╟п╫п╦я├я▀]"
 
 #: output.c:496
 msgid "[Search]"
-msgstr "[Поиск]"
+msgstr "[п÷п╬п╦я│п╨]"
 
 #: output.c:498
 msgid "[Users]"
-msgstr "[Пользователи]"
+msgstr "[п÷п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╦]"
 
 #: output.c:500
 msgid "[Agents]"
-msgstr "[Браузеры]"
+msgstr "[п▒я─п╟я┐п╥п╣я─я▀]"
 
 #: output.c:502
 msgid "[Countries]"
-msgstr "[Страны]"
+msgstr "[п║я┌я─п╟п╫я▀]"
 
 #: output.c:532
 msgid "Monthly Statistics for"
-msgstr "Статистика за месяц на"
+msgstr "п║я┌п╟я┌п╦я│я┌п╦п╨п╟ п╥п╟ п╪п╣я│я▐я├ п╫п╟"
 
 #: output.c:537
 msgid "Total Hits"
-msgstr "Всего запросов"
+msgstr "п▓я│п╣пЁп╬ п╥п╟п©я─п╬я│п╬п╡"
 
 #: output.c:541
 msgid "Total Files"
-msgstr "Всего файлов"
+msgstr "п▓я│п╣пЁп╬ я└п╟п╧п╩п╬п╡"
 
 #: output.c:545
 msgid "Total Pages"
-msgstr "Всего страниц"
+msgstr "п▓я│п╣пЁп╬ я│я┌я─п╟п╫п╦я├"
 
 #: output.c:549
 msgid "Total Visits"
-msgstr "Всего посещений"
+msgstr "п▓я│п╣пЁп╬ п©п╬я│п╣я┴п╣п╫п╦п╧"
 
 #: output.c:553
 msgid "Total kB Files"
-msgstr "Общий объем (кб)"
+msgstr "п·п╠я┴п╦п╧ п╬п╠я┼п╣п╪ (п╨п╠)"
 
 #: output.c:558
 msgid "Total kB In"
-msgstr "Всего кб вх"
+msgstr "п▓я│п╣пЁп╬ п╨п╠ п╡я┘"
 
 #: output.c:561
 msgid "Total kB Out"
-msgstr "Всего кб исх"
+msgstr "п▓я│п╣пЁп╬ п╨п╠ п╦я│я┘"
 
 #: output.c:569
 msgid "Total Unique Sites"
-msgstr "Всего уникальных хостов"
+msgstr "п▓я│п╣пЁп╬ я┐п╫п╦п╨п╟п╩я▄п╫я▀я┘ я┘п╬я│я┌п╬п╡"
 
 #: output.c:574
 msgid "Total Unique URLs"
-msgstr "Всего уникальных URL"
+msgstr "п▓я│п╣пЁп╬ я┐п╫п╦п╨п╟п╩я▄п╫я▀я┘ URL"
 
 #: output.c:580
 msgid "Total Unique Referrers"
-msgstr "Всего уникальных ссылающихся страниц"
+msgstr "п▓я│п╣пЁп╬ я┐п╫п╦п╨п╟п╩я▄п╫я▀я┘ я│я│я▀п╩п╟я▌я┴п╦я┘я│я▐ я│я┌я─п╟п╫п╦я├"
 
 #: output.c:586
 msgid "Total Unique Usernames"
-msgstr "Всего уникальных имён"
+msgstr "п▓я│п╣пЁп╬ я┐п╫п╦п╨п╟п╩я▄п╫я▀я┘ п╦п╪я▒п╫"
 
 #: output.c:592
 msgid "Total Unique User Agents"
-msgstr "Всего уникальных браузеров"
+msgstr "п▓я│п╣пЁп╬ я┐п╫п╦п╨п╟п╩я▄п╫я▀я┘ п╠я─п╟я┐п╥п╣я─п╬п╡"
 
 #: output.c:602 output.c:845 output.c:850 output.c:855 output.c:860
 #: output.c:872 output.c:877
 msgid "Avg"
-msgstr "Средн."
+msgstr "п║я─п╣п╢п╫."
 
 #: output.c:602
 msgid "Max"
-msgstr "Макс"
+msgstr "п°п╟п╨я│"
 
 #: output.c:609
 msgid "Hits per Hour"
-msgstr "Обращений в час"
+msgstr "п·п╠я─п╟я┴п╣п╫п╦п╧ п╡ я┤п╟я│"
 
 #: output.c:615
 msgid "Hits per Day"
-msgstr "Обращений в день"
+msgstr "п·п╠я─п╟я┴п╣п╫п╦п╧ п╡ п╢п╣п╫я▄"
 
 #: output.c:621
 msgid "Files per Day"
-msgstr "Файлов в день"
+msgstr "п╓п╟п╧п╩п╬п╡ п╡ п╢п╣п╫я▄"
 
 #: output.c:627
 msgid "Pages per Day"
-msgstr "Страниц в день"
+msgstr "п║я┌я─п╟п╫п╦я├ п╡ п╢п╣п╫я▄"
 
 #: output.c:633
 msgid "Sites per Day"
-msgstr "Хостов в день"
+msgstr "п╔п╬я│я┌п╬п╡ п╡ п╢п╣п╫я▄"
 
 #: output.c:639
 msgid "Visits per Day"
-msgstr "Посещений в день"
+msgstr "п÷п╬я│п╣я┴п╣п╫п╦п╧ п╡ п╢п╣п╫я▄"
 
 #: output.c:645
 msgid "kB Files per Day"
-msgstr "Килобайт в день"
+msgstr "п п╦п╩п╬п╠п╟п╧я┌ п╡ п╢п╣п╫я▄"
 
 #: output.c:653
 msgid "kB In per Day"
-msgstr "Кбайт в день (вх)"
+msgstr "п п╠п╟п╧я┌ п╡ п╢п╣п╫я▄ (п╡я┘)"
 
 #: output.c:659
 msgid "kB Out per Day"
-msgstr "Кбайт в день (исх)"
+msgstr "п п╠п╟п╧я┌ п╡ п╢п╣п╫я▄ (п╦я│я┘)"
 
 #: output.c:666
 msgid "Hits by Response Code"
-msgstr "Запросы по кодам ответа"
+msgstr "п≈п╟п©я─п╬я│я▀ п©п╬ п╨п╬п╢п╟п╪ п╬я┌п╡п╣я┌п╟"
 
 #: output.c:697
 msgid "Daily Statistics for"
-msgstr "Статистика по дням на"
+msgstr "п║я┌п╟я┌п╦я│я┌п╦п╨п╟ п©п╬ п╢п╫я▐п╪ п╫п╟"
 
 #: output.c:713
 msgid "Day"
-msgstr "День"
+msgstr "п■п╣п╫я▄"
 
 #: output.c:810
 msgid "Hourly Statistics for"
-msgstr "Статистика по часам на"
+msgstr "п║я┌п╟я┌п╦я│я┌п╦п╨п╟ п©п╬ я┤п╟я│п╟п╪ п╫п╟"
 
 #: output.c:822
 msgid "Hour"
-msgstr "Час"
+msgstr "п╖п╟я│"
 
 #: output.c:845 output.c:850 output.c:855 output.c:860 output.c:872
 #: output.c:877
 msgid "Total"
-msgstr "Всего"
+msgstr "п▓я│п╣пЁп╬"
 
 #: output.c:972 output.c:976 output.c:1204 output.c:1208 output.c:1464
 #: output.c:1560 output.c:1732 output.c:1879 output.c:2000 output.c:2351
 msgid "Top"
-msgstr "Первые"
+msgstr "п÷п╣я─п╡я▀п╣"
 
 #: output.c:972 output.c:976 output.c:1204 output.c:1208 output.c:1464
 #: output.c:1560 output.c:1732 output.c:1879 output.c:2000 output.c:2351
 msgid "of"
-msgstr "из"
+msgstr "п╦п╥"
 
 #: output.c:973 output.c:1205
 msgid "By"
-msgstr "по"
+msgstr "п©п╬"
 
 #: output.c:973 output.c:976
 msgid "Total Sites"
-msgstr "Хостов"
+msgstr "п╔п╬я│я┌п╬п╡"
 
 #: output.c:996 output.c:1099 output.c:2451
 msgid "Hostname"
-msgstr "Имя хоста"
+msgstr "п≤п╪я▐ я┘п╬я│я┌п╟"
 
 #: output.c:1060
 msgid "View All Sites"
-msgstr "Посмотреть все хосты"
+msgstr "п÷п╬я│п╪п╬я┌я─п╣я┌я▄ п╡я│п╣ я┘п╬я│я┌я▀"
 
 #: output.c:1205 output.c:1208
 msgid "Total URLs"
@@ -2044,63 +2044,63 @@ msgstr "URL"
 
 #: output.c:1319
 msgid "View All URLs"
-msgstr "Посмотреть все URL-ы"
+msgstr "п÷п╬я│п╪п╬я┌я─п╣я┌я▄ п╡я│п╣ URL-я▀"
 
 #: output.c:1465
 msgid "Total Entry Pages"
-msgstr "начальных страниц"
+msgstr "п╫п╟я┤п╟п╩я▄п╫я▀я┘ я│я┌я─п╟п╫п╦я├"
 
 #: output.c:1465
 msgid "Total Exit Pages"
-msgstr "последних страниц"
+msgstr "п©п╬я│п╩п╣п╢п╫п╦я┘ я│я┌я─п╟п╫п╦я├"
 
 #: output.c:1560
 msgid "Total Referrers"
-msgstr "ссылающихся страниц"
+msgstr "я│я│я▀п╩п╟я▌я┴п╦я┘я│я▐ я│я┌я─п╟п╫п╦я├"
 
 #: output.c:1570 output.c:1647 output.c:1652 output.c:2547
 msgid "Referrer"
-msgstr "Ссылающаяся страница"
+msgstr "п║я│я▀п╩п╟я▌я┴п╟я▐я│я▐ я│я┌я─п╟п╫п╦я├п╟"
 
 #: output.c:1622
 msgid "View All Referrers"
-msgstr "Посмотреть все ссылающиеся страницы"
+msgstr "п÷п╬я│п╪п╬я┌я─п╣я┌я▄ п╡я│п╣ я│я│я▀п╩п╟я▌я┴п╦п╣я│я▐ я│я┌я─п╟п╫п╦я├я▀"
 
 #: output.c:1732
 msgid "Total User Agents"
-msgstr "браузеров"
+msgstr "п╠я─п╟я┐п╥п╣я─п╬п╡"
 
 #: output.c:1742 output.c:1808 output.c:1813 output.c:2586
 msgid "User Agent"
-msgstr "Браузер"
+msgstr "п▒я─п╟я┐п╥п╣я─"
 
 #: output.c:1783
 msgid "View All User Agents"
-msgstr "Посмотреть все браузеры"
+msgstr "п÷п╬я│п╪п╬я┌я─п╣я┌я▄ п╡я│п╣ п╠я─п╟я┐п╥п╣я─я▀"
 
 #: output.c:1879
 msgid "Total Search Strings"
-msgstr "строк поиска"
+msgstr "я│я┌я─п╬п╨ п©п╬п╦я│п╨п╟"
 
 #: output.c:1889 output.c:1944 output.c:1949 output.c:2675
 msgid "Search String"
-msgstr "Строка поиска"
+msgstr "п║я┌я─п╬п╨п╟ п©п╬п╦я│п╨п╟"
 
 #: output.c:1918
 msgid "View All Search Strings"
-msgstr "Посмотреть все строки поиска"
+msgstr "п÷п╬я│п╪п╬я┌я─п╣я┌я▄ п╡я│п╣ я│я┌я─п╬п╨п╦ п©п╬п╦я│п╨п╟"
 
 #: output.c:2000
 msgid "Total Usernames"
-msgstr "имён пользователей"
+msgstr "п╦п╪я▒п╫ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╣п╧"
 
 #: output.c:2020 output.c:2108 output.c:2119 output.c:2630
 msgid "Username"
-msgstr "Имя пользователя"
+msgstr "п≤п╪я▐ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐"
 
 #: output.c:2083
 msgid "View All Usernames"
-msgstr "Посмотреть все имена пользователей"
+msgstr "п÷п╬я│п╪п╬я┌я─п╣я┌я▄ п╡я│п╣ п╦п╪п╣п╫п╟ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩п╣п╧"
 
 #: output.c:2236
 #, c-format
@@ -2114,128 +2114,128 @@ msgstr ""
 
 #: output.c:2334
 msgid "Usage by Country for"
-msgstr "Статистика по странам на"
+msgstr "п║я┌п╟я┌п╦я│я┌п╦п╨п╟ п©п╬ я│я┌я─п╟п╫п╟п╪ п╫п╟"
 
 #: output.c:2351
 msgid "Total Countries"
-msgstr "стран"
+msgstr "я│я┌я─п╟п╫"
 
 #: output.c:2369
 msgid "Country"
-msgstr "Страна"
+msgstr "п║я┌я─п╟п╫п╟"
 
 #: output.c:2717
 msgid "Generating summary report"
-msgstr "Генерируется общий отчёт"
+msgstr "п⌠п╣п╫п╣я─п╦я─я┐п╣я┌я│я▐ п╬п╠я┴п╦п╧ п╬я┌я┤я▒я┌"
 
 #: output.c:2719
 msgid "Usage summary for"
-msgstr "Суммарное использование сервера"
+msgstr "п║я┐п╪п╪п╟я─п╫п╬п╣ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦п╣ я│п╣я─п╡п╣я─п╟"
 
 #: output.c:2751
 #, c-format
 msgid "Error: Failed to create .htaccess file: %s\n"
-msgstr "Ошибка: нельзя создать файл .htaccess: %s\n"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╩я▄п╥я▐ я│п╬п╥п╢п╟я┌я▄ я└п╟п╧п╩ .htaccess: %s\n"
 
 #: output.c:2774
 msgid "Month"
-msgstr "Месяц"
+msgstr "п°п╣я│я▐я├"
 
 #: output.c:2776
 msgid "Daily Avg"
-msgstr "В среднем за день"
+msgstr "п▓ я│я─п╣п╢п╫п╣п╪ п╥п╟ п╢п╣п╫я▄"
 
 #: output.c:2778
 msgid "Monthly Totals"
-msgstr "Всего за месяц"
+msgstr "п▓я│п╣пЁп╬ п╥п╟ п╪п╣я│я▐я├"
 
 #: output.c:2933
 msgid "Totals"
-msgstr "Всего"
+msgstr "п▓я│п╣пЁп╬"
 
 #: parser.c:232 parser.c:433
 msgid "Warning: Truncating oversized hostname"
-msgstr "Предупреждение: пропускается слишком длинное имя хоста"
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐ я│п╩п╦я┬п╨п╬п╪ п╢п╩п╦п╫п╫п╬п╣ п╦п╪я▐ я┘п╬я│я┌п╟"
 
 #: parser.c:264
 msgid "Warning: Truncating oversized username"
-msgstr "Предупреждение: пропускается слишком длинное поле имени пользователя"
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐ я│п╩п╦я┬п╨п╬п╪ п╢п╩п╦п╫п╫п╬п╣ п©п╬п╩п╣ п╦п╪п╣п╫п╦ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐"
 
 #: parser.c:286
 msgid "Warning: Truncating oversized date field"
-msgstr "Предупреждение: пропускается слишком длинное поле даты"
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐ я│п╩п╦я┬п╨п╬п╪ п╢п╩п╦п╫п╫п╬п╣ п©п╬п╩п╣ п╢п╟я┌я▀"
 
 #: parser.c:311 parser.c:470 parser.c:499 webalizer.c:1017
 msgid "Warning: Truncating oversized request field"
-msgstr "Предупреждение: пропускается слишком длинное поле запроса"
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐ я│п╩п╦я┬п╨п╬п╪ п╢п╩п╦п╫п╫п╬п╣ п©п╬п╩п╣ п╥п╟п©я─п╬я│п╟"
 
 #: parser.c:362 webalizer.c:1009
 msgid "Warning: Truncating oversized referrer field"
-msgstr "Предупреждение: пропускается слишком длинное поле ссылающейся страницы"
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐ я│п╩п╦я┬п╨п╬п╪ п╢п╩п╦п╫п╫п╬п╣ п©п╬п╩п╣ я│я│я▀п╩п╟я▌я┴п╣п╧я│я▐ я│я┌я─п╟п╫п╦я├я▀"
 
 #: preserve.c:78
 msgid "Reading history file..."
-msgstr "Читается файл состояния..."
+msgstr "п╖п╦я┌п╟п╣я┌я│я▐ я└п╟п╧п╩ я│п╬я│я┌п╬я▐п╫п╦я▐..."
 
 #: preserve.c:89
 msgid "Error: Ignoring invalid history record"
-msgstr "Ошибка: игнорируется неверная запись состояния"
+msgstr "п·я┬п╦п╠п╨п╟: п╦пЁп╫п╬я─п╦я─я┐п╣я┌я│я▐ п╫п╣п╡п╣я─п╫п╟я▐ п╥п╟п©п╦я│я▄ я│п╬я│я┌п╬я▐п╫п╦я▐"
 
 #: preserve.c:142
 msgid "History file not found..."
-msgstr "Файл состояния не найден..."
+msgstr "п╓п╟п╧п╩ я│п╬я│я┌п╬я▐п╫п╦я▐ п╫п╣ п╫п╟п╧п╢п╣п╫..."
 
 #: preserve.c:182
 msgid "Saving history information..."
-msgstr "Сохраняется информация о состоянии..."
+msgstr "п║п╬я┘я─п╟п╫я▐п╣я┌я│я▐ п╦п╫я└п╬я─п╪п╟я├п╦я▐ п╬ я│п╬я│я┌п╬я▐п╫п╦п╦..."
 
 #: preserve.c:222
 msgid "Error: Unable to write history file"
-msgstr "Ошибка: нельзя записать файл состояния"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╩я▄п╥я▐ п╥п╟п©п╦я│п╟я┌я▄ я└п╟п╧п╩ я│п╬я│я┌п╬я▐п╫п╦я▐"
 
 #: preserve.c:355
 msgid "Saving current run data..."
-msgstr "Сохраняются данные текущего запуска..."
+msgstr "п║п╬я┘я─п╟п╫я▐я▌я┌я│я▐ п╢п╟п╫п╫я▀п╣ я┌п╣п╨я┐я┴п╣пЁп╬ п╥п╟п©я┐я│п╨п╟..."
 
 #: preserve.c:569
 msgid "Previous run data not found..."
-msgstr "Данные предыдущего запуска не найдены..."
+msgstr "п■п╟п╫п╫я▀п╣ п©я─п╣п╢я▀п╢я┐я┴п╣пЁп╬ п╥п╟п©я┐я│п╨п╟ п╫п╣ п╫п╟п╧п╢п╣п╫я▀..."
 
 #: preserve.c:574
 msgid "Reading previous run data.."
-msgstr "Читаются данные предыдущего запуска..."
+msgstr "п╖п╦я┌п╟я▌я┌я│я▐ п╢п╟п╫п╫я▀п╣ п©я─п╣п╢я▀п╢я┐я┴п╣пЁп╬ п╥п╟п©я┐я│п╨п╟..."
 
 #: preserve.c:681 webalizer.c:1239 webalizer.c:1352
 msgid "Error adding URL node, skipping"
-msgstr "Ошибка добавления узла URL, пропускается"
+msgstr "п·я┬п╦п╠п╨п╟ п╢п╬п╠п╟п╡п╩п╣п╫п╦я▐ я┐п╥п╩п╟ URL, п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐"
 
 #: preserve.c:722 webalizer.c:1284 webalizer.c:1367 webalizer.c:1385
 msgid "Error adding host node (monthly), skipping"
-msgstr "Ошибка добавления узла хоста (месячный отчёт), пропускается"
+msgstr "п·я┬п╦п╠п╨п╟ п╢п╬п╠п╟п╡п╩п╣п╫п╦я▐ я┐п╥п╩п╟ я┘п╬я│я┌п╟ (п╪п╣я│я▐я┤п╫я▀п╧ п╬я┌я┤я▒я┌), п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐"
 
 #: preserve.c:763 webalizer.c:1273
 msgid "Error adding host node (daily), skipping"
-msgstr "Ошибка добавления узла хоста (дневной отчёт), пропускается"
+msgstr "п·я┬п╦п╠п╨п╟ п╢п╬п╠п╟п╡п╩п╣п╫п╦я▐ я┐п╥п╩п╟ я┘п╬я│я┌п╟ (п╢п╫п╣п╡п╫п╬п╧ п╬я┌я┤я▒я┌), п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐"
 
 #: preserve.c:788 webalizer.c:1261 webalizer.c:1398
 msgid "Error adding Referrer node, skipping"
-msgstr "Ошибка добавления узла ссылки, пропускается"
+msgstr "п·я┬п╦п╠п╨п╟ п╢п╬п╠п╟п╡п╩п╣п╫п╦я▐ я┐п╥п╩п╟ я│я│я▀п╩п╨п╦, п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐"
 
 #: preserve.c:813 webalizer.c:1294 webalizer.c:1409
 msgid "Error adding User Agent node, skipping"
-msgstr "Ошибка добавления узла браузера, пропускается"
+msgstr "п·я┬п╦п╠п╨п╟ п╢п╬п╠п╟п╡п╩п╣п╫п╦я▐ я┐п╥п╩п╟ п╠я─п╟я┐п╥п╣я─п╟, п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐"
 
 #: preserve.c:837 webalizer.c:2406
 msgid "Error adding Search String Node, skipping"
-msgstr "Ошибка добавления узла строки поиска, пропускается"
+msgstr "п·я┬п╦п╠п╨п╟ п╢п╬п╠п╟п╡п╩п╣п╫п╦я▐ я┐п╥п╩п╟ я│я┌я─п╬п╨п╦ п©п╬п╦я│п╨п╟, п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐"
 
 #: preserve.c:870 webalizer.c:1250 webalizer.c:1424
 msgid "Error adding Username node, skipping"
-msgstr "Ошибка добавления узла имени пользователя, пропускается"
+msgstr "п·я┬п╦п╠п╨п╟ п╢п╬п╠п╟п╡п╩п╣п╫п╦я▐ я┐п╥п╩п╟ п╦п╪п╣п╫п╦ п©п╬п╩я▄п╥п╬п╡п╟я┌п╣п╩я▐, п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐"
 
 #: webalizer.c:336
 msgid "Usage Statistics for"
-msgstr "Статистика использования сервера"
+msgstr "п║я┌п╟я┌п╦я│я┌п╦п╨п╟ п╦я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦я▐ я│п╣я─п╡п╣я─п╟"
 
 #: webalizer.c:501 webalizer.c:2019
 msgid "locale"
@@ -2247,31 +2247,31 @@ msgstr ""
 
 #: webalizer.c:524 webalizer.c:541 webalizer.c:552
 msgid "Error: Can't open log file"
-msgstr "Ошибка: нельзя открыть учётный файл"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╩я▄п╥я▐ п╬я┌п╨я─я▀я┌я▄ я┐я┤я▒я┌п╫я▀п╧ я└п╟п╧п╩"
 
 #: webalizer.c:561
 msgid "Using logfile"
-msgstr "Используется учётный файл"
+msgstr "п≤я│п©п╬п╩я▄п╥я┐п╣я┌я│я▐ я┐я┤я▒я┌п╫я▀п╧ я└п╟п╧п╩"
 
 #: webalizer.c:582
 msgid "Error: Can't change directory to"
-msgstr "Ошибка: нельзя сменить каталог на"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╩я▄п╥я▐ я│п╪п╣п╫п╦я┌я▄ п╨п╟я┌п╟п╩п╬пЁ п╫п╟"
 
 #: webalizer.c:594
 msgid "No cache file specified, aborting..."
-msgstr "Не указан кэш-файл, останов..."
+msgstr "п²п╣ я┐п╨п╟п╥п╟п╫ п╨я█я┬-я└п╟п╧п╩, п╬я│я┌п╟п╫п╬п╡..."
 
 #: webalizer.c:603
 msgid "DNS Lookup"
-msgstr "DNS поиск"
+msgstr "DNS п©п╬п╦я│п╨"
 
 #: webalizer.c:621
 msgid "Using DNS cache file"
-msgstr "Используется DNS кэш-файл"
+msgstr "п≤я│п©п╬п╩я▄п╥я┐п╣я┌я│я▐ DNS п╨я█я┬-я└п╟п╧п╩"
 
 #: webalizer.c:631
 msgid "Error opening file"
-msgstr "Ошибка: невозможно открыть файл"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╡п╬п╥п╪п╬п╤п╫п╬ п╬я┌п╨я─я▀я┌я▄ я└п╟п╧п╩"
 
 #: webalizer.c:632 webalizer.c:662
 msgid "default"
@@ -2287,79 +2287,79 @@ msgstr ""
 
 #: webalizer.c:668
 msgid "Creating output in"
-msgstr "Результат создаётся в"
+msgstr "п═п╣п╥я┐п╩я▄я┌п╟я┌ я│п╬п╥п╢п╟я▒я┌я│я▐ п╡"
 
 #: webalizer.c:668
 msgid "current directory"
-msgstr "текущем каталоге"
+msgstr "я┌п╣п╨я┐я┴п╣п╪ п╨п╟я┌п╟п╩п╬пЁп╣"
 
 #: webalizer.c:678
 msgid "Hostname for reports is"
-msgstr "Для отчётов используется имя хоста"
+msgstr "п■п╩я▐ п╬я┌я┤я▒я┌п╬п╡ п╦я│п©п╬п╩я▄п╥я┐п╣я┌я│я▐ п╦п╪я▐ я┘п╬я│я┌п╟"
 
 #: webalizer.c:681
 msgid "Ignoring previous history..."
-msgstr "Предыдущее состояние игнорируется..."
+msgstr "п÷я─п╣п╢я▀п╢я┐я┴п╣п╣ я│п╬я│я┌п╬я▐п╫п╦п╣ п╦пЁп╫п╬я─п╦я─я┐п╣я┌я│я▐..."
 
 #: webalizer.c:690
 msgid "Error: Unable to restore run data"
-msgstr "Ошибка: нельзя восстановить данные предыдущего запуска"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╩я▄п╥я▐ п╡п╬я│я│я┌п╟п╫п╬п╡п╦я┌я▄ п╢п╟п╫п╫я▀п╣ п©я─п╣п╢я▀п╢я┐я┴п╣пЁп╬ п╥п╟п©я┐я│п╨п╟"
 
 #: webalizer.c:699
 msgid "Can't allocate enough memory, Top Countries disabled!"
-msgstr "Нельзя зарезервировать достаточно памяти, статистика стран отключена!"
+msgstr "п²п╣п╩я▄п╥я▐ п╥п╟я─п╣п╥п╣я─п╡п╦я─п╬п╡п╟я┌я▄ п╢п╬я│я┌п╟я┌п╬я┤п╫п╬ п©п╟п╪я▐я┌п╦, я│я┌п╟я┌п╦я│я┌п╦п╨п╟ я│я┌я─п╟п╫ п╬я┌п╨п╩я▌я┤п╣п╫п╟!"
 
 #: webalizer.c:718
 msgid "Error: Skipping oversized log record"
-msgstr "Ошибка: пропускается слишком длинная запись"
+msgstr "п·я┬п╦п╠п╨п╟: п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐ я│п╩п╦я┬п╨п╬п╪ п╢п╩п╦п╫п╫п╟я▐ п╥п╟п©п╦я│я▄"
 
 #: webalizer.c:778
 msgid "Error: Skipping record (bad date)"
-msgstr "Ошибка: пропускается запись (неверная дата)"
+msgstr "п·я┬п╦п╠п╨п╟: п©я─п╬п©я┐я│п╨п╟п╣я┌я│я▐ п╥п╟п©п╦я│я▄ (п╫п╣п╡п╣я─п╫п╟я▐ п╢п╟я┌п╟)"
 
 #: webalizer.c:1439
 msgid "Skipping Netscape header record"
-msgstr "Пропускается запись заголовка Netscape"
+msgstr "п÷я─п╬п©я┐я│п╨п╟п╣я┌я│я▐ п╥п╟п©п╦я│я▄ п╥п╟пЁп╬п╩п╬п╡п╨п╟ Netscape"
 
 #: webalizer.c:1456
 msgid "Skipping bad record"
-msgstr "Пропускается неверная запись"
+msgstr "п÷я─п╬п©я┐я│п╨п╟п╣я┌я│я▐ п╫п╣п╡п╣я─п╫п╟я▐ п╥п╟п©п╦я│я▄"
 
 #: webalizer.c:1491
 msgid "Error: Unable to save current run data"
-msgstr "Ошибка: нельзя сохранить данные текущего запуска"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╩я▄п╥я▐ я│п╬я┘я─п╟п╫п╦я┌я▄ п╢п╟п╫п╫я▀п╣ я┌п╣п╨я┐я┴п╣пЁп╬ п╥п╟п©я┐я│п╨п╟"
 
 #: webalizer.c:1508
 msgid "records"
-msgstr "записей"
+msgstr "п╥п╟п©п╦я│п╣п╧"
 
 #: webalizer.c:1511
 msgid "ignored"
-msgstr "проигнорировано"
+msgstr "п©я─п╬п╦пЁп╫п╬я─п╦я─п╬п╡п╟п╫п╬"
 
 #: webalizer.c:1512 webalizer.c:1515
 msgid "bad"
-msgstr "неверных"
+msgstr "п╫п╣п╡п╣я─п╫я▀я┘"
 
 #: webalizer.c:1551
 msgid "No valid records found!"
-msgstr "Не найдено ни одной верной записи!"
+msgstr "п²п╣ п╫п╟п╧п╢п╣п╫п╬ п╫п╦ п╬п╢п╫п╬п╧ п╡п╣я─п╫п╬п╧ п╥п╟п©п╦я│п╦!"
 
 #: webalizer.c:1704
 msgid "Error: Unable to open configuration file"
-msgstr "Ошибка: нельзя открыть файл конфигурации"
+msgstr "п·я┬п╦п╠п╨п╟: п╫п╣п╩я▄п╥я▐ п╬я┌п╨я─я▀я┌я▄ я└п╟п╧п╩ п╨п╬п╫я└п╦пЁя┐я─п╟я├п╦п╦"
 
 #: webalizer.c:1734 webalizer.c:1860 webalizer.c:1891 webalizer.c:1909
 msgid "Warning: Invalid keyword"
-msgstr "Предупреждение: неверное ключевое слово"
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: п╫п╣п╡п╣я─п╫п╬п╣ п╨п╩я▌я┤п╣п╡п╬п╣ я│п╩п╬п╡п╬"
 
 #: webalizer.c:2002
 msgid "Usage"
-msgstr "Использование"
+msgstr "п≤я│п©п╬п╩я▄п╥п╬п╡п╟п╫п╦п╣"
 
 #: webalizer.c:2002
 msgid "[options] [log file]"
-msgstr "[параметры] [учётный файл]"
+msgstr "[п©п╟я─п╟п╪п╣я┌я─я▀] [я┐я┤я▒я┌п╫я▀п╧ я└п╟п╧п╩]"
 
 #: webalizer.c:2038
 #, c-format
@@ -2372,55 +2372,55 @@ msgid "Default config dir: %s\n"
 msgstr ""
 
 #~ msgid "Old style Arpanet (arpa)"
-#~ msgstr "Старый Arpanet (arpa)"
+#~ msgstr "п║я┌п╟я─я▀п╧ Arpanet (arpa)"
 
 #~ msgid "Czechoslovakia (former)"
-#~ msgstr "Чехословакия"
+#~ msgstr "п╖п╣я┘п╬я│п╩п╬п╡п╟п╨п╦я▐"
 
 #~ msgid "France, Metropolitan"
-#~ msgstr "Франция (метрополия)"
+#~ msgstr "п╓я─п╟п╫я├п╦я▐ (п╪п╣я┌я─п╬п©п╬п╩п╦я▐)"
 
 #~ msgid "Croatia (Hrvatska)"
-#~ msgstr "Хорватия"
+#~ msgstr "п╔п╬я─п╡п╟я┌п╦я▐"
 
 #~ msgid "Korea (North)"
-#~ msgstr "Северная Корея"
+#~ msgstr "п║п╣п╡п╣я─п╫п╟я▐ п п╬я─п╣я▐"
 
 #~ msgid "Korea (South)"
-#~ msgstr "Южная Корея"
+#~ msgstr "п╝п╤п╫п╟я▐ п п╬я─п╣я▐"
 
 #~ msgid "Neutral Zone"
-#~ msgstr "Нейтральная зона"
+#~ msgstr "п²п╣п╧я┌я─п╟п╩я▄п╫п╟я▐ п╥п╬п╫п╟"
 
 #~ msgid "USSR (former)"
-#~ msgstr "Бывший СССР (SU)"
+#~ msgstr "п▒я▀п╡я┬п╦п╧ п║п║п║п═ (SU)"
 
 #~ msgid "Syria"
-#~ msgstr "Сирия"
+#~ msgstr "п║п╦я─п╦я▐"
 
 #~ msgid "East Timor"
-#~ msgstr "Восточный Тимор"
+#~ msgstr "п▓п╬я│я┌п╬я┤п╫я▀п╧ п╒п╦п╪п╬я─"
 
 #~ msgid "Zaire"
-#~ msgstr "Заир"
+#~ msgstr "п≈п╟п╦я─"
 
 #~ msgid "Locations"
-#~ msgstr "Места"
+#~ msgstr "п°п╣я│я┌п╟"
 
 #~ msgid "Total Locations"
-#~ msgstr "Всего мест"
+#~ msgstr "п▓я│п╣пЁп╬ п╪п╣я│я┌"
 
 #~ msgid "Last 12 Months"
-#~ msgstr "последние 12 месяцев"
+#~ msgstr "п©п╬я│п╩п╣п╢п╫п╦п╣ 12 п╪п╣я│я▐я├п╣п╡"
 
 #~ msgid "Can't allocate enough memory, Top Locations disabled!"
-#~ msgstr "Нельзя зарезервировать достаточно памяти, статистика URL отключена!"
+#~ msgstr "п²п╣п╩я▄п╥я▐ п╥п╟я─п╣п╥п╣я─п╡п╦я─п╬п╡п╟я┌я▄ п╢п╬я│я┌п╟я┌п╬я┤п╫п╬ п©п╟п╪я▐я┌п╦, я│я┌п╟я┌п╦я│я┌п╦п╨п╟ URL п╬я┌п╨п╩я▌я┤п╣п╫п╟!"
 
 #~ msgid "English"
 #~ msgstr "Russian"
 
 #~ msgid "KBytes"
-#~ msgstr "Кбайт"
+#~ msgstr "п п╠п╟п╧я┌"
 
 #~ msgid "Warning: Possible duplicate data found"
-#~ msgstr "Предупреждение: обнаружено возможное дублирование данных"
+#~ msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: п╬п╠п╫п╟я─я┐п╤п╣п╫п╬ п╡п╬п╥п╪п╬п╤п╫п╬п╣ п╢я┐п╠п╩п╦я─п╬п╡п╟п╫п╦п╣ п╢п╟п╫п╫я▀я┘"
