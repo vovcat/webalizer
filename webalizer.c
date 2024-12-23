@@ -116,8 +116,8 @@ int     isipaddr(char *);                           /* is IP address test  */
 /*********************************************/
 
 char    *version      = "2.23";               /* program version          */
-char    *editlvl      = "08-vc2";             /* edit level               */
-char    *moddate      = "2024-12-14";         /* modification date        */
+char    *editlvl      = "08-vc3";             /* edit level               */
+char    *moddate      = "2024-12-24";         /* modification date        */
 char    *copyright    = "Copyright 1997-2013 by Bradford L. Barrett";
 
 int     verbose       = 2;                    /* 2=verbose,1=err, 0=none  */

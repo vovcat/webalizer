@@ -1,10 +1,11 @@
-webalizer (2.23.08-vc2+) unstable; urgency=low
+webalizer (2.23.08-vc3) unstable; urgency=low
 
   * Fix compilation warnings
   * Convert build system to automake
   * Update RU, UK translations
+  * Extend webalizer -vV output
 
- -- Volodymyr Prodan <vovcat@gmail.com>  Mon, 16 Dec 2024 09:36:10 +0300
+ -- Volodymyr Prodan <vovcat@gmail.com>  Tue, 24 Dec 2024 00:50:06 +0300
 
 webalizer (2.23.08-vc2) unstable; urgency=low
 
