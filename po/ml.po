@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-13 23:59+0300\n"
-"PO-Revision-Date: 2003-05-25 23:29+0200\n"
+"POT-Creation-Date: 2014-10-08 01:23+0200\n"
+"PO-Revision-Date: 2024-12-23 12:59+0300\n"
 "Last-Translator: Johan Poirier <johan.poirier@insa-lyon.fr>\n"
 "Language-Team: French <tech@jexiste.org>\n"
 "Language: fr\n"
@@ -55,164 +55,164 @@ msgstr "dalam"
 msgid "seconds"
 msgstr "saat"
 
-#: dns_resolv.c:331
+#: dns_resolv.c:330
 #, c-format
-msgid ", %d/sec\n"
+msgid ", %ju/sec\n"
 msgstr ""
 
-#: dns_resolv.c:374
+#: dns_resolv.c:373
 #, c-format
 msgid "INPIPE creation error"
 msgstr ""
 
-#: dns_resolv.c:380
+#: dns_resolv.c:379
 #, c-format
 msgid "OUTPIPE creation error"
 msgstr ""
 
-#: dns_resolv.c:389
+#: dns_resolv.c:388
 #, c-format
 msgid "FORK error"
 msgstr ""
 
-#: dns_resolv.c:405
+#: dns_resolv.c:404
 msgid "read error"
 msgstr ""
 
-#: dns_resolv.c:428
+#: dns_resolv.c:427
 #, c-format
 msgid "Child %d getnameinfo bad hbuf!\n"
 msgstr ""
 
-#: dns_resolv.c:434
+#: dns_resolv.c:433
 #, c-format
 msgid "Child %d getnameinfo failed!\n"
 msgstr ""
 
-#: dns_resolv.c:439
+#: dns_resolv.c:438
 msgid "write error"
 msgstr ""
 
-#: dns_resolv.c:448
+#: dns_resolv.c:447
 #, c-format
 msgid "Child %d got closed input, shutting down\n"
 msgstr ""
 
-#: dns_resolv.c:493
+#: dns_resolv.c:492
 #, c-format
 msgid "Reaped Child %d\n"
 msgstr ""
 
-#: dns_resolv.c:522
+#: dns_resolv.c:521
 #, c-format
 msgid "Giving %d bytes to Child %d\n"
 msgstr ""
 
-#: dns_resolv.c:531
+#: dns_resolv.c:530
 msgid "Could not write to pipe"
 msgstr ""
 
-#: dns_resolv.c:560
+#: dns_resolv.c:559
 msgid "Error in select"
 msgstr ""
 
-#: dns_resolv.c:568
+#: dns_resolv.c:567
 #, c-format
 msgid "tick\n"
 msgstr ""
 
-#: dns_resolv.c:603
+#: dns_resolv.c:602
 #, c-format
 msgid "Child %d wants to be reaped\n"
 msgstr ""
 
-#: dns_resolv.c:616
+#: dns_resolv.c:615
 #, c-format
 msgid "Child %d Got a result: %s -> %s\n"
 msgstr ""
 
-#: dns_resolv.c:623
+#: dns_resolv.c:622
 #, c-format
 msgid "Child %d could not resolve: %s (%s)\n"
 msgstr ""
 
-#: dns_resolv.c:632
+#: dns_resolv.c:631
 #, c-format
 msgid "Child %d back in task pool\n"
 msgstr ""
 
-#: dns_resolv.c:724
+#: dns_resolv.c:723
 #, c-format
 msgid "db_put fail!\n"
 msgstr ""
 
-#: graphs.c:144 graphs.c:148 graphs.c:150 graphs.c:157 graphs.c:159
-#: graphs.c:501 graphs.c:503 graphs.c:506 output.c:719 output.c:826
-#: output.c:973 output.c:985 output.c:1094 output.c:1205 output.c:1217
-#: output.c:1352 output.c:2009 output.c:2114 output.c:2360 output.c:2446
-#: output.c:2498 output.c:2625 output.c:2790
+#: graphs.c:193 graphs.c:197 graphs.c:199 graphs.c:206 graphs.c:208
+#: graphs.c:554 graphs.c:556 graphs.c:559 output.c:713 output.c:820
+#: output.c:966 output.c:978 output.c:1087 output.c:1198 output.c:1211
+#: output.c:1341 output.c:1983 output.c:2088 output.c:2335 output.c:2417
+#: output.c:2469 output.c:2596 output.c:2761
 msgid "kB F"
 msgstr ""
 
-#: graphs.c:154 graphs.c:163 graphs.c:165 graphs.c:507 graphs.c:511
-#: graphs.c:513 output.c:731 output.c:838 output.c:989 output.c:1097
-#: output.c:1222 output.c:1355 output.c:2013 output.c:2117 output.c:2364
-#: output.c:2449 output.c:2501 output.c:2628 output.c:2794
+#: graphs.c:203 graphs.c:214 graphs.c:216 graphs.c:560 graphs.c:566
+#: graphs.c:568 output.c:725 output.c:832 output.c:982 output.c:1090
+#: output.c:1216 output.c:1344 output.c:1987 output.c:2091 output.c:2339
+#: output.c:2420 output.c:2472 output.c:2599 output.c:2765
 msgid "kB In"
 msgstr ""
 
-#: graphs.c:155 graphs.c:169 graphs.c:171 graphs.c:517 graphs.c:519
-#: output.c:732 output.c:839 output.c:991 output.c:1097 output.c:1225
-#: output.c:1355 output.c:2015 output.c:2117 output.c:2366 output.c:2449
-#: output.c:2501 output.c:2628 output.c:2796
+#: graphs.c:204 graphs.c:222 graphs.c:224 graphs.c:574 graphs.c:576
+#: output.c:726 output.c:833 output.c:984 output.c:1090 output.c:1219
+#: output.c:1344 output.c:1989 output.c:2091 output.c:2341 output.c:2420
+#: output.c:2472 output.c:2599 output.c:2767
 msgid "kB Out"
 msgstr ""
 
-#: graphs.c:174 graphs.c:177 graphs.c:179 graphs.c:531 graphs.c:533
-#: output.c:717 output.c:994 output.c:1099 output.c:1475 output.c:2018
-#: output.c:2119 output.c:2451 output.c:2630 output.c:2786 output.c:2799
+#: graphs.c:227 graphs.c:230 graphs.c:232 graphs.c:588 graphs.c:590
+#: output.c:711 output.c:987 output.c:1092 output.c:1461 output.c:1992
+#: output.c:2093 output.c:2422 output.c:2601 output.c:2757 output.c:2770
 msgid "Visits"
 msgstr "Lawatan"
 
-#: graphs.c:175 graphs.c:183 graphs.c:185 graphs.c:523 graphs.c:525
-#: graphs.c:527 output.c:718 output.c:1088 output.c:2788
+#: graphs.c:228 graphs.c:236 graphs.c:238 graphs.c:580 graphs.c:582
+#: graphs.c:584 output.c:712 output.c:1081 output.c:2759
 msgid "Sites"
 msgstr "Halaman"
 
-#: graphs.c:188 graphs.c:191 graphs.c:193 graphs.c:536 graphs.c:540
-#: graphs.c:542 graphs.c:761 graphs.c:765 graphs.c:767 output.c:716
-#: output.c:825 output.c:2784 output.c:2801
+#: graphs.c:241 graphs.c:244 graphs.c:246 graphs.c:593 graphs.c:597
+#: graphs.c:599 graphs.c:818 graphs.c:822 graphs.c:824 output.c:710
+#: output.c:819 output.c:2755 output.c:2772
 msgid "Pages"
 msgstr "Muka"
 
-#: graphs.c:189 graphs.c:197 graphs.c:199 graphs.c:537 graphs.c:546
-#: graphs.c:548 graphs.c:762 graphs.c:771 graphs.c:773 output.c:715
-#: output.c:824 output.c:983 output.c:1094 output.c:2007 output.c:2114
-#: output.c:2358 output.c:2446 output.c:2625 output.c:2782 output.c:2803
+#: graphs.c:242 graphs.c:250 graphs.c:252 graphs.c:594 graphs.c:603
+#: graphs.c:605 graphs.c:819 graphs.c:828 graphs.c:830 output.c:709
+#: output.c:818 output.c:976 output.c:1087 output.c:1981 output.c:2088
+#: output.c:2333 output.c:2417 output.c:2596 output.c:2753 output.c:2774
 msgid "Files"
 msgstr "Fail"
 
-#: graphs.c:203 graphs.c:205 graphs.c:538 graphs.c:552 graphs.c:554
-#: graphs.c:763 graphs.c:777 graphs.c:779 output.c:714 output.c:823
-#: output.c:981 output.c:1094 output.c:1214 output.c:1352 output.c:1472
-#: output.c:1567 output.c:1652 output.c:1739 output.c:1813 output.c:1886
-#: output.c:1949 output.c:2005 output.c:2114 output.c:2356 output.c:2446
-#: output.c:2498 output.c:2547 output.c:2586 output.c:2625 output.c:2675
-#: output.c:2780 output.c:2805
+#: graphs.c:256 graphs.c:258 graphs.c:595 graphs.c:609 graphs.c:611
+#: graphs.c:820 graphs.c:834 graphs.c:836 output.c:708 output.c:817
+#: output.c:974 output.c:1087 output.c:1208 output.c:1341 output.c:1459
+#: output.c:1547 output.c:1630 output.c:1715 output.c:1787 output.c:1860
+#: output.c:1923 output.c:1979 output.c:2088 output.c:2331 output.c:2417
+#: output.c:2469 output.c:2518 output.c:2557 output.c:2596 output.c:2646
+#: output.c:2751 output.c:2776
 msgid "Hits"
 msgstr "Capaian"
 
-#: graphs.c:405 graphs.c:699 graphs.c:825 graphs.c:931 output.c:2737
-#: output.c:2759 output.c:3268 output.c:3277 preserve.c:169 preserve.c:341
+#: graphs.c:458 graphs.c:756 graphs.c:882 graphs.c:986 output.c:2708
+#: output.c:2730 output.c:3240 output.c:3249 preserve.c:160 preserve.c:332
 msgid "Error: Unable to open file"
 msgstr "Ralat: Tidak dapat membuka fail"
 
-#: graphs.c:916 lang2.h:432
+#: graphs.c:971 lang2.h:433
 msgid "Other"
 msgstr "Lain-lain"
 
-#: hashtab.c:122 hashtab.c:321 hashtab.c:457 hashtab.c:578 hashtab.c:697
-#: hashtab.c:804 hashtab.c:984 linklist.c:109 linklist.c:166
+#: hashtab.c:122 hashtab.c:321 hashtab.c:459 hashtab.c:580 hashtab.c:699
+#: hashtab.c:806 hashtab.c:986 linklist.c:108 linklist.c:165
 msgid "Warning: String exceeds storage size"
 msgstr "Amaran: Perkataan melebihi saiz simpanan"
 
@@ -677,1520 +677,1520 @@ msgstr "Code 504 - Masa Tamat Bagi Gateway"
 msgid "Code 505 - HTTP Version Not Supported"
 msgstr "Code 505 - Versi HTTP Tidak Disokong"
 
-#: lang2.h:155
+#: lang2.h:156
 msgid "Unresolved/Unknown"
 msgstr "Tidak Diketahui"
 
-#: lang2.h:156
+#: lang2.h:157
 #, fuzzy
 msgid "Commercial (com)"
 msgstr "Komersil US"
 
-#: lang2.h:157
+#: lang2.h:158
 #, fuzzy
 msgid "Educational (edu)"
 msgstr "Pendidikan US"
 
-#: lang2.h:158
+#: lang2.h:159
 #, fuzzy
 msgid "US Government (gov)"
 msgstr "Kerajaan US"
 
-#: lang2.h:159
+#: lang2.h:160
 msgid "International (int)"
 msgstr "Antarabangsa (int)"
 
-#: lang2.h:160
+#: lang2.h:161
 #, fuzzy
 msgid "US Military (mil)"
 msgstr "Ketenteraan US"
 
-#: lang2.h:161
+#: lang2.h:162
 #, fuzzy
 msgid "Network (net)"
 msgstr "Rangkaian"
 
-#: lang2.h:162
+#: lang2.h:163
 #, fuzzy
 msgid "Non-Profit (org)"
 msgstr "Organisasi Tidak Komersil"
 
-#: lang2.h:163
+#: lang2.h:164
 msgid "Generic Business (biz)"
 msgstr ""
 
-#: lang2.h:164
+#: lang2.h:165
 msgid "Catalan Community (cat)"
 msgstr ""
 
-#: lang2.h:165
+#: lang2.h:166
 msgid "Professional (pro)"
 msgstr ""
 
-#: lang2.h:166
+#: lang2.h:167
 msgid "Ind. Contact Data (tel)"
 msgstr ""
 
-#: lang2.h:167
+#: lang2.h:168
 msgid "Air Transport Industry (aero)"
 msgstr ""
 
-#: lang2.h:168
+#: lang2.h:169
 msgid "Asia Pacific Community (asia)"
 msgstr ""
 
-#: lang2.h:169
+#: lang2.h:170
 msgid "Cooperative Association (coop)"
 msgstr ""
 
-#: lang2.h:170
+#: lang2.h:171
 msgid "Generic TLD (info)"
 msgstr ""
 
-#: lang2.h:171
+#: lang2.h:172
 msgid "Human Resources (jobs)"
 msgstr ""
 
-#: lang2.h:172
+#: lang2.h:173
 msgid "Generic Mobile TLD (mobi)"
 msgstr ""
 
-#: lang2.h:173
+#: lang2.h:174
 msgid "Individual (name)"
 msgstr ""
 
-#: lang2.h:174
+#: lang2.h:175
 msgid "Address Routing (arpa)"
 msgstr ""
 
-#: lang2.h:175
+#: lang2.h:176
 msgid "Nato field (nato)"
 msgstr "Nato field (nato)"
 
-#: lang2.h:176
+#: lang2.h:177
 msgid "Museums (museum)"
 msgstr ""
 
-#: lang2.h:177
+#: lang2.h:178
 msgid "Travel Ind. (travel)"
 msgstr ""
 
-#: lang2.h:178
+#: lang2.h:179
 msgid "Ascension Island"
 msgstr ""
 
-#: lang2.h:179
+#: lang2.h:180
 msgid "Andorra"
 msgstr "Andorra"
 
-#: lang2.h:180
+#: lang2.h:181
 msgid "United Arab Emirates"
 msgstr "United Arab Emirates"
 
-#: lang2.h:181
+#: lang2.h:182
 msgid "Afghanistan"
 msgstr "Afghanistan"
 
-#: lang2.h:182
+#: lang2.h:183
 msgid "Antigua and Barbuda"
 msgstr "Antigua and Barbuda"
 
-#: lang2.h:183
+#: lang2.h:184
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: lang2.h:184
+#: lang2.h:185
 msgid "Albania"
 msgstr "Albania"
 
-#: lang2.h:185
+#: lang2.h:186
 msgid "Armenia"
 msgstr "Armenia"
 
-#: lang2.h:186
+#: lang2.h:187
 msgid "Netherlands Antilles"
 msgstr "Netherlands Antilles"
 
-#: lang2.h:187
+#: lang2.h:188
 msgid "Angola"
 msgstr "Angola"
 
-#: lang2.h:188
+#: lang2.h:189
 msgid "Antarctica"
 msgstr "Antarctica"
 
-#: lang2.h:189
+#: lang2.h:190
 msgid "Argentina"
 msgstr "Argentina"
 
-#: lang2.h:190
+#: lang2.h:191
 msgid "American Samoa"
 msgstr "American Samoa"
 
-#: lang2.h:191
+#: lang2.h:192
 msgid "Austria"
 msgstr "Austria"
 
-#: lang2.h:192
+#: lang2.h:193
 msgid "Australia"
 msgstr "Australia"
 
-#: lang2.h:193
+#: lang2.h:194
 msgid "Aruba"
 msgstr "Aruba"
 
-#: lang2.h:194
+#: lang2.h:195
 #, fuzzy
 msgid "Aland Islands"
 msgstr "Cayman Islands"
 
-#: lang2.h:195
+#: lang2.h:196
 msgid "Azerbaijan"
 msgstr "Azerbaijan"
 
-#: lang2.h:196
+#: lang2.h:197
 msgid "Bosnia and Herzegovina"
 msgstr "Bosnia and Herzegovina"
 
-#: lang2.h:197
+#: lang2.h:198
 msgid "Barbados"
 msgstr "Barbados"
 
-#: lang2.h:198
+#: lang2.h:199
 msgid "Bangladesh"
 msgstr "Bangladesh"
 
-#: lang2.h:199
+#: lang2.h:200
 msgid "Belgium"
 msgstr "Belgium"
 
-#: lang2.h:200
+#: lang2.h:201
 msgid "Burkina Faso"
 msgstr "Burkina Faso"
 
-#: lang2.h:201
+#: lang2.h:202
 msgid "Bulgaria"
 msgstr "Bulgaria"
 
-#: lang2.h:202
+#: lang2.h:203
 msgid "Bahrain"
 msgstr "Bahrain"
 
-#: lang2.h:203
+#: lang2.h:204
 msgid "Burundi"
 msgstr "Burundi"
 
-#: lang2.h:204
+#: lang2.h:205
 msgid "Benin"
 msgstr "Benin"
 
-#: lang2.h:205
+#: lang2.h:206
 msgid "Saint Barthelemy"
 msgstr ""
 
-#: lang2.h:206
+#: lang2.h:207
 msgid "Bermuda"
 msgstr "Bermuda"
 
-#: lang2.h:207
+#: lang2.h:208
 msgid "Brunei Darussalam"
 msgstr "Brunei Darussalam"
 
-#: lang2.h:208
+#: lang2.h:209
 msgid "Bolivia"
 msgstr "Bolivia"
 
-#: lang2.h:209
+#: lang2.h:210
 msgid "Brazil"
 msgstr "Brazil"
 
-#: lang2.h:210
+#: lang2.h:211
 msgid "Bahamas"
 msgstr "Bahamas"
 
-#: lang2.h:211
+#: lang2.h:212
 msgid "Bhutan"
 msgstr "Bhutan"
 
-#: lang2.h:212
+#: lang2.h:213
 msgid "Bouvet Island"
 msgstr "Bouvet Island"
 
-#: lang2.h:213
+#: lang2.h:214
 msgid "Botswana"
 msgstr "Botswana"
 
-#: lang2.h:214
+#: lang2.h:215
 msgid "Belarus"
 msgstr "Belarus"
 
-#: lang2.h:215
+#: lang2.h:216
 msgid "Belize"
 msgstr "Belize"
 
-#: lang2.h:216
+#: lang2.h:217
 msgid "Canada"
 msgstr "Canada"
 
-#: lang2.h:217
+#: lang2.h:218
 msgid "Cocos (Keeling) Islands"
 msgstr "Pulau Cocos (Keeling)"
 
-#: lang2.h:218
+#: lang2.h:219
 #, fuzzy
 msgid "Congo, Democratic Republic"
 msgstr "Republik Tengah Afrika"
 
-#: lang2.h:219
+#: lang2.h:220
 msgid "Central African Republic"
 msgstr "Republik Tengah Afrika"
 
-#: lang2.h:220
+#: lang2.h:221
 msgid "Congo"
 msgstr "Congo"
 
-#: lang2.h:221
+#: lang2.h:222
 msgid "Switzerland"
 msgstr "Switzerland"
 
-#: lang2.h:222
+#: lang2.h:223
 msgid "Cote D'Ivoire (Ivory Coast)"
 msgstr "Cote D'Ivoire (Ivory Coast)"
 
-#: lang2.h:223
+#: lang2.h:224
 msgid "Cook Islands"
 msgstr "Cook Islands"
 
-#: lang2.h:224
+#: lang2.h:225
 msgid "Chile"
 msgstr "Chile"
 
-#: lang2.h:225
+#: lang2.h:226
 msgid "Cameroon"
 msgstr "Cameroon"
 
-#: lang2.h:226
+#: lang2.h:227
 msgid "China"
 msgstr "China"
 
-#: lang2.h:227
+#: lang2.h:228
 msgid "Colombia"
 msgstr "Colombia"
 
-#: lang2.h:228
+#: lang2.h:229
 msgid "Costa Rica"
 msgstr "Costa Rica"
 
-#: lang2.h:229
+#: lang2.h:230
 msgid "Cuba"
 msgstr "Cuba"
 
-#: lang2.h:230
+#: lang2.h:231
 msgid "Cape Verde"
 msgstr "Cape Verde"
 
-#: lang2.h:231
+#: lang2.h:232
 msgid "Christmas Island"
 msgstr "Christmas Island"
 
-#: lang2.h:232
+#: lang2.h:233
 msgid "Cyprus"
 msgstr "Cyprus"
 
-#: lang2.h:233
+#: lang2.h:234
 msgid "Czech Republic"
 msgstr "Czech Republic"
 
-#: lang2.h:234
+#: lang2.h:235
 msgid "Germany"
 msgstr "Germany"
 
-#: lang2.h:235
+#: lang2.h:236
 msgid "Djibouti"
 msgstr "Djibouti"
 
-#: lang2.h:236
+#: lang2.h:237
 msgid "Denmark"
 msgstr "Denmark"
 
-#: lang2.h:237
+#: lang2.h:238
 msgid "Dominica"
 msgstr "Dominica"
 
-#: lang2.h:238
+#: lang2.h:239
 msgid "Dominican Republic"
 msgstr "Dominican Republic"
 
-#: lang2.h:239
+#: lang2.h:240
 msgid "Algeria"
 msgstr "Algeria"
 
-#: lang2.h:240
+#: lang2.h:241
 msgid "Ecuador"
 msgstr "Ecuador"
 
-#: lang2.h:241
+#: lang2.h:242
 msgid "Estonia"
 msgstr "Estonia"
 
-#: lang2.h:242
+#: lang2.h:243
 msgid "Egypt"
 msgstr "Egypt"
 
-#: lang2.h:243
+#: lang2.h:244
 msgid "Western Sahara"
 msgstr "Western Sahara"
 
-#: lang2.h:244
+#: lang2.h:245
 msgid "Eritrea"
 msgstr "Eritrea"
 
-#: lang2.h:245
+#: lang2.h:246
 msgid "Spain"
 msgstr "Spain"
 
-#: lang2.h:246
+#: lang2.h:247
 msgid "Ethiopia"
 msgstr "Ethiopia"
 
-#: lang2.h:247
+#: lang2.h:248
 msgid "European Union"
 msgstr ""
 
-#: lang2.h:248
+#: lang2.h:249
 msgid "Finland"
 msgstr "Finland"
 
-#: lang2.h:249
+#: lang2.h:250
 msgid "Fiji"
 msgstr "Fiji"
 
-#: lang2.h:250
+#: lang2.h:251
 msgid "Falkland Islands (Malvinas)"
 msgstr "Falkland Islands (Malvinas)"
 
-#: lang2.h:251
+#: lang2.h:252
 msgid "Micronesia"
 msgstr "Micronesia"
 
-#: lang2.h:252
+#: lang2.h:253
 msgid "Faroe Islands"
 msgstr "Faroe Islands"
 
-#: lang2.h:253
+#: lang2.h:254
 msgid "France"
 msgstr "France"
 
-#: lang2.h:254
+#: lang2.h:255
 msgid "Gabon"
 msgstr "Gabon"
 
-#: lang2.h:255
+#: lang2.h:256
 msgid "Great Britain (UK)"
 msgstr "Great Britain (UK)"
 
-#: lang2.h:256
+#: lang2.h:257
 msgid "Grenada"
 msgstr "Grenada"
 
-#: lang2.h:257
+#: lang2.h:258
 msgid "Georgia"
 msgstr "Georgia"
 
-#: lang2.h:258
+#: lang2.h:259
 msgid "French Guiana"
 msgstr "French Guiana"
 
-#: lang2.h:259
+#: lang2.h:260
 msgid "Guernsey"
 msgstr ""
 
-#: lang2.h:260
+#: lang2.h:261
 msgid "Ghana"
 msgstr "Ghana"
 
-#: lang2.h:261
+#: lang2.h:262
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#: lang2.h:262
+#: lang2.h:263
 msgid "Greenland"
 msgstr "Greenland"
 
-#: lang2.h:263
+#: lang2.h:264
 msgid "Gambia"
 msgstr "Gambia"
 
-#: lang2.h:264
+#: lang2.h:265
 msgid "Guinea"
 msgstr "Guinea"
 
-#: lang2.h:265
+#: lang2.h:266
 msgid "Guadeloupe"
 msgstr "Guadeloupe"
 
-#: lang2.h:266
+#: lang2.h:267
 msgid "Equatorial Guinea"
 msgstr "Equatorial Guinea"
 
-#: lang2.h:267
+#: lang2.h:268
 msgid "Greece"
 msgstr "Greece"
 
-#: lang2.h:268
+#: lang2.h:269
 msgid "S. Georgia and S. Sandwich Isls."
 msgstr "S. Georgia and S. Sandwich Isls."
 
-#: lang2.h:269
+#: lang2.h:270
 msgid "Guatemala"
 msgstr "Guatemala"
 
-#: lang2.h:270
+#: lang2.h:271
 msgid "Guam"
 msgstr "Guam"
 
-#: lang2.h:271
+#: lang2.h:272
 msgid "Guinea-Bissau"
 msgstr "Guinea-Bissau"
 
-#: lang2.h:272
+#: lang2.h:273
 msgid "Guyana"
 msgstr "Guyana"
 
-#: lang2.h:273
+#: lang2.h:274
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: lang2.h:274
+#: lang2.h:275
 msgid "Heard and McDonald Islands"
 msgstr "Heard and McDonald Islands"
 
-#: lang2.h:275
+#: lang2.h:276
 msgid "Honduras"
 msgstr "Honduras"
 
-#: lang2.h:276
+#: lang2.h:277
 msgid "Croatia"
 msgstr ""
 
-#: lang2.h:277
+#: lang2.h:278
 msgid "Haiti"
 msgstr "Haiti"
 
-#: lang2.h:278
+#: lang2.h:279
 msgid "Hungary"
 msgstr "Hungary"
 
-#: lang2.h:279
+#: lang2.h:280
 msgid "Indonesia"
 msgstr "Indonesia"
 
-#: lang2.h:280
+#: lang2.h:281
 msgid "Ireland"
 msgstr "Ireland"
 
-#: lang2.h:281
+#: lang2.h:282
 msgid "Israel"
 msgstr "Israel"
 
-#: lang2.h:282
+#: lang2.h:283
 msgid "Isle of Man"
 msgstr ""
 
-#: lang2.h:283
+#: lang2.h:284
 msgid "India"
 msgstr "India"
 
-#: lang2.h:284
+#: lang2.h:285
 msgid "British Indian Ocean Territory"
 msgstr "British Indian Ocean Territory"
 
-#: lang2.h:285
+#: lang2.h:286
 msgid "Iraq"
 msgstr "Iraq"
 
-#: lang2.h:286
+#: lang2.h:287
 msgid "Iran"
 msgstr "Iran"
 
-#: lang2.h:287
+#: lang2.h:288
 msgid "Iceland"
 msgstr "Iceland"
 
-#: lang2.h:288
+#: lang2.h:289
 msgid "Italy"
 msgstr "Italy"
 
-#: lang2.h:289
+#: lang2.h:290
 msgid "Jersey"
 msgstr ""
 
-#: lang2.h:290
+#: lang2.h:291
 msgid "Jamaica"
 msgstr "Jamaica"
 
-#: lang2.h:291
+#: lang2.h:292
 msgid "Jordan"
 msgstr "Jordan"
 
-#: lang2.h:292
+#: lang2.h:293
 msgid "Japan"
 msgstr "Japan"
 
-#: lang2.h:293
+#: lang2.h:294
 msgid "Kenya"
 msgstr "Kenya"
 
-#: lang2.h:294
+#: lang2.h:295
 msgid "Kyrgyzstan"
 msgstr "Kyrgyzstan"
 
-#: lang2.h:295
+#: lang2.h:296
 msgid "Cambodia"
 msgstr "Cambodia"
 
-#: lang2.h:296
+#: lang2.h:297
 msgid "Kiribati"
 msgstr "Kiribati"
 
-#: lang2.h:297
+#: lang2.h:298
 msgid "Comoros"
 msgstr "Comoros"
 
-#: lang2.h:298
+#: lang2.h:299
 msgid "Saint Kitts and Nevis"
 msgstr "Saint Kitts and Nevis"
 
-#: lang2.h:299
+#: lang2.h:300
 msgid "Korea, Democratic Republic of"
 msgstr ""
 
-#: lang2.h:300
+#: lang2.h:301
 #, fuzzy
 msgid "Korea, Republic of"
 msgstr "Slovak Republic"
 
-#: lang2.h:301
+#: lang2.h:302
 msgid "Kuwait"
 msgstr "Kuwait"
 
-#: lang2.h:302
+#: lang2.h:303
 msgid "Cayman Islands"
 msgstr "Cayman Islands"
 
-#: lang2.h:303
+#: lang2.h:304
 msgid "Kazakhstan"
 msgstr "Kazakhstan"
 
-#: lang2.h:304
+#: lang2.h:305
 msgid "Laos"
 msgstr "Laos"
 
-#: lang2.h:305
+#: lang2.h:306
 msgid "Lebanon"
 msgstr "Lebanon"
 
-#: lang2.h:306
+#: lang2.h:307
 msgid "Saint Lucia"
 msgstr "Saint Lucia"
 
-#: lang2.h:307
+#: lang2.h:308
 msgid "Liechtenstein"
 msgstr "Liechtenstein"
 
-#: lang2.h:308
+#: lang2.h:309
 msgid "Sri Lanka"
 msgstr "Sri Lanka"
 
-#: lang2.h:309
+#: lang2.h:310
 msgid "Liberia"
 msgstr "Liberia"
 
-#: lang2.h:310
+#: lang2.h:311
 msgid "Lesotho"
 msgstr "Lesotho"
 
-#: lang2.h:311
+#: lang2.h:312
 msgid "Lithuania"
 msgstr "Lithuania"
 
-#: lang2.h:312
+#: lang2.h:313
 msgid "Luxembourg"
 msgstr "Luxembourg"
 
-#: lang2.h:313
+#: lang2.h:314
 msgid "Latvia"
 msgstr "Latvia"
 
-#: lang2.h:314
+#: lang2.h:315
 msgid "Libya"
 msgstr "Libya"
 
-#: lang2.h:315
+#: lang2.h:316
 msgid "Morocco"
 msgstr "Morocco"
 
-#: lang2.h:316
+#: lang2.h:317
 msgid "Monaco"
 msgstr "Monaco"
 
-#: lang2.h:317
+#: lang2.h:318
 msgid "Moldova"
 msgstr "Moldova"
 
-#: lang2.h:318
+#: lang2.h:319
 #, fuzzy
 msgid "Montenegro"
 msgstr "Montserrat"
 
-#: lang2.h:319
+#: lang2.h:320
 msgid "Saint Martin (French part)"
 msgstr ""
 
-#: lang2.h:320
+#: lang2.h:321
 msgid "Madagascar"
 msgstr "Madagascar"
 
-#: lang2.h:321
+#: lang2.h:322
 msgid "Marshall Islands"
 msgstr "Marshall Islands"
 
-#: lang2.h:322
+#: lang2.h:323
 msgid "Macedonia"
 msgstr "Macedonia"
 
-#: lang2.h:323
+#: lang2.h:324
 msgid "Mali"
 msgstr "Mali"
 
-#: lang2.h:324
+#: lang2.h:325
 msgid "Myanmar"
 msgstr "Myanmar"
 
-#: lang2.h:325
+#: lang2.h:326
 msgid "Mongolia"
 msgstr "Mongolia"
 
-#: lang2.h:326
+#: lang2.h:327
 msgid "Macau"
 msgstr "Macau"
 
-#: lang2.h:327
+#: lang2.h:328
 msgid "Northern Mariana Islands"
 msgstr "Northern Mariana Islands"
 
-#: lang2.h:328
+#: lang2.h:329
 msgid "Martinique"
 msgstr "Martinique"
 
-#: lang2.h:329
+#: lang2.h:330
 msgid "Mauritania"
 msgstr "Mauritania"
 
-#: lang2.h:330
+#: lang2.h:331
 msgid "Montserrat"
 msgstr "Montserrat"
 
-#: lang2.h:331
+#: lang2.h:332
 msgid "Malta"
 msgstr "Malta"
 
-#: lang2.h:332
+#: lang2.h:333
 msgid "Mauritius"
 msgstr "Mauritius"
 
-#: lang2.h:333
+#: lang2.h:334
 msgid "Maldives"
 msgstr "Maldives"
 
-#: lang2.h:334
+#: lang2.h:335
 msgid "Malawi"
 msgstr "Malawi"
 
-#: lang2.h:335
+#: lang2.h:336
 msgid "Mexico"
 msgstr "Mexico"
 
-#: lang2.h:336
+#: lang2.h:337
 msgid "Malaysia"
 msgstr "Malaysia"
 
-#: lang2.h:337
+#: lang2.h:338
 msgid "Mozambique"
 msgstr "Mozambique"
 
-#: lang2.h:338
+#: lang2.h:339
 msgid "Namibia"
 msgstr "Namibia"
 
-#: lang2.h:339
+#: lang2.h:340
 msgid "New Caledonia"
 msgstr "New Caledonia"
 
-#: lang2.h:340
+#: lang2.h:341
 msgid "Niger"
 msgstr "Niger"
 
-#: lang2.h:341
+#: lang2.h:342
 msgid "Norfolk Island"
 msgstr "Norfolk Island"
 
-#: lang2.h:342
+#: lang2.h:343
 msgid "Nigeria"
 msgstr "Nigeria"
 
-#: lang2.h:343
+#: lang2.h:344
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
-#: lang2.h:344
+#: lang2.h:345
 msgid "Netherlands"
 msgstr "Netherlands"
 
-#: lang2.h:345
+#: lang2.h:346
 msgid "Norway"
 msgstr "Norway"
 
-#: lang2.h:346
+#: lang2.h:347
 msgid "Nepal"
 msgstr "Nepal"
 
-#: lang2.h:347
+#: lang2.h:348
 msgid "Nauru"
 msgstr "Nauru"
 
-#: lang2.h:348
+#: lang2.h:349
 msgid "Niue"
 msgstr "Niue"
 
-#: lang2.h:349
+#: lang2.h:350
 #, fuzzy
 msgid "New Zealand"
 msgstr "New Zealand (Aotearoa)"
 
-#: lang2.h:350
+#: lang2.h:351
 msgid "Oman"
 msgstr "Oman"
 
-#: lang2.h:351
+#: lang2.h:352
 msgid "Panama"
 msgstr "Panama"
 
-#: lang2.h:352
+#: lang2.h:353
 msgid "Peru"
 msgstr "Peru"
 
-#: lang2.h:353
+#: lang2.h:354
 msgid "French Polynesia"
 msgstr "French Polynesia"
 
-#: lang2.h:354
+#: lang2.h:355
 msgid "Papua New Guinea"
 msgstr "Papua New Guinea"
 
-#: lang2.h:355
+#: lang2.h:356
 msgid "Philippines"
 msgstr "Philippines"
 
-#: lang2.h:356
+#: lang2.h:357
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: lang2.h:357
+#: lang2.h:358
 msgid "Poland"
 msgstr "Poland"
 
-#: lang2.h:358
+#: lang2.h:359
 msgid "St. Pierre and Miquelon"
 msgstr "St. Pierre and Miquelon"
 
-#: lang2.h:359
+#: lang2.h:360
 msgid "Pitcairn"
 msgstr "Pitcairn"
 
-#: lang2.h:360
+#: lang2.h:361
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: lang2.h:361
+#: lang2.h:362
 msgid "Palestinian Territory, Occupied"
 msgstr ""
 
-#: lang2.h:362
+#: lang2.h:363
 msgid "Portugal"
 msgstr "Portugal"
 
-#: lang2.h:363
+#: lang2.h:364
 msgid "Palau"
 msgstr "Palau"
 
-#: lang2.h:364
+#: lang2.h:365
 msgid "Paraguay"
 msgstr "Paraguay"
 
-#: lang2.h:365
+#: lang2.h:366
 msgid "Qatar"
 msgstr "Qatar"
 
-#: lang2.h:366
+#: lang2.h:367
 msgid "Reunion"
 msgstr "Reunion"
 
-#: lang2.h:367
+#: lang2.h:368
 msgid "Romania"
 msgstr "Romania"
 
-#: lang2.h:368
+#: lang2.h:369
 msgid "Serbia"
 msgstr ""
 
-#: lang2.h:369
+#: lang2.h:370
 msgid "Russian Federation"
 msgstr "Russian Federation"
 
-#: lang2.h:370
+#: lang2.h:371
 msgid "Rwanda"
 msgstr "Rwanda"
 
-#: lang2.h:371
+#: lang2.h:372
 msgid "Saudi Arabia"
 msgstr "Saudi Arabia"
 
-#: lang2.h:372
+#: lang2.h:373
 msgid "Solomon Islands"
 msgstr "Solomon Islands"
 
-#: lang2.h:373
+#: lang2.h:374
 msgid "Seychelles"
 msgstr "Seychelles"
 
-#: lang2.h:374
+#: lang2.h:375
 msgid "Sudan"
 msgstr "Sudan"
 
-#: lang2.h:375
+#: lang2.h:376
 msgid "Sweden"
 msgstr "Sweden"
 
-#: lang2.h:376
+#: lang2.h:377
 msgid "Singapore"
 msgstr "Singapore"
 
-#: lang2.h:377
+#: lang2.h:378
 msgid "St. Helena"
 msgstr "St. Helena"
 
-#: lang2.h:378
+#: lang2.h:379
 msgid "Slovenia"
 msgstr "Slovenia"
 
-#: lang2.h:379
+#: lang2.h:380
 msgid "Svalbard and Jan Mayen Islands"
 msgstr "Svalbard and Jan Mayen Islands"
 
-#: lang2.h:380
+#: lang2.h:381
 #, fuzzy
 msgid "Slovakia"
 msgstr "Slovenia"
 
-#: lang2.h:381
+#: lang2.h:382
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: lang2.h:382
+#: lang2.h:383
 msgid "San Marino"
 msgstr "San Marino"
 
-#: lang2.h:383
+#: lang2.h:384
 msgid "Senegal"
 msgstr "Senegal"
 
-#: lang2.h:384
+#: lang2.h:385
 msgid "Somalia"
 msgstr "Somalia"
 
-#: lang2.h:385
+#: lang2.h:386
 msgid "Suriname"
 msgstr "Suriname"
 
-#: lang2.h:386
+#: lang2.h:387
 msgid "Sao Tome and Principe"
 msgstr "Sao Tome and Principe"
 
-#: lang2.h:387
+#: lang2.h:388
 msgid "Soviet Union"
 msgstr ""
 
-#: lang2.h:388
+#: lang2.h:389
 msgid "El Salvador"
 msgstr "El Salvador"
 
-#: lang2.h:389
+#: lang2.h:390
 #, fuzzy
 msgid "Syrian Arab Republic"
 msgstr "Republik Tengah Afrika"
 
-#: lang2.h:390
+#: lang2.h:391
 msgid "Swaziland"
 msgstr "Swaziland"
 
-#: lang2.h:391
+#: lang2.h:392
 msgid "Turks and Caicos Islands"
 msgstr "Turks and Caicos Islands"
 
-#: lang2.h:392
+#: lang2.h:393
 msgid "Chad"
 msgstr "Chad"
 
-#: lang2.h:393
+#: lang2.h:394
 msgid "French Southern Territories"
 msgstr "French Southern Territories"
 
-#: lang2.h:394
+#: lang2.h:395
 msgid "Togo"
 msgstr "Togo"
 
-#: lang2.h:395
+#: lang2.h:396
 msgid "Thailand"
 msgstr "Thailand"
 
-#: lang2.h:396
+#: lang2.h:397
 msgid "Tajikistan"
 msgstr "Tajikistan"
 
-#: lang2.h:397
+#: lang2.h:398
 msgid "Tokelau"
 msgstr "Tokelau"
 
-#: lang2.h:398
+#: lang2.h:399
 msgid "Timor-Leste"
 msgstr ""
 
-#: lang2.h:399
+#: lang2.h:400
 msgid "Turkmenistan"
 msgstr "Turkmenistan"
 
-#: lang2.h:400
+#: lang2.h:401
 msgid "Tunisia"
 msgstr "Tunisia"
 
-#: lang2.h:401
+#: lang2.h:402
 msgid "Tonga"
 msgstr "Tonga"
 
-#: lang2.h:402
+#: lang2.h:403
 msgid "Portuguese Timor"
 msgstr ""
 
-#: lang2.h:403
+#: lang2.h:404
 msgid "Turkey"
 msgstr "Turkey"
 
-#: lang2.h:404
+#: lang2.h:405
 msgid "Trinidad and Tobago"
 msgstr "Trinidad and Tobago"
 
-#: lang2.h:405
+#: lang2.h:406
 msgid "Tuvalu"
 msgstr "Tuvalu"
 
-#: lang2.h:406
+#: lang2.h:407
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: lang2.h:407
+#: lang2.h:408
 msgid "Tanzania"
 msgstr "Tanzania"
 
-#: lang2.h:408
+#: lang2.h:409
 msgid "Ukraine"
 msgstr "Ukraine"
 
-#: lang2.h:409
+#: lang2.h:410
 msgid "Uganda"
 msgstr "Uganda"
 
-#: lang2.h:410
+#: lang2.h:411
 msgid "United Kingdom"
 msgstr "United Kingdom"
 
-#: lang2.h:411
+#: lang2.h:412
 msgid "US Minor Outlying Islands"
 msgstr "US Minor Outlying Islands"
 
-#: lang2.h:412
+#: lang2.h:413
 msgid "United States"
 msgstr "United States"
 
-#: lang2.h:413
+#: lang2.h:414
 msgid "Uruguay"
 msgstr "Uruguay"
 
-#: lang2.h:414
+#: lang2.h:415
 msgid "Uzbekistan"
 msgstr "Uzbekistan"
 
-#: lang2.h:415
+#: lang2.h:416
 msgid "Vatican City State (Holy See)"
 msgstr "Vatican City State (Holy See)"
 
-#: lang2.h:416
+#: lang2.h:417
 msgid "Saint Vincent and the Grenadines"
 msgstr "Saint Vincent and the Grenadines"
 
-#: lang2.h:417
+#: lang2.h:418
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: lang2.h:418
+#: lang2.h:419
 msgid "Virgin Islands (British)"
 msgstr "Virgin Islands (British)"
 
-#: lang2.h:419
+#: lang2.h:420
 msgid "Virgin Islands (U.S.)"
 msgstr "Virgin Islands (U.S.)"
 
-#: lang2.h:420
+#: lang2.h:421
 #, fuzzy
 msgid "Vietnam"
 msgstr "Viet Nam"
 
-#: lang2.h:421
+#: lang2.h:422
 msgid "Vanuatu"
 msgstr "Vanuatu"
 
-#: lang2.h:422
+#: lang2.h:423
 msgid "Wallis and Futuna Islands"
 msgstr "Wallis and Futuna Islands"
 
-#: lang2.h:423
+#: lang2.h:424
 msgid "Samoa"
 msgstr "Samoa"
 
-#: lang2.h:424
+#: lang2.h:425
 msgid "Yemen"
 msgstr "Yemen"
 
-#: lang2.h:425
+#: lang2.h:426
 msgid "Mayotte"
 msgstr "Mayotte"
 
-#: lang2.h:426
+#: lang2.h:427
 msgid "Yugoslavia"
 msgstr "Yugoslavia"
 
-#: lang2.h:427
+#: lang2.h:428
 msgid "South Africa"
 msgstr "South Africa"
 
-#: lang2.h:428
+#: lang2.h:429
 msgid "Zambia"
 msgstr "Zambia"
 
-#: lang2.h:429
+#: lang2.h:430
 msgid "Zimbabwe"
 msgstr "Zimbabwe"
 
-#: lang2.h:430
+#: lang2.h:431
 msgid "Anonymous Proxy"
 msgstr ""
 
-#: lang2.h:431
+#: lang2.h:432
 msgid "Satellite Provider"
 msgstr ""
 
-#: lang2.h:433
+#: lang2.h:434
 msgid "Asia/Pacific Region"
 msgstr ""
 
-#: lang2.h:434
+#: lang2.h:435
 msgid "Local Network (lan)"
 msgstr ""
 
-#: output.c:192
+#: output.c:191
 msgid "en"
 msgstr ""
 
-#: output.c:194 output.c:220 output.c:2771
+#: output.c:193 output.c:219 output.c:2742
 msgid "Summary by Month"
 msgstr "Ringkasan Bulanan"
 
-#: output.c:218
+#: output.c:217
 msgid "Summary Period"
 msgstr "Jangkamasa Ringkasan"
 
-#: output.c:221
+#: output.c:220
 msgid "Generated"
 msgstr "Dijanakan"
 
-#: output.c:292
+#: output.c:286
 msgid "Generating report for"
 msgstr "Menjana laporan untuk"
 
-#: output.c:304
+#: output.c:298
 msgid "Daily usage for"
 msgstr "Pengunaan Harian bagi"
 
-#: output.c:322
+#: output.c:316
 msgid "Hourly usage for"
 msgstr "Pengunaan ikut Jam bagi"
 
-#: output.c:374
+#: output.c:368
 msgid "Can't allocate enough memory, Top URLs disabled!"
 msgstr "Tidak dapat memperuntukkan ingatan, URL Terbaik diabaikan!"
 
-#: output.c:396
+#: output.c:390
 msgid "Can't allocate enough memory, Top Sites disabled!"
 msgstr "Tidak dapat memperuntukkan ingatan, Halaman Terbaik diabaikan!"
 
-#: output.c:413
+#: output.c:407
 msgid "Can't allocate enough memory, Top Referrers disabled!"
 msgstr "Tidak dapat memperuntukkan ingatan, Perujuk Terbaik diabaikan!"
 
-#: output.c:430
+#: output.c:424
 msgid "Can't allocate enough memory, Top Search Strings disabled!"
 msgstr ""
 "Tidak dapat memperuntukkan ingatan, Katakunci Carian Terbaik diabaikan!"
 
-#: output.c:447
+#: output.c:441
 msgid "Can't allocate enough memory, Top Usernames disabled!"
 msgstr ""
 "Tidak dapat memperuntukkan ingatan, Katanama Pengguna Terbaik diabaikan!"
 
-#: output.c:464
+#: output.c:458
 msgid "Can't allocate enough memory, Top User Agents disabled!"
 msgstr "Tidak dapat memperuntukkan ingatan, Agen Pengguna Terbaik diabaikan!"
 
-#: output.c:482
+#: output.c:476
 #, fuzzy
 msgid "[Daily Statistics]"
 msgstr "Statistik Harian"
 
-#: output.c:484
+#: output.c:478
 #, fuzzy
 msgid "[Hourly Statistics]"
 msgstr "Statistik ikut Jam"
 
-#: output.c:486
+#: output.c:480
 #, fuzzy
 msgid "[URLs]"
 msgstr "URL"
 
-#: output.c:488
+#: output.c:482
 #, fuzzy
 msgid "[Entry]"
 msgstr "Masuk dari"
 
-#: output.c:490
+#: output.c:484
 #, fuzzy
 msgid "[Exit]"
 msgstr "Keluar dari"
 
-#: output.c:492
+#: output.c:486
 #, fuzzy
 msgid "[Sites]"
 msgstr "Halaman"
 
-#: output.c:494
+#: output.c:488
 #, fuzzy
 msgid "[Referrers]"
 msgstr "Perujuk"
 
-#: output.c:496
+#: output.c:490
 #, fuzzy
 msgid "[Search]"
 msgstr "Carian"
 
-#: output.c:498
+#: output.c:492
 #, fuzzy
 msgid "[Users]"
 msgstr "Pengguna"
 
-#: output.c:500
+#: output.c:494
 #, fuzzy
 msgid "[Agents]"
 msgstr "Agen"
 
-#: output.c:502
+#: output.c:496
 #, fuzzy
 msgid "[Countries]"
 msgstr "Negara"
 
-#: output.c:532
+#: output.c:526
 msgid "Monthly Statistics for"
 msgstr "Statistik Bulanan Untuk"
 
-#: output.c:537
+#: output.c:531
 msgid "Total Hits"
 msgstr "Jumlah Capaian"
 
-#: output.c:541
+#: output.c:535
 msgid "Total Files"
 msgstr "Jumlah Fail"
 
-#: output.c:545
+#: output.c:539
 #, fuzzy
 msgid "Total Pages"
 msgstr "Jumlah Halaman Keluar"
 
-#: output.c:549
+#: output.c:543
 #, fuzzy
 msgid "Total Visits"
 msgstr "Jumlah Capaian"
 
-#: output.c:553
+#: output.c:547
 #, fuzzy
 msgid "Total kB Files"
 msgstr "Jumlah Fail"
 
-#: output.c:558
+#: output.c:552
 #, fuzzy
 msgid "Total kB In"
 msgstr "Jumlah"
 
-#: output.c:561
+#: output.c:555
 #, fuzzy
 msgid "Total kB Out"
 msgstr "Jumlah KBait"
 
-#: output.c:569
+#: output.c:563
 msgid "Total Unique Sites"
 msgstr "Jumlah Halaman Unik"
 
-#: output.c:574
+#: output.c:568
 msgid "Total Unique URLs"
 msgstr "Jumlah URL unik"
 
-#: output.c:580
+#: output.c:574
 msgid "Total Unique Referrers"
 msgstr "Jumlah Perujuk Unik"
 
-#: output.c:586
+#: output.c:580
 msgid "Total Unique Usernames"
 msgstr "Jumlah Katanama Unik"
 
-#: output.c:592
+#: output.c:586
 msgid "Total Unique User Agents"
 msgstr "Jumlah Agen Pengguna Unik"
 
-#: output.c:602 output.c:845 output.c:850 output.c:855 output.c:860
-#: output.c:872 output.c:877
+#: output.c:596 output.c:839 output.c:844 output.c:849 output.c:854
+#: output.c:866 output.c:871
 msgid "Avg"
 msgstr "Purata"
 
-#: output.c:602
+#: output.c:596
 msgid "Max"
 msgstr "Maksima"
 
-#: output.c:609
+#: output.c:603
 msgid "Hits per Hour"
 msgstr "Purata Capaian Sejam"
 
-#: output.c:615
+#: output.c:609
 msgid "Hits per Day"
 msgstr "Purata Capaian Sehari"
 
-#: output.c:621
+#: output.c:615
 msgid "Files per Day"
 msgstr "Purata Fail Sehari"
 
-#: output.c:627
+#: output.c:621
 msgid "Pages per Day"
 msgstr "Purata Halaman Sehari"
 
-#: output.c:633
+#: output.c:627
 #, fuzzy
 msgid "Sites per Day"
 msgstr "Purata Capaian Sehari"
 
-#: output.c:639
+#: output.c:633
 msgid "Visits per Day"
 msgstr "Purata Lawatan Sehari"
 
-#: output.c:645
+#: output.c:639
 #, fuzzy
 msgid "kB Files per Day"
 msgstr "Purata Fail Sehari"
 
-#: output.c:653
+#: output.c:647
 #, fuzzy
 msgid "kB In per Day"
 msgstr "Purata KBait Sehari"
 
-#: output.c:659
+#: output.c:653
 #, fuzzy
 msgid "kB Out per Day"
 msgstr "Purata KBait Sehari"
 
-#: output.c:666
+#: output.c:660
 msgid "Hits by Response Code"
 msgstr "Purata Capaian mengikut Kod Respon"
 
-#: output.c:697
+#: output.c:691
 msgid "Daily Statistics for"
 msgstr "Statistik Harian untuk"
 
-#: output.c:713
+#: output.c:707
 msgid "Day"
 msgstr "Hari"
 
-#: output.c:810
+#: output.c:804
 msgid "Hourly Statistics for"
 msgstr "Statistik mengikut Jam bagi"
 
-#: output.c:822
+#: output.c:816
 msgid "Hour"
 msgstr "Jam"
 
-#: output.c:845 output.c:850 output.c:855 output.c:860 output.c:872
-#: output.c:877
+#: output.c:839 output.c:844 output.c:849 output.c:854 output.c:866
+#: output.c:871
 msgid "Total"
 msgstr "Jumlah"
 
-#: output.c:972 output.c:976 output.c:1204 output.c:1208 output.c:1464
-#: output.c:1560 output.c:1732 output.c:1879 output.c:2000 output.c:2351
+#: output.c:965 output.c:969 output.c:1198 output.c:1201 output.c:1453
+#: output.c:1542 output.c:1710 output.c:1853 output.c:1974 output.c:2326
 msgid "Top"
 msgstr "Antara"
 
-#: output.c:972 output.c:976 output.c:1204 output.c:1208 output.c:1464
-#: output.c:1560 output.c:1732 output.c:1879 output.c:2000 output.c:2351
+#: output.c:965 output.c:969 output.c:1198 output.c:1201 output.c:1453
+#: output.c:1542 output.c:1710 output.c:1853 output.c:1974 output.c:2326
 msgid "of"
 msgstr "yang Terbaik dari"
 
-#: output.c:973 output.c:1205
+#: output.c:966 output.c:1198
 msgid "By"
 msgstr "Ikut"
 
-#: output.c:973 output.c:976
+#: output.c:966 output.c:969
 msgid "Total Sites"
 msgstr "Jumlah Halaman"
 
-#: output.c:996 output.c:1099 output.c:2451
+#: output.c:989 output.c:1092 output.c:2422
 msgid "Hostname"
 msgstr "Nama Hos"
 
-#: output.c:1060
+#: output.c:1053
 msgid "View All Sites"
 msgstr "Lihat Semua Halaman"
 
-#: output.c:1205 output.c:1208
+#: output.c:1198 output.c:1201
 msgid "Total URLs"
 msgstr "Jumlah URL"
 
-#: output.c:1229 output.c:1347 output.c:1357 output.c:1478 output.c:2503
+#: output.c:1223 output.c:1336 output.c:1346 output.c:1463 output.c:2474
 msgid "URL"
 msgstr "URL"
 
-#: output.c:1319
+#: output.c:1308
 msgid "View All URLs"
 msgstr "Lihat Semua URL"
 
-#: output.c:1465
+#: output.c:1454
 msgid "Total Entry Pages"
 msgstr "Jumlah Halaman Masukan"
 
-#: output.c:1465
+#: output.c:1454
 msgid "Total Exit Pages"
 msgstr "Jumlah Halaman Keluar"
 
-#: output.c:1560
+#: output.c:1542
 msgid "Total Referrers"
 msgstr "Jumlah Penujuk"
 
-#: output.c:1570 output.c:1647 output.c:1652 output.c:2547
+#: output.c:1549 output.c:1625 output.c:1630 output.c:2518
 msgid "Referrer"
 msgstr "Perujuk"
 
-#: output.c:1622
+#: output.c:1600
 msgid "View All Referrers"
 msgstr "Lihat Semua Penunjuk"
 
-#: output.c:1732
+#: output.c:1710
 msgid "Total User Agents"
 msgstr "Jumlah Agen Pengguna"
 
-#: output.c:1742 output.c:1808 output.c:1813 output.c:2586
+#: output.c:1717 output.c:1782 output.c:1787 output.c:2557
 msgid "User Agent"
 msgstr "Agen Pengguna"
 
-#: output.c:1783
+#: output.c:1757
 msgid "View All User Agents"
 msgstr "Lihat Semua Agen Pengguna"
 
-#: output.c:1879
+#: output.c:1853
 msgid "Total Search Strings"
 msgstr "Jumlah Katakunci Carian"
 
-#: output.c:1889 output.c:1944 output.c:1949 output.c:2675
+#: output.c:1863 output.c:1918 output.c:1923 output.c:2646
 msgid "Search String"
 msgstr "Perkataan Carian"
 
-#: output.c:1918
+#: output.c:1892
 msgid "View All Search Strings"
 msgstr "Lihat Semua Katakunci Carian"
 
-#: output.c:2000
+#: output.c:1974
 msgid "Total Usernames"
 msgstr "Jumlah Katanama"
 
-#: output.c:2020 output.c:2108 output.c:2119 output.c:2630
+#: output.c:1994 output.c:2082 output.c:2093 output.c:2601
 msgid "Username"
 msgstr "Katanama"
 
-#: output.c:2083
+#: output.c:2057
 msgid "View All Usernames"
 msgstr "Lihat Semua Katanama"
 
-#: output.c:2236
+#: output.c:2210
 #, c-format
 msgid "GeoDB: %s unknown!\n"
 msgstr ""
 
-#: output.c:2249
+#: output.c:2224
 #, c-format
 msgid "GeoIP: %s unknown (returns '%s')\n"
 msgstr ""
 
-#: output.c:2334
+#: output.c:2309
 #, fuzzy
 msgid "Usage by Country for"
 msgstr "Penggunaan mengikut Negara bagi"
 
-#: output.c:2351
+#: output.c:2326
 #, fuzzy
 msgid "Total Countries"
 msgstr "Negara"
 
-#: output.c:2369
+#: output.c:2344
 msgid "Country"
 msgstr "Negara"
 
-#: output.c:2717
+#: output.c:2688
 msgid "Generating summary report"
 msgstr "Menjana ringkasan laporan"
 
-#: output.c:2719
+#: output.c:2690
 msgid "Usage summary for"
 msgstr "Ringkasan Penggunaan untuk"
 
-#: output.c:2751
+#: output.c:2722
 #, fuzzy, c-format
 msgid "Error: Failed to create .htaccess file: %s\n"
 msgstr "Ralat: Saya tidak dapat menyimpan fail terdahulu"
 
-#: output.c:2774
+#: output.c:2745
 msgid "Month"
 msgstr "Bulan"
 
-#: output.c:2776
+#: output.c:2747
 msgid "Daily Avg"
 msgstr "Purata harian"
 
-#: output.c:2778
+#: output.c:2749
 msgid "Monthly Totals"
 msgstr "Jumlah Bulanan"
 
-#: output.c:2933
+#: output.c:2905
 msgid "Totals"
 msgstr "Jumlah"
 
@@ -2206,11 +2206,11 @@ msgstr "Amaran: Katanama yang terlalu panjang telah dipotong"
 msgid "Warning: Truncating oversized date field"
 msgstr "Amaran: Ruangan tarikh yang terlalu panjang telah dipotong"
 
-#: parser.c:311 parser.c:470 parser.c:499 webalizer.c:1017
+#: parser.c:311 parser.c:470 parser.c:499 webalizer.c:1016
 msgid "Warning: Truncating oversized request field"
 msgstr "Amaran: Ruangan pertanyaan yang terlalu panjang telah dipotong"
 
-#: parser.c:362 webalizer.c:1009
+#: parser.c:362 webalizer.c:1008
 msgid "Warning: Truncating oversized referrer field"
 msgstr "Amaran: Ruangan perujuk yang terlalu panjang telah dipotong"
 
@@ -2218,146 +2218,146 @@ msgstr "Amaran: Ruangan perujuk yang terlalu panjang telah dipotong"
 msgid "Reading history file..."
 msgstr "Baca fail terdahulu..."
 
-#: preserve.c:89
+#: preserve.c:90
 msgid "Error: Ignoring invalid history record"
 msgstr "Ralat: Saya mengabaikan rekod terdahulu yang rosak"
 
-#: preserve.c:142
+#: preserve.c:132
 msgid "History file not found..."
 msgstr "Fail terdahulu tiada..."
 
-#: preserve.c:182
+#: preserve.c:173
 msgid "Saving history information..."
 msgstr "Simpan maklumat terdahulu..."
 
-#: preserve.c:222
+#: preserve.c:213
 msgid "Error: Unable to write history file"
 msgstr "Ralat: Saya tidak dapat menyimpan fail terdahulu"
 
-#: preserve.c:355
+#: preserve.c:346
 msgid "Saving current run data..."
 msgstr "Menimpan data larian terkini..."
 
-#: preserve.c:569
+#: preserve.c:560
 msgid "Previous run data not found..."
 msgstr "Data larian terdahulu tidak dijumpai..."
 
-#: preserve.c:574
+#: preserve.c:565
 #, fuzzy
 msgid "Reading previous run data.."
 msgstr "Membaca data larian terdahulu.."
 
-#: preserve.c:681 webalizer.c:1239 webalizer.c:1352
+#: preserve.c:672 webalizer.c:1239 webalizer.c:1352
 msgid "Error adding URL node, skipping"
 msgstr "Ralat untuk menambah nod URL, proses diabaikan"
 
-#: preserve.c:722 webalizer.c:1284 webalizer.c:1367 webalizer.c:1385
+#: preserve.c:713 webalizer.c:1284 webalizer.c:1367 webalizer.c:1385
 msgid "Error adding host node (monthly), skipping"
 msgstr "Ralat untuk menambah nod hos (bulanan), proses diabaikan"
 
-#: preserve.c:763 webalizer.c:1273
+#: preserve.c:754 webalizer.c:1273
 msgid "Error adding host node (daily), skipping"
 msgstr "Ralat untuk menambah nod hos (harian), proses diabaikan"
 
-#: preserve.c:788 webalizer.c:1261 webalizer.c:1398
+#: preserve.c:779 webalizer.c:1261 webalizer.c:1398
 msgid "Error adding Referrer node, skipping"
 msgstr "Ralat untuk menambah nod Perujuk, proses diabaikan"
 
-#: preserve.c:813 webalizer.c:1294 webalizer.c:1409
+#: preserve.c:804 webalizer.c:1294 webalizer.c:1409
 msgid "Error adding User Agent node, skipping"
 msgstr "Ralat untuk menambah nod Agen Pengguna, proses diabaikan"
 
-#: preserve.c:837 webalizer.c:2406
+#: preserve.c:828 webalizer.c:2400
 msgid "Error adding Search String Node, skipping"
 msgstr "Ralat untuk menambah nod Katakunci Carian, proses diabaikan"
 
-#: preserve.c:870 webalizer.c:1250 webalizer.c:1424
+#: preserve.c:861 webalizer.c:1250 webalizer.c:1424
 msgid "Error adding Username node, skipping"
 msgstr "Ralat untuk menambah nod Katanama Pengguna, proses diabaikan"
 
-#: webalizer.c:336
+#: webalizer.c:335
 msgid "Usage Statistics for"
 msgstr "Statistik Penggunaan bagi"
 
-#: webalizer.c:501 webalizer.c:2019
+#: webalizer.c:500 webalizer.c:2015
 msgid "locale"
 msgstr ""
 
-#: webalizer.c:507
+#: webalizer.c:506
 msgid "DNS support not present, aborting..."
 msgstr ""
 
-#: webalizer.c:524 webalizer.c:541 webalizer.c:552
+#: webalizer.c:523 webalizer.c:540 webalizer.c:551
 msgid "Error: Can't open log file"
 msgstr "Ralat: Saya rasa log fail anda tiada"
 
-#: webalizer.c:561
+#: webalizer.c:560
 msgid "Using logfile"
 msgstr "Menggunakan fail log"
 
-#: webalizer.c:582
+#: webalizer.c:581
 msgid "Error: Can't change directory to"
 msgstr "Ralat: Saya tidak dapat menukar ke direktori"
 
-#: webalizer.c:594
+#: webalizer.c:593
 msgid "No cache file specified, aborting..."
 msgstr "Fail cache tidak dinyatakan, proses dibatalkan..."
 
-#: webalizer.c:603
+#: webalizer.c:602
 msgid "DNS Lookup"
 msgstr "Carian DNS"
 
-#: webalizer.c:621
+#: webalizer.c:620
 msgid "Using DNS cache file"
 msgstr "Fail cache DNS sedang digunakan"
 
-#: webalizer.c:631
+#: webalizer.c:630
 #, fuzzy
 msgid "Error opening file"
 msgstr "Ralat: Saya rasa log fail anda tiada"
 
-#: webalizer.c:632 webalizer.c:662
+#: webalizer.c:631 webalizer.c:661
 msgid "default"
 msgstr ""
 
-#: webalizer.c:633 webalizer.c:657
+#: webalizer.c:632 webalizer.c:656
 msgid "lookups disabled"
 msgstr ""
 
-#: webalizer.c:637 webalizer.c:660
+#: webalizer.c:636 webalizer.c:659
 msgid "Using"
 msgstr ""
 
-#: webalizer.c:668
+#: webalizer.c:667
 msgid "Creating output in"
 msgstr "Menjana hasil di dalam"
 
-#: webalizer.c:668
+#: webalizer.c:667
 msgid "current directory"
 msgstr "direktori terkini"
 
-#: webalizer.c:678
+#: webalizer.c:677
 msgid "Hostname for reports is"
 msgstr "Nama Host untuk laporan ini ialah"
 
-#: webalizer.c:681
+#: webalizer.c:680
 msgid "Ignoring previous history..."
 msgstr "Mengabaikan fail terdahulu..."
 
-#: webalizer.c:690
+#: webalizer.c:689
 msgid "Error: Unable to restore run data"
 msgstr "Ralat: Saya tidak dapat mengambil-semula data larian"
 
-#: webalizer.c:699
+#: webalizer.c:698
 msgid "Can't allocate enough memory, Top Countries disabled!"
 msgstr "Tidak dapat memperuntukkan ingatan, Negara Terbaik diabaikan!"
 
-#: webalizer.c:718
+#: webalizer.c:717
 #, fuzzy
 msgid "Error: Skipping oversized log record"
 msgstr "Ralat: Rekod log anda terlalu besar, proses diabaikan"
 
-#: webalizer.c:778
+#: webalizer.c:777
 msgid "Error: Skipping record (bad date)"
 msgstr "Ralat: Satu rekod diabaikan (tarikh salah)"
 
@@ -2385,32 +2385,32 @@ msgstr "diabaikan"
 msgid "bad"
 msgstr "rosak"
 
-#: webalizer.c:1551
+#: webalizer.c:1549
 msgid "No valid records found!"
 msgstr "Tiada rekod sah dijumpai!"
 
-#: webalizer.c:1704
+#: webalizer.c:1702
 msgid "Error: Unable to open configuration file"
 msgstr "Ralat: Saya tidak dapat membuka fail konfigurasi"
 
-#: webalizer.c:1734 webalizer.c:1860 webalizer.c:1891 webalizer.c:1909
+#: webalizer.c:1732 webalizer.c:1856 webalizer.c:1887 webalizer.c:1905
 msgid "Warning: Invalid keyword"
 msgstr "Amaran: katakunci tidak sah"
 
-#: webalizer.c:2002
+#: webalizer.c:1998
 msgid "Usage"
 msgstr "Penggunaan"
 
-#: webalizer.c:2002
+#: webalizer.c:1998
 msgid "[options] [log file]"
 msgstr "[pilihan] [fail log]"
 
-#: webalizer.c:2038
+#: webalizer.c:2034
 #, c-format
 msgid "Default GeoDB dir : %s\n"
 msgstr ""
 
-#: webalizer.c:2040
+#: webalizer.c:2036
 #, c-format
 msgid "Default config dir: %s\n"
 msgstr ""
