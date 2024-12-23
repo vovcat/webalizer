@@ -127,7 +127,7 @@ char *h_msg[]= {
          "-V        = udskriv versionsoplysninger"         ,
          "-v        = be verbose"                          ,
          "-d        = udskriv ekstra fejlsøgningsinformation",
-         "-F type   = Log type.  type= (clf | ftp | squid | w3c)",
+         "-F type   = Log type (clf | ftp | squid | w3c)",
          "-f        = Fold sekvensfejl"                    ,
          "-i        = ignorer historiefil"                 ,
          "-p        = bevar tilstand (inkremental)"        ,

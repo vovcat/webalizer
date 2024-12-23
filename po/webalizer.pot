@@ -239,7 +239,7 @@ msgid "-d        = print additional debug info"
 msgstr ""
 
 #: lang2.h:44
-msgid "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
+msgid "-F type   = Log type (clf | ftp | squid | w3c)"
 msgstr ""
 
 #: lang2.h:45

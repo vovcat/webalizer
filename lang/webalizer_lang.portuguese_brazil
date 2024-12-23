@@ -135,7 +135,7 @@ char *h_msg[]= {
          "-V        = imprime a versão"                              ,
          "-v        = be verbose"                                    ,
          "-d        = imprime informação adicional de depuração"     ,
-         "-F type   = Log type.  type= (clf | ftp | squid | w3c)"    ,
+         "-F type   = Log type (clf | ftp | squid | w3c)"    ,
          "-f        = cruzar sequência de erros"                     ,
          "-i        = ignorar arquivo de histórico"                  ,
          "-p        = recuperar processamento anterior (incremento)" ,

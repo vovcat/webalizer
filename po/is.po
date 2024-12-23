@@ -235,9 +235,8 @@ msgid "-d        = print additional debug info"
 msgstr "-d        = print additional debug info"
 
 #: lang2.h:44
-#, fuzzy
-msgid "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
-msgstr "-F tegund = Annála tegund.  tegund= (clf | ftp | squid)"
+msgid "-F type   = Log type (clf | ftp | squid | w3c)"
+msgstr "-F tegund = Annála tegund (clf | ftp | squid | w3c)"
 
 #: lang2.h:45
 msgid "-f        = Fold sequence errors"

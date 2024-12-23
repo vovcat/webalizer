@@ -134,7 +134,7 @@ char *h_msg[]= {
          "-V        = mostra info sobre versao"            ,
          "-v        = be verbose"                          ,
          "-d        = mostra info adicional para debug"    ,
-         "-F type   = Log type.  type= (clf | ftp | squid | w3c)",
+         "-F type   = Log type (clf | ftp | squid | w3c)",
          "-f        = fold sequence errors"                ,
          "-i        = ignorar ficheiro de historico"       ,
          "-p        = preservar estado (incremental)"      ,

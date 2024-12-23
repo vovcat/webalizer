@@ -133,7 +133,7 @@ char *h_msg[]= {
          "-V        = Kiírja a verziószámot"               ,
          "-v        = be verbose"                          ,
          "-d        = Kiírja a további debug infót"        ,
-         "-F type   = Log type.  type= (clf | ftp | squid | w3c)",
+         "-F type   = Log type (clf | ftp | squid | w3c)",
          "-f        = Összefogja a sorozatos hibákat"      ,
          "-i        = Mellõzi a history file-t"            ,
          "-p        = Megõrzi az állapotott  (incremental)",

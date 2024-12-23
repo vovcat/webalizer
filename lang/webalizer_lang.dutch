@@ -142,7 +142,7 @@ char *h_msg[]= {
          "-V         = Toon versie-informatie",
          "-v         = be verbose",
          "-d         = Debug informatie",
-         "-F type    = Log type.  type= (clf | ftp | squid | w3c)",
+         "-F type    = Log type (clf | ftp | squid | w3c)",
          "-f         = Forceer chronologische volgorde",
          "-i         = Negeer 'history' bestand",
          "-p         = Bewaar status (incremental)",

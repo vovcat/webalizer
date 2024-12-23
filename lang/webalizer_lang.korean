@@ -128,7 +128,7 @@ char *h_msg[]= {
          "-V        = 판번호 출력"                         ,
          "-v        = be verbose"                          ,
          "-d        = 추가 디버깅 정보 출력"               ,
-         "-F type   = Log type.  type= (clf | ftp | squid | w3c)",
+         "-F type   = Log type (clf | ftp | squid | w3c)",
          "-f        = fold sequence errors"                ,
          "-i        = 히스토리 파일 무시"                  ,
          "-p        = 통계 정보 저장 (incremental)"        ,

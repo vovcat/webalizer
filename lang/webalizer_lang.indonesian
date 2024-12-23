@@ -131,7 +131,7 @@ char *h_msg[]= {
          "-V        = cetak informasi versi"                               ,
          "-v        = be verbose"                                          ,
          "-d        = cetak informasi debug tambahan"                      ,
-         "-F type   = Log type.  type= (clf | ftp | squid | w3c)"          ,
+         "-F type   = Log type (clf | ftp | squid | w3c)"          ,
          "-f        = kesalahan urutan Fold"                               ,
          "-i        = abaikan file history"                                ,
          "-p        = menjaga pernyataan (penambahan)"                     ,

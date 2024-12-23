@@ -133,7 +133,7 @@ char *h_msg[]= {
          "-V        = vypis informacie o verzii"           ,
          "-v        = be verbose"                          ,
          "-d        = vypis dalsie ladiace informacie"     ,
-         "-F type   = Log type.  type= (clf | ftp | squid | w3c)",
+         "-F type   = Log type (clf | ftp | squid | w3c)",
          "-f        = oprav chyby postupnosti"             ,
          "-i        = ignoruj subor historie"              ,
          "-p        = zapamataj stav (inkrementalne)"      ,

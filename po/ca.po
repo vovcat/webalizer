@@ -235,9 +235,8 @@ msgid "-d        = print additional debug info"
 msgstr "-d        = activar el mode trassa (depuració)"
 
 #: lang2.h:44
-#, fuzzy
-msgid "-F type   = Log type.  type= (clf | ftp | squid | w3c)"
-msgstr "-F tipus  = tipus de fitxer de registre.  tipus=(clf | ftp | squid)"
+msgid "-F type   = Log type (clf | ftp | squid | w3c)"
+msgstr "-F tipus  = tipus de fitxer de registre (clf | ftp | squid | w3c)"
 
 #: lang2.h:45
 msgid "-f        = Fold sequence errors"
@@ -254,7 +253,7 @@ msgstr "-p        = conservem dades actuals (incremental)"
 #: lang2.h:48
 #, fuzzy
 msgid "-b        = ignore state (incremental)"
-msgstr "-p        = conservem dades actuals (incremental)"
+msgstr "-b        = ignore state (incremental)"
 
 #: lang2.h:49
 msgid "-q        = suppress informational messages"
