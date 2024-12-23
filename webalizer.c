@@ -100,6 +100,7 @@ void    clear_month();                              /* clear monthly stuff */
 char    *unescape(char *);                          /* unescape URLs       */
 void    print_opts(char *);                         /* print options       */
 void    print_version();                            /* duhh...             */
+void    print_version_line();                       /* duhh...             */
 int     isurlchar(unsigned char, int);              /* valid URL char fnc. */
 void    get_config(char *);                         /* Read a config file  */
 static  char *save_opt(char *);                     /* save conf option    */
@@ -284,7 +285,9 @@ char    pie_color2[]  = "#80ffc0";            /* pie additionnal color 2  */
 char    pie_color3[]  = "#ff00ff";            /* pie additionnal color 3  */
 char    pie_color4[]  = "#ffc080";            /* pie additionnal color 4  */
 
-iconv_t cd_from_utf8;
+static const char *current_locale;
+static const char *localedir;
+static iconv_t cd_from_utf8;
 
 /*********************************************/
 /* MAIN - start here                         */
@@ -304,7 +307,6 @@ int main(int argc, char *argv[])
 
    time_t start_time, end_time;          /* program timers              */
    float  temp_time;                     /* temporary time storage      */
-   char *current_locale;
 
    int    rec_year,rec_month=1,rec_day,rec_hour,rec_min,rec_sec;
 
@@ -325,7 +327,7 @@ int main(int argc, char *argv[])
    /* Assume that LC_CTYPE is what the user wants for non-ASCII chars   */
    current_locale = setlocale(LC_ALL, "");
 
-   const char *localedir = getenv("LOCALEDIR");
+   localedir = getenv("LOCALEDIR");
    if (!localedir) localedir = PKGLOCALEDIR;
    bindtextdomain(PACKAGE, localedir);
    textdomain(PACKAGE);
@@ -491,13 +493,8 @@ int main(int argc, char *argv[])
    }
 
    /* Be polite and announce yourself... */
-   if (verbose>1)
-   {
-      uname(&system_info);
-      printf("Webalizer V%s-%s (%s %s %s) %s: %s\n", version,editlvl,
-              system_info.sysname, system_info.release,
-              system_info.machine, _("locale"), current_locale);
-   }
+   if (verbose > 1)
+      print_version_line();
 
 #ifndef USE_DNS
    if (strstr(argv[0],"webazolver")!=0)
@@ -666,10 +663,9 @@ int main(int argc, char *argv[])
       printf("%s %s\n",_("Creating output in"),out_dir?out_dir:_("current directory"));
 
    /* prep hostname */
-   if (!hname)
-   {
-      if (uname(&system_info)) hname="localhost";
-      else hname=system_info.nodename;
+   if (!hname) {
+      if (uname(&system_info)) hname = "localhost";
+      else hname = system_info.nodename;
    }
 
    /* Hostname for reports is ... */
@@ -2003,39 +1999,86 @@ void print_opts(char *pname)
 /* PRINT_VERSION                             */
 /*********************************************/
 
+void print_version_line()
+{
+   uname(&system_info);
+   printf("Webalizer v%s-%s (%s %s %s) %s: %s\n%s\n", version, editlvl,
+      system_info.sysname, system_info.release, system_info.machine,
+      _("locale"), current_locale, copyright);
+}
+
 void print_version()
 {
-   char buf[128]="";
-   uname(&system_info);
+   print_version_line();
 
-   printf("Webalizer V%s-%s (%s %s %s) %s\n%s\n",
-      version,editlvl,
-      system_info.sysname,system_info.release,system_info.machine,
-      _("locale"),copyright);
-
+   char buf[128] = "";
 #ifdef USE_DNS
-   strncpy(&buf[strlen(buf)],"DNS/GeoDB ",11);
+   strcpy(buf + strlen(buf), " DNS/GeoDB");
 #endif
 #ifdef USE_BZIP
-   strncpy(&buf[strlen(buf)],"BZip2 ",7);
+   strcpy(buf + strlen(buf), " BZip2");
 #endif
 #ifdef USE_GEOIP
-   strncpy(&buf[strlen(buf)],"GeoIP ",7);
+   strcpy(buf + strlen(buf), " GeoIP");
+#endif
+   if (strlen(buf) == 0) strcpy(buf, " none");
+
+   if (debug_mode) {
+      /* Cmdline defines:
+         PACKAGE
+         ETCDIR
+         PKGLOCALEDIR
+         GEODB_LOC
+         CCVER
+      */
+      // Variables in version.c:
+      extern const char
+         FULL_VERSION[], BUILT_UNAME[], BUILD_DATE[], BUILT_BY[],
+         BUILT_AT[], BUILT_FOR[], enable_debug[],
+         CONFIGURE_CMD[], DEFS[], DEFAULT_INCLUDES[], INCLUDES[],
+         AM_CPPFLAGS[], CPPFLAGS[], AM_CFLAGS[], CFLAGS[],
+         webalizer_LDFLAGS[], LDFLAGS[], webalizer_LDADD[],
+         LIBS[], LIBS_WEBALIZER[], LIBS_GD[];
+
+      printf("\n");
+      printf("Full version: %s\n", FULL_VERSION);
+      printf("Modification date: %s\n", moddate);
+      printf("\n");
+      printf("Options: %s\n", buf + 1);
+      printf(_("  Default config dir  %s\n"), ETCDIR);
+      printf(_("  Default locale dir  %s\n"), PKGLOCALEDIR);
+      printf(_("  Current locale dir  %s\n"), localedir);
+#ifdef USE_DNS
+      printf(_("  Default GeoDB dir   %s\n"), GEODB_LOC);
 #endif
 
-   if (debug_mode)
-   {
-      printf("Mod date: %s  Options: ",moddate);
-      if (buf[0]!=0) printf("%s",buf);
-      else           printf("none");
-      printf("\n");
-#ifdef USE_DNS
-      printf(_("Default GeoDB dir : %s\n"),GEODB_LOC);
-#endif
-      printf(_("Default config dir: %s\n"),ETCDIR);
-      printf("\n");
+      printf( ("Build info\n"));
+      printf( ("  Build machine       %s\n"), BUILT_UNAME);
+      printf( ("  Build date          %s\n"), BUILD_DATE);
+      printf( ("  Built by            %s\n"), BUILT_BY);
+      printf( ("  Built at            %s\n"), BUILT_AT);
+      printf( ("  Built for           %s\n"), BUILT_FOR);
+      printf( ("  Debug               %s\n"), enable_debug);
+      printf( ("Configuration\n"));
+      printf( ("  Command             %s\n"), CONFIGURE_CMD);
+      printf( ("  C compiler          %s\n"), CCVER);
+      printf( ("  DEFS                %s\n"), DEFS);
+      printf( ("  DEFAULT_INCLUDES    %s\n"), DEFAULT_INCLUDES);
+      printf( ("  INCLUDES            %s\n"), INCLUDES);
+      printf( ("  AM_CPPFLAGS         %s\n"), AM_CPPFLAGS);
+      printf( ("  CPPFLAGS            %s\n"), CPPFLAGS);
+      printf( ("  AM_CFLAGS           %s\n"), AM_CFLAGS);
+      printf( ("  CFLAGS              %s\n"), CFLAGS);
+      printf( ("Linking\n"));
+      printf( ("  webalizer_LDFLAGS   %s\n"), webalizer_LDFLAGS);
+      printf( ("  LDFLAGS             %s\n"), LDFLAGS);
+      printf( ("  webalizer_LDADD     %s\n"), webalizer_LDADD);
+      printf( ("  LIBS                %s\n"), LIBS);
+      printf( ("Libraries\n"));
+      printf( ("  gd                  %s\n"), LIBS_GD);
+      printf( ("  system              %s\n"), LIBS_WEBALIZER);
    }
-   else printf("\n");
+   printf("\n");
    exit(1);
 }
 
