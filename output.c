@@ -283,7 +283,7 @@ int write_month_html()
    char htitle[256];
 
    if (verbose>1)
-      printf("%s %s %d\n",_("Generating report for"), Q_(l_month[cur_month-1]), cur_year);
+      printf("%s %d-%02d\n", _("Generating report for"), cur_year, cur_month);
 
    /* fill in filenames */
    snprintf(html_fname,sizeof(html_fname),"usage_%04d%02d.%s",
